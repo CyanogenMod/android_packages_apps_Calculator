@@ -49,6 +49,11 @@ class Logic {
     static final char MINUS = '\u2212';
 
     private final String mErrorString;
+    private final String mSinString;
+    private final String mCosString;
+    private final String mTanString;
+    private final String mLogString;
+    private final String mLnString;
 
     public final static int DELETE_MODE_BACKSPACE = 0;
     public final static int DELETE_MODE_CLEAR = 1;
@@ -63,6 +68,12 @@ class Logic {
 
     Logic(Context context, History history, CalculatorDisplay display) {
         mErrorString = context.getResources().getString(R.string.error);
+        mSinString = context.getResources().getString(R.string.sin);
+        mCosString = context.getResources().getString(R.string.cos);
+        mTanString = context.getResources().getString(R.string.tan);
+        mLogString = context.getResources().getString(R.string.lg);
+        mLnString = context.getResources().getString(R.string.error);
+
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
@@ -230,6 +241,13 @@ class Logic {
             input = input.substring(0, size - 1);
             --size;
         }
+
+        // delocalize functions (e.g. Spanish localizes "sin" as "sen")
+        input = input.replaceAll(mSinString, "sin");
+        input = input.replaceAll(mCosString, "cos");
+        input = input.replaceAll(mTanString, "tan");
+        input = input.replaceAll(mLogString, "log");
+        input = input.replaceAll(mLnString, "ln");
 
         double value = mSymbols.eval(input);
 
