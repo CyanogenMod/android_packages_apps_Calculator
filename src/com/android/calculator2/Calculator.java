@@ -144,8 +144,14 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.basic).setVisible(!getBasicVisibility());
-        menu.findItem(R.id.advanced).setVisible(!getAdvancedVisibility());
+        MenuItem mBasicPanel = menu.findItem(R.id.basic);
+        if(mBasicPanel != null){
+           mBasicPanel.setVisible(!getBasicVisibility());
+        }
+        MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
+        if(mAdvancedPanel != null){
+           mAdvancedPanel.setVisible(!getAdvancedVisibility());
+        }
         return true;
     }
 
