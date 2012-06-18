@@ -90,4 +90,22 @@
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
-</resources>
+    
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="Z">Z</string>
+    <string name="d">d</string>
+    <string name="dx">dx</string>
+    <string name="dy">dy</string>
+    <string name="dz">dz</string>
+    <string name="solveForX">Solve for X</string>
+    <string name="solveForY">Solve for Y</string>
+    <string name="solveForZ">Solve for Z</string>
+    <string name="integral">\u222B</string>
+    <string name="parentheses">( )</string>
+    <string name="mod">Mod</string>
+    <string name="fractionOrDecimal">Fraction or Decimal</string>
+    <string name="shapes">Shapes</string>
+    <string name="matrix">Matrix</string>
+    <string name="graph">Graph</string>
+    <string name="function">Function panel</string></resources>
