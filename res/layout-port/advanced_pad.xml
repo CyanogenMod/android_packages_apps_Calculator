@@ -49,6 +49,11 @@
             style="@style/button_small_style"
             android:contentDescription="@string/tanDesc"
             />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/i"
+            android:text="@string/i"
+            style="@style/button_style"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -73,6 +78,11 @@
             android:text="@string/factorial"
             style="@style/button_style"
             android:contentDescription="@string/factorialDesc"
+            />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/percentage"
+            android:text="@string/percentage"
+            style="@style/button_style"
             />
     </LinearLayout>
 
@@ -99,6 +109,11 @@
             style="@style/button_style"
             android:contentDescription="@string/powerDesc"
             />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/X"
+            android:text="@string/X"
+            style="@style/digit_button_style"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -123,6 +138,11 @@
             android:text="@string/sqrt"
             style="@style/button_style"
             android:contentDescription="@string/sqrtDesc"
+            />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/Y"
+            android:text="@string/Y"
+            style="@style/digit_button_style"
             />
     </LinearLayout>
 </LinearLayout>

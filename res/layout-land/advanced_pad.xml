@@ -22,7 +22,6 @@
               android:id="@+id/advancedPad"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_weight="1"
               android:orientation="vertical"
               android:layout_gravity="center"
               >
@@ -62,6 +61,16 @@
             style="@style/button_style"
             android:contentDescription="@string/factorialDesc"
             />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/i"
+            android:text="@string/i"
+            style="@style/button_style"
+            />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/X"
+            android:text="@string/X"
+            style="@style/digit_button_style"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -98,6 +107,16 @@
             android:text="@string/sqrt"
             style="@style/button_style"
             android:contentDescription="@string/sqrtDesc"
+            />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/percentage"
+            android:text="@string/percentage"
+            style="@style/button_style"
+            />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/Y"
+            android:text="@string/Y"
+            style="@style/digit_button_style"
             />
     </LinearLayout>
 </LinearLayout>

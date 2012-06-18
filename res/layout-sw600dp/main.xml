@@ -25,13 +25,16 @@
     android:background="#ff000000"
     android:paddingLeft="@dimen/left_right_padding"
     android:paddingRight="@dimen/left_right_padding"
-    android:paddingTop="@dimen/top_bottom_padding"
-    android:paddingBottom="@dimen/top_bottom_padding">
+    android:id="@+id/window">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/group_padding"
-        android:background="@drawable/calculator_input_field">
+        android:background="@android:color/transparent">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
 
         <com.android.calculator2.CalculatorDisplay
             android:id="@+id/display"
@@ -49,6 +52,14 @@
 
         </com.android.calculator2.CalculatorDisplay>
 
+        <ImageButton android:id="@+id/overflow_menu"
+            android:layout_width="48dip"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_menu_overflow"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="8dip"
+            android:visibility="gone"
+            android:contentDescription="@null"/>
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -74,181 +85,32 @@
         </FrameLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:layout_marginBottom="@dimen/group_padding">
-
-        <LinearLayout
-            style="@style/btn_row_style">
-            <Button
-                android:id="@+id/sin"
-                android:text="@string/sin"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/sinDesc" />
-            <Button
-                android:id="@+id/cos"
-                android:text="@string/cos"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/cosDesc" />
-            <Button
-                android:id="@+id/tan"
-                android:text="@string/tan"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/tanDesc" />
-            <Button
-                android:id="@+id/pi"
-                android:text="@string/pi"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/piDesc" />
-            <Button
-                android:id="@+id/factorial"
-                android:text="@string/factorial"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/factorialDesc" />
-        </LinearLayout>
-        <LinearLayout
-            style="@style/btn_row_style">
-            <Button
-                android:id="@+id/ln"
-                android:text="@string/ln"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/lnDesc" />
-            <Button
-                android:id="@+id/lg"
-                android:text="@string/lg"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/lgDesc" />
-            <Button
-                android:id="@+id/e"
-                android:text="@string/e"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/eDesc" />
-            <Button
-                android:id="@+id/power"
-                android:text="@string/power"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/powerDesc" />
-            <Button
-                android:id="@+id/sqrt"
-                android:text="@string/sqrt"
-                style="@style/btn_function_cell_style"
-                android:contentDescription="@string/sqrtDesc" />
-        </LinearLayout>
-
+    <include layout="@layout/history_panel"/>
     </LinearLayout>
+    
+    <ImageButton
+         android:id="@+id/pulldown"
+         android:src="@drawable/pulldown_down"
+         android:background="@android:color/transparent"
+         android:layout_width="match_parent"
+         android:layout_height="21dp"
+         android:paddingTop="4dp"
+         android:paddingBottom="4dp"
+         android:contentDescription="@null"
+         android:scaleType="fitXY" />
+    
+    <com.android.calculator2.CalculatorViewPager
+         android:id="@+id/smallPanelswitch"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="2"
+         android:layout_marginBottom="@dimen/group_padding"
+         />
 
-    <LinearLayout
+    <com.android.calculator2.CalculatorViewPager
+        android:id="@+id/largePanelswitch"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="5"
-        android:orientation="vertical">
-        <LinearLayout
-            style="@style/btn_row_style">
-            <Button
-                android:id="@+id/digit7"
-                android:text="@string/digit7"
-                style="@style/btn_digit_cell_style" />
-            <Button
-                android:id="@+id/digit8"
-                android:text="@string/digit8"
-                style="@style/btn_digit_cell_style" />
-            <Button
-                android:id="@+id/digit9"
-                android:text="@string/digit9"
-                style="@style/btn_digit_cell_style" />
-            <Button
-                android:id="@+id/div"
-                android:text="@string/div"
-                style="@style/btn_operation_cell_style"
-                android:contentDescription="@string/divDesc" />
-            <Button
-                android:id="@+id/leftParen"
-                android:text="@string/leftParen"
-                style="@style/btn_operation_cell_style"
-                android:contentDescription="@string/leftParenDesc" />
-        </LinearLayout>
-        <LinearLayout
-            style="@style/btn_row_style">
-            <Button
-                android:id="@+id/digit4"
-                android:text="@string/digit4"
-                style="@style/btn_digit_cell_style" />
-            <Button
-                android:id="@+id/digit5"
-                android:text="@string/digit5"
-                style="@style/btn_digit_cell_style" />
-            <Button
-                android:id="@+id/digit6"
-                android:text="@string/digit6"
-                style="@style/btn_digit_cell_style" />
-            <Button
-                android:id="@+id/mul"
-                android:text="@string/mul"
-                style="@style/btn_operation_cell_style"
-                android:contentDescription="@string/mulDesc" />
-            <Button
-                android:id="@+id/rightParen"
-                android:text="@string/rightParen"
-                style="@style/btn_operation_cell_style"
-                android:contentDescription="@string/rightParenDesc" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="vertical">
-                <LinearLayout
-                    style="@style/btn_row_style">
-                    <Button
-                        android:id="@+id/digit1"
-                        android:text="@string/digit1"
-                        style="@style/btn_digit_cell_style" />
-                    <Button
-                        android:id="@+id/digit2"
-                        android:text="@string/digit2"
-                        style="@style/btn_digit_cell_style" />
-                    <Button
-                        android:id="@+id/digit3"
-                        android:text="@string/digit3"
-                        style="@style/btn_digit_cell_style" />
-                    <Button
-                        android:id="@+id/minus"
-                        android:text="@string/minus"
-                        style="@style/btn_operation_cell_style"
-                        android:contentDescription="@string/minusDesc" />
-                </LinearLayout>
-                <LinearLayout
-                    style="@style/btn_row_style">
-                    <Button
-                        android:id="@+id/digit0"
-                        android:text="@string/digit0"
-                        style="@style/btn_digit_cell_style"
-                        android:layout_weight="2" />
-                    <Button
-                        android:id="@+id/dot"
-                        android:text="@string/dot"
-                        style="@style/btn_digit_cell_style"
-                        android:contentDescription="@string/dotDesc" />
-                    <Button
-                        android:id="@+id/plus"
-                        android:text="@string/plus"
-                        style="@style/btn_operation_cell_style"
-                        android:contentDescription="@string/plusDesc" />
-                </LinearLayout>
-            </LinearLayout>
-            <Button
-                android:id="@+id/equal"
-                android:text="@string/equal"
-                style="@style/btn_operation_cell_style"
-                android:contentDescription="@string/equalDesc" />
-        </LinearLayout>
-    </LinearLayout>
+    />
 </LinearLayout>
