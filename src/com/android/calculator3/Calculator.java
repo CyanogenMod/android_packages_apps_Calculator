@@ -44,6 +44,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private History mHistory;
     private Logic mLogic;
     private ViewPager mPager;
+    private View mGraph;
+    private View mMatrix;
+    private View mShapes;
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
@@ -77,6 +80,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             }
             buttons.recycle();
         }
+        mGraph = findViewById(R.id.graphPanel);
+        mMatrix = findViewById(R.id.matrixPanel);
+        mShapes = findViewById(R.id.shapesPanel);
 
         if (mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
@@ -109,7 +115,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mPager.setCurrentItem(state == null ? 1 : state.getInt(STATE_CURRENT_VIEW, 1));
         }
 
-        mListener.setHandler(mLogic, mPager);
+        mListener.setHandler(mLogic, mPager, mGraph, mMatrix, mShapes);
         mDisplay.setOnKeyListener(mListener);
 
         if (!ViewConfiguration.get(this).hasPermanentMenuKey()) {
@@ -304,6 +310,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 setOnClickListener(advancedPage, advancedButtons.getResourceId(i, 0));
             }
             advancedButtons.recycle();
+            
+            final TypedArray functionButtons = res.obtainTypedArray(R.array.function_buttons);
+            for (int i = 0; i < functionButtons.length(); i++) {
+            	System.out.println(i);
+                setOnClickListener(functionPage, functionButtons.getResourceId(i, 0));
+            }
+            advancedButtons.recycle();
 
             final View clearButton = simplePage.findViewById(R.id.clear);
             if (clearButton != null) {
@@ -327,15 +340,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         @Override
         public Object instantiateItem(View container, int position) {
-        	if(position == 0){
+        	if(position == FUNCTION_PANEL){
         		((ViewGroup) container).addView(mFunctionPage);
         		return mFunctionPage;
         	}
-        	else if(position == 1){
+        	else if(position == BASIC_PANEL){
         		((ViewGroup) container).addView(mSimplePage);
         		return mSimplePage;
         	}
-        	else if(position == 2){
+        	else if(position == ADVANCED_PANEL){
         		((ViewGroup) container).addView(mAdvancedPage);
         		return mAdvancedPage;
         	}

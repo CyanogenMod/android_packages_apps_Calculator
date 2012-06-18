@@ -104,7 +104,7 @@ class Logic {
         return toLeft ? cursorPos == 0 : cursorPos >= editText.length();
     }
 
-    private String getText() {
+    public String getText() {
         return mDisplay.getText().toString();
     }
 
@@ -137,7 +137,7 @@ class Logic {
         }
     }
 
-    private void clear(boolean scroll) {
+    public void clear(boolean scroll) {
         mHistory.enter("");
         mDisplay.setText("", scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
         cleared();

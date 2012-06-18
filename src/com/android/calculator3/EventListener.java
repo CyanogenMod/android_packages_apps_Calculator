@@ -26,10 +26,16 @@ class EventListener implements View.OnKeyListener,
                                View.OnLongClickListener {
     Logic mHandler;
     ViewPager mPager;
+    View mGraph;
+    View mMatrix;
+    View mShapes;
 
-    void setHandler(Logic handler, ViewPager pager) {
+    void setHandler(Logic handler, ViewPager pager, View graph, View matrix, View shapes) {
         mHandler = handler;
         mPager = pager;
+        mGraph = graph;
+        mMatrix = matrix;
+        mShapes = shapes;
     }
 
     @Override
@@ -51,12 +57,52 @@ class EventListener implements View.OnKeyListener,
         default:
             if (view instanceof Button) {
                 String text = ((Button) view).getText().toString();
-                if (text.length() >= 2) {
+                if ((text.equals("dx")) || (text.equals("dy")) || (text.equals("dz"))){
+                	
+                }
+                else if(text.equals("( )")){
+                	text = "(" + mHandler.getText() + ")";
+                	mHandler.clear(false);
+                }
+                else if(text.equals("Graph")){
+//                	if (mPager != null && mGraph != null) {
+//                        mPager.setVisibility(View.GONE);
+//                        mGraph.setVisibility(View.VISIBLE);
+//                    }
+                	return;
+                }
+                else if(text.equals("Matrix")){
+//                	if (mPager != null && mMatrix != null) {
+//                        mPager.setVisibility(View.GONE);
+//                        mMatrix.setVisibility(View.VISIBLE);
+//                    }
+                	return;
+                }
+                else if(text.equals("Shapes")){
+//                	if (mPager != null && mShapes != null) {
+//                        mPager.setVisibility(View.GONE);
+//                        mShapes.setVisibility(View.VISIBLE);
+//                    }
+                	return;
+                }
+                else if(text.equals("Solve for X")){
+                	return;
+                }
+                else if(text.equals("Solve for Y")){
+                	return;
+                }
+                else if(text.equals("Solve for Z")){
+                	return;
+                }
+                else if(text.equals("Function or Decimal")){
+                	return;
+                }
+                else if (text.length() >= 2) {
                     // add paren after sin, cos, ln, etc. from buttons
                     text += '(';
                 }
                 mHandler.insert(text);
-                if (mPager != null && mPager.getCurrentItem() == Calculator.ADVANCED_PANEL) {
+                if (mPager != null && (mPager.getCurrentItem() == Calculator.ADVANCED_PANEL || mPager.getCurrentItem() == Calculator.FUNCTION_PANEL)) {
                     mPager.setCurrentItem(Calculator.BASIC_PANEL);
                 }
             }

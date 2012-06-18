@@ -99,4 +99,22 @@
          android:layout_height="0dp"
          android:layout_weight="10"
          />
+    <View 
+        android:id="@+id/graphPanel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:visibility="gone"/>
+    <View 
+        android:id="@+id/matrixPanel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:visibility="gone"/>
+    <View 
+        android:id="@+id/shapesPanel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:visibility="gone"/>
 </LinearLayout>

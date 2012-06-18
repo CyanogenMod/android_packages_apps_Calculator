@@ -17,6 +17,19 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <array name="function_buttons">
+        <item>@+id/integral</item>
+        <item>@+id/dx</item>
+        <item>@+id/X</item>
+        <item>@+id/Y</item>
+        <item>@+id/Z</item>
+        <item>@+id/matrix</item>
+        <item>@+id/graph</item>
+        <item>@+id/solveForX</item>
+        <item>@+id/solveForY</item>
+        <item>@+id/solveForZ</item>
+    </array>
+    
     <array name="simple_buttons">
         <item>@+id/digit0</item>
         <item>@+id/digit1</item>
