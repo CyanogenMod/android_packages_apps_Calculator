@@ -16,4 +16,10 @@
 
 <resources>
     <integer name="max_digits">14</integer>
+    <item type="bool" name="GRAPH">true</item>
+    <item type="bool" name="FUNCTION">false</item>
+    <item type="bool" name="HEX">true</item>
+    <item type="bool" name="BASIC">true</item>
+    <item type="bool" name="ADVANCED">true</item>
+    <item type="bool" name="MATRIX">true</item>
 </resources>
