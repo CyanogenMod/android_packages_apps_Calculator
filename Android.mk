@@ -19,7 +19,9 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_STATIC_JAVA_LIBRARIES := libarity android-support-v4
+LOCAL_PROGUARD_FLAG_FILES := proguard.flags
+
+LOCAL_STATIC_JAVA_LIBRARIES := libarity android-support-v4 chartengine commons-math3
 
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
@@ -31,7 +33,7 @@ include $(BUILD_PACKAGE)
 ##################################################
 include $(CLEAR_VARS)
 
-LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := libarity:arity-2.1.2.jar
+LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := libarity:libs/arity-2.1.6.jar chartengine:libs/achartengine-1.0.0.jar commons-math3:libs/commons-math3-3.0.jar
 
 include $(BUILD_MULTI_PREBUILT)
 
