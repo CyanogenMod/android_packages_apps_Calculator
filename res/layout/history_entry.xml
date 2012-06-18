@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+    <com.android.calculator2.HistoryTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/display_text_size"
+        android:id="@+id/base"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/display_text_size"
+        android:text="@string/equal"/>
+    <com.android.calculator2.HistoryTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/display_text_size"
+        android:textColor="@color/history_result"
+        android:id="@+id/edited"/>
+</LinearLayout>
