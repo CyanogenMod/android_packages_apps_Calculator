@@ -23,7 +23,22 @@
         android:showAsAction="ifRoom|withText"
         android:icon="@drawable/clear_history"
         android:title="@string/clear_history"/>
-
+    
+    <item android:id="@+id/show_history"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/clear_history"
+        android:title="@string/showHistory"/>
+    
+    <item android:id="@+id/hide_history"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/clear_history"
+        android:title="@string/hideHistory"/>
+    
+    <item android:id="@+id/matrix"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/matrix"
+        android:title="@string/matrix"/>
+    
     <item android:id="@+id/advanced"
         android:showAsAction="ifRoom|withText"
         android:icon="@drawable/advanced"
@@ -33,5 +48,24 @@
         android:showAsAction="ifRoom|withText"
         android:icon="@drawable/simple"
         android:title="@string/basic"/>
+    
+    <item android:id="@+id/hex"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/simple"
+        android:title="@string/hexPanel"/>
+    
+    <item android:id="@+id/function"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/function"
+        android:title="@string/function"/>
+    
+    <item android:id="@+id/graph"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/graph"
+        android:title="@string/graph"/>
 
+    <item android:id="@+id/settings"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/simple"
+        android:title="@string/settings"/>
 </menu>

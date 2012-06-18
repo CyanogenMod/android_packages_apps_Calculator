@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/matrixPad"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:layout_gravity="center"
+              >
+    <fragment class="com.android.calculator2.MatrixFragment"
+            android:id="@+id/matrixFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        >
+        <com.android.calculator2.ColorButton
+            android:id="@+id/eigenvalue"
+            android:text="@string/eigenvalue"
+            style="@style/button_small_style"
+            />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/determinant"
+            android:text="@string/determinant"
+            style="@style/button_small_style"
+            />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/solve"
+            android:text="@string/solve"
+            style="@style/button_small_style"
+            />
+    </LinearLayout>
+</LinearLayout>
