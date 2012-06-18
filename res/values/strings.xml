@@ -39,6 +39,22 @@
     <string name="digit8">8</string>
     <!-- Displayed numbers for the digit buttons -->
     <string name="digit9">9</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="A">A</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="B">B</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="C">C</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="D">D</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="E">E</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="F">F</string>
+    <!-- Displayed letters for the variable digit buttons -->
+    <string name="X">X</string>
+    <!-- Displayed letters for the variable digit buttons -->
+    <string name="Y">Y</string>
     <!-- Button name on screen to delete the last entered digit or operator -->
     <string name="del">DELETE</string>
     <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6] -->
@@ -97,6 +113,14 @@
     <string name="basic">Basic panel</string>
     <!-- Menu item text to take user to the screen with the advanced functions, such as sin, cos, ln, log, etc. -->
     <string name="advanced">Advanced panel</string>
+    <!-- Menu item text to take user to the screen with matrices. -->
+    <string name="matrix">Matrix panel</string>
+    <!-- Menu item text to take user to the screen with the graph. -->
+    <string name="graph">Graph panel</string>
+    <!-- Menu item text to take user to the screen with the function operators. -->
+    <string name="function">Function panel</string>
+    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
+    <string name="hexPanel">Hex panel</string>
     <!-- Menu item text to clear the calculation history. -->
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
@@ -189,4 +213,39 @@
         <!-- Description for mathematical = [CHAR LIMIT=200]-->
         <item>equals</item>
     </string-array>
+
+    <string name="i" translatable="false">i</string>
+    <string name="percentage" translatable="false">%</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Solve for X</string>
+    <string name="solveForY">Solve for Y</string>
+    <string name="integral" translatable="false">\u222B</string>
+    <string name="parentheses" translatable="false">( )</string>
+    <string name="mod">mod</string>
+    <string name="coma" translatable="false">,</string>
+
+    <string name="defaultGraphTitle">Function</string>
+    <string name="graphTitle">Function: </string>
+
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Solve</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binary</string>
+    <string name="decDesc">Decimal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigen Values</string>
+    
+    <string name="settings">Settings</string>
+    <string name="showHistory">Show History</string>
+    <string name="hideHistory">Hide History</string>
 </resources>

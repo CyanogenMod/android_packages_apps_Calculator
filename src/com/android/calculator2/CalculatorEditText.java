@@ -24,7 +24,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -38,8 +37,6 @@ import android.widget.Toast;
 import com.google.common.collect.ImmutableMap;
 
 public class CalculatorEditText extends EditText {
-
-    private static final String LOG_TAG = "Calculator2";
     private static final int CUT = 0;
     private static final int COPY = 1;
     private static final int PASTE = 2;
@@ -210,14 +207,7 @@ public class CalculatorEditText extends EditText {
     }
 
     private boolean canPaste(CharSequence paste) {
-        boolean canPaste = true;
-        try {
-            Float.parseFloat(paste.toString());
-        } catch (NumberFormatException e) {
-            Log.e(LOG_TAG, "Error turning string to integer. Ignoring paste.", e);
-            canPaste = false;
-        }
-        return canPaste;
+        return paste.length()>0;
     }
 
     class NoTextSelectionMode implements ActionMode.Callback {
