@@ -25,7 +25,6 @@ import java.util.Locale;
 
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
-import org.javia.arity.Util;
 
 import com.android.calculator3.CalculatorDisplay.Scroll;
 
@@ -175,7 +174,13 @@ class Logic {
     void onEnter() {
         if (mDeleteMode == DELETE_MODE_CLEAR) {
             clearWithHistory(false); // clear after an Enter on result
-        } else {
+        } 
+        else if (getText().contains("X") || getText().contains("Y") || getText().contains("Z")) {
+            if (!getText().contains("=")) {
+                insert("=");
+            }
+        }
+        else {
             evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
         }
     }
@@ -229,7 +234,7 @@ class Logic {
         }
     }
 
-    private static final int ROUND_DIGITS = 1;
+    public static final int ROUND_DIGITS = 1;
     String evaluate(String input) throws SyntaxException {
         if (input.trim().equals("")) {
             return "";

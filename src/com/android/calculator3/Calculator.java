@@ -56,7 +56,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     static final int ADVANCED_PANEL = 2;
 
     private static final String LOG_TAG = "Calculator";
-    private static final boolean DEBUG  = false;
     private static final boolean LOG_ENABLED = false;
     private static final String STATE_CURRENT_VIEW = "state-current-view";
 
@@ -203,7 +202,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     private boolean getFunctionVisibility() {
-    	return mPager != null && mPager.getCurrentItem() == FUNCTION_PANEL;
+        return mPager != null && mPager.getCurrentItem() == FUNCTION_PANEL;
     }
     
     private boolean getBasicVisibility() {
@@ -235,9 +234,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 break;
                 
             case R.id.function:
-            	if (!getFunctionVisibility()) {
-            		mPager.setCurrentItem(FUNCTION_PANEL);
-            	}
+                if (!getFunctionVisibility()) {
+                    mPager.setCurrentItem(FUNCTION_PANEL);
+                }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -313,7 +312,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             
             final TypedArray functionButtons = res.obtainTypedArray(R.array.function_buttons);
             for (int i = 0; i < functionButtons.length(); i++) {
-            	System.out.println(i);
+                System.out.println(i);
                 setOnClickListener(functionPage, functionButtons.getResourceId(i, 0));
             }
             advancedButtons.recycle();
@@ -340,19 +339,19 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         @Override
         public Object instantiateItem(View container, int position) {
-        	if(position == FUNCTION_PANEL){
-        		((ViewGroup) container).addView(mFunctionPage);
-        		return mFunctionPage;
-        	}
-        	else if(position == BASIC_PANEL){
-        		((ViewGroup) container).addView(mSimplePage);
-        		return mSimplePage;
-        	}
-        	else if(position == ADVANCED_PANEL){
-        		((ViewGroup) container).addView(mAdvancedPage);
-        		return mAdvancedPage;
-        	}
-        	return null;
+            if(position == FUNCTION_PANEL){
+                ((ViewGroup) container).addView(mFunctionPage);
+                return mFunctionPage;
+            }
+            else if(position == BASIC_PANEL){
+                ((ViewGroup) container).addView(mSimplePage);
+                return mSimplePage;
+            }
+            else if(position == ADVANCED_PANEL){
+                ((ViewGroup) container).addView(mAdvancedPage);
+                return mAdvancedPage;
+            }
+            return null;
         }
 
         @Override

@@ -58,44 +58,44 @@ class EventListener implements View.OnKeyListener,
             if (view instanceof Button) {
                 String text = ((Button) view).getText().toString();
                 if ((text.equals("dx")) || (text.equals("dy")) || (text.equals("dz"))){
-                	
+                    
                 }
                 else if(text.equals("( )")){
-                	text = "(" + mHandler.getText() + ")";
-                	mHandler.clear(false);
+                    text = "(" + mHandler.getText() + ")";
+                    mHandler.clear(false);
                 }
                 else if(text.equals("Graph")){
-//                	if (mPager != null && mGraph != null) {
+//                    if (mPager != null && mGraph != null) {
 //                        mPager.setVisibility(View.GONE);
 //                        mGraph.setVisibility(View.VISIBLE);
 //                    }
-                	return;
+                    return;
                 }
                 else if(text.equals("Matrix")){
-//                	if (mPager != null && mMatrix != null) {
+//                    if (mPager != null && mMatrix != null) {
 //                        mPager.setVisibility(View.GONE);
 //                        mMatrix.setVisibility(View.VISIBLE);
 //                    }
-                	return;
+                    return;
                 }
                 else if(text.equals("Shapes")){
-//                	if (mPager != null && mShapes != null) {
+//                    if (mPager != null && mShapes != null) {
 //                        mPager.setVisibility(View.GONE);
 //                        mShapes.setVisibility(View.VISIBLE);
 //                    }
-                	return;
+                    return;
                 }
                 else if(text.equals("Solve for X")){
-                	return;
+                    return;
                 }
                 else if(text.equals("Solve for Y")){
-                	return;
+                    return;
                 }
                 else if(text.equals("Solve for Z")){
-                	return;
+                    return;
                 }
                 else if(text.equals("Function or Decimal")){
-                	return;
+                    return;
                 }
                 else if (text.length() >= 2) {
                     // add paren after sin, cos, ln, etc. from buttons
@@ -132,6 +132,33 @@ class EventListener implements View.OnKeyListener,
         //Work-around for spurious key event from IME, bug #1639445
         if (action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
             return true; // eat it
+        }
+        
+        if (keyCode == KeyEvent.KEYCODE_DEL) {
+            if (mHandler.getText().endsWith("sin(") || 
+                mHandler.getText().endsWith("cos(") ||
+                mHandler.getText().endsWith("tan(") ||
+                mHandler.getText().endsWith("log(") || 
+                mHandler.getText().endsWith("mod(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-4);
+                mHandler.clear(false);
+                mHandler.insert(text);
+                return true;
+            }
+            else if (mHandler.getText().endsWith("ln(")){
+            	String text = mHandler.getText().substring(0, mHandler.getText().length()-3);
+                mHandler.clear(false);
+                mHandler.insert(text);
+            }
+            else if (mHandler.getText().endsWith("dx") ||
+                    mHandler.getText().endsWith("dy") ||
+                    mHandler.getText().endsWith("dz")){
+                    String text = mHandler.getText().substring(0, mHandler.getText().length()-2);
+                    mHandler.clear(false);
+                    mHandler.insert(text);
+                    return true;
+                }
+            return false;
         }
 
         //Calculator.log("KEY " + keyCode + "; " + action);
