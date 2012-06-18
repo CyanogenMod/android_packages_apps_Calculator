@@ -1,0 +1,8 @@
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="75dp"
+    android:layout_height="100dp"
+    android:inputType="number"
+    android:hint="@null"
+    android:gravity="center"
+    android:maxLength="3"
+    style="@style/display_style" />

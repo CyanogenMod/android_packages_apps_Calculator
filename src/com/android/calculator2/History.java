@@ -58,7 +58,7 @@ class History {
 
     void clear() {
         mEntries.clear();
-        mEntries.add(new HistoryEntry(""));
+        mEntries.add(new HistoryEntry("", ""));
         mPos = 0;
         notifyChanged();
     }
@@ -91,14 +91,14 @@ class History {
         return false;
     }
 
-    void enter(String text) {
+    void enter(String base, String edited) {
         current().clearEdited();
         if (mEntries.size() >= MAX_ENTRIES) {
             mEntries.remove(0);
         }
         if (mEntries.size() < 2 ||
-            !text.equals(mEntries.elementAt(mEntries.size() - 2).getBase())) {
-            mEntries.insertElementAt(new HistoryEntry(text), mEntries.size() - 1);
+            !base.equals(mEntries.elementAt(mEntries.size() - 2).getBase())) {
+            mEntries.insertElementAt(new HistoryEntry(base, edited), mEntries.size() - 1);
         }
         mPos = mEntries.size() - 1;
         notifyChanged();

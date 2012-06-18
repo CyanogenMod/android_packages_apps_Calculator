@@ -19,14 +19,12 @@ package com.android.calculator2;
 import android.content.Context;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.View.OnClickListener;
-import android.view.View;
 import android.widget.Button;
 
 /**
  * Button with click-animation effect.
  */
-class ColorButton extends Button implements OnClickListener {
+class ColorButton extends Button{
     int CLICK_FEEDBACK_COLOR;
     static final int CLICK_FEEDBACK_INTERVAL = 10;
     static final int CLICK_FEEDBACK_DURATION = 350;
@@ -34,17 +32,14 @@ class ColorButton extends Button implements OnClickListener {
     float mTextX;
     float mTextY;
     long mAnimStart;
-    OnClickListener mListener;
+    EventListener mListener;
 
     public ColorButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         Calculator calc = (Calculator) context;
         mListener = calc.mListener;
-        setOnClickListener(this);
-    }
-
-    public void onClick(View view) {
-        mListener.onClick(this);
+        setOnClickListener(mListener);
+        setOnLongClickListener(mListener);
     }
 
     @Override
