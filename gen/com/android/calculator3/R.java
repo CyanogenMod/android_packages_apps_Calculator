@@ -46,14 +46,15 @@ public final class R {
         public static final int simple=0x7f02000c;
     }
     public static final class id {
-        public static final int X=0x7f0c000d;
-        public static final int Y=0x7f0c000e;
-        public static final int Z=0x7f0c000f;
+        public static final int X=0x7f0c000f;
+        public static final int Y=0x7f0c0010;
+        public static final int Z=0x7f0c0011;
         public static final int advanced=0x7f0c003b;
         public static final int advancedPad=0x7f0c0000;
         public static final int basic=0x7f0c003c;
         public static final int clear=0x7f0c0022;
         public static final int clear_history=0x7f0c0039;
+        public static final int coma=0x7f0c001c;
         public static final int cos=0x7f0c0002;
         public static final int del=0x7f0c0023;
         public static final int digit0=0x7f0c0034;
@@ -69,24 +70,23 @@ public final class R {
         public static final int display=0x7f0c0020;
         public static final int div=0x7f0c002b;
         public static final int dot=0x7f0c0035;
-        public static final int dx=0x7f0c0011;
+        public static final int dx=0x7f0c000e;
         public static final int dy=0x7f0c0019;
         public static final int dz=0x7f0c001b;
         public static final int e=0x7f0c0008;
         public static final int equal=0x7f0c0037;
         public static final int factorial=0x7f0c0005;
-        public static final int fractionOrDecimal=0x7f0c001c;
         public static final int function=0x7f0c003a;
         public static final int functionPad=0x7f0c0017;
-        public static final int graph=0x7f0c0016;
+        public static final int graph=0x7f0c0013;
         public static final int graphPanel=0x7f0c0025;
         public static final int historyExpr=0x7f0c001e;
         public static final int historyResult=0x7f0c001f;
-        public static final int integral=0x7f0c0010;
+        public static final int integral=0x7f0c000d;
         public static final int leftParen=0x7f0c000b;
         public static final int lg=0x7f0c0007;
         public static final int ln=0x7f0c0006;
-        public static final int matrix=0x7f0c0015;
+        public static final int matrix=0x7f0c0012;
         public static final int matrixPanel=0x7f0c0026;
         public static final int minus=0x7f0c0033;
         public static final int mod=0x7f0c001a;
@@ -102,9 +102,9 @@ public final class R {
         public static final int shapesPanel=0x7f0c0027;
         public static final int simplePad=0x7f0c0038;
         public static final int sin=0x7f0c0001;
-        public static final int solveForX=0x7f0c0012;
-        public static final int solveForY=0x7f0c0013;
-        public static final int solveForZ=0x7f0c0014;
+        public static final int solveForX=0x7f0c0014;
+        public static final int solveForY=0x7f0c0015;
+        public static final int solveForZ=0x7f0c0016;
         public static final int sqrt=0x7f0c000a;
         public static final int tan=0x7f0c0003;
     }
@@ -143,6 +143,7 @@ public final class R {
         /**  Menu item text to clear the calculation history. 
          */
         public static final int clear_history=0x7f080023;
+        public static final int coma=0x7f080032;
         /**  Displayed on buttons on screen for the cos function. 
          */
         public static final int cos=0x7f080016;
@@ -204,7 +205,6 @@ public final class R {
         /**  Do not translate. 
          */
         public static final int factorial=0x7f080020;
-        public static final int fractionOrDecimal=0x7f080032;
         public static final int function=0x7f080036;
         public static final int graph=0x7f080035;
         public static final int integral=0x7f08002f;

@@ -116,9 +116,8 @@
         android:layout_height="0dp"
         >
         <com.android.calculator3.ColorButton
-            android:id="@+id/fractionOrDecimal"
-            android:text="@string/fractionOrDecimal"
-            android:textSize="8dp"
+            android:id="@+id/coma"
+            android:text="@string/coma"
             style="@style/button_style"
             />
         <com.android.calculator3.ColorButton

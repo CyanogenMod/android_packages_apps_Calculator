@@ -104,7 +104,7 @@
     <string name="integral">\u222B</string>
     <string name="parentheses">( )</string>
     <string name="mod">mod</string>
-    <string name="fractionOrDecimal">Fraction or Decimal</string>
+    <string name="coma">,</string>
     <string name="shapes">Shapes</string>
     <string name="matrix">Matrix</string>
     <string name="graph">Graph</string>

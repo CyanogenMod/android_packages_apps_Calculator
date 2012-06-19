@@ -23,6 +23,7 @@ import android.content.Context;
 
 import java.util.Locale;
 
+import org.javia.arity.Function;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
@@ -31,6 +32,7 @@ import com.android.calculator3.CalculatorDisplay.Scroll;
 class Logic {
     private CalculatorDisplay mDisplay;
     private Symbols mSymbols = new Symbols();
+    private Function mFunction;
     private History mHistory;
     private String  mResult = "";
     private boolean mIsError = false;
@@ -53,6 +55,7 @@ class Logic {
     private final String mTanString;
     private final String mLogString;
     private final String mLnString;
+    private final String mModString;
 
     public final static int DELETE_MODE_BACKSPACE = 0;
     public final static int DELETE_MODE_CLEAR = 1;
@@ -72,6 +75,7 @@ class Logic {
         mTanString = context.getResources().getString(R.string.tan);
         mLogString = context.getResources().getString(R.string.lg);
         mLnString = context.getResources().getString(R.string.error);
+        mModString = context.getResources().getString(R.string.mod);
 
         mHistory = history;
         mDisplay = display;
@@ -174,11 +178,6 @@ class Logic {
     void onEnter() {
         if (mDeleteMode == DELETE_MODE_CLEAR) {
             clearWithHistory(false); // clear after an Enter on result
-        } 
-        else if (getText().contains("X") || getText().contains("Y") || getText().contains("Z")) {
-            if (!getText().contains("=")) {
-                insert("=");
-            }
         }
         else {
             evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
@@ -253,8 +252,21 @@ class Logic {
         input = input.replaceAll(mTanString, "tan");
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
-
-        double value = mSymbols.eval(input);
+        input = input.replaceAll(mModString, "mod");
+        double value = 0.0;
+        if(input.contains("X") || input.contains("Y") || input.contains("Z")){
+        	if(input.contains("=")){
+        		String[] s = input.split("=");
+                mFunction = mSymbols.compile(s[0].toLowerCase());
+                value = mFunction.eval(mSymbols.eval(s[1]));
+        	}
+        	else{
+        		return "Error";
+        	}
+        }
+        else{
+        	value = mSymbols.eval(input);
+        }
 
         String result = "";
         for (int precision = mLineLength; precision > 6; precision--) {

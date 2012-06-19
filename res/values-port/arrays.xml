@@ -30,7 +30,7 @@
         <item>@+id/dz</item>
         <item>@+id/solveForZ</item>
         <item>@+id/Z</item>
-        <item>@+id/fractionOrDecimal</item>
+        <item>@+id/coma</item>
         <item>@+id/shapes</item>
         <item>@+id/matrix</item>
         <item>@+id/graph</item>

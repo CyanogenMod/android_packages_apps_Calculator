@@ -312,10 +312,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             
             final TypedArray functionButtons = res.obtainTypedArray(R.array.function_buttons);
             for (int i = 0; i < functionButtons.length(); i++) {
-                System.out.println(i);
                 setOnClickListener(functionPage, functionButtons.getResourceId(i, 0));
             }
-            advancedButtons.recycle();
+            functionButtons.recycle();
 
             final View clearButton = simplePage.findViewById(R.id.clear);
             if (clearButton != null) {

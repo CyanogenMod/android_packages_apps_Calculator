@@ -51,6 +51,12 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
+        	if (mHandler.getText().contains("X") || mHandler.getText().contains("Y") || mHandler.getText().contains("Z")) {
+                if (!mHandler.getText().contains("=")) {
+                	mHandler.insert("=");
+                }
+                break;
+            }
             mHandler.onEnter();
             break;
 
@@ -86,15 +92,21 @@ class EventListener implements View.OnKeyListener,
                     return;
                 }
                 else if(text.equals("Solve for X")){
+                	if(mHandler.getText().contains("X")){
+                    	mHandler.onEnter();
+                	}
                     return;
                 }
                 else if(text.equals("Solve for Y")){
+                	if(mHandler.getText().contains("Y")){
+                    	mHandler.onEnter();
+                	}
                     return;
                 }
                 else if(text.equals("Solve for Z")){
-                    return;
-                }
-                else if(text.equals("Function or Decimal")){
+                	if(mHandler.getText().contains("Z")){
+                    	mHandler.onEnter();
+                	}
                     return;
                 }
                 else if (text.length() >= 2) {
