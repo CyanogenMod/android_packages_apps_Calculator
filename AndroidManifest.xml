@@ -18,5 +18,6 @@
                 <category android:name="android.intent.category.APP_CALCULATOR" />
             </intent-filter>
         </activity>
+        <activity android:name="com.android.calculator3.GraphActivity" android:label="AChartEngine demo"/>
     </application>
 </manifest> 

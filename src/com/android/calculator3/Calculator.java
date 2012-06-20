@@ -33,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
@@ -46,7 +47,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private ViewPager mPager;
     private View mGraph;
     private View mMatrix;
-    private View mShapes;
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
@@ -81,7 +81,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
         mGraph = findViewById(R.id.graphPanel);
         mMatrix = findViewById(R.id.matrixPanel);
-        mShapes = findViewById(R.id.shapesPanel);
 
         if (mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
@@ -114,7 +113,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mPager.setCurrentItem(state == null ? 1 : state.getInt(STATE_CURRENT_VIEW, 1));
         }
 
-        mListener.setHandler(mLogic, mPager, mGraph, mMatrix, mShapes);
+        mListener.setHandler(this, mLogic, mPager, (LinearLayout) mGraph, mMatrix);
         mDisplay.setOnKeyListener(mListener);
 
         if (!ViewConfiguration.get(this).hasPermanentMenuKey()) {
@@ -259,7 +258,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && getAdvancedVisibility()) {
+    	if(keyCode == KeyEvent.KEYCODE_BACK && mPager.getVisibility() == View.GONE){
+        	mPager.setVisibility(View.VISIBLE);
+        	mGraph.setVisibility(View.GONE);
+        	return true;
+    	} else if (keyCode == KeyEvent.KEYCODE_BACK && (getAdvancedVisibility() || getFunctionVisibility())) {
             mPager.setCurrentItem(BASIC_PANEL);
             return true;
         } else {

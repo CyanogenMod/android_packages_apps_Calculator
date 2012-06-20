@@ -52,11 +52,6 @@
             android:text="@string/Y"
             style="@style/digit_button_style"
             />
-        <com.android.calculator3.ColorButton
-            android:id="@+id/Z"
-            android:text="@string/Z"
-            style="@style/digit_button_style"
-            />
     </LinearLayout>
 
     <LinearLayout
@@ -87,12 +82,6 @@
             android:text="@string/solveForY"
             android:textSize="20dp"
             style="@style/button_small_style"
-            />
-        <com.android.calculator3.ColorButton
-            android:id="@+id/solveForZ"
-            android:text="@string/solveForZ"
-            android:textSize="20dp"
-            style="@style/button_style"
             />
     </LinearLayout>
 </LinearLayout>
