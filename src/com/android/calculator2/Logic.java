@@ -124,9 +124,6 @@ class Logic {
     private void clearWithHistory(boolean scroll) {
         String text = mHistory.getText();
         if (MARKER_EVALUATE_ON_RESUME.equals(text)) {
-            if (!mHistory.moveToPrevious()) {
-                text = "";
-            }
             text = mHistory.getText();
             evaluateAndShowResult(text, CalculatorDisplay.Scroll.NONE);
         } else {

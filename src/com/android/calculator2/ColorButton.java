@@ -44,7 +44,7 @@ class ColorButton extends Button implements OnClickListener {
     public ColorButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         Calculator calc = (Calculator) context;
-        init(calc);
+        init();
         mListener = calc.mListener;
         setOnClickListener(this);
     }
@@ -53,7 +53,7 @@ class ColorButton extends Button implements OnClickListener {
         mListener.onClick(this);
     }
 
-    private void init(Calculator calc) {
+    private void init() {
         Resources res = getResources();
 
         CLICK_FEEDBACK_COLOR = res.getColor(R.color.magic_flame);
