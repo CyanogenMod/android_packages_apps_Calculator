@@ -48,6 +48,14 @@ class EventListener implements View.OnKeyListener,
             mHandler.onEnter();
             break;
 
+        case R.id.left:
+            mHandler.displayKeyLeft(true);
+            break;
+
+        case R.id.right:
+            mHandler.displayKeyLeft(false);
+            break;
+
         default:
             if (view instanceof Button) {
                 String text = ((Button) view).getText().toString();

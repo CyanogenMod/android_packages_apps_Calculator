@@ -104,6 +104,17 @@ class Logic {
         return toLeft ? cursorPos == 0 : cursorPos >= editText.length();
     }
 
+    /**
+     * Dispatch event to go navigate horizontally in the calculator display
+     * @param goLeft true to go left, false to go right
+     */
+    void displayKeyLeft(boolean goLeft){
+        if (goLeft)
+            mDisplay.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_DPAD_LEFT));
+        else
+            mDisplay.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_DPAD_RIGHT));
+    }
+
     private String getText() {
         return mDisplay.getText().toString();
     }
