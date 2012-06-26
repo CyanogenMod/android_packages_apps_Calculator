@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.MultipleCategorySeries;
@@ -32,10 +33,10 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 
 public class Graph {
+	private XYMultipleSeriesDataset mDataset;
     /**
      * Returns the chart name.
      * @return the chart name
@@ -52,53 +53,38 @@ public class Graph {
         return "The graphical representations of the sin and cos functions (line chart)";
     }
     
-    /**
-     * Executes the chart demo.
-     * @param context the context
-     * @return the built intent
-     */
-    public Intent execute(Context context) {
-        String[] titles = new String[] { "sin", "cos" };
-        List<double[]> x = new ArrayList<double[]>();
-        List<double[]> values = new ArrayList<double[]>();
-        int step = 4;
-        int count = 360 / step + 1;
-        x.add(new double[count]);
-        x.add(new double[count]);
-        double[] sinValues = new double[count];
-        double[] cosValues = new double[count];
-        values.add(sinValues);
-        values.add(cosValues);
-        for (int i = 0; i < count; i++) {
-            int angle = i * step;
-            x.get(0)[i] = angle;
-            x.get(1)[i] = angle;
-            double rAngle = Math.toRadians(angle);
-            sinValues[i] = Math.sin(rAngle);
-            cosValues[i] = Math.cos(rAngle);
-        }
-        int [] colors = new int[] { Color.BLUE, Color.CYAN };
-        PointStyle[] styles = new PointStyle[] { PointStyle.POINT, PointStyle.POINT };
-        XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
-        setChartSettings(renderer, "Trigonometric functions", "X (in degrees)", "Y", 0, 360, -1, 1, Color.GRAY, Color.LTGRAY);
-        renderer.setXLabels(20);
-        renderer.setYLabels(10);
-        return ChartFactory.getLineChartIntent(context, buildDataset(titles, x, values), renderer);
+    public XYMultipleSeriesDataset getDataset() {
+    	return mDataset;
     }
     
-    protected XYMultipleSeriesDataset buildDataset(String[] titles, List<double[]> xValues, List<double[]> yValues) {
+    public GraphicalView getGraph(Context context) {
+        String[] titles = new String[] { "function" };
+        List<Double[]> xValues = new ArrayList<Double[]>();
+        List<Double[]> yValues = new ArrayList<Double[]>();
+        xValues.add(new Double[0]);
+        yValues.add(new Double[0]);
+        int [] colors = new int[] { Color.CYAN };
+        PointStyle[] styles = new PointStyle[] { PointStyle.POINT };
+        XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
+        setChartSettings(renderer, "Function", "X", "Y", -10, 10, -10, 10, Color.GRAY, Color.LTGRAY);
+        renderer.setXLabels(20);
+        renderer.setYLabels(20);
+        mDataset = buildDataset(titles, xValues, yValues);
+        return ChartFactory.getLineChartView(context, mDataset, renderer);
+    }
+    
+    public XYMultipleSeriesDataset buildDataset(String[] titles, List<Double[]> xValues, List<Double[]> yValues) {
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         addXYSeries(dataset, titles, xValues, yValues, 0);
         return dataset;
     }
     
-    public void addXYSeries(XYMultipleSeriesDataset dataset, String[] titles, List<double[]> xValues,
-        List<double[]> yValues, int scale) {
+    public void addXYSeries(XYMultipleSeriesDataset dataset, String[] titles, List<Double[]> xValues, List<Double[]> yValues, int scale) {
         int length = titles.length;
         for (int i = 0; i < length; i++) {
             XYSeries series = new XYSeries(titles[i], scale);
-            double[] xV = xValues.get(i);
-            double[] yV = yValues.get(i);
+            Double[] xV = xValues.get(i);
+            Double[] yV = yValues.get(i);
             int seriesLength = xV.length;
             for (int k = 0; k < seriesLength; k++) {
                 series.add(xV[k], yV[k]);

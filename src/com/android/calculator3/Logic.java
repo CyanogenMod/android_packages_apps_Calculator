@@ -18,11 +18,22 @@ package com.android.calculator3;
 
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
-import android.content.Context;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+import android.app.Activity;
+import android.graphics.Color;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.javia.arity.Function;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
@@ -37,6 +48,8 @@ class Logic {
     private String  mResult = "";
     private boolean mIsError = false;
     private int mLineLength = 0;
+    private Graph mGraph;
+    private Activity mContext;
 
     private static final String INFINITY_UNICODE = "\u221e";
 
@@ -68,7 +81,9 @@ class Logic {
 
     private Listener mListener;
 
-    Logic(Context context, History history, CalculatorDisplay display) {
+    Logic(Activity context, History history, CalculatorDisplay display, Graph graph) {
+    	mContext = context;
+    	
         mErrorString = context.getResources().getString(R.string.error);
         mSinString = context.getResources().getString(R.string.sin);
         mCosString = context.getResources().getString(R.string.cos);
@@ -80,6 +95,8 @@ class Logic {
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
+        
+        mGraph = graph;
     }
 
     public void setListener(Listener listener) {
@@ -114,6 +131,12 @@ class Logic {
     void insert(String delta) {
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
+        try{
+        	updateGraph(mDisplay.getText().toString());
+        }catch(Exception e){
+        	e.printStackTrace();
+        	Toast.makeText(mContext, "Oops", Toast.LENGTH_SHORT);
+        }
     }
 
     public void onTextChanged() {
@@ -261,7 +284,7 @@ class Logic {
                 value = mFunction.eval(mSymbols.eval(s[1]));
         	}
         	else{
-        		return "Error";
+        		return mErrorString;
         	}
         }
         else{
@@ -331,5 +354,50 @@ class Logic {
     static boolean isOperator(char c) {
         //plus minus times div
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
+    }
+    
+    void updateGraph(String eq){
+    	if(!eq.contains("=")) return;
+    	
+    	String[] equation = eq.split("=");
+    	
+    	if(equation.length == 1) return;
+    	
+    	List<Double> xList = new ArrayList<Double>();
+    	List<Double> yList = new ArrayList<Double>();
+    	loop: for(int x=-10;x<10;x++){
+    		for(int y=-10;y<10;y++){
+    			try {
+    				mSymbols.define("X", x);
+    				mSymbols.define("Y", y);
+    	        	Double leftSide = mSymbols.eval(equation[0]);
+    				Double rightSide = mSymbols.eval(equation[1]);
+    				if(leftSide*0.99 <= rightSide && leftSide*1.01 >= rightSide){
+    					System.out.println(x+","+y);
+    					xList.add(Double.valueOf(x));
+    					yList.add(Double.valueOf(y));
+    				}
+    			} catch (SyntaxException e) {
+    				e.printStackTrace();
+    				break loop;
+    			}
+    		}
+    	}
+        List<Double[]> xValues = new ArrayList<Double[]>();
+        List<Double[]> yValues = new ArrayList<Double[]>();
+        xValues.add(Arrays.copyOf(xList.toArray(), xList.size(), Double[].class));
+        yValues.add(Arrays.copyOf(yList.toArray(), yList.size(), Double[].class));
+        
+    	View pager = mContext.findViewById(R.id.panelswitch);
+    	LinearLayout layout = (LinearLayout) pager.findViewById(R.id.graphPad);
+    	layout.removeAllViews();
+        String[] titles = new String[] { "Function: "+eq };
+    	int [] colors = new int[] { Color.CYAN };
+        PointStyle[] styles = new PointStyle[] { PointStyle.POINT };
+        XYMultipleSeriesRenderer renderer = mGraph.buildRenderer(colors, styles);
+        renderer.setXLabels(10);
+        renderer.setYLabels(10);
+    	GraphicalView graph = ChartFactory.getLineChartView(mContext, mGraph.buildDataset(titles, xValues, yValues), renderer);;
+    	layout.addView(graph);
     }
 }

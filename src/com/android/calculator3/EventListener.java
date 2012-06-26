@@ -16,23 +16,12 @@
 
 package com.android.calculator3;
 
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.chart.PointStyle;
-import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.model.XYSeries;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
-import org.achartengine.tools.PanListener;
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 class EventListener implements View.OnKeyListener,
                                View.OnClickListener,
@@ -40,22 +29,12 @@ class EventListener implements View.OnKeyListener,
     Context mContext;
 	Logic mHandler;
     ViewPager mPager;
-    LinearLayout mGraph;
-    View mMatrix;
-    GraphicalView mChartView;
-    private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-    private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
-    private XYSeries mCurrentSeries;
 
-    void setHandler(Context context, Logic handler, ViewPager pager, LinearLayout graph, View matrix) {
-        mContext = context;
+    void setHandler(Context context, Logic handler, ViewPager pager) {
     	mHandler = handler;
         mPager = pager;
-        mGraph = graph;
-        mMatrix = matrix;
     }
 
-    @SuppressWarnings("deprecation")
 	@Override
     public void onClick(View view) {
         int id = view.getId();
@@ -97,50 +76,7 @@ class EventListener implements View.OnKeyListener,
                 		text = "mod(";
                 	}
                 }
-                else if(text.equals("Graph")){
-                    if (mPager != null && mGraph != null) {
-                        mGraph.setVisibility(View.VISIBLE);
-                        if (mChartView == null) {
-                        	mChartView = ChartFactory.getLineChartView(mContext, mDataset, mRenderer);
-                            mRenderer.setClickEnabled(true);
-                            mChartView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                  double[] xy = mChartView.toRealPoint(0);
-                                  mCurrentSeries.add(xy[0], xy[1]);
-                                  mChartView.repaint();
-                                }
-                            });
-                            mRenderer.setSelectableBuffer(100);
-                            mChartView.addPanListener(new PanListener() {
-                              public void panApplied() {
-                                System.out.println("New X range=[" + mRenderer.getXAxisMin() + ", " + mRenderer.getXAxisMax()
-                                    + "], Y range=[" + mRenderer.getYAxisMax() + ", " + mRenderer.getYAxisMax() + "]");
-                              }
-                            });
-                            mGraph.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-                            String seriesTitle = "Series " + (mDataset.getSeriesCount() + 1);
-                            XYSeries series = new XYSeries(seriesTitle);
-                            mCurrentSeries = series;
-                            mDataset.addSeries(series);
-                            XYSeriesRenderer renderer = new XYSeriesRenderer();
-                            mRenderer.addSeriesRenderer(renderer);
-                            renderer.setPointStyle(PointStyle.CIRCLE);
-                            renderer.setFillPoints(true);
-                        } 
-                        else {
-                            mChartView.repaint();
-                        }
-                        mPager.setVisibility(View.GONE);
-                    }
-                    return;
-                }
                 else if(text.equals("Matrix")){
-//                    if (mPager != null && mMatrix != null) {
-//                        mPager.setVisibility(View.GONE);
-//                        mMatrix.setVisibility(View.VISIBLE);
-//                    }
-                	
                 	mContext.startActivity(new Intent(mContext, GraphActivity.class));
                     return;
                 }

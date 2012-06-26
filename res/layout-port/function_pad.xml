@@ -110,9 +110,8 @@
             style="@style/button_style"
             />
         <com.android.calculator3.ColorButton
-            android:id="@+id/graph"
-            android:text="@string/graph"
-            android:textSize="28dp"
+            android:id="@+id/imaginary"
+            android:text="@string/imaginary"
             style="@style/button_style"
             />
     </LinearLayout>

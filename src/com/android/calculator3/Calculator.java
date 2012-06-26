@@ -16,6 +16,8 @@
 
 package com.android.calculator3;
 
+import org.achartengine.GraphicalView;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -30,11 +32,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
@@ -45,15 +49,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private History mHistory;
     private Logic mLogic;
     private ViewPager mPager;
-    private View mGraph;
-    private View mMatrix;
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
+    public Graph mGraph;
 
-    static final int FUNCTION_PANEL = 0;
-    static final int BASIC_PANEL    = 1;
-    static final int ADVANCED_PANEL = 2;
+    static final int GRAPH_PANEL    = 0;
+    static final int FUNCTION_PANEL = 1;
+    static final int BASIC_PANEL    = 2;
+    static final int ADVANCED_PANEL = 3;
+    static final int MATRIX_PANEL   = 4;
 
     private static final String LOG_TAG = "Calculator";
     private static final boolean LOG_ENABLED = false;
@@ -63,6 +68,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     public void onCreate(Bundle state) {
         super.onCreate(state);
 
+        mGraph = new Graph();
+        
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
                 WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -79,8 +86,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             }
             buttons.recycle();
         }
-        mGraph = findViewById(R.id.graphPanel);
-        mMatrix = findViewById(R.id.matrixPanel);
 
         if (mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
@@ -100,7 +105,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 
-        mLogic = new Logic(this, mHistory, mDisplay);
+        mLogic = new Logic(this, mHistory, mDisplay, mGraph);
         mLogic.setListener(this);
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
@@ -110,10 +115,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mHistory.setObserver(historyAdapter);
 
         if (mPager != null) {
-            mPager.setCurrentItem(state == null ? 1 : state.getInt(STATE_CURRENT_VIEW, 1));
+            mPager.setCurrentItem(state == null ? BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW, BASIC_PANEL));
         }
 
-        mListener.setHandler(this, mLogic, mPager, (LinearLayout) mGraph, mMatrix);
+        mListener.setHandler(this, mLogic, mPager);
         mDisplay.setOnKeyListener(mListener);
 
         if (!ViewConfiguration.get(this).hasPermanentMenuKey()) {
@@ -258,11 +263,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-    	if(keyCode == KeyEvent.KEYCODE_BACK && mPager.getVisibility() == View.GONE){
-        	mPager.setVisibility(View.VISIBLE);
-        	mGraph.setVisibility(View.GONE);
-        	return true;
-    	} else if (keyCode == KeyEvent.KEYCODE_BACK && (getAdvancedVisibility() || getFunctionVisibility())) {
+    	if (keyCode == KeyEvent.KEYCODE_BACK && (getAdvancedVisibility() || getFunctionVisibility())) {
             mPager.setCurrentItem(BASIC_PANEL);
             return true;
         } else {
@@ -287,18 +288,25 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     class PageAdapter extends PagerAdapter {
+    	private View mGraphPage;
+        private View mFunctionPage;
         private View mSimplePage;
         private View mAdvancedPage;
-        private View mFunctionPage;
+        private View mMatrixPage;
+        private GraphicalView mChartView;
 
         public PageAdapter(ViewPager parent) {
             final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            final View graphPage = inflater.inflate(R.layout.graph_pad, parent, false);
+            final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
             final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
             final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
-            final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
+            final View matrixPage = inflater.inflate(R.layout.matrix_pad, parent, false);
+            mGraphPage = graphPage;
+            mFunctionPage = functionPage;
             mSimplePage = simplePage;
             mAdvancedPage = advancedPage;
-            mFunctionPage = functionPage;
+            mMatrixPage = matrixPage;
 
             final Resources res = getResources();
             final TypedArray simpleButtons = res.obtainTypedArray(R.array.simple_buttons);
@@ -332,16 +340,35 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         @Override
         public int getCount() {
-            return 3;
+            return 5;
         }
 
         @Override
         public void startUpdate(View container) {
         }
 
-        @Override
+        @SuppressWarnings("deprecation")
+		@Override
         public Object instantiateItem(View container, int position) {
-            if(position == FUNCTION_PANEL){
+        	if(position == GRAPH_PANEL){
+        		if (mChartView == null) {
+                	mChartView = mGraph.getGraph(Calculator.this);
+                	mChartView.setId(R.id.graphView);
+                    mChartView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                          Toast.makeText(Calculator.this, "haha, poked", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+                } 
+                else {
+                    mChartView.repaint();
+                }
+                ((ViewGroup) container).addView(mGraphPage);
+                return mGraphPage;
+        	}
+        	else if(position == FUNCTION_PANEL){
                 ((ViewGroup) container).addView(mFunctionPage);
                 return mFunctionPage;
             }
@@ -352,6 +379,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             else if(position == ADVANCED_PANEL){
                 ((ViewGroup) container).addView(mAdvancedPage);
                 return mAdvancedPage;
+            }
+        	else if(position == MATRIX_PANEL){
+                ((ViewGroup) container).addView(mMatrixPage);
+                return mMatrixPage;
             }
             return null;
         }
