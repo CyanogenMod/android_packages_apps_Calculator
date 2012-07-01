@@ -17,7 +17,6 @@
 package com.android.calculator3;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,6 +30,7 @@ class EventListener implements View.OnKeyListener,
     ViewPager mPager;
 
     void setHandler(Context context, Logic handler, ViewPager pager) {
+    	mContext = context;
     	mHandler = handler;
         mPager = pager;
     }
@@ -48,7 +48,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
-        	if (mHandler.getText().contains("X") || mHandler.getText().contains("Y") || mHandler.getText().contains("Z")) {
+        	if (mHandler.getText().contains(mContext.getResources().getString(R.string.X)) || mHandler.getText().contains(mContext.getResources().getString(R.string.Y))) {
                 if (!mHandler.getText().contains("=")) {
                 	mHandler.insert("=");
                 }
@@ -60,34 +60,35 @@ class EventListener implements View.OnKeyListener,
         default:
             if (view instanceof Button) {
                 String text = ((Button) view).getText().toString();
-                if ((text.equals("dx")) || (text.equals("dy")) || (text.equals("dz"))){
+                if ((text.equals(mContext.getResources().getString(R.string.dx))) || (text.equals(mContext.getResources().getString(R.string.dy)))){
                     
                 }
                 else if(text.equals("( )")){
-                    text = "(" + mHandler.getText() + ")";
+                	if(mHandler.getText().contains("=")){
+                		text = mHandler.getText().split("=")[0] + "=(" + mHandler.getText().split("=")[1] + ")";
+                	}
+                	else{
+                		text = "(" + mHandler.getText() + ")";
+                	}
                     mHandler.clear(false);
                 }
-                else if(text.equals("mod")){
+                else if(text.equals(mContext.getResources().getString(R.string.mod))){
                 	if(mHandler.getText().length()>0){
-                		text = "mod("+mHandler.getText()+",";
+                		text = mContext.getResources().getString(R.string.mod)+"("+mHandler.getText()+",";
                 		mHandler.clear(false);
                 	}
                 	else{
-                		text = "mod(";
+                		text = mContext.getResources().getString(R.string.mod)+"(";
                 	}
                 }
-                else if(text.equals("Matrix")){
-                	mContext.startActivity(new Intent(mContext, GraphActivity.class));
-                    return;
-                }
-                else if(text.equals("Solve for X")){
-                	if(mHandler.getText().contains("X")){
+                else if(text.equals(mContext.getResources().getString(R.string.solveForX))){
+                	if(mHandler.getText().contains(mContext.getResources().getString(R.string.X))){
                     	mHandler.onEnter();
                 	}
                     return;
                 }
-                else if(text.equals("Solve for Y")){
-                	if(mHandler.getText().contains("Y")){
+                else if(text.equals(mContext.getResources().getString(R.string.solveForY))){
+                	if(mHandler.getText().contains(mContext.getResources().getString(R.string.Y))){
                     	mHandler.onEnter();
                 	}
                     return;

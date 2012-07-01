@@ -32,8 +32,8 @@
         android:layout_height="0dp"
         >
         <com.android.calculator3.ColorButton
-            android:id="@+id/integral"
-            android:text="@string/integral"
+            android:id="@+id/parentheses"
+            android:text="@string/parentheses"
             style="@style/button_style"
             />
         <com.android.calculator3.ColorButton
@@ -51,67 +51,61 @@
     <LinearLayout
         android:layout_weight="3"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        >
+        <com.android.calculator3.ColorButton
+            android:id="@+id/solveForX"
+            android:text="@string/solveForX"
+            android:textSize="26dp"
+            android:layout_weight="1"
+            style="@style/button_style"
+            />
+        <com.android.calculator3.ColorButton
+            android:id="@+id/X"
+            android:text="@string/X"
+            android:layout_weight="2"
+            style="@style/digit_button_style"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        >
+        <com.android.calculator3.ColorButton
+            android:id="@+id/solveForY"
+            android:text="@string/solveForY"
+            android:textSize="26dp"
+            android:layout_weight="1"
+            style="@style/button_style"
+            />
+        <com.android.calculator3.ColorButton
+            android:id="@+id/Y"
+            android:text="@string/Y"
+            android:layout_weight="2"
+            style="@style/digit_button_style"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        >
+        <com.android.calculator3.ColorButton
+            android:id="@+id/integral"
+            android:text="@string/integral"
+            style="@style/button_style"
+            />
         <com.android.calculator3.ColorButton
             android:id="@+id/dx"
             android:text="@string/dx"
             style="@style/button_style"
             />
         <com.android.calculator3.ColorButton
-            android:id="@+id/solveForX"
-            android:text="@string/solveForX"
-            android:textSize="17dp"
-            style="@style/button_style"
-            />
-        <com.android.calculator3.ColorButton
-            android:id="@+id/X"
-            android:text="@string/X"
-            style="@style/digit_button_style"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_weight="3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        >
-        <com.android.calculator3.ColorButton
             android:id="@+id/dy"
             android:text="@string/dy"
-            style="@style/button_style"
-            />
-        <com.android.calculator3.ColorButton
-            android:id="@+id/solveForY"
-            android:text="@string/solveForY"
-            android:textSize="17dp"
-            style="@style/button_style"
-            />
-        <com.android.calculator3.ColorButton
-            android:id="@+id/Y"
-            android:text="@string/Y"
-            style="@style/digit_button_style"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_weight="3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        >
-        <com.android.calculator3.ColorButton
-            android:id="@+id/parentheses"
-            android:text="@string/parentheses"
-            style="@style/button_style"
-            />
-        <com.android.calculator3.ColorButton
-            android:id="@+id/matrix"
-            android:text="@string/matrix"
-            android:textSize="28dp"
-            style="@style/button_style"
-            />
-        <com.android.calculator3.ColorButton
-            android:id="@+id/imaginary"
-            android:text="@string/imaginary"
             style="@style/button_style"
             />
     </LinearLayout>

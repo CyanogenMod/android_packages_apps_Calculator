@@ -154,18 +154,22 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        
+        MenuItem mMatrixPanel = menu.findItem(R.id.matrix);
+        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility());
+        
+        MenuItem mGraphPanel = menu.findItem(R.id.graph);
+        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility());
+        
         MenuItem mFunctionPanel = menu.findItem(R.id.function);
-        if(mFunctionPanel != null){
-           mFunctionPanel.setVisible(!getFunctionVisibility());
-        }
+        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility());
+        
         MenuItem mBasicPanel = menu.findItem(R.id.basic);
-        if(mBasicPanel != null){
-           mBasicPanel.setVisible(!getBasicVisibility());
-        }
+        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility());
+        
         MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
-        if(mAdvancedPanel != null){
-           mAdvancedPanel.setVisible(!getAdvancedVisibility());
-        }
+        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility());
+        
         return true;
     }
 
@@ -205,6 +209,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         return onOptionsItemSelected(item);
     }
 
+    private boolean getGraphVisibility() {
+    	return mPager != null && mPager.getCurrentItem() == GRAPH_PANEL;
+    }
+    
     private boolean getFunctionVisibility() {
         return mPager != null && mPager.getCurrentItem() == FUNCTION_PANEL;
     }
@@ -215,6 +223,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     private boolean getAdvancedVisibility() {
         return mPager != null && mPager.getCurrentItem() == ADVANCED_PANEL;
+    }
+    
+    private boolean getMatrixVisibility() {
+    	return mPager != null && mPager.getCurrentItem() == MATRIX_PANEL;
     }
 
     @Override
@@ -236,11 +248,24 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                     mPager.setCurrentItem(ADVANCED_PANEL);
                 }
                 break;
-                
+
             case R.id.function:
                 if (!getFunctionVisibility()) {
                     mPager.setCurrentItem(FUNCTION_PANEL);
                 }
+                break;
+
+            case R.id.graph:
+                if (!getGraphVisibility()) {
+                    mPager.setCurrentItem(GRAPH_PANEL);
+                }
+                break;
+
+            case R.id.matrix:
+                if (!getMatrixVisibility()) {
+                    mPager.setCurrentItem(MATRIX_PANEL);
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

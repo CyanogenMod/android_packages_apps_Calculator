@@ -28,8 +28,6 @@
         <item>@+id/Y</item>
         <item>@+id/mod</item>
         <item>@+id/coma</item>
-        <item>@+id/matrix</item>
-        <item>@+id/imaginary</item>
     </array>
     
     <array name="simple_buttons">
