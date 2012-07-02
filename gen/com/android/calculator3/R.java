@@ -58,7 +58,7 @@ public final class R {
         public static final int chart=0x7f080037;
         public static final int clear=0x7f08001e;
         public static final int clear_history=0x7f080039;
-        public static final int coma=0x7f080013;
+        public static final int coma=0x7f080017;
         public static final int cos=0x7f080003;
         public static final int del=0x7f08001f;
         public static final int digit0=0x7f08002d;
@@ -80,7 +80,7 @@ public final class R {
         public static final int equal=0x7f080030;
         public static final int factorial=0x7f080006;
         public static final int function=0x7f08003c;
-        public static final int functionPad=0x7f080016;
+        public static final int functionPad=0x7f080014;
         public static final int graph=0x7f08003b;
         public static final int graphPad=0x7f080019;
         public static final int graphView=0x7f080000;
@@ -94,20 +94,20 @@ public final class R {
         public static final int matrixAdd=0x7f080032;
         public static final int matrixPad=0x7f080031;
         public static final int minus=0x7f08002c;
-        public static final int mod=0x7f080012;
+        public static final int mod=0x7f080016;
         public static final int mul=0x7f080028;
         public static final int new_series=0x7f080038;
         public static final int overflow_menu=0x7f08001d;
         public static final int panelswitch=0x7f080020;
-        public static final int parentheses=0x7f080017;
+        public static final int parentheses=0x7f080015;
         public static final int pi=0x7f080005;
         public static final int plus=0x7f08002f;
         public static final int power=0x7f08000a;
         public static final int rightParen=0x7f08000d;
         public static final int simplePad=0x7f080033;
         public static final int sin=0x7f080002;
-        public static final int solveForX=0x7f080014;
-        public static final int solveForY=0x7f080015;
+        public static final int solveForX=0x7f080012;
+        public static final int solveForY=0x7f080013;
         public static final int sqrt=0x7f08000b;
         public static final int tan=0x7f080004;
         public static final int xValue=0x7f080034;
@@ -150,11 +150,11 @@ public final class R {
         /**  Menu item text to clear the calculation history. 
          */
         public static final int clear_history=0x7f090023;
-        public static final int coma=0x7f09002f;
+        public static final int coma=0x7f09002e;
         /**  Displayed on buttons on screen for the cos function. 
          */
         public static final int cos=0x7f090016;
-        public static final int d=0x7f090027;
+        public static final int defaultGraphTitle=0x7f09002f;
         /**  Button name on screen to delete the last entered digit or operator 
          */
         public static final int del=0x7f09000c;
@@ -194,8 +194,8 @@ public final class R {
         /**  Do not translate. Decimal point; don't translate. Displayed as button on screen. 
          */
         public static final int dot=0x7f090012;
-        public static final int dx=0x7f090028;
-        public static final int dy=0x7f090029;
+        public static final int dx=0x7f090027;
+        public static final int dy=0x7f090028;
         /**  Displayed on buttons on screen for the e function. 
          */
         public static final int e=0x7f090019;
@@ -211,31 +211,28 @@ public final class R {
         /**  Do not translate. 
          */
         public static final int factorial=0x7f090020;
-        public static final int function=0x7f090032;
-        public static final int graph=0x7f090031;
-        public static final int greaterThan=0x7f090035;
-        public static final int imaginary=0x7f090036;
-        public static final int integral=0x7f09002c;
+        public static final int function=0x7f090033;
+        public static final int graph=0x7f090032;
+        public static final int graphTitle=0x7f090030;
+        public static final int integral=0x7f09002b;
         /**  Displayed on buttons on screen for a left parenthesis. 
          */
         public static final int leftParen=0x7f09001c;
-        public static final int lessThan=0x7f090034;
         /**  Displayed on buttons on screen for the log function. 
          */
         public static final int lg=0x7f09001b;
-        public static final int limit=0x7f090037;
         /**  Displayed on buttons on screen for the ln function. 
          */
         public static final int ln=0x7f09001a;
-        public static final int matrix=0x7f090030;
+        public static final int matrix=0x7f090031;
         /**  Do not translate. Unicode minus sign; don't translate. Displayed as button on screen. 
          */
         public static final int minus=0x7f090011;
-        public static final int mod=0x7f09002e;
+        public static final int mod=0x7f09002d;
         /**  Do not translate. Unicode multiplication sign; don't translate. Displayed as button on screen. 
          */
         public static final int mul=0x7f09000f;
-        public static final int parentheses=0x7f09002d;
+        public static final int parentheses=0x7f09002c;
         /**  Do not translate. Unicode pi sign; don't translate. Displayed as button on screen. 
          */
         public static final int pi=0x7f090018;
@@ -251,12 +248,11 @@ public final class R {
         /**  Displayed on buttons on screen for the sin function. 
          */
         public static final int sin=0x7f090015;
-        public static final int solveForX=0x7f09002a;
-        public static final int solveForY=0x7f09002b;
+        public static final int solveForX=0x7f090029;
+        public static final int solveForY=0x7f09002a;
         /**  Do not translate. Unicode square root sign; don't translate. Displayed on button on screen. 
          */
         public static final int sqrt=0x7f09001e;
-        public static final int summation=0x7f090033;
         /**  Displayed on buttons on screen for the tan function. 
          */
         public static final int tan=0x7f090017;

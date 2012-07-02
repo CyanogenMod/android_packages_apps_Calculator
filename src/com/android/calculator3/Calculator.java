@@ -210,7 +210,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     private boolean getGraphVisibility() {
-    	return mPager != null && mPager.getCurrentItem() == GRAPH_PANEL;
+        return mPager != null && mPager.getCurrentItem() == GRAPH_PANEL;
     }
     
     private boolean getFunctionVisibility() {
@@ -226,7 +226,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
     
     private boolean getMatrixVisibility() {
-    	return mPager != null && mPager.getCurrentItem() == MATRIX_PANEL;
+        return mPager != null && mPager.getCurrentItem() == MATRIX_PANEL;
     }
 
     @Override
@@ -288,7 +288,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-    	if (keyCode == KeyEvent.KEYCODE_BACK && (getAdvancedVisibility() || getFunctionVisibility())) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && (getAdvancedVisibility() || getFunctionVisibility())) {
             mPager.setCurrentItem(BASIC_PANEL);
             return true;
         } else {
@@ -313,7 +313,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     class PageAdapter extends PagerAdapter {
-    	private View mGraphPage;
+        private View mGraphPage;
         private View mFunctionPage;
         private View mSimplePage;
         private View mAdvancedPage;
@@ -373,12 +373,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @SuppressWarnings("deprecation")
-		@Override
+        @Override
         public Object instantiateItem(View container, int position) {
-        	if(position == GRAPH_PANEL){
-        		if (mChartView == null) {
-                	mChartView = mGraph.getGraph(Calculator.this);
-                	mChartView.setId(R.id.graphView);
+            if(position == GRAPH_PANEL){
+                if (mChartView == null) {
+                    mChartView = mGraph.getGraph(Calculator.this);
+                    mChartView.setId(R.id.graphView);
                     mChartView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -392,8 +392,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 }
                 ((ViewGroup) container).addView(mGraphPage);
                 return mGraphPage;
-        	}
-        	else if(position == FUNCTION_PANEL){
+            }
+            else if(position == FUNCTION_PANEL){
                 ((ViewGroup) container).addView(mFunctionPage);
                 return mFunctionPage;
             }
@@ -405,7 +405,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 ((ViewGroup) container).addView(mAdvancedPage);
                 return mAdvancedPage;
             }
-        	else if(position == MATRIX_PANEL){
+            else if(position == MATRIX_PANEL){
                 ((ViewGroup) container).addView(mMatrixPage);
                 return mMatrixPage;
             }

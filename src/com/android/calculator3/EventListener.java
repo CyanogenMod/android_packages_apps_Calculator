@@ -26,16 +26,16 @@ class EventListener implements View.OnKeyListener,
                                View.OnClickListener,
                                View.OnLongClickListener {
     Context mContext;
-	Logic mHandler;
+    Logic mHandler;
     ViewPager mPager;
 
     void setHandler(Context context, Logic handler, ViewPager pager) {
-    	mContext = context;
-    	mHandler = handler;
+        mContext = context;
+        mHandler = handler;
         mPager = pager;
     }
 
-	@Override
+    @Override
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
@@ -48,9 +48,10 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
-        	if (mHandler.getText().contains(mContext.getResources().getString(R.string.X)) || mHandler.getText().contains(mContext.getResources().getString(R.string.Y))) {
+            if (mHandler.getText().contains(mContext.getResources().getString(R.string.X)) || 
+                mHandler.getText().contains(mContext.getResources().getString(R.string.Y))) {
                 if (!mHandler.getText().contains("=")) {
-                	mHandler.insert("=");
+                    mHandler.insert("=");
                 }
                 break;
             }
@@ -64,33 +65,33 @@ class EventListener implements View.OnKeyListener,
                     
                 }
                 else if(text.equals("( )")){
-                	if(mHandler.getText().contains("=")){
-                		text = mHandler.getText().split("=")[0] + "=(" + mHandler.getText().split("=")[1] + ")";
-                	}
-                	else{
-                		text = "(" + mHandler.getText() + ")";
-                	}
+                    if(mHandler.getText().contains("=")){
+                        text = mHandler.getText().split("=")[0] + "=(" + mHandler.getText().split("=")[1] + ")";
+                    }
+                    else{
+                        text = "(" + mHandler.getText() + ")";
+                    }
                     mHandler.clear(false);
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.mod))){
-                	if(mHandler.getText().length()>0){
-                		text = mContext.getResources().getString(R.string.mod)+"("+mHandler.getText()+",";
-                		mHandler.clear(false);
-                	}
-                	else{
-                		text = mContext.getResources().getString(R.string.mod)+"(";
-                	}
+                    if(mHandler.getText().length()>0){
+                        text = mContext.getResources().getString(R.string.mod)+"("+mHandler.getText()+",";
+                        mHandler.clear(false);
+                    }
+                    else{
+                        text = mContext.getResources().getString(R.string.mod)+"(";
+                    }
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.solveForX))){
-                	if(mHandler.getText().contains(mContext.getResources().getString(R.string.X))){
-                    	mHandler.onEnter();
-                	}
+                    if(mHandler.getText().contains(mContext.getResources().getString(R.string.X))){
+                        mHandler.onEnter();
+                    }
                     return;
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.solveForY))){
-                	if(mHandler.getText().contains(mContext.getResources().getString(R.string.Y))){
-                    	mHandler.onEnter();
-                	}
+                    if(mHandler.getText().contains(mContext.getResources().getString(R.string.Y))){
+                        mHandler.onEnter();
+                    }
                     return;
                 }
                 else if (text.length() >= 2) {
@@ -131,29 +132,28 @@ class EventListener implements View.OnKeyListener,
         }
         
         if (keyCode == KeyEvent.KEYCODE_DEL) {
-            if (mHandler.getText().endsWith("sin(") || 
-                mHandler.getText().endsWith("cos(") ||
-                mHandler.getText().endsWith("tan(") ||
-                mHandler.getText().endsWith("log(") || 
-                mHandler.getText().endsWith("mod(")){
+            if (mHandler.getText().endsWith(mContext.getResources().getString(R.string.sin) + "(") || 
+                mHandler.getText().endsWith(mContext.getResources().getString(R.string.cos) + "(") ||
+                mHandler.getText().endsWith(mContext.getResources().getString(R.string.tan) + "(") ||
+                mHandler.getText().endsWith(mContext.getResources().getString(R.string.lg) + "(") || 
+                mHandler.getText().endsWith(mContext.getResources().getString(R.string.mod) + "(")){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-4);
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if (mHandler.getText().endsWith("ln(")){
-            	String text = mHandler.getText().substring(0, mHandler.getText().length()-3);
+            else if (mHandler.getText().endsWith(mContext.getResources().getString(R.string.ln) + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-3);
                 mHandler.clear(false);
                 mHandler.insert(text);
             }
-            else if (mHandler.getText().endsWith("dx") ||
-                    mHandler.getText().endsWith("dy") ||
-                    mHandler.getText().endsWith("dz")){
-                    String text = mHandler.getText().substring(0, mHandler.getText().length()-2);
-                    mHandler.clear(false);
-                    mHandler.insert(text);
-                    return true;
-                }
+            else if (mHandler.getText().endsWith(mContext.getResources().getString(R.string.dx)) ||
+                     mHandler.getText().endsWith(mContext.getResources().getString(R.string.dy))){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-2);
+                mHandler.clear(false);
+                mHandler.insert(text);
+                return true;
+            }
             return false;
         }
 

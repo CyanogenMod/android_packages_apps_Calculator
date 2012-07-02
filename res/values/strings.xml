@@ -93,7 +93,6 @@
     
     <string name="X">X</string>
     <string name="Y">Y</string>
-    <string name="d">d</string>
     <string name="dx">dx</string>
     <string name="dy">dy</string>
     <string name="solveForX">Solve for X</string>
@@ -102,11 +101,8 @@
     <string name="parentheses">( )</string>
     <string name="mod">mod</string>
     <string name="coma">,</string>
+    <string name="defaultGraphTitle">Function</string>
+    <string name="graphTitle">Function: </string>
     <string name="matrix">Matrix panel</string>
     <string name="graph">Graph panel</string>
-    <string name="function">Function panel</string>
-    <string name="summation">\u2211</string>
-    <string name="lessThan">\u227A</string>
-    <string name="greaterThan">\u227B</string>
-    <string name="imaginary">i</string>
-    <string name="limit">lim</string></resources>
+    <string name="function">Function panel</string></resources>

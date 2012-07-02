@@ -15,20 +15,11 @@
  */
 package com.android.calculator3;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
-import org.achartengine.model.CategorySeries;
-import org.achartengine.model.MultipleCategorySeries;
-import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
-import org.achartengine.renderer.DefaultRenderer;
-import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
@@ -36,61 +27,46 @@ import android.content.Context;
 import android.graphics.Color;
 
 public class Graph {
-	private XYMultipleSeriesDataset mDataset;
-    /**
-     * Returns the chart name.
-     * @return the chart name
-     */
-    public String getName() {
-        return "Trigonometric functions";
-    }
-    
-    /**
-     * Returns the chart description.
-     * @return the chart description
-     */
-    public String getDesc() {
-        return "The graphical representations of the sin and cos functions (line chart)";
-    }
+    private XYMultipleSeriesDataset mDataset;
+    private XYSeries mSeries;
     
     public XYMultipleSeriesDataset getDataset() {
-    	return mDataset;
+        return mDataset;
+    }
+    
+    public XYSeries getSeries() {
+    	return mSeries;
+    }
+    
+    public void setSeries(XYSeries series) {
+    	mSeries = series;
     }
     
     public GraphicalView getGraph(Context context) {
-        String[] titles = new String[] { "function" };
-        List<Double[]> xValues = new ArrayList<Double[]>();
-        List<Double[]> yValues = new ArrayList<Double[]>();
-        xValues.add(new Double[0]);
-        yValues.add(new Double[0]);
-        int [] colors = new int[] { Color.CYAN };
-        PointStyle[] styles = new PointStyle[] { PointStyle.POINT };
-        XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
-        setChartSettings(renderer, "Function", "X", "Y", -10, 10, -10, 10, Color.GRAY, Color.LTGRAY);
+        String title = context.getResources().getString(R.string.defaultGraphTitle);
+        double[] xValues = new double[0];
+        double[] yValues = new double[0];
+        XYMultipleSeriesRenderer renderer = buildRenderer(Color.CYAN, PointStyle.POINT);
+        setChartSettings(renderer, title, "X", "Y", -10, 10, -10, 10, Color.GRAY, Color.LTGRAY);
         renderer.setXLabels(20);
         renderer.setYLabels(20);
-        mDataset = buildDataset(titles, xValues, yValues);
+        mDataset = buildDataset(title, xValues, yValues);
         return ChartFactory.getLineChartView(context, mDataset, renderer);
     }
     
-    public XYMultipleSeriesDataset buildDataset(String[] titles, List<Double[]> xValues, List<Double[]> yValues) {
+    public XYMultipleSeriesDataset buildDataset(String title, double[] xValues, double[] yValues) {
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        addXYSeries(dataset, titles, xValues, yValues, 0);
+        addXYSeries(dataset, title, xValues, yValues, 0);
         return dataset;
     }
     
-    public void addXYSeries(XYMultipleSeriesDataset dataset, String[] titles, List<Double[]> xValues, List<Double[]> yValues, int scale) {
-        int length = titles.length;
-        for (int i = 0; i < length; i++) {
-            XYSeries series = new XYSeries(titles[i], scale);
-            Double[] xV = xValues.get(i);
-            Double[] yV = yValues.get(i);
-            int seriesLength = xV.length;
-            for (int k = 0; k < seriesLength; k++) {
-                series.add(xV[k], yV[k]);
-            }
-            dataset.addSeries(series);
+    public void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
+        mSeries = new XYSeries(title, scale);
+        int seriesLength = xValues.length;
+        for (int k = 0; k < seriesLength; k++) {
+        	mSeries.add(xValues[k], yValues[k]);
         }
+        dataset.addSeries(mSeries);
     }
     
     /**
@@ -100,26 +76,23 @@ public class Graph {
      * @param styles the series point styles
      * @return the XY multiple series renderers
      */
-    protected XYMultipleSeriesRenderer buildRenderer(int[] colors, PointStyle[] styles) {
+    protected XYMultipleSeriesRenderer buildRenderer(int color, PointStyle style) {
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        setRenderer(renderer, colors, styles);
+        setRenderer(renderer, color, style);
         return renderer;
     }
 
-    protected void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles) {
+    protected void setRenderer(XYMultipleSeriesRenderer renderer, int color, PointStyle style) {
         renderer.setAxisTitleTextSize(16);
         renderer.setChartTitleTextSize(20);
         renderer.setLabelsTextSize(15);
         renderer.setLegendTextSize(15);
         renderer.setPointSize(5f);
         renderer.setMargins(new int[] { 20, 30, 15, 20 });
-        int length = colors.length;
-        for (int i = 0; i < length; i++) {
-            XYSeriesRenderer r = new XYSeriesRenderer();
-            r.setColor(colors[i]);
-            r.setPointStyle(styles[i]);
-            renderer.addSeriesRenderer(r);
-        }
+        XYSeriesRenderer r = new XYSeriesRenderer();
+        r.setColor(color);
+        r.setPointStyle(style);
+        renderer.addSeriesRenderer(r);
     }
 
     /**
@@ -148,126 +121,5 @@ public class Graph {
         renderer.setYAxisMax(yMax);
         renderer.setAxesColor(axesColor);
         renderer.setLabelsColor(labelsColor);
-    }
-
-    /**
-     * Builds an XY multiple time dataset using the provided values.
-     * 
-     * @param titles the series titles
-     * @param xValues the values for the X axis
-     * @param yValues the values for the Y axis
-     * @return the XY multiple time dataset
-     */
-    protected XYMultipleSeriesDataset buildDateDataset(String[] titles, List<Date[]> xValues,
-          List<double[]> yValues) {
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        int length = titles.length;
-        for (int i = 0; i < length; i++) {
-            TimeSeries series = new TimeSeries(titles[i]);
-            Date[] xV = xValues.get(i);
-            double[] yV = yValues.get(i);
-            int seriesLength = xV.length;
-            for (int k = 0; k < seriesLength; k++) {
-                series.add(xV[k], yV[k]);
-            }
-            dataset.addSeries(series);
-        }
-        return dataset;
-    }
-
-    /**
-     * Builds a category series using the provided values.
-     * 
-     * @param titles the series titles
-     * @param values the values
-     * @return the category series
-     */
-    protected CategorySeries buildCategoryDataset(String title, double[] values) {
-        CategorySeries series = new CategorySeries(title);
-        int k = 0;
-        for (double value : values) {
-            series.add("Project " + ++k, value);
-        }
-        return series;
-    }
-
-    /**
-     * Builds a multiple category series using the provided values.
-     * 
-     * @param titles the series titles
-     * @param values the values
-     * @return the category series
-     */
-    protected MultipleCategorySeries buildMultipleCategoryDataset(String title,
-          List<String[]> titles, List<double[]> values) {
-        MultipleCategorySeries series = new MultipleCategorySeries(title);
-        int k = 0;
-        for (double[] value : values) {
-            series.add(2007 + k + "", titles.get(k), value);
-            k++;
-        }
-        return series;
-    }
-
-    /**
-     * Builds a category renderer to use the provided colors.
-     * 
-     * @param colors the colors
-     * @return the category renderer
-     */
-    protected DefaultRenderer buildCategoryRenderer(int[] colors) {
-        DefaultRenderer renderer = new DefaultRenderer();
-        renderer.setLabelsTextSize(15);
-        renderer.setLegendTextSize(15);
-        renderer.setMargins(new int[] { 20, 30, 15, 0 });
-        for (int color : colors) {
-            SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-            r.setColor(color);
-            renderer.addSeriesRenderer(r);
-        }
-        return renderer;
-    }
-
-    /**
-     *  Builds a bar multiple series dataset using the provided values.
-     * 
-     * @param titles the series titles
-     * @param values the values
-     * @return the XY multiple bar dataset
-     */
-    protected XYMultipleSeriesDataset buildBarDataset(String[] titles, List<double[]> values) {
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        int length = titles.length;
-        for (int i = 0; i < length; i++) {
-            CategorySeries series = new CategorySeries(titles[i]);
-            double[] v = values.get(i);
-            int seriesLength = v.length;
-            for (int k = 0; k < seriesLength; k++) {
-                series.add(v[k]);
-            }
-            dataset.addSeries(series.toXYSeries());
-        }
-        return dataset;
-    }
-
-    /**
-     * Builds a bar multiple series renderer to use the provided colors.
-     * 
-     * @param colors the series renderers colors
-     * @return the bar multiple series renderer
-     */
-    protected XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
-        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        renderer.setAxisTitleTextSize(16);
-        renderer.setChartTitleTextSize(20);
-        renderer.setLabelsTextSize(15);
-        renderer.setLegendTextSize(15);
-        int length = colors.length;
-        for (int i = 0; i < length; i++) {
-            SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-            r.setColor(colors[i]);
-            renderer.addSeriesRenderer(r);
-        }
-        return renderer;
     }
 }

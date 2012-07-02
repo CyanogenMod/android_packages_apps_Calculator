@@ -22,8 +22,6 @@
         <item>@+id/dx</item>
         <item>@+id/X</item>
         <item>@+id/Y</item>
-        <item>@+id/mod</item>
-        <item>@+id/coma</item>
         <item>@+id/solveForX</item>
         <item>@+id/solveForY</item>
     </array>
