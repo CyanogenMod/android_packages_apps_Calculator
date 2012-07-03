@@ -1,5 +1,13 @@
 package com.android.calculator3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WolframAlpha{
-	public static String APPID = "T2YJW3-7XQX257LAP";
+	private static final String APPID = "T2YJW3-7XQX257LAP";
+	
+	public static List<String> solve(String equation){
+		ArrayList<String> results = new ArrayList<String>();
+		return results;
+	}
 }

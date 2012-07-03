@@ -19,7 +19,6 @@ package com.android.calculator3;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.app.Activity;
 
 import java.util.Locale;
@@ -73,7 +72,7 @@ class Logic {
 
     private Listener mListener;
 
-    Logic(Activity context, History history, CalculatorDisplay display, Graph graph) {
+    Logic(Activity context, History history, CalculatorDisplay display) {
         mContext = context;
         
         mErrorString = context.getResources().getString(R.string.error);
@@ -87,8 +86,10 @@ class Logic {
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
-        
-        mGraph = graph;
+    }
+    
+    public void setGraph(Graph graph) {
+    	mGraph = graph;
     }
 
     public void setListener(Listener listener) {
@@ -123,12 +124,7 @@ class Logic {
     void insert(String delta) {
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
-        try{
-            updateGraph(mDisplay.getText().toString());
-        }catch(Exception e){
-            e.printStackTrace();
-            Toast.makeText(mContext, "Oops", Toast.LENGTH_SHORT).show();
-        }
+        updateGraph(mGraph, mDisplay.getText().toString());
     }
 
     public void onTextChanged() {
@@ -184,6 +180,7 @@ class Logic {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
         }
+        updateGraph(mGraph, mDisplay.getText().toString());
     }
 
     void onClear() {
@@ -348,7 +345,7 @@ class Logic {
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
     }
     
-    void updateGraph(String eq){
+    void updateGraph(Graph g, String eq){
         if(!eq.contains("=")) return;
         if(eq.endsWith(mContext.getResources().getString(R.string.plus)) || 
            eq.endsWith(mContext.getResources().getString(R.string.minus)) || 
@@ -357,6 +354,7 @@ class Logic {
            eq.endsWith(mContext.getResources().getString(R.string.dot)) ||
            eq.endsWith(mContext.getResources().getString(R.string.coma)) ||
            eq.endsWith(mContext.getResources().getString(R.string.power)) ||
+           eq.endsWith(mContext.getResources().getString(R.string.sqrt)) ||
            eq.endsWith(mContext.getResources().getString(R.string.sin) + "(") || 
            eq.endsWith(mContext.getResources().getString(R.string.cos) + "(") ||
            eq.endsWith(mContext.getResources().getString(R.string.tan) + "(") ||
@@ -378,10 +376,17 @@ class Logic {
                     mSymbols.define("Y", y);
                     Double leftSide = mSymbols.eval(equation[0]);
                     Double rightSide = mSymbols.eval(equation[1]);
-                    if(leftSide*0.99 <= rightSide && leftSide*1.01 >= rightSide){
-                        System.out.println(x+","+y);
-                        series.add(x, y);
-                        break;
+                    if(leftSide < 0 && rightSide < 0){
+                    	if(leftSide*0.99 >= rightSide && leftSide*1.01 <= rightSide){
+                            series.add(x, y);
+                            break;
+                        }
+                    }
+                    else{
+                    	if(leftSide*0.99 <= rightSide && leftSide*1.01 >= rightSide){
+                            series.add(x, y);
+                            break;
+                        }
                     }
                 } catch(SyntaxException e){
                     e.printStackTrace();
@@ -389,13 +394,9 @@ class Logic {
             }
         }
         
-
-    	System.out.println(mGraph.getDataset().getSeriesCount());
-    	mGraph.getDataset().removeSeries(mGraph.getSeries());
-    	System.out.println(mGraph.getDataset().getSeriesCount());
-    	mGraph.setSeries(series);
-    	mGraph.getDataset().addSeries(series);
-    	System.out.println(mGraph.getDataset().getSeriesCount());
+    	g.getDataset().removeSeries(g.getSeries());
+    	g.setSeries(series);
+    	g.getDataset().addSeries(series);
         
         GraphicalView curGraph = (GraphicalView) mContext.findViewById(R.id.graphView);
         if(curGraph != null){

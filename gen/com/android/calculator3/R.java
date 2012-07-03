@@ -49,8 +49,8 @@ public final class R {
         public static final int simple=0x7f02000f;
     }
     public static final class id {
-        public static final int X=0x7f080010;
-        public static final int Y=0x7f080011;
+        public static final int X=0x7f08000f;
+        public static final int Y=0x7f080010;
         public static final int add=0x7f080036;
         public static final int advanced=0x7f08003d;
         public static final int advancedPad=0x7f080001;
@@ -74,7 +74,7 @@ public final class R {
         public static final int display=0x7f08001c;
         public static final int div=0x7f080024;
         public static final int dot=0x7f08002e;
-        public static final int dx=0x7f08000f;
+        public static final int dx=0x7f080013;
         public static final int dy=0x7f080018;
         public static final int e=0x7f080009;
         public static final int equal=0x7f080030;
@@ -86,7 +86,7 @@ public final class R {
         public static final int graphView=0x7f080000;
         public static final int historyExpr=0x7f08001a;
         public static final int historyResult=0x7f08001b;
-        public static final int integral=0x7f08000e;
+        public static final int integral=0x7f080012;
         public static final int leftParen=0x7f08000c;
         public static final int lg=0x7f080008;
         public static final int ln=0x7f080007;
@@ -106,8 +106,8 @@ public final class R {
         public static final int rightParen=0x7f08000d;
         public static final int simplePad=0x7f080033;
         public static final int sin=0x7f080002;
-        public static final int solveForX=0x7f080012;
-        public static final int solveForY=0x7f080013;
+        public static final int solveForX=0x7f08000e;
+        public static final int solveForY=0x7f080011;
         public static final int sqrt=0x7f08000b;
         public static final int tan=0x7f080004;
         public static final int xValue=0x7f080034;

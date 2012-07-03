@@ -67,8 +67,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
-
-        mGraph = new Graph();
         
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
@@ -105,7 +103,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 
-        mLogic = new Logic(this, mHistory, mDisplay, mGraph);
+        mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
@@ -127,6 +125,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mLogic.resumeWithHistory();
         updateDeleteMode();
+        
+        mGraph = new Graph(mLogic);
     }
 
     private void updateDeleteMode() {

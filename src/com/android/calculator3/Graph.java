@@ -29,6 +29,11 @@ import android.graphics.Color;
 public class Graph {
     private XYMultipleSeriesDataset mDataset;
     private XYSeries mSeries;
+    private Logic mLogic;
+    
+    public Graph(Logic l){
+    	mLogic = l;
+    }
     
     public XYMultipleSeriesDataset getDataset() {
         return mDataset;
@@ -51,6 +56,9 @@ public class Graph {
         renderer.setXLabels(20);
         renderer.setYLabels(20);
         mDataset = buildDataset(title, xValues, yValues);
+        
+        mLogic.setGraph(this);
+        mLogic.updateGraph(this, mLogic.getText());
         return ChartFactory.getLineChartView(context, mDataset, renderer);
     }
     
