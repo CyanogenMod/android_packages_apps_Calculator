@@ -42,11 +42,13 @@ public final class R {
         public static final int calculator_input_field=0x7f020008;
         public static final int clear_history=0x7f020009;
         public static final int function=0x7f02000a;
-        public static final int ic_menu_overflow=0x7f02000b;
-        public static final int matrix_add_button=0x7f02000c;
-        public static final int matrix_add_button_press=0x7f02000d;
-        public static final int matrix_add_drawable=0x7f02000e;
-        public static final int simple=0x7f02000f;
+        public static final int graph=0x7f02000b;
+        public static final int ic_menu_overflow=0x7f02000c;
+        public static final int matrix=0x7f02000d;
+        public static final int matrix_add_button=0x7f02000e;
+        public static final int matrix_add_button_press=0x7f02000f;
+        public static final int matrix_add_drawable=0x7f020010;
+        public static final int simple=0x7f020011;
     }
     public static final class id {
         public static final int X=0x7f08000f;

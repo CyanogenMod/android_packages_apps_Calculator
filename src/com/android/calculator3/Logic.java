@@ -24,6 +24,7 @@ import android.app.Activity;
 
 import java.util.Locale;
 
+import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
 import org.javia.arity.Function;
 import org.javia.arity.Symbols;
@@ -151,7 +152,7 @@ class Logic {
         }
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
-        updateGraph(mGraph, mDisplay.getText().toString());
+        updateGraph(mGraph);
     }
 
     public void onTextChanged() {
@@ -207,7 +208,7 @@ class Logic {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
         }
-        updateGraph(mGraph, mDisplay.getText().toString());
+        updateGraph(mGraph);
     }
 
     void onClear() {
@@ -293,7 +294,7 @@ class Logic {
         input = input.replaceAll(mLnString, "ln");
         input = input.replaceAll(mModString, "mod");
         double value = 0.0;
-        if(input.contains("X") || input.contains("Y") || input.contains("Z")){
+        if(input.contains(mContext.getResources().getString(R.string.X)) || input.contains(mContext.getResources().getString(R.string.Y))){
             if(input.contains("=")){
                 String[] s = input.split("=");
                 mFunction = mSymbols.compile(s[0].toLowerCase());
@@ -372,7 +373,9 @@ class Logic {
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
     }
     
-    void updateGraph(Graph g, String eq){
+    void updateGraph(final Graph g){
+    	final String eq = getText();
+    	
         if(!eq.contains("=")) return;
         if(eq.endsWith(mContext.getResources().getString(R.string.plus)) || 
            eq.endsWith(mContext.getResources().getString(R.string.minus)) || 
@@ -390,40 +393,49 @@ class Logic {
            eq.endsWith(mContext.getResources().getString(R.string.mod) + "(") ||
            eq.endsWith(mContext.getResources().getString(R.string.ln) + "(")) return;
         
-        String[] equation = eq.split("=");
+        final String[] equation = eq.split("=");
         
         if(equation.length == 1) return;
         
-        String title = mContext.getResources().getString(R.string.graphTitle) + eq;
-        XYSeries series = new XYSeries(title);
-        
-        for(int x=-10;x<=10;x++){
-            for(int y=10;y>=-10;y--){
-                try{
-                    mSymbols.define(mContext.getResources().getString(R.string.X), x);
-                    mSymbols.define(mContext.getResources().getString(R.string.Y), y);
-                    Double leftSide = mSymbols.eval(equation[0]);
-                    Double rightSide = mSymbols.eval(equation[1]);
-                    if(leftSide < 0 && rightSide < 0){
-                    	if(leftSide*0.99 >= rightSide && leftSide*1.01 <= rightSide){
-                            series.add(x, y);
-                            break;
+        new Thread(new Runnable(){
+            public void run(){
+            	String title = mContext.getResources().getString(R.string.graphTitle) + eq;
+                XYSeries series = new XYSeries(title);
+                
+                g.getDataset().removeSeries(g.getSeries());
+            	g.setSeries(series);
+            	g.getDataset().addSeries(series);
+
+            	GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
+            	
+                for(double x=-10;x<=10;x+=0.5){
+                    for(double y=10;y>=-10;y-=0.5){
+                    	if(!eq.equals(getText())) return;
+                        try{
+                            mSymbols.define(mContext.getResources().getString(R.string.X), x);
+                            mSymbols.define(mContext.getResources().getString(R.string.Y), y);
+                            Double leftSide = mSymbols.eval(equation[0]);
+                            Double rightSide = mSymbols.eval(equation[1]);
+                            if(leftSide < 0 && rightSide < 0){
+                            	if(leftSide*0.97 >= rightSide && leftSide*1.03 <= rightSide){
+                                    series.add(x, y);
+                                    break;
+                                }
+                            }
+                            else{
+                            	if(leftSide*0.97 <= rightSide && leftSide*1.03 >= rightSide){
+                                    series.add(x, y);
+                                    break;
+                                }
+                            }
+                        } catch(SyntaxException e){
+                            e.printStackTrace();
                         }
                     }
-                    else{
-                    	if(leftSide*0.99 <= rightSide && leftSide*1.01 >= rightSide){
-                            series.add(x, y);
-                            break;
-                        }
-                    }
-                } catch(SyntaxException e){
-                    e.printStackTrace();
                 }
+                
+            	if(graph!=null) graph.repaint();
             }
-        }
-        
-    	g.getDataset().removeSeries(g.getSeries());
-    	g.setSeries(series);
-    	g.getDataset().addSeries(series);
+        }).start();
     }
 }

@@ -63,7 +63,7 @@ public class Graph {
         mDataset = buildDataset(title, xValues, yValues);
         
         mLogic.setGraph(this);
-        mLogic.updateGraph(this, mLogic.getText());
+        mLogic.updateGraph(this);
         return ChartFactory.getLineChartView(context, mDataset, renderer);
     }
     

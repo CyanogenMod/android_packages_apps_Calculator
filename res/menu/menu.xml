@@ -26,12 +26,12 @@
     
     <item android:id="@+id/matrix"
         android:showAsAction="ifRoom|withText"
-        android:icon="@drawable/simple"
+        android:icon="@drawable/matrix"
         android:title="@string/matrix"/>
     
     <item android:id="@+id/graph"
         android:showAsAction="ifRoom|withText"
-        android:icon="@drawable/simple"
+        android:icon="@drawable/graph"
         android:title="@string/graph"/>
     
     <item android:id="@+id/function"
