@@ -91,8 +91,8 @@
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
     
-    <string name="X">X</string>
-    <string name="Y">Y</string>
+    <string name="X">x</string>
+    <string name="Y">y</string>
     <string name="dx">dx</string>
     <string name="dy">dy</string>
     <string name="solveForX">Solve for X</string>

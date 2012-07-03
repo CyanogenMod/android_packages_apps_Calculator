@@ -61,10 +61,7 @@ class EventListener implements View.OnKeyListener,
         default:
             if (view instanceof Button) {
                 String text = ((Button) view).getText().toString();
-                if ((text.equals(mContext.getResources().getString(R.string.dx))) || (text.equals(mContext.getResources().getString(R.string.dy)))){
-                    
-                }
-                else if(text.equals("( )")){
+                if(text.equals("( )")){
                     if(mHandler.getText().contains("=")){
                         text = mHandler.getText().split("=")[0] + "=(" + mHandler.getText().split("=")[1] + ")";
                     }
@@ -74,25 +71,28 @@ class EventListener implements View.OnKeyListener,
                     mHandler.clear(false);
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.mod))){
-                    if(mHandler.getText().length()>0){
-                        text = mContext.getResources().getString(R.string.mod)+"("+mHandler.getText()+",";
-                        mHandler.clear(false);
+                    
+                	if(mHandler.getText().contains("=")){
+                        if(mHandler.getText().split("=").length>1){
+                            text = mHandler.getText().split("=")[0] + "=" + mContext.getResources().getString(R.string.mod)+"("+mHandler.getText().split("=")[1]+",";
+                            mHandler.clear(false);
+                        }
+                        else{
+                            text = mContext.getResources().getString(R.string.mod)+"(";
+                        }
                     }
                     else{
-                        text = mContext.getResources().getString(R.string.mod)+"(";
+                    	if(mHandler.getText().length()>0){
+                            text = mContext.getResources().getString(R.string.mod)+"("+mHandler.getText()+",";
+                            mHandler.clear(false);
+                        }
+                        else{
+                            text = mContext.getResources().getString(R.string.mod)+"(";
+                        }
                     }
                 }
-                else if(text.equals(mContext.getResources().getString(R.string.solveForX))){
-                    if(mHandler.getText().contains(mContext.getResources().getString(R.string.X))){
-                        mHandler.onEnter();
-                    }
-                    return;
-                }
-                else if(text.equals(mContext.getResources().getString(R.string.solveForY))){
-                    if(mHandler.getText().contains(mContext.getResources().getString(R.string.Y))){
-                        mHandler.onEnter();
-                    }
-                    return;
+                else if(text.equals(mContext.getResources().getString(R.string.solveForX)) || text.equals(mContext.getResources().getString(R.string.solveForY)) || (text.equals(mContext.getResources().getString(R.string.dx))) || (text.equals(mContext.getResources().getString(R.string.dy)))){
+                    //Do nothing
                 }
                 else if (text.length() >= 2) {
                     // add paren after sin, cos, ln, etc. from buttons

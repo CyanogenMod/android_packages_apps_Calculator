@@ -16,6 +16,7 @@
 
 package com.android.calculator3;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.EditText;
@@ -23,7 +24,6 @@ import android.app.Activity;
 
 import java.util.Locale;
 
-import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
 import org.javia.arity.Function;
 import org.javia.arity.Symbols;
@@ -120,8 +120,35 @@ class Logic {
     public String getText() {
         return mDisplay.getText().toString();
     }
+    
+    private void setText(String text) {
+    	clear(false);
+    	mDisplay.insert(text);
+    }
 
     void insert(String delta) {
+    	if(delta.equals(mContext.getResources().getString(R.string.solveForX)) || delta.equals(mContext.getResources().getString(R.string.solveForY))){
+            WolframAlpha.solve(getText() + ", " + delta, new Handler(), 
+                    new WolframAlpha.ResultsRunnable(){
+                        @Override
+                        public void run() {
+                            String text = "";
+                            for(String s : results){
+                                text += s + ", ";
+                            }
+                            if(text.length()>2) text = text.substring(0, text.length()-2);
+                            setText(text);
+                        }
+                    }, 
+                    new Runnable(){
+                        @Override
+                        public void run() {
+                            setText(mContext.getResources().getString(R.string.error));
+                            mIsError = true;
+                        }
+                    });
+            return;
+        }
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
         updateGraph(mGraph, mDisplay.getText().toString());
@@ -355,6 +382,7 @@ class Logic {
            eq.endsWith(mContext.getResources().getString(R.string.coma)) ||
            eq.endsWith(mContext.getResources().getString(R.string.power)) ||
            eq.endsWith(mContext.getResources().getString(R.string.sqrt)) ||
+           eq.endsWith(mContext.getResources().getString(R.string.integral)) ||
            eq.endsWith(mContext.getResources().getString(R.string.sin) + "(") || 
            eq.endsWith(mContext.getResources().getString(R.string.cos) + "(") ||
            eq.endsWith(mContext.getResources().getString(R.string.tan) + "(") ||
@@ -365,15 +393,15 @@ class Logic {
         String[] equation = eq.split("=");
         
         if(equation.length == 1) return;
-
+        
         String title = mContext.getResources().getString(R.string.graphTitle) + eq;
         XYSeries series = new XYSeries(title);
         
-        for(int x=-10;x<10;x++){
-            for(int y=-10;y<10;y++){
+        for(int x=-10;x<=10;x++){
+            for(int y=10;y>=-10;y--){
                 try{
-                    mSymbols.define("X", x);
-                    mSymbols.define("Y", y);
+                    mSymbols.define(mContext.getResources().getString(R.string.X), x);
+                    mSymbols.define(mContext.getResources().getString(R.string.Y), y);
                     Double leftSide = mSymbols.eval(equation[0]);
                     Double rightSide = mSymbols.eval(equation[1]);
                     if(leftSide < 0 && rightSide < 0){
@@ -397,13 +425,5 @@ class Logic {
     	g.getDataset().removeSeries(g.getSeries());
     	g.setSeries(series);
     	g.getDataset().addSeries(series);
-        
-        GraphicalView curGraph = (GraphicalView) mContext.findViewById(R.id.graphView);
-        if(curGraph != null){
-        	curGraph.repaint();
-        }
-        else{
-        	System.out.println("Null");
-        }
     }
 }

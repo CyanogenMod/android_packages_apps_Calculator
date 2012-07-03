@@ -55,6 +55,11 @@ public class Graph {
         setChartSettings(renderer, title, "X", "Y", -10, 10, -10, 10, Color.GRAY, Color.LTGRAY);
         renderer.setXLabels(20);
         renderer.setYLabels(20);
+        renderer.setPanEnabled(false, false);
+        renderer.setZoomEnabled(false, false);
+        renderer.setShowGrid(true);
+        XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) renderer.getSeriesRendererAt(0);
+        seriesRenderer.setLineWidth(4f);
         mDataset = buildDataset(title, xValues, yValues);
         
         mLogic.setGraph(this);
@@ -62,13 +67,13 @@ public class Graph {
         return ChartFactory.getLineChartView(context, mDataset, renderer);
     }
     
-    public XYMultipleSeriesDataset buildDataset(String title, double[] xValues, double[] yValues) {
+    private XYMultipleSeriesDataset buildDataset(String title, double[] xValues, double[] yValues) {
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         addXYSeries(dataset, title, xValues, yValues, 0);
         return dataset;
     }
     
-    public void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
+    private void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
         mSeries = new XYSeries(title, scale);
         int seriesLength = xValues.length;
         for (int k = 0; k < seriesLength; k++) {
@@ -84,13 +89,13 @@ public class Graph {
      * @param styles the series point styles
      * @return the XY multiple series renderers
      */
-    protected XYMultipleSeriesRenderer buildRenderer(int color, PointStyle style) {
+    private XYMultipleSeriesRenderer buildRenderer(int color, PointStyle style) {
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
         setRenderer(renderer, color, style);
         return renderer;
     }
 
-    protected void setRenderer(XYMultipleSeriesRenderer renderer, int color, PointStyle style) {
+    private void setRenderer(XYMultipleSeriesRenderer renderer, int color, PointStyle style) {
         renderer.setAxisTitleTextSize(16);
         renderer.setChartTitleTextSize(20);
         renderer.setLabelsTextSize(15);
@@ -117,7 +122,7 @@ public class Graph {
      * @param axesColor the axes color
      * @param labelsColor the labels color
      */
-    protected void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle, 
+    private void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle, 
             String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor, 
             int labelsColor) {
         renderer.setChartTitle(title);
