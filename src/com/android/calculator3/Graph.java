@@ -97,9 +97,10 @@ public class Graph {
 
     private void setRenderer(XYMultipleSeriesRenderer renderer, int color, PointStyle style) {
         renderer.setAxisTitleTextSize(16);
-        renderer.setChartTitleTextSize(20);
+        renderer.setChartTitleTextSize(0);
         renderer.setLabelsTextSize(15);
-        renderer.setLegendTextSize(15);
+        renderer.setLegendTextSize(20);
+        renderer.setLegendHeight(10);
         renderer.setPointSize(5f);
         renderer.setMargins(new int[] { 20, 30, 15, 20 });
         XYSeriesRenderer r = new XYSeriesRenderer();

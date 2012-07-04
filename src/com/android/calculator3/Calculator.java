@@ -19,6 +19,7 @@ package com.android.calculator3;
 import org.achartengine.GraphicalView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -327,6 +329,17 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
             final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
             final View matrixPage = inflater.inflate(R.layout.matrix_pad, parent, false);
+            final ImageButton addMatrix = (ImageButton) matrixPage.findViewById(R.id.matrixAdd);
+            addMatrix.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(Calculator.this);
+					builder.setMessage("You clicked me!");
+					
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+			});
             mGraphPage = graphPage;
             mFunctionPage = functionPage;
             mSimplePage = simplePage;

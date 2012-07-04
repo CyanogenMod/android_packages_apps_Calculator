@@ -90,7 +90,7 @@ class Logic {
     }
     
     public void setGraph(Graph graph) {
-    	mGraph = graph;
+        mGraph = graph;
     }
 
     public void setListener(Listener listener) {
@@ -123,12 +123,12 @@ class Logic {
     }
     
     private void setText(String text) {
-    	clear(false);
-    	mDisplay.insert(text);
+        clear(false);
+        mDisplay.insert(text);
     }
 
     void insert(String delta) {
-    	if(delta.equals(mContext.getResources().getString(R.string.solveForX)) || delta.equals(mContext.getResources().getString(R.string.solveForY))){
+        if(delta.equals(mContext.getResources().getString(R.string.solveForX)) || delta.equals(mContext.getResources().getString(R.string.solveForY))){
             WolframAlpha.solve(getText() + ", " + delta, new Handler(), 
                     new WolframAlpha.ResultsRunnable(){
                         @Override
@@ -374,8 +374,8 @@ class Logic {
     }
     
     void updateGraph(final Graph g){
-    	final String eq = getText();
-    	
+        final String eq = getText();
+        
         if(!eq.contains("=")) return;
         if(eq.endsWith(mContext.getResources().getString(R.string.plus)) || 
            eq.endsWith(mContext.getResources().getString(R.string.minus)) || 
@@ -399,42 +399,92 @@ class Logic {
         
         new Thread(new Runnable(){
             public void run(){
-            	String title = mContext.getResources().getString(R.string.graphTitle) + eq;
+                String title = mContext.getResources().getString(R.string.graphTitle) + eq;
                 XYSeries series = new XYSeries(title);
                 
-                g.getDataset().removeSeries(g.getSeries());
-            	g.setSeries(series);
-            	g.getDataset().addSeries(series);
-
-            	GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
-            	
-                for(double x=-10;x<=10;x+=0.5){
-                    for(double y=10;y>=-10;y-=0.5){
-                    	if(!eq.equals(getText())) return;
+                if(equation[0].equals(mContext.getResources().getString(R.string.Y))){
+                	for(double x=-10;x<=10;x+=0.1){
+                        if(!eq.equals(getText())) return;
+                        
                         try{
                             mSymbols.define(mContext.getResources().getString(R.string.X), x);
-                            mSymbols.define(mContext.getResources().getString(R.string.Y), y);
-                            Double leftSide = mSymbols.eval(equation[0]);
-                            Double rightSide = mSymbols.eval(equation[1]);
-                            if(leftSide < 0 && rightSide < 0){
-                            	if(leftSide*0.97 >= rightSide && leftSide*1.03 <= rightSide){
-                                    series.add(x, y);
-                                    break;
-                                }
-                            }
-                            else{
-                            	if(leftSide*0.97 <= rightSide && leftSide*1.03 >= rightSide){
-                                    series.add(x, y);
-                                    break;
-                                }
-                            }
+                            series.add(x, mSymbols.eval(equation[1]));
                         } catch(SyntaxException e){
                             e.printStackTrace();
+                        }
+                	}
+                }
+                else if(equation[0].equals(mContext.getResources().getString(R.string.X))){
+                	for(double y=-10;y<=10;y+=0.1){
+                        if(!eq.equals(getText())) return;
+                        
+                        try{
+                            mSymbols.define(mContext.getResources().getString(R.string.Y), y);
+                            series.add(mSymbols.eval(equation[1]), y);
+                        } catch(SyntaxException e){
+                            e.printStackTrace();
+                        }
+                	}
+                }
+                else if(equation[1].equals(mContext.getResources().getString(R.string.Y))){
+                	for(double x=-10;x<=10;x+=0.1){
+                        if(!eq.equals(getText())) return;
+                        
+                        try{
+                            mSymbols.define(mContext.getResources().getString(R.string.X), x);
+                            series.add(x, mSymbols.eval(equation[0]));
+                        } catch(SyntaxException e){
+                            e.printStackTrace();
+                        }
+                	}
+                }
+                else if(equation[1].equals(mContext.getResources().getString(R.string.X))){
+                	for(double y=-10;y<=10;y+=0.1){
+                        if(!eq.equals(getText())) return;
+                        
+                        try{
+                            mSymbols.define(mContext.getResources().getString(R.string.Y), y);
+                            series.add(mSymbols.eval(equation[0]), y);
+                        } catch(SyntaxException e){
+                            e.printStackTrace();
+                        }
+                	}
+                }
+                else{
+                	for(double x=-10;x<=10;x+=0.5){
+                        for(double y=10;y>=-10;y-=0.5){
+                            if(!eq.equals(getText())) return;
+                            try{
+                                mSymbols.define(mContext.getResources().getString(R.string.X), x);
+                                mSymbols.define(mContext.getResources().getString(R.string.Y), y);
+                                Double leftSide = mSymbols.eval(equation[0]);
+                                Double rightSide = mSymbols.eval(equation[1]);
+                                if(leftSide < 0 && rightSide < 0){
+                                    if(leftSide*0.97 >= rightSide && leftSide*1.03 <= rightSide){
+                                        series.add(x, y);
+                                        break;
+                                    }
+                                }
+                                else{
+                                    if(leftSide*0.97 <= rightSide && leftSide*1.03 >= rightSide){
+                                        series.add(x, y);
+                                        break;
+                                    }
+                                }
+                            } catch(SyntaxException e){
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
                 
-            	if(graph!=null) graph.repaint();
+                g.getDataset().removeSeries(g.getSeries());
+                g.setSeries(series);
+                g.getDataset().addSeries(series);
+
+                GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
+                
+                if(graph!=null) graph.repaint();
             }
         }).start();
     }
