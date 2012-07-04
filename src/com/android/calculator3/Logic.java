@@ -376,6 +376,24 @@ class Logic {
     void updateGraph(final Graph g){
         final String eq = getText();
         
+        if(eq.isEmpty()){
+            String title = mContext.getResources().getString(R.string.graphTitle) + eq;
+            XYSeries series = new XYSeries(title);
+            
+            try{
+            	g.getDataset().removeSeries(g.getSeries());
+                g.setSeries(series);
+                g.getDataset().addSeries(series);
+            }catch (NullPointerException e){
+            	e.printStackTrace();
+            }
+
+            GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
+            
+            if(graph!=null) graph.repaint();
+            
+            return;
+        }
         if(!eq.contains("=")) return;
         if(eq.endsWith(mContext.getResources().getString(R.string.plus)) || 
            eq.endsWith(mContext.getResources().getString(R.string.minus)) || 
@@ -487,5 +505,13 @@ class Logic {
                 if(graph!=null) graph.repaint();
             }
         }).start();
+    }
+    
+    void findEigenvalue(){
+    	
+    }
+    
+    void findDeterminant(){
+    	
     }
 }

@@ -91,10 +91,10 @@
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
     
-    <string name="X">x</string>
-    <string name="Y">y</string>
-    <string name="dx">dx</string>
-    <string name="dy">dy</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
     <string name="solveForX">Solve for X</string>
     <string name="solveForY">Solve for Y</string>
     <string name="integral">\u222B</string>
@@ -105,4 +105,7 @@
     <string name="graphTitle">Function: </string>
     <string name="matrix">Matrix panel</string>
     <string name="graph">Graph panel</string>
-    <string name="function">Function panel</string></resources>
+    <string name="function">Function panel</string>
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string></resources>

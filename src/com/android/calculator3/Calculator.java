@@ -16,7 +16,10 @@
 
 package com.android.calculator3;
 
+import java.text.DecimalFormat;
+
 import org.achartengine.GraphicalView;
+import org.achartengine.model.SeriesSelection;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -393,10 +396,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                     mChartView = mGraph.getGraph(Calculator.this);
                     mChartView.setId(R.id.graphView);
                     mChartView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                          Toast.makeText(Calculator.this, "haha, poked", Toast.LENGTH_SHORT).show();
-                        }
+                      @Override
+                      public void onClick(View v) {
+                        SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
+                        DecimalFormat formater = new DecimalFormat("#.#");
+                        if(seriesSelection != null) Toast.makeText(Calculator.this, "(" + formater.format(seriesSelection.getXValue()) + "," + formater.format(seriesSelection.getValue()) + ")", Toast.LENGTH_SHORT).show();
+                      }
                     });
                     ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
                 } 

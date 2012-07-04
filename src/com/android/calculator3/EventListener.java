@@ -71,7 +71,6 @@ class EventListener implements View.OnKeyListener,
                     mHandler.clear(false);
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.mod))){
-                    
                 	if(mHandler.getText().contains("=")){
                         if(mHandler.getText().split("=").length>1){
                             text = mHandler.getText().split("=")[0] + "=" + mContext.getResources().getString(R.string.mod)+"("+mHandler.getText().split("=")[1]+",";
@@ -90,6 +89,14 @@ class EventListener implements View.OnKeyListener,
                             text = mContext.getResources().getString(R.string.mod)+"(";
                         }
                     }
+                }
+                else if(text.equals(mContext.getResources().getString(R.string.eigenvalue))){
+                	mHandler.findEigenvalue();
+                	return;
+                }
+                else if(text.equals(mContext.getResources().getString(R.string.determinant))){
+                	mHandler.findDeterminant();
+                	return;
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.solveForX)) || text.equals(mContext.getResources().getString(R.string.solveForY)) || (text.equals(mContext.getResources().getString(R.string.dx))) || (text.equals(mContext.getResources().getString(R.string.dy)))){
                     //Do nothing

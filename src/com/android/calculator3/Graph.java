@@ -100,7 +100,7 @@ public class Graph {
         renderer.setChartTitleTextSize(0);
         renderer.setLabelsTextSize(15);
         renderer.setLegendTextSize(20);
-        renderer.setLegendHeight(10);
+        renderer.setLegendHeight(22);
         renderer.setPointSize(5f);
         renderer.setMargins(new int[] { 20, 30, 15, 20 });
         XYSeriesRenderer r = new XYSeriesRenderer();
