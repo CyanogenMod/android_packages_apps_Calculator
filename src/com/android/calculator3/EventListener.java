@@ -98,6 +98,10 @@ class EventListener implements View.OnKeyListener,
                 	mHandler.findDeterminant();
                 	return;
                 }
+                else if(text.equals(mContext.getResources().getString(R.string.solve))){
+                	mHandler.solveMatrix();
+                	return;
+                }
                 else if(text.equals(mContext.getResources().getString(R.string.solveForX)) || text.equals(mContext.getResources().getString(R.string.solveForY)) || (text.equals(mContext.getResources().getString(R.string.dx))) || (text.equals(mContext.getResources().getString(R.string.dy)))){
                     //Do nothing
                 }

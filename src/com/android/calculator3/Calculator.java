@@ -43,6 +43,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
@@ -336,11 +337,27 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             addMatrix.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(Calculator.this);
-					builder.setMessage("You clicked me!");
+					final AlertDialog.Builder builder = new AlertDialog.Builder(Calculator.this);
+					LayoutInflater inflater = getLayoutInflater();
+					View view = inflater.inflate(R.layout.matrix, null);
+					final LinearLayout matrices = (LinearLayout) matrixPage.findViewById(R.id.matrices);
+					final LinearLayout theMatrix = (LinearLayout) view.findViewById(R.id.theMatrix);
+					final RelativeLayout matrixPopup = (RelativeLayout) view.findViewById(R.id.matrixPopup);
 					
-					AlertDialog alert = builder.create();
-					alert.show();
+					builder.setView(view);
+					final AlertDialog alertDialog = builder.create();
+					
+					ColorButton ok = (ColorButton) view.findViewById(R.id.ok);
+					ok.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							matrixPopup.removeView(theMatrix);
+							matrices.addView(theMatrix, matrices.getChildCount()-1);
+							alertDialog.dismiss();
+						}
+					});
+					
+					alertDialog.show();
 				}
 			});
             mGraphPage = graphPage;

@@ -108,4 +108,5 @@
     <string name="function">Function panel</string>
     <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
-    <string name="eigenvalue">Eigen</string></resources>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Solve</string></resources>

@@ -10,10 +10,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:id="@+id/matrices"
         >
         <ImageButton 
             android:id="@+id/matrixAdd"
             android:src="@drawable/matrix_add_drawable"
+            android:contentDescription="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -31,6 +33,11 @@
         <com.android.calculator3.ColorButton
             android:id="@+id/determinant"
             android:text="@string/determinant"
+            style="@style/button_small_style"
+            />
+        <com.android.calculator3.ColorButton
+            android:id="@+id/solve"
+            android:text="@string/solve"
             style="@style/button_small_style"
             />
     </LinearLayout>

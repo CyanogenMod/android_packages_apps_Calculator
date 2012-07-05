@@ -53,17 +53,15 @@ public final class R {
     public static final class id {
         public static final int X=0x7f08000f;
         public static final int Y=0x7f080010;
-        public static final int add=0x7f080038;
-        public static final int advanced=0x7f08003f;
+        public static final int advanced=0x7f080043;
         public static final int advancedPad=0x7f080001;
-        public static final int basic=0x7f080040;
-        public static final int chart=0x7f080039;
+        public static final int basic=0x7f080044;
         public static final int clear=0x7f08001e;
-        public static final int clear_history=0x7f08003b;
+        public static final int clear_history=0x7f08003f;
         public static final int coma=0x7f080017;
         public static final int cos=0x7f080003;
         public static final int del=0x7f08001f;
-        public static final int determinant=0x7f080034;
+        public static final int determinant=0x7f08003c;
         public static final int digit0=0x7f08002d;
         public static final int digit1=0x7f080029;
         public static final int digit2=0x7f08002a;
@@ -80,12 +78,12 @@ public final class R {
         public static final int dx=0x7f080013;
         public static final int dy=0x7f080018;
         public static final int e=0x7f080009;
-        public static final int eigenvalue=0x7f080033;
+        public static final int eigenvalue=0x7f08003b;
         public static final int equal=0x7f080030;
         public static final int factorial=0x7f080006;
-        public static final int function=0x7f08003e;
+        public static final int function=0x7f080042;
         public static final int functionPad=0x7f080014;
-        public static final int graph=0x7f08003d;
+        public static final int graph=0x7f080041;
         public static final int graphPad=0x7f080019;
         public static final int graphView=0x7f080000;
         public static final int historyExpr=0x7f08001a;
@@ -94,13 +92,19 @@ public final class R {
         public static final int leftParen=0x7f08000c;
         public static final int lg=0x7f080008;
         public static final int ln=0x7f080007;
-        public static final int matrix=0x7f08003c;
-        public static final int matrixAdd=0x7f080032;
-        public static final int matrixPad=0x7f080031;
+        public static final int m00=0x7f080033;
+        public static final int m01=0x7f080034;
+        public static final int m10=0x7f080035;
+        public static final int m11=0x7f080036;
+        public static final int matrices=0x7f080039;
+        public static final int matrix=0x7f080040;
+        public static final int matrixAdd=0x7f08003a;
+        public static final int matrixPad=0x7f080038;
+        public static final int matrixPopup=0x7f080031;
         public static final int minus=0x7f08002c;
         public static final int mod=0x7f080016;
         public static final int mul=0x7f080028;
-        public static final int new_series=0x7f08003a;
+        public static final int ok=0x7f080037;
         public static final int overflow_menu=0x7f08001d;
         public static final int panelswitch=0x7f080020;
         public static final int parentheses=0x7f080015;
@@ -108,14 +112,14 @@ public final class R {
         public static final int plus=0x7f08002f;
         public static final int power=0x7f08000a;
         public static final int rightParen=0x7f08000d;
-        public static final int simplePad=0x7f080035;
+        public static final int simplePad=0x7f08003e;
         public static final int sin=0x7f080002;
+        public static final int solve=0x7f08003d;
         public static final int solveForX=0x7f08000e;
         public static final int solveForY=0x7f080011;
         public static final int sqrt=0x7f08000b;
         public static final int tan=0x7f080004;
-        public static final int xValue=0x7f080036;
-        public static final int yValue=0x7f080037;
+        public static final int theMatrix=0x7f080032;
     }
     public static final class integer {
         public static final int max_digits=0x7f070000;
@@ -126,9 +130,9 @@ public final class R {
         public static final int graph_pad=0x7f040002;
         public static final int history_item=0x7f040003;
         public static final int main=0x7f040004;
-        public static final int matrix_pad=0x7f040005;
-        public static final int simple_pad=0x7f040006;
-        public static final int xy_chart=0x7f040007;
+        public static final int matrix=0x7f040005;
+        public static final int matrix_pad=0x7f040006;
+        public static final int simple_pad=0x7f040007;
     }
     public static final class menu {
         public static final int menu=0x7f0c0000;
@@ -255,6 +259,7 @@ public final class R {
         /**  Displayed on buttons on screen for the sin function. 
          */
         public static final int sin=0x7f090015;
+        public static final int solve=0x7f090037;
         public static final int solveForX=0x7f090029;
         public static final int solveForY=0x7f09002a;
         /**  Do not translate. Unicode square root sign; don't translate. Displayed on button on screen. 

@@ -514,4 +514,8 @@ class Logic {
     void findDeterminant(){
     	
     }
+    
+    void solveMatrix(){
+    	
+    }
 }
