@@ -36,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -343,16 +344,70 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 					final LinearLayout matrices = (LinearLayout) matrixPage.findViewById(R.id.matrices);
 					final LinearLayout theMatrix = (LinearLayout) view.findViewById(R.id.theMatrix);
 					final RelativeLayout matrixPopup = (RelativeLayout) view.findViewById(R.id.matrixPopup);
+					final LinearLayout matrixButtons = (LinearLayout) matrixPopup.findViewById(R.id.matrixButtons);
 					
 					builder.setView(view);
 					final AlertDialog alertDialog = builder.create();
 					
-					ColorButton ok = (ColorButton) view.findViewById(R.id.ok);
-					ok.setOnClickListener(new OnClickListener(){
+					final ColorButton ok = (ColorButton) view.findViewById(R.id.ok);
+					ok.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
+							for (int i=0; i<theMatrix.getChildCount(); i++) {
+								LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
+								for(int j=0; j<layout.getChildCount(); j++) {
+								    View view = layout.getChildAt(j);
+								    view.setOnFocusChangeListener(new OnFocusChangeListener() {
+										@Override
+										public void onFocusChange(View v, boolean hasFocus) {
+											matrices.removeView(theMatrix);
+										}
+									});
+								}
+							}
+							theMatrix.setFocusable(true);
+							theMatrix.setFocusableInTouchMode(true);
+							theMatrix.requestFocus();
 							matrixPopup.removeView(theMatrix);
 							matrices.addView(theMatrix, matrices.getChildCount()-1);
+							alertDialog.dismiss();
+						}
+					});
+
+					final ColorButton plus = (ColorButton) view.findViewById(R.id.matrixPlus);
+					plus.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							plus.setLayoutParams(new ViewGroup.LayoutParams(
+							        ViewGroup.LayoutParams.WRAP_CONTENT,
+							        ViewGroup.LayoutParams.WRAP_CONTENT));
+							plus.setOnClickListener(new OnClickListener() {
+								@Override
+								public void onClick(View v) {
+									matrices.removeView(v);
+								}
+							});
+							matrixButtons.removeView(plus);
+							matrices.addView(plus, matrices.getChildCount()-1);
+							alertDialog.dismiss();
+						}
+					});
+					
+					final ColorButton mul = (ColorButton) view.findViewById(R.id.matrixMul);
+					mul.setOnClickListener(new OnClickListener(){
+						@Override
+						public void onClick(View v) {
+							mul.setLayoutParams(new ViewGroup.LayoutParams(
+							        ViewGroup.LayoutParams.WRAP_CONTENT,
+							        ViewGroup.LayoutParams.WRAP_CONTENT));
+							mul.setOnClickListener(new OnClickListener() {
+								@Override
+								public void onClick(View v) {
+									matrices.removeView(v);
+								}
+							});
+							matrixButtons.removeView(mul);
+							matrices.addView(mul, matrices.getChildCount()-1);
 							alertDialog.dismiss();
 						}
 					});
@@ -405,7 +460,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         public void startUpdate(View container) {
         }
 
-        @SuppressWarnings("deprecation")
         @Override
         public Object instantiateItem(View container, int position) {
             if(position == GRAPH_PANEL){
@@ -420,7 +474,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                         if(seriesSelection != null) Toast.makeText(Calculator.this, "(" + formater.format(seriesSelection.getXValue()) + "," + formater.format(seriesSelection.getValue()) + ")", Toast.LENGTH_SHORT).show();
                       }
                     });
-                    ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+                    ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 } 
                 else {
                     mChartView.repaint();
