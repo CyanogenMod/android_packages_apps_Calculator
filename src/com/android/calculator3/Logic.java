@@ -19,10 +19,12 @@ package com.android.calculator3;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.app.Activity;
+import android.content.Context;
 
 import java.util.Locale;
 
@@ -560,6 +562,17 @@ class Logic {
             }
         }
         matrices.removeViews(0, matrices.getChildCount()-1);
-        System.out.println(matrix.toString());
+        
+        double[][] data = matrix.getData();
+        LinearLayout theMatrix = (LinearLayout) ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.the_matrix, null);
+        for (int i=0; i<theMatrix.getChildCount(); i++) {
+            LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
+            for(int j=0; j<layout.getChildCount(); j++) {
+                EditText view = (EditText) layout.getChildAt(j);
+                view.setText(Double.valueOf(data[i][j]).intValue()+"");
+            }
+        }
+
+        matrices.addView(theMatrix, matrices.getChildCount()-1);
     }
 }

@@ -25,6 +25,7 @@
 	            android:inputType="number"
 	            android:hint="@null"
                 android:gravity="center"
+                android:maxLength="3"
                 style="@style/display_style" />
             <EditText
 	            android:id="@+id/m01"
@@ -33,6 +34,7 @@
 	            android:inputType="number"
 	            android:hint="@null"
                 android:gravity="center"
+                android:maxLength="3"
                 style="@style/display_style" />
         </LinearLayout>
         <LinearLayout
@@ -47,6 +49,7 @@
 	            android:inputType="number"
 	            android:hint="@null"
                 android:gravity="center"
+                android:maxLength="3"
                 style="@style/display_style" />
             <EditText
 	            android:id="@+id/m11"
@@ -55,6 +58,7 @@
 	            android:inputType="number"
 	            android:hint="@null"
                 android:gravity="center"
+                android:maxLength="3"
                 style="@style/display_style" />
         </LinearLayout>
     </LinearLayout>

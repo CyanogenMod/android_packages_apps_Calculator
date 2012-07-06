@@ -93,23 +93,23 @@ public final class R {
         public static final int leftParen=0x7f08000e;
         public static final int lg=0x7f08000a;
         public static final int ln=0x7f080009;
-        public static final int m00=0x7f080035;
-        public static final int m01=0x7f080036;
-        public static final int m10=0x7f080037;
-        public static final int m11=0x7f080038;
+        public static final int m00=0x7f080039;
+        public static final int m01=0x7f08003a;
+        public static final int m10=0x7f08003b;
+        public static final int m11=0x7f08003c;
         public static final int matrices=0x7f080002;
         public static final int matrix=0x7f080044;
         public static final int matrixAdd=0x7f080001;
-        public static final int matrixButtons=0x7f080039;
+        public static final int matrixButtons=0x7f080034;
         public static final int matrixFragment=0x7f08003e;
-        public static final int matrixMul=0x7f08003b;
+        public static final int matrixMul=0x7f080036;
         public static final int matrixPad=0x7f08003d;
-        public static final int matrixPlus=0x7f08003a;
+        public static final int matrixPlus=0x7f080035;
         public static final int matrixPopup=0x7f080033;
         public static final int minus=0x7f08002e;
         public static final int mod=0x7f080018;
         public static final int mul=0x7f08002a;
-        public static final int ok=0x7f08003c;
+        public static final int ok=0x7f080037;
         public static final int overflow_menu=0x7f08001f;
         public static final int panelswitch=0x7f080022;
         public static final int parentheses=0x7f080017;
@@ -124,7 +124,7 @@ public final class R {
         public static final int solveForY=0x7f080013;
         public static final int sqrt=0x7f08000d;
         public static final int tan=0x7f080006;
-        public static final int theMatrix=0x7f080034;
+        public static final int theMatrix=0x7f080038;
     }
     public static final class integer {
         public static final int max_digits=0x7f070000;
@@ -138,6 +138,7 @@ public final class R {
         public static final int matrix=0x7f040005;
         public static final int matrix_pad=0x7f040006;
         public static final int simple_pad=0x7f040007;
+        public static final int the_matrix=0x7f040008;
     }
     public static final class menu {
         public static final int menu=0x7f0c0000;
