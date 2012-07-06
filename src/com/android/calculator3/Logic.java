@@ -21,6 +21,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.app.Activity;
@@ -31,6 +32,9 @@ import java.util.Locale;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.EigenDecomposition;
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.NonSymmetricMatrixException;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
@@ -206,8 +210,10 @@ class Logic {
     }
 
     void onDelete() {
-        if (getText().equals(mResult) || mIsError || getText().equals(mErrorString)) {
+        if (getText().equals(mResult) || mIsError) {
             clear(false);
+        } else if(getText().equals(mErrorString)) {
+        	clear(true);
         } else {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
@@ -217,6 +223,7 @@ class Logic {
 
     void onClear() {
         clear(mDeleteMode == DELETE_MODE_CLEAR);
+        updateGraph(mGraph);
     }
 
     void onEnter() {
@@ -499,15 +506,47 @@ class Logic {
     }
     
     void findEigenvalue(){
-        
+    	RealMatrix matrix = solveMatrix();
+    	if(matrix == null) return;
+    	
+    	String result = "";
+    	try{
+    		for(double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()){
+        		for (int precision = mLineLength; precision > 6; precision--) {
+                    result = tryFormattingWithPrecision(d, precision);
+                    if (result.length() <= mLineLength) {
+                        break;
+                    }
+                }
+        		
+        		result += ",";
+        	}
+    	} catch(NonSymmetricMatrixException e){
+    		e.printStackTrace();
+    		setText(mErrorString);
+    		return;
+    	}
+    	
+    	result = result.substring(0, result.length()-1);
+        setText(result);
     }
     
     void findDeterminant(){
-        
+    	RealMatrix matrix = solveMatrix();
+    	if(matrix == null) return;
+    	
+    	String result = "";
+        for (int precision = mLineLength; precision > 6; precision--) {
+            result = tryFormattingWithPrecision(new LUDecomposition(matrix).getDeterminant(), precision);
+            if (result.length() <= mLineLength) {
+                break;
+            }
+        }
+        setText(result);
     }
     
-    void solveMatrix(){
-        LinearLayout matrices = (LinearLayout) mContext.findViewById(R.id.matrices);
+    RealMatrix solveMatrix(){
+        final LinearLayout matrices = (LinearLayout) mContext.findViewById(R.id.matrices);
         RealMatrix matrix = null;
         boolean plus = false;
         boolean multiplication = false;
@@ -517,14 +556,14 @@ class Logic {
             if(v.getId() == R.id.matrixPlus){
                 if(matrix == null || plus || multiplication || (i==matrices.getChildCount()-2)){
                     setText(mErrorString);
-                    return;
+                    return null;
                 }
                 plus = true;
             }
             else if(v.getId() == R.id.matrixMul){
                 if(matrix == null || plus || multiplication || (i==matrices.getChildCount()-2)){
                     setText(mErrorString);
-                    return;
+                    return null;
                 }
                 multiplication = true;
             }
@@ -557,22 +596,33 @@ class Logic {
                 }
                 else{
                     setText(mErrorString);
-                    return;
+                    return null;
                 }
             }
         }
         matrices.removeViews(0, matrices.getChildCount()-1);
         
         double[][] data = matrix.getData();
-        LinearLayout theMatrix = (LinearLayout) ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.the_matrix, null);
+        final LinearLayout theMatrix = (LinearLayout) ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.the_matrix, null);
         for (int i=0; i<theMatrix.getChildCount(); i++) {
             LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
             for(int j=0; j<layout.getChildCount(); j++) {
                 EditText view = (EditText) layout.getChildAt(j);
                 view.setText(Double.valueOf(data[i][j]).intValue()+"");
+                view.setOnFocusChangeListener(new OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                    	matrices.removeView(theMatrix);
+                    }
+                });
             }
         }
+        theMatrix.setFocusable(true);
+        theMatrix.setFocusableInTouchMode(true);
+        theMatrix.requestFocus();
 
         matrices.addView(theMatrix, matrices.getChildCount()-1);
+        
+        return matrix;
     }
 }
