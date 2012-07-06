@@ -15,14 +15,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-
-    
 public class MatrixFragment extends Fragment{
     Context mContext;
     LinearLayout l;
 
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        System.out.println("hiiii");
         mContext = getActivity();
         setRetainInstance(true);
         
@@ -33,6 +30,10 @@ public class MatrixFragment extends Fragment{
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             l.setLayoutParams(params);
             l.setId(R.id.matrices);
+            
+        	final LinearLayout matrices = new LinearLayout(mContext);
+            matrices.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            matrices.setId(R.id.matrices);
             
             ImageButton i = new ImageButton(mContext);
             i.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -65,7 +66,7 @@ public class MatrixFragment extends Fragment{
                                     view.setOnFocusChangeListener(new OnFocusChangeListener() {
                                         @Override
                                         public void onFocusChange(View v, boolean hasFocus) {
-                                            l.removeView(theMatrix);
+                                        	matrices.removeView(theMatrix);
                                         }
                                     });
                                 }
@@ -74,7 +75,7 @@ public class MatrixFragment extends Fragment{
                             theMatrix.setFocusableInTouchMode(true);
                             theMatrix.requestFocus();
                             matrixPopup.removeView(theMatrix);
-                            l.addView(theMatrix, l.getChildCount()-1);
+                            matrices.addView(theMatrix, matrices.getChildCount()-1);
                             alertDialog.dismiss();
                         }
                     });
@@ -89,11 +90,11 @@ public class MatrixFragment extends Fragment{
                             plus.setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    l.removeView(v);
+                                	matrices.removeView(v);
                                 }
                             });
                             matrixButtons.removeView(plus);
-                            l.addView(plus, l.getChildCount()-1);
+                            matrices.addView(plus, matrices.getChildCount()-1);
                             alertDialog.dismiss();
                         }
                     });
@@ -108,11 +109,11 @@ public class MatrixFragment extends Fragment{
                             mul.setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    l.removeView(v);
+                                	matrices.removeView(v);
                                 }
                             });
                             matrixButtons.removeView(mul);
-                            l.addView(mul, l.getChildCount()-1);
+                            matrices.addView(mul, matrices.getChildCount()-1);
                             alertDialog.dismiss();
                         }
                     });
@@ -121,7 +122,9 @@ public class MatrixFragment extends Fragment{
                 }
             });
             
-            l.addView(i);
+            matrices.addView(i);
+            
+            l.addView(matrices);
         }
         else{
         	 ViewGroup parent = (ViewGroup) l.getParent();

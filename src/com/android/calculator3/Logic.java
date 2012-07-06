@@ -19,14 +19,17 @@ package com.android.calculator3;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.app.Activity;
 
 import java.util.Locale;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
-import org.javia.arity.Function;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
@@ -35,7 +38,6 @@ import com.android.calculator3.CalculatorDisplay.Scroll;
 class Logic {
     private CalculatorDisplay mDisplay;
     private Symbols mSymbols = new Symbols();
-    private Function mFunction;
     private History mHistory;
     private String  mResult = "";
     private boolean mIsError = false;
@@ -202,7 +204,7 @@ class Logic {
     }
 
     void onDelete() {
-        if (getText().equals(mResult) || mIsError) {
+        if (getText().equals(mResult) || mIsError || getText().equals(mErrorString)) {
             clear(false);
         } else {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
@@ -293,20 +295,7 @@ class Logic {
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
         input = input.replaceAll(mModString, "mod");
-        double value = 0.0;
-        if(input.contains(mContext.getResources().getString(R.string.X)) || input.contains(mContext.getResources().getString(R.string.Y))){
-            if(input.contains("=")){
-                String[] s = input.split("=");
-                mFunction = mSymbols.compile(s[0].toLowerCase());
-                value = mFunction.eval(mSymbols.eval(s[1]));
-            }
-            else{
-                return mErrorString;
-            }
-        }
-        else{
-            value = mSymbols.eval(input);
-        }
+        double value = mSymbols.eval(input);
 
         String result = "";
         for (int precision = mLineLength; precision > 6; precision--) {
@@ -381,11 +370,11 @@ class Logic {
             XYSeries series = new XYSeries(title);
             
             try{
-            	g.getDataset().removeSeries(g.getSeries());
+                g.getDataset().removeSeries(g.getSeries());
                 g.setSeries(series);
                 g.getDataset().addSeries(series);
             }catch (NullPointerException e){
-            	e.printStackTrace();
+                e.printStackTrace();
             }
 
             GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
@@ -421,7 +410,7 @@ class Logic {
                 XYSeries series = new XYSeries(title);
                 
                 if(equation[0].equals(mContext.getResources().getString(R.string.Y))){
-                	for(double x=-10;x<=10;x+=0.1){
+                    for(double x=-10;x<=10;x+=0.1){
                         if(!eq.equals(getText())) return;
                         
                         try{
@@ -430,10 +419,10 @@ class Logic {
                         } catch(SyntaxException e){
                             e.printStackTrace();
                         }
-                	}
+                    }
                 }
                 else if(equation[0].equals(mContext.getResources().getString(R.string.X))){
-                	for(double y=-10;y<=10;y+=0.1){
+                    for(double y=-10;y<=10;y+=0.1){
                         if(!eq.equals(getText())) return;
                         
                         try{
@@ -442,10 +431,10 @@ class Logic {
                         } catch(SyntaxException e){
                             e.printStackTrace();
                         }
-                	}
+                    }
                 }
                 else if(equation[1].equals(mContext.getResources().getString(R.string.Y))){
-                	for(double x=-10;x<=10;x+=0.1){
+                    for(double x=-10;x<=10;x+=0.1){
                         if(!eq.equals(getText())) return;
                         
                         try{
@@ -454,10 +443,10 @@ class Logic {
                         } catch(SyntaxException e){
                             e.printStackTrace();
                         }
-                	}
+                    }
                 }
                 else if(equation[1].equals(mContext.getResources().getString(R.string.X))){
-                	for(double y=-10;y<=10;y+=0.1){
+                    for(double y=-10;y<=10;y+=0.1){
                         if(!eq.equals(getText())) return;
                         
                         try{
@@ -466,10 +455,10 @@ class Logic {
                         } catch(SyntaxException e){
                             e.printStackTrace();
                         }
-                	}
+                    }
                 }
                 else{
-                	for(double x=-10;x<=10;x+=0.5){
+                    for(double x=-10;x<=10;x+=0.5){
                         for(double y=10;y>=-10;y-=0.5){
                             if(!eq.equals(getText())) return;
                             try{
@@ -508,14 +497,69 @@ class Logic {
     }
     
     void findEigenvalue(){
-    	
+        
     }
     
     void findDeterminant(){
-    	
+        
     }
     
     void solveMatrix(){
-    	
+        LinearLayout matrices = (LinearLayout) mContext.findViewById(R.id.matrices);
+        RealMatrix matrix = null;
+        boolean plus = false;
+        boolean multiplication = false;
+        for(int i=0; i<matrices.getChildCount(); i++){
+            View v = matrices.getChildAt(i);
+            
+            if(v.getId() == R.id.matrixPlus){
+                if(matrix == null || plus || multiplication || (i==matrices.getChildCount()-2)){
+                    setText(mErrorString);
+                    return;
+                }
+                plus = true;
+            }
+            else if(v.getId() == R.id.matrixMul){
+                if(matrix == null || plus || multiplication || (i==matrices.getChildCount()-2)){
+                    setText(mErrorString);
+                    return;
+                }
+                multiplication = true;
+            }
+            else if(v.getId() == R.id.theMatrix){
+                LinearLayout theMatrix = (LinearLayout) v;
+                
+                int n = theMatrix.getChildCount();
+                int m = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
+                
+                double[][] matrixData = new double[n][m];
+                
+                for (int j=0; j<theMatrix.getChildCount(); j++) {
+                    LinearLayout layout = (LinearLayout) theMatrix.getChildAt(j);
+                    for(int k=0; k<layout.getChildCount(); k++) {
+                        EditText view = (EditText) layout.getChildAt(k);
+                        matrixData[j][k] = Integer.valueOf(view.getText().toString());
+                    }
+                }
+                
+                if(matrix == null){
+                	matrix = new Array2DRowRealMatrix(matrixData);
+                }
+                else if(plus){
+                	matrix = matrix.add(new Array2DRowRealMatrix(matrixData));
+                	plus = false;
+                }
+                else if(multiplication){
+                	matrix = matrix.multiply(new Array2DRowRealMatrix(matrixData));
+                	multiplication = false;
+                }
+                else{
+                    setText(mErrorString);
+                    return;
+                }
+            }
+        }
+        matrices.removeViews(0, matrices.getChildCount()-1);
+        System.out.println(matrix.toString());
     }
 }
