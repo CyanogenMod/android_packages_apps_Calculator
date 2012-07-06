@@ -17,6 +17,8 @@
 package com.android.calculator3;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.SeriesSelection;
@@ -41,6 +43,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -59,7 +62,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
-    public Graph mGraph;
+    private Graph mGraph;
+    private List<View> matricesInEquation;
 
     static final int GRAPH_PANEL    = 0;
     static final int FUNCTION_PANEL = 1;
@@ -284,6 +288,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             state.putInt(STATE_CURRENT_VIEW, mPager.getCurrentItem());
         }
     }
+    
+    @Override
+	public Object onRetainNonConfigurationInstance() {
+    	LinearLayout matrices = (LinearLayout) ((PageAdapter) mPager.getAdapter()).mMatrixPage.findViewById(R.id.matrices);
+    	matrices.removeAllViews();
+    	return matricesInEquation;
+    }
 
     @Override
     public void onPause() {
@@ -324,7 +335,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         private View mFunctionPage;
         private View mSimplePage;
         private View mAdvancedPage;
-        private View mMatrixPage;
+        public View mMatrixPage;
         private GraphicalView mChartView;
 
         public PageAdapter(ViewPager parent) {
@@ -356,11 +367,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 							for (int i=0; i<theMatrix.getChildCount(); i++) {
 								LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
 								for(int j=0; j<layout.getChildCount(); j++) {
-								    View view = layout.getChildAt(j);
+								    EditText view = (EditText) layout.getChildAt(j);
+								    if(view.getText().toString().equals("")){
+								    	view.requestFocus();
+								    	return;
+								    }
 								    view.setOnFocusChangeListener(new OnFocusChangeListener() {
 										@Override
 										public void onFocusChange(View v, boolean hasFocus) {
 											matrices.removeView(theMatrix);
+											matricesInEquation.remove(theMatrix);
 										}
 									});
 								}
@@ -370,6 +386,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 							theMatrix.requestFocus();
 							matrixPopup.removeView(theMatrix);
 							matrices.addView(theMatrix, matrices.getChildCount()-1);
+							matricesInEquation.add(theMatrix);
 							alertDialog.dismiss();
 						}
 					});
@@ -385,10 +402,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 								@Override
 								public void onClick(View v) {
 									matrices.removeView(v);
+									matricesInEquation.remove(v);
 								}
 							});
 							matrixButtons.removeView(plus);
 							matrices.addView(plus, matrices.getChildCount()-1);
+							matricesInEquation.add(plus);
 							alertDialog.dismiss();
 						}
 					});
@@ -404,10 +423,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 								@Override
 								public void onClick(View v) {
 									matrices.removeView(v);
+									matricesInEquation.remove(v);
 								}
 							});
 							matrixButtons.removeView(mul);
 							matrices.addView(mul, matrices.getChildCount()-1);
+							matricesInEquation.add(mul);
 							alertDialog.dismiss();
 						}
 					});
@@ -415,6 +436,58 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 					alertDialog.show();
 				}
 			});
+            matricesInEquation = (List<View>) getLastNonConfigurationInstance();
+            if(matricesInEquation == null){
+            	matricesInEquation = new ArrayList<View>();
+            }
+            else{
+				final LinearLayout matrices = (LinearLayout) matrixPage.findViewById(R.id.matrices);
+            	for(View v : matricesInEquation){
+					matrices.addView(v, matrices.getChildCount()-1);
+					
+					if(v.getId() == R.id.matrixPlus){
+						v.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								matrices.removeView(v);
+								matricesInEquation.remove(v);
+							}
+						});
+					}
+					else if(v.getId() == R.id.matrixMul){
+						v.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								matrices.removeView(v);
+								matricesInEquation.remove(v);
+							}
+						});
+					}
+					else if(v.getId() == R.id.theMatrix){
+						final LinearLayout theMatrix = (LinearLayout) v;
+						for (int i=0; i<theMatrix.getChildCount(); i++) {
+							LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
+							for(int j=0; j<layout.getChildCount(); j++) {
+							    EditText view = (EditText) layout.getChildAt(j);
+							    if(view.getText().toString().equals("")){
+							    	view.requestFocus();
+							    	return;
+							    }
+							    view.setOnFocusChangeListener(new OnFocusChangeListener() {
+									@Override
+									public void onFocusChange(View v, boolean hasFocus) {
+										matrices.removeView(theMatrix);
+										matricesInEquation.remove(theMatrix);
+									}
+								});
+							}
+						}
+						theMatrix.setFocusable(true);
+						theMatrix.setFocusableInTouchMode(true);
+						theMatrix.requestFocus();
+					}
+            	}
+            }
             mGraphPage = graphPage;
             mFunctionPage = functionPage;
             mSimplePage = simplePage;

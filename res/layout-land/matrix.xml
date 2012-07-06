@@ -11,6 +11,7 @@
         android:orientation="vertical"
         android:layout_alignParentLeft="true"
         android:id="@+id/theMatrix"
+        android:background="@drawable/matrix_background"
         >
         <LinearLayout
             android:layout_width="wrap_content"
@@ -62,14 +63,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentRight="true"
+        android:id="@+id/matrixButtons"
         >
         <com.android.calculator3.ColorButton
-            android:id="@+id/plus"
+            android:id="@+id/matrixPlus"
             android:text="@string/plus"
             style="@style/button_style"
             />
         <com.android.calculator3.ColorButton
-            android:id="@+id/mul"
+            android:id="@+id/matrixMul"
             android:text="@string/mul"
             style="@style/button_style"
             />
