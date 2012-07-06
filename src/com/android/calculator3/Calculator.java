@@ -17,14 +17,11 @@
 package com.android.calculator3;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.SeriesSelection;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -38,16 +35,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
@@ -63,7 +56,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private View mBackspaceButton;
     private View mOverflowMenuButton;
     private Graph mGraph;
-    private List<View> matricesInEquation;
 
     static final int GRAPH_PANEL    = 0;
     static final int FUNCTION_PANEL = 1;
@@ -290,13 +282,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
     
     @Override
-	public Object onRetainNonConfigurationInstance() {
-    	LinearLayout matrices = (LinearLayout) ((PageAdapter) mPager.getAdapter()).mMatrixPage.findViewById(R.id.matrices);
-    	matrices.removeAllViews();
-    	return matricesInEquation;
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         mLogic.updateHistory();
@@ -345,149 +330,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
             final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
             final View matrixPage = inflater.inflate(R.layout.matrix_pad, parent, false);
-            final ImageButton addMatrix = (ImageButton) matrixPage.findViewById(R.id.matrixAdd);
-            addMatrix.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					final AlertDialog.Builder builder = new AlertDialog.Builder(Calculator.this);
-					LayoutInflater inflater = getLayoutInflater();
-					View view = inflater.inflate(R.layout.matrix, null);
-					final LinearLayout matrices = (LinearLayout) matrixPage.findViewById(R.id.matrices);
-					final LinearLayout theMatrix = (LinearLayout) view.findViewById(R.id.theMatrix);
-					final RelativeLayout matrixPopup = (RelativeLayout) view.findViewById(R.id.matrixPopup);
-					final LinearLayout matrixButtons = (LinearLayout) matrixPopup.findViewById(R.id.matrixButtons);
-					
-					builder.setView(view);
-					final AlertDialog alertDialog = builder.create();
-					
-					final ColorButton ok = (ColorButton) view.findViewById(R.id.ok);
-					ok.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							for (int i=0; i<theMatrix.getChildCount(); i++) {
-								LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
-								for(int j=0; j<layout.getChildCount(); j++) {
-								    EditText view = (EditText) layout.getChildAt(j);
-								    if(view.getText().toString().equals("")){
-								    	view.requestFocus();
-								    	return;
-								    }
-								    view.setOnFocusChangeListener(new OnFocusChangeListener() {
-										@Override
-										public void onFocusChange(View v, boolean hasFocus) {
-											matrices.removeView(theMatrix);
-											matricesInEquation.remove(theMatrix);
-										}
-									});
-								}
-							}
-							theMatrix.setFocusable(true);
-							theMatrix.setFocusableInTouchMode(true);
-							theMatrix.requestFocus();
-							matrixPopup.removeView(theMatrix);
-							matrices.addView(theMatrix, matrices.getChildCount()-1);
-							matricesInEquation.add(theMatrix);
-							alertDialog.dismiss();
-						}
-					});
-
-					final ColorButton plus = (ColorButton) view.findViewById(R.id.matrixPlus);
-					plus.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							plus.setLayoutParams(new ViewGroup.LayoutParams(
-							        ViewGroup.LayoutParams.WRAP_CONTENT,
-							        ViewGroup.LayoutParams.WRAP_CONTENT));
-							plus.setOnClickListener(new OnClickListener() {
-								@Override
-								public void onClick(View v) {
-									matrices.removeView(v);
-									matricesInEquation.remove(v);
-								}
-							});
-							matrixButtons.removeView(plus);
-							matrices.addView(plus, matrices.getChildCount()-1);
-							matricesInEquation.add(plus);
-							alertDialog.dismiss();
-						}
-					});
-					
-					final ColorButton mul = (ColorButton) view.findViewById(R.id.matrixMul);
-					mul.setOnClickListener(new OnClickListener(){
-						@Override
-						public void onClick(View v) {
-							mul.setLayoutParams(new ViewGroup.LayoutParams(
-							        ViewGroup.LayoutParams.WRAP_CONTENT,
-							        ViewGroup.LayoutParams.WRAP_CONTENT));
-							mul.setOnClickListener(new OnClickListener() {
-								@Override
-								public void onClick(View v) {
-									matrices.removeView(v);
-									matricesInEquation.remove(v);
-								}
-							});
-							matrixButtons.removeView(mul);
-							matrices.addView(mul, matrices.getChildCount()-1);
-							matricesInEquation.add(mul);
-							alertDialog.dismiss();
-						}
-					});
-					
-					alertDialog.show();
-				}
-			});
-            matricesInEquation = (List<View>) getLastNonConfigurationInstance();
-            if(matricesInEquation == null){
-            	matricesInEquation = new ArrayList<View>();
-            }
-            else{
-				final LinearLayout matrices = (LinearLayout) matrixPage.findViewById(R.id.matrices);
-            	for(View v : matricesInEquation){
-					matrices.addView(v, matrices.getChildCount()-1);
-					
-					if(v.getId() == R.id.matrixPlus){
-						v.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								matrices.removeView(v);
-								matricesInEquation.remove(v);
-							}
-						});
-					}
-					else if(v.getId() == R.id.matrixMul){
-						v.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								matrices.removeView(v);
-								matricesInEquation.remove(v);
-							}
-						});
-					}
-					else if(v.getId() == R.id.theMatrix){
-						final LinearLayout theMatrix = (LinearLayout) v;
-						for (int i=0; i<theMatrix.getChildCount(); i++) {
-							LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
-							for(int j=0; j<layout.getChildCount(); j++) {
-							    EditText view = (EditText) layout.getChildAt(j);
-							    if(view.getText().toString().equals("")){
-							    	view.requestFocus();
-							    	return;
-							    }
-							    view.setOnFocusChangeListener(new OnFocusChangeListener() {
-									@Override
-									public void onFocusChange(View v, boolean hasFocus) {
-										matrices.removeView(theMatrix);
-										matricesInEquation.remove(theMatrix);
-									}
-								});
-							}
-						}
-						theMatrix.setFocusable(true);
-						theMatrix.setFocusableInTouchMode(true);
-						theMatrix.requestFocus();
-					}
-            	}
-            }
+            
             mGraphPage = graphPage;
             mFunctionPage = functionPage;
             mSimplePage = simplePage;
