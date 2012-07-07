@@ -18,10 +18,12 @@ package com.android.calculator3;
 
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.app.Activity;
@@ -528,7 +530,11 @@ class Logic {
     	}
     	
     	result = result.substring(0, result.length()-1);
-        setText(result);
+
+        mHistory.enter(result);
+        mResult = result;
+        mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
+        setDeleteMode(DELETE_MODE_CLEAR);
     }
     
     void findDeterminant(){
@@ -542,7 +548,11 @@ class Logic {
                 break;
             }
         }
-        setText(result);
+
+        mHistory.enter(result);
+        mResult = result;
+        mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
+        setDeleteMode(DELETE_MODE_CLEAR);
     }
     
     RealMatrix solveMatrix(){
@@ -600,14 +610,30 @@ class Logic {
                 }
             }
         }
+        if(matrix == null) return null;
+        
         matrices.removeViews(0, matrices.getChildCount()-1);
         
         double[][] data = matrix.getData();
-        final LinearLayout theMatrix = (LinearLayout) ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.the_matrix, null);
-        for (int i=0; i<theMatrix.getChildCount(); i++) {
-            LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
-            for(int j=0; j<layout.getChildCount(); j++) {
-                EditText view = (EditText) layout.getChildAt(j);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        
+        DisplayMetrics metrics = new DisplayMetrics();
+        mContext.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        final float logicalDensity = metrics.density;
+        
+        final LinearLayout theMatrix = new LinearLayout(mContext);
+        theMatrix.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        theMatrix.setOrientation(LinearLayout.VERTICAL);
+        theMatrix.setId(R.id.theMatrix);
+        theMatrix.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.matrix_background));
+        for (int i=0; i<data.length; i++) {
+            LinearLayout layout = new LinearLayout(mContext);
+            layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            layout.setOrientation(LinearLayout.HORIZONTAL);
+            for(int j=0; j<data[i].length; j++) {
+            	EditText view = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
+        		view.setWidth((int) (75*logicalDensity+0.5));
+        		view.setHeight((int) (100*logicalDensity+0.5));
                 view.setText(Double.valueOf(data[i][j]).intValue()+"");
                 view.setOnFocusChangeListener(new OnFocusChangeListener() {
                     @Override
@@ -615,7 +641,10 @@ class Logic {
                     	matrices.removeView(theMatrix);
                     }
                 });
+                
+                layout.addView(view);
             }
+            theMatrix.addView(layout);
         }
         theMatrix.setFocusable(true);
         theMatrix.setFocusableInTouchMode(true);
