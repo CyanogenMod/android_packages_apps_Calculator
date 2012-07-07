@@ -33,9 +33,11 @@ import java.util.Locale;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
+import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.MatrixDimensionMismatchException;
 import org.apache.commons.math3.linear.NonSymmetricMatrixException;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.javia.arity.Symbols;
@@ -215,7 +217,7 @@ class Logic {
         if (getText().equals(mResult) || mIsError) {
             clear(false);
         } else if(getText().equals(mErrorString)) {
-        	clear(true);
+            clear(true);
         } else {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
@@ -508,28 +510,28 @@ class Logic {
     }
     
     void findEigenvalue(){
-    	RealMatrix matrix = solveMatrix();
-    	if(matrix == null) return;
-    	
-    	String result = "";
-    	try{
-    		for(double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()){
-        		for (int precision = mLineLength; precision > 6; precision--) {
+        RealMatrix matrix = solveMatrix();
+        if(matrix == null) return;
+        
+        String result = "";
+        try{
+            for(double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()){
+                for (int precision = mLineLength; precision > 6; precision--) {
                     result = tryFormattingWithPrecision(d, precision);
                     if (result.length() <= mLineLength) {
                         break;
                     }
                 }
-        		
-        		result += ",";
-        	}
-    	} catch(NonSymmetricMatrixException e){
-    		e.printStackTrace();
-    		setText(mErrorString);
-    		return;
-    	}
-    	
-    	result = result.substring(0, result.length()-1);
+                
+                result += ",";
+            }
+        } catch(NonSymmetricMatrixException e){
+            e.printStackTrace();
+            setText(mErrorString);
+            return;
+        }
+        
+        result = result.substring(0, result.length()-1);
 
         mHistory.enter(result);
         mResult = result;
@@ -538,10 +540,10 @@ class Logic {
     }
     
     void findDeterminant(){
-    	RealMatrix matrix = solveMatrix();
-    	if(matrix == null) return;
-    	
-    	String result = "";
+        RealMatrix matrix = solveMatrix();
+        if(matrix == null) return;
+        
+        String result = "";
         for (int precision = mLineLength; precision > 6; precision--) {
             result = tryFormattingWithPrecision(new LUDecomposition(matrix).getDeterminant(), precision);
             if (result.length() <= mLineLength) {
@@ -594,15 +596,27 @@ class Logic {
                 }
                 
                 if(matrix == null){
-                	matrix = new Array2DRowRealMatrix(matrixData);
+                    matrix = new Array2DRowRealMatrix(matrixData);
                 }
                 else if(plus){
-                	matrix = matrix.add(new Array2DRowRealMatrix(matrixData));
-                	plus = false;
+                	try{
+                        matrix = matrix.add(new Array2DRowRealMatrix(matrixData));
+                	} catch(MatrixDimensionMismatchException e){
+                		e.printStackTrace();
+                		setText(mErrorString);
+                        return null;
+                	}
+                    plus = false;
                 }
                 else if(multiplication){
-                	matrix = matrix.multiply(new Array2DRowRealMatrix(matrixData));
-                	multiplication = false;
+                	try{
+                        matrix = matrix.multiply(new Array2DRowRealMatrix(matrixData));
+                	} catch(DimensionMismatchException e){
+                		e.printStackTrace();
+                		setText(mErrorString);
+                        return null;
+                	}
+                    multiplication = false;
                 }
                 else{
                     setText(mErrorString);
@@ -631,14 +645,14 @@ class Logic {
             layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             layout.setOrientation(LinearLayout.HORIZONTAL);
             for(int j=0; j<data[i].length; j++) {
-            	EditText view = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
-        		view.setWidth((int) (75*logicalDensity+0.5));
-        		view.setHeight((int) (100*logicalDensity+0.5));
+                EditText view = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
+                view.setWidth((int) (75*logicalDensity+0.5));
+                view.setHeight((int) (100*logicalDensity+0.5));
                 view.setText(Double.valueOf(data[i][j]).intValue()+"");
                 view.setOnFocusChangeListener(new OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
-                    	matrices.removeView(theMatrix);
+                        matrices.removeView(theMatrix);
                     }
                 });
                 
