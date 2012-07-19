@@ -30,6 +30,11 @@ public class Graph {
     private XYMultipleSeriesDataset mDataset;
     private XYSeries mSeries;
     private Logic mLogic;
+
+    public static final double MAX_HEIGHT_X = 10;
+    public static final double MAX_HEIGHT_Y = 10;
+    public static final double MIN_HEIGHT_X = -10;
+    public static final double MIN_HEIGHT_Y = -10;
     
     public Graph(Logic l){
     	mLogic = l;
@@ -51,15 +56,7 @@ public class Graph {
         String title = context.getResources().getString(R.string.defaultGraphTitle);
         double[] xValues = new double[0];
         double[] yValues = new double[0];
-        XYMultipleSeriesRenderer renderer = buildRenderer(Color.CYAN, PointStyle.POINT);
-        setChartSettings(renderer, title, "X", "Y", -10, 10, -10, 10, Color.GRAY, Color.LTGRAY);
-        renderer.setXLabels(20);
-        renderer.setYLabels(20);
-        renderer.setPanEnabled(false, false);
-        renderer.setZoomEnabled(false, false);
-        renderer.setShowGrid(true);
-        XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) renderer.getSeriesRendererAt(0);
-        seriesRenderer.setLineWidth(4f);
+        XYMultipleSeriesRenderer renderer = buildRenderer(context);
         mDataset = buildDataset(title, xValues, yValues);
         
         mLogic.setGraph(this);
@@ -81,21 +78,9 @@ public class Graph {
         }
         dataset.addSeries(mSeries);
     }
-    
-    /**
-     * Builds an XY multiple series renderer.
-     * 
-     * @param colors the series rendering colors
-     * @param styles the series point styles
-     * @return the XY multiple series renderers
-     */
-    private XYMultipleSeriesRenderer buildRenderer(int color, PointStyle style) {
-        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        setRenderer(renderer, color, style);
-        return renderer;
-    }
 
-    private void setRenderer(XYMultipleSeriesRenderer renderer, int color, PointStyle style) {
+    private XYMultipleSeriesRenderer buildRenderer(Context context) {
+        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
         renderer.setAxisTitleTextSize(16);
         renderer.setChartTitleTextSize(0);
         renderer.setLabelsTextSize(15);
@@ -103,37 +88,25 @@ public class Graph {
         renderer.setLegendHeight(22);
         renderer.setPointSize(5f);
         renderer.setMargins(new int[] { 20, 30, 15, 20 });
+        renderer.setChartTitle(context.getResources().getString(R.string.defaultGraphTitle));
+        renderer.setXTitle(context.getResources().getString(R.string.X));
+        renderer.setYTitle(context.getResources().getString(R.string.Y));
+        renderer.setXAxisMin(-10);
+        renderer.setXAxisMax(10);
+        renderer.setYAxisMin(-10);
+        renderer.setYAxisMax(10);
+        renderer.setAxesColor(Color.GRAY);
+        renderer.setLabelsColor(Color.LTGRAY);
+        renderer.setXLabels(20);
+        renderer.setYLabels(20);
+        renderer.setPanEnabled(false, false);
+        renderer.setZoomEnabled(false, false);
+        renderer.setShowGrid(true);
         XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(color);
-        r.setPointStyle(style);
+        r.setColor(Color.CYAN);
+        r.setPointStyle(PointStyle.POINT);
+        r.setLineWidth(4f);
         renderer.addSeriesRenderer(r);
-    }
-
-    /**
-     * Sets a few of the series renderer settings.
-     * 
-     * @param renderer the renderer to set the properties to
-     * @param title the chart title
-     * @param xTitle the title for the X axis
-     * @param yTitle the title for the Y axis
-     * @param xMin the minimum value on the X axis
-     * @param xMax the maximum value on the X axis
-     * @param yMin the minimum value on the Y axis
-     * @param yMax the maximum value on the Y axis
-     * @param axesColor the axes color
-     * @param labelsColor the labels color
-     */
-    private void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle, 
-            String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor, 
-            int labelsColor) {
-        renderer.setChartTitle(title);
-        renderer.setXTitle(xTitle);
-        renderer.setYTitle(yTitle);
-        renderer.setXAxisMin(xMin);
-        renderer.setXAxisMax(xMax);
-        renderer.setYAxisMin(yMin);
-        renderer.setYAxisMax(yMax);
-        renderer.setAxesColor(axesColor);
-        renderer.setLabelsColor(labelsColor);
+        return renderer;
     }
 }

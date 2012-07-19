@@ -33,6 +33,7 @@ import java.util.Locale;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
+import org.achartengine.util.MathHelper;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
@@ -73,6 +74,8 @@ class Logic {
     private final String mLogString;
     private final String mLnString;
     private final String mModString;
+    private final String mX;
+    private final String mY;
 
     public final static int DELETE_MODE_BACKSPACE = 0;
     public final static int DELETE_MODE_CLEAR = 1;
@@ -95,6 +98,8 @@ class Logic {
         mLogString = context.getResources().getString(R.string.lg);
         mLnString = context.getResources().getString(R.string.error);
         mModString = context.getResources().getString(R.string.mod);
+        mX = mContext.getResources().getString(R.string.X);
+        mY = mContext.getResources().getString(R.string.Y);
 
         mHistory = history;
         mDisplay = display;
@@ -419,52 +424,82 @@ class Logic {
         
         new Thread(new Runnable(){
             public void run(){
-                String title = mContext.getResources().getString(R.string.graphTitle) + eq;
-                XYSeries series = new XYSeries(title);
+                final String title = mContext.getResources().getString(R.string.graphTitle) + eq;
+                final XYSeries series = new XYSeries(title);
+                final GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
                 
-                if(equation[0].equals(mContext.getResources().getString(R.string.Y))){
+                if(equation[0].equals(mY) && !equation[1].contains(mY)){
                     for(double x=-10;x<=10;x+=0.1){
                         if(!eq.equals(getText())) return;
                         
                         try{
-                            mSymbols.define(mContext.getResources().getString(R.string.X), x);
-                            series.add(x, mSymbols.eval(equation[1]));
+                            mSymbols.define(mX, x);
+                            double y = mSymbols.eval(equation[1]);
+                            
+                            if(y>Graph.MAX_HEIGHT_Y || y<Graph.MIN_HEIGHT_Y || y==Double.NaN){
+                                series.add(x, MathHelper.NULL_VALUE);
+                            }
+                            else{
+                                series.add(x, y);
+                            }
                         } catch(SyntaxException e){
                             e.printStackTrace();
                         }
                     }
                 }
-                else if(equation[0].equals(mContext.getResources().getString(R.string.X))){
+                else if(equation[0].equals(mX) && !equation[1].contains(mX)){
                     for(double y=-10;y<=10;y+=0.1){
                         if(!eq.equals(getText())) return;
                         
                         try{
-                            mSymbols.define(mContext.getResources().getString(R.string.Y), y);
-                            series.add(mSymbols.eval(equation[1]), y);
+                            mSymbols.define(mY, y);
+                            double x = mSymbols.eval(equation[1]);
+                            
+                            System.out.println(x);
+                            if(x>Graph.MAX_HEIGHT_X || x<Graph.MIN_HEIGHT_X || x==Double.NaN){
+                                series.add(MathHelper.NULL_VALUE, y);
+                            }
+                            else{
+                                series.add(x, y);
+                            }
                         } catch(SyntaxException e){
                             e.printStackTrace();
                         }
                     }
                 }
-                else if(equation[1].equals(mContext.getResources().getString(R.string.Y))){
+                else if(equation[1].equals(mY) && !equation[0].contains(mY)){
                     for(double x=-10;x<=10;x+=0.1){
                         if(!eq.equals(getText())) return;
                         
                         try{
-                            mSymbols.define(mContext.getResources().getString(R.string.X), x);
-                            series.add(x, mSymbols.eval(equation[0]));
+                            mSymbols.define(mX, x);
+                            double y = mSymbols.eval(equation[0]);
+                            
+                            if(y>Graph.MAX_HEIGHT_Y || y<Graph.MIN_HEIGHT_Y || y==Double.NaN){
+                                series.add(x, MathHelper.NULL_VALUE);
+                            }
+                            else{
+                                series.add(x, y);
+                            }
                         } catch(SyntaxException e){
                             e.printStackTrace();
                         }
                     }
                 }
-                else if(equation[1].equals(mContext.getResources().getString(R.string.X))){
+                else if(equation[1].equals(mX) && !equation[0].contains(mX)){
                     for(double y=-10;y<=10;y+=0.1){
                         if(!eq.equals(getText())) return;
                         
                         try{
-                            mSymbols.define(mContext.getResources().getString(R.string.Y), y);
-                            series.add(mSymbols.eval(equation[0]), y);
+                            mSymbols.define(mY, y);
+                            double x = mSymbols.eval(equation[0]);
+                            
+                            if(x>Graph.MAX_HEIGHT_X || x<Graph.MIN_HEIGHT_X || x==Double.NaN){
+                                series.add(MathHelper.NULL_VALUE, y);
+                            }
+                            else{
+                                series.add(x, y);
+                            }
                         } catch(SyntaxException e){
                             e.printStackTrace();
                         }
@@ -475,8 +510,8 @@ class Logic {
                         for(double y=10;y>=-10;y-=0.5){
                             if(!eq.equals(getText())) return;
                             try{
-                                mSymbols.define(mContext.getResources().getString(R.string.X), x);
-                                mSymbols.define(mContext.getResources().getString(R.string.Y), y);
+                                mSymbols.define(mX, x);
+                                mSymbols.define(mY, y);
                                 Double leftSide = mSymbols.eval(equation[0]);
                                 Double rightSide = mSymbols.eval(equation[1]);
                                 if(leftSide < 0 && rightSide < 0){
@@ -498,11 +533,10 @@ class Logic {
                     }
                 }
                 
-                g.getDataset().removeSeries(g.getSeries());
-                g.setSeries(series);
+                for(int i=0; i<g.getDataset().getSeriesCount(); i++){
+                    g.getDataset().removeSeries(i);
+                }
                 g.getDataset().addSeries(series);
-
-                GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
                 
                 if(graph!=null) graph.repaint();
             }
@@ -599,23 +633,23 @@ class Logic {
                     matrix = new Array2DRowRealMatrix(matrixData);
                 }
                 else if(plus){
-                	try{
+                    try{
                         matrix = matrix.add(new Array2DRowRealMatrix(matrixData));
-                	} catch(MatrixDimensionMismatchException e){
-                		e.printStackTrace();
-                		setText(mErrorString);
+                    } catch(MatrixDimensionMismatchException e){
+                        e.printStackTrace();
+                        setText(mErrorString);
                         return null;
-                	}
+                    }
                     plus = false;
                 }
                 else if(multiplication){
-                	try{
+                    try{
                         matrix = matrix.multiply(new Array2DRowRealMatrix(matrixData));
-                	} catch(DimensionMismatchException e){
-                		e.printStackTrace();
-                		setText(mErrorString);
+                    } catch(DimensionMismatchException e){
+                        e.printStackTrace();
+                        setText(mErrorString);
                         return null;
-                	}
+                    }
                     multiplication = false;
                 }
                 else{
