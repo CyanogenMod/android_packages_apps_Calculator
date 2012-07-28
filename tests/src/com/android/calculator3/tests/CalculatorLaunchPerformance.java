@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calculator2.tests;
+package com.android.calculator3.tests;
 
 import android.app.Activity;
 import android.test.LaunchPerformanceBase;
@@ -37,7 +37,7 @@ public class CalculatorLaunchPerformance extends LaunchPerformanceBase {
     public void onCreate(Bundle arguments) {
         super.onCreate(arguments);
 
-        mIntent.setClassName(getTargetContext(), "com.android.calculator2.Calculator");
+        mIntent.setClassName(getTargetContext(), "com.android.calculator3.Calculator");
         start();
     }
 

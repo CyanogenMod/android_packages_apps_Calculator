@@ -291,7 +291,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && (getAdvancedVisibility() || getFunctionVisibility())) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility())) {
             mPager.setCurrentItem(BASIC_PANEL);
             return true;
         } else {

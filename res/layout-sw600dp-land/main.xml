@@ -34,7 +34,7 @@
         android:layout_marginBottom="@dimen/group_padding"
         android:background="@drawable/calculator_input_field">
 
-        <com.android.calculator2.CalculatorDisplay
+        <com.android.calculator3.CalculatorDisplay
             android:id="@+id/display"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -42,12 +42,12 @@
             maxDigits="@integer/max_digits"
             >
 
-            <com.android.calculator2.CalculatorEditText
+            <com.android.calculator3.CalculatorEditText
                 style="@style/display_style" />
-            <com.android.calculator2.CalculatorEditText
+            <com.android.calculator3.CalculatorEditText
                 style="@style/display_style" />
 
-        </com.android.calculator2.CalculatorDisplay>
+        </com.android.calculator3.CalculatorDisplay>
 
         <FrameLayout
             android:layout_width="100dip"

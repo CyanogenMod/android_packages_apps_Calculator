@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 public class CalculatorEditText extends EditText {
 
-    private static final String LOG_TAG = "Calculator2";
+    private static final String LOG_TAG = "Calculator3";
     private static final int CUT = 0;
     private static final int COPY = 1;
     private static final int PASTE = 2;
