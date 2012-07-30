@@ -52,6 +52,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private History mHistory;
     private Logic mLogic;
     private ViewPager mPager;
+    private ViewPager mSmallPager;
+    private ViewPager mLargePager;
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
@@ -62,6 +64,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     static final int BASIC_PANEL    = 2;
     static final int ADVANCED_PANEL = 3;
     static final int MATRIX_PANEL   = 4;
+    
+    static final int LARGE_GRAPH_PANEL    = 0;
+    static final int SMALL_FUNCTION_PANEL = 1;
+    static final int LARGE_BASIC_PANEL    = 1;
+    static final int SMALL_ADVANCED_PANEL = 0;
+    static final int LARGE_MATRIX_PANEL   = 2;
 
     private static final String LOG_TAG = "Calculator";
     private static final boolean LOG_ENABLED = false;
@@ -77,9 +85,17 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         setContentView(R.layout.main);
         mPager = (ViewPager) findViewById(R.id.panelswitch);
+        mSmallPager = (ViewPager) findViewById(R.id.smallPanelswitch);
+        mLargePager = (ViewPager) findViewById(R.id.largePanelswitch);
         if (mPager != null) {
             mPager.setAdapter(new PageAdapter(mPager));
-        } else {
+        } 
+        else if(mSmallPager != null && mLargePager != null) {
+            //Expanded UI
+        	mSmallPager.setAdapter(new SmallPageAdapter(mSmallPager));
+        	mLargePager.setAdapter(new LargePageAdapter(mLargePager));
+        }
+        else {
             // Single page UI
             final TypedArray buttons = getResources().obtainTypedArray(R.array.buttons);
             for (int i = 0; i < buttons.length(); i++) {
@@ -117,6 +133,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         if (mPager != null) {
             mPager.setCurrentItem(state == null ? BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW, BASIC_PANEL));
+        }
+        else if (mSmallPager != null && mLargePager != null) {
+        	mSmallPager.setCurrentItem(state == null ? SMALL_ADVANCED_PANEL : state.getInt(STATE_CURRENT_VIEW, SMALL_ADVANCED_PANEL));
+        	mLargePager.setCurrentItem(state == null ? LARGE_BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW, LARGE_BASIC_PANEL));
         }
 
         mListener.setHandler(this, mLogic, mPager);
@@ -382,14 +402,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 if (mChartView == null) {
                     mChartView = mGraph.getGraph(Calculator.this);
                     mChartView.setId(R.id.graphView);
-                    mChartView.setOnClickListener(new View.OnClickListener() {
-                      @Override
-                      public void onClick(View v) {
-                        SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                        DecimalFormat formater = new DecimalFormat("#.#");
-                        if(seriesSelection != null) Toast.makeText(Calculator.this, "(" + formater.format(seriesSelection.getXValue()) + "," + formater.format(seriesSelection.getValue()) + ")", Toast.LENGTH_SHORT).show();
-                      }
-                    });
                     ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 } 
                 else {
@@ -411,6 +423,179 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 return mAdvancedPage;
             }
             else if(position == MATRIX_PANEL){
+                ((ViewGroup) container).addView(mMatrixPage);
+                return mMatrixPage;
+            }
+            return null;
+        }
+
+        @Override
+        public void destroyItem(View container, int position, Object object) {
+            ((ViewGroup) container).removeView((View) object);
+        }
+
+        @Override
+        public void finishUpdate(View container) {
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+        @Override
+        public void restoreState(Parcelable state, ClassLoader loader) {
+        }
+    }
+    
+    class SmallPageAdapter extends PagerAdapter {
+        private View mFunctionPage;
+        private View mAdvancedPage;
+
+        public SmallPageAdapter(ViewPager parent) {
+            final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
+            final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
+            
+            mFunctionPage = functionPage;
+            mAdvancedPage = advancedPage;
+
+            final Resources res = getResources();
+
+            final TypedArray advancedButtons = res.obtainTypedArray(R.array.advanced_buttons);
+            for (int i = 0; i < advancedButtons.length(); i++) {
+                setOnClickListener(advancedPage, advancedButtons.getResourceId(i, 0));
+            }
+            advancedButtons.recycle();
+            
+            final TypedArray functionButtons = res.obtainTypedArray(R.array.function_buttons);
+            for (int i = 0; i < functionButtons.length(); i++) {
+                setOnClickListener(functionPage, functionButtons.getResourceId(i, 0));
+            }
+            functionButtons.recycle();
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public void startUpdate(View container) {
+        }
+
+        @Override
+        public Object instantiateItem(View container, int position) {
+            if(position == SMALL_FUNCTION_PANEL){
+                ((ViewGroup) container).addView(mFunctionPage);
+                return mFunctionPage;
+            }
+            else if(position == SMALL_ADVANCED_PANEL){
+                ((ViewGroup) container).addView(mAdvancedPage);
+                return mAdvancedPage;
+            }
+            return null;
+        }
+
+        @Override
+        public void destroyItem(View container, int position, Object object) {
+            ((ViewGroup) container).removeView((View) object);
+        }
+
+        @Override
+        public void finishUpdate(View container) {
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+        @Override
+        public void restoreState(Parcelable state, ClassLoader loader) {
+        }
+    }
+    
+    class LargePageAdapter extends PagerAdapter {
+        private View mGraphPage;
+        private View mSimplePage;
+        public View mMatrixPage;
+        private GraphicalView mChartView;
+
+        public LargePageAdapter(ViewPager parent) {
+            final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            final View graphPage = inflater.inflate(R.layout.graph_pad, parent, false);
+            final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
+            final View matrixPage = inflater.inflate(R.layout.matrix_pad, parent, false);
+            
+            mGraphPage = graphPage;
+            mSimplePage = simplePage;
+            mMatrixPage = matrixPage;
+
+            final Resources res = getResources();
+            final TypedArray simpleButtons = res.obtainTypedArray(R.array.simple_buttons);
+            for (int i = 0; i < simpleButtons.length(); i++) {
+                setOnClickListener(simplePage, simpleButtons.getResourceId(i, 0));
+            }
+            simpleButtons.recycle();
+
+            final View clearButton = simplePage.findViewById(R.id.clear);
+            if (clearButton != null) {
+                mClearButton = clearButton;
+            }
+
+            final View backspaceButton = simplePage.findViewById(R.id.del);
+            if (backspaceButton != null) {
+                mBackspaceButton = backspaceButton;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public void startUpdate(View container) {
+        }
+
+        @Override
+        public Object instantiateItem(View container, int position) {
+            if(position == LARGE_GRAPH_PANEL){
+                if (mChartView == null) {
+                    mChartView = mGraph.getGraph(Calculator.this);
+                    mChartView.setId(R.id.graphView);
+                    mChartView.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                        SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
+                        DecimalFormat formater = new DecimalFormat("#.#");
+                        if(seriesSelection != null) Toast.makeText(Calculator.this, "(" + formater.format(seriesSelection.getXValue()) + "," + formater.format(seriesSelection.getValue()) + ")", Toast.LENGTH_SHORT).show();
+                      }
+                    });
+                    ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                } 
+                else {
+                    mChartView.repaint();
+                }
+                ((ViewGroup) container).addView(mGraphPage);
+                return mGraphPage;
+            }
+            else if(position == LARGE_BASIC_PANEL){
+                ((ViewGroup) container).addView(mSimplePage);
+                return mSimplePage;
+            }
+            else if(position == LARGE_MATRIX_PANEL){
                 ((ViewGroup) container).addView(mMatrixPage);
                 return mMatrixPage;
             }

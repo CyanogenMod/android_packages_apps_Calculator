@@ -436,7 +436,9 @@ class Logic {
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[1]);
                             
-                            if(y>Graph.MAX_HEIGHT_Y || y<Graph.MIN_HEIGHT_Y || y==Double.NaN){
+                            if(y>(Graph.MAX_HEIGHT_Y*1000) || y<(Graph.MIN_HEIGHT_Y*1000) || y==Double.NaN){
+                            	//If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
+                            	//Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
@@ -455,8 +457,7 @@ class Logic {
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[1]);
                             
-                            System.out.println(x);
-                            if(x>Graph.MAX_HEIGHT_X || x<Graph.MIN_HEIGHT_X || x==Double.NaN){
+                            if(x>(Graph.MAX_HEIGHT_X*1000) || x<(Graph.MIN_HEIGHT_X*1000) || x==Double.NaN){
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
@@ -475,7 +476,7 @@ class Logic {
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[0]);
                             
-                            if(y>Graph.MAX_HEIGHT_Y || y<Graph.MIN_HEIGHT_Y || y==Double.NaN){
+                            if(y>(Graph.MAX_HEIGHT_Y*1000) || y<(Graph.MIN_HEIGHT_Y*1000) || y==Double.NaN){
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
@@ -494,7 +495,7 @@ class Logic {
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[0]);
                             
-                            if(x>Graph.MAX_HEIGHT_X || x<Graph.MIN_HEIGHT_X || x==Double.NaN){
+                            if(x>(Graph.MAX_HEIGHT_X*1000) || x<(Graph.MIN_HEIGHT_X*1000) || x==Double.NaN){
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
@@ -533,9 +534,8 @@ class Logic {
                     }
                 }
                 
-                for(int i=0; i<g.getDataset().getSeriesCount(); i++){
-                    g.getDataset().removeSeries(i);
-                }
+                g.getDataset().removeSeries(g.getSeries());
+                g.setSeries(series);
                 g.getDataset().addSeries(series);
                 
                 if(graph!=null) graph.repaint();

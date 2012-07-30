@@ -71,7 +71,7 @@ class EventListener implements View.OnKeyListener,
                     mHandler.clear(false);
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.mod))){
-                	if(mHandler.getText().contains("=")){
+                    if(mHandler.getText().contains("=")){
                         if(mHandler.getText().split("=").length>1){
                             text = mHandler.getText().split("=")[0] + "=" + mContext.getResources().getString(R.string.mod)+"("+mHandler.getText().split("=")[1]+",";
                             mHandler.clear(false);
@@ -81,7 +81,7 @@ class EventListener implements View.OnKeyListener,
                         }
                     }
                     else{
-                    	if(mHandler.getText().length()>0){
+                        if(mHandler.getText().length()>0){
                             text = mContext.getResources().getString(R.string.mod)+"("+mHandler.getText()+",";
                             mHandler.clear(false);
                         }
@@ -91,16 +91,16 @@ class EventListener implements View.OnKeyListener,
                     }
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.eigenvalue))){
-                	mHandler.findEigenvalue();
-                	return;
+                    mHandler.findEigenvalue();
+                    return;
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.determinant))){
-                	mHandler.findDeterminant();
-                	return;
+                    mHandler.findDeterminant();
+                    return;
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.solve))){
-                	mHandler.solveMatrix();
-                	return;
+                    mHandler.solveMatrix();
+                    return;
                 }
                 else if(text.equals(mContext.getResources().getString(R.string.solveForX)) || text.equals(mContext.getResources().getString(R.string.solveForY)) || (text.equals(mContext.getResources().getString(R.string.dx))) || (text.equals(mContext.getResources().getString(R.string.dy)))){
                     //Do nothing
@@ -143,24 +143,50 @@ class EventListener implements View.OnKeyListener,
         }
         
         if (keyCode == KeyEvent.KEYCODE_DEL) {
-            if (mHandler.getText().endsWith(mContext.getResources().getString(R.string.sin) + "(") || 
-                mHandler.getText().endsWith(mContext.getResources().getString(R.string.cos) + "(") ||
-                mHandler.getText().endsWith(mContext.getResources().getString(R.string.tan) + "(") ||
-                mHandler.getText().endsWith(mContext.getResources().getString(R.string.lg) + "(") || 
-                mHandler.getText().endsWith(mContext.getResources().getString(R.string.mod) + "(")){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-4);
+            if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.sin) + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.sin).length()+1));
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if (mHandler.getText().endsWith(mContext.getResources().getString(R.string.ln) + "(")){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-3);
+            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.cos) + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.cos).length()+1));
                 mHandler.clear(false);
                 mHandler.insert(text);
+                return true;
             }
-            else if (mHandler.getText().endsWith(mContext.getResources().getString(R.string.dx)) ||
-                     mHandler.getText().endsWith(mContext.getResources().getString(R.string.dy))){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-2);
+            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.tan) + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.tan).length()+1));
+                mHandler.clear(false);
+                mHandler.insert(text);
+                return true;
+            }
+            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.lg) + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.lg).length()+1));
+                mHandler.clear(false);
+                mHandler.insert(text);
+                return true;
+            }
+            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.mod) + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.mod).length()+1));
+                mHandler.clear(false);
+                mHandler.insert(text);
+                return true;
+            }
+            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.ln) + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.ln).length()+1));
+                mHandler.clear(false);
+                mHandler.insert(text);
+                return true;
+            }
+            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.dx))){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-mContext.getResources().getString(R.string.dx).length());
+                mHandler.clear(false);
+                mHandler.insert(text);
+                return true;
+            }
+            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.dy))){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-mContext.getResources().getString(R.string.dy).length());
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
