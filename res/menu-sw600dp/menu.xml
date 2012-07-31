@@ -23,5 +23,30 @@
         android:showAsAction="ifRoom|withText"
         android:icon="@drawable/clear_history"
         android:title="@string/clear_history"/>
+    
+    <item android:id="@+id/matrix"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/matrix"
+        android:title="@string/matrix"/>
+    
+    <item android:id="@+id/graph"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/graph"
+        android:title="@string/graph"/>
+    
+    <item android:id="@+id/function"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/function"
+        android:title="@string/function"/>
+
+    <item android:id="@+id/advanced"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/advanced"
+        android:title="@string/advanced"/>
+
+    <item android:id="@+id/basic"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/simple"
+        android:title="@string/basic"/>
 
 </menu>

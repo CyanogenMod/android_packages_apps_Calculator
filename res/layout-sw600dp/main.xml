@@ -48,7 +48,13 @@
                 style="@style/display_style" />
 
         </com.android.calculator3.CalculatorDisplay>
-
+        <ImageButton android:id="@+id/overflow_menu"
+            android:layout_width="48dip"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_menu_overflow"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="8dip"
+            android:visibility="gone"/>
         <FrameLayout
             android:layout_width="100dip"
             android:layout_height="match_parent">

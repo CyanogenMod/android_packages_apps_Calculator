@@ -57,6 +57,8 @@
         <item>@+id/dy</item>
         <item>@+id/solveForY</item>
         <item>@+id/Y</item>
+        <item>@+id/mod</item>
+        <item>@+id/coma</item>
     </array>
     
     <array name="advanced_buttons">

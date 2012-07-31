@@ -22,6 +22,7 @@ import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
@@ -437,8 +438,8 @@ class Logic {
                             double y = mSymbols.eval(equation[1]);
                             
                             if(y>(Graph.MAX_HEIGHT_Y*1000) || y<(Graph.MIN_HEIGHT_Y*1000) || y==Double.NaN){
-                            	//If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
-                            	//Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
+                                //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
+                                //Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
@@ -686,7 +687,11 @@ class Logic {
                 view.setOnFocusChangeListener(new OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
-                        matrices.removeView(theMatrix);
+                    	if(hasFocus){
+                            View theMatrix = (View) v.getParent().getParent();
+                            ViewGroup parent = (ViewGroup) theMatrix.getParent();
+                            parent.removeView(theMatrix);
+                        }
                     }
                 });
                 

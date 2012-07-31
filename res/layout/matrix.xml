@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/matrixButtons"
+        android:minWidth="15dp"
         >
         <com.android.calculator3.ColorButton
             android:id="@+id/matrixPlus"

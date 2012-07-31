@@ -262,31 +262,36 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
             case R.id.basic:
                 if (!getBasicVisibility()) {
-                    mPager.setCurrentItem(BASIC_PANEL);
+                    if(mPager!=null) mPager.setCurrentItem(BASIC_PANEL);
+                    else if(mLargePager!=null) mLargePager.setCurrentItem(LARGE_BASIC_PANEL);
                 }
                 break;
 
             case R.id.advanced:
                 if (!getAdvancedVisibility()) {
-                    mPager.setCurrentItem(ADVANCED_PANEL);
+                	if(mPager!=null) mPager.setCurrentItem(ADVANCED_PANEL);
+                	else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_ADVANCED_PANEL);
                 }
                 break;
 
             case R.id.function:
                 if (!getFunctionVisibility()) {
-                    mPager.setCurrentItem(FUNCTION_PANEL);
+                	if(mPager!=null) mPager.setCurrentItem(FUNCTION_PANEL);
+                	else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_FUNCTION_PANEL);
                 }
                 break;
 
             case R.id.graph:
                 if (!getGraphVisibility()) {
-                    mPager.setCurrentItem(GRAPH_PANEL);
+                	if(mPager!=null) mPager.setCurrentItem(GRAPH_PANEL);
+                	else if(mLargePager!=null) mLargePager.setCurrentItem(LARGE_GRAPH_PANEL);
                 }
                 break;
 
             case R.id.matrix:
                 if (!getMatrixVisibility()) {
-                    mPager.setCurrentItem(MATRIX_PANEL);
+                	if(mPager!=null) mPager.setCurrentItem(MATRIX_PANEL);
+                	else if(mLargePager!=null) mLargePager.setCurrentItem(LARGE_MATRIX_PANEL);
                 }
                 break;
         }

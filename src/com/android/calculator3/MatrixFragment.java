@@ -71,10 +71,17 @@ public class MatrixFragment extends Fragment{
                                         view.requestFocus();
                                         return;
                                     }
+                                }
+                                for(int j=0; j<layout.getChildCount(); j++) {
+                                    EditText view = (EditText) layout.getChildAt(j);
                                     view.setOnFocusChangeListener(new OnFocusChangeListener() {
                                         @Override
                                         public void onFocusChange(View v, boolean hasFocus) {
-                                            matrices.removeView(theMatrix);
+                                            if(hasFocus){
+                                                View theMatrix = (View) v.getParent().getParent();
+                                                ViewGroup parent = (ViewGroup) theMatrix.getParent();
+                                                parent.removeView(theMatrix);
+                                            }
                                         }
                                     });
                                 }
@@ -83,7 +90,7 @@ public class MatrixFragment extends Fragment{
                             theMatrix.setFocusableInTouchMode(true);
                             theMatrix.requestFocus();
                             ViewGroup parent = (ViewGroup) theMatrix.getParent();
-                               parent.removeView(theMatrix);
+                            parent.removeView(theMatrix);
                             matrices.addView(theMatrix, matrices.getChildCount()-1);
                             alertDialog.dismiss();
                         }
@@ -133,14 +140,14 @@ public class MatrixFragment extends Fragment{
                     
                     final LinearLayout grip_bar_port = (LinearLayout) view.findViewById(R.id.grip_bar_port);
                     grip_bar_port.setOnTouchListener(new OnTouchListener() {
-                    	boolean rowAdded = false;
-                    	boolean rowRemoved = false;
+                        boolean rowAdded = false;
+                        boolean rowRemoved = false;
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
                             switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-                            	rowRemoved = false;
-                            	rowAdded = false;
+                                rowRemoved = false;
+                                rowAdded = false;
                                 break;
                             case MotionEvent.ACTION_UP:
                                 break;
@@ -148,24 +155,24 @@ public class MatrixFragment extends Fragment{
                                 if((event.getX()-0.5)/logicalDensity>75){
                                     int rows = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
                                     if(rows > 1 && !rowRemoved){
-                                    	for(int i=0; i<theMatrix.getChildCount(); i++){
-                                    		LinearLayout l = (LinearLayout) theMatrix.getChildAt(i);
-                                    		l.removeViewAt(l.getChildCount()-1);
-                                    	}
-                                    	rowRemoved = true;
+                                        for(int i=0; i<theMatrix.getChildCount(); i++){
+                                            LinearLayout l = (LinearLayout) theMatrix.getChildAt(i);
+                                            l.removeViewAt(l.getChildCount()-1);
+                                        }
+                                        rowRemoved = true;
                                     }
                                 }
                                 else if((event.getX()-0.5)/logicalDensity<-75){
-                                	if(!rowAdded){
-                                		for(int i=0; i<theMatrix.getChildCount(); i++){
-                                    		LinearLayout l = (LinearLayout) theMatrix.getChildAt(i);
-                                    		EditText e = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
-                                    		e.setWidth((int) (75*logicalDensity+0.5));
-                                    		e.setHeight((int) (100*logicalDensity+0.5));
-                                    		l.addView(e);
-                                    	}
-                                		rowAdded = true;
-                                	}
+                                    if(!rowAdded){
+                                        for(int i=0; i<theMatrix.getChildCount(); i++){
+                                            LinearLayout l = (LinearLayout) theMatrix.getChildAt(i);
+                                            EditText e = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
+                                            e.setWidth((int) (75*logicalDensity+0.5));
+                                            e.setHeight((int) (100*logicalDensity+0.5));
+                                            l.addView(e);
+                                        }
+                                        rowAdded = true;
+                                    }
                                     
                                 }
                                 break;
@@ -175,38 +182,40 @@ public class MatrixFragment extends Fragment{
                     });
                     final LinearLayout grip_bar_land = (LinearLayout) view.findViewById(R.id.grip_bar_land);
                     grip_bar_land.setOnTouchListener(new OnTouchListener() {
-                    	boolean colAdded = false;
-                    	boolean colRemoved = false;
+                        boolean colAdded = false;
+                        boolean colRemoved = false;
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
-                        	switch (event.getAction()) {
+                            switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
+                                colAdded = false;
+                                colRemoved = false;
                                 break;
                             case MotionEvent.ACTION_UP:
                                 break;
                             case MotionEvent.ACTION_MOVE:
                                 if((event.getY()-0.5)/logicalDensity>100){
-                                	if(!colAdded){
-                                		int rows = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
-                                    	LinearLayout l = new LinearLayout(mContext);
+                                    if(!colAdded){
+                                        int rows = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
+                                        LinearLayout l = new LinearLayout(mContext);
                                         l.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                                         l.setOrientation(LinearLayout.HORIZONTAL);
-                                    	for(int i=0; i<rows; i++){
-                                    		EditText e = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
-                                    		e.setWidth((int) (75*logicalDensity+0.5));
-                                    		e.setHeight((int) (100*logicalDensity+0.5));
-                                    		
-                                    		l.addView(e);
-                                    	}
-                                    	theMatrix.addView(l);
-                                    	colAdded = true;
-                                	}
+                                        for(int i=0; i<rows; i++){
+                                            EditText e = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
+                                            e.setWidth((int) (75*logicalDensity+0.5));
+                                            e.setHeight((int) (100*logicalDensity+0.5));
+                                            
+                                            l.addView(e);
+                                        }
+                                        theMatrix.addView(l);
+                                        colAdded = true;
+                                    }
                                 }
                                 else if((event.getY()-0.5)/logicalDensity<-100){
                                     int columns = theMatrix.getChildCount();
                                     if(columns > 1 && !colRemoved){
-                                    	theMatrix.removeViewAt(0);
-                                    	colRemoved = true;
+                                        theMatrix.removeViewAt(0);
+                                        colRemoved = true;
                                     }
                                 }
                                 break;
