@@ -430,14 +430,14 @@ class Logic {
                 final GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
                 
                 if(equation[0].equals(mY) && !equation[1].contains(mY)){
-                    for(double x=-10;x<=10;x+=0.1){
+                    for(double x=-10;x<=10;x+=0.025){
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[1]);
                             
-                            if(y>(Graph.MAX_HEIGHT_Y*1000) || y<(Graph.MIN_HEIGHT_Y*1000) || y==Double.NaN){
+                            if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN){
                                 //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
                                 //Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
                                 series.add(x, MathHelper.NULL_VALUE);
@@ -451,14 +451,14 @@ class Logic {
                     }
                 }
                 else if(equation[0].equals(mX) && !equation[1].contains(mX)){
-                    for(double y=-10;y<=10;y+=0.1){
+                    for(double y=-10;y<=10;y+=0.025){
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[1]);
                             
-                            if(x>(Graph.MAX_HEIGHT_X*1000) || x<(Graph.MIN_HEIGHT_X*1000) || x==Double.NaN){
+                            if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN){
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
@@ -470,14 +470,14 @@ class Logic {
                     }
                 }
                 else if(equation[1].equals(mY) && !equation[0].contains(mY)){
-                    for(double x=-10;x<=10;x+=0.1){
+                    for(double x=-10;x<=10;x+=0.025){
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[0]);
                             
-                            if(y>(Graph.MAX_HEIGHT_Y*1000) || y<(Graph.MIN_HEIGHT_Y*1000) || y==Double.NaN){
+                            if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN){
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
@@ -489,14 +489,14 @@ class Logic {
                     }
                 }
                 else if(equation[1].equals(mX) && !equation[0].contains(mX)){
-                    for(double y=-10;y<=10;y+=0.1){
+                    for(double y=-10;y<=10;y+=0.025){
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[0]);
                             
-                            if(x>(Graph.MAX_HEIGHT_X*1000) || x<(Graph.MIN_HEIGHT_X*1000) || x==Double.NaN){
+                            if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN){
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
@@ -508,8 +508,8 @@ class Logic {
                     }
                 }
                 else{
-                    for(double x=-10;x<=10;x+=0.5){
-                        for(double y=10;y>=-10;y-=0.5){
+                    for(double x=-10;x<=10;x+=0.1){
+                        for(double y=10;y>=-10;y-=0.1){
                             if(!eq.equals(getText())) return;
                             try{
                                 mSymbols.define(mX, x);
