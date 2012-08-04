@@ -15,19 +15,19 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.calculator3.tests">
+    package="com.android2.calculator3.tests">
 
     <application>
         <uses-library android:name="android.test.runner" />
     </application>
 
     <instrumentation android:name="CalculatorLaunchPerformance"
-        android:targetPackage="com.android.calculator3"
+        android:targetPackage="com.android2.calculator3"
         android:label="Calculator Launch Performance">
     </instrumentation>
     
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="com.android.calculator3"
+        android:targetPackage="com.android2.calculator3"
         android:label="Calculator Functional Testset">
     </instrumentation>
 

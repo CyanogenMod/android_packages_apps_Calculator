@@ -109,4 +109,6 @@
     <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
-    <string name="solve">Solve</string></resources>
+    <string name="solve">Solve</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string></resources>

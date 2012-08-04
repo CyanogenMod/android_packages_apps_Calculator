@@ -1,35 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/matrixPad"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:layout_gravity="center"
               >
-    <fragment class="com.android.calculator3.MatrixFragment"
+    <fragment class="com.android2.calculator3.MatrixFragment"
             android:id="@+id/matrixFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             />
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_height="fill_parent"
+        android:layout_weight="4"
         >
-        <com.android.calculator3.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/eigenvalue"
             android:text="@string/eigenvalue"
             style="@style/button_small_style"
             />
-        <com.android.calculator3.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/determinant"
             android:text="@string/determinant"
             style="@style/button_small_style"
             />
-        <com.android.calculator3.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/solve"
             android:text="@string/solve"
             style="@style/button_small_style"
             />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

@@ -36,17 +36,27 @@
         android:id="@+id/matrixButtons"
         android:minWidth="15dp"
         >
-        <com.android.calculator3.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/matrixPlus"
             android:text="@string/plus"
             style="@style/button_style"
             />
-        <com.android.calculator3.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/matrixMul"
             android:text="@string/mul"
             style="@style/button_style"
             />
-        <com.android.calculator3.ColorButton
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/matrixDot"
+            android:text="@string/dotProduct"
+            style="@style/button_style"
+            />
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/matrixCross"
+            android:text="@string/crossProduct"
+            style="@style/button_style"
+            />
+        <com.android2.calculator3.ColorButton
             android:id="@+id/ok"
             android:text="@android:string/ok"
             style="@style/button_small_style"

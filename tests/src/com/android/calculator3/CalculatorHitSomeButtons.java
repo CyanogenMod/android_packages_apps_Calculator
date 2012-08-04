@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calculator3;
+package com.android2.calculator3;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -32,9 +32,9 @@ import android.widget.LinearLayout;
 import android.graphics.Rect;
 import android.test.TouchUtils;
 
-import com.android.calculator3.Calculator;
-import com.android.calculator3.R;
-import com.android.calculator3.CalculatorDisplay;
+import com.android2.calculator3.Calculator;
+import com.android2.calculator3.R;
+import com.android2.calculator3.CalculatorDisplay;
 
 /**
  * Instrumentation tests for poking some buttons
@@ -48,7 +48,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase <C
     Instrumentation mInst = null;
     
     public CalculatorHitSomeButtons() {
-        super("com.android.calculator3", Calculator.class);
+        super("com.android2.calculator3", Calculator.class);
     }
     
     @Override

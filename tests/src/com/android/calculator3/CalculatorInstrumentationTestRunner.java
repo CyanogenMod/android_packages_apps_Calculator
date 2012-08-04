@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.calculator3;
+package com.android2.calculator3;
 
 import android.test.InstrumentationTestRunner;
 import android.test.InstrumentationTestSuite;
 
-import com.android.calculator3.CalculatorHitSomeButtons;
+import com.android2.calculator3.CalculatorHitSomeButtons;
 
 import junit.framework.TestSuite;
 
