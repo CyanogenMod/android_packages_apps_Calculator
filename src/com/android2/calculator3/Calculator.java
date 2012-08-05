@@ -229,23 +229,53 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     private boolean getGraphVisibility() {
-        return mPager != null && mPager.getCurrentItem() == GRAPH_PANEL;
+        if(mPager != null) {
+        	return mPager.getCurrentItem() == GRAPH_PANEL;
+        }
+        else if(mLargePager != null){
+        	return mLargePager.getCurrentItem() == LARGE_GRAPH_PANEL;
+        }
+        return false;
     }
     
     private boolean getFunctionVisibility() {
-        return mPager != null && mPager.getCurrentItem() == FUNCTION_PANEL;
+    	if(mPager != null) {
+        	return mPager.getCurrentItem() == FUNCTION_PANEL;
+        }
+        else if(mSmallPager != null){
+        	return mSmallPager.getCurrentItem() == SMALL_FUNCTION_PANEL;
+        }
+        return false;
     }
     
     private boolean getBasicVisibility() {
-        return mPager != null && mPager.getCurrentItem() == BASIC_PANEL;
+    	if(mPager != null) {
+        	return mPager.getCurrentItem() == BASIC_PANEL;
+        }
+        else if(mLargePager != null){
+        	return mLargePager.getCurrentItem() == LARGE_BASIC_PANEL;
+        }
+        return false;
     }
 
     private boolean getAdvancedVisibility() {
-        return mPager != null && mPager.getCurrentItem() == ADVANCED_PANEL;
+    	if(mPager != null) {
+        	return mPager.getCurrentItem() == ADVANCED_PANEL;
+        }
+        else if(mSmallPager != null){
+        	return mSmallPager.getCurrentItem() == SMALL_ADVANCED_PANEL;
+        }
+        return false;
     }
     
     private boolean getMatrixVisibility() {
-        return mPager != null && mPager.getCurrentItem() == MATRIX_PANEL;
+    	if(mPager != null) {
+        	return mPager.getCurrentItem() == MATRIX_PANEL;
+        }
+        else if(mLargePager != null){
+        	return mLargePager.getCurrentItem() == LARGE_MATRIX_PANEL;
+        }
+        return false;
     }
 
     @Override
