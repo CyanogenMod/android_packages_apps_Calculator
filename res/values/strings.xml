@@ -111,4 +111,6 @@
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Solve</string>
     <string name="dotProduct">Dot</string>
-    <string name="crossProduct">Cross</string></resources>
+    <string name="crossProduct">Cross</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string></resources>

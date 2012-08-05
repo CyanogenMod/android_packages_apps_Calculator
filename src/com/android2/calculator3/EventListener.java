@@ -29,10 +29,48 @@ class EventListener implements View.OnKeyListener,
     Logic mHandler;
     ViewPager mPager;
 
+    private String mErrorString;
+    private String mSinString;
+    private String mCosString;
+    private String mTanString;
+    private String mLogString;
+    private String mLnString;
+    private String mModString;
+    private String mX;
+    private String mY;
+    private String mDX;
+    private String mDY;
+    private String solveForX;
+    private String solveForY;
+    private String solve;
+    private String eigenvalue;
+    private String determinant;
+    private String hex;
+    private String bin;
+    
     void setHandler(Context context, Logic handler, ViewPager pager) {
         mContext = context;
         mHandler = handler;
         mPager = pager;
+        
+        mErrorString = context.getResources().getString(R.string.error);
+        mSinString = context.getResources().getString(R.string.sin);
+        mCosString = context.getResources().getString(R.string.cos);
+        mTanString = context.getResources().getString(R.string.tan);
+        mLogString = context.getResources().getString(R.string.lg);
+        mLnString = context.getResources().getString(R.string.ln);
+        mModString = context.getResources().getString(R.string.mod);
+        mX = context.getResources().getString(R.string.X);
+        mY = context.getResources().getString(R.string.Y);
+        mDX = context.getResources().getString(R.string.dx);
+        mDY = context.getResources().getString(R.string.dy);
+        solveForX = context.getResources().getString(R.string.solveForX);
+        solveForY = context.getResources().getString(R.string.solveForY);
+        solve = mContext.getResources().getString(R.string.solve);
+        eigenvalue = mContext.getResources().getString(R.string.eigenvalue);
+        determinant = mContext.getResources().getString(R.string.determinant);
+        hex = mContext.getResources().getString(R.string.hex);
+        bin = mContext.getResources().getString(R.string.bin);
     }
 
     @Override
@@ -48,8 +86,8 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
-            if (mHandler.getText().contains(mContext.getResources().getString(R.string.X)) || 
-                mHandler.getText().contains(mContext.getResources().getString(R.string.Y))) {
+            if (mHandler.getText().contains(mX) || 
+                mHandler.getText().contains(mY)) {
                 if (!mHandler.getText().contains("=")) {
                     mHandler.insert("=");
                 }
@@ -63,46 +101,64 @@ class EventListener implements View.OnKeyListener,
                 String text = ((Button) view).getText().toString();
                 if(text.equals("( )")){
                     if(mHandler.getText().contains("=")){
-                        text = mHandler.getText().split("=")[0] + "=(" + mHandler.getText().split("=")[1] + ")";
+                        text = mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")";
                     }
                     else{
                         text = "(" + mHandler.getText() + ")";
                     }
                     mHandler.clear(false);
                 }
-                else if(text.equals(mContext.getResources().getString(R.string.mod))){
+                else if(text.equals(mModString)){
                     if(mHandler.getText().contains("=")){
-                        if(mHandler.getText().split("=").length>1){
-                            text = mHandler.getText().split("=")[0] + "=" + mContext.getResources().getString(R.string.mod)+"("+mHandler.getText().split("=")[1]+",";
+                        if(mHandler.getText().split("=", 1).length>1){
+                            text = mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",";
                             mHandler.clear(false);
                         }
                         else{
-                            text = mContext.getResources().getString(R.string.mod)+"(";
+                            text = mModString + "(";
                         }
                     }
                     else{
                         if(mHandler.getText().length()>0){
-                            text = mContext.getResources().getString(R.string.mod)+"("+mHandler.getText()+",";
+                            text = mModString + "(" + mHandler.getText() + ",";
                             mHandler.clear(false);
                         }
                         else{
-                            text = mContext.getResources().getString(R.string.mod)+"(";
+                            text = mModString + "(";
                         }
                     }
                 }
-                else if(text.equals(mContext.getResources().getString(R.string.eigenvalue))){
+                else if(text.equals(eigenvalue)){
                     mHandler.findEigenvalue();
                     return;
                 }
-                else if(text.equals(mContext.getResources().getString(R.string.determinant))){
+                else if(text.equals(determinant)){
                     mHandler.findDeterminant();
                     return;
                 }
-                else if(text.equals(mContext.getResources().getString(R.string.solve))){
+                else if(text.equals(solve)){
                     mHandler.solveMatrix();
                     return;
                 }
-                else if(text.equals(mContext.getResources().getString(R.string.solveForX)) || text.equals(mContext.getResources().getString(R.string.solveForY)) || (text.equals(mContext.getResources().getString(R.string.dx))) || (text.equals(mContext.getResources().getString(R.string.dy)))){
+                else if(text.equals(hex)){
+                    try{
+                        text = Integer.toHexString(Integer.parseInt(mHandler.getText()));
+                        mHandler.clear(false);
+                    } catch(NumberFormatException e){
+                        text = mErrorString;
+                        mHandler.clear(false);
+                    }
+                }
+                else if(text.equals(bin)){
+                    try{
+                        text = Integer.toBinaryString(Integer.parseInt(mHandler.getText()));
+                        mHandler.clear(false);
+                    } catch(NumberFormatException e){
+                        text = mErrorString;
+                        mHandler.clear(false);
+                    }
+                }
+                else if(text.equals(solveForX) || text.equals(solveForY) || (text.equals(mDX)) || (text.equals(mDY))){
                     //Do nothing
                 }
                 else if (text.length() >= 2) {
@@ -143,50 +199,50 @@ class EventListener implements View.OnKeyListener,
         }
         
         if (keyCode == KeyEvent.KEYCODE_DEL) {
-            if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.sin) + "(")){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.sin).length()+1));
+            if(mHandler.getText().endsWith(mSinString + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mSinString.length()+1));
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.cos) + "(")){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.cos).length()+1));
+            else if(mHandler.getText().endsWith(mCosString + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mCosString.length()+1));
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.tan) + "(")){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.tan).length()+1));
+            else if(mHandler.getText().endsWith(mTanString + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mTanString.length()+1));
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.lg) + "(")){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.lg).length()+1));
+            else if(mHandler.getText().endsWith(mLogString + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLogString.length()+1));
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.mod) + "(")){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.mod).length()+1));
+            else if(mHandler.getText().endsWith(mModString + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mModString.length()+1));
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.ln) + "(")){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mContext.getResources().getString(R.string.ln).length()+1));
+            else if(mHandler.getText().endsWith(mLnString + "(")){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLnString.length()+1));
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.dx))){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-mContext.getResources().getString(R.string.dx).length());
+            else if(mHandler.getText().endsWith(mDX)){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-mDX.length());
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mContext.getResources().getString(R.string.dy))){
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-mContext.getResources().getString(R.string.dy).length());
+            else if(mHandler.getText().endsWith(mDY)){
+                String text = mHandler.getText().substring(0, mHandler.getText().length()-mDY.length());
                 mHandler.clear(false);
                 mHandler.insert(text);
                 return true;

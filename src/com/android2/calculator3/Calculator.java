@@ -342,12 +342,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility())) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility())) {
             mPager.setCurrentItem(BASIC_PANEL);
             return true;
-        } else {
-            return super.onKeyDown(keyCode, keyEvent);
         }
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility())){
+        	mSmallPager.setCurrentItem(SMALL_ADVANCED_PANEL);
+            mLargePager.setCurrentItem(LARGE_BASIC_PANEL);
+            return true;
+        }
+        return super.onKeyDown(keyCode, keyEvent);
     }
 
     static void log(String message) {

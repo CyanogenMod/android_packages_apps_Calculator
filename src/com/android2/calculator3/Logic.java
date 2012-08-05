@@ -447,7 +447,7 @@ class Logic {
            eq.endsWith(mModString + "(") ||
            eq.endsWith(mLnString + "(")) return;
         
-        final String[] equation = eq.split("=");
+        final String[] equation = eq.split("=", 1);
         
         if(equation.length == 1) return;
         
