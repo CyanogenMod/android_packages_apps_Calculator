@@ -106,6 +106,7 @@
     <string name="matrix">Matrix panel</string>
     <string name="graph">Graph panel</string>
     <string name="function">Function panel</string>
+    <string name="hexPanel">Hex panel</string>
     <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
@@ -113,4 +114,16 @@
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
     <string name="hex">Hex</string>
-    <string name="bin">Bin</string></resources>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binary</string>
+    <string name="decDesc">Decimal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigen Values</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string></resources>

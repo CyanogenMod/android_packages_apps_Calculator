@@ -16,7 +16,10 @@
 
 package com.android2.calculator3;
 
+import com.android2.calculator3.Logic.Mode;
+
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -42,11 +45,6 @@ class EventListener implements View.OnKeyListener,
     private String mDY;
     private String solveForX;
     private String solveForY;
-    private String solve;
-    private String eigenvalue;
-    private String determinant;
-    private String hex;
-    private String bin;
     
     void setHandler(Context context, Logic handler, ViewPager pager) {
         mContext = context;
@@ -64,13 +62,8 @@ class EventListener implements View.OnKeyListener,
         mY = context.getResources().getString(R.string.Y);
         mDX = context.getResources().getString(R.string.dx);
         mDY = context.getResources().getString(R.string.dy);
-        solveForX = context.getResources().getString(R.string.solveForX);
-        solveForY = context.getResources().getString(R.string.solveForY);
-        solve = mContext.getResources().getString(R.string.solve);
-        eigenvalue = mContext.getResources().getString(R.string.eigenvalue);
-        determinant = mContext.getResources().getString(R.string.determinant);
-        hex = mContext.getResources().getString(R.string.hex);
-        bin = mContext.getResources().getString(R.string.bin);
+        solveForX = mContext.getResources().getString(R.string.solveForX);
+        solveForY = mContext.getResources().getString(R.string.solveForY);
     }
 
     @Override
@@ -96,77 +89,130 @@ class EventListener implements View.OnKeyListener,
             mHandler.onEnter();
             break;
 
+        case R.id.eigenvalue:
+            mHandler.findEigenvalue();
+            break;
+
+        case R.id.determinant:
+            mHandler.findDeterminant();
+            break;
+
+        case R.id.solve:
+            mHandler.solveMatrix();
+            break;
+
+        case R.id.solveForX:
+        	WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(), 
+                    new WolframAlpha.ResultsRunnable(){
+                        @Override
+                        public void run() {
+                            String text = "";
+                            for(String s : results){
+                                text += s + ", ";
+                            }
+                            if(text.length()>2) text = text.substring(0, text.length()-2);
+                            mHandler.setText(text);
+                        }
+                    }, 
+                    new Runnable(){
+                        @Override
+                        public void run() {
+                        	mHandler.setText(mErrorString);
+                        }
+                    });
+        	break;
+
+        case R.id.solveForY:
+        	WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(), 
+                    new WolframAlpha.ResultsRunnable(){
+                        @Override
+                        public void run() {
+                            String text = "";
+                            for(String s : results){
+                                text += s + ", ";
+                            }
+                            if(text.length()>2) text = text.substring(0, text.length()-2);
+                            mHandler.setText(text);
+                        }
+                    }, 
+                    new Runnable(){
+                        @Override
+                        public void run() {
+                        	mHandler.setText(mErrorString);
+                        }
+                    });
+        	break;
+
+        case R.id.hex:
+        	mHandler.setMode(Mode.HEXADECIMAL);
+        	if(mHandler.getText().length()==0) break;
+            try{
+            	mHandler.setText(Integer.toHexString(Integer.parseInt(mHandler.getText())).toUpperCase());
+            } catch(NumberFormatException e){
+            	mHandler.setText(mErrorString);
+            }
+            break;
+
+        case R.id.bin:
+        	mHandler.setMode(Mode.BINARY);
+        	if(mHandler.getText().length()==0) break;
+            try{
+            	mHandler.setText(Integer.toBinaryString(Integer.parseInt(mHandler.getText())));
+            } catch(NumberFormatException e){
+            	mHandler.setText(mErrorString);
+            }
+            break;
+
+        case R.id.dec:
+        	mHandler.setMode(Mode.DECIMAL);
+        	if(mHandler.getText().length()==0) break;
+            try{
+            	mHandler.setText(Integer.valueOf(mHandler.getText()).toString());
+            } catch(NumberFormatException e){
+            	mHandler.setText(mErrorString);
+            }
+            break;
+
+        case R.id.parentheses:
+            if(mHandler.getText().contains("=")){
+            	mHandler.setText(mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")");
+            }
+            else{
+            	mHandler.setText("(" + mHandler.getText() + ")");
+            }
+            break;
+
+        case R.id.mod:
+            if(mHandler.getText().contains("=")){
+                if(mHandler.getText().split("=", 1).length>1){
+                	mHandler.setText(mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",");
+                }
+                else{
+                	mHandler.insert(mModString + "(");
+                }
+            }
+            else{
+                if(mHandler.getText().length()>0){
+                	mHandler.setText(mModString + "(" + mHandler.getText() + ",");
+                }
+                else{
+                	mHandler.insert(mModString + "(");
+                }
+            }
+            break;
+
         default:
             if (view instanceof Button) {
                 String text = ((Button) view).getText().toString();
-                if(text.equals("( )")){
-                    if(mHandler.getText().contains("=")){
-                        text = mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")";
-                    }
-                    else{
-                        text = "(" + mHandler.getText() + ")";
-                    }
-                    mHandler.clear(false);
-                }
-                else if(text.equals(mModString)){
-                    if(mHandler.getText().contains("=")){
-                        if(mHandler.getText().split("=", 1).length>1){
-                            text = mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",";
-                            mHandler.clear(false);
-                        }
-                        else{
-                            text = mModString + "(";
-                        }
-                    }
-                    else{
-                        if(mHandler.getText().length()>0){
-                            text = mModString + "(" + mHandler.getText() + ",";
-                            mHandler.clear(false);
-                        }
-                        else{
-                            text = mModString + "(";
-                        }
-                    }
-                }
-                else if(text.equals(eigenvalue)){
-                    mHandler.findEigenvalue();
-                    return;
-                }
-                else if(text.equals(determinant)){
-                    mHandler.findDeterminant();
-                    return;
-                }
-                else if(text.equals(solve)){
-                    mHandler.solveMatrix();
-                    return;
-                }
-                else if(text.equals(hex)){
-                    try{
-                        text = Integer.toHexString(Integer.parseInt(mHandler.getText()));
-                        mHandler.clear(false);
-                    } catch(NumberFormatException e){
-                        text = mErrorString;
-                        mHandler.clear(false);
-                    }
-                }
-                else if(text.equals(bin)){
-                    try{
-                        text = Integer.toBinaryString(Integer.parseInt(mHandler.getText()));
-                        mHandler.clear(false);
-                    } catch(NumberFormatException e){
-                        text = mErrorString;
-                        mHandler.clear(false);
-                    }
-                }
-                else if(text.equals(solveForX) || text.equals(solveForY) || (text.equals(mDX)) || (text.equals(mDY))){
-                    //Do nothing
+                if (text.equals(mDX) || text.equals(mDY)) {
+                	// Do nothing
                 }
                 else if (text.length() >= 2) {
-                    // add paren after sin, cos, ln, etc. from buttons
-                    text += '(';
+                    // Add paren after sin, cos, ln, etc. from buttons
+                    text += "(";
                 }
                 mHandler.insert(text);
-                if (mPager != null && (mPager.getCurrentItem() == Calculator.ADVANCED_PANEL || mPager.getCurrentItem() == Calculator.FUNCTION_PANEL)) {
+                if (mPager != null && mPager.getCurrentItem() != Calculator.BASIC_PANEL) {
                     mPager.setCurrentItem(Calculator.BASIC_PANEL);
                 }
             }
@@ -201,50 +247,42 @@ class EventListener implements View.OnKeyListener,
         if (keyCode == KeyEvent.KEYCODE_DEL) {
             if(mHandler.getText().endsWith(mSinString + "(")){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mSinString.length()+1));
-                mHandler.clear(false);
-                mHandler.insert(text);
+                mHandler.setText(text);
                 return true;
             }
             else if(mHandler.getText().endsWith(mCosString + "(")){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mCosString.length()+1));
-                mHandler.clear(false);
-                mHandler.insert(text);
+                mHandler.setText(text);
                 return true;
             }
             else if(mHandler.getText().endsWith(mTanString + "(")){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mTanString.length()+1));
-                mHandler.clear(false);
-                mHandler.insert(text);
+                mHandler.setText(text);
                 return true;
             }
             else if(mHandler.getText().endsWith(mLogString + "(")){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLogString.length()+1));
-                mHandler.clear(false);
-                mHandler.insert(text);
+                mHandler.setText(text);
                 return true;
             }
             else if(mHandler.getText().endsWith(mModString + "(")){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mModString.length()+1));
-                mHandler.clear(false);
-                mHandler.insert(text);
+                mHandler.setText(text);
                 return true;
             }
             else if(mHandler.getText().endsWith(mLnString + "(")){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLnString.length()+1));
-                mHandler.clear(false);
-                mHandler.insert(text);
+                mHandler.setText(text);
                 return true;
             }
             else if(mHandler.getText().endsWith(mDX)){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-mDX.length());
-                mHandler.clear(false);
-                mHandler.insert(text);
+                mHandler.setText(text);
                 return true;
             }
             else if(mHandler.getText().endsWith(mDY)){
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-mDY.length());
-                mHandler.clear(false);
-                mHandler.insert(text);
+                mHandler.setText(text);
                 return true;
             }
             return false;

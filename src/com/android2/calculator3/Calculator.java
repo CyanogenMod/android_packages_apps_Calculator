@@ -59,12 +59,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     static final int FUNCTION_PANEL = 1;
     static final int BASIC_PANEL    = 2;
     static final int ADVANCED_PANEL = 3;
-    static final int MATRIX_PANEL   = 4;
+    static final int HEX_PANEL      = 4;
+    static final int MATRIX_PANEL   = 5;
+
+    static final int SMALL_HEX_PANEL      = 0;
+    static final int SMALL_ADVANCED_PANEL = 1;
+    static final int SMALL_FUNCTION_PANEL = 2;
     
     static final int LARGE_GRAPH_PANEL    = 0;
-    static final int SMALL_FUNCTION_PANEL = 1;
     static final int LARGE_BASIC_PANEL    = 1;
-    static final int SMALL_ADVANCED_PANEL = 0;
     static final int LARGE_MATRIX_PANEL   = 2;
 
     private static final String LOG_TAG = "Calculator";
@@ -189,6 +192,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
         if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility());
         
+        MenuItem mHexPanel = menu.findItem(R.id.hex);
+        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility());
+        
         return true;
     }
 
@@ -268,6 +274,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         return false;
     }
     
+    private boolean getHexVisibility() {
+    	if(mPager != null) {
+        	return mPager.getCurrentItem() == HEX_PANEL;
+        }
+        else if(mSmallPager != null){
+        	return mSmallPager.getCurrentItem() == SMALL_HEX_PANEL;
+        }
+        return false;
+    }
+    
     private boolean getMatrixVisibility() {
     	if(mPager != null) {
         	return mPager.getCurrentItem() == MATRIX_PANEL;
@@ -320,6 +336,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 	else if(mLargePager!=null) mLargePager.setCurrentItem(LARGE_MATRIX_PANEL);
                 }
                 break;
+                
+            case R.id.hex:
+                if (!getHexVisibility()) {
+                	if(mPager!=null) mPager.setCurrentItem(HEX_PANEL);
+                	else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_HEX_PANEL);
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -342,11 +365,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility())) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())) {
             mPager.setCurrentItem(BASIC_PANEL);
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility())){
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())){
         	mSmallPager.setCurrentItem(SMALL_ADVANCED_PANEL);
             mLargePager.setCurrentItem(LARGE_BASIC_PANEL);
             return true;
@@ -375,7 +398,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         private View mFunctionPage;
         private View mSimplePage;
         private View mAdvancedPage;
-        public View mMatrixPage;
+        private View mHexPage;
+        private View mMatrixPage;
         private GraphicalView mChartView;
 
         public PageAdapter(ViewPager parent) {
@@ -384,12 +408,14 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
             final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
             final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
+            final View hexPage = inflater.inflate(R.layout.hex_pad, parent, false);
             final View matrixPage = inflater.inflate(R.layout.matrix_pad, parent, false);
             
             mGraphPage = graphPage;
             mFunctionPage = functionPage;
             mSimplePage = simplePage;
             mAdvancedPage = advancedPage;
+            mHexPage = hexPage;
             mMatrixPage = matrixPage;
 
             final Resources res = getResources();
@@ -410,6 +436,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 setOnClickListener(functionPage, functionButtons.getResourceId(i, 0));
             }
             functionButtons.recycle();
+            
+            final TypedArray hexButtons = res.obtainTypedArray(R.array.hex_buttons);
+            for (int i = 0; i < hexButtons.length(); i++) {
+                setOnClickListener(hexPage, hexButtons.getResourceId(i, 0));
+            }
+            hexButtons.recycle();
 
             final View clearButton = simplePage.findViewById(R.id.clear);
             if (clearButton != null) {
@@ -424,7 +456,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         @Override
         public int getCount() {
-            return 5;
+            return 6;
         }
 
         @Override
@@ -456,6 +488,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             else if(position == ADVANCED_PANEL){
                 ((ViewGroup) container).addView(mAdvancedPage);
                 return mAdvancedPage;
+            }
+            else if(position == HEX_PANEL){
+                ((ViewGroup) container).addView(mHexPage);
+                return mHexPage;
             }
             else if(position == MATRIX_PANEL){
                 ((ViewGroup) container).addView(mMatrixPage);
@@ -489,14 +525,17 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
     
     class SmallPageAdapter extends PagerAdapter {
+    	private View mHexPage;
         private View mFunctionPage;
         private View mAdvancedPage;
 
         public SmallPageAdapter(ViewPager parent) {
             final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            final View hexPage = inflater.inflate(R.layout.hex_pad, parent, false);
             final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
             final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
             
+            mHexPage = hexPage;
             mFunctionPage = functionPage;
             mAdvancedPage = advancedPage;
 
@@ -513,11 +552,17 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 setOnClickListener(functionPage, functionButtons.getResourceId(i, 0));
             }
             functionButtons.recycle();
+            
+            final TypedArray hexButtons = res.obtainTypedArray(R.array.hex_buttons);
+            for (int i = 0; i < hexButtons.length(); i++) {
+                setOnClickListener(hexPage, hexButtons.getResourceId(i, 0));
+            }
+            hexButtons.recycle();
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -533,6 +578,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             else if(position == SMALL_ADVANCED_PANEL){
                 ((ViewGroup) container).addView(mAdvancedPage);
                 return mAdvancedPage;
+            }
+            else if(position == SMALL_HEX_PANEL){
+                ((ViewGroup) container).addView(mHexPage);
+                return mHexPage;
             }
             return null;
         }
@@ -564,7 +613,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     class LargePageAdapter extends PagerAdapter {
         private View mGraphPage;
         private View mSimplePage;
-        public View mMatrixPage;
+        private View mMatrixPage;
         private GraphicalView mChartView;
 
         public LargePageAdapter(ViewPager parent) {

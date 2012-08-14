@@ -94,5 +94,17 @@
         <item>@+id/leftParen</item>
         <item>@+id/rightParen</item>
     </array>
+    
+    <array name="hex_buttons">
+        <item>@+id/A</item>
+        <item>@+id/B</item>
+        <item>@+id/C</item>
+        <item>@+id/D</item>
+        <item>@+id/E</item>
+        <item>@+id/F</item>
+        <item>@+id/dec</item>
+        <item>@+id/bin</item>
+        <item>@+id/hex</item>
+    </array>
 
 </resources>

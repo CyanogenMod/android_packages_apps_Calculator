@@ -34,6 +34,11 @@
         android:icon="@drawable/graph"
         android:title="@string/graph"/>
     
+    <item android:id="@+id/hex"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/function"
+        android:title="@string/hexPanel"/>
+    
     <item android:id="@+id/function"
         android:showAsAction="ifRoom|withText"
         android:icon="@drawable/function"

@@ -16,7 +16,6 @@
 
 package com.android2.calculator3;
 
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -82,8 +81,6 @@ class Logic {
     private final String mTitleString;
     private final String mX;
     private final String mY;
-    private final String solveForX;
-    private final String solveForY;
     private final String mPlusString; 
     private final String mMinusString;
     private final String mDivString;
@@ -98,6 +95,12 @@ class Logic {
     public final static int DELETE_MODE_CLEAR = 1;
 
     private int mDeleteMode = DELETE_MODE_BACKSPACE;
+    
+    public enum Mode {
+    	 DECIMAL, HEXADECIMAL, BINARY;
+    }
+    
+    private Mode mode = Mode.DECIMAL;
 
     public interface Listener {
         void onDeleteModeChange();
@@ -118,8 +121,6 @@ class Logic {
         mX = context.getResources().getString(R.string.X);
         mY = context.getResources().getString(R.string.Y);
         mTitleString = context.getResources().getString(R.string.graphTitle);
-        solveForX = context.getResources().getString(R.string.solveForX);
-        solveForY = context.getResources().getString(R.string.solveForY);
         mPlusString = context.getResources().getString(R.string.plus); 
         mMinusString = context.getResources().getString(R.string.minus);
         mDivString = context.getResources().getString(R.string.div);
@@ -168,34 +169,12 @@ class Logic {
         return mDisplay.getText().toString();
     }
     
-    private void setText(String text) {
+    void setText(String text) {
         clear(false);
         mDisplay.insert(text);
     }
 
     void insert(String delta) {
-        if(delta.equals(solveForX) || delta.equals(solveForY)){
-            WolframAlpha.solve(getText() + ", " + delta, new Handler(), 
-                    new WolframAlpha.ResultsRunnable(){
-                        @Override
-                        public void run() {
-                            String text = "";
-                            for(String s : results){
-                                text += s + ", ";
-                            }
-                            if(text.length()>2) text = text.substring(0, text.length()-2);
-                            setText(text);
-                        }
-                    }, 
-                    new Runnable(){
-                        @Override
-                        public void run() {
-                            setText(mErrorString);
-                            mIsError = true;
-                        }
-                    });
-            return;
-        }
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
         updateGraph(mGraph);
@@ -225,7 +204,7 @@ class Logic {
         }
     }
 
-    public void clear(boolean scroll) {
+    private void clear(boolean scroll) {
         mHistory.enter("");
         mDisplay.setText("", scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
         cleared();
@@ -604,7 +583,7 @@ class Logic {
     
     void findDeterminant(){
         RealMatrix matrix = solveMatrix();
-        if(matrix == null) return;
+        if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
         
         String result = "";
         for (int precision = mLineLength; precision > 6; precision--) {
@@ -791,4 +770,47 @@ class Logic {
         
         return matrix;
     }
+
+	public Mode getMode() {
+		return mode;
+	}
+
+	public void setMode(Mode mode) {
+		for(String s : getText().split("[^0-9]")){
+			switch(this.mode){
+			case BINARY:
+				switch(mode){
+				case BINARY:
+					break;
+				case DECIMAL:
+					
+					break;
+				case HEXADECIMAL:
+					break;
+				}
+				break;
+			case DECIMAL:
+				switch(mode){
+				case BINARY:
+					break;
+				case DECIMAL:
+					break;
+				case HEXADECIMAL:
+					break;
+				}
+				break;
+			case HEXADECIMAL:
+				switch(mode){
+				case BINARY:
+					break;
+				case DECIMAL:
+					break;
+				case HEXADECIMAL:
+					break;
+				}
+				break;
+			}
+		}
+		this.mode = mode;
+	}
 }
