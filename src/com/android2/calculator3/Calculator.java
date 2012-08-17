@@ -18,6 +18,8 @@ package com.android2.calculator3;
 
 import org.achartengine.GraphicalView;
 
+import com.android2.calculator3.Logic.Mode;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -73,6 +75,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private static final String LOG_TAG = "Calculator";
     private static final boolean LOG_ENABLED = false;
     private static final String STATE_CURRENT_VIEW = "state-current-view";
+    private static final String STATE_CURRENT_VIEW_SMALL = "state-current-view-small";
+    private static final String STATE_CURRENT_VIEW_LARGE = "state-current-view-large";
+    private static final String CURRENT_MODE = "current-mode";
 
     @Override
     public void onCreate(Bundle state) {
@@ -123,6 +128,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
+        if(state != null) mLogic.setMode(state.getSerializable(CURRENT_MODE)!=null ? (Mode) state.getSerializable(CURRENT_MODE) : Mode.DECIMAL);
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
         mLogic.setLineLength(mDisplay.getMaxDigits());
@@ -134,8 +140,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mPager.setCurrentItem(state == null ? BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW, BASIC_PANEL));
         }
         else if (mSmallPager != null && mLargePager != null) {
-        	mSmallPager.setCurrentItem(state == null ? SMALL_ADVANCED_PANEL : state.getInt(STATE_CURRENT_VIEW, SMALL_ADVANCED_PANEL));
-        	mLargePager.setCurrentItem(state == null ? LARGE_BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW, LARGE_BASIC_PANEL));
+        	mSmallPager.setCurrentItem(state == null ? SMALL_ADVANCED_PANEL : state.getInt(STATE_CURRENT_VIEW_SMALL, SMALL_ADVANCED_PANEL));
+        	mLargePager.setCurrentItem(state == null ? LARGE_BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW_LARGE, LARGE_BASIC_PANEL));
         }
 
         mListener.setHandler(this, mLogic, mPager);
@@ -350,8 +356,19 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
+        
+        state.putSerializable(CURRENT_MODE, mLogic.getMode());
+        
         if (mPager != null) {
             state.putInt(STATE_CURRENT_VIEW, mPager.getCurrentItem());
+        }
+        
+        if (mSmallPager != null) {
+            state.putInt(STATE_CURRENT_VIEW_SMALL, mSmallPager.getCurrentItem());
+        }
+        
+        if (mLargePager != null) {
+            state.putInt(STATE_CURRENT_VIEW_LARGE, mLargePager.getCurrentItem());
         }
     }
     
