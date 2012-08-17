@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.app.Activity;
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import net.sf.jchemistry.util.CommonMathUtils;
@@ -97,7 +98,7 @@ class Logic {
     private int mDeleteMode = DELETE_MODE_BACKSPACE;
     
     public enum Mode {
-    	 DECIMAL, HEXADECIMAL, BINARY;
+         DECIMAL, HEXADECIMAL, BINARY;
     }
     
     private Mode mode = Mode.DECIMAL;
@@ -307,21 +308,25 @@ class Logic {
             return "";
         }
 
-        // drop final infix operators (they can only result in error)
+        // Drop final infix operators (they can only result in error)
         int size = input.length();
         while (size > 0 && isOperator(input.charAt(size - 1))) {
             input = input.substring(0, size - 1);
             --size;
         }
 
-        // delocalize functions (e.g. Spanish localizes "sin" as "sen")
+        // Delocalize functions (e.g. Spanish localizes "sin" as "sen")
         input = input.replaceAll(mSinString, "sin");
         input = input.replaceAll(mCosString, "cos");
         input = input.replaceAll(mTanString, "tan");
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
         input = input.replaceAll(mModString, "mod");
-        double value = mSymbols.eval(input);
+        
+        // Convert to decimal
+        String decimalInput = updateTextToNewMode(input, mode, Mode.DECIMAL);
+        
+        double value = mSymbols.eval(decimalInput);
 
         String result = "";
         for (int precision = mLineLength; precision > 6; precision--) {
@@ -330,7 +335,8 @@ class Logic {
                 break;
             }
         }
-        return result.replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
+        
+        return updateTextToNewMode(result, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
     }
 
     private String tryFormattingWithPrecision(double value, int precision) {
@@ -426,7 +432,7 @@ class Logic {
            eq.endsWith(mModString + "(") ||
            eq.endsWith(mLnString + "(")) return;
         
-        final String[] equation = eq.split("=", 1);
+        final String[] equation = getText().split("=", 1);
         
         if(equation.length == 1) return;
         
@@ -442,7 +448,7 @@ class Logic {
                         
                         try{
                             mSymbols.define(mX, x);
-                            double y = mSymbols.eval(equation[1]);
+                            double y = mSymbols.eval(updateTextToNewMode(equation[1], mode, Mode.DECIMAL));
                             
                             if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN){
                                 //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
@@ -463,7 +469,7 @@ class Logic {
                         
                         try{
                             mSymbols.define(mY, y);
-                            double x = mSymbols.eval(equation[1]);
+                            double x = mSymbols.eval(updateTextToNewMode(equation[1], mode, Mode.DECIMAL));
                             
                             if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN){
                                 series.add(MathHelper.NULL_VALUE, y);
@@ -482,7 +488,7 @@ class Logic {
                         
                         try{
                             mSymbols.define(mX, x);
-                            double y = mSymbols.eval(equation[0]);
+                            double y = mSymbols.eval(updateTextToNewMode(equation[0], mode, Mode.DECIMAL));
                             
                             if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN){
                                 series.add(x, MathHelper.NULL_VALUE);
@@ -501,7 +507,7 @@ class Logic {
                         
                         try{
                             mSymbols.define(mY, y);
-                            double x = mSymbols.eval(equation[0]);
+                            double x = mSymbols.eval(updateTextToNewMode(equation[0], mode, Mode.DECIMAL));
                             
                             if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN){
                                 series.add(MathHelper.NULL_VALUE, y);
@@ -521,8 +527,8 @@ class Logic {
                             try{
                                 mSymbols.define(mX, x);
                                 mSymbols.define(mY, y);
-                                Double leftSide = mSymbols.eval(equation[0]);
-                                Double rightSide = mSymbols.eval(equation[1]);
+                                Double leftSide = mSymbols.eval(updateTextToNewMode(equation[0], mode, Mode.DECIMAL));
+                                Double rightSide = mSymbols.eval(updateTextToNewMode(equation[1], mode, Mode.DECIMAL));
                                 if(leftSide < 0 && rightSide < 0){
                                     if(leftSide*0.97 >= rightSide && leftSide*1.03 <= rightSide){
                                         series.add(x, y);
@@ -771,46 +777,117 @@ class Logic {
         return matrix;
     }
 
-	public Mode getMode() {
-		return mode;
-	}
+    public Mode getMode() {
+        return mode;
+    }
 
-	public void setMode(Mode mode) {
-		for(String s : getText().split("[^0-9]")){
-			switch(this.mode){
-			case BINARY:
-				switch(mode){
-				case BINARY:
-					break;
-				case DECIMAL:
-					
-					break;
-				case HEXADECIMAL:
-					break;
-				}
-				break;
-			case DECIMAL:
-				switch(mode){
-				case BINARY:
-					break;
-				case DECIMAL:
-					break;
-				case HEXADECIMAL:
-					break;
-				}
-				break;
-			case HEXADECIMAL:
-				switch(mode){
-				case BINARY:
-					break;
-				case DECIMAL:
-					break;
-				case HEXADECIMAL:
-					break;
-				}
-				break;
-			}
-		}
-		this.mode = mode;
-	}
+    public String setMode(Mode mode) {
+    	String text = updateTextToNewMode(getText(), this.mode, mode);
+        this.mode = mode;
+        return text;
+    }
+    
+    private String updateTextToNewMode(final String originalText, Mode mode1, Mode mode2){
+    	String text = originalText;
+    	if(!originalText.equals(mErrorString) && !originalText.isEmpty() && !mode1.equals(mode2)){
+            String[] operations = originalText.split("[A-F0-9]");
+            String[] numbers = originalText.split("[^A-F0-9]");
+            String[] translatedNumbers = new String[numbers.length];
+            for(int i=0;i<numbers.length;i++){
+                if(!numbers[i].isEmpty())
+                switch(mode1){
+                case BINARY:
+                    switch(mode2){
+                    case BINARY:
+                        break;
+                    case DECIMAL:
+                        try{
+                        	translatedNumbers[i] = Integer.toString(Integer.parseInt(numbers[i], 2));
+                        } catch(NumberFormatException e){
+                        	return mErrorString;
+                        }
+                        break;
+                    case HEXADECIMAL:
+                    	try{
+                    	    translatedNumbers[i] = Integer.toHexString(Integer.parseInt(numbers[i], 2)).toUpperCase();
+                    	} catch(NumberFormatException e){
+                        	return mErrorString;
+                        }
+                        break;
+                    }
+                    break;
+                case DECIMAL:
+                    switch(mode2){
+                    case BINARY:
+                    	try{
+                    	    translatedNumbers[i] = Integer.toBinaryString(Integer.valueOf(numbers[i]));
+                    	} catch(NumberFormatException e){
+                        	return mErrorString;
+                        }
+                        break;
+                    case DECIMAL:
+                        break;
+                    case HEXADECIMAL:
+                    	try{
+                    	    translatedNumbers[i] = Integer.toHexString(Integer.valueOf(numbers[i])).toUpperCase();
+                    	} catch(NumberFormatException e){
+                        	return mErrorString;
+                        }
+                        break;
+                    }
+                    break;
+                case HEXADECIMAL:
+                    switch(mode2){
+                    case BINARY:
+                    	try{
+                    	    translatedNumbers[i] = Integer.toBinaryString(Integer.parseInt(numbers[i], 16));
+                    	} catch(NumberFormatException e){
+                        	return mErrorString;
+                        }
+                        break;
+                    case DECIMAL:
+                    	try{
+                    	    translatedNumbers[i] = Integer.toString(Integer.parseInt(numbers[i], 16));
+                    	} catch(NumberFormatException e){
+                        	return mErrorString;
+                        }
+                        break;
+                    case HEXADECIMAL:
+                        break;
+                    }
+                    break;
+                }
+            }
+            text = "";
+            Object[] o = removeWhitespace(operations);
+            Object[] n = removeWhitespace(translatedNumbers);
+            if(originalText.substring(0,1).matches("[A-F0-9]")){
+	            for(int i=0;i<o.length && i<n.length;i++){
+	                text += n[i];
+	                text += o[i];
+	            }
+            }
+            else{
+            	for(int i=0;i<o.length && i<n.length;i++){
+	                text += o[i];
+	                text += n[i];
+	            }
+            }
+            if(o.length > n.length){
+            	text += o[o.length-1];
+            }
+        	else if(n.length > o.length){
+            	text += n[n.length-1];
+            }
+        }
+    	return text;
+    }
+    
+    private Object[] removeWhitespace(String[] strings){
+    	ArrayList<String> formatted = new ArrayList<String>(strings.length);
+    	for(String s : strings){
+    		if(!s.isEmpty()) formatted.add(s);
+    	}
+    	return formatted.toArray();
+    }
 }

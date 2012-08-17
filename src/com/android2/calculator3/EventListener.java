@@ -144,33 +144,15 @@ class EventListener implements View.OnKeyListener,
         	break;
 
         case R.id.hex:
-        	mHandler.setMode(Mode.HEXADECIMAL);
-        	if(mHandler.getText().length()==0) break;
-            try{
-            	mHandler.setText(Integer.toHexString(Integer.parseInt(mHandler.getText())).toUpperCase());
-            } catch(NumberFormatException e){
-            	mHandler.setText(mErrorString);
-            }
+        	mHandler.setText(mHandler.setMode(Mode.HEXADECIMAL));
             break;
 
         case R.id.bin:
-        	mHandler.setMode(Mode.BINARY);
-        	if(mHandler.getText().length()==0) break;
-            try{
-            	mHandler.setText(Integer.toBinaryString(Integer.parseInt(mHandler.getText())));
-            } catch(NumberFormatException e){
-            	mHandler.setText(mErrorString);
-            }
+        	mHandler.setText(mHandler.setMode(Mode.BINARY));
             break;
 
         case R.id.dec:
-        	mHandler.setMode(Mode.DECIMAL);
-        	if(mHandler.getText().length()==0) break;
-            try{
-            	mHandler.setText(Integer.valueOf(mHandler.getText()).toString());
-            } catch(NumberFormatException e){
-            	mHandler.setText(mErrorString);
-            }
+        	mHandler.setText(mHandler.setMode(Mode.DECIMAL));
             break;
 
         case R.id.parentheses:

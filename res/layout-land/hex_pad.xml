@@ -67,26 +67,25 @@
         <com.android2.calculator3.ColorButton
             android:id="@+id/F"
             android:text="@string/F"
+            android:layout_weight="3"
             style="@style/digit_button_style"
-            />
-        <com.android2.calculator3.ColorButton
-            android:text="@null"
-            android:clickable="false"
-            style="@style/button_small_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/dec"
             android:text="@string/dec"
+            android:layout_weight="4"
             style="@style/button_small_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/bin"
             android:text="@string/bin"
+            android:layout_weight="4"
             style="@style/button_small_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/hex"
             android:text="@string/hex"
+            android:layout_weight="4"
             style="@style/button_small_style"
             />
     </LinearLayout>

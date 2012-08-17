@@ -59,25 +59,25 @@
         <Button
             android:id="@+id/F"
             android:text="@string/F"
+            android:layout_weight="3"
             style="@style/btn_digit_cell_style"
-            />
-        <Button
-            android:text="@null"
-            style="@style/btn_function_cell_style"
             />
         <Button
             android:id="@+id/dec"
             android:text="@string/dec"
+            android:layout_weight="4"
             style="@style/btn_function_cell_style"
             />
         <Button
             android:id="@+id/bin"
             android:text="@string/bin"
+            android:layout_weight="4"
             style="@style/btn_function_cell_style"
             />
         <Button
             android:id="@+id/hex"
             android:text="@string/hex"
+            android:layout_weight="4"
             style="@style/btn_function_cell_style"
             />
     </LinearLayout>
