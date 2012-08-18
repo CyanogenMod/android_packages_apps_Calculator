@@ -24,6 +24,7 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 class EventListener implements View.OnKeyListener,
                                View.OnClickListener,
@@ -102,7 +103,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.solveForX:
-        	WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(), 
+            WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(), 
                     new WolframAlpha.ResultsRunnable(){
                         @Override
                         public void run() {
@@ -117,13 +118,13 @@ class EventListener implements View.OnKeyListener,
                     new Runnable(){
                         @Override
                         public void run() {
-                        	mHandler.setText(mErrorString);
+                            mHandler.setText(mErrorString);
                         }
                     });
-        	break;
+            break;
 
         case R.id.solveForY:
-        	WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(), 
+            WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(), 
                     new WolframAlpha.ResultsRunnable(){
                         @Override
                         public void run() {
@@ -138,56 +139,56 @@ class EventListener implements View.OnKeyListener,
                     new Runnable(){
                         @Override
                         public void run() {
-                        	mHandler.setText(mErrorString);
+                            mHandler.setText(mErrorString);
                         }
                     });
-        	break;
+            break;
 
         case R.id.hex:
-        	mHandler.setText(mHandler.setMode(Mode.HEXADECIMAL));
+            mHandler.setText(mHandler.setMode(Mode.HEXADECIMAL));
             view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
             break;
 
         case R.id.bin:
-        	mHandler.setText(mHandler.setMode(Mode.BINARY));
-        	view.setBackgroundResource(R.color.pressed_color);
+            mHandler.setText(mHandler.setMode(Mode.BINARY));
+            view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
             break;
 
         case R.id.dec:
-        	mHandler.setText(mHandler.setMode(Mode.DECIMAL));
-        	view.setBackgroundResource(R.color.pressed_color);
+            mHandler.setText(mHandler.setMode(Mode.DECIMAL));
+            view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
             break;
 
         case R.id.parentheses:
             if(mHandler.getText().contains("=")){
-            	mHandler.setText(mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")");
+                mHandler.setText(mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")");
             }
             else{
-            	mHandler.setText("(" + mHandler.getText() + ")");
+                mHandler.setText("(" + mHandler.getText() + ")");
             }
             break;
 
         case R.id.mod:
             if(mHandler.getText().contains("=")){
                 if(mHandler.getText().split("=", 1).length>1){
-                	mHandler.setText(mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",");
+                    mHandler.setText(mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",");
                 }
                 else{
-                	mHandler.insert(mModString + "(");
+                    mHandler.insert(mModString + "(");
                 }
             }
             else{
                 if(mHandler.getText().length()>0){
-                	mHandler.setText(mModString + "(" + mHandler.getText() + ",");
+                    mHandler.setText(mModString + "(" + mHandler.getText() + ",");
                 }
                 else{
-                	mHandler.insert(mModString + "(");
+                    mHandler.insert(mModString + "(");
                 }
             }
             break;
@@ -196,7 +197,7 @@ class EventListener implements View.OnKeyListener,
             if (view instanceof Button) {
                 String text = ((Button) view).getText().toString();
                 if (text.equals(mDX) || text.equals(mDY)) {
-                	// Do nothing
+                    // Do nothing
                 }
                 else if (text.length() >= 2) {
                     // Add paren after sin, cos, ln, etc. from buttons
@@ -212,9 +213,24 @@ class EventListener implements View.OnKeyListener,
 
     @Override
     public boolean onLongClick(View view) {
-        int id = view.getId();
-        if (id == R.id.del) {
+        switch(view.getId()){
+        case R.id.del:
             mHandler.onClear();
+            return true;
+        case R.id.determinant:
+            Toast.makeText(mContext, R.string.determinantDesc, Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.eigenvalue:
+            Toast.makeText(mContext, R.string.eigenvalueDesc, Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.dec:
+            Toast.makeText(mContext, R.string.decDesc, Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.bin:
+            Toast.makeText(mContext, R.string.binDesc, Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.hex:
+            Toast.makeText(mContext, R.string.hexDesc, Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;

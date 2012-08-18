@@ -19,7 +19,6 @@ package com.android2.calculator3;
 import org.achartengine.GraphicalView;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -455,31 +454,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mHexPage = hexPage;
             mMatrixPage = matrixPage;
 
-            final Resources res = getResources();
-            final TypedArray simpleButtons = res.obtainTypedArray(R.array.simple_buttons);
-            for (int i = 0; i < simpleButtons.length(); i++) {
-                setOnClickListener(simplePage, simpleButtons.getResourceId(i, 0));
-            }
-            simpleButtons.recycle();
-
-            final TypedArray advancedButtons = res.obtainTypedArray(R.array.advanced_buttons);
-            for (int i = 0; i < advancedButtons.length(); i++) {
-                setOnClickListener(advancedPage, advancedButtons.getResourceId(i, 0));
-            }
-            advancedButtons.recycle();
-            
-            final TypedArray functionButtons = res.obtainTypedArray(R.array.function_buttons);
-            for (int i = 0; i < functionButtons.length(); i++) {
-                setOnClickListener(functionPage, functionButtons.getResourceId(i, 0));
-            }
-            functionButtons.recycle();
-            
-            final TypedArray hexButtons = res.obtainTypedArray(R.array.hex_buttons);
-            for (int i = 0; i < hexButtons.length(); i++) {
-                setOnClickListener(hexPage, hexButtons.getResourceId(i, 0));
-            }
-            hexButtons.recycle();
-
             final View clearButton = simplePage.findViewById(R.id.clear);
             if (clearButton != null) {
                 mClearButton = clearButton;
@@ -575,26 +549,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mHexPage = hexPage;
             mFunctionPage = functionPage;
             mAdvancedPage = advancedPage;
-
-            final Resources res = getResources();
-
-            final TypedArray advancedButtons = res.obtainTypedArray(R.array.advanced_buttons);
-            for (int i = 0; i < advancedButtons.length(); i++) {
-                setOnClickListener(advancedPage, advancedButtons.getResourceId(i, 0));
-            }
-            advancedButtons.recycle();
-            
-            final TypedArray functionButtons = res.obtainTypedArray(R.array.function_buttons);
-            for (int i = 0; i < functionButtons.length(); i++) {
-                setOnClickListener(functionPage, functionButtons.getResourceId(i, 0));
-            }
-            functionButtons.recycle();
-            
-            final TypedArray hexButtons = res.obtainTypedArray(R.array.hex_buttons);
-            for (int i = 0; i < hexButtons.length(); i++) {
-                setOnClickListener(hexPage, hexButtons.getResourceId(i, 0));
-            }
-            hexButtons.recycle();
         }
 
         @Override
@@ -662,13 +616,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mGraphPage = graphPage;
             mSimplePage = simplePage;
             mMatrixPage = matrixPage;
-
-            final Resources res = getResources();
-            final TypedArray simpleButtons = res.obtainTypedArray(R.array.simple_buttons);
-            for (int i = 0; i < simpleButtons.length(); i++) {
-                setOnClickListener(simplePage, simpleButtons.getResourceId(i, 0));
-            }
-            simpleButtons.recycle();
 
             final View clearButton = simplePage.findViewById(R.id.clear);
             if (clearButton != null) {
