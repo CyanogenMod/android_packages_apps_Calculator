@@ -900,7 +900,7 @@ class Logic {
     private Object[] removeWhitespace(String[] strings){
         ArrayList<String> formatted = new ArrayList<String>(strings.length);
         for(String s : strings){
-            if(!s.isEmpty()) formatted.add(s);
+            if(s!=null && !s.isEmpty()) formatted.add(s);
         }
         return formatted.toArray();
     }
