@@ -18,8 +18,6 @@ package com.android2.calculator3;
 
 import org.achartengine.GraphicalView;
 
-import com.android2.calculator3.Logic.Mode;
-
 import android.app.Activity;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -77,7 +75,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private static final String STATE_CURRENT_VIEW = "state-current-view";
     private static final String STATE_CURRENT_VIEW_SMALL = "state-current-view-small";
     private static final String STATE_CURRENT_VIEW_LARGE = "state-current-view-large";
-    private static final String CURRENT_MODE = "current-mode";
 
     @Override
     public void onCreate(Bundle state) {
@@ -128,7 +125,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
-        if(state != null) mLogic.setMode(state.getSerializable(CURRENT_MODE)!=null ? (Mode) state.getSerializable(CURRENT_MODE) : Mode.DECIMAL);
+        if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
         mLogic.setLineLength(mDisplay.getMaxDigits());
@@ -381,8 +378,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
         
-        state.putSerializable(CURRENT_MODE, mLogic.getMode());
-        
         if (mPager != null) {
             state.putInt(STATE_CURRENT_VIEW, mPager.getCurrentItem());
         }
@@ -401,6 +396,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         super.onPause();
         mLogic.updateHistory();
         mPersist.setDeleteMode(mLogic.getDeleteMode());
+        mPersist.setMode(mLogic.getMode());
         mPersist.save();
     }
 

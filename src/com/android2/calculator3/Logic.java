@@ -98,7 +98,17 @@ class Logic {
     private int mDeleteMode = DELETE_MODE_BACKSPACE;
     
     public enum Mode {
-         DECIMAL, HEXADECIMAL, BINARY;
+        BINARY(0), DECIMAL(1), HEXADECIMAL(2);
+         
+         int quickSerializable;
+         
+         Mode(int num){
+             this.quickSerializable = num;
+         }
+         
+         public int getQuickSerializable(){
+             return quickSerializable;
+         }
     }
     
     private Mode mode = Mode.DECIMAL;
@@ -786,14 +796,14 @@ class Logic {
     }
 
     public String setMode(Mode mode) {
-    	String text = updateTextToNewMode(getText(), this.mode, mode);
+        String text = updateTextToNewMode(getText(), this.mode, mode);
         this.mode = mode;
         return text;
     }
     
     private String updateTextToNewMode(final String originalText, Mode mode1, Mode mode2){
-    	String text = originalText;
-    	if(!originalText.equals(mErrorString) && !originalText.isEmpty() && !mode1.equals(mode2)){
+        String text = originalText;
+        if(!originalText.equals(mErrorString) && !originalText.isEmpty() && !mode1.equals(mode2)){
             String[] operations = originalText.split("[A-F0-9]");
             String[] numbers = originalText.split("[^A-F0-9]");
             String[] translatedNumbers = new String[numbers.length];
@@ -806,16 +816,16 @@ class Logic {
                         break;
                     case DECIMAL:
                         try{
-                        	translatedNumbers[i] = Integer.toString(Integer.parseInt(numbers[i], 2));
+                            translatedNumbers[i] = Integer.toString(Integer.parseInt(numbers[i], 2));
                         } catch(NumberFormatException e){
-                        	return mErrorString;
+                            return mErrorString;
                         }
                         break;
                     case HEXADECIMAL:
-                    	try{
-                    	    translatedNumbers[i] = Integer.toHexString(Integer.parseInt(numbers[i], 2)).toUpperCase();
-                    	} catch(NumberFormatException e){
-                        	return mErrorString;
+                        try{
+                            translatedNumbers[i] = Integer.toHexString(Integer.parseInt(numbers[i], 2)).toUpperCase();
+                        } catch(NumberFormatException e){
+                            return mErrorString;
                         }
                         break;
                     }
@@ -823,19 +833,19 @@ class Logic {
                 case DECIMAL:
                     switch(mode2){
                     case BINARY:
-                    	try{
-                    	    translatedNumbers[i] = Integer.toBinaryString(Integer.valueOf(numbers[i]));
-                    	} catch(NumberFormatException e){
-                        	return mErrorString;
+                        try{
+                            translatedNumbers[i] = Integer.toBinaryString(Integer.valueOf(numbers[i]));
+                        } catch(NumberFormatException e){
+                            return mErrorString;
                         }
                         break;
                     case DECIMAL:
                         break;
                     case HEXADECIMAL:
-                    	try{
-                    	    translatedNumbers[i] = Integer.toHexString(Integer.valueOf(numbers[i])).toUpperCase();
-                    	} catch(NumberFormatException e){
-                        	return mErrorString;
+                        try{
+                            translatedNumbers[i] = Integer.toHexString(Integer.valueOf(numbers[i])).toUpperCase();
+                        } catch(NumberFormatException e){
+                            return mErrorString;
                         }
                         break;
                     }
@@ -843,17 +853,17 @@ class Logic {
                 case HEXADECIMAL:
                     switch(mode2){
                     case BINARY:
-                    	try{
-                    	    translatedNumbers[i] = Integer.toBinaryString(Integer.parseInt(numbers[i], 16));
-                    	} catch(NumberFormatException e){
-                        	return mErrorString;
+                        try{
+                            translatedNumbers[i] = Integer.toBinaryString(Integer.parseInt(numbers[i], 16));
+                        } catch(NumberFormatException e){
+                            return mErrorString;
                         }
                         break;
                     case DECIMAL:
-                    	try{
-                    	    translatedNumbers[i] = Integer.toString(Integer.parseInt(numbers[i], 16));
-                    	} catch(NumberFormatException e){
-                        	return mErrorString;
+                        try{
+                            translatedNumbers[i] = Integer.toString(Integer.parseInt(numbers[i], 16));
+                        } catch(NumberFormatException e){
+                            return mErrorString;
                         }
                         break;
                     case HEXADECIMAL:
@@ -866,32 +876,32 @@ class Logic {
             Object[] o = removeWhitespace(operations);
             Object[] n = removeWhitespace(translatedNumbers);
             if(originalText.substring(0,1).matches("[A-F0-9]")){
-	            for(int i=0;i<o.length && i<n.length;i++){
-	                text += n[i];
-	                text += o[i];
-	            }
+                for(int i=0;i<o.length && i<n.length;i++){
+                    text += n[i];
+                    text += o[i];
+                }
             }
             else{
-            	for(int i=0;i<o.length && i<n.length;i++){
-	                text += o[i];
-	                text += n[i];
-	            }
+                for(int i=0;i<o.length && i<n.length;i++){
+                    text += o[i];
+                    text += n[i];
+                }
             }
             if(o.length > n.length){
-            	text += o[o.length-1];
+                text += o[o.length-1];
             }
-        	else if(n.length > o.length){
-            	text += n[n.length-1];
+            else if(n.length > o.length){
+                text += n[n.length-1];
             }
         }
-    	return text;
+        return text;
     }
     
     private Object[] removeWhitespace(String[] strings){
-    	ArrayList<String> formatted = new ArrayList<String>(strings.length);
-    	for(String s : strings){
-    		if(!s.isEmpty()) formatted.add(s);
-    	}
-    	return formatted.toArray();
+        ArrayList<String> formatted = new ArrayList<String>(strings.length);
+        for(String s : strings){
+            if(!s.isEmpty()) formatted.add(s);
+        }
+        return formatted.toArray();
     }
 }
