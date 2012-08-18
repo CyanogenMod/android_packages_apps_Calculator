@@ -138,10 +138,34 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         if (mPager != null) {
             mPager.setCurrentItem(state == null ? BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW, BASIC_PANEL));
+            
+            switch(mLogic.getMode()){
+        	case BINARY:
+        		((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+        		break;
+        	case DECIMAL:
+        		((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+        		break;
+        	case HEXADECIMAL:
+        		((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+        		break;
+        	}
         }
         else if (mSmallPager != null && mLargePager != null) {
         	mSmallPager.setCurrentItem(state == null ? SMALL_ADVANCED_PANEL : state.getInt(STATE_CURRENT_VIEW_SMALL, SMALL_ADVANCED_PANEL));
         	mLargePager.setCurrentItem(state == null ? LARGE_BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW_LARGE, LARGE_BASIC_PANEL));
+        	
+        	switch(mLogic.getMode()){
+        	case BINARY:
+        		((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+        		break;
+        	case DECIMAL:
+        		((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+        		break;
+        	case HEXADECIMAL:
+        		((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+        		break;
+        	}
         }
 
         mListener.setHandler(this, mLogic, mPager);
