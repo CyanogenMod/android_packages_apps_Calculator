@@ -406,7 +406,7 @@ class Logic {
     
     void updateGraph(final Graph g){
         final String eq = getText();
-        
+
         if(eq.isEmpty()){
             String title = mTitleString + eq;
             XYSeries series = new XYSeries(title);
@@ -425,6 +425,7 @@ class Logic {
             
             return;
         }
+
         if(!eq.contains("=")) return;
         if(eq.endsWith(mPlusString) || 
            eq.endsWith(mMinusString) || 
@@ -441,11 +442,11 @@ class Logic {
            eq.endsWith(mLogString + "(") || 
            eq.endsWith(mModString + "(") ||
            eq.endsWith(mLnString + "(")) return;
-        
-        final String[] equation = getText().split("=", 1);
-        
+
+        final String[] equation = eq.split("=", 2);
+
         if(equation.length == 1) return;
-        
+
         // Translate into decimal
         equation[0] = updateTextToNewMode(equation[0], mode, Mode.DECIMAL);
         equation[1] = updateTextToNewMode(equation[1], mode, Mode.DECIMAL);

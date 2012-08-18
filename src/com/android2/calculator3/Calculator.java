@@ -57,18 +57,18 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     static final int GRAPH_PANEL    = 0;
     static final int FUNCTION_PANEL = 1;
-    static final int BASIC_PANEL    = 2;
-    static final int ADVANCED_PANEL = 3;
-    static final int HEX_PANEL      = 4;
+    static final int HEX_PANEL      = 2;
+    static final int BASIC_PANEL    = 3;
+    static final int ADVANCED_PANEL = 4;
     static final int MATRIX_PANEL   = 5;
 
     static final int SMALL_HEX_PANEL      = 0;
     static final int SMALL_ADVANCED_PANEL = 1;
     static final int SMALL_FUNCTION_PANEL = 2;
     
-    static final int LARGE_GRAPH_PANEL    = 0;
-    static final int LARGE_BASIC_PANEL    = 1;
-    static final int LARGE_MATRIX_PANEL   = 2;
+    static final int LARGE_GRAPH_PANEL  = 0;
+    static final int LARGE_BASIC_PANEL  = 1;
+    static final int LARGE_MATRIX_PANEL = 2;
 
     private static final String LOG_TAG = "Calculator";
     private static final boolean LOG_ENABLED = false;
