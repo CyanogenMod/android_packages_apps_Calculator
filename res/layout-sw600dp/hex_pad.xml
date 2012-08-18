@@ -28,27 +28,27 @@
 
         <LinearLayout
         style="@style/btn_row_style">
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/A"
             android:text="@string/A"
             style="@style/btn_digit_cell_style"
             />
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/B"
             android:text="@string/B"
             style="@style/btn_digit_cell_style"
             />
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/C"
             android:text="@string/C"
             style="@style/btn_digit_cell_style"
             />
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/D"
             android:text="@string/D"
             style="@style/btn_digit_cell_style"
             />
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/E"
             android:text="@string/E"
             style="@style/btn_digit_cell_style"
@@ -56,25 +56,25 @@
     </LinearLayout>
     <LinearLayout
         style="@style/btn_row_style">
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/F"
             android:text="@string/F"
             android:layout_weight="3"
             style="@style/btn_digit_cell_style"
             />
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/dec"
             android:text="@string/dec"
             android:layout_weight="4"
             style="@style/btn_function_cell_style"
             />
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/bin"
             android:text="@string/bin"
             android:layout_weight="4"
             style="@style/btn_function_cell_style"
             />
-        <Button
+        <com.android2.calculator3.ColorButton
             android:id="@+id/hex"
             android:text="@string/hex"
             android:layout_weight="4"

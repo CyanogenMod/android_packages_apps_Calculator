@@ -145,14 +145,23 @@ class EventListener implements View.OnKeyListener,
 
         case R.id.hex:
         	mHandler.setText(mHandler.setMode(Mode.HEXADECIMAL));
+            view.setBackgroundResource(R.color.pressed_color);
+            ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
+            ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
             break;
 
         case R.id.bin:
         	mHandler.setText(mHandler.setMode(Mode.BINARY));
+        	view.setBackgroundResource(R.color.pressed_color);
+            ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
+            ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
             break;
 
         case R.id.dec:
         	mHandler.setText(mHandler.setMode(Mode.DECIMAL));
+        	view.setBackgroundResource(R.color.pressed_color);
+            ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
+            ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
             break;
 
         case R.id.parentheses:

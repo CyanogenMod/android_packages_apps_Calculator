@@ -436,6 +436,10 @@ class Logic {
         
         if(equation.length == 1) return;
         
+        // Translate into decimal
+        equation[0] = updateTextToNewMode(equation[0], mode, Mode.DECIMAL);
+        equation[1] = updateTextToNewMode(equation[1], mode, Mode.DECIMAL);
+        
         new Thread(new Runnable(){
             public void run(){
                 final String title = mTitleString + eq;
@@ -448,7 +452,7 @@ class Logic {
                         
                         try{
                             mSymbols.define(mX, x);
-                            double y = mSymbols.eval(updateTextToNewMode(equation[1], mode, Mode.DECIMAL));
+                            double y = mSymbols.eval(equation[1]);
                             
                             if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN){
                                 //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
@@ -469,7 +473,7 @@ class Logic {
                         
                         try{
                             mSymbols.define(mY, y);
-                            double x = mSymbols.eval(updateTextToNewMode(equation[1], mode, Mode.DECIMAL));
+                            double x = mSymbols.eval(equation[1]);
                             
                             if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN){
                                 series.add(MathHelper.NULL_VALUE, y);
@@ -488,7 +492,7 @@ class Logic {
                         
                         try{
                             mSymbols.define(mX, x);
-                            double y = mSymbols.eval(updateTextToNewMode(equation[0], mode, Mode.DECIMAL));
+                            double y = mSymbols.eval(equation[0]);
                             
                             if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN){
                                 series.add(x, MathHelper.NULL_VALUE);
@@ -507,7 +511,7 @@ class Logic {
                         
                         try{
                             mSymbols.define(mY, y);
-                            double x = mSymbols.eval(updateTextToNewMode(equation[0], mode, Mode.DECIMAL));
+                            double x = mSymbols.eval(equation[0]);
                             
                             if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN){
                                 series.add(MathHelper.NULL_VALUE, y);
@@ -527,8 +531,8 @@ class Logic {
                             try{
                                 mSymbols.define(mX, x);
                                 mSymbols.define(mY, y);
-                                Double leftSide = mSymbols.eval(updateTextToNewMode(equation[0], mode, Mode.DECIMAL));
-                                Double rightSide = mSymbols.eval(updateTextToNewMode(equation[1], mode, Mode.DECIMAL));
+                                Double leftSide = mSymbols.eval(equation[0]);
+                                Double rightSide = mSymbols.eval(equation[1]);
                                 if(leftSide < 0 && rightSide < 0){
                                     if(leftSide*0.97 >= rightSide && leftSide*1.03 <= rightSide){
                                         series.add(x, y);
@@ -559,7 +563,7 @@ class Logic {
     
     void findEigenvalue(){
         RealMatrix matrix = solveMatrix();
-        if(matrix == null) return;
+        if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
         
         String result = "";
         try{
