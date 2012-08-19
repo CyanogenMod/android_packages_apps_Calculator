@@ -29,8 +29,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -52,6 +54,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
+    private View mPulldown;
     private Graph mGraph;
 
     static final int GRAPH_PANEL    = 0;
@@ -121,6 +124,30 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mHistory = mPersist.history;
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
+
+    	System.out.println("Height: "+((View) mDisplay.getParent()).getHeight());
+        mPulldown = findViewById(R.id.pulldown);
+        mPulldown.setOnTouchListener(new OnTouchListener() {
+            long distance = 0;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                	distance = (long) event.getRawY() - v.getHeight();
+                	System.out.println("Raw y: "+event.getRawY());
+                	System.out.println("Percise y: "+event.getYPrecision());
+                	System.out.println("View height: "+v.getHeight());
+                    break;
+                case MotionEvent.ACTION_UP:
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                	distance += event.getY();
+                	((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) distance));
+                    break;
+                }
+                return true;
+            }
+        });
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);

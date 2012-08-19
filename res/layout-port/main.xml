@@ -54,6 +54,15 @@
             android:visibility="gone"
             android:contentDescription="@null"/>
     </LinearLayout>
+        
+    <ImageButton
+         android:id="@+id/pulldown"
+         android:src="@drawable/pulldown_down"
+         android:background="@android:color/transparent"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:contentDescription="@null" />
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -94,14 +103,6 @@
         </FrameLayout>
 
     </LinearLayout>
-    
-    <ImageButton
-         android:id="@+id/pulldown"
-         android:src="@drawable/pulldown_down"
-         android:background="@android:color/transparent"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:contentDescription="@null" />
     
     <com.android2.calculator3.CalculatorViewPager
          android:id="@+id/panelswitch"
