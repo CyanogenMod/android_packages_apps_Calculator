@@ -54,7 +54,8 @@
             android:src="@drawable/ic_menu_overflow"
             android:background="@android:color/transparent"
             android:layout_marginLeft="8dip"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:contentDescription="@null"/>
         <FrameLayout
             android:layout_width="100dip"
             android:layout_height="match_parent">
@@ -73,9 +74,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="5dip"
-                android:paddingRight="5dip" />
+                android:paddingRight="5dip"
+                android:contentDescription="@null" />
         </FrameLayout>
     </LinearLayout>
+    
+    <ImageButton
+         android:id="@+id/pulldown"
+         android:src="@drawable/pulldown_down"
+         android:background="@android:color/transparent"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:contentDescription="@null" />
     
     <com.android2.calculator3.CalculatorViewPager
          android:id="@+id/smallPanelswitch"

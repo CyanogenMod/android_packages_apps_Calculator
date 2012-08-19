@@ -183,6 +183,7 @@ class Logic {
     void setText(String text) {
         clear(false);
         mDisplay.insert(text);
+        if(text.equals(mErrorString)) setDeleteMode(DELETE_MODE_CLEAR);
     }
 
     void insert(String delta) {
@@ -240,8 +241,6 @@ class Logic {
     void onDelete() {
         if (getText().equals(mResult) || mIsError) {
             clear(false);
-        } else if(getText().equals(mErrorString)) {
-            clear(true);
         } else {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";

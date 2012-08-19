@@ -166,6 +166,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.parentheses:
+        	if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")){
                 mHandler.setText(mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")");
             }
@@ -175,6 +176,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.mod:
+        	if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")){
                 if(mHandler.getText().split("=", 1).length>1){
                     mHandler.setText(mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",");
@@ -195,6 +197,7 @@ class EventListener implements View.OnKeyListener,
 
         default:
             if (view instanceof Button) {
+            	if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
                 String text = ((Button) view).getText().toString();
                 if (text.equals(mDX) || text.equals(mDY)) {
                     // Do nothing
