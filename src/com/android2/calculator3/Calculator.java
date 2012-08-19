@@ -37,12 +37,13 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
-        OnClickListener, OnMenuItemClickListener {
+        OnClickListener, OnMenuItemClickListener, OnTouchListener {
     EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
     private Persist mPersist;
@@ -54,8 +55,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
-    private View mPulldown;
+    private ImageButton mPulldown;
+    private View mWindow;
     private Graph mGraph;
+    private int mDistance;
+    private int mDefaultDisplayHeight = -1;
 
     static final int GRAPH_PANEL    = 0;
     static final int FUNCTION_PANEL = 1;
@@ -87,6 +91,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
         setContentView(R.layout.main);
+        mWindow = findViewById(R.id.window);
         mPager = (ViewPager) findViewById(R.id.panelswitch);
         mSmallPager = (ViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (ViewPager) findViewById(R.id.largePanelswitch);
@@ -95,8 +100,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         } 
         else if(mSmallPager != null && mLargePager != null) {
             //Expanded UI
-        	mSmallPager.setAdapter(new SmallPageAdapter(mSmallPager));
-        	mLargePager.setAdapter(new LargePageAdapter(mLargePager));
+            mSmallPager.setAdapter(new SmallPageAdapter(mSmallPager));
+            mLargePager.setAdapter(new LargePageAdapter(mLargePager));
         }
         else {
             // Single page UI
@@ -125,29 +130,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 
-    	System.out.println("Height: "+((View) mDisplay.getParent()).getHeight());
-        mPulldown = findViewById(R.id.pulldown);
-        mPulldown.setOnTouchListener(new OnTouchListener() {
-            long distance = 0;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                	distance = (long) event.getRawY() - v.getHeight();
-                	System.out.println("Raw y: "+event.getRawY());
-                	System.out.println("Percise y: "+event.getYPrecision());
-                	System.out.println("View height: "+v.getHeight());
-                    break;
-                case MotionEvent.ACTION_UP:
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                	distance += event.getY();
-                	((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) distance));
-                    break;
-                }
-                return true;
-            }
-        });
+        mPulldown = (ImageButton) findViewById(R.id.pulldown);
+        mPulldown.setOnTouchListener(this);
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
@@ -163,32 +147,32 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mPager.setCurrentItem(state == null ? BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW, BASIC_PANEL));
             
             switch(mLogic.getMode()){
-        	case BINARY:
-        		((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
-        		break;
-        	case DECIMAL:
-        		((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
-        		break;
-        	case HEXADECIMAL:
-        		((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
-        		break;
-        	}
+            case BINARY:
+                ((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+                break;
+            case DECIMAL:
+                ((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+                break;
+            case HEXADECIMAL:
+                ((PageAdapter) mPager.getAdapter()).mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+                break;
+            }
         }
         else if (mSmallPager != null && mLargePager != null) {
-        	mSmallPager.setCurrentItem(state == null ? SMALL_ADVANCED_PANEL : state.getInt(STATE_CURRENT_VIEW_SMALL, SMALL_ADVANCED_PANEL));
-        	mLargePager.setCurrentItem(state == null ? LARGE_BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW_LARGE, LARGE_BASIC_PANEL));
-        	
-        	switch(mLogic.getMode()){
-        	case BINARY:
-        		((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
-        		break;
-        	case DECIMAL:
-        		((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
-        		break;
-        	case HEXADECIMAL:
-        		((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
-        		break;
-        	}
+            mSmallPager.setCurrentItem(state == null ? SMALL_ADVANCED_PANEL : state.getInt(STATE_CURRENT_VIEW_SMALL, SMALL_ADVANCED_PANEL));
+            mLargePager.setCurrentItem(state == null ? LARGE_BASIC_PANEL : state.getInt(STATE_CURRENT_VIEW_LARGE, LARGE_BASIC_PANEL));
+            
+            switch(mLogic.getMode()){
+            case BINARY:
+                ((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+                break;
+            case DECIMAL:
+                ((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+                break;
+            case HEXADECIMAL:
+                ((SmallPageAdapter) mSmallPager.getAdapter()).mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+                break;
+            }
         }
 
         mListener.setHandler(this, mLogic, mPager);
@@ -289,60 +273,60 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     private boolean getGraphVisibility() {
         if(mPager != null) {
-        	return mPager.getCurrentItem() == GRAPH_PANEL;
+            return mPager.getCurrentItem() == GRAPH_PANEL;
         }
         else if(mLargePager != null){
-        	return mLargePager.getCurrentItem() == LARGE_GRAPH_PANEL;
+            return mLargePager.getCurrentItem() == LARGE_GRAPH_PANEL;
         }
         return false;
     }
     
     private boolean getFunctionVisibility() {
-    	if(mPager != null) {
-        	return mPager.getCurrentItem() == FUNCTION_PANEL;
+        if(mPager != null) {
+            return mPager.getCurrentItem() == FUNCTION_PANEL;
         }
         else if(mSmallPager != null){
-        	return mSmallPager.getCurrentItem() == SMALL_FUNCTION_PANEL;
+            return mSmallPager.getCurrentItem() == SMALL_FUNCTION_PANEL;
         }
         return false;
     }
     
     private boolean getBasicVisibility() {
-    	if(mPager != null) {
-        	return mPager.getCurrentItem() == BASIC_PANEL;
+        if(mPager != null) {
+            return mPager.getCurrentItem() == BASIC_PANEL;
         }
         else if(mLargePager != null){
-        	return mLargePager.getCurrentItem() == LARGE_BASIC_PANEL;
+            return mLargePager.getCurrentItem() == LARGE_BASIC_PANEL;
         }
         return false;
     }
 
     private boolean getAdvancedVisibility() {
-    	if(mPager != null) {
-        	return mPager.getCurrentItem() == ADVANCED_PANEL;
+        if(mPager != null) {
+            return mPager.getCurrentItem() == ADVANCED_PANEL;
         }
         else if(mSmallPager != null){
-        	return mSmallPager.getCurrentItem() == SMALL_ADVANCED_PANEL;
+            return mSmallPager.getCurrentItem() == SMALL_ADVANCED_PANEL;
         }
         return false;
     }
     
     private boolean getHexVisibility() {
-    	if(mPager != null) {
-        	return mPager.getCurrentItem() == HEX_PANEL;
+        if(mPager != null) {
+            return mPager.getCurrentItem() == HEX_PANEL;
         }
         else if(mSmallPager != null){
-        	return mSmallPager.getCurrentItem() == SMALL_HEX_PANEL;
+            return mSmallPager.getCurrentItem() == SMALL_HEX_PANEL;
         }
         return false;
     }
     
     private boolean getMatrixVisibility() {
-    	if(mPager != null) {
-        	return mPager.getCurrentItem() == MATRIX_PANEL;
+        if(mPager != null) {
+            return mPager.getCurrentItem() == MATRIX_PANEL;
         }
         else if(mLargePager != null){
-        	return mLargePager.getCurrentItem() == LARGE_MATRIX_PANEL;
+            return mLargePager.getCurrentItem() == LARGE_MATRIX_PANEL;
         }
         return false;
     }
@@ -364,36 +348,36 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
             case R.id.advanced:
                 if (!getAdvancedVisibility()) {
-                	if(mPager!=null) mPager.setCurrentItem(ADVANCED_PANEL);
-                	else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_ADVANCED_PANEL);
+                    if(mPager!=null) mPager.setCurrentItem(ADVANCED_PANEL);
+                    else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_ADVANCED_PANEL);
                 }
                 break;
 
             case R.id.function:
                 if (!getFunctionVisibility()) {
-                	if(mPager!=null) mPager.setCurrentItem(FUNCTION_PANEL);
-                	else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_FUNCTION_PANEL);
+                    if(mPager!=null) mPager.setCurrentItem(FUNCTION_PANEL);
+                    else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_FUNCTION_PANEL);
                 }
                 break;
 
             case R.id.graph:
                 if (!getGraphVisibility()) {
-                	if(mPager!=null) mPager.setCurrentItem(GRAPH_PANEL);
-                	else if(mLargePager!=null) mLargePager.setCurrentItem(LARGE_GRAPH_PANEL);
+                    if(mPager!=null) mPager.setCurrentItem(GRAPH_PANEL);
+                    else if(mLargePager!=null) mLargePager.setCurrentItem(LARGE_GRAPH_PANEL);
                 }
                 break;
 
             case R.id.matrix:
                 if (!getMatrixVisibility()) {
-                	if(mPager!=null) mPager.setCurrentItem(MATRIX_PANEL);
-                	else if(mLargePager!=null) mLargePager.setCurrentItem(LARGE_MATRIX_PANEL);
+                    if(mPager!=null) mPager.setCurrentItem(MATRIX_PANEL);
+                    else if(mLargePager!=null) mLargePager.setCurrentItem(LARGE_MATRIX_PANEL);
                 }
                 break;
                 
             case R.id.hex:
                 if (!getHexVisibility()) {
-                	if(mPager!=null) mPager.setCurrentItem(HEX_PANEL);
-                	else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_HEX_PANEL);
+                    if(mPager!=null) mPager.setCurrentItem(HEX_PANEL);
+                    else if(mSmallPager!=null) mSmallPager.setCurrentItem(SMALL_HEX_PANEL);
                 }
                 break;
         }
@@ -428,12 +412,17 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && ((View) mDisplay.getParent()).getHeight() != mDefaultDisplayHeight){
+            ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDefaultDisplayHeight));
+            mDistance = mDefaultDisplayHeight;
+            return true;
+        }
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())) {
             mPager.setCurrentItem(BASIC_PANEL);
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())){
-        	mSmallPager.setCurrentItem(SMALL_ADVANCED_PANEL);
+            mSmallPager.setCurrentItem(SMALL_ADVANCED_PANEL);
             mLargePager.setCurrentItem(LARGE_BASIC_PANEL);
             return true;
         }
@@ -454,6 +443,39 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public void onDeleteModeChange() {
         updateDeleteMode();
+    }
+    
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            mPulldown.setImageResource(R.drawable.calculator_down_handle_press);
+            break;
+        case MotionEvent.ACTION_UP:
+            mPulldown.setImageResource(R.drawable.calculator_down_handle);
+            if(((View) mDisplay.getParent()).getHeight() > mWindow.getHeight()/2){
+                ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mWindow.getHeight()-mPulldown.getHeight()));
+                mDistance = mWindow.getHeight()-mPulldown.getHeight();
+            } else{
+                ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDefaultDisplayHeight));
+                mDistance = mDefaultDisplayHeight;
+            }
+            break;
+        case MotionEvent.ACTION_MOVE:
+            mDistance += event.getY();
+            ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDistance));
+            break;
+        }
+        return true;
+    }
+    
+    @Override
+    public void onWindowFocusChanged (boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(mDefaultDisplayHeight == -1){
+        	mDefaultDisplayHeight = ((View) mDisplay.getParent()).getMeasuredHeight();
+            mDistance = mDefaultDisplayHeight;
+        }
     }
 
     class PageAdapter extends PagerAdapter {
@@ -563,7 +585,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
     
     class SmallPageAdapter extends PagerAdapter {
-    	private View mHexPage;
+        private View mHexPage;
         private View mFunctionPage;
         private View mAdvancedPage;
 

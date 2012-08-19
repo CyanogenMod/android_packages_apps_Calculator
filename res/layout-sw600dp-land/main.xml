@@ -25,13 +25,13 @@
     android:paddingLeft="@dimen/left_right_padding"
     android:paddingRight="@dimen/left_right_padding"
     android:paddingTop="@dimen/top_bottom_padding"
-    android:paddingBottom="@dimen/top_bottom_padding">
+    android:paddingBottom="@dimen/top_bottom_padding"
+    android:id="@+id/window">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginBottom="@dimen/group_padding"
         android:background="@android:color/transparent">
 
         <com.android2.calculator3.CalculatorDisplay
