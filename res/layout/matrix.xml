@@ -11,7 +11,7 @@
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="15dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/grip_bar_port"
             android:id="@+id/grip_bar_port"
             />
@@ -22,7 +22,7 @@
             >
             <include layout="@layout/the_matrix"/>
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:background="@drawable/grip_bar_land"
                 android:id="@+id/grip_bar_land"
@@ -30,7 +30,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/matrixButtons"

@@ -19,7 +19,6 @@ package com.android2.calculator3;
 import org.achartengine.GraphicalView;
 
 import android.app.Activity;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -41,6 +40,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.TextView;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
         OnClickListener, OnMenuItemClickListener, OnTouchListener {
@@ -48,6 +48,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private CalculatorDisplay mDisplay;
     private Persist mPersist;
     private History mHistory;
+    private TextView mHistoryView;
     private Logic mLogic;
     private ViewPager mPager;
     private ViewPager mSmallPager;
@@ -60,6 +61,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private Graph mGraph;
     private int mDistance;
     private int mDefaultDisplayHeight;
+    private int mDefaultPulldownHeight;
     private boolean showHistory = false;
 
     static final int GRAPH_PANEL    = 0;
@@ -93,6 +95,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         setContentView(R.layout.main);
         mWindow = findViewById(R.id.window);
+        mHistoryView = (TextView) findViewById(R.id.history);
+        mHistoryView.setText(R.string.testingHistory);
         mPager = (ViewPager) findViewById(R.id.panelswitch);
         mSmallPager = (ViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (ViewPager) findViewById(R.id.largePanelswitch);
@@ -103,14 +107,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             //Expanded UI
             mSmallPager.setAdapter(new SmallPageAdapter(mSmallPager));
             mLargePager.setAdapter(new LargePageAdapter(mLargePager));
-        }
-        else {
-            // Single page UI
-            final TypedArray buttons = getResources().obtainTypedArray(R.array.buttons);
-            for (int i = 0; i < buttons.length(); i++) {
-                setOnClickListener(null, buttons.getResourceId(i, 0));
-            }
-            buttons.recycle();
         }
 
         if (mClearButton == null) {
@@ -413,9 +409,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && ((View) mDisplay.getParent()).getHeight() != mDefaultDisplayHeight){
-            ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDefaultDisplayHeight));
-            mDistance = mDefaultDisplayHeight;
+        if(keyCode == KeyEvent.KEYCODE_BACK && showHistory){
+        	minimizeHistory();
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())) {
@@ -445,7 +440,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     public void onDeleteModeChange() {
         updateDeleteMode();
     }
-    
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
@@ -454,32 +449,46 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             break;
         case MotionEvent.ACTION_UP:
             mPulldown.setImageResource(R.drawable.calculator_down_handle);
-            if(((View) mDisplay.getParent()).getHeight() > mWindow.getHeight()/2){
-                ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mWindow.getHeight()-mPulldown.getHeight()));
-                mDistance = mWindow.getHeight()-mPulldown.getHeight();
+            if(((View) mDisplay.getParent().getParent()).getHeight() > mWindow.getHeight()/2){
+            	maximizeHistory();
             } else{
-                ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDefaultDisplayHeight));
-                mDistance = mDefaultDisplayHeight;
+            	minimizeHistory();
             }
             break;
         case MotionEvent.ACTION_MOVE:
-            if(mDistance == mWindow.getHeight()-mPulldown.getHeight() && event.getY() > 0) break;
+            if(mDistance == mWindow.getHeight()-mDefaultPulldownHeight && event.getY() > 0) break;
             if(mDistance == mDefaultDisplayHeight && event.getY() < 0) break;
             mDistance += event.getY();
-            if(mDistance > mWindow.getHeight()-mPulldown.getHeight() && event.getY() > 0) mDistance = mWindow.getHeight()-mPulldown.getHeight();
+            if(mDistance > mWindow.getHeight()-mDefaultPulldownHeight && event.getY() > 0) mDistance = mWindow.getHeight()-mDefaultPulldownHeight;
             if(mDistance < mDefaultDisplayHeight && event.getY() < 0) mDistance = mDefaultDisplayHeight;
-            System.out.println(mDistance);
-            ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDistance));
+            ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDistance));
             break;
         }
         return true;
+    }
+    
+    private void minimizeHistory(){
+    	((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDefaultDisplayHeight));
+        mDistance = mDefaultDisplayHeight;
+        ((View) mDisplay.getParent()).setVisibility(View.VISIBLE);
+        ((View) mHistoryView.getParent()).setVisibility(View.GONE);
+        showHistory = false;
+    }
+    
+    private void maximizeHistory(){
+        ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mWindow.getHeight()-mDefaultPulldownHeight));
+        mDistance = mWindow.getHeight()-mDefaultPulldownHeight;
+        ((View) mDisplay.getParent()).setVisibility(View.GONE);
+        ((View) mHistoryView.getParent()).setVisibility(View.VISIBLE);
+        showHistory = true;
     }
     
     @Override
     public void onWindowFocusChanged (boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if(!showHistory){
-        	mDefaultDisplayHeight = ((View) mDisplay.getParent()).getMeasuredHeight();
+        	mDefaultPulldownHeight = mPulldown.getHeight() + mPulldown.getPaddingBottom();
+        	mDefaultDisplayHeight = ((View) mDisplay.getParent().getParent()).getMeasuredHeight();
             mDistance = mDefaultDisplayHeight;
         }
     }

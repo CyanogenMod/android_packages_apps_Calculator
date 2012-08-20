@@ -30,52 +30,71 @@
          android:layout_weight="2"
          >
 
-        <com.android2.calculator3.CalculatorDisplay
-             android:id="@+id/display"
-             android:layout_width="0dp"
-             android:layout_weight="5"
-             android:layout_height="match_parent"
-             maxDigits="@integer/max_digits">
-
-            <com.android2.calculator3.CalculatorEditText
-                style="@style/display_style" />
-            <com.android2.calculator3.CalculatorEditText
-                style="@style/display_style" />
-
-        </com.android2.calculator3.CalculatorDisplay>
-        <ImageButton android:id="@+id/overflow_menu"
-            android:layout_width="48dip"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_menu_overflow"
-            android:background="@android:color/transparent"
-            android:layout_marginLeft="8dip"
-            android:visibility="gone"
-            android:contentDescription="@null"/>
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <!-- marginRight has to be 0 to catch border-touch -->
-            <com.android2.calculator3.ColorButton
-                 android:id="@+id/clear"
-                 android:text="@string/clear"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_marginRight="0dp"
-                 android:textSize="15dp"
-                 style="@style/button_style"
-                 />
-            <!-- marginRight has to be 0 to catch border-touch -->
-            <com.android2.calculator3.ColorButton
-                 android:id="@+id/del"
-                 android:text="@string/del"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_marginRight="0dp"
-                 android:textSize="15dp"
-                 style="@style/button_style"
-                 />
-        </FrameLayout>
+        <LinearLayout
+	         android:layout_width="match_parent"
+	         android:layout_height="match_parent">
+	        <com.android2.calculator3.CalculatorDisplay
+	             android:id="@+id/display"
+	             android:layout_width="0dp"
+	             android:layout_weight="5"
+	             android:layout_height="match_parent"
+	             maxDigits="@integer/max_digits">
+	
+	            <com.android2.calculator3.CalculatorEditText
+	                style="@style/display_style" />
+	            <com.android2.calculator3.CalculatorEditText
+	                style="@style/display_style" />
+	
+	        </com.android2.calculator3.CalculatorDisplay>
+	        <ImageButton android:id="@+id/overflow_menu"
+	            android:layout_width="48dip"
+	            android:layout_height="match_parent"
+	            android:src="@drawable/ic_menu_overflow"
+	            android:background="@android:color/transparent"
+	            android:layout_marginLeft="8dip"
+	            android:visibility="gone"
+	            android:contentDescription="@null"/>
+	        <FrameLayout
+	            android:layout_width="0dp"
+	            android:layout_weight="1"
+	            android:layout_height="match_parent">
+	            <!-- marginRight has to be 0 to catch border-touch -->
+	            <com.android2.calculator3.ColorButton
+	                 android:id="@+id/clear"
+	                 android:text="@string/clear"
+	                 android:layout_width="match_parent"
+	                 android:layout_height="match_parent"
+	                 android:layout_marginRight="0dp"
+	                 android:textSize="15dp"
+	                 style="@style/button_style"
+	                 />
+	            <!-- marginRight has to be 0 to catch border-touch -->
+	            <com.android2.calculator3.ColorButton
+	                 android:id="@+id/del"
+	                 android:text="@string/del"
+	                 android:layout_width="match_parent"
+	                 android:layout_height="match_parent"
+	                 android:layout_marginRight="0dp"
+	                 android:textSize="15dp"
+	                 style="@style/button_style"
+	                 />
+	        </FrameLayout>
+	    </LinearLayout>
+	    
+	    <ScrollView 
+	        android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+	        android:isScrollContainer="true"
+	        android:background="@android:color/transparent"
+	        android:visibility="gone">
+	        
+	        <TextView
+		        android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+		        android:background="@android:color/transparent"
+		        android:id="@+id/history"/>
+	        
+	    </ScrollView>
     </LinearLayout>
 
     <ImageButton
@@ -84,7 +103,8 @@
          android:background="@android:color/transparent"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:contentDescription="@null" />
+         android:contentDescription="@null"
+         android:paddingBottom="0dp" />
     
     <com.android2.calculator3.CalculatorViewPager
          android:id="@+id/panelswitch"
