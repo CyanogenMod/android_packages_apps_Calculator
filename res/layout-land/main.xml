@@ -85,13 +85,12 @@
 	        android:layout_width="match_parent"
 		    android:layout_height="match_parent"
 	        android:isScrollContainer="true"
-	        android:background="@android:color/transparent"
 	        android:visibility="gone">
 	        
 	        <TextView
 		        android:layout_width="match_parent"
-			    android:layout_height="match_parent"
-		        android:background="@android:color/transparent"
+			    android:layout_height="wrap_content"
+			    android:textSize="@dimen/display_text_size"
 		        android:id="@+id/history"/>
 	        
 	    </ScrollView>
