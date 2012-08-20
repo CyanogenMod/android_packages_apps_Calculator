@@ -59,7 +59,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private View mWindow;
     private Graph mGraph;
     private int mDistance;
-    private int mDefaultDisplayHeight = -1;
+    private int mDefaultDisplayHeight;
+    private boolean showHistory = false;
 
     static final int GRAPH_PANEL    = 0;
     static final int FUNCTION_PANEL = 1;
@@ -462,7 +463,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             }
             break;
         case MotionEvent.ACTION_MOVE:
+            if(mDistance == mWindow.getHeight()-mPulldown.getHeight() && event.getY() > 0) break;
+            if(mDistance == mDefaultDisplayHeight && event.getY() < 0) break;
             mDistance += event.getY();
+            if(mDistance > mWindow.getHeight()-mPulldown.getHeight() && event.getY() > 0) mDistance = mWindow.getHeight()-mPulldown.getHeight();
+            if(mDistance < mDefaultDisplayHeight && event.getY() < 0) mDistance = mDefaultDisplayHeight;
+            System.out.println(mDistance);
             ((View) mDisplay.getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDistance));
             break;
         }
@@ -472,7 +478,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public void onWindowFocusChanged (boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(mDefaultDisplayHeight == -1){
+        if(!showHistory){
         	mDefaultDisplayHeight = ((View) mDisplay.getParent()).getMeasuredHeight();
             mDistance = mDefaultDisplayHeight;
         }
