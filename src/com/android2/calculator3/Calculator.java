@@ -96,7 +96,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         setContentView(R.layout.main);
         mWindow = findViewById(R.id.window);
         mHistoryView = (TextView) findViewById(R.id.history);
-        mHistoryView.setText(R.string.testingHistory);
         mPager = (ViewPager) findViewById(R.id.panelswitch);
         mSmallPager = (ViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (ViewPager) findViewById(R.id.largePanelswitch);
@@ -410,7 +409,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if(keyCode == KeyEvent.KEYCODE_BACK && showHistory){
-        	minimizeHistory();
+            minimizeHistory();
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())) {
@@ -450,9 +449,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         case MotionEvent.ACTION_UP:
             mPulldown.setImageResource(R.drawable.calculator_down_handle);
             if(((View) mDisplay.getParent().getParent()).getHeight() > mWindow.getHeight()/2){
-            	maximizeHistory();
+                maximizeHistory();
             } else{
-            	minimizeHistory();
+                minimizeHistory();
             }
             break;
         case MotionEvent.ACTION_MOVE:
@@ -468,7 +467,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
     
     private void minimizeHistory(){
-    	((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDefaultDisplayHeight));
+        ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDefaultDisplayHeight));
         mDistance = mDefaultDisplayHeight;
         ((View) mDisplay.getParent()).setVisibility(View.VISIBLE);
         ((View) mHistoryView.getParent()).setVisibility(View.GONE);
@@ -476,6 +475,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
     
     private void maximizeHistory(){
+    	String completeHistory = "";
+        for(HistoryEntry he : mHistory.mEntries){
+            if(!he.getBase().isEmpty()) completeHistory += he.getBase() + " = " + he.getEdited() + "\n";
+        }
+        mHistoryView.setText(completeHistory);
+        
         ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mWindow.getHeight()-mDefaultPulldownHeight));
         mDistance = mWindow.getHeight()-mDefaultPulldownHeight;
         ((View) mDisplay.getParent()).setVisibility(View.GONE);
@@ -487,8 +492,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     public void onWindowFocusChanged (boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if(!showHistory){
-        	mDefaultPulldownHeight = mPulldown.getHeight() + mPulldown.getPaddingBottom();
-        	mDefaultDisplayHeight = ((View) mDisplay.getParent().getParent()).getMeasuredHeight();
+            mDefaultPulldownHeight = mPulldown.getHeight() + mPulldown.getPaddingBottom();
+            mDefaultDisplayHeight = ((View) mDisplay.getParent().getParent()).getMeasuredHeight();
             mDistance = mDefaultDisplayHeight;
         }
     }

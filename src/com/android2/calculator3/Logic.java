@@ -217,7 +217,7 @@ class Logic {
     }
 
     private void clear(boolean scroll) {
-        mHistory.enter("");
+        mHistory.enter("", "");
         mDisplay.setText("", scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
         cleared();
     }
@@ -266,7 +266,7 @@ class Logic {
         try {
             String result = evaluate(text);
             if (!text.equals(result)) {
-                mHistory.enter(text);
+                mHistory.enter(text, result);
                 mResult = result;
                 mDisplay.setText(mResult, scroll);
                 setDeleteMode(DELETE_MODE_CLEAR);
@@ -595,7 +595,6 @@ class Logic {
         
         result = result.substring(0, result.length()-1);
 
-        mHistory.enter(result);
         mResult = result;
         mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
         setDeleteMode(DELETE_MODE_CLEAR);
@@ -613,7 +612,6 @@ class Logic {
             }
         }
 
-        mHistory.enter(result);
         mResult = result;
         mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
         setDeleteMode(DELETE_MODE_CLEAR);
@@ -711,7 +709,6 @@ class Logic {
                     RealVector vector = matrix.getColumnVector(0);
                     RealVector vectorData = new Array2DRowRealMatrix(matrixData).getColumnVector(0);
                     String result = tryFormattingWithPrecision(vector.dotProduct(vectorData), 2);
-                    mHistory.enter(result);
                     mResult = result;
                     mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
                     setDeleteMode(DELETE_MODE_CLEAR);
