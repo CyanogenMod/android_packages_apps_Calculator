@@ -24,8 +24,6 @@
     android:background="#ff000000"
     android:paddingLeft="@dimen/left_right_padding"
     android:paddingRight="@dimen/left_right_padding"
-    android:paddingTop="@dimen/top_bottom_padding"
-    android:paddingBottom="@dimen/top_bottom_padding"
     android:id="@+id/window">
 
     <LinearLayout
@@ -103,8 +101,7 @@
          android:background="@android:color/transparent"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:contentDescription="@null"
-         android:paddingBottom="30dp" />
+         android:contentDescription="@null" />
     
     <LinearLayout
         android:layout_width="match_parent"

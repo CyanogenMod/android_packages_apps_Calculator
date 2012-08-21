@@ -62,6 +62,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private int mDistance;
     private int mDefaultDisplayHeight;
     private int mDefaultPulldownHeight;
+    private int mWindowHeight;
     private boolean showHistory = false;
 
     static final int GRAPH_PANEL    = 0;
@@ -444,21 +445,26 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
-            mPulldown.setImageResource(R.drawable.calculator_down_handle_press);
+        	if(showHistory){
+                mPulldown.setImageResource(R.drawable.calculator_up_handle_press);
+        	} else {
+                mPulldown.setImageResource(R.drawable.calculator_down_handle_press);
+        	}
             break;
         case MotionEvent.ACTION_UP:
-            mPulldown.setImageResource(R.drawable.calculator_down_handle);
-            if(((View) mDisplay.getParent().getParent()).getHeight() > mWindow.getHeight()/2){
+            if(((View) mDisplay.getParent().getParent()).getHeight() > mWindowHeight/2){
                 maximizeHistory();
+                mPulldown.setImageResource(R.drawable.calculator_up_handle);
             } else{
                 minimizeHistory();
+                mPulldown.setImageResource(R.drawable.calculator_down_handle);
             }
             break;
         case MotionEvent.ACTION_MOVE:
-            if(mDistance == mWindow.getHeight()-mDefaultPulldownHeight && event.getY() > 0) break;
+            if(mDistance == mWindowHeight-mDefaultPulldownHeight && event.getY() > 0) break;
             if(mDistance == mDefaultDisplayHeight && event.getY() < 0) break;
             mDistance += event.getY();
-            if(mDistance > mWindow.getHeight()-mDefaultPulldownHeight && event.getY() > 0) mDistance = mWindow.getHeight()-mDefaultPulldownHeight;
+            if(mDistance > mWindowHeight-mDefaultPulldownHeight && event.getY() > 0) mDistance = mWindowHeight-mDefaultPulldownHeight;
             if(mDistance < mDefaultDisplayHeight && event.getY() < 0) mDistance = mDefaultDisplayHeight;
             ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDistance));
             break;
@@ -472,6 +478,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         ((View) mDisplay.getParent()).setVisibility(View.VISIBLE);
         ((View) mHistoryView.getParent()).setVisibility(View.GONE);
         showHistory = false;
+        if(mPager != null) mPager.setVisibility(View.VISIBLE);
+        if(mSmallPager != null) mSmallPager.setVisibility(View.VISIBLE);
+        if(mLargePager != null) mLargePager.setVisibility(View.VISIBLE);
     }
     
     private void maximizeHistory(){
@@ -481,20 +490,26 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
         mHistoryView.setText(completeHistory);
         
-        ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mWindow.getHeight()-mDefaultPulldownHeight));
-        mDistance = mWindow.getHeight()-mDefaultPulldownHeight;
+        ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mWindowHeight-mDefaultPulldownHeight));
+        mDistance = mWindowHeight-mDefaultPulldownHeight;
         ((View) mDisplay.getParent()).setVisibility(View.GONE);
         ((View) mHistoryView.getParent()).setVisibility(View.VISIBLE);
         showHistory = true;
+        if(mPager != null) mPager.setVisibility(View.GONE);
+        if(mSmallPager != null) mSmallPager.setVisibility(View.GONE);
+        if(mLargePager != null) mLargePager.setVisibility(View.GONE);
     }
     
     @Override
     public void onWindowFocusChanged (boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if(!showHistory){
-            mDefaultPulldownHeight = mPulldown.getHeight() + mPulldown.getPaddingBottom();
+        	mWindowHeight = mWindow.getHeight();
+            mDefaultPulldownHeight = mPulldown.getHeight();
             mDefaultDisplayHeight = ((View) mDisplay.getParent().getParent()).getMeasuredHeight();
             mDistance = mDefaultDisplayHeight;
+        } else{
+        	maximizeHistory();
         }
     }
 
