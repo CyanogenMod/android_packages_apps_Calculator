@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory>
+	    <CheckBoxPreference
+	        android:title="@string/graph"
+	        android:key="GRAPH"
+	        android:defaultValue="true" />
+	    <CheckBoxPreference
+	        android:title="@string/function"
+	        android:key="FUNCTION"
+	        android:defaultValue="true" />
+	    <CheckBoxPreference
+	        android:title="@string/hexPanel"
+	        android:key="HEX"
+	        android:defaultValue="true" />
+	    <CheckBoxPreference
+	        android:title="@string/basic"
+	        android:key="BASIC"
+	        android:defaultValue="true" />
+	    <CheckBoxPreference
+	        android:title="@string/advanced"
+	        android:key="ADVANCED"
+	        android:defaultValue="true" />
+	    <CheckBoxPreference
+	        android:title="@string/matrix"
+	        android:key="MATRIX"
+	        android:defaultValue="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

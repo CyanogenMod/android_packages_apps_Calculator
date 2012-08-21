@@ -16,6 +16,7 @@
 
 package com.android2.calculator3;
 
+import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
 
 import android.content.Context;
@@ -207,8 +208,8 @@ class EventListener implements View.OnKeyListener,
                     text += "(";
                 }
                 mHandler.insert(text);
-                if (mPager != null && mPager.getCurrentItem() != Calculator.BASIC_PANEL) {
-                    mPager.setCurrentItem(Calculator.BASIC_PANEL);
+                if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder()) {
+                    mPager.setCurrentItem(Panel.BASIC.getOrder());
                 }
             }
         }
