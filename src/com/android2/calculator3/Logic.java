@@ -52,6 +52,9 @@ import org.javia.arity.SyntaxException;
 import com.android2.calculator3.CalculatorDisplay.Scroll;
 
 class Logic {
+	private final static String REGEX_NUMBER = "[A-F0-9\\.]";
+	private final static String REGEX_NOT_NUMBER = "[^A-F0-9\\.]";
+
     private CalculatorDisplay mDisplay;
     private Symbols mSymbols = new Symbols();
     private History mHistory;
@@ -313,7 +316,7 @@ class Logic {
 
     public static final int ROUND_DIGITS = 1;
     String evaluate(String input) throws SyntaxException {
-        if (input.trim().equals("")) {
+        if (input.trim().isEmpty()) {
             return "";
         }
 
@@ -592,8 +595,6 @@ class Logic {
             setText(mErrorString);
             return;
         }
-        
-        result = result.substring(0, result.length()-1);
 
         mResult = result;
         mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
@@ -797,12 +798,12 @@ class Logic {
         this.mode = mode;
         return text;
     }
-    
+
     private String updateTextToNewMode(final String originalText, Mode mode1, Mode mode2){
         String text = originalText;
         if(!originalText.equals(mErrorString) && !originalText.isEmpty() && !mode1.equals(mode2)){
-            String[] operations = originalText.split("[A-F0-9]");
-            String[] numbers = originalText.split("[^A-F0-9]");
+            String[] operations = originalText.split(REGEX_NUMBER);
+            String[] numbers = originalText.split(REGEX_NOT_NUMBER);
             String[] translatedNumbers = new String[numbers.length];
             for(int i=0;i<numbers.length;i++){
                 if(!numbers[i].isEmpty())
@@ -813,17 +814,21 @@ class Logic {
                         break;
                     case DECIMAL:
                         try{
-                            translatedNumbers[i] = Integer.toString(Integer.parseInt(numbers[i], 2));
+                        	translatedNumbers[i] = newBase(numbers[i], 2, 10);
                         } catch(NumberFormatException e){
                             return mErrorString;
-                        }
+                        } catch (SyntaxException e) {
+                            return mErrorString;
+						}
                         break;
                     case HEXADECIMAL:
                         try{
-                            translatedNumbers[i] = Integer.toHexString(Integer.parseInt(numbers[i], 2)).toUpperCase();
+                            translatedNumbers[i] = newBase(numbers[i], 2, 16);
                         } catch(NumberFormatException e){
                             return mErrorString;
-                        }
+                        } catch (SyntaxException e) {
+                            return mErrorString;
+						}
                         break;
                     }
                     break;
@@ -831,19 +836,23 @@ class Logic {
                     switch(mode2){
                     case BINARY:
                         try{
-                            translatedNumbers[i] = Integer.toBinaryString(Integer.valueOf(numbers[i]));
+                        	translatedNumbers[i] = newBase(numbers[i], 10, 2);
                         } catch(NumberFormatException e){
                             return mErrorString;
-                        }
+                        } catch (SyntaxException e) {
+                            return mErrorString;
+						}
                         break;
                     case DECIMAL:
                         break;
                     case HEXADECIMAL:
                         try{
-                            translatedNumbers[i] = Integer.toHexString(Integer.valueOf(numbers[i])).toUpperCase();
+                        	translatedNumbers[i] = newBase(numbers[i], 10, 16);
                         } catch(NumberFormatException e){
                             return mErrorString;
-                        }
+                        } catch (SyntaxException e) {
+                            return mErrorString;
+						}
                         break;
                     }
                     break;
@@ -851,17 +860,23 @@ class Logic {
                     switch(mode2){
                     case BINARY:
                         try{
-                            translatedNumbers[i] = Integer.toBinaryString(Integer.parseInt(numbers[i], 16));
+                            translatedNumbers[i] = newBase(numbers[i], 16, 2);
                         } catch(NumberFormatException e){
                             return mErrorString;
-                        }
+                        } catch (SyntaxException e) {
+                            return mErrorString;
+						}
                         break;
                     case DECIMAL:
                         try{
-                            translatedNumbers[i] = Integer.toString(Integer.parseInt(numbers[i], 16));
+                            translatedNumbers[i] = newBase(numbers[i], 16, 10);
                         } catch(NumberFormatException e){
+                        	e.printStackTrace();
                             return mErrorString;
-                        }
+                        } catch (SyntaxException e) {
+                        	e.printStackTrace();
+                            return mErrorString;
+						}
                         break;
                     case HEXADECIMAL:
                         break;
@@ -872,7 +887,7 @@ class Logic {
             text = "";
             Object[] o = removeWhitespace(operations);
             Object[] n = removeWhitespace(translatedNumbers);
-            if(originalText.substring(0,1).matches("[A-F0-9]")){
+            if(originalText.substring(0,1).matches(REGEX_NUMBER)){
                 for(int i=0;i<o.length && i<n.length;i++){
                     text += n[i];
                     text += o[i];
@@ -900,5 +915,48 @@ class Logic {
             if(s!=null && !s.isEmpty()) formatted.add(s);
         }
         return formatted.toArray();
+    }
+
+    private String toDecimal(String number, int base){
+    	String[] split = number.split("\\.");
+
+    	String wholeNumber = "";
+    	String decimalNumber = "";
+    	wholeNumber = Long.toString(Long.parseLong(split[0], base));
+		if(split.length==1) return wholeNumber;
+		decimalNumber = Long.toString(Long.parseLong(split[1], base)) + "/" + base + "^" + split[1].length();
+		return "(" + wholeNumber + "+(" + decimalNumber + "))";
+    }
+
+    private final static int PRECISION = 8;
+    private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException{
+    	if(originalBase != 10){
+    		originalNumber = Double.toString(mSymbols.eval(toDecimal(originalNumber, originalBase)));
+    	}
+    	String[] split = originalNumber.split("\\.");
+
+    	String wholeNumber = "";
+    	String decimalNumber = "";
+    	switch(base){
+    	case 2:
+    		wholeNumber = Long.toBinaryString(Long.parseLong(split[0]));
+    		break;
+    	case 10:
+    		wholeNumber = split[0];
+    		break;
+    	case 16:
+    		wholeNumber = Long.toHexString(Long.parseLong(split[0]));
+    		break;
+    	}
+		if(split.length==1 || Long.valueOf(split[1])==0) return wholeNumber.toUpperCase();
+
+    	double decimal = Double.parseDouble("0." + split[1]);
+    	for(int i=0,id=0;decimal!=0 && i<=PRECISION;i++) {
+    		decimal *= base;
+    		id = (int) Math.floor(decimal);
+    		decimal -= id;
+    		decimalNumber += Integer.toHexString(id);
+    	}
+    	return (wholeNumber + "." + decimalNumber).toUpperCase();
     }
 }

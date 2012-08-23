@@ -270,60 +270,60 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     private boolean getGraphVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.GRAPH.getOrder();
+            return mPager.getCurrentItem() == Panel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), true);
         }
         else if(mLargePager != null){
-            return mLargePager.getCurrentItem() == LargePanel.GRAPH.getOrder();
+            return mLargePager.getCurrentItem() == LargePanel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), true);
         }
         return false;
     }
     
     private boolean getFunctionVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.FUNCTION.getOrder();
+            return mPager.getCurrentItem() == Panel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), true);
         }
         else if(mSmallPager != null){
-            return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder();
+            return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), true);
         }
         return false;
     }
     
     private boolean getBasicVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.BASIC.getOrder();
+            return mPager.getCurrentItem() == Panel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), true);
         }
         else if(mLargePager != null){
-            return mLargePager.getCurrentItem() == LargePanel.BASIC.getOrder();
+            return mLargePager.getCurrentItem() == LargePanel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), true);
         }
         return false;
     }
 
     private boolean getAdvancedVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.ADVANCED.getOrder();
+            return mPager.getCurrentItem() == Panel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), true);
         }
         else if(mSmallPager != null){
-            return mSmallPager.getCurrentItem() == SmallPanel.ADVANCED.getOrder();
+            return mSmallPager.getCurrentItem() == SmallPanel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), true);
         }
         return false;
     }
     
     private boolean getHexVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.HEX.getOrder();
+            return mPager.getCurrentItem() == Panel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), true);
         }
         else if(mSmallPager != null){
-            return mSmallPager.getCurrentItem() == SmallPanel.HEX.getOrder();
+            return mSmallPager.getCurrentItem() == SmallPanel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), true);
         }
         return false;
     }
     
     private boolean getMatrixVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.MATRIX.getOrder();
+            return mPager.getCurrentItem() == Panel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), true);
         }
         else if(mLargePager != null){
-            return mLargePager.getCurrentItem() == LargePanel.MATRIX.getOrder();
+            return mLargePager.getCurrentItem() == LargePanel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), true);
         }
         return false;
     }
