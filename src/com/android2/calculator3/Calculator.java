@@ -67,7 +67,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private int mDefaultPulldownHeight;
     private int mWindowHeight;
     private boolean showingHistory = false;
-    SharedPreferences mPreferences;
+    private SharedPreferences mPreferences;
 
     public enum Panel {
         GRAPH, FUNCTION, HEX, BASIC, ADVANCED, MATRIX;
@@ -150,6 +150,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mPulldown = (ImageButton) findViewById(R.id.pulldown);
         mPulldown.setOnTouchListener(this);
+        mPulldown.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(showingHistory){
+	                minimizeHistory();
+	            } else {
+	                maximizeHistory();
+	            }
+			}
+		});
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
@@ -212,22 +222,22 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         super.onPrepareOptionsMenu(menu);
         
         MenuItem mMatrixPanel = menu.findItem(R.id.matrix);
-        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && mPreferences.getBoolean(Panel.MATRIX.toString(), true));
+        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && mPreferences.getBoolean(Panel.MATRIX.toString(), getResources().getBoolean(R.bool.MATRIX)));
         
         MenuItem mGraphPanel = menu.findItem(R.id.graph);
-        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && mPreferences.getBoolean(Panel.GRAPH.toString(), true));
+        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH)));
         
         MenuItem mFunctionPanel = menu.findItem(R.id.function);
-        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && mPreferences.getBoolean(Panel.FUNCTION.toString(), true));
+        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION)));
         
         MenuItem mBasicPanel = menu.findItem(R.id.basic);
-        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && mPreferences.getBoolean(Panel.BASIC.toString(), true));
+        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC)));
         
         MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
-        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && mPreferences.getBoolean(Panel.ADVANCED.toString(), true));
+        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && mPreferences.getBoolean(Panel.ADVANCED.toString(), getResources().getBoolean(R.bool.ADVANCED)));
         
         MenuItem mHexPanel = menu.findItem(R.id.hex);
-        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && mPreferences.getBoolean(Panel.HEX.toString(), true));
+        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && mPreferences.getBoolean(Panel.HEX.toString(), getResources().getBoolean(R.bool.HEX)));
         
         return true;
     }
@@ -270,60 +280,60 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     private boolean getGraphVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), true);
+            return mPager.getCurrentItem() == Panel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH));
         }
         else if(mLargePager != null){
-            return mLargePager.getCurrentItem() == LargePanel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), true);
+            return mLargePager.getCurrentItem() == LargePanel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH));
         }
         return false;
     }
     
     private boolean getFunctionVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), true);
+            return mPager.getCurrentItem() == Panel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION));
         }
         else if(mSmallPager != null){
-            return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), true);
+            return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION));
         }
         return false;
     }
     
     private boolean getBasicVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), true);
+            return mPager.getCurrentItem() == Panel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC));
         }
         else if(mLargePager != null){
-            return mLargePager.getCurrentItem() == LargePanel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), true);
+            return mLargePager.getCurrentItem() == LargePanel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC));
         }
         return false;
     }
 
     private boolean getAdvancedVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), true);
+            return mPager.getCurrentItem() == Panel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), getResources().getBoolean(R.bool.ADVANCED));
         }
         else if(mSmallPager != null){
-            return mSmallPager.getCurrentItem() == SmallPanel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), true);
+            return mSmallPager.getCurrentItem() == SmallPanel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), getResources().getBoolean(R.bool.ADVANCED));
         }
         return false;
     }
     
     private boolean getHexVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), true);
+            return mPager.getCurrentItem() == Panel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), getResources().getBoolean(R.bool.HEX));
         }
         else if(mSmallPager != null){
-            return mSmallPager.getCurrentItem() == SmallPanel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), true);
+            return mSmallPager.getCurrentItem() == SmallPanel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), getResources().getBoolean(R.bool.HEX));
         }
         return false;
     }
     
     private boolean getMatrixVisibility() {
         if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), true);
+            return mPager.getCurrentItem() == Panel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), getResources().getBoolean(R.bool.MATRIX));
         }
         else if(mLargePager != null){
-            return mLargePager.getCurrentItem() == LargePanel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), true);
+            return mLargePager.getCurrentItem() == LargePanel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), getResources().getBoolean(R.bool.MATRIX));
         }
         return false;
     }
@@ -419,11 +429,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             minimizeHistory();
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility()) && mPreferences.getBoolean(Panel.BASIC.toString(), true)) {
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility()) && mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC))) {
             mPager.setCurrentItem(Panel.BASIC.getOrder());
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility()) && mPreferences.getBoolean(Panel.BASIC.toString(), true) && mPreferences.getBoolean(Panel.ADVANCED.toString(), true)){
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility()) && mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC)) && mPreferences.getBoolean(Panel.ADVANCED.toString(), getResources().getBoolean(R.bool.ADVANCED))){
             mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
             mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
             return true;
@@ -473,7 +483,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mDistance));
             break;
         }
-        return true;
+        return false;
     }
     
     private void minimizeHistory(){
@@ -575,7 +585,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         @Override
         public Object instantiateItem(View container, int position) {
-            if(position == Panel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), true)){
+            if(position == Panel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH))){
                 if (mChartView == null) {
                     mChartView = mGraph.getGraph(Calculator.this);
                     mChartView.setId(R.id.graphView);
@@ -587,23 +597,23 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 ((ViewGroup) container).addView(mGraphPage);
                 return mGraphPage;
             }
-            else if(position == Panel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), true)){
+            else if(position == Panel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION))){
                 ((ViewGroup) container).addView(mFunctionPage);
                 return mFunctionPage;
             }
-            else if(position == Panel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), true)){
+            else if(position == Panel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC))){
                 ((ViewGroup) container).addView(mSimplePage);
                 return mSimplePage;
             }
-            else if(position == Panel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), true)){
+            else if(position == Panel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), getResources().getBoolean(R.bool.ADVANCED))){
                 ((ViewGroup) container).addView(mAdvancedPage);
                 return mAdvancedPage;
             }
-            else if(position == Panel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), true)){
+            else if(position == Panel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), getResources().getBoolean(R.bool.HEX))){
                 ((ViewGroup) container).addView(mHexPage);
                 return mHexPage;
             }
-            else if(position == Panel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), true)){
+            else if(position == Panel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), getResources().getBoolean(R.bool.MATRIX))){
                 ((ViewGroup) container).addView(mMatrixPage);
                 return mMatrixPage;
             }
@@ -642,27 +652,27 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         private void setOrder(){
         	count = 0;
-            if(mPreferences.getBoolean(Panel.GRAPH.toString(), true)){
+            if(mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH))){
             	Panel.GRAPH.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.FUNCTION.toString(), true)){
+            if(mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION))){
             	Panel.FUNCTION.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.HEX.toString(), true)){
+            if(mPreferences.getBoolean(Panel.HEX.toString(), getResources().getBoolean(R.bool.HEX))){
             	Panel.HEX.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.BASIC.toString(), true)){
+            if(mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC))){
             	Panel.BASIC.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.ADVANCED.toString(), true)){
+            if(mPreferences.getBoolean(Panel.ADVANCED.toString(), getResources().getBoolean(R.bool.ADVANCED))){
             	Panel.ADVANCED.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.MATRIX.toString(), true)){
+            if(mPreferences.getBoolean(Panel.MATRIX.toString(), getResources().getBoolean(R.bool.MATRIX))){
             	Panel.MATRIX.setOrder(count);
             	count++;
             }
@@ -711,15 +721,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         @Override
         public Object instantiateItem(View container, int position) {
-            if(position == SmallPanel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), true)){
+            if(position == SmallPanel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION))){
                 ((ViewGroup) container).addView(mFunctionPage);
                 return mFunctionPage;
             }
-            else if(position == SmallPanel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), true)){
+            else if(position == SmallPanel.ADVANCED.getOrder() && mPreferences.getBoolean(Panel.ADVANCED.toString(), getResources().getBoolean(R.bool.ADVANCED))){
                 ((ViewGroup) container).addView(mAdvancedPage);
                 return mAdvancedPage;
             }
-            else if(position == SmallPanel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), true)){
+            else if(position == SmallPanel.HEX.getOrder() && mPreferences.getBoolean(Panel.HEX.toString(), getResources().getBoolean(R.bool.HEX))){
                 ((ViewGroup) container).addView(mHexPage);
                 return mHexPage;
             }
@@ -758,15 +768,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         private void setOrder(){
         	count = 0;
-            if(mPreferences.getBoolean(Panel.HEX.toString(), true)){
+            if(mPreferences.getBoolean(Panel.HEX.toString(), getResources().getBoolean(R.bool.HEX))){
             	SmallPanel.HEX.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.ADVANCED.toString(), true)){
+            if(mPreferences.getBoolean(Panel.ADVANCED.toString(), getResources().getBoolean(R.bool.ADVANCED))){
             	SmallPanel.ADVANCED.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.FUNCTION.toString(), true)){
+            if(mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION))){
             	SmallPanel.FUNCTION.setOrder(count);
             	count++;
             }
@@ -814,7 +824,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         @Override
         public Object instantiateItem(View container, int position) {
-            if(position == LargePanel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), true)){
+            if(position == LargePanel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH))){
                 if (mChartView == null) {
                     mChartView = mGraph.getGraph(Calculator.this);
                     mChartView.setId(R.id.graphView);
@@ -826,11 +836,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 ((ViewGroup) container).addView(mGraphPage);
                 return mGraphPage;
             }
-            else if(position == LargePanel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), true)){
+            else if(position == LargePanel.BASIC.getOrder() && mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC))){
                 ((ViewGroup) container).addView(mSimplePage);
                 return mSimplePage;
             }
-            else if(position == LargePanel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), true)){
+            else if(position == LargePanel.MATRIX.getOrder() && mPreferences.getBoolean(Panel.MATRIX.toString(), getResources().getBoolean(R.bool.MATRIX))){
                 ((ViewGroup) container).addView(mMatrixPage);
                 return mMatrixPage;
             }
@@ -869,15 +879,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         private void setOrder(){
         	count = 0;
-        	if(mPreferences.getBoolean(Panel.GRAPH.toString(), true)){
+        	if(mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH))){
             	LargePanel.GRAPH.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.BASIC.toString(), true)){
+            if(mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC))){
             	LargePanel.BASIC.setOrder(count);
             	count++;
             }
-            if(mPreferences.getBoolean(Panel.MATRIX.toString(), true)){
+            if(mPreferences.getBoolean(Panel.MATRIX.toString(), getResources().getBoolean(R.bool.MATRIX))){
             	LargePanel.MATRIX.setOrder(count);
             	count++;
             }

@@ -4,26 +4,26 @@
 	    <CheckBoxPreference
 	        android:title="@string/graph"
 	        android:key="GRAPH"
-	        android:defaultValue="true" />
+	        android:defaultValue="@bool/GRAPH" />
 	    <CheckBoxPreference
 	        android:title="@string/function"
 	        android:key="FUNCTION"
-	        android:defaultValue="true" />
+	        android:defaultValue="@bool/FUNCTION" />
 	    <CheckBoxPreference
 	        android:title="@string/hexPanel"
 	        android:key="HEX"
-	        android:defaultValue="true" />
+	        android:defaultValue="@bool/HEX" />
 	    <CheckBoxPreference
 	        android:title="@string/basic"
 	        android:key="BASIC"
-	        android:defaultValue="true" />
+	        android:defaultValue="@bool/BASIC" />
 	    <CheckBoxPreference
 	        android:title="@string/advanced"
 	        android:key="ADVANCED"
-	        android:defaultValue="true" />
+	        android:defaultValue="@bool/ADVANCED" />
 	    <CheckBoxPreference
 	        android:title="@string/matrix"
 	        android:key="MATRIX"
-	        android:defaultValue="true" />
+	        android:defaultValue="@bool/MATRIX" />
     </PreferenceCategory>
 </PreferenceScreen>
