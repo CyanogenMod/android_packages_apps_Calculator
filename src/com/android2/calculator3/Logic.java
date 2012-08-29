@@ -46,6 +46,7 @@ import org.apache.commons.math3.linear.MatrixDimensionMismatchException;
 import org.apache.commons.math3.linear.NonSymmetricMatrixException;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
+import org.javia.arity.Complex;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
@@ -338,16 +339,29 @@ class Logic {
         // Convert to decimal
         String decimalInput = updateTextToNewMode(input, mode, Mode.DECIMAL);
         
-        double value = mSymbols.eval(decimalInput);
+        Complex value = mSymbols.evalComplex(decimalInput);
 
-        String result = "";
+        String real = "";
         for (int precision = mLineLength; precision > 6; precision--) {
-            result = tryFormattingWithPrecision(value, precision);
-            if (result.length() <= mLineLength) {
+            real = tryFormattingWithPrecision(value.re, precision);
+            if (real.length() <= mLineLength) {
                 break;
             }
         }
-        
+
+        String imaginary = "";
+        for (int precision = mLineLength; precision > 6; precision--) {
+        	imaginary = tryFormattingWithPrecision(value.im, precision);
+            if (imaginary.length() <= mLineLength) {
+                break;
+            }
+        }
+
+        String result = "";
+        if(value.re != 0 && value.im != 0) result = real + "+" + imaginary + "i";
+        else if(value.re != 0 && value.im == 0) result = real;
+        else if(value.re == 0 && value.im != 0) result = imaginary + "i";
+        else if(value.re == 0 && value.im == 0) result = "0";
         return updateTextToNewMode(result, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
     }
 

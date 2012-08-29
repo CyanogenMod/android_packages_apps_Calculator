@@ -114,7 +114,9 @@
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
-    
+
+    <string name="i">i</string>
+    <string name="percentage">%</string>
     <string name="dx">dX</string>
     <string name="dy">dY</string>
     <string name="solveForX">Solve for X</string>
@@ -123,14 +125,17 @@
     <string name="parentheses">( )</string>
     <string name="mod">mod</string>
     <string name="coma">,</string>
+
     <string name="defaultGraphTitle">Function</string>
     <string name="graphTitle">Function: </string>
+
     <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Solve</string>
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
+
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>

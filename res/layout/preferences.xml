@@ -5,10 +5,10 @@
 	        android:title="@string/graph"
 	        android:key="GRAPH"
 	        android:defaultValue="@bool/GRAPH" />
-	    <CheckBoxPreference
+<!--   <CheckBoxPreference
 	        android:title="@string/function"
 	        android:key="FUNCTION"
-	        android:defaultValue="@bool/FUNCTION" />
+	        android:defaultValue="@bool/FUNCTION" /> -->
 	    <CheckBoxPreference
 	        android:title="@string/hexPanel"
 	        android:key="HEX"

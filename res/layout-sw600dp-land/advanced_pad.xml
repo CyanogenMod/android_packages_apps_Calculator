@@ -79,4 +79,26 @@
             android:text="@string/sqrt"
             style="@style/btn_function_cell_style" />
     </LinearLayout>
+    <LinearLayout
+        style="@style/btn_row_style">
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/i"
+            android:text="@string/i"
+            style="@style/btn_function_cell_style" />
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/percentage"
+            android:text="@string/percentage"
+            style="@style/btn_function_cell_style" />
+    </LinearLayout>
+    <LinearLayout
+        style="@style/btn_row_style">
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/X"
+            android:text="@string/X"
+            style="@style/digit_button_style" />
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/Y"
+            android:text="@string/Y"
+            style="@style/digit_button_style" />
+    </LinearLayout>
 </LinearLayout>
