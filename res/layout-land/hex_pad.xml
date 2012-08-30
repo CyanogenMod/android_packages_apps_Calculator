@@ -22,7 +22,6 @@
               android:id="@+id/hexPad"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_weight="1"
               android:orientation="vertical"
               android:layout_gravity="center"
               >
@@ -68,25 +67,25 @@
             android:id="@+id/F"
             android:text="@string/F"
             android:layout_weight="3"
-            style="@style/digit_button_style"
+            style="@style/btn_digit_cell_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/dec"
             android:text="@string/dec"
             android:layout_weight="4"
-            style="@style/button_small_style"
+            style="@style/btn_function_cell_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/bin"
             android:text="@string/bin"
             android:layout_weight="4"
-            style="@style/button_small_style"
+            style="@style/btn_function_cell_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/hex"
             android:text="@string/hex"
             android:layout_weight="4"
-            style="@style/button_small_style"
+            style="@style/btn_function_cell_style"
             />
     </LinearLayout>
 </LinearLayout>

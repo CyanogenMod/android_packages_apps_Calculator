@@ -192,8 +192,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mLogic.resumeWithHistory();
         updateDeleteMode();
-        
+
         mGraph = new Graph(mLogic);
+
+        if(showingHistory){
+        	maximizeHistory();
+        }
     }
 
     private void updateDeleteMode() {
@@ -537,8 +541,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mDefaultPulldownHeight = mPulldown.getHeight();
             mDefaultDisplayHeight = ((View) mDisplay.getParent().getParent()).getMeasuredHeight();
             mDistance = mDefaultDisplayHeight;
-        } else{
-            maximizeHistory();
         }
     }
 
