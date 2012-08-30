@@ -210,7 +210,7 @@ class Logic {
             if (!mHistory.moveToPrevious()) {
                 text = "";
             }
-            text = mHistory.getText();
+            text = mHistory.getBase();
             evaluateAndShowResult(text, CalculatorDisplay.Scroll.NONE);
         } else {
             mResult = "";
@@ -284,20 +284,12 @@ class Logic {
     }
 
     void onUp() {
-        String text = getText();
-        if (!text.equals(mResult)) {
-            mHistory.update(text);
-        }
         if (mHistory.moveToPrevious()) {
             mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.DOWN);
         }
     }
 
     void onDown() {
-        String text = getText();
-        if (!text.equals(mResult)) {
-            mHistory.update(text);
-        }
         if (mHistory.moveToNext()) {
             mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.UP);
         }
@@ -310,8 +302,6 @@ class Logic {
         if (!TextUtils.isEmpty(text) && !TextUtils.equals(text, mErrorString)
                 && text.equals(mResult)) {
             mHistory.update(MARKER_EVALUATE_ON_RESUME);
-        } else {
-            mHistory.update(getText());
         }
     }
 
