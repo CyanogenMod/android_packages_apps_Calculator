@@ -960,21 +960,21 @@ class Logic {
     		decimal -= id;
     		decimalNumber += Integer.toHexString(id);
     	}
-    	return (addComas(wholeNumber) + "." + decimalNumber).toUpperCase();
+    	return (wholeNumber + "." + decimalNumber).toUpperCase();
     }
 
     private String removeAllComas(String text){
     	return text.replaceAll(",", "");
     }
 
-    private String addComas(String text){
-    	NumberFormat formatter = new DecimalFormat("##,###");
-    	String[] pieces = text.split(".");
-    	
-    	String result = formatter.format(pieces[0]);
-    	for(int i=1;i<pieces.length;i++){
-    		result += "." + pieces[i];
-    	}
-    	return result;
-    }
+//    private String addComas(String text){
+//    	NumberFormat formatter = new DecimalFormat("##,###");
+//    	String[] pieces = text.split(".");
+//    	
+//    	String result = formatter.format(pieces[0]);
+//    	for(int i=1;i<pieces.length;i++){
+//    		result += "." + pieces[i];
+//    	}
+//    	return result;
+//    }
 }
