@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
@@ -46,12 +47,12 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
-        OnClickListener, OnMenuItemClickListener, OnTouchListener {
+        OnClickListener, OnMenuItemClickListener, OnTouchListener, OnLongClickListener {
     EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
     private Persist mPersist;
     private History mHistory;
-    private TextView mHistoryView;
+    private LinearLayout mHistoryView;
     private Logic mLogic;
     private ViewPager mPager;
     private ViewPager mSmallPager;
@@ -125,7 +126,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setContentView(R.layout.main);
         mWindow = findViewById(R.id.window);
-        mHistoryView = (TextView) findViewById(R.id.history);
+        mHistoryView = (LinearLayout) findViewById(R.id.history);
         mPager = (ViewPager) findViewById(R.id.panelswitch);
         mSmallPager = (ViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (ViewPager) findViewById(R.id.largePanelswitch);
@@ -344,6 +345,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             case R.id.clear_history:
                 mHistory.clear();
                 mLogic.onClear();
+                mHistoryView.removeAllViews();
                 break;
 
             case R.id.basic:
@@ -496,12 +498,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
     
     private void maximizeHistory(){
-        String completeHistory = "";
-        for(HistoryEntry he : mHistory.mEntries){
-            if(!he.getBase().isEmpty()) completeHistory += he.getBase() + " = " + he.getEdited() + "\n";
-        }
-        mHistoryView.setText(completeHistory);
-        
+        setUpHistory();
         ((View) mDisplay.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mWindowHeight-mDefaultPulldownHeight));
         mDistance = mWindowHeight-mDefaultPulldownHeight;
         ((View) mDisplay.getParent()).setVisibility(View.GONE);
@@ -510,6 +507,28 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mPulldown.setImageResource(R.drawable.calculator_up_handle);
     }
     
+    private void setUpHistory(){
+    	mHistoryView.removeAllViews();
+    	final LayoutInflater inflater = LayoutInflater.from(this);
+        for(HistoryEntry he : mHistory.mEntries){
+        	if(!he.getBase().isEmpty()){
+            	View entry = inflater.inflate(R.layout.history_entry, null);
+            	TextView base = (TextView) entry.findViewById(R.id.base);
+            	base.setOnLongClickListener(this);
+            	TextView edited = (TextView) entry.findViewById(R.id.edited);
+            	edited.setOnLongClickListener(this);
+            	base.setText(he.getBase());
+            	edited.setText(he.getEdited());
+            	mHistoryView.addView(entry);
+        	}
+        }
+    }
+
+	@Override
+	public boolean onLongClick(View v) {
+		return false;
+	}
+
     @Override
     public void onWindowFocusChanged (boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
