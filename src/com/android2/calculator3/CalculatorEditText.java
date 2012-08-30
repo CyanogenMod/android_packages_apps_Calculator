@@ -97,6 +97,11 @@ public class CalculatorEditText extends EditText {
             menu.getItem(CUT).setVisible(false);
             menu.getItem(COPY).setVisible(false);
         }
+        ClipData primaryClip = getPrimaryClip();
+        if (primaryClip == null || primaryClip.getItemCount() == 0
+                || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
+            menu.getItem(PASTE).setVisible(false);
+        }
     }
 
     private void setPrimaryClip(ClipData clip) {
