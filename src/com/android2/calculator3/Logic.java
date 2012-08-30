@@ -16,7 +16,6 @@
 
 package com.android2.calculator3;
 
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,8 +28,9 @@ import android.widget.LinearLayout;
 import android.app.Activity;
 import android.content.Context;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import net.sf.jchemistry.util.CommonMathUtils;
 
@@ -53,8 +53,8 @@ import org.javia.arity.SyntaxException;
 import com.android2.calculator3.CalculatorDisplay.Scroll;
 
 class Logic {
-	private final static String REGEX_NUMBER = "[A-F0-9\\.]";
-	private final static String REGEX_NOT_NUMBER = "[^A-F0-9\\.]";
+	private final static String REGEX_NUMBER = "[A-F0-9\\.,]";
+	private final static String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
 
     private CalculatorDisplay mDisplay;
     private Symbols mSymbols = new Symbols();
@@ -297,12 +297,7 @@ class Logic {
 
     void updateHistory() {
         String text = getText();
-        // Don't set the ? marker for empty text or the error string.
-        // There is no need to evaluate those later.
-        if (!TextUtils.isEmpty(text) && !TextUtils.equals(text, mErrorString)
-                && text.equals(mResult)) {
-            mHistory.update(MARKER_EVALUATE_ON_RESUME);
-        }
+        mHistory.update(text);
     }
 
     public static final int ROUND_DIGITS = 1;
@@ -327,7 +322,7 @@ class Logic {
         input = input.replaceAll(mModString, "mod");
         
         // Convert to decimal
-        String decimalInput = updateTextToNewMode(input, mode, Mode.DECIMAL);
+        String decimalInput = removeAllComas(updateTextToNewMode(input, mode, Mode.DECIMAL));
         
         Complex value = mSymbols.evalComplex(decimalInput);
 
@@ -358,7 +353,10 @@ class Logic {
     private String tryFormattingWithPrecision(double value, int precision) {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
-        String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
+    	String format = "##,###.";
+    	for(int i=0;i<precision;i++) format += "#";
+    	NumberFormat formatter = new DecimalFormat(format);
+        String result = formatter.format(value);
         if (result.equals(NAN)) { // treat NaN as Error
             mIsError = true;
             return mErrorString;
@@ -380,9 +378,9 @@ class Logic {
         }
 
         int period = mantissa.indexOf('.');
-        if (period == -1) {
-            period = mantissa.indexOf(',');
-        }
+//        if (period == -1) {
+//            period = mantissa.indexOf(',');
+//        }
         if (period != -1) {
             // Strip trailing 0's
             while (mantissa.length() > 0 && mantissa.endsWith("0")) {
@@ -454,8 +452,8 @@ class Logic {
         if(equation.length == 1) return;
 
         // Translate into decimal
-        equation[0] = updateTextToNewMode(equation[0], mode, Mode.DECIMAL);
-        equation[1] = updateTextToNewMode(equation[1], mode, Mode.DECIMAL);
+        equation[0] = removeAllComas(updateTextToNewMode(equation[0], mode, Mode.DECIMAL));
+        equation[1] = removeAllComas(updateTextToNewMode(equation[1], mode, Mode.DECIMAL));
         
         new Thread(new Runnable(){
             public void run(){
@@ -803,11 +801,12 @@ class Logic {
         return text;
     }
 
-    private String updateTextToNewMode(final String originalText, Mode mode1, Mode mode2){
-        String text = originalText;
-        if(!originalText.equals(mErrorString) && !originalText.isEmpty() && !mode1.equals(mode2)){
-            String[] operations = originalText.split(REGEX_NUMBER);
-            String[] numbers = originalText.split(REGEX_NOT_NUMBER);
+    private String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2){
+    	if(mode1.equals(mode2)) return originalText;
+        String text = removeAllComas(originalText);
+        if(!text.equals(mErrorString) && !text.isEmpty() && !mode1.equals(mode2)){
+            String[] operations = text.split(REGEX_NUMBER);
+            String[] numbers = text.split(REGEX_NOT_NUMBER);
             String[] translatedNumbers = new String[numbers.length];
             for(int i=0;i<numbers.length;i++){
                 if(!numbers[i].isEmpty())
@@ -961,6 +960,21 @@ class Logic {
     		decimal -= id;
     		decimalNumber += Integer.toHexString(id);
     	}
-    	return (wholeNumber + "." + decimalNumber).toUpperCase();
+    	return (addComas(wholeNumber) + "." + decimalNumber).toUpperCase();
+    }
+
+    private String removeAllComas(String text){
+    	return text.replaceAll(",", "");
+    }
+
+    private String addComas(String text){
+    	NumberFormat formatter = new DecimalFormat("##,###");
+    	String[] pieces = text.split(".");
+    	
+    	String result = formatter.format(pieces[0]);
+    	for(int i=1;i<pieces.length;i++){
+    		result += "." + pieces[i];
+    	}
+    	return result;
     }
 }
