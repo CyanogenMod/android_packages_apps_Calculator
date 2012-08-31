@@ -294,12 +294,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
     
     private boolean getFunctionVisibility() {
-        if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION));
-        }
-        else if(mSmallPager != null){
-            return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION));
-        }
+//        if(mPager != null) {
+//            return mPager.getCurrentItem() == Panel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION));
+//        }
+//        else if(mSmallPager != null){
+//            return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder() && mPreferences.getBoolean(Panel.FUNCTION.toString(), getResources().getBoolean(R.bool.FUNCTION));
+//        }
         return false;
     }
     
