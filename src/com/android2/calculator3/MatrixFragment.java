@@ -24,11 +24,6 @@ public class MatrixFragment extends Fragment{
     ScrollView s;
 
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    	// Set up dp
-    	DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        final float logicalDensity = metrics.density;
-
         mContext = getActivity();
         setRetainInstance(true);
         
@@ -167,7 +162,9 @@ public class MatrixFragment extends Fragment{
                             alertDialog.dismiss();
                         }
                     });
-                    
+                    DisplayMetrics metrics = new DisplayMetrics();
+                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                    final float logicalDensity = metrics.density;
                     final LinearLayout grip_bar_port = (LinearLayout) view.findViewById(R.id.grip_bar_port);
                     grip_bar_port.setOnTouchListener(new OnTouchListener() {
                         long distance = 0;
