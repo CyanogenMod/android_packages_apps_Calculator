@@ -24,24 +24,19 @@ public class MatrixFragment extends Fragment{
     ScrollView s;
 
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    	// Set up dp
+    	DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        final float logicalDensity = metrics.density;
+
         mContext = getActivity();
         setRetainInstance(true);
         
-        
         if (s == null) {
-            s = new ScrollView(mContext);
-            s.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-            s.setScrollContainer(true);
             
-            final LinearLayout matrices = new LinearLayout(mContext);
-            matrices.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            matrices.setId(R.id.matrices);
-            matrices.setOrientation(LinearLayout.VERTICAL);
-            
-            ImageButton i = new ImageButton(mContext);
-            i.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            i.setImageResource(R.drawable.matrix_add_drawable);
-            i.setId(R.id.matrixAdd);
+        	s = (ScrollView) inflater.inflate(R.layout.matrix_panel, null);
+        	final LinearLayout matrices = (LinearLayout) s.findViewById(R.id.matrices);
+            ImageButton i = (ImageButton) s.findViewById(R.id.matrixAdd);
             i.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -172,10 +167,6 @@ public class MatrixFragment extends Fragment{
                             alertDialog.dismiss();
                         }
                     });
-
-                    DisplayMetrics metrics = new DisplayMetrics();
-                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                    final float logicalDensity = metrics.density;
                     
                     final LinearLayout grip_bar_port = (LinearLayout) view.findViewById(R.id.grip_bar_port);
                     grip_bar_port.setOnTouchListener(new OnTouchListener() {
@@ -258,10 +249,6 @@ public class MatrixFragment extends Fragment{
                     alertDialog.show();
                 }
             });
-            
-            matrices.addView(i);
-            
-            s.addView(matrices);
         }
         else{
              ViewGroup parent = (ViewGroup) s.getParent();
