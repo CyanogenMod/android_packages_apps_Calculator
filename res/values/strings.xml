@@ -146,4 +146,6 @@
     <string name="determinantDesc">Determinant</string>
     <string name="eigenvalueDesc">Eigen Values</string>
     
-    <string name="settings">Settings</string></resources>
+    <string name="settings">Settings</string>
+    <string name="showHistory">Show History</string>
+    <string name="hideHistory">Hide History</string></resources>

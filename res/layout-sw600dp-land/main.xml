@@ -79,20 +79,7 @@
 	                android:contentDescription="@null" />
 	        </FrameLayout>
 	    </LinearLayout>
-	    
-	    <ScrollView 
-	        android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-	        android:isScrollContainer="true"
-	        android:visibility="gone">
-	        
-	        <LinearLayout
-		        android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:orientation="vertical"
-		        android:id="@+id/history"/>
-	        
-	    </ScrollView>
+	    <include layout="@layout/history_panel"/>
     </LinearLayout>
 
     <ImageButton
@@ -100,7 +87,9 @@
          android:src="@drawable/pulldown_down"
          android:background="@android:color/transparent"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content"
+         android:layout_height="21dp"
+         android:paddingTop="4dp"
+         android:paddingBottom="4dp"
          android:contentDescription="@null"
          android:scaleType="fitXY" />
     
