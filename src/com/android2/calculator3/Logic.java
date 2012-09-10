@@ -53,8 +53,8 @@ import org.javia.arity.SyntaxException;
 import com.android2.calculator3.CalculatorDisplay.Scroll;
 
 class Logic {
-	private final static String REGEX_NUMBER = "[A-F0-9\\.,]";
-	private final static String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
+    private final static String REGEX_NUMBER = "[A-F0-9\\.,]";
+    private final static String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
 
     private CalculatorDisplay mDisplay;
     private Symbols mSymbols = new Symbols();
@@ -336,7 +336,7 @@ class Logic {
 
         String imaginary = "";
         for (int precision = mLineLength; precision > 6; precision--) {
-        	imaginary = tryFormattingWithPrecision(value.im, precision);
+            imaginary = tryFormattingWithPrecision(value.im, precision);
             if (imaginary.length() <= mLineLength) {
                 break;
             }
@@ -353,9 +353,9 @@ class Logic {
     private String tryFormattingWithPrecision(double value, int precision) {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
-    	String format = "##,###.";
-    	for(int i=0;i<precision;i++) format += "#";
-    	NumberFormat formatter = new DecimalFormat(format);
+        String format = "##,###.";
+        for(int i=0;i<precision;i++) format += "#";
+        NumberFormat formatter = new DecimalFormat(format);
         String result = formatter.format(value);
         if (result.equals(NAN)) { // treat NaN as Error
             mIsError = true;
@@ -567,7 +567,11 @@ class Logic {
                     }
                 }
                 
-                g.getDataset().removeSeries(g.getSeries());
+                try{
+                    g.getDataset().removeSeries(g.getSeries());
+                } catch(NullPointerException e){
+                    e.printStackTrace();
+                }
                 g.setSeries(series);
                 g.getDataset().addSeries(series);
                 
@@ -802,7 +806,7 @@ class Logic {
     }
 
     private String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2){
-    	if(mode1.equals(mode2)) return originalText;
+        if(mode1.equals(mode2)) return originalText;
         String text = removeAllComas(originalText);
         if(!text.equals(mErrorString) && !text.isEmpty() && !mode1.equals(mode2)){
             String[] operations = text.split(REGEX_NUMBER);
@@ -817,12 +821,12 @@ class Logic {
                         break;
                     case DECIMAL:
                         try{
-                        	translatedNumbers[i] = newBase(numbers[i], 2, 10);
+                            translatedNumbers[i] = newBase(numbers[i], 2, 10);
                         } catch(NumberFormatException e){
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
-						}
+                        }
                         break;
                     case HEXADECIMAL:
                         try{
@@ -831,7 +835,7 @@ class Logic {
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
-						}
+                        }
                         break;
                     }
                     break;
@@ -839,23 +843,23 @@ class Logic {
                     switch(mode2){
                     case BINARY:
                         try{
-                        	translatedNumbers[i] = newBase(numbers[i], 10, 2);
+                            translatedNumbers[i] = newBase(numbers[i], 10, 2);
                         } catch(NumberFormatException e){
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
-						}
+                        }
                         break;
                     case DECIMAL:
                         break;
                     case HEXADECIMAL:
                         try{
-                        	translatedNumbers[i] = newBase(numbers[i], 10, 16);
+                            translatedNumbers[i] = newBase(numbers[i], 10, 16);
                         } catch(NumberFormatException e){
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
-						}
+                        }
                         break;
                     }
                     break;
@@ -868,18 +872,18 @@ class Logic {
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
-						}
+                        }
                         break;
                     case DECIMAL:
                         try{
                             translatedNumbers[i] = newBase(numbers[i], 16, 10);
                         } catch(NumberFormatException e){
-                        	e.printStackTrace();
+                            e.printStackTrace();
                             return mErrorString;
                         } catch (SyntaxException e) {
-                        	e.printStackTrace();
+                            e.printStackTrace();
                             return mErrorString;
-						}
+                        }
                         break;
                     case HEXADECIMAL:
                         break;
@@ -921,60 +925,60 @@ class Logic {
     }
 
     private String toDecimal(String number, int base){
-    	String[] split = number.split("\\.");
+        String[] split = number.split("\\.");
 
-    	String wholeNumber = "";
-    	String decimalNumber = "";
-    	wholeNumber = Long.toString(Long.parseLong(split[0], base));
-		if(split.length==1) return wholeNumber;
-		decimalNumber = Long.toString(Long.parseLong(split[1], base)) + "/" + base + "^" + split[1].length();
-		return "(" + wholeNumber + "+(" + decimalNumber + "))";
+        String wholeNumber = "";
+        String decimalNumber = "";
+        wholeNumber = Long.toString(Long.parseLong(split[0], base));
+        if(split.length==1) return wholeNumber;
+        decimalNumber = Long.toString(Long.parseLong(split[1], base)) + "/" + base + "^" + split[1].length();
+        return "(" + wholeNumber + "+(" + decimalNumber + "))";
     }
 
     private final static int PRECISION = 8;
     private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException{
-    	if(originalBase != 10){
-    		originalNumber = Double.toString(mSymbols.eval(toDecimal(originalNumber, originalBase)));
-    	}
-    	String[] split = originalNumber.split("\\.");
+        if(originalBase != 10){
+            originalNumber = Double.toString(mSymbols.eval(toDecimal(originalNumber, originalBase)));
+        }
+        String[] split = originalNumber.split("\\.");
 
-    	String wholeNumber = "";
-    	String decimalNumber = "";
-    	switch(base){
-    	case 2:
-    		wholeNumber = Long.toBinaryString(Long.parseLong(split[0]));
-    		break;
-    	case 10:
-    		wholeNumber = split[0];
-    		break;
-    	case 16:
-    		wholeNumber = Long.toHexString(Long.parseLong(split[0]));
-    		break;
-    	}
-		if(split.length==1 || Long.valueOf(split[1])==0) return wholeNumber.toUpperCase();
+        String wholeNumber = "";
+        String decimalNumber = "";
+        switch(base){
+        case 2:
+            wholeNumber = Long.toBinaryString(Long.parseLong(split[0]));
+            break;
+        case 10:
+            wholeNumber = split[0];
+            break;
+        case 16:
+            wholeNumber = Long.toHexString(Long.parseLong(split[0]));
+            break;
+        }
+        if(split.length==1 || Long.valueOf(split[1])==0) return wholeNumber.toUpperCase();
 
-    	double decimal = Double.parseDouble("0." + split[1]);
-    	for(int i=0,id=0;decimal!=0 && i<=PRECISION;i++) {
-    		decimal *= base;
-    		id = (int) Math.floor(decimal);
-    		decimal -= id;
-    		decimalNumber += Integer.toHexString(id);
-    	}
-    	return (wholeNumber + "." + decimalNumber).toUpperCase();
+        double decimal = Double.parseDouble("0." + split[1]);
+        for(int i=0,id=0;decimal!=0 && i<=PRECISION;i++) {
+            decimal *= base;
+            id = (int) Math.floor(decimal);
+            decimal -= id;
+            decimalNumber += Integer.toHexString(id);
+        }
+        return (wholeNumber + "." + decimalNumber).toUpperCase();
     }
 
     private String removeAllComas(String text){
-    	return text.replaceAll(",", "");
+        return text.replaceAll(",", "");
     }
 
 //    private String addComas(String text){
-//    	NumberFormat formatter = new DecimalFormat("##,###");
-//    	String[] pieces = text.split(".");
-//    	
-//    	String result = formatter.format(pieces[0]);
-//    	for(int i=1;i<pieces.length;i++){
-//    		result += "." + pieces[i];
-//    	}
-//    	return result;
+//        NumberFormat formatter = new DecimalFormat("##,###");
+//        String[] pieces = text.split(".");
+//        
+//        String result = formatter.format(pieces[0]);
+//        for(int i=1;i<pieces.length;i++){
+//            result += "." + pieces[i];
+//        }
+//        return result;
 //    }
 }

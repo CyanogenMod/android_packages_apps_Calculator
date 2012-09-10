@@ -68,6 +68,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private int mDefaultPulldownHeight;
     private int mWindowHeight;
     private int mWindowWidth;
+    private boolean heightSet = false;
     private boolean showingHistory = false;
     private SharedPreferences mPreferences;
 
@@ -119,7 +120,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
-        
+
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
                 WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -127,6 +128,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setContentView(R.layout.main);
         mWindow = findViewById(R.id.window);
+        heightSet = false;
         mHistoryView = (LinearLayout) findViewById(R.id.history);
         mPager = (ViewPager) findViewById(R.id.panelswitch);
         mSmallPager = (ViewPager) findViewById(R.id.smallPanelswitch);
@@ -553,12 +555,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public void onWindowFocusChanged (boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(!showingHistory){
+        if(!showingHistory && !heightSet){
             mWindowHeight = mWindow.getHeight();
             mWindowWidth = mWindow.getWidth();
             mDefaultPulldownHeight = mPulldown.getHeight();
             mDefaultDisplayHeight = ((View) mDisplay.getParent().getParent()).getMeasuredHeight();
             mDistance = mDefaultDisplayHeight;
+        	heightSet = true;
         }
     }
 
