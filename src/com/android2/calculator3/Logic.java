@@ -181,7 +181,13 @@ class Logic {
     }
 
     public String getText() {
-        return mDisplay.getText().toString();
+        String text;
+        try{
+            text = mDisplay.getText().toString();
+        } catch(IndexOutOfBoundsException e){
+            text = "";
+        }
+        return text;
     }
     
     void setText(String text) {
@@ -415,6 +421,7 @@ class Logic {
     }
     
     void updateGraph(final Graph g) {
+    	if(g == null) return;
         final String eq = getText();
 
         if(eq.isEmpty()) {
@@ -466,9 +473,9 @@ class Logic {
                 final String title = mTitleString + eq;
                 final XYSeries series = new XYSeries(title);
                 final GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
-                
+
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
-                    for(double x=-10;x<=10;x+=0.025) {
+                    for(double x=Graph.MIN_HEIGHT_X;x<=Graph.MAX_HEIGHT_X;x+=(0.00125*(Graph.MAX_HEIGHT_X-Graph.MIN_HEIGHT_X))) {
                         if(!eq.equals(getText())) return;
                         
                         try{
@@ -489,7 +496,7 @@ class Logic {
                     }
                 }
                 else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
-                    for(double y=-10;y<=10;y+=0.025) {
+                    for(double y=Graph.MIN_HEIGHT_Y;y<=Graph.MAX_HEIGHT_Y;y+=(0.00125*(Graph.MAX_HEIGHT_Y-Graph.MIN_HEIGHT_Y))) {
                         if(!eq.equals(getText())) return;
                         
                         try{
@@ -508,7 +515,7 @@ class Logic {
                     }
                 }
                 else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
-                    for(double x=-10;x<=10;x+=0.025) {
+                    for(double x=Graph.MIN_HEIGHT_X;x<=Graph.MAX_HEIGHT_X;x+=(0.00125*(Graph.MAX_HEIGHT_X-Graph.MIN_HEIGHT_X))) {
                         if(!eq.equals(getText())) return;
                         
                         try{
@@ -527,7 +534,7 @@ class Logic {
                     }
                 }
                 else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
-                    for(double y=-10;y<=10;y+=0.025) {
+                    for(double y=Graph.MIN_HEIGHT_Y;y<=Graph.MAX_HEIGHT_Y;y+=(0.00125*(Graph.MAX_HEIGHT_Y-Graph.MIN_HEIGHT_Y))) {
                         if(!eq.equals(getText())) return;
                         
                         try{
@@ -546,8 +553,8 @@ class Logic {
                     }
                 }
                 else{
-                    for(double x=-10;x<=10;x+=0.2) {
-                        for(double y=10;y>=-10;y-=0.2) {
+                    for(double x=Graph.MIN_HEIGHT_X;x<=Graph.MAX_HEIGHT_X;x+=(0.01*(Graph.MAX_HEIGHT_X-Graph.MIN_HEIGHT_X))) {
+                        for(double y=Graph.MAX_HEIGHT_Y;y>=Graph.MIN_HEIGHT_Y;y-=(0.01*(Graph.MAX_HEIGHT_Y-Graph.MIN_HEIGHT_Y))) {
                             if(!eq.equals(getText())) return;
                             try{
                                 mSymbols.define(mX, x);

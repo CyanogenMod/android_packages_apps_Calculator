@@ -91,10 +91,10 @@ public class Graph {
         renderer.setChartTitle(context.getResources().getString(R.string.defaultGraphTitle));
         renderer.setXTitle(context.getResources().getString(R.string.X));
         renderer.setYTitle(context.getResources().getString(R.string.Y));
-        renderer.setXAxisMin(-10);
-        renderer.setXAxisMax(10);
-        renderer.setYAxisMin(-10);
-        renderer.setYAxisMax(10);
+        renderer.setXAxisMin(Graph.MIN_HEIGHT_X);
+        renderer.setXAxisMax(Graph.MAX_HEIGHT_X);
+        renderer.setYAxisMin(Graph.MIN_HEIGHT_Y);
+        renderer.setYAxisMax(Graph.MAX_HEIGHT_Y);
         renderer.setAxesColor(Color.GRAY);
         renderer.setLabelsColor(Color.LTGRAY);
         renderer.setXLabels(20);

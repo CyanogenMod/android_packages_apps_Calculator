@@ -17,6 +17,8 @@
 package com.android2.calculator3;
 
 import org.achartengine.GraphicalView;
+import org.achartengine.tools.ZoomEvent;
+import org.achartengine.tools.ZoomListener;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -630,6 +632,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             if(position == Panel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH))) {
                 if (mChartView == null) {
                     mChartView = mGraph.getGraph(Calculator.this);
+                    mChartView.addZoomListener(new ZoomListener() {
+                        @Override
+                        public void zoomReset() {
+                        }
+                        
+                        @Override
+                        public void zoomApplied(ZoomEvent e) {
+                        }
+                    }, true, true);
                     mChartView.setId(R.id.graphView);
                     ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 } 
