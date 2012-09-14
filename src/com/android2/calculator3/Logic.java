@@ -313,16 +313,10 @@ class Logic {
             --size;
         }
 
-        // Delocalize functions (e.g. Spanish localizes "sin" as "sen")
-        input = input.replaceAll(mSinString, "sin");
-        input = input.replaceAll(mCosString, "cos");
-        input = input.replaceAll(mTanString, "tan");
-        input = input.replaceAll(mLogString, "log");
-        input = input.replaceAll(mLnString, "ln");
-        input = input.replaceAll(mModString, "mod");
+        input = localize(input);
         
         // Convert to decimal
-        String decimalInput = removeAllComas(updateTextToNewMode(input, mode, Mode.DECIMAL));
+        String decimalInput = updateTextToNewMode(input, mode, Mode.DECIMAL);
         
         Complex value = mSymbols.evalComplex(decimalInput);
 
@@ -350,10 +344,22 @@ class Logic {
         return updateTextToNewMode(result, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
     }
 
+    private String localize(String input){
+    	// Delocalize functions (e.g. Spanish localizes "sin" as "sen")
+        input = input.replaceAll(mSinString, "sin");
+        input = input.replaceAll(mCosString, "cos");
+        input = input.replaceAll(mTanString, "tan");
+        input = input.replaceAll(mLogString, "log");
+        input = input.replaceAll(mLnString, "ln");
+        input = input.replaceAll(mModString, "mod");
+        input = input.replaceAll(",", ".");
+        return input;
+    }
+
     private String tryFormattingWithPrecision(double value, int precision) {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
-        String format = "##,###.";
+        String format = "#.";
         for(int i=0;i<precision;i++) format += "#";
         NumberFormat formatter = new DecimalFormat(format);
         String result = formatter.format(value);
@@ -378,9 +384,9 @@ class Logic {
         }
 
         int period = mantissa.indexOf('.');
-//        if (period == -1) {
-//            period = mantissa.indexOf(',');
-//        }
+        if (period == -1) {
+            period = mantissa.indexOf(',');
+        }
         if (period != -1) {
             // Strip trailing 0's
             while (mantissa.length() > 0 && mantissa.endsWith("0")) {
@@ -452,8 +458,8 @@ class Logic {
         if(equation.length == 1) return;
 
         // Translate into decimal
-        equation[0] = removeAllComas(updateTextToNewMode(equation[0], mode, Mode.DECIMAL));
-        equation[1] = removeAllComas(updateTextToNewMode(equation[1], mode, Mode.DECIMAL));
+        equation[0] = updateTextToNewMode(localize(equation[0]), mode, Mode.DECIMAL);
+        equation[1] = updateTextToNewMode(localize(equation[1]), mode, Mode.DECIMAL);
         
         new Thread(new Runnable(){
             public void run(){
@@ -807,7 +813,7 @@ class Logic {
 
     private String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2){
         if(mode1.equals(mode2)) return originalText;
-        String text = removeAllComas(originalText);
+        String text = originalText;
         if(!text.equals(mErrorString) && !text.isEmpty() && !mode1.equals(mode2)){
             String[] operations = text.split(REGEX_NUMBER);
             String[] numbers = text.split(REGEX_NOT_NUMBER);
@@ -965,10 +971,6 @@ class Logic {
             decimalNumber += Integer.toHexString(id);
         }
         return (wholeNumber + "." + decimalNumber).toUpperCase();
-    }
-
-    private String removeAllComas(String text){
-        return text.replaceAll(",", "");
     }
 
 //    private String addComas(String text){
