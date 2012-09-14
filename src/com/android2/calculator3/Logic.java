@@ -475,14 +475,14 @@ class Logic {
                 final GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
 
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
-                    for(double x=mGraph.getRenderer().getXAxisMin();x<=mGraph.getRenderer().getXAxisMax();x+=(0.00125*(mGraph.getRenderer().getXAxisMax()-mGraph.getRenderer().getXAxisMin()))) {
+                    for(double x=g.getRenderer().getXAxisMin();x<=g.getRenderer().getXAxisMax();x+=(0.00125*(g.getRenderer().getXAxisMax()-g.getRenderer().getXAxisMin()))) {
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[1]);
                             
-                            if(y>(mGraph.getRenderer().getYAxisMax()*2) || y<(mGraph.getRenderer().getYAxisMin()*2) || y==Double.NaN) {
+                            if(y>(g.getRenderer().getYAxisMax()*2) || y<(g.getRenderer().getYAxisMin()*2) || y==Double.NaN) {
                                 //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
                                 //Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
                                 series.add(x, MathHelper.NULL_VALUE);
@@ -496,14 +496,14 @@ class Logic {
                     }
                 }
                 else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
-                    for(double y=mGraph.getRenderer().getYAxisMin();y<=mGraph.getRenderer().getYAxisMax();y+=(0.00125*(mGraph.getRenderer().getYAxisMax()-mGraph.getRenderer().getYAxisMin()))) {
+                    for(double y=g.getRenderer().getYAxisMin();y<=g.getRenderer().getYAxisMax();y+=(0.00125*(g.getRenderer().getYAxisMax()-g.getRenderer().getYAxisMin()))) {
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[1]);
                             
-                            if(x>(mGraph.getRenderer().getXAxisMax()*2) || x<(mGraph.getRenderer().getXAxisMin()*2) || x==Double.NaN) {
+                            if(x>(g.getRenderer().getXAxisMax()*2) || x<(g.getRenderer().getXAxisMin()*2) || x==Double.NaN) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
@@ -515,14 +515,14 @@ class Logic {
                     }
                 }
                 else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
-                    for(double x=mGraph.getRenderer().getXAxisMin();x<=mGraph.getRenderer().getXAxisMax();x+=(0.00125*(mGraph.getRenderer().getXAxisMax()-mGraph.getRenderer().getXAxisMin()))) {
+                    for(double x=g.getRenderer().getXAxisMin();x<=g.getRenderer().getXAxisMax();x+=(0.00125*(g.getRenderer().getXAxisMax()-g.getRenderer().getXAxisMin()))) {
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[0]);
                             
-                            if(y>(mGraph.getRenderer().getYAxisMax()*2) || y<(mGraph.getRenderer().getYAxisMin()*2) || y==Double.NaN) {
+                            if(y>(g.getRenderer().getYAxisMax()*2) || y<(g.getRenderer().getYAxisMin()*2) || y==Double.NaN) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
@@ -534,14 +534,14 @@ class Logic {
                     }
                 }
                 else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
-                    for(double y=mGraph.getRenderer().getYAxisMin();y<=mGraph.getRenderer().getYAxisMax();y+=(0.00125*(mGraph.getRenderer().getYAxisMax()-mGraph.getRenderer().getYAxisMin()))) {
+                    for(double y=g.getRenderer().getYAxisMin();y<=g.getRenderer().getYAxisMax();y+=(0.00125*(g.getRenderer().getYAxisMax()-g.getRenderer().getYAxisMin()))) {
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[0]);
                             
-                            if(x>(mGraph.getRenderer().getXAxisMax()*2) || x<(mGraph.getRenderer().getXAxisMin()*2) || x==Double.NaN) {
+                            if(x>(g.getRenderer().getXAxisMax()*2) || x<(g.getRenderer().getXAxisMin()*2) || x==Double.NaN) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
@@ -553,8 +553,8 @@ class Logic {
                     }
                 }
                 else{
-                    for(double x=mGraph.getRenderer().getXAxisMin();x<=mGraph.getRenderer().getXAxisMax();x+=(0.01*(mGraph.getRenderer().getXAxisMax()-mGraph.getRenderer().getXAxisMin()))) {
-                        for(double y=mGraph.getRenderer().getYAxisMax();y>=mGraph.getRenderer().getYAxisMin();y-=(0.01*(mGraph.getRenderer().getYAxisMax()-mGraph.getRenderer().getYAxisMin()))) {
+                    for(double x=g.getRenderer().getXAxisMin();x<=g.getRenderer().getXAxisMax();x+=(0.01*(g.getRenderer().getXAxisMax()-g.getRenderer().getXAxisMin()))) {
+                        for(double y=g.getRenderer().getYAxisMax();y>=g.getRenderer().getYAxisMin();y-=(0.01*(g.getRenderer().getYAxisMax()-g.getRenderer().getYAxisMin()))) {
                             if(!eq.equals(getText())) return;
                             try{
                                 mSymbols.define(mX, x);

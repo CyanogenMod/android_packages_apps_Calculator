@@ -629,7 +629,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             if(position == Panel.GRAPH.getOrder() && mPreferences.getBoolean(Panel.GRAPH.toString(), getResources().getBoolean(R.bool.GRAPH))) {
                 if (mChartView == null) {
                     mChartView = mGraph.getGraph(Calculator.this);
-                    
                     mChartView.setId(R.id.graphView);
                     ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 } 

@@ -69,7 +69,6 @@ public class Graph {
         mDataset = buildDataset(title, xValues, yValues);
         
         mLogic.setGraph(this);
-        mLogic.updateGraph(this);
         
         mChartView = ChartFactory.getLineChartView(context, mDataset, mRenderer);
         mChartView.addPanListener(new PanListener() {
@@ -89,6 +88,8 @@ public class Graph {
                 mLogic.updateGraph(Graph.this);
             }
         }, true, true);
+        
+        mLogic.updateGraph(this);
         
         return mChartView;
     }
