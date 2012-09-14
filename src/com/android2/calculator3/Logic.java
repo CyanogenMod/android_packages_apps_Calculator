@@ -421,7 +421,7 @@ class Logic {
     }
     
     void updateGraph(final Graph g) {
-    	if(g == null) return;
+        if(g == null) return;
         final String eq = getText();
 
         if(eq.isEmpty()) {
