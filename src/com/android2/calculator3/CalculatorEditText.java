@@ -149,7 +149,7 @@ public class CalculatorEditText extends EditText {
     }
 
     private boolean canPaste(CharSequence paste) {
-    	return paste.length()>0;
+        return paste.length()>0;
     }
 
     class NoTextSelectionMode implements ActionMode.Callback {

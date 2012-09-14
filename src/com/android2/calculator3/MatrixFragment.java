@@ -29,8 +29,8 @@ public class MatrixFragment extends Fragment{
         
         if (s == null) {
             
-        	s = (ScrollView) inflater.inflate(R.layout.matrix_panel, null);
-        	final LinearLayout matrices = (LinearLayout) s.findViewById(R.id.matrices);
+            s = (ScrollView) inflater.inflate(R.layout.matrix_panel, null);
+            final LinearLayout matrices = (LinearLayout) s.findViewById(R.id.matrices);
             ImageButton i = (ImageButton) s.findViewById(R.id.matrixAdd);
             i.setOnClickListener(new OnClickListener() {
                 @Override
@@ -56,7 +56,7 @@ public class MatrixFragment extends Fragment{
                                 LinearLayout layout = (LinearLayout) theMatrix.getChildAt(i);
                                 for(int j=0; j<layout.getChildCount(); j++) {
                                     EditText view = (EditText) layout.getChildAt(j);
-                                    if(view.getText().toString().equals("")){
+                                    if(view.getText().toString().equals("")) {
                                         view.requestFocus();
                                         return;
                                     }
@@ -66,7 +66,7 @@ public class MatrixFragment extends Fragment{
                                     view.setOnFocusChangeListener(new OnFocusChangeListener() {
                                         @Override
                                         public void onFocusChange(View v, boolean hasFocus) {
-                                            if(hasFocus){
+                                            if(hasFocus) {
                                                 View theMatrix = (View) v.getParent().getParent();
                                                 ViewGroup parent = (ViewGroup) theMatrix.getParent();
                                                 parent.removeView(theMatrix);
@@ -86,7 +86,7 @@ public class MatrixFragment extends Fragment{
                     });
 
                     final ColorButton plus = (ColorButton) view.findViewById(R.id.matrixPlus);
-                    plus.setOnClickListener(new OnClickListener(){
+                    plus.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             plus.setLayoutParams(new ViewGroup.LayoutParams(
@@ -105,7 +105,7 @@ public class MatrixFragment extends Fragment{
                     });
                     
                     final ColorButton mul = (ColorButton) view.findViewById(R.id.matrixMul);
-                    mul.setOnClickListener(new OnClickListener(){
+                    mul.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             mul.setLayoutParams(new ViewGroup.LayoutParams(
@@ -124,7 +124,7 @@ public class MatrixFragment extends Fragment{
                     });
                     
                     final ColorButton dot = (ColorButton) view.findViewById(R.id.matrixDot);
-                    dot.setOnClickListener(new OnClickListener(){
+                    dot.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             dot.setLayoutParams(new ViewGroup.LayoutParams(
@@ -144,7 +144,7 @@ public class MatrixFragment extends Fragment{
                     });
                     
                     final ColorButton cross = (ColorButton) view.findViewById(R.id.matrixCross);
-                    cross.setOnClickListener(new OnClickListener(){
+                    cross.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             cross.setLayoutParams(new ViewGroup.LayoutParams(
@@ -177,18 +177,18 @@ public class MatrixFragment extends Fragment{
                             case MotionEvent.ACTION_UP:
                                 break;
                             case MotionEvent.ACTION_MOVE:
-                                if((event.getX()-0.5)/logicalDensity>75+distance){
+                                if((event.getX()-0.5)/logicalDensity>75+distance) {
                                     int rows = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
-                                    if(rows > 1){
-                                        for(int i=0; i<theMatrix.getChildCount(); i++){
+                                    if(rows > 1) {
+                                        for(int i=0; i<theMatrix.getChildCount(); i++) {
                                             LinearLayout l = (LinearLayout) theMatrix.getChildAt(i);
                                             l.removeViewAt(l.getChildCount()-1);
                                         }
                                         distance += 75;
                                     }
                                 }
-                                else if((event.getX()-0.5)/logicalDensity<-75+distance){
-                                    for(int i=0; i<theMatrix.getChildCount(); i++){
+                                else if((event.getX()-0.5)/logicalDensity<-75+distance) {
+                                    for(int i=0; i<theMatrix.getChildCount(); i++) {
                                         LinearLayout l = (LinearLayout) theMatrix.getChildAt(i);
                                         EditText e = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
                                         e.setWidth((int) (75*logicalDensity+0.5));
@@ -214,12 +214,12 @@ public class MatrixFragment extends Fragment{
                             case MotionEvent.ACTION_UP:
                                 break;
                             case MotionEvent.ACTION_MOVE:
-                                if((event.getY()-0.5)/logicalDensity>100+distance){
+                                if((event.getY()-0.5)/logicalDensity>100+distance) {
                                     int rows = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
                                     LinearLayout l = new LinearLayout(mContext);
                                     l.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                                     l.setOrientation(LinearLayout.HORIZONTAL);
-                                    for(int i=0; i<rows; i++){
+                                    for(int i=0; i<rows; i++) {
                                         EditText e = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
                                         e.setWidth((int) (75*logicalDensity+0.5));
                                         e.setHeight((int) (100*logicalDensity+0.5));
@@ -229,9 +229,9 @@ public class MatrixFragment extends Fragment{
                                     theMatrix.addView(l);
                                     distance += 100;
                                 }
-                                else if((event.getY()-0.5)/logicalDensity<-100+distance){
+                                else if((event.getY()-0.5)/logicalDensity<-100+distance) {
                                     int columns = theMatrix.getChildCount();
-                                    if(columns > 1){
+                                    if(columns > 1) {
                                         theMatrix.removeViewAt(0);
                                         distance -= 100;
                                     }

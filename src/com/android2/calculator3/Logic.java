@@ -106,11 +106,11 @@ class Logic {
          
          int quickSerializable;
          
-         Mode(int num){
+         Mode(int num) {
              this.quickSerializable = num;
          }
          
-         public int getQuickSerializable(){
+         public int getQuickSerializable() {
              return quickSerializable;
          }
     }
@@ -344,8 +344,8 @@ class Logic {
         return updateTextToNewMode(result, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
     }
 
-    private String localize(String input){
-    	// Delocalize functions (e.g. Spanish localizes "sin" as "sen")
+    private String localize(String input) {
+        // Delocalize functions (e.g. Spanish localizes "sin" as "sen")
         input = input.replaceAll(mSinString, "sin");
         input = input.replaceAll(mCosString, "cos");
         input = input.replaceAll(mTanString, "tan");
@@ -414,10 +414,10 @@ class Logic {
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
     }
     
-    void updateGraph(final Graph g){
+    void updateGraph(final Graph g) {
         final String eq = getText();
 
-        if(eq.isEmpty()){
+        if(eq.isEmpty()) {
             String title = mTitleString + eq;
             XYSeries series = new XYSeries(title);
             
@@ -425,7 +425,7 @@ class Logic {
                 g.getDataset().removeSeries(g.getSeries());
                 g.setSeries(series);
                 g.getDataset().addSeries(series);
-            }catch (NullPointerException e){
+            }catch (NullPointerException e) {
                 e.printStackTrace();
             }
 
@@ -461,21 +461,21 @@ class Logic {
         equation[0] = updateTextToNewMode(localize(equation[0]), mode, Mode.DECIMAL);
         equation[1] = updateTextToNewMode(localize(equation[1]), mode, Mode.DECIMAL);
         
-        new Thread(new Runnable(){
-            public void run(){
+        new Thread(new Runnable() {
+            public void run() {
                 final String title = mTitleString + eq;
                 final XYSeries series = new XYSeries(title);
                 final GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
                 
-                if(equation[0].equals(mY) && !equation[1].contains(mY)){
-                    for(double x=-10;x<=10;x+=0.025){
+                if(equation[0].equals(mY) && !equation[1].contains(mY)) {
+                    for(double x=-10;x<=10;x+=0.025) {
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[1]);
                             
-                            if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN){
+                            if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN) {
                                 //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
                                 //Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
                                 series.add(x, MathHelper.NULL_VALUE);
@@ -483,90 +483,90 @@ class Logic {
                             else{
                                 series.add(x, y);
                             }
-                        } catch(SyntaxException e){
+                        } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-                else if(equation[0].equals(mX) && !equation[1].contains(mX)){
-                    for(double y=-10;y<=10;y+=0.025){
+                else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
+                    for(double y=-10;y<=10;y+=0.025) {
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[1]);
                             
-                            if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN){
+                            if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
                                 series.add(x, y);
                             }
-                        } catch(SyntaxException e){
+                        } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-                else if(equation[1].equals(mY) && !equation[0].contains(mY)){
-                    for(double x=-10;x<=10;x+=0.025){
+                else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
+                    for(double x=-10;x<=10;x+=0.025) {
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[0]);
                             
-                            if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN){
+                            if(y>(Graph.MAX_HEIGHT_Y*2) || y<(Graph.MIN_HEIGHT_Y*2) || y==Double.NaN) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
                                 series.add(x, y);
                             }
-                        } catch(SyntaxException e){
+                        } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-                else if(equation[1].equals(mX) && !equation[0].contains(mX)){
-                    for(double y=-10;y<=10;y+=0.025){
+                else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
+                    for(double y=-10;y<=10;y+=0.025) {
                         if(!eq.equals(getText())) return;
                         
                         try{
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[0]);
                             
-                            if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN){
+                            if(x>(Graph.MAX_HEIGHT_X*2) || x<(Graph.MIN_HEIGHT_X*2) || x==Double.NaN) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
                                 series.add(x, y);
                             }
-                        } catch(SyntaxException e){
+                        } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 else{
-                    for(double x=-10;x<=10;x+=0.2){
-                        for(double y=10;y>=-10;y-=0.2){
+                    for(double x=-10;x<=10;x+=0.2) {
+                        for(double y=10;y>=-10;y-=0.2) {
                             if(!eq.equals(getText())) return;
                             try{
                                 mSymbols.define(mX, x);
                                 mSymbols.define(mY, y);
                                 Double leftSide = mSymbols.eval(equation[0]);
                                 Double rightSide = mSymbols.eval(equation[1]);
-                                if(leftSide < 0 && rightSide < 0){
-                                    if(leftSide*0.97 >= rightSide && leftSide*1.03 <= rightSide){
+                                if(leftSide < 0 && rightSide < 0) {
+                                    if(leftSide*0.97 >= rightSide && leftSide*1.03 <= rightSide) {
                                         series.add(x, y);
                                         break;
                                     }
                                 }
                                 else{
-                                    if(leftSide*0.97 <= rightSide && leftSide*1.03 >= rightSide){
+                                    if(leftSide*0.97 <= rightSide && leftSide*1.03 >= rightSide) {
                                         series.add(x, y);
                                         break;
                                     }
                                 }
-                            } catch(SyntaxException e){
+                            } catch(SyntaxException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -575,7 +575,7 @@ class Logic {
                 
                 try{
                     g.getDataset().removeSeries(g.getSeries());
-                } catch(NullPointerException e){
+                } catch(NullPointerException e) {
                     e.printStackTrace();
                 }
                 g.setSeries(series);
@@ -586,13 +586,13 @@ class Logic {
         }).start();
     }
     
-    void findEigenvalue(){
+    void findEigenvalue() {
         RealMatrix matrix = solveMatrix();
         if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
         
         String result = "";
         try{
-            for(double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()){
+            for(double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()) {
                 for (int precision = mLineLength; precision > 6; precision--) {
                     result = tryFormattingWithPrecision(d, precision);
                     if (result.length() <= mLineLength) {
@@ -602,7 +602,7 @@ class Logic {
                 
                 result += ",";
             }
-        } catch(NonSymmetricMatrixException e){
+        } catch(NonSymmetricMatrixException e) {
             e.printStackTrace();
             setText(mErrorString);
             return;
@@ -613,7 +613,7 @@ class Logic {
         setDeleteMode(DELETE_MODE_CLEAR);
     }
     
-    void findDeterminant(){
+    void findDeterminant() {
         RealMatrix matrix = solveMatrix();
         if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
         
@@ -630,7 +630,7 @@ class Logic {
         setDeleteMode(DELETE_MODE_CLEAR);
     }
     
-    RealMatrix solveMatrix(){
+    RealMatrix solveMatrix() {
         final LinearLayout matrices = (LinearLayout) mContext.findViewById(R.id.matrices);
         RealMatrix matrix = null;
         boolean plus = false;
@@ -638,39 +638,39 @@ class Logic {
         boolean dot = false;
         boolean dotCalculated = false;
         boolean cross = false;
-        for(int i=0; i<matrices.getChildCount(); i++){
+        for(int i=0; i<matrices.getChildCount(); i++) {
             View v = matrices.getChildAt(i);
-            switch(v.getId()){
+            switch(v.getId()) {
             case(R.id.matrixPlus):
-                if(matrix == null || plus || multiplication || dot || dotCalculated || cross  || (i==matrices.getChildCount()-2)){
+                if(matrix == null || plus || multiplication || dot || dotCalculated || cross  || (i==matrices.getChildCount()-2)) {
                     setText(mErrorString);
                     return null;
                 }
                 plus = true;
                 break;
             case(R.id.matrixMul):
-                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross  || (i==matrices.getChildCount()-2)){
+                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross  || (i==matrices.getChildCount()-2)) {
                     setText(mErrorString);
                     return null;
                 }
                 multiplication = true;
                 break;
             case(R.id.matrixDot):
-                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross || (i==matrices.getChildCount()-2)){
+                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross || (i==matrices.getChildCount()-2)) {
                     setText(mErrorString);
                     return null;
                 }
                 dot = true;
                 break;
             case(R.id.matrixCross):
-                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross  || (i==matrices.getChildCount()-2)){
+                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross  || (i==matrices.getChildCount()-2)) {
                     setText(mErrorString);
                     return null;
                 }
                 cross = true;
                 break;
             case(R.id.theMatrix):
-                if(dotCalculated){
+                if(dotCalculated) {
                     setText(mErrorString);
                     return null;
                 }
@@ -690,31 +690,31 @@ class Logic {
                     }
                 }
                 
-                if(matrix == null){
+                if(matrix == null) {
                     matrix = new Array2DRowRealMatrix(matrixData);
                 }
-                else if(plus){
+                else if(plus) {
                     try{
                         matrix = matrix.add(new Array2DRowRealMatrix(matrixData));
-                    } catch(MatrixDimensionMismatchException e){
+                    } catch(MatrixDimensionMismatchException e) {
                         e.printStackTrace();
                         setText(mErrorString);
                         return null;
                     }
                     plus = false;
                 }
-                else if(multiplication){
+                else if(multiplication) {
                     try{
                         matrix = matrix.multiply(new Array2DRowRealMatrix(matrixData));
-                    } catch(DimensionMismatchException e){
+                    } catch(DimensionMismatchException e) {
                         e.printStackTrace();
                         setText(mErrorString);
                         return null;
                     }
                     multiplication = false;
                 }
-                else if(dot){
-                    if(matrix.getColumnDimension() > 1){
+                else if(dot) {
+                    if(matrix.getColumnDimension() > 1) {
                         setText(mErrorString);
                         return null;
                     }
@@ -728,8 +728,8 @@ class Logic {
                     dot = false;
                     dotCalculated = true;
                 }
-                else if(cross){
-                    if(matrix.getColumnDimension() > 1 || matrix.getRowDimension() != 3){
+                else if(cross) {
+                    if(matrix.getColumnDimension() > 1 || matrix.getRowDimension() != 3) {
                         setText(mErrorString);
                         return null;
                     }
@@ -746,7 +746,7 @@ class Logic {
                 }
                 break;
             case(R.id.matrixAdd):
-                if(dotCalculated){
+                if(dotCalculated) {
                     return null;
                 }
                 break;
@@ -780,7 +780,7 @@ class Logic {
                 view.setOnFocusChangeListener(new OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
-                        if(hasFocus){
+                        if(hasFocus) {
                             View theMatrix = (View) v.getParent().getParent();
                             ViewGroup parent = (ViewGroup) theMatrix.getParent();
                             parent.removeView(theMatrix);
@@ -811,24 +811,24 @@ class Logic {
         return text;
     }
 
-    private String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2){
+    private String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2) {
         if(mode1.equals(mode2)) return originalText;
         String text = originalText;
-        if(!text.equals(mErrorString) && !text.isEmpty() && !mode1.equals(mode2)){
+        if(!text.equals(mErrorString) && !text.isEmpty() && !mode1.equals(mode2)) {
             String[] operations = text.split(REGEX_NUMBER);
             String[] numbers = text.split(REGEX_NOT_NUMBER);
             String[] translatedNumbers = new String[numbers.length];
-            for(int i=0;i<numbers.length;i++){
+            for(int i=0;i<numbers.length;i++) {
                 if(!numbers[i].isEmpty())
-                switch(mode1){
+                switch(mode1) {
                 case BINARY:
-                    switch(mode2){
+                    switch(mode2) {
                     case BINARY:
                         break;
                     case DECIMAL:
                         try{
                             translatedNumbers[i] = newBase(numbers[i], 2, 10);
-                        } catch(NumberFormatException e){
+                        } catch(NumberFormatException e) {
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
@@ -837,7 +837,7 @@ class Logic {
                     case HEXADECIMAL:
                         try{
                             translatedNumbers[i] = newBase(numbers[i], 2, 16);
-                        } catch(NumberFormatException e){
+                        } catch(NumberFormatException e) {
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
@@ -846,11 +846,11 @@ class Logic {
                     }
                     break;
                 case DECIMAL:
-                    switch(mode2){
+                    switch(mode2) {
                     case BINARY:
                         try{
                             translatedNumbers[i] = newBase(numbers[i], 10, 2);
-                        } catch(NumberFormatException e){
+                        } catch(NumberFormatException e) {
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
@@ -861,7 +861,7 @@ class Logic {
                     case HEXADECIMAL:
                         try{
                             translatedNumbers[i] = newBase(numbers[i], 10, 16);
-                        } catch(NumberFormatException e){
+                        } catch(NumberFormatException e) {
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
@@ -870,11 +870,11 @@ class Logic {
                     }
                     break;
                 case HEXADECIMAL:
-                    switch(mode2){
+                    switch(mode2) {
                     case BINARY:
                         try{
                             translatedNumbers[i] = newBase(numbers[i], 16, 2);
-                        } catch(NumberFormatException e){
+                        } catch(NumberFormatException e) {
                             return mErrorString;
                         } catch (SyntaxException e) {
                             return mErrorString;
@@ -883,7 +883,7 @@ class Logic {
                     case DECIMAL:
                         try{
                             translatedNumbers[i] = newBase(numbers[i], 16, 10);
-                        } catch(NumberFormatException e){
+                        } catch(NumberFormatException e) {
                             e.printStackTrace();
                             return mErrorString;
                         } catch (SyntaxException e) {
@@ -900,37 +900,37 @@ class Logic {
             text = "";
             Object[] o = removeWhitespace(operations);
             Object[] n = removeWhitespace(translatedNumbers);
-            if(originalText.substring(0,1).matches(REGEX_NUMBER)){
-                for(int i=0;i<o.length && i<n.length;i++){
+            if(originalText.substring(0,1).matches(REGEX_NUMBER)) {
+                for(int i=0;i<o.length && i<n.length;i++) {
                     text += n[i];
                     text += o[i];
                 }
             }
             else{
-                for(int i=0;i<o.length && i<n.length;i++){
+                for(int i=0;i<o.length && i<n.length;i++) {
                     text += o[i];
                     text += n[i];
                 }
             }
-            if(o.length > n.length){
+            if(o.length > n.length) {
                 text += o[o.length-1];
             }
-            else if(n.length > o.length){
+            else if(n.length > o.length) {
                 text += n[n.length-1];
             }
         }
         return text;
     }
     
-    private Object[] removeWhitespace(String[] strings){
+    private Object[] removeWhitespace(String[] strings) {
         ArrayList<String> formatted = new ArrayList<String>(strings.length);
-        for(String s : strings){
+        for(String s : strings) {
             if(s!=null && !s.isEmpty()) formatted.add(s);
         }
         return formatted.toArray();
     }
 
-    private String toDecimal(String number, int base){
+    private String toDecimal(String number, int base) {
         String[] split = number.split("\\.");
 
         String wholeNumber = "";
@@ -943,14 +943,14 @@ class Logic {
 
     private final static int PRECISION = 8;
     private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException{
-        if(originalBase != 10){
+        if(originalBase != 10) {
             originalNumber = Double.toString(mSymbols.eval(toDecimal(originalNumber, originalBase)));
         }
         String[] split = originalNumber.split("\\.");
 
         String wholeNumber = "";
         String decimalNumber = "";
-        switch(base){
+        switch(base) {
         case 2:
             wholeNumber = Long.toBinaryString(Long.parseLong(split[0]));
             break;
@@ -973,12 +973,12 @@ class Logic {
         return (wholeNumber + "." + decimalNumber).toUpperCase();
     }
 
-//    private String addComas(String text){
+//    private String addComas(String text) {
 //        NumberFormat formatter = new DecimalFormat("##,###");
 //        String[] pieces = text.split(".");
 //        
 //        String result = formatter.format(pieces[0]);
-//        for(int i=1;i<pieces.length;i++){
+//        for(int i=1;i<pieces.length;i++) {
 //            result += "." + pieces[i];
 //        }
 //        return result;

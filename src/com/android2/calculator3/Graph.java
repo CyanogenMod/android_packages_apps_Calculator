@@ -36,8 +36,8 @@ public class Graph {
     public static final double MIN_HEIGHT_X = -10;
     public static final double MIN_HEIGHT_Y = -10;
     
-    public Graph(Logic l){
-    	mLogic = l;
+    public Graph(Logic l) {
+        mLogic = l;
     }
     
     public XYMultipleSeriesDataset getDataset() {
@@ -45,11 +45,11 @@ public class Graph {
     }
     
     public XYSeries getSeries() {
-    	return mSeries;
+        return mSeries;
     }
     
     public void setSeries(XYSeries series) {
-    	mSeries = series;
+        mSeries = series;
     }
     
     public GraphicalView getGraph(Context context) {
@@ -74,7 +74,7 @@ public class Graph {
         mSeries = new XYSeries(title, scale);
         int seriesLength = xValues.length;
         for (int k = 0; k < seriesLength; k++) {
-        	mSeries.add(xValues[k], yValues[k]);
+            mSeries.add(xValues[k], yValues[k]);
         }
         dataset.addSeries(mSeries);
     }
@@ -100,7 +100,7 @@ public class Graph {
         renderer.setXLabels(20);
         renderer.setYLabels(20);
         renderer.setPanEnabled(false, false);
-        renderer.setZoomEnabled(false, false);
+        renderer.setZoomEnabled(true, true);
         renderer.setShowGrid(true);
         XYSeriesRenderer r = new XYSeriesRenderer();
         r.setColor(Color.CYAN);

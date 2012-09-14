@@ -21,9 +21,9 @@ import android.os.Handler;
 public class WolframAlpha{
     private static final String APPID = "T2YJW3-7XQX257LAP";
     
-    public static void solve(final String equation, final Handler handle, final ResultsRunnable actionOnSuccess, final Runnable actionOnFailure){
-        new Thread(new Runnable(){
-            public void run(){
+    public static void solve(final String equation, final Handler handle, final ResultsRunnable actionOnSuccess, final Runnable actionOnFailure) {
+        new Thread(new Runnable() {
+            public void run() {
                 try {
                     String query = String.format("http://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext", URLEncoder.encode(APPID, "UTF-8"), URLEncoder.encode(equation,"UTF-8"));
                     SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -35,8 +35,8 @@ public class WolframAlpha{
                     
                     ParsedDataset parsedDataset = xmlHandler.getParsedData();
                     if(parsedDataset.results.size() == 0) parsedDataset.error = true;
-                    if(!parsedDataset.error){
-                    	actionOnSuccess.setResults(parsedDataset.getResults());
+                    if(!parsedDataset.error) {
+                        actionOnSuccess.setResults(parsedDataset.getResults());
                         handle.post(actionOnSuccess);
                     }
                     else{
@@ -88,15 +88,15 @@ public class WolframAlpha{
                 parsedDataset.error = Boolean.valueOf(atts.getValue("error")) && Boolean.valueOf(atts.getValue("success"));
             }
             else if(in_queryresult) {
-                if(localName.equals("pod") && atts.getValue("title").equals("Result")){
+                if(localName.equals("pod") && atts.getValue("title").equals("Result")) {
                     this.in_pod = true;
                 }
-                else if(in_pod){
-                    if(localName.equals("subpod")){
+                else if(in_pod) {
+                    if(localName.equals("subpod")) {
                         this.in_subpod = true;
                     }
-                    else if(in_subpod){
-                        if(localName.equals("plaintext")){
+                    else if(in_subpod) {
+                        if(localName.equals("plaintext")) {
                             this.in_plaintext_result = true;
                         }
                     }
@@ -112,15 +112,15 @@ public class WolframAlpha{
                 this.in_queryresult = false;
             }
             else if(in_queryresult) {
-                if(localName.equals("pod")){
+                if(localName.equals("pod")) {
                     this.in_pod = false;
                 }
-                else if(in_pod){
-                    if(localName.equals("subpod")){
+                else if(in_pod) {
+                    if(localName.equals("subpod")) {
                         this.in_subpod = false;
                     }
-                    else if(in_subpod){
-                        if(localName.equals("plaintext")){
+                    else if(in_subpod) {
+                        if(localName.equals("plaintext")) {
                             this.in_plaintext_result = false;
                         }
                     }
@@ -132,7 +132,7 @@ public class WolframAlpha{
          * <tag>characters</tag> */
         @Override
         public void characters(char ch[], int start, int length) {
-            if(this.in_plaintext_result){
+            if(this.in_plaintext_result) {
                 parsedDataset.addResult(new String(ch, start, length).replaceAll("\\s=\\s", "="));
             }
         }
@@ -141,24 +141,24 @@ public class WolframAlpha{
     @SuppressWarnings("unused")
     private static class ParsedDataset {
         private boolean error = false;
-        public boolean getError(){
+        public boolean getError() {
             return error;
         }
         
         private ArrayList<String> results = new ArrayList<String>();
-        public void addResult(String result){
+        public void addResult(String result) {
             results.add(result);
         }
-        public ArrayList<String> getResults(){
+        public ArrayList<String> getResults() {
             return results;
         }
     }
     
     public static abstract class ResultsRunnable implements Runnable{
-    	ArrayList<String> results;
-    	
-    	public void setResults(ArrayList<String> results){
-    		this.results = results;
-    	}
+        ArrayList<String> results;
+        
+        public void setResults(ArrayList<String> results) {
+            this.results = results;
+        }
     }
 }

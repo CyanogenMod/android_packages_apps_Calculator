@@ -14,19 +14,19 @@ import android.widget.Toast;
 
 public class HistoryTextView extends TextView {
     private static final int COPY = 0;
-	private String[] mMenuItemsStrings;
-	
-	public HistoryTextView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+    private String[] mMenuItemsStrings;
+    
+    public HistoryTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-	@Override
+    @Override
     public boolean performLongClick() {
         showContextMenu();
         return true;
     }
 
-	@Override
+    @Override
     public void onCreateContextMenu(ContextMenu menu) {
         MenuHandler handler = new MenuHandler();
         if (mMenuItemsStrings == null) {
@@ -39,13 +39,13 @@ public class HistoryTextView extends TextView {
         }
     }
 
-	private class MenuHandler implements MenuItem.OnMenuItemClickListener {
+    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
         public boolean onMenuItemClick(MenuItem item) {
             return onTextContextMenuItem(item.getTitle());
         }
     }
 
-	public boolean onTextContextMenuItem(CharSequence title) {
+    public boolean onTextContextMenuItem(CharSequence title) {
         boolean handled = false;
         if (TextUtils.equals(title,  mMenuItemsStrings[COPY])) {
             copyContent();
@@ -54,7 +54,7 @@ public class HistoryTextView extends TextView {
         return handled;
     }
 
-	private void copyContent() {
+    private void copyContent() {
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
                 Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, getText()));

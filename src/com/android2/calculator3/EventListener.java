@@ -105,18 +105,18 @@ class EventListener implements View.OnKeyListener,
 
         case R.id.solveForX:
             WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(), 
-                    new WolframAlpha.ResultsRunnable(){
+                    new WolframAlpha.ResultsRunnable() {
                         @Override
                         public void run() {
                             String text = "";
-                            for(String s : results){
+                            for(String s : results) {
                                 text += s + ", ";
                             }
                             if(text.length()>2) text = text.substring(0, text.length()-2);
                             mHandler.setText(text);
                         }
                     }, 
-                    new Runnable(){
+                    new Runnable() {
                         @Override
                         public void run() {
                             mHandler.setText(mErrorString);
@@ -126,18 +126,18 @@ class EventListener implements View.OnKeyListener,
 
         case R.id.solveForY:
             WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(), 
-                    new WolframAlpha.ResultsRunnable(){
+                    new WolframAlpha.ResultsRunnable() {
                         @Override
                         public void run() {
                             String text = "";
-                            for(String s : results){
+                            for(String s : results) {
                                 text += s + ", ";
                             }
                             if(text.length()>2) text = text.substring(0, text.length()-2);
                             mHandler.setText(text);
                         }
                     }, 
-                    new Runnable(){
+                    new Runnable() {
                         @Override
                         public void run() {
                             mHandler.setText(mErrorString);
@@ -167,8 +167,8 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.parentheses:
-        	if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
-            if(mHandler.getText().contains("=")){
+            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
+            if(mHandler.getText().contains("=")) {
                 mHandler.setText(mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")");
             }
             else{
@@ -177,9 +177,9 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.mod:
-        	if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
-            if(mHandler.getText().contains("=")){
-                if(mHandler.getText().split("=", 1).length>1){
+            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
+            if(mHandler.getText().contains("=")) {
+                if(mHandler.getText().split("=", 1).length>1) {
                     mHandler.setText(mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",");
                 }
                 else{
@@ -187,7 +187,7 @@ class EventListener implements View.OnKeyListener,
                 }
             }
             else{
-                if(mHandler.getText().length()>0){
+                if(mHandler.getText().length()>0) {
                     mHandler.setText(mModString + "(" + mHandler.getText() + ",");
                 }
                 else{
@@ -198,7 +198,7 @@ class EventListener implements View.OnKeyListener,
 
         default:
             if (view instanceof Button) {
-            	if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
+                if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
                 String text = ((Button) view).getText().toString();
                 if (text.equals(mDX) || text.equals(mDY)) {
                     // Do nothing
@@ -217,7 +217,7 @@ class EventListener implements View.OnKeyListener,
 
     @Override
     public boolean onLongClick(View view) {
-        switch(view.getId()){
+        switch(view.getId()) {
         case R.id.del:
             mHandler.onClear();
             return true;
@@ -256,42 +256,42 @@ class EventListener implements View.OnKeyListener,
         }
         
         if (keyCode == KeyEvent.KEYCODE_DEL) {
-            if(mHandler.getText().endsWith(mSinString + "(")){
+            if(mHandler.getText().endsWith(mSinString + "(")) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mSinString.length()+1));
                 mHandler.setText(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mCosString + "(")){
+            else if(mHandler.getText().endsWith(mCosString + "(")) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mCosString.length()+1));
                 mHandler.setText(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mTanString + "(")){
+            else if(mHandler.getText().endsWith(mTanString + "(")) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mTanString.length()+1));
                 mHandler.setText(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mLogString + "(")){
+            else if(mHandler.getText().endsWith(mLogString + "(")) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLogString.length()+1));
                 mHandler.setText(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mModString + "(")){
+            else if(mHandler.getText().endsWith(mModString + "(")) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mModString.length()+1));
                 mHandler.setText(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mLnString + "(")){
+            else if(mHandler.getText().endsWith(mLnString + "(")) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLnString.length()+1));
                 mHandler.setText(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mDX)){
+            else if(mHandler.getText().endsWith(mDX)) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-mDX.length());
                 mHandler.setText(text);
                 return true;
             }
-            else if(mHandler.getText().endsWith(mDY)){
+            else if(mHandler.getText().endsWith(mDY)) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-mDY.length());
                 mHandler.setText(text);
                 return true;

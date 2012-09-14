@@ -69,9 +69,9 @@ class Persist {
             if (version > 1) {
                 mDeleteMode = in.readInt();
             } 
-            if(version > 2){
+            if(version > 2) {
                 int quickSerializable = in.readInt();
-                for(Mode m : Mode.values()){
+                for(Mode m : Mode.values()) {
                     if(m.getQuickSerializable() == quickSerializable) this.mode = m;
                 }
             }

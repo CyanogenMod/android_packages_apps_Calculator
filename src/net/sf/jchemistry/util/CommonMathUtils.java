@@ -66,9 +66,9 @@ public final class CommonMathUtils {
      *            a real vector
      * @return a real matrix
      */
-    public static RealMatrix toRealMatrix(RealVector v){
+    public static RealMatrix toRealMatrix(RealVector v) {
         double[] values = new double[v.getDimension()];
-        for(int i=0;i<v.getDimension();i++){
+        for(int i=0;i<v.getDimension();i++) {
             values[i] = v.getEntry(i);
         }
         return new Array2DRowRealMatrix(values);
@@ -81,7 +81,7 @@ public final class CommonMathUtils {
      *            a Vector3D
      * @return a RealMatrix
      */
-    public static RealMatrix toRealMatrix(Vector3D v){
+    public static RealMatrix toRealMatrix(Vector3D v) {
         double[] values = { v.getX(), v.getY(), v.getZ() };
         return new Array2DRowRealMatrix(values);
     }
