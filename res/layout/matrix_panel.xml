@@ -8,8 +8,8 @@
         android:id="@+id/matrices"
         android:orientation="vertical">
         <ImageButton 
-            android:layout_width="79dp"
-            android:layout_height="95dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/matrix_add_drawable"
             android:id="@+id/matrixAdd"
             android:scaleType="fitXY"

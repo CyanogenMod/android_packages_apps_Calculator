@@ -184,7 +184,7 @@ class Logic {
         String text;
         try{
             text = mDisplay.getText().toString();
-        } catch(IndexOutOfBoundsException e){
+        } catch(IndexOutOfBoundsException e) {
             text = "";
         }
         return text;
