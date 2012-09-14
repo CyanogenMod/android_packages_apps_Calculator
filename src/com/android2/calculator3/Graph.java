@@ -100,7 +100,7 @@ public class Graph {
         renderer.setXLabels(20);
         renderer.setYLabels(20);
         renderer.setPanEnabled(false, false);
-        renderer.setZoomEnabled(true, true);
+        renderer.setZoomEnabled(false, false);
         renderer.setShowGrid(true);
         XYSeriesRenderer r = new XYSeriesRenderer();
         r.setColor(Color.CYAN);
