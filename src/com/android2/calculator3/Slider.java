@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 @SuppressLint("NewApi")
 public class Slider extends LinearLayout implements OnClickListener, OnTouchListener, AnimationListener {
     private boolean minimizeOnCreate = true;
-    
+
     private OnSlideListener slideListener;
     private ImageButton slider;
     private LinearLayout body;
@@ -46,7 +46,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
         super(context, attrs, defStyle);
         setupView(context, attrs);
     }
-    
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -58,7 +58,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
             minimizeOnCreate = !minimizeOnCreate;
         }
     }
-    
+
     private void setupView(Context context, AttributeSet attrs) {
         setOrientation(LinearLayout.VERTICAL);
         setScrollContainer(false);
@@ -86,7 +86,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
         addView(slider);
         addView(body);
     }
-    
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
@@ -129,7 +129,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
             maximizeSlider();
         }
     }
-    
+
     private void translate() {
         if(android.os.Build.VERSION.SDK_INT < 11) {
             if(multiplier>0) {
@@ -142,14 +142,14 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
             setTranslationY(distance);
         }
     }
-    
+
     private void minimizeSlider() {
         distance = (height - barHeight)*multiplier;
         translate();
         if(slideListener != null) slideListener.onSlide(Direction.DOWN);
         sliderOpen = false;
     }
-    
+
     private void maximizeSlider() {
         distance = 0;
         translate();
@@ -157,7 +157,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
         if(slideListener != null) slideListener.onSlide(Direction.UP);
         sliderOpen = true;
     }
-    
+
     public void animateSliderUp() {
         AnimationSet animationSet = new AnimationSet(true);
         animationSet.setInterpolator(new DecelerateInterpolator());
@@ -172,7 +172,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
         maximizeSlider();
         startAnimation(animationSet);
     }
-    
+
     public void animateSliderDown() {
         if(android.os.Build.VERSION.SDK_INT < 11) {
             AnimationSet animationSet = new AnimationSet(true);
@@ -185,7 +185,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
             r.setDuration(500);
             r.setFillAfter(false);
             animationSet.addAnimation(r);
-            
+
             maximizeSlider();
             startAnimation(animationSet);
         } 
@@ -199,12 +199,12 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
             r.setDuration(500);
             r.setFillAfter(true);
             animationSet.addAnimation(r);
-            
+
             minimizeSlider();
             startAnimation(animationSet);
         }
     }
-    
+
     public void addViewToBody(View v) {
         body.addView(v);
     }
@@ -222,23 +222,23 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
     public void onAnimationStart(Animation animation) {
         super.onAnimationStart();
     }
-    
+
     public boolean isSliderOpen() {
         return sliderOpen;
     }
-    
+
     public void setOnSlideListener(OnSlideListener slideListener) {
         this.slideListener = slideListener;
     }
-    
+
     public enum Direction{
         UP, DOWN
     }
-    
+
     public static interface OnSlideListener{
         public void onSlide(Direction d);
     }
-    
+
     @Override
     public void addView(View v) {
         if(v == slider || v == body) {
@@ -247,7 +247,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
             body.addView(v);
         }
     }
-    
+
     public void setSlideDirection(Direction d) {
         switch(d) {
         case UP:
@@ -264,37 +264,37 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
             break;
         }
     }
-    
+
     public void setClickToOpen(boolean clickToOpen) {
         if(clickToOpen) slider.setOnClickListener(this);
         else slider.setOnClickListener(null);
     }
-    
+
     public void setBarHeight(int height) {
         barHeight = height;
         slider.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, barHeight));
     }
-    
+
     public void setBarBackground(Drawable background) {
         slider.setBackgroundDrawable(background);
     }
-    
+
     public void setBarBackgroundResource(int background) {
         slider.setBackgroundResource(background);
     }
-    
+
     public void setBodyBackground(Drawable background) {
         body.setBackgroundDrawable(background);
     }
-    
+
     public void setBodyBackgroundResource(int background) {
         body.setBackgroundResource(background);
     }
-    
+
     public View getBar() {
         return slider;
     }
-    
+
     public LinearLayout getBody() {
         return body;
     }
