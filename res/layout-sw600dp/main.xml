@@ -24,8 +24,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:paddingLeft="@dimen/left_right_padding"
-    android:paddingRight="@dimen/left_right_padding"
-    android:id="@+id/window">
+    android:paddingRight="@dimen/left_right_padding" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -92,7 +91,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@color/background"
-             android:scrollbarThumbHorizontal="@drawable/pulldown_up" >
+             android:scrollbarThumbHorizontal="@drawable/btn_function" >
             <include layout="@layout/history_panel" />
         </com.android2.calculator3.Slider>
         <LinearLayout
