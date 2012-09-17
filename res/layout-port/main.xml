@@ -22,9 +22,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#ff000000"
-              android:id="@+id/window">
-
+              android:background="@color/background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -32,59 +30,35 @@
         android:orientation="horizontal"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.android2.calculator3.CalculatorDisplay
-                 android:id="@+id/display"
-                 android:layout_width="0dip"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 maxDigits="@integer/max_digits">
-    
-                <com.android2.calculator3.CalculatorEditText
-                    style="@style/display_style" />
-                <com.android2.calculator3.CalculatorEditText
-                    style="@style/display_style" />
-    
-            </com.android2.calculator3.CalculatorDisplay>
-            <ImageButton android:id="@+id/overflow_menu"
-                android:layout_width="48dip"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_menu_overflow"
-                android:background="@android:color/transparent"
-                android:layout_marginLeft="8dip"
-                android:visibility="gone"
-                android:contentDescription="@null"/>
-        </LinearLayout>
-        <include layout="@layout/history_panel"/>
+        <com.android2.calculator3.CalculatorDisplay
+             android:id="@+id/display"
+             android:layout_width="0dip"
+             android:layout_height="match_parent"
+             android:layout_weight="1"
+             maxDigits="@integer/max_digits">
+            <com.android2.calculator3.CalculatorEditText
+                style="@style/display_style" />
+            <com.android2.calculator3.CalculatorEditText
+                style="@style/display_style" />
+        </com.android2.calculator3.CalculatorDisplay>
+        <ImageButton android:id="@+id/overflow_menu"
+            android:layout_width="48dip"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_menu_overflow"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="8dip"
+            android:visibility="gone"
+            android:contentDescription="@null"/>
     </LinearLayout>
-        
-    <ImageButton
-         android:id="@+id/pulldown"
-         android:src="@drawable/pulldown_down"
-         android:background="@android:color/transparent"
-         android:layout_width="match_parent"
-         android:layout_height="21dp"
-         android:paddingTop="4dp"
-         android:paddingBottom="4dp"
-         android:contentDescription="@null"
-         android:scaleType="fitXY" />
-    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
-        >
-
+        android:layout_weight="1.5" >
         <View
             android:background="@drawable/btn_function"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            />
-
+            android:layout_weight="3" />
         <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -97,8 +71,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="0dp"
                 android:textSize="15dp"
-                style="@style/button_style"
-                />
+                style="@style/button_style" />
             <!-- marginRight has to be 0 to catch border-touch -->
             <com.android2.calculator3.ColorButton
                 android:id="@+id/del"
@@ -107,17 +80,25 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="0dp"
                 android:textSize="15dp"
-                style="@style/button_style"
-                />
+                style="@style/button_style" />
         </FrameLayout>
-
     </LinearLayout>
-    
-    <com.android2.calculator3.CalculatorViewPager
-         android:id="@+id/panelswitch"
+    <RelativeLayout
          android:layout_width="match_parent"
          android:layout_height="0dp"
-         android:layout_weight="10"
-         />
-    
+         android:layout_weight="10" >
+        <com.android2.calculator3.Slider
+             android:id="@+id/pulldown"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/background"
+             android:scrollbarThumbHorizontal="@drawable/pulldown_up" >
+            <include layout="@layout/history_panel" />
+        </com.android2.calculator3.Slider>
+        <com.android2.calculator3.CalculatorViewPager
+             android:id="@+id/panelswitch"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_marginTop="@integer/barHeight" />
+    </RelativeLayout>
 </LinearLayout>

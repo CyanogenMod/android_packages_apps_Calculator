@@ -148,4 +148,6 @@
     
     <string name="settings">Settings</string>
     <string name="showHistory">Show History</string>
-    <string name="hideHistory">Hide History</string></resources>
+    <string name="hideHistory">Hide History</string>
+    
+    <string name="returnToBasic">Return to the basic panel</string></resources>

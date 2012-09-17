@@ -21,7 +21,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff000000"
+    android:background="@color/background"
     android:paddingLeft="@dimen/left_right_padding"
     android:paddingRight="@dimen/left_right_padding"
     android:id="@+id/window">
@@ -81,37 +81,40 @@
         </LinearLayout>
         <include layout="@layout/history_panel"/>
     </LinearLayout>
-
-    <ImageButton
-         android:id="@+id/pulldown"
-         android:src="@drawable/pulldown_down"
-         android:background="@android:color/transparent"
-         android:layout_width="match_parent"
-         android:layout_height="21dp"
-         android:paddingTop="4dp"
-         android:paddingBottom="4dp"
-         android:contentDescription="@null"
-         android:scaleType="fitXY" />
-    
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="4"
-        android:orientation="horizontal">
-
-        <com.android2.calculator3.CalculatorViewPager
-             android:id="@+id/smallPanelswitch"
-             android:layout_width="0dip"
+        android:layout_weight="4">
+        
+        <com.android2.calculator3.Slider
+             android:id="@+id/pulldown"
+             android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:layout_weight="2"
-             android:layout_marginRight="@dimen/group_padding"
-             />
+             android:background="@color/background"
+             android:scrollbarThumbHorizontal="@drawable/pulldown_up" >
+            <include layout="@layout/history_panel" />
+        </com.android2.calculator3.Slider>
     
-        <com.android2.calculator3.CalculatorViewPager
-             android:id="@+id/largePanelswitch"
-             android:layout_width="0dip"
-             android:layout_height="match_parent"
-             android:layout_weight="5"
-             />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="@integer/barHeight">
+    
+            <com.android2.calculator3.CalculatorViewPager
+                 android:id="@+id/smallPanelswitch"
+                 android:layout_width="0dip"
+                 android:layout_height="match_parent"
+                 android:layout_weight="3"
+                 android:layout_marginRight="@dimen/group_padding"
+                 />
+        
+            <com.android2.calculator3.CalculatorViewPager
+                 android:id="@+id/largePanelswitch"
+                 android:layout_width="0dip"
+                 android:layout_height="match_parent"
+                 android:layout_weight="5"
+                 />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

@@ -20,7 +20,9 @@ import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,6 +35,7 @@ class EventListener implements View.OnKeyListener,
     Context mContext;
     Logic mHandler;
     ViewPager mPager;
+    private SharedPreferences mPreferences;
 
     private String mErrorString;
     private String mSinString;
@@ -52,18 +55,19 @@ class EventListener implements View.OnKeyListener,
         mContext = context;
         mHandler = handler;
         mPager = pager;
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         
-        mErrorString = context.getResources().getString(R.string.error);
-        mSinString = context.getResources().getString(R.string.sin);
-        mCosString = context.getResources().getString(R.string.cos);
-        mTanString = context.getResources().getString(R.string.tan);
-        mLogString = context.getResources().getString(R.string.lg);
-        mLnString = context.getResources().getString(R.string.ln);
-        mModString = context.getResources().getString(R.string.mod);
-        mX = context.getResources().getString(R.string.X);
-        mY = context.getResources().getString(R.string.Y);
-        mDX = context.getResources().getString(R.string.dx);
-        mDY = context.getResources().getString(R.string.dy);
+        mErrorString = mContext.getResources().getString(R.string.error);
+        mSinString = mContext.getResources().getString(R.string.sin);
+        mCosString = mContext.getResources().getString(R.string.cos);
+        mTanString = mContext.getResources().getString(R.string.tan);
+        mLogString = mContext.getResources().getString(R.string.lg);
+        mLnString = mContext.getResources().getString(R.string.ln);
+        mModString = mContext.getResources().getString(R.string.mod);
+        mX = mContext.getResources().getString(R.string.X);
+        mY = mContext.getResources().getString(R.string.Y);
+        mDX = mContext.getResources().getString(R.string.dx);
+        mDY = mContext.getResources().getString(R.string.dy);
         solveForX = mContext.getResources().getString(R.string.solveForX);
         solveForY = mContext.getResources().getString(R.string.solveForY);
     }
@@ -81,7 +85,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
-            if (mHandler.getText().contains(mX) || 
+            if (mHandler.getText().contains(mX) ||
                 mHandler.getText().contains(mY)) {
                 if (!mHandler.getText().contains("=")) {
                     mHandler.insert("=");
@@ -104,7 +108,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.solveForX:
-            WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(), 
+            WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(),
                     new WolframAlpha.ResultsRunnable() {
                         @Override
                         public void run() {
@@ -115,17 +119,18 @@ class EventListener implements View.OnKeyListener,
                             if(text.length()>2) text = text.substring(0, text.length()-2);
                             mHandler.setText(text);
                         }
-                    }, 
+                    },
                     new Runnable() {
                         @Override
                         public void run() {
                             mHandler.setText(mErrorString);
                         }
-                    });
+                    },
+                    mContext.getResources().getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.solveForY:
-            WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(), 
+            WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(),
                     new WolframAlpha.ResultsRunnable() {
                         @Override
                         public void run() {
@@ -136,13 +141,14 @@ class EventListener implements View.OnKeyListener,
                             if(text.length()>2) text = text.substring(0, text.length()-2);
                             mHandler.setText(text);
                         }
-                    }, 
+                    },
                     new Runnable() {
                         @Override
                         public void run() {
                             mHandler.setText(mErrorString);
                         }
-                    });
+                    },
+                    mContext.getResources().getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.hex:
@@ -208,7 +214,7 @@ class EventListener implements View.OnKeyListener,
                     text += "(";
                 }
                 mHandler.insert(text);
-                if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder()) {
+                if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && mPreferences.getBoolean("RETURN_TO_BASIC", mContext.getResources().getBoolean(R.bool.RETURN_TO_BASIC))) {
                     mPager.setCurrentItem(Panel.BASIC.getOrder());
                 }
             }
@@ -254,7 +260,7 @@ class EventListener implements View.OnKeyListener,
         if (action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
             return true; // eat it
         }
-        
+
         if (keyCode == KeyEvent.KEYCODE_DEL) {
             if(mHandler.getText().endsWith(mSinString + "(")) {
                 String text = mHandler.getText().substring(0, mHandler.getText().length()-(mSinString.length()+1));

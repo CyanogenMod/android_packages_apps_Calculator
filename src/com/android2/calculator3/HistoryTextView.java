@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class HistoryTextView extends TextView {
     private static final int COPY = 0;
     private String[] mMenuItemsStrings;
-    
+
     public HistoryTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -32,7 +32,7 @@ public class HistoryTextView extends TextView {
         if (mMenuItemsStrings == null) {
             Resources resources = getResources();
             mMenuItemsStrings = new String[1];
-            mMenuItemsStrings[COPY] = resources.getString(android.R.string.copy);
+            mMenuItemsStrings[COPY] = resources.getString(android.R.string.copy) + " \"" + getText().toString() + "\"";
         }
         for (int i = 0; i < mMenuItemsStrings.length; i++) {
             menu.add(Menu.NONE, i, i, mMenuItemsStrings[i]).setOnMenuItemClickListener(handler);

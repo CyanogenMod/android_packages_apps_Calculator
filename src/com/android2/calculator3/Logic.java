@@ -32,7 +32,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import net.sf.jchemistry.util.CommonMathUtils;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
@@ -53,8 +52,17 @@ import org.javia.arity.SyntaxException;
 import com.android2.calculator3.CalculatorDisplay.Scroll;
 
 class Logic {
-    private final static String REGEX_NUMBER = "[A-F0-9\\.,]";
-    private final static String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
+    private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
+    private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
+    private static final String INFINITY_UNICODE = "\u221e";
+    private static final String INFINITY = "Infinity"; // Double.toString() for Infinity
+    private static final String NAN = "NaN";  // Double.toString() for NaN
+
+    static final char MINUS = '\u2212';
+
+    public static final String MARKER_EVALUATE_ON_RESUME = "?";
+    public static final int DELETE_MODE_BACKSPACE = 0;
+    public static final int DELETE_MODE_CLEAR = 1;
 
     private CalculatorDisplay mDisplay;
     private Symbols mSymbols = new Symbols();
@@ -63,18 +71,7 @@ class Logic {
     private boolean mIsError = false;
     private int mLineLength = 0;
     private Graph mGraph;
-    private Activity mContext;
-
-    private static final String INFINITY_UNICODE = "\u221e";
-
-    public static final String MARKER_EVALUATE_ON_RESUME = "?";
-
-    // the two strings below are the result of Double.toString() for Infinity & NaN
-    // they are not output to the user and don't require internationalization
-    private static final String INFINITY = "Infinity";
-    private static final String NAN      = "NaN";
-
-    static final char MINUS = '\u2212';
+    private Activity mActivity;
 
     private final String mErrorString;
     private final String mSinString;
@@ -86,7 +83,7 @@ class Logic {
     private final String mTitleString;
     private final String mX;
     private final String mY;
-    private final String mPlusString; 
+    private final String mPlusString;
     private final String mMinusString;
     private final String mDivString;
     private final String mMulString;
@@ -96,26 +93,22 @@ class Logic {
     private final String mSqrtString;
     private final String mIntegralString;
 
-    public final static int DELETE_MODE_BACKSPACE = 0;
-    public final static int DELETE_MODE_CLEAR = 1;
-
     private int mDeleteMode = DELETE_MODE_BACKSPACE;
-    
+    private Mode mode = Mode.DECIMAL;
+
     public enum Mode {
         BINARY(0), DECIMAL(1), HEXADECIMAL(2);
-         
+
          int quickSerializable;
-         
+
          Mode(int num) {
              this.quickSerializable = num;
          }
-         
+
          public int getQuickSerializable() {
              return quickSerializable;
          }
     }
-    
-    private Mode mode = Mode.DECIMAL;
 
     public interface Listener {
         void onDeleteModeChange();
@@ -123,34 +116,34 @@ class Logic {
 
     private Listener mListener;
 
-    Logic(Activity context, History history, CalculatorDisplay display) {
-        mContext = context;
-        
-        mErrorString = context.getResources().getString(R.string.error);
-        mSinString = context.getResources().getString(R.string.sin);
-        mCosString = context.getResources().getString(R.string.cos);
-        mTanString = context.getResources().getString(R.string.tan);
-        mLogString = context.getResources().getString(R.string.lg);
-        mLnString = context.getResources().getString(R.string.ln);
-        mModString = context.getResources().getString(R.string.mod);
-        mX = context.getResources().getString(R.string.X);
-        mY = context.getResources().getString(R.string.Y);
-        mTitleString = context.getResources().getString(R.string.graphTitle);
-        mPlusString = context.getResources().getString(R.string.plus); 
-        mMinusString = context.getResources().getString(R.string.minus);
-        mDivString = context.getResources().getString(R.string.div);
-        mMulString = context.getResources().getString(R.string.mul);
-        mDotString = context.getResources().getString(R.string.dot);
-        mComaString = context.getResources().getString(R.string.coma);
-        mPowerString = context.getResources().getString(R.string.power);
-        mSqrtString = context.getResources().getString(R.string.sqrt);
-        mIntegralString = context.getResources().getString(R.string.integral);
-        
+    Logic(Activity activity, History history, CalculatorDisplay display) {
+        mActivity = activity;
+
+        mErrorString = activity.getResources().getString(R.string.error);
+        mSinString = activity.getResources().getString(R.string.sin);
+        mCosString = activity.getResources().getString(R.string.cos);
+        mTanString = activity.getResources().getString(R.string.tan);
+        mLogString = activity.getResources().getString(R.string.lg);
+        mLnString = activity.getResources().getString(R.string.ln);
+        mModString = activity.getResources().getString(R.string.mod);
+        mX = activity.getResources().getString(R.string.X);
+        mY = activity.getResources().getString(R.string.Y);
+        mTitleString = activity.getResources().getString(R.string.graphTitle);
+        mPlusString = activity.getResources().getString(R.string.plus); 
+        mMinusString = activity.getResources().getString(R.string.minus);
+        mDivString = activity.getResources().getString(R.string.div);
+        mMulString = activity.getResources().getString(R.string.mul);
+        mDotString = activity.getResources().getString(R.string.dot);
+        mComaString = activity.getResources().getString(R.string.coma);
+        mPowerString = activity.getResources().getString(R.string.power);
+        mSqrtString = activity.getResources().getString(R.string.sqrt);
+        mIntegralString = activity.getResources().getString(R.string.integral);
+
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
     }
-    
+
     public void setGraph(Graph graph) {
         mGraph = graph;
     }
@@ -189,7 +182,7 @@ class Logic {
         }
         return text;
     }
-    
+
     void setText(String text) {
         clear(false);
         mDisplay.insert(text);
@@ -320,10 +313,10 @@ class Logic {
         }
 
         input = localize(input);
-        
+
         // Convert to decimal
         String decimalInput = updateTextToNewMode(input, mode, Mode.DECIMAL);
-        
+
         Complex value = mSymbols.evalComplex(decimalInput);
 
         String real = "";
@@ -419,7 +412,7 @@ class Logic {
         //plus minus times div
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
     }
-    
+
     void updateGraph(final Graph g) {
         if(g == null) return;
         final String eq = getText();
@@ -427,7 +420,7 @@ class Logic {
         if(eq.isEmpty()) {
             String title = mTitleString + eq;
             XYSeries series = new XYSeries(title);
-            
+
             try{
                 g.getDataset().removeSeries(g.getSeries());
                 g.setSeries(series);
@@ -436,10 +429,8 @@ class Logic {
                 e.printStackTrace();
             }
 
-            GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
-            
+            GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
             if(graph!=null) graph.repaint();
-            
             return;
         }
 
@@ -467,21 +458,21 @@ class Logic {
         // Translate into decimal
         equation[0] = updateTextToNewMode(localize(equation[0]), mode, Mode.DECIMAL);
         equation[1] = updateTextToNewMode(localize(equation[1]), mode, Mode.DECIMAL);
-        
+
         new Thread(new Runnable() {
             public void run() {
                 final String title = mTitleString + eq;
                 final XYSeries series = new XYSeries(title);
-                final GraphicalView graph = (GraphicalView) mContext.findViewById(R.id.graphView);
+                final GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
 
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
                     for(double x=g.getRenderer().getXAxisMin();x<=g.getRenderer().getXAxisMax();x+=(0.00125*(g.getRenderer().getXAxisMax()-g.getRenderer().getXAxisMin()))) {
                         if(!eq.equals(getText())) return;
-                        
+
                         try{
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[1]);
-                            
+
                             if(y>(g.getRenderer().getYAxisMax()*2) || y<(g.getRenderer().getYAxisMin()*2) || y==Double.NaN) {
                                 //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
                                 //Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
@@ -498,11 +489,11 @@ class Logic {
                 else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
                     for(double y=g.getRenderer().getYAxisMin();y<=g.getRenderer().getYAxisMax();y+=(0.00125*(g.getRenderer().getYAxisMax()-g.getRenderer().getYAxisMin()))) {
                         if(!eq.equals(getText())) return;
-                        
+
                         try{
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[1]);
-                            
+
                             if(x>(g.getRenderer().getXAxisMax()*2) || x<(g.getRenderer().getXAxisMin()*2) || x==Double.NaN) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
@@ -517,11 +508,11 @@ class Logic {
                 else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
                     for(double x=g.getRenderer().getXAxisMin();x<=g.getRenderer().getXAxisMax();x+=(0.00125*(g.getRenderer().getXAxisMax()-g.getRenderer().getXAxisMin()))) {
                         if(!eq.equals(getText())) return;
-                        
+
                         try{
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[0]);
-                            
+
                             if(y>(g.getRenderer().getYAxisMax()*2) || y<(g.getRenderer().getYAxisMin()*2) || y==Double.NaN) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
@@ -536,11 +527,11 @@ class Logic {
                 else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
                     for(double y=g.getRenderer().getYAxisMin();y<=g.getRenderer().getYAxisMax();y+=(0.00125*(g.getRenderer().getYAxisMax()-g.getRenderer().getYAxisMin()))) {
                         if(!eq.equals(getText())) return;
-                        
+
                         try{
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[0]);
-                            
+
                             if(x>(g.getRenderer().getXAxisMax()*2) || x<(g.getRenderer().getXAxisMin()*2) || x==Double.NaN) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
@@ -579,7 +570,7 @@ class Logic {
                         }
                     }
                 }
-                
+
                 try{
                     g.getDataset().removeSeries(g.getSeries());
                 } catch(NullPointerException e) {
@@ -592,11 +583,11 @@ class Logic {
             }
         }).start();
     }
-    
+
     void findEigenvalue() {
         RealMatrix matrix = solveMatrix();
         if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
-        
+
         String result = "";
         try{
             for(double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()) {
@@ -606,7 +597,7 @@ class Logic {
                         break;
                     }
                 }
-                
+
                 result += ",";
             }
         } catch(NonSymmetricMatrixException e) {
@@ -619,11 +610,11 @@ class Logic {
         mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
         setDeleteMode(DELETE_MODE_CLEAR);
     }
-    
+
     void findDeterminant() {
         RealMatrix matrix = solveMatrix();
         if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
-        
+
         String result = "";
         for (int precision = mLineLength; precision > 6; precision--) {
             result = tryFormattingWithPrecision(new LUDecomposition(matrix).getDeterminant(), precision);
@@ -636,9 +627,9 @@ class Logic {
         mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
         setDeleteMode(DELETE_MODE_CLEAR);
     }
-    
+
     RealMatrix solveMatrix() {
-        final LinearLayout matrices = (LinearLayout) mContext.findViewById(R.id.matrices);
+        final LinearLayout matrices = (LinearLayout) mActivity.findViewById(R.id.matrices);
         RealMatrix matrix = null;
         boolean plus = false;
         boolean multiplication = false;
@@ -681,14 +672,14 @@ class Logic {
                     setText(mErrorString);
                     return null;
                 }
-            
+
                 LinearLayout theMatrix = (LinearLayout) v;
-                
+
                 int n = theMatrix.getChildCount();
                 int m = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
-                
+
                 double[][] matrixData = new double[n][m];
-                
+
                 for (int j=0; j<theMatrix.getChildCount(); j++) {
                     LinearLayout layout = (LinearLayout) theMatrix.getChildAt(j);
                     for(int k=0; k<layout.getChildCount(); k++) {
@@ -696,7 +687,7 @@ class Logic {
                         matrixData[j][k] = Integer.valueOf(view.getText().toString());
                     }
                 }
-                
+
                 if(matrix == null) {
                     matrix = new Array2DRowRealMatrix(matrixData);
                 }
@@ -725,7 +716,7 @@ class Logic {
                         setText(mErrorString);
                         return null;
                     }
-                    
+
                     RealVector vector = matrix.getColumnVector(0);
                     RealVector vectorData = new Array2DRowRealMatrix(matrixData).getColumnVector(0);
                     String result = tryFormattingWithPrecision(vector.dotProduct(vectorData), 2);
@@ -740,7 +731,7 @@ class Logic {
                         setText(mErrorString);
                         return null;
                     }
-                    
+
                     RealVector vector = matrix.getColumnVector(0);
                     RealVector vectorData = new Array2DRowRealMatrix(matrixData).getColumnVector(0);
                     Vector3D result = Vector3D.crossProduct(CommonMathUtils.toVector3D(vector), CommonMathUtils.toVector3D(vectorData));
@@ -760,23 +751,23 @@ class Logic {
             }
         }
         if(matrix == null) return null;
-        
+
         matrices.removeViews(0, matrices.getChildCount()-1);
-        
+
         double[][] data = matrix.getData();
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        
+        LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         DisplayMetrics metrics = new DisplayMetrics();
-        mContext.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        mActivity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         final float logicalDensity = metrics.density;
-        
-        final LinearLayout theMatrix = new LinearLayout(mContext);
+
+        final LinearLayout theMatrix = new LinearLayout(mActivity);
         theMatrix.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         theMatrix.setOrientation(LinearLayout.VERTICAL);
         theMatrix.setId(R.id.theMatrix);
-        theMatrix.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.matrix_background));
+        theMatrix.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.matrix_background));
         for (int i=0; i<data.length; i++) {
-            LinearLayout layout = new LinearLayout(mContext);
+            LinearLayout layout = new LinearLayout(mActivity);
             layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             layout.setOrientation(LinearLayout.HORIZONTAL);
             for(int j=0; j<data[i].length; j++) {
@@ -804,7 +795,7 @@ class Logic {
         theMatrix.requestFocus();
 
         matrices.addView(theMatrix, matrices.getChildCount()-1);
-        
+
         return matrix;
     }
 
@@ -928,7 +919,7 @@ class Logic {
         }
         return text;
     }
-    
+
     private Object[] removeWhitespace(String[] strings) {
         ArrayList<String> formatted = new ArrayList<String>(strings.length);
         for(String s : strings) {

@@ -28,7 +28,7 @@ import android.content.res.Resources;
 /**
  * Button with click-animation effect.
  */
-class ColorButton extends Button{
+class ColorButton extends Button {
     int CLICK_FEEDBACK_COLOR;
     static final int CLICK_FEEDBACK_INTERVAL = 10;
     static final int CLICK_FEEDBACK_DURATION = 350;

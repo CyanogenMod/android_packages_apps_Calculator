@@ -26,4 +26,10 @@
             android:key="MATRIX"
             android:defaultValue="@bool/MATRIX" />
     </PreferenceCategory>
+    <PreferenceCategory>
+        <CheckBoxPreference
+            android:title="@string/returnToBasic"
+            android:key="RETURN_TO_BASIC"
+            android:defaultValue="@bool/RETURN_TO_BASIC" />
+    </PreferenceCategory>
 </PreferenceScreen>
