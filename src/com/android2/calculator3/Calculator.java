@@ -153,6 +153,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 }
             }
         });
+        mPulldown.setBackgroundResource(R.color.background);
         mHistoryView = (LinearLayout) mPulldown.findViewById(R.id.history);
         setUpHistory();
 
