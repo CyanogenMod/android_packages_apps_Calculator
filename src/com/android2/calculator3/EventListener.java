@@ -175,7 +175,8 @@ class EventListener implements View.OnKeyListener,
         case R.id.parentheses:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
-                mHandler.setText(mHandler.getText().split("=")[0] + "=(" + mHandler.getText().split("=")[1] + ")");
+            	String[] equation = mHandler.getText().split("=");
+                mHandler.setText(equation[0] + "=(" + equation[1] + ")");
             }
             else{
                 mHandler.setText("(" + mHandler.getText() + ")");
@@ -185,8 +186,9 @@ class EventListener implements View.OnKeyListener,
         case R.id.mod:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
-                if(mHandler.getText().split("=", 1).length>1) {
-                    mHandler.setText(mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",");
+            	String[] equation = mHandler.getText().split("=");
+                if(equation.length>1) {
+                    mHandler.setText(equation[0] + "=" + mModString + "(" + equation[1] + ",");
                 }
                 else{
                     mHandler.insert(mModString + "(");
