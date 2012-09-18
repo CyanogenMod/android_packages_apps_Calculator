@@ -132,11 +132,7 @@ public class Slider extends LinearLayout implements OnClickListener, OnTouchList
 
     private void translate() {
         if(android.os.Build.VERSION.SDK_INT < 11) {
-            if(multiplier>0) {
-                params.topMargin = distance;
-            } else if(multiplier<0) {
-                params.bottomMargin = distance;
-            }
+            params.topMargin = distance;
             setLayoutParams(params);
         } else{
             setTranslationY(distance);
