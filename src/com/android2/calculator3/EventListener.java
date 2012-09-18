@@ -175,7 +175,7 @@ class EventListener implements View.OnKeyListener,
         case R.id.parentheses:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
-                mHandler.setText(mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")");
+                mHandler.setText(mHandler.getText().split("=")[0] + "=(" + mHandler.getText().split("=")[1] + ")");
             }
             else{
                 mHandler.setText("(" + mHandler.getText() + ")");
