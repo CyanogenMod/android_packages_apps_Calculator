@@ -38,11 +38,6 @@ class EventListener implements View.OnKeyListener,
     private SharedPreferences mPreferences;
 
     private String mErrorString;
-    private String mSinString;
-    private String mCosString;
-    private String mTanString;
-    private String mLogString;
-    private String mLnString;
     private String mModString;
     private String mX;
     private String mY;
@@ -58,11 +53,6 @@ class EventListener implements View.OnKeyListener,
         mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         
         mErrorString = mContext.getResources().getString(R.string.error);
-        mSinString = mContext.getResources().getString(R.string.sin);
-        mCosString = mContext.getResources().getString(R.string.cos);
-        mTanString = mContext.getResources().getString(R.string.tan);
-        mLogString = mContext.getResources().getString(R.string.lg);
-        mLnString = mContext.getResources().getString(R.string.ln);
         mModString = mContext.getResources().getString(R.string.mod);
         mX = mContext.getResources().getString(R.string.X);
         mY = mContext.getResources().getString(R.string.Y);
@@ -261,50 +251,6 @@ class EventListener implements View.OnKeyListener,
         //Work-around for spurious key event from IME, bug #1639445
         if (action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
             return true; // eat it
-        }
-
-        if (keyCode == KeyEvent.KEYCODE_DEL) {
-            if(mHandler.getText().endsWith(mSinString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mSinString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mCosString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mCosString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mTanString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mTanString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mLogString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLogString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mModString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mModString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mLnString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLnString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mDX)) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-mDX.length());
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mDY)) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-mDY.length());
-                mHandler.setText(text);
-                return true;
-            }
-            return false;
         }
 
         //Calculator.log("KEY " + keyCode + "; " + action);

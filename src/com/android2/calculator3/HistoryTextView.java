@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class HistoryTextView extends TextView {
     private static final int COPY = 0;
     private String[] mMenuItemsStrings;
+    private HistoryEntry mHistoryEntry;
 
     public HistoryTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -60,4 +61,12 @@ public class HistoryTextView extends TextView {
         clipboard.setPrimaryClip(ClipData.newPlainText(null, getText()));
         Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
     }
+
+	public HistoryEntry getHistoryEntry() {
+		return mHistoryEntry;
+	}
+
+	public void setHistoryEntry(HistoryEntry historyEntry) {
+		this.mHistoryEntry = historyEntry;
+	}
 }

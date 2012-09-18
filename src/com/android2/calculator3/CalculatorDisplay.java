@@ -22,6 +22,8 @@ import android.text.Editable;
 import android.text.Spanned;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -49,10 +51,26 @@ class CalculatorDisplay extends ViewSwitcher {
     TranslateAnimation outAnimDown;
 
     private int mMaxDigits = DEFAULT_MAX_DIGITS;
+    private String mSinString;
+    private String mCosString;
+    private String mTanString;
+    private String mLogString;
+    private String mLnString;
+    private String mModString;
+    private String mDX;
+    private String mDY;
 
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         mMaxDigits = attrs.getAttributeIntValue(null, ATTR_MAX_DIGITS, DEFAULT_MAX_DIGITS);
+        mSinString = context.getResources().getString(R.string.sin);
+        mCosString = context.getResources().getString(R.string.cos);
+        mTanString = context.getResources().getString(R.string.tan);
+        mLogString = context.getResources().getString(R.string.lg);
+        mLnString = context.getResources().getString(R.string.ln);
+        mModString = context.getResources().getString(R.string.mod);
+        mDX = context.getResources().getString(R.string.dx);
+        mDY = context.getResources().getString(R.string.dy);
     }
 
     public int getMaxDigits() {
@@ -78,6 +96,82 @@ class CalculatorDisplay extends ViewSwitcher {
                        coming from the on-screen touch buttons, so don't filter anything.
                     */
                     return null;
+                }
+
+                @Override
+                public boolean onKeyDown(View view, Editable content, int keyCode,
+                                         KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_DEL) {
+                        int selectionHandle = getSelectionStart();
+                        String textBeforeInsertionHandle = getText().toString().substring(0, selectionHandle);
+                        String textAfterInsertionHandle = getText().toString().substring(selectionHandle, getText().length());
+
+                        if(textBeforeInsertionHandle.endsWith(mSinString + "(")) {
+                        	int deletionLength = mSinString.length()+1;
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                    textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle-deletionLength);
+                            return true;
+                        }
+                        else if(textBeforeInsertionHandle.endsWith(mCosString + "(")) {
+                        	int deletionLength = mCosString.length()+1;
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                    textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle-deletionLength);
+                            return true;
+                        }
+                        else if(textBeforeInsertionHandle.endsWith(mTanString + "(")) {
+                        	int deletionLength = mTanString.length()+1;
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                    textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle-deletionLength);
+                            return true;
+                        }
+                        else if(textBeforeInsertionHandle.endsWith(mLogString + "(")) {
+                        	int deletionLength = mLogString.length()+1;
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                    textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle-deletionLength);
+                            return true;
+                        }
+                        else if(textBeforeInsertionHandle.endsWith(mModString + "(")) {
+                        	int deletionLength = mModString.length()+1;
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                    textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle-deletionLength);
+                            return true;
+                        }
+                        else if(textBeforeInsertionHandle.endsWith(mLnString + "(")) {
+                        	int deletionLength = mLnString.length()+1;
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                    textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle-deletionLength);
+                            return true;
+                        }
+                        else if(textBeforeInsertionHandle.endsWith(mDX + "(")) {
+                        	int deletionLength = mDX.length()+1;
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                    textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle-deletionLength);
+                            return true;
+                        }
+                        else if(textBeforeInsertionHandle.endsWith(mDY + "(")) {
+                        	int deletionLength = mDY.length()+1;
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                    textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle-deletionLength);
+                            return true;
+                        }
+                    }
+                    return super.onKeyDown(view, content, keyCode, event);
                 }
             };
 
@@ -124,6 +218,11 @@ class CalculatorDisplay extends ViewSwitcher {
         EditText text = (EditText) getCurrentView();
         return text.getText();
     }
+    
+    private void setText(String input) {
+        EditText text = (EditText) getCurrentView();
+        text.setText(input);
+    }
 
     void setText(CharSequence text, Scroll dir) {
         if (getText().length() == 0) {
@@ -151,6 +250,11 @@ class CalculatorDisplay extends ViewSwitcher {
     int getSelectionStart() {
         EditText text = (EditText) getCurrentView();
         return text.getSelectionStart();
+    }
+    
+    private void setSelection(int position) {
+        EditText text = (EditText) getCurrentView();
+        text.setSelection(position);
     }
 
     @Override
