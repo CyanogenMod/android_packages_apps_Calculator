@@ -45,13 +45,13 @@ class EventListener implements View.OnKeyListener,
     private String mDY;
     private String solveForX;
     private String solveForY;
-    
+
     void setHandler(Context context, Logic handler, ViewPager pager) {
         mContext = context;
         mHandler = handler;
         mPager = pager;
         mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        
+
         mErrorString = mContext.getResources().getString(R.string.error);
         mModString = mContext.getResources().getString(R.string.mod);
         mX = mContext.getResources().getString(R.string.X);
