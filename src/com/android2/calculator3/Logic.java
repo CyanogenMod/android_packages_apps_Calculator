@@ -472,10 +472,10 @@ class Logic {
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
                     for(double x=minX;x<=maxX;x+=(0.00125*(maxX-minX))) {
                         if(!eq.equals(getText()) ||
-                        		minY != g.getRenderer().getYAxisMin() ||
-                        		maxY != g.getRenderer().getYAxisMax() ||
-                        		minX != g.getRenderer().getXAxisMin() ||
-                        		maxX != g.getRenderer().getXAxisMax()) return;
+                                minY != g.getRenderer().getYAxisMin() ||
+                                maxY != g.getRenderer().getYAxisMax() ||
+                                minX != g.getRenderer().getXAxisMin() ||
+                                maxX != g.getRenderer().getXAxisMax()) return;
 
                         try{
                             mSymbols.define(mX, x);
@@ -496,11 +496,11 @@ class Logic {
                 }
                 else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
                     for(double y=minY;y<=maxY;y+=(0.00125*(maxY-minY))) {
-                    	if(!eq.equals(getText()) ||
-                        		minY != g.getRenderer().getYAxisMin() ||
-                        		maxY != g.getRenderer().getYAxisMax() ||
-                        		minX != g.getRenderer().getXAxisMin() ||
-                        		maxX != g.getRenderer().getXAxisMax()) return;
+                        if(!eq.equals(getText()) ||
+                                minY != g.getRenderer().getYAxisMin() ||
+                                maxY != g.getRenderer().getYAxisMax() ||
+                                minX != g.getRenderer().getXAxisMin() ||
+                                maxX != g.getRenderer().getXAxisMax()) return;
 
                         try{
                             mSymbols.define(mY, y);
@@ -519,11 +519,11 @@ class Logic {
                 }
                 else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
                     for(double x=minX;x<=maxX;x+=(0.00125*(maxX-minX))) {
-                    	if(!eq.equals(getText()) ||
-                        		minY != g.getRenderer().getYAxisMin() ||
-                        		maxY != g.getRenderer().getYAxisMax() ||
-                        		minX != g.getRenderer().getXAxisMin() ||
-                        		maxX != g.getRenderer().getXAxisMax()) return;
+                        if(!eq.equals(getText()) ||
+                                minY != g.getRenderer().getYAxisMin() ||
+                                maxY != g.getRenderer().getYAxisMax() ||
+                                minX != g.getRenderer().getXAxisMin() ||
+                                maxX != g.getRenderer().getXAxisMax()) return;
 
                         try{
                             mSymbols.define(mX, x);
@@ -542,11 +542,11 @@ class Logic {
                 }
                 else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
                     for(double y=minY;y<=maxY;y+=(0.00125*(maxY-minY))) {
-                    	if(!eq.equals(getText()) ||
-                        		minY != g.getRenderer().getYAxisMin() ||
-                        		maxY != g.getRenderer().getYAxisMax() ||
-                        		minX != g.getRenderer().getXAxisMin() ||
-                        		maxX != g.getRenderer().getXAxisMax()) return;
+                        if(!eq.equals(getText()) ||
+                                minY != g.getRenderer().getYAxisMin() ||
+                                maxY != g.getRenderer().getYAxisMax() ||
+                                minX != g.getRenderer().getXAxisMin() ||
+                                maxX != g.getRenderer().getXAxisMax()) return;
 
                         try{
                             mSymbols.define(mY, y);
@@ -566,11 +566,11 @@ class Logic {
                 else{
                     for(double x=minX;x<=maxX;x+=(0.01*(maxX-minX))) {
                         for(double y=maxY;y>=minY;y-=(0.01*(maxY-minY))) {
-                        	if(!eq.equals(getText()) ||
-                            		minY != g.getRenderer().getYAxisMin() ||
-                            		maxY != g.getRenderer().getYAxisMax() ||
-                            		minX != g.getRenderer().getXAxisMin() ||
-                            		maxX != g.getRenderer().getXAxisMax()) return;
+                            if(!eq.equals(getText()) ||
+                                    minY != g.getRenderer().getYAxisMin() ||
+                                    maxY != g.getRenderer().getYAxisMax() ||
+                                    minX != g.getRenderer().getXAxisMin() ||
+                                    maxX != g.getRenderer().getXAxisMax()) return;
 
                             try{
                                 mSymbols.define(mX, x);

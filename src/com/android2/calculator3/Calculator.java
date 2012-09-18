@@ -477,11 +477,17 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 base.setMaxWidth(mPulldown.getWidth()/2);
                 base.setText(he.getBase());
                 base.setHistoryEntry(he);
+                base.setHistory(mHistory);
+                base.setRowView(entry);
+                base.setHistoryView(mHistoryView);
                 HistoryTextView edited = (HistoryTextView) entry.findViewById(R.id.edited);
                 edited.setOnLongClickListener(this);
                 edited.setText(he.getEdited());
                 edited.setMaxWidth(mPulldown.getWidth()-base.getWidth()-entry.getChildAt(1).getWidth());
                 edited.setHistoryEntry(he);
+                edited.setHistory(mHistory);
+                edited.setRowView(entry);
+                edited.setHistoryView(mHistoryView);
                 mHistoryView.addView(entry);
             }
         }

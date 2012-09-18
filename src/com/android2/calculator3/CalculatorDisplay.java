@@ -107,7 +107,7 @@ class CalculatorDisplay extends ViewSwitcher {
                         String textAfterInsertionHandle = getText().toString().substring(selectionHandle, getText().length());
 
                         if(textBeforeInsertionHandle.endsWith(mSinString + "(")) {
-                        	int deletionLength = mSinString.length()+1;
+                            int deletionLength = mSinString.length()+1;
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
                                     textAfterInsertionHandle;
                             setText(text);
@@ -115,7 +115,7 @@ class CalculatorDisplay extends ViewSwitcher {
                             return true;
                         }
                         else if(textBeforeInsertionHandle.endsWith(mCosString + "(")) {
-                        	int deletionLength = mCosString.length()+1;
+                            int deletionLength = mCosString.length()+1;
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
                                     textAfterInsertionHandle;
                             setText(text);
@@ -123,7 +123,7 @@ class CalculatorDisplay extends ViewSwitcher {
                             return true;
                         }
                         else if(textBeforeInsertionHandle.endsWith(mTanString + "(")) {
-                        	int deletionLength = mTanString.length()+1;
+                            int deletionLength = mTanString.length()+1;
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
                                     textAfterInsertionHandle;
                             setText(text);
@@ -131,7 +131,7 @@ class CalculatorDisplay extends ViewSwitcher {
                             return true;
                         }
                         else if(textBeforeInsertionHandle.endsWith(mLogString + "(")) {
-                        	int deletionLength = mLogString.length()+1;
+                            int deletionLength = mLogString.length()+1;
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
                                     textAfterInsertionHandle;
                             setText(text);
@@ -139,7 +139,7 @@ class CalculatorDisplay extends ViewSwitcher {
                             return true;
                         }
                         else if(textBeforeInsertionHandle.endsWith(mModString + "(")) {
-                        	int deletionLength = mModString.length()+1;
+                            int deletionLength = mModString.length()+1;
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
                                     textAfterInsertionHandle;
                             setText(text);
@@ -147,7 +147,7 @@ class CalculatorDisplay extends ViewSwitcher {
                             return true;
                         }
                         else if(textBeforeInsertionHandle.endsWith(mLnString + "(")) {
-                        	int deletionLength = mLnString.length()+1;
+                            int deletionLength = mLnString.length()+1;
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
                                     textAfterInsertionHandle;
                             setText(text);
@@ -155,7 +155,7 @@ class CalculatorDisplay extends ViewSwitcher {
                             return true;
                         }
                         else if(textBeforeInsertionHandle.endsWith(mDX + "(")) {
-                        	int deletionLength = mDX.length()+1;
+                            int deletionLength = mDX.length()+1;
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
                                     textAfterInsertionHandle;
                             setText(text);
@@ -163,7 +163,7 @@ class CalculatorDisplay extends ViewSwitcher {
                             return true;
                         }
                         else if(textBeforeInsertionHandle.endsWith(mDY + "(")) {
-                        	int deletionLength = mDY.length()+1;
+                            int deletionLength = mDY.length()+1;
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
                                     textAfterInsertionHandle;
                             setText(text);

@@ -79,7 +79,7 @@
     <string name="cos">cos</string>
     <!-- Displayed on buttons on screen for the tan function. -->
     <string name="tan">tan</string>
-       
+
     <!-- Do not translate. Unicode pi sign; don't translate. Displayed as button on screen. -->
     <string name="pi" translatable="false">\u03c0</string>
     <!-- Displayed on buttons on screen for the e function. -->
@@ -114,6 +114,8 @@
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Remove from history</string>
 
     <string name="i" translatable="false">i</string>
     <string name="percentage" translatable="false">%</string>
@@ -139,7 +141,7 @@
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
-    
+
     <string name="hexDesc">Hexadecimal</string>
     <string name="binDesc">Binary</string>
     <string name="decDesc">Decimal</string>
@@ -149,5 +151,5 @@
     <string name="settings">Settings</string>
     <string name="showHistory">Show History</string>
     <string name="hideHistory">Hide History</string>
-    
+
     <string name="returnToBasic">Return to the basic panel</string></resources>

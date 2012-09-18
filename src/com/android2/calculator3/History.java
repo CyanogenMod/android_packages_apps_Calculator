@@ -115,4 +115,9 @@ class History {
     String getBase() {
         return current().getBase();
     }
+
+    void remove(HistoryEntry he) {
+        mEntries.remove(he);
+        mPos--;
+    }
 }
