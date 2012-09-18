@@ -28,9 +28,8 @@ import android.widget.LinearLayout;
 import android.app.Activity;
 import android.content.Context;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 import org.achartengine.GraphicalView;
@@ -358,10 +357,7 @@ class Logic {
     private String tryFormattingWithPrecision(double value, int precision) {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
-        String format = "#.";
-        for(int i=0;i<precision;i++) format += "#";
-        NumberFormat formatter = new DecimalFormat(format);
-        String result = formatter.format(value);
+    	String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
         if (result.equals(NAN)) { // treat NaN as Error
             mIsError = true;
             return mErrorString;
