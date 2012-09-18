@@ -142,7 +142,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 
         mPulldown = (Slider) findViewById(R.id.pulldown);
-        mPulldown.setBarHeight((int) LogicalDensity.convertDpToPixel(25, this));
+        int barHeight = getResources().getInteger(R.integer.barHeight);
+        mPulldown.setBarHeight((int) LogicalDensity.convertDpToPixel(barHeight, this));
         mPulldown.setSlideDirection(Direction.DOWN);
         mPulldown.setOnSlideListener(new OnSlideListener() {
             @Override

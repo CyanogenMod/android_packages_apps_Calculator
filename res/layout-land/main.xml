@@ -90,6 +90,6 @@
             android:id="@+id/panelswitch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@integer/barHeight" />
+            android:layout_marginTop="@dimen/barHeight" />
     </RelativeLayout>
 </LinearLayout>
