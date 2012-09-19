@@ -14,7 +14,8 @@
     <string name="F">F</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
-    <string name="clear">CLR</string>
+    <string name="clear">נקה</string>
+    <string name="del">מחק</string>
     <string name="div">÷</string>
     <string name="mul">×</string>
     <string name="plus">+</string>
@@ -69,4 +70,5 @@
     <string name="showHistory">הצג הסטוריה</string>
     <string name="hideHistory">הסתר הסטוריה</string>
     <string name="returnToBasic">חזרה לחלונית בסיסית</string>
+    <string name="copy">העתק \"%s\"</string>
 </resources>
