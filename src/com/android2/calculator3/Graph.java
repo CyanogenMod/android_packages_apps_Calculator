@@ -129,7 +129,7 @@ public class Graph {
         renderer.setLabelsColor(Color.LTGRAY);
         renderer.setXLabels(20);
         renderer.setYLabels(20);
-        renderer.setPanEnabled(false, false);
+        renderer.setPanEnabled(true);
         renderer.setZoomEnabled(true);
         renderer.setShowGrid(true);
         renderer.setZoomButtonsVisible(true);

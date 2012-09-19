@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 public class HistoryTextView extends TextView {
     private static final int COPY = 0;
-    private static final int REMOVE = 1;
+    private static final int COPY_BASE = 1;
+    private static final int COPY_EDITED = 2;
+    private static final int REMOVE = 3;
     private String[] mMenuItemsStrings;
     private HistoryEntry mHistoryEntry;
     private History mHistory;
@@ -37,8 +39,10 @@ public class HistoryTextView extends TextView {
         MenuHandler handler = new MenuHandler();
         if (mMenuItemsStrings == null) {
             Resources resources = getResources();
-            mMenuItemsStrings = new String[2];
-            mMenuItemsStrings[COPY] = resources.getString(android.R.string.copy) + " \"" + getText().toString() + "\"";
+            mMenuItemsStrings = new String[4];
+            mMenuItemsStrings[COPY] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase()+"="+mHistoryEntry.getEdited());
+            mMenuItemsStrings[COPY_BASE] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase());
+            mMenuItemsStrings[COPY_EDITED] = String.format(resources.getString(R.string.copy), mHistoryEntry.getEdited());
             mMenuItemsStrings[REMOVE] = resources.getString(R.string.remove_from_history);
         }
         for (int i = 0; i < mMenuItemsStrings.length; i++) {
@@ -55,7 +59,15 @@ public class HistoryTextView extends TextView {
     public boolean onTextContextMenuItem(CharSequence title) {
         boolean handled = false;
         if (TextUtils.equals(title,  mMenuItemsStrings[COPY])) {
-            copyContent();
+            copyContent(mHistoryEntry.getBase()+"="+mHistoryEntry.getEdited());
+            handled = true;
+        }
+        else if (TextUtils.equals(title,  mMenuItemsStrings[COPY_BASE])) {
+            copyContent(mHistoryEntry.getBase());
+            handled = true;
+        }
+        else if (TextUtils.equals(title,  mMenuItemsStrings[COPY_EDITED])) {
+            copyContent(mHistoryEntry.getEdited());
             handled = true;
         }
         else if (TextUtils.equals(title,  mMenuItemsStrings[REMOVE])) {
@@ -65,10 +77,10 @@ public class HistoryTextView extends TextView {
         return handled;
     }
 
-    private void copyContent() {
+    private void copyContent(String content) {
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
                 Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(ClipData.newPlainText(null, getText()));
+        clipboard.setPrimaryClip(ClipData.newPlainText(null, content));
         Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
     }
 

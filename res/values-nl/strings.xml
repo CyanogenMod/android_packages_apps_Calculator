@@ -42,4 +42,6 @@
     <string name="advanced" msgid="7122495413742976492">"Geavanceerd"</string>
     <string name="clear_history" msgid="8458043980601165012">"Geschiedenis wissen"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Tekst is gekopieerd."</string>
+    <string name="copy">Kopieer \"%s\"</string>
+    <string name="remove_from_history"> Verwijder uit geschiedenis </string>
 </resources>

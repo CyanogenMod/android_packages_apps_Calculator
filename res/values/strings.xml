@@ -114,6 +114,8 @@
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
+    <!-- History menu item for copying item -->
+    <string name="copy">Copy \"%s\"</string>
     <!-- History menu item for removing item from history -->
     <string name="remove_from_history">Remove from history</string>
 
