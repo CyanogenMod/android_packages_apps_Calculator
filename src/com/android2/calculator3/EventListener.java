@@ -242,12 +242,6 @@ class EventListener implements View.OnKeyListener,
     public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
         int action = keyEvent.getAction();
 
-        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT ||
-            keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-            boolean eat = mHandler.eatHorizontalMove(keyCode == KeyEvent.KEYCODE_DPAD_LEFT);
-            return eat;
-        }
-
         //Work-around for spurious key event from IME, bug #1639445
         if (action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
             return true; // eat it
