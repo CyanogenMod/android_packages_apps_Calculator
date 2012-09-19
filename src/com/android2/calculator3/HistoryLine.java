@@ -9,11 +9,11 @@ import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class HistoryTextView extends TextView {
+public class HistoryLine extends LinearLayout {
     private static final int COPY = 0;
     private static final int COPY_BASE = 1;
     private static final int COPY_EDITED = 2;
@@ -21,17 +21,16 @@ public class HistoryTextView extends TextView {
     private String[] mMenuItemsStrings;
     private HistoryEntry mHistoryEntry;
     private History mHistory;
-    private LinearLayout mRowView;
-    private LinearLayout mHistoryView;
 
-    public HistoryTextView(Context context, AttributeSet attrs) {
+    public HistoryLine(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    @Override
-    public boolean performLongClick() {
-        showContextMenu();
-        return true;
+        setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                showContextMenu();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -86,7 +85,7 @@ public class HistoryTextView extends TextView {
 
     private void removeContent() {
         mHistory.remove(mHistoryEntry);
-        mHistoryView.removeView(mRowView);
+        ((LinearLayout) getParent()).removeView(this);
     }
 
     public HistoryEntry getHistoryEntry() {
@@ -103,21 +102,5 @@ public class HistoryTextView extends TextView {
 
     public void setHistory(History history) {
         this.mHistory = history;
-    }
-
-    public LinearLayout getRowView() {
-        return mRowView;
-    }
-
-    public void setRowView(LinearLayout rowView) {
-        this.mRowView = rowView;
-    }
-
-    public LinearLayout getHistoryView() {
-        return mHistoryView;
-    }
-
-    public void setHistoryView(LinearLayout historyView) {
-        this.mHistoryView = historyView;
     }
 }

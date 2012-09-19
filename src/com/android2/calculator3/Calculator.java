@@ -44,6 +44,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.TextView;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
         OnClickListener, OnMenuItemClickListener, OnLongClickListener {
@@ -471,23 +472,17 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         final LayoutInflater inflater = LayoutInflater.from(this);
         for(HistoryEntry he : mHistory.mEntries) {
             if(!he.getBase().isEmpty()) {
-                LinearLayout entry = (LinearLayout) inflater.inflate(R.layout.history_entry, null);
-                HistoryTextView base = (HistoryTextView) entry.findViewById(R.id.base);
+                HistoryLine entry = (HistoryLine) inflater.inflate(R.layout.history_entry, null);
+                entry.setHistoryEntry(he);
+                entry.setHistory(mHistory);
+                TextView base = (TextView) entry.findViewById(R.id.base);
                 base.setOnLongClickListener(this);
                 base.setMaxWidth(mPulldown.getWidth()/2);
                 base.setText(he.getBase());
-                base.setHistoryEntry(he);
-                base.setHistory(mHistory);
-                base.setRowView(entry);
-                base.setHistoryView(mHistoryView);
-                HistoryTextView edited = (HistoryTextView) entry.findViewById(R.id.edited);
+                TextView edited = (TextView) entry.findViewById(R.id.edited);
                 edited.setOnLongClickListener(this);
                 edited.setText(he.getEdited());
                 edited.setMaxWidth(mPulldown.getWidth()-base.getWidth()-entry.getChildAt(1).getWidth());
-                edited.setHistoryEntry(he);
-                edited.setHistory(mHistory);
-                edited.setRowView(entry);
-                edited.setHistoryView(mHistoryView);
                 mHistoryView.addView(entry);
             }
         }
