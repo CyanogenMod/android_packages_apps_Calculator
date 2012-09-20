@@ -44,4 +44,27 @@
     <string name="text_copied_toast" msgid="5801480710472541833">"Tekst is gekopieerd."</string>
     <string name="copy">Kopieer \"%s\"</string>
     <string name="remove_from_history"> Verwijder uit geschiedenis </string>
+
+    <string name="solveForX">Los op voor X</string>
+    <string name="solveForY">Los op voor Y</string>
+    <string name="mod">mod</string>
+
+    <string name="defaultGraphTitle">Functie</string>
+    <string name="graphTitle">Functie: </string>
+
+    <string name="solve">Bereken</string>
+    <string name="dotProduct">Dotpr.</string>
+    <string name="crossProduct">Kruispr.</string>
+
+    <string name="hexDesc">Hexadecimaal</string>
+    <string name="binDesc">Binair</string>
+    <string name="decDesc">Decimaal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigenwaarden</string>
+    
+    <string name="settings">Instellingen</string>
+    <string name="showHistory">Toon geschiedenis</string>
+    <string name="hideHistory">Verstop geschiedenis</string>
+
+    <string name="returnToBasic">Keer terug naar basis invoer</string>
 </resources>
