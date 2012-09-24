@@ -430,7 +430,6 @@ class Logic {
             return;
         }
 
-        if(!eq.contains("=")) return;
         if(eq.endsWith(mPlusString) || 
            eq.endsWith(mMinusString) || 
            eq.endsWith(mDivString) || 
@@ -449,7 +448,7 @@ class Logic {
 
         final String[] equation = eq.split("=");
 
-        if(equation.length == 1) return;
+        if(equation.length != 2) return;
 
         // Translate into decimal
         equation[0] = updateTextToNewMode(localize(equation[0]), mode, Mode.DECIMAL);
