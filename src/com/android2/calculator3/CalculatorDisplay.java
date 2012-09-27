@@ -22,17 +22,19 @@ import android.text.Editable;
 import android.text.Spanned;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ViewSwitcher;
+import android.view.View.OnLongClickListener;
 
 /**
  * Provides vertical scrolling for the input/result EditText.
  */
-class CalculatorDisplay extends ViewSwitcher {
+class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
 
     private static final String ATTR_MAX_DIGITS = "maxDigits";
     private static final int DEFAULT_MAX_DIGITS = 10;
@@ -71,6 +73,7 @@ class CalculatorDisplay extends ViewSwitcher {
         mModString = context.getResources().getString(R.string.mod);
         mDX = context.getResources().getString(R.string.dx);
         mDY = context.getResources().getString(R.string.dy);
+        setOnLongClickListener(this);
     }
 
     public int getMaxDigits() {
@@ -182,6 +185,7 @@ class CalculatorDisplay extends ViewSwitcher {
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
             text.setSingleLine();
+            text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
         }
     }
 
@@ -263,5 +267,10 @@ class CalculatorDisplay extends ViewSwitcher {
         if (!gain) {
             requestFocus();
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        return getCurrentView().performLongClick();
     }
 }
