@@ -81,4 +81,26 @@
     <item msgid="8587490959348493065">"pi"</item>
     <item msgid="8134315487552198394">"uguale a"</item>
   </string-array>
+    <string name="solveForX">Risolvi in X</string>
+    <string name="solveForY">Risolvi in Y</string>
+    <string name="mod">mod</string>
+    <string name="defaultGraphTitle">Funzione</string>
+    <string name="graphTitle">Funzione: </string>
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det.</string>
+    <string name="eigenvalue">Autov.</string>
+    <string name="solve">Risolvi</string>
+    <string name="dotProduct">Scal.</string>
+    <string name="crossProduct">Vett.</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Esadecimale</string>
+    <string name="binDesc">Binario</string>
+    <string name="decDesc">Decimale</string>
+    <string name="determinantDesc">Determinante</string>
+    <string name="eigenvalueDesc">Autovalori</string>
+    <string name="settings">Impostazioni</string>
+    <string name="showHistory">Mostra cronologia</string>
+    <string name="hideHistory">Nascondi cronologia</string>
 </resources>
