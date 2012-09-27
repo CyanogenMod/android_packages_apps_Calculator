@@ -40,6 +40,10 @@
     <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"Pannello base"</string>
     <string name="advanced" msgid="7122495413742976492">"Pannello avanzato"</string>
+    <string name="matrix">Pannello matrici</string>
+    <string name="graph">Pannello grafici</string>
+    <string name="function">Pannello funzioni</string>
+    <string name="hexPanel">Pannello esadecimale</string>
     <string name="clear_history" msgid="8458043980601165012">"Cancella cronologia"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Testo copiato."</string>
     <string name="leftParenDesc" msgid="8446428211982811379">"parentesi aperta"</string>
@@ -81,4 +85,26 @@
     <item msgid="8587490959348493065">"pi"</item>
     <item msgid="8134315487552198394">"uguale a"</item>
   </string-array>
+    <string name="solveForX">Risolvi in X</string>
+    <string name="solveForY">Risolvi in Y</string>
+    <string name="mod">mod</string>
+    <string name="defaultGraphTitle">Funzione</string>
+    <string name="graphTitle">Funzione: </string>
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det.</string>
+    <string name="eigenvalue">Autov.</string>
+    <string name="solve">Risolvi</string>
+    <string name="dotProduct">Scal.</string>
+    <string name="crossProduct">Vett.</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Esadecimale</string>
+    <string name="binDesc">Binario</string>
+    <string name="decDesc">Decimale</string>
+    <string name="determinantDesc">Determinante</string>
+    <string name="eigenvalueDesc">Autovalori</string>
+    <string name="settings">Impostazioni</string>
+    <string name="showHistory">Mostra cronologia</string>
+    <string name="hideHistory">Nascondi cronologia</string>
 </resources>
