@@ -81,4 +81,35 @@
     <item msgid="8587490959348493065">"pi"</item>
     <item msgid="8134315487552198394">"egyenlő"</item>
   </string-array>
+
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">X megold</string>
+    <string name="solveForY">Y megold</string>
+    <string name="mod">mod</string>
+
+    <string name="defaultGraphTitle">Függvény</string>
+    <string name="graphTitle">Függvény: </string>
+
+    <string name="inverse">Inv</string>
+    <string name="determinant">Determinál</string>
+    <string name="eigenvalue">Saját</string>
+    <string name="solve">Megold</string>
+    <string name="dotProduct">Skalárszorzat</string>
+    <string name="crossProduct">Vektorális szorzat</string>
+
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+
+    <string name="hexDesc">Hexadecimális</string>
+    <string name="binDesc">Bináris</string>
+    <string name="decDesc">Decimális</string>
+    <string name="determinantDesc">Determináns</string>
+    <string name="eigenvalueDesc">Sajátérték</string>
+
+    <string name="settings">Beállítások</string>
+    <string name="showHistory">Előzmények megjelenítése</string>
+    <string name="hideHistory">Előzmények elrejtése</string>
+
 </resources>
