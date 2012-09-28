@@ -25,5 +25,9 @@
     <item type="bool" name="RETURN_TO_BASIC">true</item>
     <item type="dimen" name="barHeight">25dp</item>
     <item type="integer" name="barHeight">25</item>
+    <item type="dimen" name="matrixInputBoxHeight">100dp</item>
+    <item type="integer" name="matrixInputBoxHeight">100</item>
+    <item type="dimen" name="matrixInputBoxWidth">75dp</item>
+    <item type="integer" name="matrixInputBoxWidth">75</item>
     <item type="string" name="wolframAlphaKey">T2YJW3-7XQX257LAP</item>
 </resources>

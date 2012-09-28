@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,7 +35,7 @@ public class MatrixFragment extends Fragment{
                 @Override
                 public void onClick(View v) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    View view = inflater.inflate(R.layout.matrix, null);
+                    View view = inflater.inflate(R.layout.matrix_popup, null);
                     final LinearLayout theMatrix = (LinearLayout) view.findViewById(R.id.theMatrix);
                     final LinearLayout matrixPopup = (LinearLayout) view.findViewById(R.id.matrixPopup);
                     final LinearLayout matrixButtons = (LinearLayout) matrixPopup.findViewById(R.id.matrixButtons);
@@ -162,9 +161,10 @@ public class MatrixFragment extends Fragment{
                             alertDialog.dismiss();
                         }
                     });
-                    DisplayMetrics metrics = new DisplayMetrics();
-                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                    final float logicalDensity = metrics.density;
+                    int widthInDp = getResources().getInteger(R.integer.matrixInputBoxWidth);
+                    int heightInDp = getResources().getInteger(R.integer.matrixInputBoxHeight);
+                    final float widthInPx = LogicalDensity.convertDpToPixel(widthInDp, mContext);
+                    final float heightInPx = LogicalDensity.convertDpToPixel(heightInDp, mContext);
                     final LinearLayout grip_bar_port = (LinearLayout) view.findViewById(R.id.grip_bar_port);
                     grip_bar_port.setOnTouchListener(new OnTouchListener() {
                         long distance = 0;
@@ -177,25 +177,25 @@ public class MatrixFragment extends Fragment{
                             case MotionEvent.ACTION_UP:
                                 break;
                             case MotionEvent.ACTION_MOVE:
-                                if((event.getX()-0.5)/logicalDensity>75+distance) {
+                                if(event.getX()>widthInPx+distance) {
                                     int rows = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
                                     if(rows > 1) {
                                         for(int i=0; i<theMatrix.getChildCount(); i++) {
                                             LinearLayout l = (LinearLayout) theMatrix.getChildAt(i);
                                             l.removeViewAt(l.getChildCount()-1);
                                         }
-                                        distance += 75;
+                                        distance += widthInPx;
                                     }
                                 }
-                                else if((event.getX()-0.5)/logicalDensity<-75+distance) {
+                                else if(event.getX()<-widthInPx+distance) {
                                     for(int i=0; i<theMatrix.getChildCount(); i++) {
                                         LinearLayout l = (LinearLayout) theMatrix.getChildAt(i);
                                         EditText e = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
-                                        e.setWidth((int) (75*logicalDensity+0.5));
-                                        e.setHeight((int) (100*logicalDensity+0.5));
+                                        e.setWidth((int) widthInPx);
+                                        e.setHeight((int) heightInPx);
                                         l.addView(e);
                                     }
-                                    distance -= 75;
+                                    distance -= widthInPx;
                                 }
                                 break;
                             }
@@ -214,26 +214,26 @@ public class MatrixFragment extends Fragment{
                             case MotionEvent.ACTION_UP:
                                 break;
                             case MotionEvent.ACTION_MOVE:
-                                if((event.getY()-0.5)/logicalDensity>100+distance) {
+                                if(event.getY()>heightInPx+distance) {
                                     int rows = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
                                     LinearLayout l = new LinearLayout(mContext);
                                     l.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                                     l.setOrientation(LinearLayout.HORIZONTAL);
                                     for(int i=0; i<rows; i++) {
                                         EditText e = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
-                                        e.setWidth((int) (75*logicalDensity+0.5));
-                                        e.setHeight((int) (100*logicalDensity+0.5));
+                                        e.setWidth((int) widthInPx);
+                                        e.setHeight((int) heightInPx);
                                         
                                         l.addView(e);
                                     }
                                     theMatrix.addView(l);
-                                    distance += 100;
+                                    distance += heightInPx;
                                 }
-                                else if((event.getY()-0.5)/logicalDensity<-100+distance) {
+                                else if(event.getY()<-heightInPx+distance) {
                                     int columns = theMatrix.getChildCount();
                                     if(columns > 1) {
                                         theMatrix.removeViewAt(0);
-                                        distance -= 100;
+                                        distance -= heightInPx;
                                     }
                                 }
                                 break;
