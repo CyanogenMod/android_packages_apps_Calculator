@@ -81,4 +81,41 @@
     <item msgid="8587490959348493065">"pí"</item>
     <item msgid="8134315487552198394">"rovná se"</item>
   </string-array>
+
+    <!-- Update for JB -->
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="matrix">Panel matice</string>
+    <string name="graph">Panel grafu</string>
+    <string name="function">Panel funkce</string>
+    <string name="hexPanel">Hexa Panel</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Vyřešit pro X</string>
+    <string name="solveForY">Vyřešit pro Y</string>
+    <string name="defaultGraphTitle">Funkce</string>
+    <string name="graphTitle">Funkce: </string>
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Vyřešit</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binary</string>
+    <string name="decDesc">Decimal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigen Values/Vlastní hodnota</string>
+    <string name="settings">Nastavení</string>
+    <string name="showHistory">Zobrazit historii</string>
+    <string name="hideHistory">Skrýt historii</string>
 </resources>
