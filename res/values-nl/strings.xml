@@ -62,4 +62,30 @@
     <string name="eDesc" msgid="6709583372168924068">"constante van Neper"</string>
     <string name="piDesc" msgid="8838151606775021517">"pi"</string>
     <string name="equalDesc" msgid="4164435100263313101">"is gelijk aan"</string>
+
+    <!-- CYANOGENMOD EDITS -->
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">x oplossen</string>
+    <string name="solveForY">y oplossen</string>
+    <string name="mod">mod</string>
+    <string name="defaultGraphTitle">Functie</string>
+    <string name="graphTitle">Functie: </string>
+    <string name="inverse">Omg.</string>
+    <string name="determinant">Det.</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Oplossen</string>
+    <string name="dotProduct">Inwendig</string>
+    <string name="crossProduct">Kruislings</string>
+    <string name="hex">Hex.</string>
+    <string name="bin">Bin.</string>
+    <string name="dec">Dec.</string>
+    <string name="hexDesc">Hexadecimaal</string>
+    <string name="binDesc">Binair</string>
+    <string name="decDesc">Decimaal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigen-waarden</string>
+    <string name="settings">Instellingen</string>
+    <string name="showHistory">Geschiedenis tonen</string>
+    <string name="hideHistory">Geschiedenis verbergen</string>
 </resources>
