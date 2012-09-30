@@ -16,7 +16,7 @@
  -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="8095131950334945205">"Calculator"</string>
+    <string name="app_name" msgid="8095131950334945205">"Rekenmachine"</string>
     <string name="error" msgid="9197457880925804499">"Fout"</string>
     <string name="digit0" msgid="8069590963464434135">"0"</string>
     <string name="digit1" msgid="8535041374797804029">"1"</string>
@@ -41,25 +41,43 @@
     <string name="basic" msgid="7691469861698059753">"Basis"</string>
     <string name="advanced" msgid="7122495413742976492">"Geavanceerd"</string>
     <string name="clear_history" msgid="8458043980601165012">"Geschiedenis wissen"</string>
-    <string name="text_copied_toast" msgid="5801480710472541833">"Tekst is gekopieerd."</string>
-    <string name="leftParenDesc" msgid="8446428211982811379">"linkerhaakje"</string>
-    <string name="rightParenDesc" msgid="9133691645148976523">"rechterhaakje"</string>
-    <string name="factorialDesc" msgid="9217024218012761574">"faculteit"</string>
-    <string name="lnDesc" msgid="1052579286300842270">"natuurlijk logaritme"</string>
-    <string name="lgDesc" msgid="6490920451513731160">"logaritme"</string>
-    <string name="sqrtDesc" msgid="2247252128762219267">"vierkantswortel"</string>
-    <string name="divDesc" msgid="7442623079124315427">"delen"</string>
-    <string name="mulDesc" msgid="9003016819648670694">"vermenigvuldigen"</string>
-    <string name="plusDesc" msgid="3145322700823848264">"plus"</string>
-    <string name="minusDesc" msgid="5033462008907390900">"min"</string>
-    <string name="dotDesc" msgid="5253752241630161722">"punt"</string>
-    <string name="powerDesc" msgid="9034898318444176910">"macht"</string>
-    <string name="delDesc" msgid="8211175878012032240">"verwijderen"</string>
-    <string name="clearDesc" msgid="8015748901120751476">"wissen"</string>
-    <string name="tanDesc" msgid="2055554933130702423">"tangens"</string>
-    <string name="sinDesc" msgid="6563285042235077204">"sinus"</string>
-    <string name="cosDesc" msgid="4048942450207926538">"cosinus"</string>
-    <string name="eDesc" msgid="6709583372168924068">"constante van Neper"</string>
-    <string name="piDesc" msgid="8838151606775021517">"pi"</string>
-    <string name="equalDesc" msgid="4164435100263313101">"is gelijk aan"</string>
+    <string name="text_copied_toast" msgid="5801480710472541833">"Tekst gekopieerd"</string>
+
+    <!-- CYANOGENMOD EDITS -->
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="matrix">Matrix</string>
+    <string name="graph">Grafieken</string>
+    <string name="function">Functies</string>
+    <string name="hexPanel">Hex</string>
+    <string name="dx">dx</string>
+    <string name="dy">dy</string>
+    <string name="solveForX">x oplossen</string>
+    <string name="solveForY">y oplossen</string>
+    <string name="mod">mod</string>
+    <string name="defaultGraphTitle">Functie</string>
+    <string name="graphTitle">Functie: </string>
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Opl</string>
+    <string name="dotProduct">Inpr</string>
+    <string name="crossProduct">Uitpr</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimaal</string>
+    <string name="binDesc">Binair</string>
+    <string name="decDesc">Decimaal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigenwaarde</string>
+    <string name="settings">Instellingen</string>
+    <string name="showHistory">Geschiedenis tonen</string>
+    <string name="hideHistory">Geschiedenis verbergen</string>
 </resources>
