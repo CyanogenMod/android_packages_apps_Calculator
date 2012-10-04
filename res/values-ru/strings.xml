@@ -81,4 +81,27 @@
     <item msgid="8587490959348493065">"число \"пи\""</item>
     <item msgid="8134315487552198394">"равно"</item>
   </string-array>
+
+    <string name="matrix">Панель матриц</string>
+    <string name="graph">Панель графиков</string>
+    <string name="function">Панель функций</string>
+    <string name="hexPanel">Hex панель</string>
+    <string name="solveForX">Значение X</string>
+    <string name="solveForY">Значение Y</string>
+    <string name="defaultGraphTitle">Функция</string>
+    <string name="graphTitle">Функция: </string>
+    <string name="inverse">Инверс.</string>
+    <string name="determinant">Опред.</string>
+    <string name="eigenvalue">Собств. знач.</string>
+    <string name="solve">Решение</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+    <string name="hexDesc">Шестнадцатиричный</string>
+    <string name="binDesc">Двоичный</string>
+    <string name="decDesc">Десятичный</string>
+    <string name="determinantDesc">Определитель</string>
+    <string name="eigenvalueDesc">Собственные значения</string>
+    <string name="settings">Настройки</string>
+    <string name="showHistory">Показать историю</string>
+    <string name="hideHistory">Скрыть историю</string>
 </resources>
