@@ -1,0 +1,11 @@
+Change-Id: I06fe5232578bde1379ff9b70e6f755cd290e39bc
+Code-Review+2: Steve Kondik <shade@chemlab.org>
+Verified+1: Steve Kondik <shade@chemlab.org>
+Code-Review+1: mdeejay <mdjrussia@gmail.com>
+Code-Review+1: Dmitriy Chermenev <chdiman86@gmail.com>
+Code-Review+1: Alexey Alexeevich <madzerling@gmail.com>
+Submitted-by: Steve Kondik <shade@chemlab.org>
+Submitted-at: Wed, 03 Oct 2012 23:02:08 -0700
+Reviewed-on: http://review.cyanogenmod.com/24071
+Project: CyanogenMod/android_packages_apps_Calculator
+Branch: refs/heads/jellybean
