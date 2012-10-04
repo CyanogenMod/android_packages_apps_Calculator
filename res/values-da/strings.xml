@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="8095131950334945205">"Lommereg."</string>
+    <string name="app_name" msgid="8095131950334945205">"Lommeregner"</string>
     <string name="error" msgid="9197457880925804499">"Fejl"</string>
     <string name="digit0" msgid="8069590963464434135">"0"</string>
     <string name="digit1" msgid="8535041374797804029">"1"</string>
@@ -81,4 +81,43 @@
     <item msgid="8587490959348493065">"pi"</item>
     <item msgid="8134315487552198394">"lig med"</item>
   </string-array>
+
+    <!-- CM10 additions start -->
+
+    <string name="matrix">Matrixpanel</string>
+    <string name="graph">Grafpanel</string>
+    <string name="function">Funktionspanel</string>
+    <string name="hexPanel">Hexpanel</string>
+
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Løs for X</string>
+    <string name="solveForY">Løs for Y</string>
+    <string name="mod">mod</string>
+
+    <string name="defaultGraphTitle">Funktion</string>
+    <string name="graphTitle">Funktion: </string>
+
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Egen</string>
+    <string name="solve">Løs</string>
+    <string name="dotProduct">Prik</string>
+    <string name="crossProduct">Kryds</string>
+
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binær</string>
+    <string name="decDesc">Decimal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Egenværdi</string>
+
+    <string name="settings">Indstillinger</string>
+    <string name="showHistory">Vis Historik</string>
+    <string name="hideHistory">Skjul Historik</string>
+
+    <!-- CM10 additions end -->
 </resources>
