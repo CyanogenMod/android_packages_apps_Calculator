@@ -19,4 +19,5 @@
     <color name="button_text">#FFFFFFFF</color>
     <color name="pressed_color">#07547B</color>
     <color name="history_result">#FFC40C</color>
+    <color name="background">#ff000000</color>
 </resources>
