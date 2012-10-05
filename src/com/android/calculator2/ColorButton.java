@@ -17,19 +17,18 @@
 package com.android.calculator2;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.widget.Button;
 import android.view.MotionEvent;
-import android.widget.Button;
+import android.content.res.Resources;
 
 /**
  * Button with click-animation effect.
  */
-class ColorButton extends Button{
+class ColorButton extends Button {
     int CLICK_FEEDBACK_COLOR;
     static final int CLICK_FEEDBACK_INTERVAL = 10;
     static final int CLICK_FEEDBACK_DURATION = 350;
@@ -124,7 +123,6 @@ class ColorButton extends Button{
                 break;
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_CANCEL:
-                mAnimStart = -1;
                 invalidate();
                 break;
         }

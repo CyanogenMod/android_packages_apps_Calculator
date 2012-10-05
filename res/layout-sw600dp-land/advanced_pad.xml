@@ -30,26 +30,23 @@
             android:text="@string/sin"
             style="@style/btn_function_cell_style" />
         <com.android.calculator2.ColorButton
-            android:id="@+id/ln"
-            android:text="@string/ln"
-            style="@style/btn_function_cell_style" />
-    </LinearLayout>
-    <LinearLayout
-        style="@style/btn_row_style">
-        <com.android.calculator2.ColorButton
             android:id="@+id/cos"
             android:text="@string/cos"
             style="@style/btn_function_cell_style" />
         <com.android.calculator2.ColorButton
-            android:id="@+id/lg"
-            android:text="@string/lg"
+            android:id="@+id/tan"
+            android:text="@string/tan"
             style="@style/btn_function_cell_style" />
     </LinearLayout>
     <LinearLayout
         style="@style/btn_row_style">
         <com.android.calculator2.ColorButton
-            android:id="@+id/tan"
-            android:text="@string/tan"
+            android:id="@+id/lg"
+            android:text="@string/lg"
+            style="@style/btn_function_cell_style" />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/ln"
+            android:text="@string/ln"
             style="@style/btn_function_cell_style" />
         <com.android.calculator2.ColorButton
             android:id="@+id/e"
@@ -61,6 +58,10 @@
         <com.android.calculator2.ColorButton
             android:id="@+id/pi"
             android:text="@string/pi"
+            style="@style/btn_function_cell_style" />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/i"
+            android:text="@string/i"
             style="@style/btn_function_cell_style" />
         <com.android.calculator2.ColorButton
             android:id="@+id/power"
@@ -76,13 +77,6 @@
         <com.android.calculator2.ColorButton
             android:id="@+id/sqrt"
             android:text="@string/sqrt"
-            style="@style/btn_function_cell_style" />
-    </LinearLayout>
-    <LinearLayout
-        style="@style/btn_row_style">
-        <com.android.calculator2.ColorButton
-            android:id="@+id/i"
-            android:text="@string/i"
             style="@style/btn_function_cell_style" />
         <com.android.calculator2.ColorButton
             android:id="@+id/percentage"
