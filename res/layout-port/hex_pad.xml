@@ -75,18 +75,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <Button
-            android:text="@null"
-            android:clickable="false"
-            style="@style/button_style"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_weight="3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        >
         <com.android.calculator2.ColorButton
             android:id="@+id/dec"
             android:text="@string/dec"

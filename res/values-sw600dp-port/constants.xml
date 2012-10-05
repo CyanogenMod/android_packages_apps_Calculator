@@ -14,12 +14,7 @@
      limitations under the License.
 -->
 
-<selector
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:state_pressed="true"
-        android:drawable="@drawable/calculator_down_handle_press" />
-    <item
-        android:drawable="@drawable/calculator_down_handle" />
-</selector>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <item type="dimen" name="barHeight">25dp</item>
+    <item type="integer" name="barHeight">25</item>
+</resources>
