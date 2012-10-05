@@ -40,6 +40,14 @@
     <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"Grundfunktionen"</string>
     <string name="advanced" msgid="7122495413742976492">"Erweiterte Funktionen"</string>
+    <!-- Menu item text to take user to the screen with matrices. -->
+    <string name="matrix">Matrix-Berechnung</string>
+    <!-- Menu item text to take user to the screen with the graph. -->
+    <string name="graph">Diagramm</string>
+    <!-- Menu item text to take user to the screen with the function operators. -->
+    <string name="function">Funktion</string>
+    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
+    <string name="hexPanel">Dez/Bin/Hex</string>
     <string name="clear_history" msgid="8458043980601165012">"Verlauf löschen"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Text kopiert"</string>
     <string name="leftParenDesc" msgid="8446428211982811379">"Klammer auf"</string>
@@ -81,4 +89,35 @@
     <item msgid="8587490959348493065">"Pi"</item>
     <item msgid="8134315487552198394">"ist gleich"</item>
   </string-array>
+
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Nach X auflösen</string>
+    <string name="solveForY">Nach Y auflösen</string>
+    <string name="mod">mod</string>
+
+    <string name="defaultGraphTitle">Funktion</string>
+    <string name="graphTitle">Funktion: </string>
+
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Lösen</string>
+    <string name="dotProduct">Skalar</string>
+    <string name="crossProduct">Kreuz</string>
+
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dez</string>
+
+    <string name="hexDesc">Hexadezimal</string>
+    <string name="binDesc">Binär</string>
+    <string name="decDesc">Dezimal</string>
+    <string name="determinantDesc">Determinante</string>
+    <string name="eigenvalueDesc">Eigenwert</string>
+
+    <string name="settings">Einstellungen</string>
+    <string name="showHistory">Verlauf anzeigen</string>
+    <string name="hideHistory">Verlauf verbergen</string>
+
 </resources>

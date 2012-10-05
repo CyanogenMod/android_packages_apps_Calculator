@@ -1,6 +1,6 @@
 <EditText xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="75dp"
-    android:layout_height="100dp"
+    android:layout_width="@dimen/matrixInputBoxWidth"
+    android:layout_height="@dimen/matrixInputBoxHeight"
     android:inputType="number"
     android:hint="@null"
     android:gravity="center"
