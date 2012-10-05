@@ -60,55 +60,44 @@
     <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6] -->
     <string name="clear">CLR</string>
     <!-- Do not translate. Unicode division sign; don't translate. Displayed as button on screen. -->
-    <string name="div" translatable="false">\u00F7</string>
+    <string name="div" translatable="false">\u00f7</string>
     <!-- Do not translate. Unicode multiplication sign; don't translate. Displayed as button on screen. -->
-    <string name="mul" translatable="false">\u00D7</string>
+    <string name="mul" translatable="false">\u00d7</string>
     <!-- Do not translate. Plus sign, displayed as button on screen -->
-    <string name="plus" translatable="false">\u002B</string>
+    <string name="plus" translatable="false">+</string>
     <!-- Do not translate. Unicode minus sign; don't translate. Displayed as button on screen. -->
     <string name="minus" translatable="false">\u2212</string>
     <!-- Do not translate. Decimal point; don't translate. Displayed as button on screen. -->
-    <string name="dot" translatable="false">\u002E</string>
+    <string name="dot">.</string>
     <!-- Do not translate. Equal sign; don't translate. Displayed as button on screen. -->
-    <string name="equal" translatable="false">\u003D</string>
+    <string name="equal" translatable="false">=</string>
     <!-- Do not translate. Down arrow; don't translate. Displayed as button on screen. -->
     <string name="enter" translatable="false">\u2193</string>
     <!-- Displayed on buttons on screen for the sin function. -->
     <string name="sin">sin</string>
-    <!-- Do not translate. What we replace translated SIN with for calculating sin.-->
-    <string name="sin_mathematical_value" translatable="false">sin</string>
     <!-- Displayed on buttons on screen for the cos function. -->
     <string name="cos">cos</string>
-    <!-- Do not translate. What we replace translated COS with for calculating cos. -->
-    <string name="cos_mathematical_value" translatable="false">cos</string>
     <!-- Displayed on buttons on screen for the tan function. -->
     <string name="tan">tan</string>
-    <!-- Do not translate. What we replace translated TAN with for calculating tan. -->
-    <string name="tan_mathematical_value" translatable="false">tan</string>
+
     <!-- Do not translate. Unicode pi sign; don't translate. Displayed as button on screen. -->
-    <string name="pi" translatable="false">\u03C0</string>
+    <string name="pi" translatable="false">\u03c0</string>
     <!-- Displayed on buttons on screen for the e function. -->
     <string name="e">e</string>
-    <!-- Do not translate. What we replace translated e with for calculating e. -->
-    <string name="e_mathematical_value" translatable="false">\u0065</string>
     <!-- Displayed on buttons on screen for the ln function. -->
     <string name="ln">ln</string>
-    <!-- Do not translate. What we replace translated ln with for calculating ln. -->
-    <string name="ln_mathematical_value" translatable="false">\u33D1</string>
     <!-- Displayed on buttons on screen for the log function. -->
     <string name="lg">log</string>
-    <!-- Do not translate. What we replace translated lg with for calculating lg. -->
-    <string name="lg_mathematical_value" translatable="false">\u33D2</string>
     <!-- Displayed on buttons on screen for a left parenthesis. -->
-    <string name="leftParen">\u0028</string>
+    <string name="leftParen" translatable="false">(</string>
     <!-- Displayed on buttons on screen for a right parenthesis. -->
-    <string name="rightParen">\u0029</string>
+    <string name="rightParen" translatable="false">)</string>
     <!-- Do not translate. Unicode square root sign; don't translate. Displayed on button on screen. -->
-    <string name="sqrt" translatable="false">\u221A</string>
+    <string name="sqrt" translatable="false">\u221a</string>
     <!-- Do not translate. Displayed on buttons on screen. -->
-    <string name="power" translatable="false">\u005E</string>
+    <string name="power" translatable="false">^</string>
     <!-- Do not translate. -->
-    <string name="factorial" translatable="false">\u0021</string>
+    <string name="factorial" translatable="false">!</string>
     <!-- Menu item text to take user to the screen with the basic digits and operators. -->
     <string name="basic">Basic panel</string>
     <!-- Menu item text to take user to the screen with the advanced functions, such as sin, cos, ln, log, etc. -->
@@ -125,94 +114,10 @@
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
-
-    <!--Content descriptions for accessibility. These strings will be read aloud to users who are using the calculator with
-    accessibility features enabled and should reflect the mathematical concept instead of a direct representation of what is shown
-    on the button-->
-    <string name="leftParenDesc">left parenthesis</string>
-    <string name="rightParenDesc">right parenthesis</string>
-    <string name="factorialDesc">factorial</string>
-    <string name="lnDesc">natural logarithm</string>
-    <string name="lgDesc">logarithm</string>
-    <string name="sqrtDesc">square root</string>
-    <string name="divDesc">divide</string>
-    <string name="mulDesc">multiply</string>
-    <string name="plusDesc">plus</string>
-    <string name="minusDesc">minus</string>
-    <string name="dotDesc">point</string>
-    <string name="powerDesc">power</string>
-    <string name="delDesc">delete</string>
-    <string name="clearDesc">clear</string>
-    <string name="tanDesc">tangent</string>
-    <string name="sinDesc">sine</string>
-    <string name="cosDesc">cosine</string>
-    <string name="eDesc">Euler\'s number</string>
-    <string name="piDesc">pi</string>
-    <string name="equalDesc">equals</string>
-
-    <!--Content descriptions for accessibility used as keys when determining which mathematical
-    concept description to speak when accessibility features are enabled. Order of the array is
-    important. -->
-    <string-array name="operators" translatable="false">
-        <item>\u0028(</item>
-        <item>\u0029</item>
-        <item>\u0021</item>
-        <item>\u33D1</item>
-        <item>\u33D2</item>
-        <item>\u221A</item>
-        <item>\u00F7</item>
-        <item>\u00D7</item>
-        <item>\u002B</item>
-        <item>\u2212</item>
-        <item>\u002E</item>
-        <item>\u005E</item>
-        <item>tan</item>
-        <item>sin</item>
-        <item>cos</item>
-        <item>\u03C0</item>
-        <item>\u003D</item>
-    </string-array>
-
-    <!--Content descriptions for accessibility. These strings will be read aloud to users who
-     are using the calculator with accessibility features enabled and hover over the edit text
-     field. These should reflect the mathematical concept instead of a direct representation of
-     what is shown in the text field. Order of the array is important.-->
-    <string-array name="operatorDescs">
-        <!-- Description for mathematical ( [CHAR LIMIT=200]-->
-        <item>left parenthesis</item>
-        <!-- Description for mathematical ) [CHAR LIMIT=200]-->
-        <item>right parenthesis</item>
-        <!-- Description for mathematical ! (factorial) function [CHAR LIMIT=200]-->
-        <item>factorial</item>
-        <!-- Description for mathematical ln [CHAR LIMIT=200]-->
-        <item>natural logarithm</item>
-        <!-- Description for mathematical log [CHAR LIMIT=200]-->
-        <item>logarithm</item>
-        <!-- Description for mathematical square root [CHAR LIMIT=200]-->
-        <item>square root</item>
-        <!-- Description for mathematical / [CHAR LIMIT=200]-->
-        <item>divided by</item>
-        <!-- Description for mathematical x [CHAR LIMIT=200]-->
-        <item>multiplied by</item>
-        <!-- Description for mathematical + [CHAR LIMIT=200]-->
-        <item>plus</item>
-        <!-- Description for mathematical - [CHAR LIMIT=200]-->
-        <item>minus</item>
-        <!-- Description for mathematical . [CHAR LIMIT=200]-->
-        <item>\u00A0point\u00A0</item>
-        <!-- Description for mathematical ^ [CHAR LIMIT=200]-->
-        <item>power</item>
-        <!-- Description for mathematical TAN [CHAR LIMIT=200]-->
-        <item>tangent</item>
-        <!-- Description for mathematical SIN [CHAR LIMIT=200]-->
-        <item>sine</item>
-        <!-- Description for mathematical COS [CHAR LIMIT=200]-->
-        <item>cosine</item>
-        <!-- Description for mathematical PI [CHAR LIMIT=200]-->
-        <item>pi</item>
-        <!-- Description for mathematical = [CHAR LIMIT=200]-->
-        <item>equals</item>
-    </string-array>
+    <!-- History menu item for copying item -->
+    <string name="copy">Copy \"%s\"</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Remove from history</string>
 
     <string name="i" translatable="false">i</string>
     <string name="percentage" translatable="false">%</string>
@@ -238,7 +143,7 @@
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
-    
+
     <string name="hexDesc">Hexadecimal</string>
     <string name="binDesc">Binary</string>
     <string name="decDesc">Decimal</string>
@@ -248,4 +153,5 @@
     <string name="settings">Settings</string>
     <string name="showHistory">Show History</string>
     <string name="hideHistory">Hide History</string>
-</resources>
+
+    <string name="returnToBasic">Return to the basic panel</string></resources>
