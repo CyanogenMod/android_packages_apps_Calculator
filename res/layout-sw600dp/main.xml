@@ -22,95 +22,95 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff000000"
+    android:background="@color/background"
     android:paddingLeft="@dimen/left_right_padding"
-    android:paddingRight="@dimen/left_right_padding"
-    android:id="@+id/window">
+    android:paddingRight="@dimen/left_right_padding" >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@android:color/transparent">
 
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent">
-
-        <com.android.calculator2.CalculatorDisplay
-            android:id="@+id/display"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            maxDigits="@integer/max_digits"
-            android:layout_gravity="bottom"
-            >
-
-            <com.android.calculator2.CalculatorEditText
-                style="@style/display_style" />
-            <com.android.calculator2.CalculatorEditText
-                style="@style/display_style" />
-
-        </com.android.calculator2.CalculatorDisplay>
-
-        <ImageButton android:id="@+id/overflow_menu"
-            android:layout_width="48dip"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_menu_overflow"
-            android:background="@android:color/transparent"
-            android:layout_marginLeft="8dip"
-            android:visibility="gone"
-            android:contentDescription="@null"/>
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/clear"
-                android:text="@string/clear"
-                style="@style/btn_clear"
-                android:minWidth="100dp"
-                android:layout_width="match_parent"
+            android:background="@android:color/transparent">
+            
+            <com.android.calculator2.CalculatorDisplay
+                android:id="@+id/display"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:paddingLeft="5dip"
-                android:paddingRight="5dip"
-                android:contentDescription="@string/clearDesc" />
-            <ImageButton
-                android:id="@+id/del"
-                android:src="@drawable/calc_clear_symbol"
-                style="@style/btn_clear"
-                android:layout_width="match_parent"
+                maxDigits="@integer/max_digits"
+                >
+    
+                <com.android.calculator2.CalculatorEditText
+                    style="@style/display_style" />
+                <com.android.calculator2.CalculatorEditText
+                    style="@style/display_style" />
+    
+            </com.android.calculator2.CalculatorDisplay>
+            <ImageButton android:id="@+id/overflow_menu"
+                android:layout_width="48dip"
                 android:layout_height="match_parent"
-                android:paddingLeft="5dip"
-                android:paddingRight="5dip"
-                android:contentDescription="@string/delDesc" />
-        </FrameLayout>
+                android:src="@drawable/ic_menu_overflow"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="8dip"
+                android:visibility="gone"
+                android:contentDescription="@null"/>
+            <FrameLayout
+                android:layout_width="100dip"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/clear"
+                    android:text="@string/clear"
+                    style="@style/btn_clear"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip" />
+                <ImageButton
+                    android:id="@+id/del"
+                    android:src="@drawable/calc_clear_symbol"
+                    style="@style/btn_clear"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:contentDescription="@null" />
+            </FrameLayout>
+            
+        </LinearLayout>
     </LinearLayout>
-
-    <include layout="@layout/history_panel"/>
-    </LinearLayout>
-    
-    <ImageButton
-         android:id="@+id/pulldown"
-         android:src="@drawable/pulldown_down"
-         android:background="@android:color/transparent"
-         android:layout_width="match_parent"
-         android:layout_height="21dp"
-         android:paddingTop="4dp"
-         android:paddingBottom="4dp"
-         android:contentDescription="@null"
-         android:scaleType="fitXY" />
-    
-    <com.android.calculator2.CalculatorViewPager
-         android:id="@+id/smallPanelswitch"
-         android:layout_width="match_parent"
-         android:layout_height="0dp"
-         android:layout_weight="2"
-         android:layout_marginBottom="@dimen/group_padding"
-         />
-
-    <com.android.calculator2.CalculatorViewPager
-        android:id="@+id/largePanelswitch"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="5"
-    />
+        android:layout_height="0dp"
+        android:layout_weight="7">
+        <com.xlythe.slider.Slider
+             android:id="@+id/pulldown"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/background"
+             android:scrollbarThumbHorizontal="@drawable/btn_function" >
+            <include layout="@layout/history_panel" />
+        </com.xlythe.slider.Slider>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/barHeight">
+            <com.android.calculator2.CalculatorViewPager
+                 android:id="@+id/smallPanelswitch"
+                 android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:layout_weight="2"
+                 android:layout_marginBottom="@dimen/group_padding" />
+        
+            <com.android.calculator2.CalculatorViewPager
+                 android:id="@+id/largePanelswitch"
+                 android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:layout_weight="5" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

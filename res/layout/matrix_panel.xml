@@ -1,18 +1,20 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:isScrollContainer="true">
+    android:isScrollContainer="true" >
     <LinearLayout 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/matrices"
-        android:orientation="vertical">
+        android:orientation="vertical" >
         <ImageButton 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/matrix_add_drawable"
+            android:background="@drawable/btn_function"
+            android:padding="7dp"
             android:id="@+id/matrixAdd"
             android:scaleType="fitXY"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null" />
     </LinearLayout>
 </ScrollView>

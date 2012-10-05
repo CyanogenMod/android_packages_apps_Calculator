@@ -47,14 +47,6 @@
             android:id="@+id/factorial"
             android:text="@string/factorial"
             style="@style/btn_function_cell_style" />
-        <com.android.calculator2.ColorButton
-            android:id="@+id/i"
-            android:text="@string/i"
-            style="@style/btn_function_cell_style" />
-        <com.android.calculator2.ColorButton
-            android:id="@+id/X"
-            android:text="@string/X"
-            style="@style/btn_digit_cell_style" />
     </LinearLayout>
     <LinearLayout
         style="@style/btn_row_style">
@@ -78,14 +70,29 @@
             android:id="@+id/sqrt"
             android:text="@string/sqrt"
             style="@style/btn_function_cell_style" />
+    </LinearLayout>
+    <LinearLayout
+        style="@style/btn_row_style">
+        <com.android.calculator2.ColorButton
+            android:id="@+id/X"
+            android:text="@string/X"
+            style="@style/btn_digit_cell_style" />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/Y"
+            android:text="@string/Y"
+            style="@style/btn_digit_cell_style" />
         <com.android.calculator2.ColorButton
             android:id="@+id/percentage"
             android:text="@string/percentage"
             style="@style/btn_function_cell_style" />
         <com.android.calculator2.ColorButton
-            android:id="@+id/Y"
-            android:text="@string/Y"
-            style="@style/btn_digit_cell_style" />
+            android:id="@+id/i"
+            android:text="@string/i"
+            style="@style/btn_function_cell_style" />
+        <com.android.calculator2.ColorButton
+            android:id="@+id/parentheses"
+            android:text="@string/parentheses"
+            style="@style/btn_function_cell_style" />
     </LinearLayout>
 
 </LinearLayout>
