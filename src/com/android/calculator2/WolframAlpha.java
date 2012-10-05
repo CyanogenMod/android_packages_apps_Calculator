@@ -19,20 +19,18 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.os.Handler;
 
 public class WolframAlpha{
-    private static final String APPID = "T2YJW3-7XQX257LAP";
-    
-    public static void solve(final String equation, final Handler handle, final ResultsRunnable actionOnSuccess, final Runnable actionOnFailure) {
+    public static void solve(final String equation, final Handler handle, final ResultsRunnable actionOnSuccess, final Runnable actionOnFailure, final String key) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String query = String.format("http://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext", URLEncoder.encode(APPID, "UTF-8"), URLEncoder.encode(equation,"UTF-8"));
+                    String query = String.format("http://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext", URLEncoder.encode(key, "UTF-8"), URLEncoder.encode(equation,"UTF-8"));
                     SAXParserFactory spf = SAXParserFactory.newInstance();
                     SAXParser parser = spf.newSAXParser();
                     XMLReader reader = parser.getXMLReader();
                     XMLHandler xmlHandler = new XMLHandler();
                     reader.setContentHandler(xmlHandler);
                     reader.parse(new InputSource(new URL(query).openStream()));
-                    
+
                     ParsedDataset parsedDataset = xmlHandler.getParsedData();
                     if(parsedDataset.results.size() == 0) parsedDataset.error = true;
                     if(!parsedDataset.error) {
@@ -54,29 +52,28 @@ public class WolframAlpha{
             }
         }).start();
     }
-    
+
     private static class XMLHandler extends DefaultHandler{
         private boolean in_queryresult  = false;
         private boolean in_pod = false;
         private boolean in_subpod = false;
         private boolean in_plaintext_result = false;
-           
         private ParsedDataset parsedDataset = new ParsedDataset();
-     
+
         public ParsedDataset getParsedData() {
             return this.parsedDataset;
         }
-        
+
         @Override
         public void startDocument() throws SAXException {
             this.parsedDataset = new ParsedDataset();
         }
-     
+
         @Override
         public void endDocument() throws SAXException {
             // Nothing to do
         }
-     
+
         /** Gets be called on opening tags like:
          * <tag>
          * Can provide attribute(s), when xml is like:
@@ -103,7 +100,7 @@ public class WolframAlpha{
                 }
             }
         }
-           
+
         /** Gets be called on closing tags like:
          * </tag> */
         @Override
@@ -127,7 +124,7 @@ public class WolframAlpha{
                 }
             }
         }
-           
+
         /** Gets be called on the following structure:
          * <tag>characters</tag> */
         @Override
@@ -144,7 +141,7 @@ public class WolframAlpha{
         public boolean getError() {
             return error;
         }
-        
+
         private ArrayList<String> results = new ArrayList<String>();
         public void addResult(String result) {
             results.add(result);
@@ -153,10 +150,10 @@ public class WolframAlpha{
             return results;
         }
     }
-    
+
     public static abstract class ResultsRunnable implements Runnable{
         ArrayList<String> results;
-        
+
         public void setResults(ArrayList<String> results) {
             this.results = results;
         }

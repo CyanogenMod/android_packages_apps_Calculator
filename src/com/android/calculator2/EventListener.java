@@ -20,7 +20,9 @@ import com.android.calculator2.Calculator.Panel;
 import com.android.calculator2.Logic.Mode;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,13 +35,9 @@ class EventListener implements View.OnKeyListener,
     Context mContext;
     Logic mHandler;
     ViewPager mPager;
+    private SharedPreferences mPreferences;
 
     private String mErrorString;
-    private String mSinString;
-    private String mCosString;
-    private String mTanString;
-    private String mLogString;
-    private String mLnString;
     private String mModString;
     private String mX;
     private String mY;
@@ -47,23 +45,19 @@ class EventListener implements View.OnKeyListener,
     private String mDY;
     private String solveForX;
     private String solveForY;
-    
+
     void setHandler(Context context, Logic handler, ViewPager pager) {
         mContext = context;
         mHandler = handler;
         mPager = pager;
-        
-        mErrorString = context.getResources().getString(R.string.error);
-        mSinString = context.getResources().getString(R.string.sin);
-        mCosString = context.getResources().getString(R.string.cos);
-        mTanString = context.getResources().getString(R.string.tan);
-        mLogString = context.getResources().getString(R.string.lg);
-        mLnString = context.getResources().getString(R.string.ln);
-        mModString = context.getResources().getString(R.string.mod);
-        mX = context.getResources().getString(R.string.X);
-        mY = context.getResources().getString(R.string.Y);
-        mDX = context.getResources().getString(R.string.dx);
-        mDY = context.getResources().getString(R.string.dy);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+        mErrorString = mContext.getResources().getString(R.string.error);
+        mModString = mContext.getResources().getString(R.string.mod);
+        mX = mContext.getResources().getString(R.string.X);
+        mY = mContext.getResources().getString(R.string.Y);
+        mDX = mContext.getResources().getString(R.string.dx);
+        mDY = mContext.getResources().getString(R.string.dy);
         solveForX = mContext.getResources().getString(R.string.solveForX);
         solveForY = mContext.getResources().getString(R.string.solveForY);
     }
@@ -81,7 +75,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
-            if (mHandler.getText().contains(mX) || 
+            if (mHandler.getText().contains(mX) ||
                 mHandler.getText().contains(mY)) {
                 if (!mHandler.getText().contains("=")) {
                     mHandler.insert("=");
@@ -104,7 +98,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.solveForX:
-            WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(), 
+            WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(),
                     new WolframAlpha.ResultsRunnable() {
                         @Override
                         public void run() {
@@ -115,17 +109,18 @@ class EventListener implements View.OnKeyListener,
                             if(text.length()>2) text = text.substring(0, text.length()-2);
                             mHandler.setText(text);
                         }
-                    }, 
+                    },
                     new Runnable() {
                         @Override
                         public void run() {
                             mHandler.setText(mErrorString);
                         }
-                    });
+                    },
+                    mContext.getResources().getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.solveForY:
-            WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(), 
+            WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(),
                     new WolframAlpha.ResultsRunnable() {
                         @Override
                         public void run() {
@@ -136,13 +131,14 @@ class EventListener implements View.OnKeyListener,
                             if(text.length()>2) text = text.substring(0, text.length()-2);
                             mHandler.setText(text);
                         }
-                    }, 
+                    },
                     new Runnable() {
                         @Override
                         public void run() {
                             mHandler.setText(mErrorString);
                         }
-                    });
+                    },
+                    mContext.getResources().getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.hex:
@@ -169,7 +165,8 @@ class EventListener implements View.OnKeyListener,
         case R.id.parentheses:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
-                mHandler.setText(mHandler.getText().split("=", 1)[0] + "=(" + mHandler.getText().split("=", 1)[1] + ")");
+                String[] equation = mHandler.getText().split("=");
+                mHandler.setText(equation[0] + "=(" + equation[1] + ")");
             }
             else{
                 mHandler.setText("(" + mHandler.getText() + ")");
@@ -179,8 +176,9 @@ class EventListener implements View.OnKeyListener,
         case R.id.mod:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
-                if(mHandler.getText().split("=", 1).length>1) {
-                    mHandler.setText(mHandler.getText().split("=", 1)[0] + "=" + mModString + "(" + mHandler.getText().split("=", 1)[1] + ",");
+                String[] equation = mHandler.getText().split("=");
+                if(equation.length>1) {
+                    mHandler.setText(equation[0] + "=" + mModString + "(" + equation[1] + ",");
                 }
                 else{
                     mHandler.insert(mModString + "(");
@@ -208,7 +206,7 @@ class EventListener implements View.OnKeyListener,
                     text += "(";
                 }
                 mHandler.insert(text);
-                if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder()) {
+                if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && mPreferences.getBoolean("RETURN_TO_BASIC", mContext.getResources().getBoolean(R.bool.RETURN_TO_BASIC))) {
                     mPager.setCurrentItem(Panel.BASIC.getOrder());
                 }
             }
@@ -244,59 +242,9 @@ class EventListener implements View.OnKeyListener,
     public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
         int action = keyEvent.getAction();
 
-        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT ||
-            keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-            boolean eat = mHandler.eatHorizontalMove(keyCode == KeyEvent.KEYCODE_DPAD_LEFT);
-            return eat;
-        }
-
         //Work-around for spurious key event from IME, bug #1639445
         if (action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
             return true; // eat it
-        }
-        
-        if (keyCode == KeyEvent.KEYCODE_DEL) {
-            if(mHandler.getText().endsWith(mSinString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mSinString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mCosString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mCosString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mTanString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mTanString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mLogString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLogString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mModString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mModString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mLnString + "(")) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-(mLnString.length()+1));
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mDX)) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-mDX.length());
-                mHandler.setText(text);
-                return true;
-            }
-            else if(mHandler.getText().endsWith(mDY)) {
-                String text = mHandler.getText().substring(0, mHandler.getText().length()-mDY.length());
-                mHandler.setText(text);
-                return true;
-            }
-            return false;
         }
 
         //Calculator.log("KEY " + keyCode + "; " + action);
