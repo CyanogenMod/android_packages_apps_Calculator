@@ -51,7 +51,7 @@
     
     <item android:id="@+id/hex"
         android:showAsAction="ifRoom|withText"
-        android:icon="@drawable/simple"
+        android:icon="@drawable/hex"
         android:title="@string/hexPanel"/>
     
     <item android:id="@+id/function"
@@ -66,6 +66,6 @@
 
     <item android:id="@+id/settings"
         android:showAsAction="ifRoom|withText"
-        android:icon="@drawable/simple"
+        android:icon="@drawable/settings"
         android:title="@string/settings"/>
 </menu>
