@@ -27,19 +27,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5" >
-        <com.android.calculator2.CalculatorDisplay
+        <com.android2.calculator3.CalculatorDisplay
             android:id="@+id/display"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"
             maxDigits="@integer/max_digits">
 
-            <com.android.calculator2.CalculatorEditText
+            <com.android2.calculator3.CalculatorEditText
                 style="@style/display_style" />
-            <com.android.calculator2.CalculatorEditText
+            <com.android2.calculator3.CalculatorEditText
                 style="@style/display_style" />
 
-        </com.android.calculator2.CalculatorDisplay>
+        </com.android2.calculator3.CalculatorDisplay>
         <ImageButton android:id="@+id/overflow_menu"
             android:layout_width="48dip"
             android:layout_height="match_parent"
@@ -53,7 +53,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent">
             <!-- marginRight has to be 0 to catch border-touch -->
-            <com.android.calculator2.ColorButton
+            <com.android2.calculator3.ColorButton
                  android:id="@+id/clear"
                  android:text="@string/clear"
                  android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                  style="@style/button_style"
                  />
             <!-- marginRight has to be 0 to catch border-touch -->
-            <com.android.calculator2.ColorButton
+            <com.android2.calculator3.ColorButton
                  android:id="@+id/del"
                  android:text="@string/del"
                  android:layout_width="match_parent"
@@ -78,15 +78,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4">
-        <com.android.calculator2.Slider
+        <com.xlythe.slider.Slider
             android:id="@+id/pulldown"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background"
             android:scrollbarThumbHorizontal="@drawable/btn_function" >
             <include layout="@layout/history_panel" />
-        </com.android.calculator2.Slider>
-        <com.android.calculator2.CalculatorViewPager
+        </com.xlythe.slider.Slider>
+        <com.android2.calculator3.CalculatorViewPager
             android:id="@+id/panelswitch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
