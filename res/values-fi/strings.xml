@@ -150,29 +150,6 @@
     <string name="piDesc">pii</string>
     <string name="equalDesc">on yhtä kuin</string>
 
-    <!--Content descriptions for accessibility used as keys when determining which mathematical
-    concept description to speak when accessibility features are enabled. Order of the array is
-    important. -->
-    <string-array name="operators" translatable="false">
-        <item>\u0028(</item>
-        <item>\u0029</item>
-        <item>\u0021</item>
-        <item>\u33D1</item>
-        <item>\u33D2</item>
-        <item>\u221A</item>
-        <item>\u00F7</item>
-        <item>\u00D7</item>
-        <item>\u002B</item>
-        <item>\u2212</item>
-        <item>\u002E</item>
-        <item>\u005E</item>
-        <item>tan</item>
-        <item>sin</item>
-        <item>cos</item>
-        <item>\u03C0</item>
-        <item>\u003D</item>
-    </string-array>
-
     <!--Content descriptions for accessibility. These strings will be read aloud to users who
      are using the calculator with accessibility features enabled and hover over the edit text
      field. These should reflect the mathematical concept instead of a direct representation of
@@ -214,16 +191,11 @@
         <item>on yhtä kuin</item>
     </string-array>
 
-    <string name="i" translatable="false">i</string>
-    <string name="percentage" translatable="false">%</string>
     <string name="dx">dX</string>
     <string name="dy">dY</string>
     <string name="solveForX">Ratkaise X</string>
     <string name="solveForY">Ratkaise Y</string>
-    <string name="integral" translatable="false">\u222B</string>
-    <string name="parentheses" translatable="false">( )</string>
     <string name="mod">mod</string>
-    <string name="coma" translatable="false">,</string>
 
     <string name="defaultGraphTitle">Funktio</string>
     <string name="graphTitle">Funktio: </string>
@@ -238,7 +210,6 @@
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
-    
     <string name="hexDesc">Heksadesimaali</string>
     <string name="binDesc">Binääri</string>
     <string name="decDesc">Desimaali</string>
