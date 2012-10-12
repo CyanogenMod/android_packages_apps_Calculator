@@ -18,8 +18,9 @@ package com.android2.calculator3;
 
 import org.achartengine.GraphicalView;
 
-import com.android2.calculator3.Slider.Direction;
-import com.android2.calculator3.Slider.OnSlideListener;
+import com.xlythe.slider.Slider;
+import com.xlythe.slider.Slider.Direction;
+import com.xlythe.slider.Slider.OnSlideListener;
 
 import android.app.Activity;
 import android.content.Intent;

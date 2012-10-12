@@ -44,16 +44,11 @@
     <string msgid="5801480710472541833" name="text_copied_toast">"Text kopiert"</string>
     <string name="copy">Kopiere \"%s\"</string>
     <string name="remove_from_history">Aus Verlauf löschen</string>
-    <string name="i" translatable="false">i</string>
-    <string name="percentage" translatable="false">%</string>
     <string name="dx">dX</string>
     <string name="dy">dY</string>
     <string name="solveForX">Nach X auflösen</string>
     <string name="solveForY">Nach Y auflösen</string>
-    <string name="integral" translatable="false">\u222B</string>
-    <string name="parentheses" translatable="false">( )</string>
     <string name="mod">mod</string>
-    <string name="coma" translatable="false">,</string>
     <string name="defaultGraphTitle">Funktion</string>
     <string name="graphTitle">Funktion: </string>
     <string name="inverse">Inv</string>

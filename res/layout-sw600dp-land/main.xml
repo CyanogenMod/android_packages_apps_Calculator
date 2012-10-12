@@ -85,14 +85,14 @@
         android:layout_height="0dip"
         android:layout_weight="4">
         
-        <com.android2.calculator3.Slider
+        <com.xlythe.slider.Slider
              android:id="@+id/pulldown"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@color/background"
              android:scrollbarThumbHorizontal="@drawable/btn_function" >
             <include layout="@layout/history_panel" />
-        </com.android2.calculator3.Slider>
+        </com.xlythe.slider.Slider>
     
         <LinearLayout
             android:layout_width="match_parent"
