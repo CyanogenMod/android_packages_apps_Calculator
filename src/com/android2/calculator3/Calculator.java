@@ -349,11 +349,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 break;
 
             case R.id.show_history:
-                mPulldown.animateSliderUp();
+                mPulldown.animateSliderOpen();
                 break;
 
             case R.id.hide_history:
-                mPulldown.animateSliderDown();
+                mPulldown.animateSliderClosed();
                 break;
 
             case R.id.basic:
@@ -436,7 +436,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if(keyCode == KeyEvent.KEYCODE_BACK && mPulldown.isSliderOpen()) {
-            mPulldown.animateSliderDown();
+            mPulldown.animateSliderClosed();
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility()) && mPreferences.getBoolean(Panel.BASIC.toString(), getResources().getBoolean(R.bool.BASIC))) {
