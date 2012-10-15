@@ -16,12 +16,12 @@ public class Preferences extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences);
         try {
-			String versionName = "v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-			TextView version = (TextView) findViewById(R.id.version);
-			version.setText(versionName);
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		}
+            String versionName = "v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            TextView version = (TextView) findViewById(R.id.version);
+            version.setText(versionName);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
