@@ -28,8 +28,8 @@
     <string msgid="658125644218958447" name="digit7">"7"</string>
     <string msgid="3134686906411558886" name="digit8">"8"</string>
     <string msgid="765379157698748031" name="digit9">"9"</string>
-    <string msgid="6248896117422989693" name="del">"Entf"</string>
-    <string msgid="8103610981407459768" name="clear">"Entf"</string>
+    <string msgid="6248896117422989693" name="del">"DEL"</string>
+    <string msgid="8103610981407459768" name="clear">"AC"</string>
     <string msgid="6793866152659175277" name="sin">"sin"</string>
     <string msgid="6901841853098114414" name="cos">"cos"</string>
     <string msgid="7957459816738554960" name="tan">"tan"</string>
