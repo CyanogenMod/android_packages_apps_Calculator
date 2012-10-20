@@ -13,60 +13,111 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
- 
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" 
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <string msgid="8095131950334945205" name="app_name">"Rechner"</string>
-    <string msgid="9197457880925804499" name="error">"Fehler"</string>
-    <string msgid="8069590963464434135" name="digit0">"0"</string>
-    <string msgid="8535041374797804029" name="digit1">"1"</string>
-    <string msgid="8977354203154316247" name="digit2">"2"</string>
-    <string msgid="148544090755132760" name="digit3">"3"</string>
-    <string msgid="2199490603838247678" name="digit4">"4"</string>
-    <string msgid="7568514524384173087" name="digit5">"5"</string>
-    <string msgid="6705952561049362551" name="digit6">"6"</string>
-    <string msgid="658125644218958447" name="digit7">"7"</string>
-    <string msgid="3134686906411558886" name="digit8">"8"</string>
-    <string msgid="765379157698748031" name="digit9">"9"</string>
-    <string msgid="6248896117422989693" name="del">"DEL"</string>
-    <string msgid="8103610981407459768" name="clear">"AC"</string>
-    <string msgid="6793866152659175277" name="sin">"sin"</string>
-    <string msgid="6901841853098114414" name="cos">"cos"</string>
-    <string msgid="7957459816738554960" name="tan">"tan"</string>
-    <string msgid="1377847800971731483" name="e">"e"</string>
-    <string msgid="6888500680285403344" name="ln">"ln"</string>
-    <string msgid="873623857385418182" name="lg">"log"</string>
-    <string msgid="4850643713953092099" name="leftParen">"("</string>
-    <string msgid="3177971166159324016" name="rightParen">")"</string>
-    <string msgid="7691469861698059753" name="basic">"Grundfunktionen"</string>
-    <string msgid="7122495413742976492" name="advanced">"Erweiterte Funktionen"</string>
-    <string msgid="8458043980601165012" name="clear_history">"Verlauf löschen"</string>
-    <string msgid="5801480710472541833" name="text_copied_toast">"Text kopiert"</string>
-    <string name="copy">Kopiere \"%s\"</string>
-    <string name="remove_from_history">Aus Verlauf löschen</string>
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="8095131950334945205">"Rechner"</string>
+    <string name="error" msgid="9197457880925804499">"Fehler"</string>
+    <string name="digit0" msgid="8069590963464434135">"0"</string>
+    <string name="digit1" msgid="8535041374797804029">"1"</string>
+    <string name="digit2" msgid="8977354203154316247">"2"</string>
+    <string name="digit3" msgid="148544090755132760">"3"</string>
+    <string name="digit4" msgid="2199490603838247678">"4"</string>
+    <string name="digit5" msgid="7568514524384173087">"5"</string>
+    <string name="digit6" msgid="6705952561049362551">"6"</string>
+    <string name="digit7" msgid="658125644218958447">"7"</string>
+    <string name="digit8" msgid="3134686906411558886">"8"</string>
+    <string name="digit9" msgid="765379157698748031">"9"</string>
+    <string name="del" msgid="6248896117422989693">"Löschen"</string>
+    <string name="clear" msgid="8103610981407459768">"Löschen"</string>
+    <string name="sin" msgid="6793866152659175277">"sin"</string>
+    <string name="cos" msgid="6901841853098114414">"cos"</string>
+    <string name="tan" msgid="7957459816738554960">"tan"</string>
+    <string name="e" msgid="1377847800971731483">"e"</string>
+    <string name="ln" msgid="6888500680285403344">"ln"</string>
+    <string name="lg" msgid="873623857385418182">"log"</string>
+    <string name="leftParen" msgid="4850643713953092099">"("</string>
+    <string name="rightParen" msgid="3177971166159324016">")"</string>
+    <string name="basic" msgid="7691469861698059753">"Grundfunktionen"</string>
+    <string name="advanced" msgid="7122495413742976492">"Erweiterte Funktionen"</string>
+    <!-- Menu item text to take user to the screen with matrices. -->
+    <string name="matrix">Matrix-Berechnung</string>
+    <!-- Menu item text to take user to the screen with the graph. -->
+    <string name="graph">Diagramm</string>
+    <!-- Menu item text to take user to the screen with the function operators. -->
+    <string name="function">Funktion</string>
+    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
+    <string name="hexPanel">Dez/Bin/Hex</string>
+    <string name="clear_history" msgid="8458043980601165012">"Verlauf löschen"</string>
+    <string name="text_copied_toast" msgid="5801480710472541833">"Text kopiert"</string>
+    <string name="leftParenDesc" msgid="8446428211982811379">"Klammer auf"</string>
+    <string name="rightParenDesc" msgid="9133691645148976523">"Klammer zu"</string>
+    <string name="factorialDesc" msgid="9217024218012761574">"Fakultät"</string>
+    <string name="lnDesc" msgid="1052579286300842270">"natürlicher Logarithmus"</string>
+    <string name="lgDesc" msgid="6490920451513731160">"Logarithmus"</string>
+    <string name="sqrtDesc" msgid="2247252128762219267">"Quadratwurzel"</string>
+    <string name="divDesc" msgid="7442623079124315427">"dividieren"</string>
+    <string name="mulDesc" msgid="9003016819648670694">"multiplizieren"</string>
+    <string name="plusDesc" msgid="3145322700823848264">"plus"</string>
+    <string name="minusDesc" msgid="5033462008907390900">"minus"</string>
+    <string name="dotDesc" msgid="5253752241630161722">"Punkt"</string>
+    <string name="powerDesc" msgid="9034898318444176910">"Potenz"</string>
+    <string name="delDesc" msgid="8211175878012032240">"löschen"</string>
+    <string name="clearDesc" msgid="8015748901120751476">"löschen"</string>
+    <string name="tanDesc" msgid="2055554933130702423">"Tangens"</string>
+    <string name="sinDesc" msgid="6563285042235077204">"Sinus"</string>
+    <string name="cosDesc" msgid="4048942450207926538">"Kosinus"</string>
+    <string name="eDesc" msgid="6709583372168924068">"Eulersche Zahl"</string>
+    <string name="piDesc" msgid="8838151606775021517">"Pi"</string>
+    <string name="equalDesc" msgid="4164435100263313101">"ist gleich"</string>
+  <string-array name="operatorDescs">
+    <item msgid="7903565108986789641">"Klammer auf"</item>
+    <item msgid="1688156211934459752">"Klammer zu"</item>
+    <item msgid="6664829080840305856">"Fakultät"</item>
+    <item msgid="2880199289575144121">"natürlicher Logarithmus"</item>
+    <item msgid="4398774906998694599">"Logarithmus"</item>
+    <item msgid="1791869359785943266">"Quadratwurzel"</item>
+    <item msgid="6833720171974254459">"dividiert durch"</item>
+    <item msgid="2646574635189709515">"multipliziert mit"</item>
+    <item msgid="3487936384379753697">"plus"</item>
+    <item msgid="8608534484562258856">"minus"</item>
+    <item msgid="3456824579675198186">" Punkt "</item>
+    <item msgid="4528629783180278651">"Potenz"</item>
+    <item msgid="4050948027333760159">"Tangens"</item>
+    <item msgid="8716478860618683850">"Sinus"</item>
+    <item msgid="3203211483560707480">"Kosinus"</item>
+    <item msgid="8587490959348493065">"Pi"</item>
+    <item msgid="8134315487552198394">"ist gleich"</item>
+  </string-array>
+
     <string name="dx">dX</string>
     <string name="dy">dY</string>
     <string name="solveForX">Nach X auflösen</string>
     <string name="solveForY">Nach Y auflösen</string>
     <string name="mod">mod</string>
+
     <string name="defaultGraphTitle">Funktion</string>
     <string name="graphTitle">Funktion: </string>
+
     <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
-    <string name="solve">Auflösen</string>
-    <string name="dotProduct">Punkt</string>
+    <string name="solve">Lösen</string>
+    <string name="dotProduct">Skalar</string>
     <string name="crossProduct">Kreuz</string>
+
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dez</string>
+
     <string name="hexDesc">Hexadezimal</string>
     <string name="binDesc">Binär</string>
     <string name="decDesc">Dezimal</string>
     <string name="determinantDesc">Determinante</string>
-    <string name="eigenvalueDesc">Eigenwerte</string>
+    <string name="eigenvalueDesc">Eigenwert</string>
+
     <string name="settings">Einstellungen</string>
     <string name="showHistory">Verlauf anzeigen</string>
-    <string name="hideHistory">Verlauf ausblenden</string>
-    <string name="returnToBasic">Zur Standardansicht zurückkehren</string>
+    <string name="hideHistory">Verlauf verbergen</string>
+
 </resources>

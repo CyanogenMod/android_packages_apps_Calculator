@@ -40,6 +40,10 @@
     <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"Alappanel"</string>
     <string name="advanced" msgid="7122495413742976492">"Speciális panel"</string>
+    <string name="matrix">Mátrix panel</string>
+    <string name="graph">Grafikon panel</string>
+    <string name="function">Függvény panel</string>
+    <string name="hexPanel">Hexadecimális panel</string>
     <string name="clear_history" msgid="8458043980601165012">"Előzmények törlése"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Szöveg átmásolva."</string>
     <string name="leftParenDesc" msgid="8446428211982811379">"nyitó zárójel"</string>
@@ -81,4 +85,33 @@
     <item msgid="8587490959348493065">"pi"</item>
     <item msgid="8134315487552198394">"egyenlő"</item>
   </string-array>
+
+    <string name="solveForX">Megoldás X-re</string>
+    <string name="solveForY">Megoldás Y-ra</string>
+    <string name="mod">mód</string>
+
+    <string name="defaultGraphTitle">Függvény</string>
+    <string name="graphTitle">Függvény: </string>
+
+    <string name="inverse">Inverz</string>
+    <string name="determinant">Determináns</string>
+    <string name="eigenvalue">Sajátérték</string>
+    <string name="solve">Megoldás</string>
+    <string name="dotProduct">Skalárszorzat</string>
+    <string name="crossProduct">Vektoriális szorzat</string>
+
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+
+    <string name="hexDesc">Hexadecimális</string>
+    <string name="binDesc">Bináris</string>
+    <string name="decDesc">Decimális</string>
+    <string name="determinantDesc">Determináns</string>
+    <string name="eigenvalueDesc">Sajátérték</string>
+
+    <string name="settings">Beállítások</string>
+    <string name="showHistory">Előzmények megjelenítése</string>
+    <string name="hideHistory">Előzmények elrejtése</string>
+
 </resources>

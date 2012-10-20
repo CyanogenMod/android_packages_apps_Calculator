@@ -648,7 +648,8 @@ class Logic {
         setDeleteMode(DELETE_MODE_CLEAR);
     }
 
-    RealMatrix solveMatrix() {
+    @SuppressWarnings("deprecation")
+	RealMatrix solveMatrix() {
         final LinearLayout matrices = (LinearLayout) mActivity.findViewById(R.id.matrices);
         RealMatrix matrix = null;
         boolean plus = false;
@@ -785,7 +786,12 @@ class Logic {
         theMatrix.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         theMatrix.setOrientation(LinearLayout.VERTICAL);
         theMatrix.setId(R.id.theMatrix);
-        theMatrix.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.matrix_background));
+        if(android.os.Build.VERSION.SDK_INT < 16) {
+            theMatrix.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.matrix_background));
+        }
+        else {
+            theMatrix.setBackground(mActivity.getResources().getDrawable(R.drawable.matrix_background));
+        }
         for (int i=0; i<data.length; i++) {
             LinearLayout layout = new LinearLayout(mActivity);
             layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

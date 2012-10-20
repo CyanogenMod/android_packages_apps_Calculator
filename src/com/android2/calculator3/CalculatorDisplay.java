@@ -16,6 +16,7 @@
 
 package com.android2.calculator3;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
@@ -80,7 +81,9 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         return mMaxDigits;
     }
 
-    protected void setLogic(Logic logic) {
+    @SuppressLint("NewApi")
+	@SuppressWarnings("deprecation")
+	protected void setLogic(Logic logic) {
         NumberKeyListener calculatorKeyListener =
             new NumberKeyListener() {
                 public int getInputType() {
@@ -181,7 +184,12 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         Editable.Factory factory = new CalculatorEditable.Factory(logic);
         for (int i = 0; i < 2; ++i) {
             EditText text = (EditText) getChildAt(i);
-            text.setBackgroundDrawable(null);
+            if(android.os.Build.VERSION.SDK_INT < 16) {
+            	text.setBackgroundDrawable(null);
+            }
+            else {
+            	text.setBackground(null);
+            }
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
             text.setSingleLine();
