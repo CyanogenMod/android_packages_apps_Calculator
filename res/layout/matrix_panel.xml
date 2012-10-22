@@ -11,6 +11,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/matrix_add_drawable"
+            android:background="@drawable/btn_function"
+            android:padding="7dp"
             android:id="@+id/matrixAdd"
             android:scaleType="fitXY"
             android:contentDescription="@null" />
