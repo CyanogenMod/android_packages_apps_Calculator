@@ -82,8 +82,8 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
     }
 
     @SuppressLint("NewApi")
-	@SuppressWarnings("deprecation")
-	protected void setLogic(Logic logic) {
+    @SuppressWarnings("deprecation")
+    protected void setLogic(Logic logic) {
         NumberKeyListener calculatorKeyListener =
             new NumberKeyListener() {
                 public int getInputType() {
@@ -185,10 +185,10 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         for (int i = 0; i < 2; ++i) {
             EditText text = (EditText) getChildAt(i);
             if(android.os.Build.VERSION.SDK_INT < 16) {
-            	text.setBackgroundDrawable(null);
+                text.setBackgroundDrawable(null);
             }
             else {
-            	text.setBackground(null);
+                text.setBackground(null);
             }
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
@@ -230,7 +230,7 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         EditText text = (EditText) getCurrentView();
         return text.getText();
     }
-    
+
     private void setText(String input) {
         EditText text = (EditText) getCurrentView();
         text.setText(input);
@@ -263,7 +263,7 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         EditText text = (EditText) getCurrentView();
         return text.getSelectionStart();
     }
-    
+
     private void setSelection(int position) {
         EditText text = (EditText) getCurrentView();
         text.setSelection(position);

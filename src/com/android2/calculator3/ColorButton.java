@@ -17,13 +17,13 @@
 package com.android2.calculator3;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.widget.Button;
 import android.view.MotionEvent;
-import android.content.res.Resources;
 
 /**
  * Button with click-animation effect.
@@ -60,21 +60,28 @@ class ColorButton extends Button {
         mAnimStart = -1;
     }
 
-
     @Override
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
-        measureText();
+        layoutText();
     }
 
-    private void measureText() {
+    private void layoutText() {
         Paint paint = getPaint();
-        mTextX = (getWidth() - paint.measureText(getText().toString())) / 2;
+        float textWidth = paint.measureText(getText().toString());
+        float width = getWidth() - getPaddingLeft() - getPaddingRight();
+        float textSize = getTextSize();
+        if (textWidth > width) {
+            paint.setTextSize(textSize * width / textWidth);
+            mTextX = getPaddingLeft();
+        } else {
+            mTextX = (getWidth() - textWidth) / 2;
+        }
         mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
     }
 
     @Override
     protected void onTextChanged(CharSequence text, int start, int before, int after) {
-        measureText();
+        layoutText();
     }
 
     private void drawMagicFlame(int duration, Canvas canvas) {
@@ -123,6 +130,7 @@ class ColorButton extends Button {
                 break;
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_CANCEL:
+                mAnimStart = -1;
                 invalidate();
                 break;
         }

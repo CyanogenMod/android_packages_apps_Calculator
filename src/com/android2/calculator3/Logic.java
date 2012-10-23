@@ -25,12 +25,12 @@ import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
@@ -128,7 +128,7 @@ class Logic {
         mX = activity.getResources().getString(R.string.X);
         mY = activity.getResources().getString(R.string.Y);
         mTitleString = activity.getResources().getString(R.string.graphTitle);
-        mPlusString = activity.getResources().getString(R.string.plus); 
+        mPlusString = activity.getResources().getString(R.string.plus);
         mMinusString = activity.getResources().getString(R.string.minus);
         mDivString = activity.getResources().getString(R.string.div);
         mMulString = activity.getResources().getString(R.string.mul);
@@ -648,8 +648,9 @@ class Logic {
         setDeleteMode(DELETE_MODE_CLEAR);
     }
 
-    @SuppressWarnings("deprecation")
-	RealMatrix solveMatrix() {
+    @SuppressLint("NewApi")
+	@SuppressWarnings("deprecation")
+    RealMatrix solveMatrix() {
         final LinearLayout matrices = (LinearLayout) mActivity.findViewById(R.id.matrices);
         RealMatrix matrix = null;
         boolean plus = false;
