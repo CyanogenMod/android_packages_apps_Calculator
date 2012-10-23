@@ -129,7 +129,6 @@ class Logic {
     }
 
     private Listener mListener;
-    private Set<Entry<String, String>> mTranslationsSet;
 
     Logic(Activity context, History history, CalculatorDisplay display) {
         mContext = context;
@@ -326,8 +325,6 @@ class Logic {
             --size;
         }
         // Find and replace any translated mathematical functions.
-        input = replaceTranslations(input);
-
         input = localize(input);
         
         // Convert to decimal
@@ -357,32 +354,6 @@ class Logic {
         else if(value.re == 0 && value.im != 0) result = imaginary + "i";
         else if(value.re == 0 && value.im == 0) result = "0";
         return updateTextToNewMode(result, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
-    }
-
-    private void addTranslation(HashMap<String, String> map, int t, int m) {
-        Resources res = mContext.getResources();
-        String translated = res.getString(t);
-        String math = res.getString(m);
-        if (!TextUtils.equals(translated, math)) {
-            map.put(translated, math);
-        }
-    }
-
-    private String replaceTranslations(String input) {
-        if (mTranslationsSet == null) {
-            HashMap<String, String> map = new HashMap<String, String>();
-            addTranslation(map, R.string.sin, R.string.sin_mathematical_value);
-            addTranslation(map, R.string.cos, R.string.cos_mathematical_value);
-            addTranslation(map, R.string.tan, R.string.tan_mathematical_value);
-            addTranslation(map, R.string.e, R.string.e_mathematical_value);
-            addTranslation(map, R.string.ln, R.string.ln_mathematical_value);
-            addTranslation(map, R.string.lg, R.string.lg_mathematical_value);
-            mTranslationsSet = map.entrySet();
-        }
-        for (Entry<String, String> entry : mTranslationsSet) {
-            input = input.replace(entry.getKey(), entry.getValue());
-        }
-        return input;
     }
 
     private String localize(String input) {
