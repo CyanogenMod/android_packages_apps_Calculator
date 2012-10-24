@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -118,25 +119,26 @@ class Logic {
     Logic(Activity activity, History history, CalculatorDisplay display) {
         mActivity = activity;
 
-        mErrorString = activity.getResources().getString(R.string.error);
-        mSinString = activity.getResources().getString(R.string.sin);
-        mCosString = activity.getResources().getString(R.string.cos);
-        mTanString = activity.getResources().getString(R.string.tan);
-        mLogString = activity.getResources().getString(R.string.lg);
-        mLnString = activity.getResources().getString(R.string.ln);
-        mModString = activity.getResources().getString(R.string.mod);
-        mX = activity.getResources().getString(R.string.X);
-        mY = activity.getResources().getString(R.string.Y);
-        mTitleString = activity.getResources().getString(R.string.graphTitle);
-        mPlusString = activity.getResources().getString(R.string.plus);
-        mMinusString = activity.getResources().getString(R.string.minus);
-        mDivString = activity.getResources().getString(R.string.div);
-        mMulString = activity.getResources().getString(R.string.mul);
-        mDotString = activity.getResources().getString(R.string.dot);
-        mComaString = activity.getResources().getString(R.string.coma);
-        mPowerString = activity.getResources().getString(R.string.power);
-        mSqrtString = activity.getResources().getString(R.string.sqrt);
-        mIntegralString = activity.getResources().getString(R.string.integral);
+        final Resources r = activity.getResources();
+        mErrorString = r.getString(R.string.error);
+        mSinString = r.getString(R.string.sin);
+        mCosString = r.getString(R.string.cos);
+        mTanString = r.getString(R.string.tan);
+        mLogString = r.getString(R.string.lg);
+        mLnString = r.getString(R.string.ln);
+        mModString = r.getString(R.string.mod);
+        mX = r.getString(R.string.X);
+        mY = r.getString(R.string.Y);
+        mTitleString = r.getString(R.string.graphTitle);
+        mPlusString = r.getString(R.string.plus);
+        mMinusString = r.getString(R.string.minus);
+        mDivString = r.getString(R.string.div);
+        mMulString = r.getString(R.string.mul);
+        mDotString = r.getString(R.string.dot);
+        mComaString = r.getString(R.string.coma);
+        mPowerString = r.getString(R.string.power);
+        mSqrtString = r.getString(R.string.sqrt);
+        mIntegralString = r.getString(R.string.integral);
 
         mHistory = history;
         mDisplay = display;
@@ -409,6 +411,14 @@ class Logic {
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
     }
 
+    private boolean graphChanged(Graph graph, String equation, double minX, double maxX, double minY, double maxY) {
+        return !equation.equals(getText()) ||
+                minY != graph.getRenderer().getYAxisMin() ||
+                maxY != graph.getRenderer().getYAxisMax() ||
+                minX != graph.getRenderer().getXAxisMin() ||
+                maxX != graph.getRenderer().getXAxisMax();
+    }
+
     void updateGraph(final Graph g) {
         if(g == null) return;
         final String eq = getText();
@@ -466,11 +476,7 @@ class Logic {
 
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
                     for(double x=minX;x<=maxX;x+=(0.00125*(maxX-minX))) {
-                        if(!eq.equals(getText()) ||
-                                minY != g.getRenderer().getYAxisMin() ||
-                                maxY != g.getRenderer().getYAxisMax() ||
-                                minX != g.getRenderer().getXAxisMin() ||
-                                maxX != g.getRenderer().getXAxisMax()) return;
+                        if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                         try{
                             mSymbols.define(mX, x);
@@ -491,11 +497,7 @@ class Logic {
                 }
                 else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
                     for(double y=minY;y<=maxY;y+=(0.00125*(maxY-minY))) {
-                        if(!eq.equals(getText()) ||
-                                minY != g.getRenderer().getYAxisMin() ||
-                                maxY != g.getRenderer().getYAxisMax() ||
-                                minX != g.getRenderer().getXAxisMin() ||
-                                maxX != g.getRenderer().getXAxisMax()) return;
+                        if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                         try{
                             mSymbols.define(mY, y);
@@ -514,11 +516,7 @@ class Logic {
                 }
                 else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
                     for(double x=minX;x<=maxX;x+=(0.00125*(maxX-minX))) {
-                        if(!eq.equals(getText()) ||
-                                minY != g.getRenderer().getYAxisMin() ||
-                                maxY != g.getRenderer().getYAxisMax() ||
-                                minX != g.getRenderer().getXAxisMin() ||
-                                maxX != g.getRenderer().getXAxisMax()) return;
+                        if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                         try{
                             mSymbols.define(mX, x);
@@ -537,11 +535,7 @@ class Logic {
                 }
                 else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
                     for(double y=minY;y<=maxY;y+=(0.00125*(maxY-minY))) {
-                        if(!eq.equals(getText()) ||
-                                minY != g.getRenderer().getYAxisMin() ||
-                                maxY != g.getRenderer().getYAxisMax() ||
-                                minX != g.getRenderer().getXAxisMin() ||
-                                maxX != g.getRenderer().getXAxisMax()) return;
+                        if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                         try{
                             mSymbols.define(mY, y);
@@ -561,11 +555,7 @@ class Logic {
                 else{
                     for(double x=minX;x<=maxX;x+=(0.01*(maxX-minX))) {
                         for(double y=maxY;y>=minY;y-=(0.01*(maxY-minY))) {
-                            if(!eq.equals(getText()) ||
-                                    minY != g.getRenderer().getYAxisMin() ||
-                                    maxY != g.getRenderer().getYAxisMax() ||
-                                    minX != g.getRenderer().getXAxisMin() ||
-                                    maxX != g.getRenderer().getXAxisMax()) return;
+                            if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                             try{
                                 mSymbols.define(mX, x);
@@ -649,7 +639,7 @@ class Logic {
     }
 
     @SuppressLint("NewApi")
-	@SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation")
     RealMatrix solveMatrix() {
         final LinearLayout matrices = (LinearLayout) mActivity.findViewById(R.id.matrices);
         RealMatrix matrix = null;

@@ -16,6 +16,9 @@
 
 package com.android2.calculator3;
 
+import java.util.Arrays;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
@@ -54,26 +57,28 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
     TranslateAnimation outAnimDown;
 
     private int mMaxDigits = DEFAULT_MAX_DIGITS;
-    private String mSinString;
-    private String mCosString;
-    private String mTanString;
-    private String mLogString;
-    private String mLnString;
-    private String mModString;
-    private String mDX;
-    private String mDY;
+    private List<String> keywords;
 
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         mMaxDigits = attrs.getAttributeIntValue(null, ATTR_MAX_DIGITS, DEFAULT_MAX_DIGITS);
-        mSinString = context.getResources().getString(R.string.sin);
-        mCosString = context.getResources().getString(R.string.cos);
-        mTanString = context.getResources().getString(R.string.tan);
-        mLogString = context.getResources().getString(R.string.lg);
-        mLnString = context.getResources().getString(R.string.ln);
-        mModString = context.getResources().getString(R.string.mod);
-        mDX = context.getResources().getString(R.string.dx);
-        mDY = context.getResources().getString(R.string.dy);
+        String sinString = context.getResources().getString(R.string.sin);
+        String cosString = context.getResources().getString(R.string.cos);
+        String tanString = context.getResources().getString(R.string.tan);
+        String logString = context.getResources().getString(R.string.lg);
+        String lnString = context.getResources().getString(R.string.ln);
+        String modString = context.getResources().getString(R.string.mod);
+        String dx = context.getResources().getString(R.string.dx);
+        String dy = context.getResources().getString(R.string.dy);
+        
+        keywords = Arrays.asList(sinString + "(", 
+                                              cosString + "(",
+                                              tanString + "(",
+                                              logString + "(",
+                                              modString + "(",
+                                              lnString + "(",
+                                              dx,
+                                              dy);
         setOnLongClickListener(this);
     }
 
@@ -105,76 +110,21 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
                 }
 
                 @Override
-                public boolean onKeyDown(View view, Editable content, int keyCode,
-                                         KeyEvent event) {
+                public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
                     if (keyCode == KeyEvent.KEYCODE_DEL) {
                         int selectionHandle = getSelectionStart();
                         String textBeforeInsertionHandle = getText().toString().substring(0, selectionHandle);
                         String textAfterInsertionHandle = getText().toString().substring(selectionHandle, getText().length());
 
-                        if(textBeforeInsertionHandle.endsWith(mSinString + "(")) {
-                            int deletionLength = mSinString.length()+1;
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                    textAfterInsertionHandle;
-                            setText(text);
-                            setSelection(selectionHandle-deletionLength);
-                            return true;
-                        }
-                        else if(textBeforeInsertionHandle.endsWith(mCosString + "(")) {
-                            int deletionLength = mCosString.length()+1;
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                    textAfterInsertionHandle;
-                            setText(text);
-                            setSelection(selectionHandle-deletionLength);
-                            return true;
-                        }
-                        else if(textBeforeInsertionHandle.endsWith(mTanString + "(")) {
-                            int deletionLength = mTanString.length()+1;
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                    textAfterInsertionHandle;
-                            setText(text);
-                            setSelection(selectionHandle-deletionLength);
-                            return true;
-                        }
-                        else if(textBeforeInsertionHandle.endsWith(mLogString + "(")) {
-                            int deletionLength = mLogString.length()+1;
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                    textAfterInsertionHandle;
-                            setText(text);
-                            setSelection(selectionHandle-deletionLength);
-                            return true;
-                        }
-                        else if(textBeforeInsertionHandle.endsWith(mModString + "(")) {
-                            int deletionLength = mModString.length()+1;
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                    textAfterInsertionHandle;
-                            setText(text);
-                            setSelection(selectionHandle-deletionLength);
-                            return true;
-                        }
-                        else if(textBeforeInsertionHandle.endsWith(mLnString + "(")) {
-                            int deletionLength = mLnString.length()+1;
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                    textAfterInsertionHandle;
-                            setText(text);
-                            setSelection(selectionHandle-deletionLength);
-                            return true;
-                        }
-                        else if(textBeforeInsertionHandle.endsWith(mDX + "(")) {
-                            int deletionLength = mDX.length()+1;
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                    textAfterInsertionHandle;
-                            setText(text);
-                            setSelection(selectionHandle-deletionLength);
-                            return true;
-                        }
-                        else if(textBeforeInsertionHandle.endsWith(mDY + "(")) {
-                            int deletionLength = mDY.length()+1;
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                    textAfterInsertionHandle;
-                            setText(text);
-                            setSelection(selectionHandle-deletionLength);
-                            return true;
+                        for(String s : keywords) {
+                            if(textBeforeInsertionHandle.endsWith(s)) {
+                                int deletionLength = s.length();
+                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
+                                        textAfterInsertionHandle;
+                                setText(text);
+                                setSelection(selectionHandle-deletionLength);
+                                return true;
+                            }
                         }
                     }
                     return super.onKeyDown(view, content, keyCode, event);
