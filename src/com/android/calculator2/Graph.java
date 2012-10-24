@@ -30,7 +30,7 @@ import android.content.Context;
 import android.graphics.Color;
 
 public class Graph {
-	private GraphicalView mChartView;
+    private GraphicalView mChartView;
     private XYMultipleSeriesDataset mDataset;
     private XYMultipleSeriesRenderer mRenderer;
     private XYSeries mSeries;
@@ -40,43 +40,43 @@ public class Graph {
     private static final double MAX_HEIGHT_Y = 10;
     private static final double MIN_HEIGHT_X = -10;
     private static final double MIN_HEIGHT_Y = -10;
-    
+
     public Graph(Logic l) {
         mLogic = l;
     }
-    
+
     public XYMultipleSeriesDataset getDataset() {
         return mDataset;
     }
-    
+
     public XYSeries getSeries() {
         return mSeries;
     }
 
-	public XYMultipleSeriesRenderer getRenderer() {
-		return mRenderer;
-	}
-	
+    public XYMultipleSeriesRenderer getRenderer() {
+        return mRenderer;
+    }
+
     public void setSeries(XYSeries series) {
         mSeries = series;
     }
-    
+
     public GraphicalView getGraph(Context context) {
         String title = context.getResources().getString(R.string.defaultGraphTitle);
         double[] xValues = new double[0];
         double[] yValues = new double[0];
         mRenderer = buildRenderer(context);
         mDataset = buildDataset(title, xValues, yValues);
-        
+
         mLogic.setGraph(this);
-        
+
         mChartView = ChartFactory.getLineChartView(context, mDataset, mRenderer);
         mChartView.addPanListener(new PanListener() {
-			@Override
-			public void panApplied() {
-				mLogic.updateGraph(Graph.this);
-			}
-		});
+            @Override
+            public void panApplied() {
+                mLogic.updateGraph(Graph.this);
+            }
+        });
         mChartView.addZoomListener(new ZoomListener() {
             @Override
             public void zoomReset() {
@@ -88,18 +88,18 @@ public class Graph {
                 mLogic.updateGraph(Graph.this);
             }
         }, true, true);
-        
+
         mLogic.updateGraph(this);
-        
+
         return mChartView;
     }
-    
+
     private XYMultipleSeriesDataset buildDataset(String title, double[] xValues, double[] yValues) {
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         addXYSeries(dataset, title, xValues, yValues, 0);
         return dataset;
     }
-    
+
     private void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
         mSeries = new XYSeries(title, scale);
         int seriesLength = xValues.length;
@@ -129,9 +129,11 @@ public class Graph {
         renderer.setLabelsColor(Color.LTGRAY);
         renderer.setXLabels(20);
         renderer.setYLabels(20);
-        renderer.setPanEnabled(false, false);
+        renderer.setPanEnabled(true);
         renderer.setZoomEnabled(true);
         renderer.setShowGrid(true);
+        renderer.setXAxisBold(true);
+        renderer.setYAxisBold(true);
         //renderer.setZoomButtonsVisible(true);
         XYSeriesRenderer r = new XYSeriesRenderer();
         r.setColor(Color.CYAN);

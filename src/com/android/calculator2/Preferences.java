@@ -2,9 +2,10 @@ package com.android.calculator2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.view.KeyEvent;
+import android.widget.TextView;
 
 /**
  * @author Will Harmon
@@ -13,15 +14,13 @@ public class Preferences extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFragmentManager().beginTransaction().replace(android.R.id.content,
-                new PrefsFragment()).commit();
-    }
-    
-    public static class PrefsFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.layout.preferences);
+        setContentView(R.layout.preferences);
+        try {
+            String versionName = "v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            TextView version = (TextView) findViewById(R.id.version);
+            version.setText(versionName);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
