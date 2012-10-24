@@ -22,7 +22,6 @@
               android:id="@+id/advancedPad"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_weight="1"
               android:orientation="vertical"
               android:layout_gravity="center"
               >
@@ -32,30 +31,40 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/sin"
             android:text="@string/sin"
             style="@style/button_small_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/cos"
             android:text="@string/cos"
             style="@style/button_small_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/tan"
             android:text="@string/tan"
             style="@style/button_small_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/pi"
             android:text="@string/pi"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/factorial"
             android:text="@string/factorial"
             style="@style/button_style"
+            />
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/i"
+            android:text="@string/i"
+            style="@style/button_style"
+            />
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/X"
+            android:text="@string/X"
+            style="@style/digit_button_style"
             />
     </LinearLayout>
 
@@ -64,30 +73,40 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/ln"
             android:text="@string/ln"
             style="@style/button_small_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/lg"
             android:text="@string/lg"
             style="@style/button_small_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/e"
             android:text="@string/e"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/power"
             android:text="@string/power"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android2.calculator3.ColorButton
             android:id="@+id/sqrt"
             android:text="@string/sqrt"
             style="@style/button_style"
+            />
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/percentage"
+            android:text="@string/percentage"
+            style="@style/button_style"
+            />
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/Y"
+            android:text="@string/Y"
+            style="@style/digit_button_style"
             />
     </LinearLayout>
 </LinearLayout>
