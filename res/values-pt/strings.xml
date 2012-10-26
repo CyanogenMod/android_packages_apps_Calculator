@@ -77,4 +77,7 @@
     <string name="hideHistory">Esconder Histórico</string>
     <string name="dotProduct">Interno</string>
     <string name="crossProduct">Externo</string>
+    <string name="copy">Copiar \"%s\"</string>
+    <string name="remove_from_history">Remover do histórico</string>
+    <string name="returnToBasic">Retornar ao painel básico</string>
 </resources>
