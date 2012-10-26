@@ -113,5 +113,7 @@
     <string name="settings">Beállítások</string>
     <string name="showHistory">Előzmények megjelenítése</string>
     <string name="hideHistory">Előzmények elrejtése</string>
-
+    <string name="copy">\"%s\" másolása</string>
+    <string name="remove_from_history">Eltávolítás az előzményekből</string>
+    <string name="returnToBasic">Visszatérés az alappanelre</string>
 </resources>
