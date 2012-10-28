@@ -36,8 +36,6 @@
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
-    <string name="leftParen" msgid="4850643713953092099">"("</string>
-    <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"Basis"</string>
     <string name="advanced" msgid="7122495413742976492">"Geavanceerd"</string>
     <string name="clear_history" msgid="8458043980601165012">"Geschiedenis wissen"</string>
