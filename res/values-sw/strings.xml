@@ -36,32 +36,10 @@
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"Kwenye"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
-    <string name="leftParen" msgid="4850643713953092099">"("</string>
-    <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"Paneli msingi"</string>
     <string name="advanced" msgid="7122495413742976492">"Paneli pevu"</string>
     <string name="clear_history" msgid="8458043980601165012">"Futa historia"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Maandishi yamenakiliwa."</string>
-    <string name="leftParenDesc" msgid="8446428211982811379">"mabano ya kushoto"</string>
-    <string name="rightParenDesc" msgid="9133691645148976523">"mabano ya kulia"</string>
-    <string name="factorialDesc" msgid="9217024218012761574">"kiwanda"</string>
-    <string name="lnDesc" msgid="1052579286300842270">"logi asili"</string>
-    <string name="lgDesc" msgid="6490920451513731160">"logi"</string>
-    <string name="sqrtDesc" msgid="2247252128762219267">"Kipeo cha pili"</string>
-    <string name="divDesc" msgid="7442623079124315427">"gawanya"</string>
-    <string name="mulDesc" msgid="9003016819648670694">"zidisha"</string>
-    <string name="plusDesc" msgid="3145322700823848264">"jumlisha"</string>
-    <string name="minusDesc" msgid="5033462008907390900">"kutoa"</string>
-    <string name="dotDesc" msgid="5253752241630161722">"nukta"</string>
-    <string name="powerDesc" msgid="9034898318444176910">"nguvu"</string>
-    <string name="delDesc" msgid="8211175878012032240">"futa"</string>
-    <string name="clearDesc" msgid="8015748901120751476">"futa"</string>
-    <string name="tanDesc" msgid="2055554933130702423">"mstari"</string>
-    <string name="sinDesc" msgid="6563285042235077204">"sine"</string>
-    <string name="cosDesc" msgid="4048942450207926538">"kosi"</string>
-    <string name="eDesc" msgid="6709583372168924068">"namba ya Euler"</string>
-    <string name="piDesc" msgid="8838151606775021517">"pi"</string>
-    <string name="equalDesc" msgid="4164435100263313101">"sawa na"</string>
   <string-array name="operatorDescs">
     <item msgid="7903565108986789641">"Mabano ya kushoto"</item>
     <item msgid="1688156211934459752">"mabano ya kulia"</item>
