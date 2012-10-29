@@ -119,5 +119,10 @@
     <string name="showHistory">Vis Historik</string>
     <string name="hideHistory">Skjul Historik</string>
 
+    <string name="returnToBasic">Vend tilbage til det grundlæggende panel</string>
+
+    <string name="copy">Kopiér \"%s\"</string>
+    <string name="remove_from_history">Fjern fra historik</string>
+
     <!-- CM10 additions end -->
 </resources>
