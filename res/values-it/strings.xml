@@ -44,6 +44,8 @@
     <string name="hexPanel">Pannello esadecimale</string>
     <string name="clear_history" msgid="8458043980601165012">"Cancella cronologia"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Testo copiato."</string>
+    <string name="copy">Copia \"%s\"</string>
+    <string name="remove_from_history">"Rimuovi dalla cronologia"</string>
   <string-array name="operatorDescs">
     <item msgid="7903565108986789641">"parentesi aperta"</item>
     <item msgid="1688156211934459752">"parentesi chiusa"</item>
@@ -85,4 +87,5 @@
     <string name="settings">Impostazioni</string>
     <string name="showHistory">Mostra cronologia</string>
     <string name="hideHistory">Nascondi cronologia</string>
+    <string name="returnToBasic">Ritorna al pannello base</string>
 </resources>
