@@ -44,6 +44,8 @@
     <string name="hexPanel">Hexadecimális panel</string>
     <string name="clear_history" msgid="8458043980601165012">"Előzmények törlése"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Szöveg átmásolva."</string>
+    <string name="copy">Másolás \"%s\"</string>
+    <string name="remove_from_history">Eltávolítás az előzményekből</string>
   <string-array name="operatorDescs">
     <item msgid="7903565108986789641">"nyitó zárójel"</item>
     <item msgid="1688156211934459752">"berekesztő zárójel"</item>
@@ -91,5 +93,5 @@
     <string name="settings">Beállítások</string>
     <string name="showHistory">Előzmények megjelenítése</string>
     <string name="hideHistory">Előzmények elrejtése</string>
-
+    <string name="returnToBasic">Visszatérés az alappanelre</string>
 </resources>
