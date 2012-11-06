@@ -419,6 +419,12 @@ class Logic {
                 maxX != graph.getRenderer().getXAxisMax();
     }
 
+    private boolean pointIsNaN(double lastV, double v, double max, double min) {
+        return v == Double.NaN || 
+               lastV > max && v < min || 
+               v > max && lastV < min;
+    }
+
     void updateGraph(final Graph g) {
         if(g == null) return;
         final String eq = getText();
@@ -473,6 +479,8 @@ class Logic {
                 final String title = mTitleString + eq;
                 final XYSeries series = new XYSeries(title);
                 final GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
+                double lastX = (maxX-minX)/2+minX;
+                double lastY = (maxY-minY)/2+minY;
 
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
                     for(double x=minX;x<=maxX;x+=(0.00125*(maxX-minX))) {
@@ -482,14 +490,13 @@ class Logic {
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[1]);
 
-                            if(y>(maxY+((maxY-minY)*4)) || y<(minY-((maxY-minY)*4)) || y==Double.NaN) {
-                                //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
-                                //Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
+                            if(pointIsNaN(lastY, y, maxY, minY)) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
                                 series.add(x, y);
                             }
+                            lastY = y;
                         } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
@@ -503,12 +510,13 @@ class Logic {
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[1]);
 
-                            if(x>(maxX+((maxX-minX)*4)) || x<(minX-((maxX-minX)*4)) || x==Double.NaN) {
+                            if(pointIsNaN(lastX, x, maxX, minX)) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
                                 series.add(x, y);
                             }
+                            lastX = x;
                         } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
@@ -522,12 +530,13 @@ class Logic {
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[0]);
 
-                            if(y>(maxY+((maxY-minY)*4)) || y<(minY-((maxY-minY)*4)) || y==Double.NaN) {
+                            if(pointIsNaN(lastY, y, maxY, minY)) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
                                 series.add(x, y);
                             }
+                            lastY = y;
                         } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
@@ -541,12 +550,13 @@ class Logic {
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[0]);
 
-                            if(x>(maxX+((maxX-minX)*4)) || x<(minX-((maxX-minX)*4)) || x==Double.NaN) {
+                            if(pointIsNaN(lastX, x, maxX, minX)) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
                                 series.add(x, y);
                             }
+                            lastX = x;
                         } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
@@ -984,15 +994,4 @@ class Logic {
         }
         return (wholeNumber + "." + decimalNumber).toUpperCase();
     }
-
-//    private String addComas(String text) {
-//        NumberFormat formatter = new DecimalFormat("##,###");
-//        String[] pieces = text.split(".");
-//        
-//        String result = formatter.format(pieces[0]);
-//        for(int i=1;i<pieces.length;i++) {
-//            result += "." + pieces[i];
-//        }
-//        return result;
-//    }
 }
