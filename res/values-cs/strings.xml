@@ -38,62 +38,34 @@
     <string name="lg" msgid="873623857385418182">"log"</string>
     <string name="basic" msgid="7691469861698059753">"Základní funkce"</string>
     <string name="advanced" msgid="7122495413742976492">"Pokročilé funkce"</string>
-    <string name="clear_history" msgid="8458043980601165012">"Vymazat historii"</string>
-    <string name="text_copied_toast" msgid="5801480710472541833">"Text zkopírován."</string>
-  <string-array name="operatorDescs">
-    <item msgid="7903565108986789641">"levá závorka"</item>
-    <item msgid="1688156211934459752">"pravá závorka"</item>
-    <item msgid="6664829080840305856">"faktoriál"</item>
-    <item msgid="2880199289575144121">"přirozený logaritmus"</item>
-    <item msgid="4398774906998694599">"logaritmus"</item>
-    <item msgid="1791869359785943266">"druhá odmocnina"</item>
-    <item msgid="6833720171974254459">"děleno"</item>
-    <item msgid="2646574635189709515">"krát"</item>
-    <item msgid="3487936384379753697">"plus"</item>
-    <item msgid="8608534484562258856">"mínus"</item>
-    <item msgid="3456824579675198186">" bod "</item>
-    <item msgid="4528629783180278651">"síla"</item>
-    <item msgid="4050948027333760159">"tangens"</item>
-    <item msgid="8716478860618683850">"sinus"</item>
-    <item msgid="3203211483560707480">"kosinus"</item>
-    <item msgid="8587490959348493065">"pí"</item>
-    <item msgid="8134315487552198394">"rovná se"</item>
-  </string-array>
-
-    <!-- Update for JB -->
-    <string name="A">A</string>
-    <string name="B">B</string>
-    <string name="C">C</string>
-    <string name="D">D</string>
-    <string name="E">E</string>
-    <string name="F">F</string>
-    <string name="X">X</string>
-    <string name="Y">Y</string>
     <string name="matrix">Panel matice</string>
     <string name="graph">Panel grafu</string>
     <string name="function">Panel funkce</string>
-    <string name="hexPanel">Hexa Panel</string>
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
+    <string name="hexPanel">Hexa panel</string>
+    <string name="clear_history" msgid="8458043980601165012">"Vymazat historii"</string>
+    <string name="text_copied_toast" msgid="5801480710472541833">"Text zkopírován."</string>
+    <string name="copy">Kopírovat \u201e%s\u201c</string>
+    <string name="remove_from_history">Odstranit z historie</string>
+
     <string name="solveForX">Vyřešit pro X</string>
     <string name="solveForY">Vyřešit pro Y</string>
+
     <string name="defaultGraphTitle">Funkce</string>
-    <string name="graphTitle">Funkce: </string>
-    <string name="inverse">Inv</string>
-    <string name="determinant">Det</string>
-    <string name="eigenvalue">Eigen</string>
+    <string name="graphTitle">Funkce:\u00a0</string>
+
+    <string name="eigenvalue">Vlast. č.</string>
     <string name="solve">Vyřešit</string>
-    <string name="dotProduct">Dot</string>
-    <string name="crossProduct">Cross</string>
-    <string name="hex">Hex</string>
-    <string name="bin">Bin</string>
-    <string name="dec">Dec</string>
-    <string name="hexDesc">Hexadecimal</string>
-    <string name="binDesc">Binary</string>
-    <string name="decDesc">Decimal</string>
-    <string name="determinantDesc">Determinant</string>
-    <string name="eigenvalueDesc">Eigen Values/Vlastní hodnota</string>
+    <string name="dotProduct">Skal. součin</string>
+    <string name="crossProduct">Vekt. součin</string>
+
+    <string name="hexDesc">Hexadecimální</string>
+    <string name="binDesc">Binární</string>
+    <string name="decDesc">Decimální</string>
+    <string name="eigenvalueDesc">Vlastní hodnoty</string>
+
     <string name="settings">Nastavení</string>
     <string name="showHistory">Zobrazit historii</string>
     <string name="hideHistory">Skrýt historii</string>
+
+    <string name="returnToBasic">Vrátit na základní panel</string>
 </resources>

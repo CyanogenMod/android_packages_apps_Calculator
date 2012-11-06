@@ -68,7 +68,7 @@
     <!-- Do not translate. Unicode minus sign; don't translate. Displayed as button on screen. -->
     <string name="minus" translatable="false">\u2212</string>
     <!-- Do not translate. Decimal point; don't translate. Displayed as button on screen. -->
-    <string name="dot">.</string>
+    <string name="dot" translatable="false">.</string>
     <!-- Do not translate. Equal sign; don't translate. Displayed as button on screen. -->
     <string name="equal" translatable="false">=</string>
     <!-- Do not translate. Down arrow; don't translate. Displayed as button on screen. -->
