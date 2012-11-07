@@ -60,8 +60,6 @@
     <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6]
     Left in English, because Google made it the same way - DoktorAkcel    -->
     <string name="clear">CLR</string>
-    <!-- Do not translate. Decimal point; don't translate. Displayed as button on screen. -->
-    <string name="dot">.</string>
     <!-- Displayed on buttons on screen for the sin function. -->
     <string name="sin">sin</string>
     <!-- Displayed on buttons on screen for the cos function. -->
