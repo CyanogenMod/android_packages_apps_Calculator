@@ -16,9 +16,7 @@
 
 package com.android2.calculator3;
 
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnFocusChangeListener;
@@ -27,7 +25,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
@@ -376,8 +373,6 @@ class Logic {
                 exponent = exponent.substring(1);
             }
             exponent = String.valueOf(Integer.parseInt(exponent));
-        } else {
-            mantissa = result;
         }
 
         int period = mantissa.indexOf('.');
@@ -706,7 +701,7 @@ class Logic {
                     LinearLayout layout = (LinearLayout) theMatrix.getChildAt(j);
                     for(int k=0; k<layout.getChildCount(); k++) {
                         EditText view = (EditText) layout.getChildAt(k);
-                        matrixData[j][k] = Integer.valueOf(view.getText().toString());
+                        matrixData[j][k] = Double.valueOf(view.getText().toString());
                     }
                 }
 
@@ -777,11 +772,6 @@ class Logic {
         matrices.removeViews(0, matrices.getChildCount()-1);
 
         double[][] data = matrix.getData();
-        LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        mActivity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        final float logicalDensity = metrics.density;
 
         final LinearLayout theMatrix = new LinearLayout(mActivity);
         theMatrix.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -798,10 +788,8 @@ class Logic {
             layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             layout.setOrientation(LinearLayout.HORIZONTAL);
             for(int j=0; j<data[i].length; j++) {
-                EditText view = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
-                view.setWidth((int) (75*logicalDensity+0.5));
-                view.setHeight((int) (100*logicalDensity+0.5));
-                view.setText(Double.valueOf(data[i][j]).intValue()+"");
+                EditText view = (EditText) ((LinearLayout) View.inflate(mActivity, R.layout.single_matrix_input_box, layout)).getChildAt(j);
+                view.setText(tryFormattingWithPrecision(data[i][j], mLineLength));
                 view.setOnFocusChangeListener(new OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -812,8 +800,6 @@ class Logic {
                         }
                     }
                 });
-                
-                layout.addView(view);
             }
             theMatrix.addView(layout);
         }
@@ -974,7 +960,7 @@ class Logic {
             wholeNumber = Long.toHexString(Long.parseLong(split[0]));
             break;
         }
-        if(split.length==1) return wholeNumber.toUpperCase();
+        if(split.length==1) return wholeNumber.toUpperCase(Locale.US);
 
         double decimal = 0;
         if(originalBase != 10) {
@@ -983,7 +969,7 @@ class Logic {
         } else {
             decimal = Double.parseDouble("0." + split[1]);
         }
-        if(decimal==0) return wholeNumber.toUpperCase();
+        if(decimal==0) return wholeNumber.toUpperCase(Locale.US);
 
         String decimalNumber = "";
         for(int i=0,id=0;decimal!=0 && i<=PRECISION;i++) {
@@ -992,6 +978,6 @@ class Logic {
             decimal -= id;
             decimalNumber += Integer.toHexString(id);
         }
-        return (wholeNumber + "." + decimalNumber).toUpperCase();
+        return (wholeNumber + "." + decimalNumber).toUpperCase(Locale.US);
     }
 }
