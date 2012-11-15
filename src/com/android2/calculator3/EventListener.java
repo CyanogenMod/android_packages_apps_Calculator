@@ -188,7 +188,12 @@ class EventListener implements View.OnKeyListener,
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
                 String[] equation = mHandler.getText().split("=");
-                mHandler.setText(equation[0] + "=(" + equation[1] + ")");
+                if(equation.length>1) {
+                    mHandler.setText(equation[0] + "=(" + equation[1] + ")");
+                }
+                else{
+                    mHandler.setText(equation[0] + "=()");
+                }
             }
             else{
                 mHandler.setText("(" + mHandler.getText() + ")");
