@@ -28,7 +28,7 @@
     <string name="digit7" msgid="658125644218958447">"7"</string>
     <string name="digit8" msgid="3134686906411558886">"8"</string>
     <string name="digit9" msgid="765379157698748031">"9"</string>
-    <string name="del" msgid="6248896117422989693">"DELETE"</string>
+    <string name="del" msgid="6248896117422989693">"ΔΙΑΓΡ."</string>
     <string name="clear" msgid="8103610981407459768">"ΔΙΑΓΡ."</string>
     <string name="sin" msgid="6793866152659175277">"sin"</string>
     <string name="cos" msgid="6901841853098114414">"cos"</string>
@@ -59,4 +59,21 @@
     <item msgid="8587490959348493065">"πι"</item>
     <item msgid="8134315487552198394">"ίσον"</item>
   </string-array>
+
+    <!-- History menu item for copying item -->
+    <string name="copy">Αντιγραφή \"%s\"</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Αφαίρεση από το ιστορικό</string>
+
+    <string name="solveForX">Λύσε ως προς X</string>
+    <string name="solveForY">Λύσε ως προς Y</string>
+
+    <string name="hexDesc">Δεκαεξαδικό</string>
+    <string name="binDesc">Δυαδικό</string>
+    <string name="decDesc">Δεκαδικό</string>
+    <string name="determinantDesc">Ορίζουσα</string>
+
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="showHistory">Εμφάνιση ιστορικού</string>
+    <string name="hideHistory">Απόκρυψη ιστορικού</string>
 </resources>
