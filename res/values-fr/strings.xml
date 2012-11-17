@@ -38,8 +38,38 @@
     <string name="lg" msgid="873623857385418182">"log"</string>
     <string name="basic" msgid="7691469861698059753">"Panneau de base"</string>
     <string name="advanced" msgid="7122495413742976492">"Fonctions avancées"</string>
+    <string name="matrix">Panneau matrice</string>
+    <string name="graph">Panneau graphique</string>
+    <string name="function">Panneau fonction</string>
+    <string name="hexPanel">Panneau hexadécimal</string>
     <string name="clear_history" msgid="8458043980601165012">"Effacer l\'historique"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Texte copié."</string>
+    <string name="copy">Copier \"%s\"</string>
+    <string name="remove_from_history">Supprimer de l\'historique</string>
+<!--  I don't found translation for Dot, Cross, Eigen and Eigen Values -->
+    <string name="solveForX">Résoudre pour X</string>
+    <string name="solveForY">Résoudre pour Y</string>
+    <string name="mod">mod</string>
+    <string name="defaultGraphTitle">Fonction</string>
+    <string name="graphTitle">Fonction: </string>
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Résoudre</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadécimal</string>
+    <string name="binDesc">Binaire</string>
+    <string name="decDesc">Décimal</string>
+    <string name="determinantDesc">Déterminant</string>
+    <string name="eigenvalueDesc">Eigen Values</string>
+    <string name="settings">Paramètres</string>
+    <string name="showHistory">Afficher l\'historique</string>
+    <string name="hideHistory">Cacher l\'historique</string>
+    <string name="returnToBasic">Retourner au menu simple</string>
   <string-array name="operatorDescs">
     <item msgid="7903565108986789641">"parenthèse gauche"</item>
     <item msgid="1688156211934459752">"parenthèse droite"</item>
