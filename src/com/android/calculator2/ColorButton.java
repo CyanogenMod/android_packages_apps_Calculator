@@ -17,13 +17,9 @@
 package com.android.calculator2;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.widget.Button;
-import android.view.MotionEvent;
 
 /**
  * Button with click-animation effect.
@@ -37,27 +33,13 @@ class ColorButton extends Button {
     float mTextY;
     long mAnimStart;
     EventListener mListener;
-    Paint mFeedbackPaint;
 
     public ColorButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         Calculator calc = (Calculator) context;
-        init(calc);
         mListener = calc.mListener;
         setOnClickListener(mListener);
         setOnLongClickListener(mListener);
-    }
-
-    private void init(Calculator calc) {
-        Resources res = getResources();
-
-        CLICK_FEEDBACK_COLOR = res.getColor(R.color.magic_flame);
-        mFeedbackPaint = new Paint();
-        mFeedbackPaint.setStyle(Style.STROKE);
-        mFeedbackPaint.setStrokeWidth(2);
-        getPaint().setColor(res.getColor(R.color.button_text));
-
-        mAnimStart = -1;
     }
 
     @Override
@@ -82,59 +64,5 @@ class ColorButton extends Button {
     @Override
     protected void onTextChanged(CharSequence text, int start, int before, int after) {
         layoutText();
-    }
-
-    private void drawMagicFlame(int duration, Canvas canvas) {
-        int alpha = 255 - 255 * duration / CLICK_FEEDBACK_DURATION;
-        int color = CLICK_FEEDBACK_COLOR | (alpha << 24);
-
-        mFeedbackPaint.setColor(color);
-        canvas.drawRect(1, 1, getWidth() - 1, getHeight() - 1, mFeedbackPaint);
-    }
-
-    @Override
-    public void onDraw(Canvas canvas) {
-        if (mAnimStart != -1) {
-            int animDuration = (int) (System.currentTimeMillis() - mAnimStart);
-
-            if (animDuration >= CLICK_FEEDBACK_DURATION) {
-                mAnimStart = -1;
-            } else {
-                drawMagicFlame(animDuration, canvas);
-                postInvalidateDelayed(CLICK_FEEDBACK_INTERVAL);
-            }
-        } else if (isPressed()) {
-            drawMagicFlame(0, canvas);
-        }
-
-        CharSequence text = getText();
-        canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
-    }
-
-    public void animateClickFeedback() {
-        mAnimStart = System.currentTimeMillis();
-        invalidate();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        boolean result = super.onTouchEvent(event);
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                if (isPressed()) {
-                    animateClickFeedback();
-                } else {
-                    invalidate();
-                }
-                break;
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_CANCEL:
-                mAnimStart = -1;
-                invalidate();
-                break;
-        }
-
-        return result;
     }
 }

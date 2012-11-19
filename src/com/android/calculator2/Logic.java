@@ -300,7 +300,6 @@ class Logic {
         mHistory.update(text);
     }
 
-    public static final int ROUND_DIGITS = 1;
     String evaluate(String input) throws SyntaxException {
         if (input.trim().isEmpty()) {
             return "";
