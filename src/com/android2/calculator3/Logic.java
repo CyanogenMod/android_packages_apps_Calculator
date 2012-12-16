@@ -944,6 +944,9 @@ class Logic {
     private final static int PRECISION = 8;
     private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException{
         String[] split = originalNumber.split("\\.");
+        if(split[0].isEmpty()) {
+        	split[0] = "0";
+        }
         if(originalBase != 10) {
             split[0] = Long.toString(Long.parseLong(split[0], originalBase));
         }
