@@ -415,8 +415,8 @@ class Logic {
     }
 
     private boolean pointIsNaN(double lastV, double v, double max, double min) {
-        return v == Double.NaN || 
-               lastV > max && v < min || 
+        return v == Double.NaN ||
+               lastV > max && v < min ||
                v > max && lastV < min;
     }
 
