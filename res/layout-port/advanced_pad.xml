@@ -69,8 +69,8 @@
             style="@style/button_small_style"
             />
         <com.android.calculator2.ColorButton
-            android:id="@+id/factorial"
-            android:text="@string/factorial"
+            android:id="@+id/power"
+            android:text="@string/power"
             style="@style/button_style"
             />
         <com.android.calculator2.ColorButton
@@ -96,14 +96,14 @@
             style="@style/button_style"
             />
         <com.android.calculator2.ColorButton
-            android:id="@+id/power"
-            android:text="@string/power"
+            android:id="@+id/factorial"
+            android:text="@string/factorial"
             style="@style/button_style"
             />
         <com.android.calculator2.ColorButton
-            android:id="@+id/X"
-            android:text="@string/X"
-            style="@style/digit_button_style"
+            android:id="@+id/sqrt"
+            android:text="@string/sqrt"
+            style="@style/button_style"
             />
     </LinearLayout>
 
@@ -123,9 +123,9 @@
             style="@style/button_style"
             />
         <com.android.calculator2.ColorButton
-            android:id="@+id/sqrt"
-            android:text="@string/sqrt"
-            style="@style/button_style"
+            android:id="@+id/X"
+            android:text="@string/X"
+            style="@style/digit_button_style"
             />
         <com.android.calculator2.ColorButton
             android:id="@+id/Y"

@@ -16,6 +16,9 @@
 
 package com.android.calculator2;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.android.calculator2.Calculator.Panel;
 import com.android.calculator2.Logic.Mode;
 
@@ -45,6 +48,8 @@ class EventListener implements View.OnKeyListener,
     private String mDY;
     private String solveForX;
     private String solveForY;
+    private List<String> bannedInDecimal;
+    private List<String> bannedInBinary;
 
     void setHandler(Context context, Logic handler, ViewPager pager) {
         mContext = context;
@@ -60,6 +65,23 @@ class EventListener implements View.OnKeyListener,
         mDY = mContext.getResources().getString(R.string.dy);
         solveForX = mContext.getResources().getString(R.string.solveForX);
         solveForY = mContext.getResources().getString(R.string.solveForY);
+
+        String digit2 = context.getResources().getString(R.string.digit2);
+        String digit3 = context.getResources().getString(R.string.digit3);
+        String digit4 = context.getResources().getString(R.string.digit4);
+        String digit5 = context.getResources().getString(R.string.digit5);
+        String digit6 = context.getResources().getString(R.string.digit6);
+        String digit7 = context.getResources().getString(R.string.digit7);
+        String digit8 = context.getResources().getString(R.string.digit8);
+        String digit9 = context.getResources().getString(R.string.digit9);
+        String A = context.getResources().getString(R.string.A);
+        String B = context.getResources().getString(R.string.B);
+        String C = context.getResources().getString(R.string.C);
+        String D = context.getResources().getString(R.string.D);
+        String E = context.getResources().getString(R.string.E);
+        String F = context.getResources().getString(R.string.F);
+        bannedInDecimal = Arrays.asList(A,B,C,D,E,F);
+        bannedInBinary = Arrays.asList(A,B,C,D,E,F,digit2,digit3,digit4,digit5,digit6,digit7,digit8,digit9);
     }
 
     @Override
@@ -166,7 +188,12 @@ class EventListener implements View.OnKeyListener,
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
                 String[] equation = mHandler.getText().split("=");
-                mHandler.setText(equation[0] + "=(" + equation[1] + ")");
+                if(equation.length>1) {
+                    mHandler.setText(equation[0] + "=(" + equation[1] + ")");
+                }
+                else{
+                    mHandler.setText(equation[0] + "=()");
+                }
             }
             else{
                 mHandler.setText("(" + mHandler.getText() + ")");
@@ -198,6 +225,9 @@ class EventListener implements View.OnKeyListener,
             if (view instanceof Button) {
                 if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
                 String text = ((Button) view).getText().toString();
+                if (!acceptableKey(text)) {
+                    break;
+                }
                 if (text.equals(mDX) || text.equals(mDY)) {
                     // Do nothing
                 }
@@ -288,6 +318,23 @@ class EventListener implements View.OnKeyListener,
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 mHandler.onDown();
                 break;
+            }
+        }
+        return true;
+    }
+
+    private boolean acceptableKey(String text) {
+        if (text.length() == 1) {
+            // Disable ABCDEF in DEC/BIN and 23456789 in BIN
+            if (mHandler.getMode().equals(Mode.DECIMAL)) {
+                for (String s : bannedInDecimal) {
+                    if(s.equals(text)) return false;
+                }
+            }
+            if (mHandler.getMode().equals(Mode.BINARY)) {
+                for (String s : bannedInBinary) {
+                    if(s.equals(text)) return false;
+                }
             }
         }
         return true;

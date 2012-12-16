@@ -16,9 +16,7 @@
 
 package com.android.calculator2;
 
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnFocusChangeListener;
@@ -27,7 +25,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
@@ -376,8 +373,6 @@ class Logic {
                 exponent = exponent.substring(1);
             }
             exponent = String.valueOf(Integer.parseInt(exponent));
-        } else {
-            mantissa = result;
         }
 
         int period = mantissa.indexOf('.');
@@ -417,6 +412,12 @@ class Logic {
                 maxY != graph.getRenderer().getYAxisMax() ||
                 minX != graph.getRenderer().getXAxisMin() ||
                 maxX != graph.getRenderer().getXAxisMax();
+    }
+
+    private boolean pointIsNaN(double lastV, double v, double max, double min) {
+        return v == Double.NaN || 
+               lastV > max && v < min || 
+               v > max && lastV < min;
     }
 
     void updateGraph(final Graph g) {
@@ -473,6 +474,8 @@ class Logic {
                 final String title = mTitleString + eq;
                 final XYSeries series = new XYSeries(title);
                 final GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
+                double lastX = (maxX-minX)/2+minX;
+                double lastY = (maxY-minY)/2+minY;
 
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
                     for(double x=minX;x<=maxX;x+=(0.00125*(maxX-minX))) {
@@ -482,14 +485,13 @@ class Logic {
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[1]);
 
-                            if(y>(maxY+((maxY-minY)*4)) || y<(minY-((maxY-minY)*4)) || y==Double.NaN) {
-                                //If we're not exactly on the mark with a break in the graph, we get lines where we shouldn't like with y=1/x
-                                //Better to be safe and just treat anything a lot larger than the min/max height to be a break then pray we're perfect and get NaN
+                            if(pointIsNaN(lastY, y, maxY, minY)) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
                                 series.add(x, y);
                             }
+                            lastY = y;
                         } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
@@ -503,12 +505,13 @@ class Logic {
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[1]);
 
-                            if(x>(maxX+((maxX-minX)*4)) || x<(minX-((maxX-minX)*4)) || x==Double.NaN) {
+                            if(pointIsNaN(lastX, x, maxX, minX)) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
                                 series.add(x, y);
                             }
+                            lastX = x;
                         } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
@@ -522,12 +525,13 @@ class Logic {
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[0]);
 
-                            if(y>(maxY+((maxY-minY)*4)) || y<(minY-((maxY-minY)*4)) || y==Double.NaN) {
+                            if(pointIsNaN(lastY, y, maxY, minY)) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
                             else{
                                 series.add(x, y);
                             }
+                            lastY = y;
                         } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
@@ -541,12 +545,13 @@ class Logic {
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[0]);
 
-                            if(x>(maxX+((maxX-minX)*4)) || x<(minX-((maxX-minX)*4)) || x==Double.NaN) {
+                            if(pointIsNaN(lastX, x, maxX, minX)) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
                             else{
                                 series.add(x, y);
                             }
+                            lastX = x;
                         } catch(SyntaxException e) {
                             e.printStackTrace();
                         }
@@ -696,7 +701,7 @@ class Logic {
                     LinearLayout layout = (LinearLayout) theMatrix.getChildAt(j);
                     for(int k=0; k<layout.getChildCount(); k++) {
                         EditText view = (EditText) layout.getChildAt(k);
-                        matrixData[j][k] = Integer.valueOf(view.getText().toString());
+                        matrixData[j][k] = Double.valueOf(view.getText().toString());
                     }
                 }
 
@@ -767,11 +772,6 @@ class Logic {
         matrices.removeViews(0, matrices.getChildCount()-1);
 
         double[][] data = matrix.getData();
-        LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        mActivity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        final float logicalDensity = metrics.density;
 
         final LinearLayout theMatrix = new LinearLayout(mActivity);
         theMatrix.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -788,10 +788,8 @@ class Logic {
             layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             layout.setOrientation(LinearLayout.HORIZONTAL);
             for(int j=0; j<data[i].length; j++) {
-                EditText view = (EditText) inflater.inflate(R.layout.single_matrix_input_box, null);
-                view.setWidth((int) (75*logicalDensity+0.5));
-                view.setHeight((int) (100*logicalDensity+0.5));
-                view.setText(Double.valueOf(data[i][j]).intValue()+"");
+                EditText view = (EditText) ((LinearLayout) View.inflate(mActivity, R.layout.single_matrix_input_box, layout)).getChildAt(j);
+                view.setText(tryFormattingWithPrecision(data[i][j], mLineLength));
                 view.setOnFocusChangeListener(new OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -802,8 +800,6 @@ class Logic {
                         }
                     }
                 });
-                
-                layout.addView(view);
             }
             theMatrix.addView(layout);
         }
@@ -945,26 +941,17 @@ class Logic {
         return formatted.toArray();
     }
 
-    private String toDecimal(String number, int base) {
-        String[] split = number.split("\\.");
-
-        String wholeNumber = "";
-        String decimalNumber = "";
-        wholeNumber = Long.toString(Long.parseLong(split[0], base));
-        if(split.length==1) return wholeNumber;
-        decimalNumber = Long.toString(Long.parseLong(split[1], base)) + "/" + base + "^" + split[1].length();
-        return "(" + wholeNumber + "+(" + decimalNumber + "))";
-    }
-
     private final static int PRECISION = 8;
     private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException{
-        if(originalBase != 10) {
-            originalNumber = Double.toString(mSymbols.eval(toDecimal(originalNumber, originalBase)));
-        }
         String[] split = originalNumber.split("\\.");
+        if(split[0].isEmpty()) {
+            split[0] = "0";
+        }
+        if(originalBase != 10) {
+            split[0] = Long.toString(Long.parseLong(split[0], originalBase));
+        }
 
         String wholeNumber = "";
-        String decimalNumber = "";
         switch(base) {
         case 2:
             wholeNumber = Long.toBinaryString(Long.parseLong(split[0]));
@@ -976,26 +963,24 @@ class Logic {
             wholeNumber = Long.toHexString(Long.parseLong(split[0]));
             break;
         }
-        if(split.length==1 || Long.valueOf(split[1])==0) return wholeNumber.toUpperCase();
+        if(split.length==1) return wholeNumber.toUpperCase(Locale.US);
 
-        double decimal = Double.parseDouble("0." + split[1]);
+        double decimal = 0;
+        if(originalBase != 10) {
+            String decimalFraction = Long.toString(Long.parseLong(split[1], originalBase)) + "/" + originalBase + "^" + split[1].length();
+            decimal = mSymbols.eval(decimalFraction);
+        } else {
+            decimal = Double.parseDouble("0." + split[1]);
+        }
+        if(decimal==0) return wholeNumber.toUpperCase(Locale.US);
+
+        String decimalNumber = "";
         for(int i=0,id=0;decimal!=0 && i<=PRECISION;i++) {
             decimal *= base;
             id = (int) Math.floor(decimal);
             decimal -= id;
             decimalNumber += Integer.toHexString(id);
         }
-        return (wholeNumber + "." + decimalNumber).toUpperCase();
+        return (wholeNumber + "." + decimalNumber).toUpperCase(Locale.US);
     }
-
-//    private String addComas(String text) {
-//        NumberFormat formatter = new DecimalFormat("##,###");
-//        String[] pieces = text.split(".");
-//        
-//        String result = formatter.format(pieces[0]);
-//        for(int i=1;i<pieces.length;i++) {
-//            result += "." + pieces[i];
-//        }
-//        return result;
-//    }
 }
