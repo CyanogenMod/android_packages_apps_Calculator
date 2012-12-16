@@ -38,25 +38,40 @@
     <string name="lg" msgid="873623857385418182">"log"</string>
     <string name="basic" msgid="7691469861698059753">"基本面板"</string>
     <string name="advanced" msgid="7122495413742976492">"高级面板"</string>
+    <!-- Menu item text to take user to the screen with matrices. -->
+    <string name="matrix">矩阵面板</string>
+    <!-- Menu item text to take user to the screen with the graph. -->
+    <string name="graph">图表面板</string>
+    <!-- Menu item text to take user to the screen with the function operators. -->
+    <string name="function">函数面板</string>
+    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
+    <string name="hexPanel">十六进制面板</string>
     <string name="clear_history" msgid="8458043980601165012">"清除历史记录"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"文本已复制。"</string>
-  <string-array name="operatorDescs">
-    <item msgid="7903565108986789641">"左括号"</item>
-    <item msgid="1688156211934459752">"右括号"</item>
-    <item msgid="6664829080840305856">"阶乘"</item>
-    <item msgid="2880199289575144121">"自然对数"</item>
-    <item msgid="4398774906998694599">"对数"</item>
-    <item msgid="1791869359785943266">"平方根"</item>
-    <item msgid="6833720171974254459">"除以"</item>
-    <item msgid="2646574635189709515">"乘"</item>
-    <item msgid="3487936384379753697">"加"</item>
-    <item msgid="8608534484562258856">"减"</item>
-    <item msgid="3456824579675198186">"点"</item>
-    <item msgid="4528629783180278651">"幂"</item>
-    <item msgid="4050948027333760159">"正切"</item>
-    <item msgid="8716478860618683850">"正弦"</item>
-    <item msgid="3203211483560707480">"余弦"</item>
-    <item msgid="8587490959348493065">"圆周率"</item>
-    <item msgid="8134315487552198394">"等于"</item>
-  </string-array>
+
+    <!-- History menu item for copying item -->
+    <string name="copy">复制 \"%s\"</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">从历史记录移除</string>
+
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">求解 X</string>
+    <string name="solveForY">求解 Y</string>
+    <string name="mod">取余数</string>
+
+    <string name="defaultGraphTitle">函数</string>
+    <string name="graphTitle">函数: </string>
+
+    <string name="hexDesc">十六进制</string>
+    <string name="binDesc">二进制</string>
+    <string name="decDesc">十进制</string>
+    <string name="determinantDesc">行列式</string>
+    <string name="eigenvalueDesc">特征向量</string>
+    
+    <string name="settings">设置</string>
+    <string name="showHistory">显示历史记录</string>
+    <string name="hideHistory">隐藏历史记录</string>
+
+    <string name="returnToBasic">返回到基本面板</string>
 </resources>

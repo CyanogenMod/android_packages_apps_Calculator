@@ -36,18 +36,20 @@
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
+
+    <!-- Settings menu -->
+    <string name="graph">Diagramm</string>
+    <string name="hexPanel">Dez/Bin/Hex</string>
     <string name="basic" msgid="7691469861698059753">"Grundfunktionen"</string>
     <string name="advanced" msgid="7122495413742976492">"Erweiterte Funktionen"</string>
-    <!-- Menu item text to take user to the screen with matrices. -->
     <string name="matrix">Matrix-Berechnung</string>
-    <!-- Menu item text to take user to the screen with the graph. -->
-    <string name="graph">Diagramm</string>
+    <string name="returnToBasic">Nach Eingabe zu\nGrundfunktionen zurückkehren</string>
+
     <!-- Menu item text to take user to the screen with the function operators. -->
     <string name="function">Funktion</string>
-    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
-    <string name="hexPanel">Dez/Bin/Hex</string>
     <string name="clear_history" msgid="8458043980601165012">"Verlauf löschen"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Text kopiert"</string>
+
   <string-array name="operatorDescs">
     <item msgid="7903565108986789641">"Klammer auf"</item>
     <item msgid="1688156211934459752">"Klammer zu"</item>
