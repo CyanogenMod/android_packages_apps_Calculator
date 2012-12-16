@@ -70,6 +70,8 @@ class Logic {
     private Graph mGraph;
     private Activity mActivity;
 
+    private boolean useDegrees;
+
     private final String mErrorString;
     private final String mSinString;
     private final String mCosString;
@@ -113,7 +115,7 @@ class Logic {
 
     private Listener mListener;
 
-    Logic(Activity activity, History history, CalculatorDisplay display) {
+    Logic(Activity activity, History history, CalculatorDisplay display, boolean degrees) {
         mActivity = activity;
 
         final Resources r = activity.getResources();
@@ -140,6 +142,7 @@ class Logic {
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
+        useDegrees = degrees;
     }
 
     public void setGraph(Graph graph) {
@@ -343,9 +346,16 @@ class Logic {
 
     private String localize(String input) {
         // Delocalize functions (e.g. Spanish localizes "sin" as "sen")
-        input = input.replaceAll(mSinString, "sin");
-        input = input.replaceAll(mCosString, "cos");
-        input = input.replaceAll(mTanString, "tan");
+        if(useDegrees) {
+            input = input.replaceAll(mSinString, "sind");
+            input = input.replaceAll(mCosString, "cosd");
+            input = input.replaceAll(mTanString, "tand");
+        }
+        else {
+            input = input.replaceAll(mSinString, "sin");
+            input = input.replaceAll(mCosString, "cos");
+            input = input.replaceAll(mTanString, "tan");
+        }
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
         input = input.replaceAll(mModString, "mod");

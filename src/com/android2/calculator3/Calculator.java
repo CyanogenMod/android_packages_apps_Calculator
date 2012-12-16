@@ -155,7 +155,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mPulldown.setBackgroundResource(R.color.background);
         mHistoryView = (LinearLayout) mPulldown.findViewById(R.id.history);
 
-        mLogic = new Logic(this, mHistory, mDisplay);
+        mLogic = new Logic(this, mHistory, mDisplay, !CalculatorSettings.useRadians(getContext()));
         mLogic.setListener(this);
         if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
 
@@ -889,6 +889,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         static boolean matrixPanel(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.MATRIX.toString(), context.getResources().getBoolean(R.bool.MATRIX));
+        }
+
+        static boolean useRadians(Context context) {
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("USE_RADIANS", context.getResources().getBoolean(R.bool.TRIG_UNITS));
         }
     }
 }
