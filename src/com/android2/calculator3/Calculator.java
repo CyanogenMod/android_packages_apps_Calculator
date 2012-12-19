@@ -486,7 +486,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 mHistoryView.addView(entry);
             }
         }
-        mHistoryViewParent.fullScroll(View.FOCUS_DOWN);
+        mHistoryViewParent.post(new Runnable() {
+            @Override
+            public void run() {
+                mHistoryViewParent.fullScroll(View.FOCUS_DOWN);
+            }
+        });
     }
 
     @Override
