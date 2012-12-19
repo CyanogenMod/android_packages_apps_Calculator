@@ -45,6 +45,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
@@ -54,6 +55,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private Persist mPersist;
     private History mHistory;
     private LinearLayout mHistoryView;
+    private ScrollView mHistoryViewParent;
     private Logic mLogic;
     private ViewPager mPager;
     private ViewPager mSmallPager;
@@ -154,8 +156,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         });
         mPulldown.setBackgroundResource(R.color.background);
         mHistoryView = (LinearLayout) mPulldown.findViewById(R.id.history);
+        mHistoryViewParent = (ScrollView) mHistoryView.getParent();
+        setUpHistory();
 
-        mLogic = new Logic(this, mHistory, mDisplay);
+        mLogic = new Logic(this, mHistory, mDisplay, !CalculatorSettings.useRadians(getContext()));
         mLogic.setListener(this);
         if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
 
@@ -216,6 +220,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
+        MenuItem mClearHistory = menu.findItem(R.id.clear_history);
+        mClearHistory.setVisible(mPulldown.isSliderOpen());
+
         MenuItem mShowHistory = menu.findItem(R.id.show_history);
         mShowHistory.setVisible(!mPulldown.isSliderOpen());
 
@@ -223,22 +230,22 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mHideHistory.setVisible(mPulldown.isSliderOpen());
 
         MenuItem mMatrixPanel = menu.findItem(R.id.matrix);
-        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && CalculatorSettings.matrixPanel(getContext()));
+        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && CalculatorSettings.matrixPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mGraphPanel = menu.findItem(R.id.graph);
-        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()));
+        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mFunctionPanel = menu.findItem(R.id.function);
-        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()));
+        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mBasicPanel = menu.findItem(R.id.basic);
-        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()));
+        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
-        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()));
+        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mHexPanel = menu.findItem(R.id.hex);
-        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()));
+        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()) && !mPulldown.isSliderOpen());
 
         return true;
     }
@@ -467,15 +474,14 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     private void setUpHistory() {
         mHistoryView.removeAllViews();
-        final LayoutInflater inflater = LayoutInflater.from(this);
         for(HistoryEntry he : mHistory.mEntries) {
             if(!he.getBase().isEmpty()) {
-                HistoryLine entry = (HistoryLine) inflater.inflate(R.layout.history_entry, null);
+                HistoryLine entry = (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
                 entry.setHistoryEntry(he);
                 entry.setHistory(mHistory);
                 TextView base = (TextView) entry.findViewById(R.id.base);
                 base.setOnLongClickListener(this);
-                base.setMaxWidth(mPulldown.getWidth()/2);
+                base.setMaxWidth(2*mPulldown.getWidth()/5);
                 base.setText(he.getBase());
                 TextView edited = (TextView) entry.findViewById(R.id.edited);
                 edited.setOnLongClickListener(this);
@@ -484,6 +490,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 mHistoryView.addView(entry);
             }
         }
+        mHistoryViewParent.post(new Runnable() {
+            @Override
+            public void run() {
+                mHistoryViewParent.fullScroll(View.FOCUS_DOWN);
+            }
+        });
     }
 
     @Override
@@ -889,6 +901,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         static boolean matrixPanel(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.MATRIX.toString(), context.getResources().getBoolean(R.bool.MATRIX));
+        }
+
+        static boolean useRadians(Context context) {
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("USE_RADIANS", context.getResources().getBoolean(R.bool.TRIG_UNITS));
         }
     }
 }

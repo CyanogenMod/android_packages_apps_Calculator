@@ -154,4 +154,12 @@
     <string name="showHistory">Show History</string>
     <string name="hideHistory">Hide History</string>
 
-    <string name="returnToBasic">Return to the basic panel</string></resources>
+    <string name="pref_panels">Panels</string>
+    <string name="pref_actions">Actions</string>
+    <string name="pref_units">Units</string>
+
+    <string name="returnToBasic">Return to the basic panel</string>
+
+    <string name="trigUnits">Trig Units</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string></resources>
