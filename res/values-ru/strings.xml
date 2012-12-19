@@ -125,4 +125,12 @@
     <string name="showHistory">Показать историю</string>
     <string name="hideHistory">Спрятать историю</string>
 
-    <string name="returnToBasic">Возвращаться на основную панель</string></resources>
+    <string name="pref_panels">Панели</string>
+    <string name="pref_actions">Действия</string>
+    <string name="pref_units">Единицы</string>
+
+    <string name="returnToBasic">Возвращаться на основную панель</string>
+
+    <string name="trigUnits">Тригонометрич. единицы</string>
+    <string name="radians">РАД</string>
+    <string name="degrees">ГРАД</string></resources>
