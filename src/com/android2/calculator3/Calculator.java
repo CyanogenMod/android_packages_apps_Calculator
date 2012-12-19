@@ -45,6 +45,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
@@ -54,6 +55,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private Persist mPersist;
     private History mHistory;
     private LinearLayout mHistoryView;
+    private ScrollView mHistoryViewParent;
     private Logic mLogic;
     private ViewPager mPager;
     private ViewPager mSmallPager;
@@ -154,6 +156,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         });
         mPulldown.setBackgroundResource(R.color.background);
         mHistoryView = (LinearLayout) mPulldown.findViewById(R.id.history);
+        mHistoryViewParent = (ScrollView) mHistoryView.getParent();
 
         mLogic = new Logic(this, mHistory, mDisplay, !CalculatorSettings.useRadians(getContext()));
         mLogic.setListener(this);
@@ -467,15 +470,14 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     private void setUpHistory() {
         mHistoryView.removeAllViews();
-        final LayoutInflater inflater = LayoutInflater.from(this);
         for(HistoryEntry he : mHistory.mEntries) {
             if(!he.getBase().isEmpty()) {
-                HistoryLine entry = (HistoryLine) inflater.inflate(R.layout.history_entry, null);
+                HistoryLine entry = (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
                 entry.setHistoryEntry(he);
                 entry.setHistory(mHistory);
                 TextView base = (TextView) entry.findViewById(R.id.base);
                 base.setOnLongClickListener(this);
-                base.setMaxWidth(mPulldown.getWidth()/2);
+                base.setMaxWidth(2*mPulldown.getWidth()/5);
                 base.setText(he.getBase());
                 TextView edited = (TextView) entry.findViewById(R.id.edited);
                 edited.setOnLongClickListener(this);
@@ -484,6 +486,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 mHistoryView.addView(entry);
             }
         }
+        mHistoryViewParent.fullScroll(View.FOCUS_DOWN);
     }
 
     @Override
