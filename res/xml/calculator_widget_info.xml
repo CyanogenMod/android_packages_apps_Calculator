@@ -1,0 +1,8 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="200dp"
+    android:minHeight="400dp"
+    android:initialLayout="@layout/widget"
+    android:initialKeyguardLayout="@layout/widget"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="keyguard|home_screen"
+    android:resizeMode="vertical" />

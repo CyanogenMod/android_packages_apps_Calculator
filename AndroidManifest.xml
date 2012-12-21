@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android2.calculator3"
-    android:versionCode="29"
-    android:versionName="2.3"
+    android:versionCode="30"
+    android:versionName="2.4"
     android:installLocation="auto">
 
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17"/>
@@ -19,6 +19,12 @@
                 <category android:name="android.intent.category.APP_CALCULATOR" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/settings" android:name=".Preferences" />
+        <activity android:name=".Preferences" android:label="@string/settings" />
+        <receiver android:name=".CalculatorWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/calculator_widget_info" />
+        </receiver>
     </application>
 </manifest> 

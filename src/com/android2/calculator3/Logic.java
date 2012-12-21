@@ -364,12 +364,17 @@ class Logic {
     }
 
     private String tryFormattingWithPrecision(double value, int precision) {
+    	String result = Logic.tryFormattingWithPrecision(value, precision, mLineLength, mErrorString);
+    	if(result.equals(mErrorString)) mIsError = true;
+    	return result;
+    }
+
+    static String tryFormattingWithPrecision(double value, int precision, int lineLength, String errorString) {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
-        String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
+        String result = String.format(Locale.US, "%" + lineLength + "." + precision + "g", value);
         if (result.equals(NAN)) { // treat NaN as Error
-            mIsError = true;
-            return mErrorString;
+            return errorString;
         }
         String mantissa = result;
         String exponent = null;
