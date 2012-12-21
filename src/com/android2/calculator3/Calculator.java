@@ -220,6 +220,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
+        MenuItem mClearHistory = menu.findItem(R.id.clear_history);
+        mClearHistory.setVisible(mPulldown.isSliderOpen());
+
         MenuItem mShowHistory = menu.findItem(R.id.show_history);
         mShowHistory.setVisible(!mPulldown.isSliderOpen());
 
@@ -227,22 +230,22 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mHideHistory.setVisible(mPulldown.isSliderOpen());
 
         MenuItem mMatrixPanel = menu.findItem(R.id.matrix);
-        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && CalculatorSettings.matrixPanel(getContext()));
+        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && CalculatorSettings.matrixPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mGraphPanel = menu.findItem(R.id.graph);
-        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()));
+        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mFunctionPanel = menu.findItem(R.id.function);
-        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()));
+        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mBasicPanel = menu.findItem(R.id.basic);
-        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()));
+        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
-        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()));
+        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mHexPanel = menu.findItem(R.id.hex);
-        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()));
+        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()) && !mPulldown.isSliderOpen());
 
         return true;
     }
