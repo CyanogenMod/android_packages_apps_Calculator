@@ -157,6 +157,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mPulldown.setBackgroundResource(R.color.background);
         mHistoryView = (LinearLayout) mPulldown.findViewById(R.id.history);
         mHistoryViewParent = (ScrollView) mHistoryView.getParent();
+        setUpHistory();
 
         mLogic = new Logic(this, mHistory, mDisplay, !CalculatorSettings.useRadians(getContext()));
         mLogic.setListener(this);
