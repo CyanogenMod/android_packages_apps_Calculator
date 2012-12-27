@@ -25,13 +25,6 @@ import android.widget.Button;
  * Button with click-animation effect.
  */
 class ColorButton extends Button {
-    int CLICK_FEEDBACK_COLOR;
-    static final int CLICK_FEEDBACK_INTERVAL = 10;
-    static final int CLICK_FEEDBACK_DURATION = 350;
-
-    float mTextX;
-    float mTextY;
-    long mAnimStart;
     EventListener mListener;
 
     public ColorButton(Context context, AttributeSet attrs) {
@@ -40,29 +33,31 @@ class ColorButton extends Button {
         mListener = calc.mListener;
         setOnClickListener(mListener);
         setOnLongClickListener(mListener);
+        setSingleLine();
     }
 
     @Override
-    public void onSizeChanged(int w, int h, int oldW, int oldH) {
-        layoutText();
+    public boolean canScrollHorizontally(int direction) {
+        return false;
     }
 
-    private void layoutText() {
-        Paint paint = getPaint();
-        float textWidth = paint.measureText(getText().toString());
-        float width = getWidth() - getPaddingLeft() - getPaddingRight();
-        float textSize = getTextSize();
-        if (textWidth > width) {
-            paint.setTextSize(textSize * width / textWidth);
-            mTextX = getPaddingLeft();
-        } else {
-            mTextX = (getWidth() - textWidth) / 2;
-        }
-        mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
+    @Override
+    protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+        adjustTextSize();
     }
 
     @Override
     protected void onTextChanged(CharSequence text, int start, int before, int after) {
-        layoutText();
+        adjustTextSize();
     }
+
+    private void adjustTextSize() {
+        Paint paint = getPaint();
+        float textWidth = paint.measureText(getText().toString());
+        float width = getWidth() - getPaddingLeft() - getPaddingRight();
+        if (textWidth > width) {
+            paint.setTextSize(getTextSize() * width / textWidth);
+        }
+    }
+
 }
