@@ -59,4 +59,17 @@
     <item msgid="8587490959348493065">"pi"</item>
     <item msgid="8134315487552198394">"este egal cu"</item>
   </string-array>
+
+    <string name="matrix">"Panou matrice"</string>
+    <string name="graph">"Panou grafic"</string>
+    <string name="function">"Panou funcție"</string>
+    <string name="hexPanel">"Panou hex"</string>
+    <string name="copy">"Copiați \"%s\""</string>
+    <string name="remove_from_history">"Ștergeți din istoric"</string>
+
+    <string name="settings">"Setări"</string>
+    <string name="showHistory">"Arătați istoricul"</string>
+    <string name="hideHistory">"Ascundeți istoricul"</string>
+
+    <string name="returnToBasic">"Întoarcere la panoul de bază"</string>
 </resources>
