@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="8"
+        android:minHeight="100dp"
         android:orientation="horizontal" >
         <TextView
 	        android:id="@+id/display"

@@ -4,5 +4,5 @@
     android:initialLayout="@layout/widget"
     android:initialKeyguardLayout="@layout/widget"
     android:updatePeriodMillis="0"
-    android:widgetCategory="keyguard|home_screen"
+    android:widgetCategory="home_screen"
     android:resizeMode="vertical" />
