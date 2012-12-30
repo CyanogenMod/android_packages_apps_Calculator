@@ -67,7 +67,7 @@
     <string name="plus" translatable="false">+</string>
     <!-- Do not translate. Unicode minus sign; don't translate. Displayed as button on screen. -->
     <string name="minus" translatable="false">\u2212</string>
-    <!-- Do not translate. Decimal point; don't translate. Displayed as button on screen. -->
+    <!-- Decimal seperator; displayed as button on screen. Decimal point is default. -->
     <string name="dot">.</string>
     <!-- Do not translate. Equal sign; don't translate. Displayed as button on screen. -->
     <string name="equal" translatable="false">=</string>
@@ -154,4 +154,5 @@
     <string name="showHistory">Show History</string>
     <string name="hideHistory">Hide History</string>
 
-    <string name="returnToBasic">Return to the basic panel</string></resources>
+    <string name="returnToBasic">Return to the basic panel</string>
+</resources>
