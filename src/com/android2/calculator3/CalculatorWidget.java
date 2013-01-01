@@ -30,9 +30,6 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-        if(intent.getAction() == null) return;
-
         if(equation.toString().equals(error)) equation.setLength(0);
 
         if(intent.getAction().equals("0")) {
@@ -101,6 +98,7 @@ public class CalculatorWidget extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
         remoteViews.setTextViewText(R.id.display, equation.toString());
         AppWidgetManager.getInstance(context).updateAppWidget(calcWidget, remoteViews);
+        super.onReceive(context, intent);
     }
 
     private void setOnClickListeners(Context context, RemoteViews remoteViews) {
