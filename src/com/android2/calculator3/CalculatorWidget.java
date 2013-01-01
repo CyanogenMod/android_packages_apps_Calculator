@@ -1,6 +1,5 @@
 package com.android2.calculator3;
 
-import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
 import android.app.PendingIntent;
@@ -12,23 +11,23 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 public class CalculatorWidget extends AppWidgetProvider {
-	public static final String DIGIT_0 = "0";
-	public static final String DIGIT_1 = "1";
-	public static final String DIGIT_2 = "2";
-	public static final String DIGIT_3 = "3";
-	public static final String DIGIT_4 = "4";
-	public static final String DIGIT_5 = "5";
-	public static final String DIGIT_6 = "6";
-	public static final String DIGIT_7 = "7";
-	public static final String DIGIT_8 = "8";
-	public static final String DIGIT_9 = "9";
-	public static final String DOT = "dot";
-	public static final String PLUS = "plus";
-	public static final String MINUS = "minus";
-	public static final String MUL = "mul";
-	public static final String DIV = "div";
-	public static final String EQUALS = "equals";
-	public static final String CLR = "clear";
+    public static final String DIGIT_0 = "0";
+    public static final String DIGIT_1 = "1";
+    public static final String DIGIT_2 = "2";
+    public static final String DIGIT_3 = "3";
+    public static final String DIGIT_4 = "4";
+    public static final String DIGIT_5 = "5";
+    public static final String DIGIT_6 = "6";
+    public static final String DIGIT_7 = "7";
+    public static final String DIGIT_8 = "8";
+    public static final String DIGIT_9 = "9";
+    public static final String DOT = "dot";
+    public static final String PLUS = "plus";
+    public static final String MINUS = "minus";
+    public static final String MUL = "mul";
+    public static final String DIV = "div";
+    public static final String EQUALS = "equals";
+    public static final String CLR = "clear";
 
     private static final StringBuilder equation = new StringBuilder();
 
@@ -95,14 +94,14 @@ public class CalculatorWidget extends AppWidgetProvider {
         }
         else if(intent.getAction().equals(EQUALS)) {
             final String input = equation.toString();
-            final Symbols mSymbols = new Symbols();
+            final Logic mLogic = new Logic(context);
+            mLogic.setLineLength(7);
 
             if(input.isEmpty()) return;
 
             equation.setLength(0);
             try {
-                String result = Logic.tryFormattingWithPrecision(mSymbols.eval(input), 8, 10, context.getResources().getString(R.string.error));
-                equation.append(result);
+                equation.append(mLogic.evaluate(input));
             } catch (SyntaxException e) {
                 equation.append(context.getResources().getString(R.string.error));
             }

@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ import org.javia.arity.Complex;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
+import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.CalculatorDisplay.Scroll;
 
 class Logic {
@@ -70,7 +72,7 @@ class Logic {
     private Graph mGraph;
     private Activity mActivity;
 
-    private boolean useDegrees;
+    private boolean useRadians;
 
     private final String mErrorString;
     private final String mSinString;
@@ -115,7 +117,31 @@ class Logic {
 
     private Listener mListener;
 
-    Logic(Activity activity, History history, CalculatorDisplay display, boolean degrees) {
+    Logic(Context context) {
+        final Resources r = context.getResources();
+        mErrorString = r.getString(R.string.error);
+        mSinString = r.getString(R.string.sin);
+        mCosString = r.getString(R.string.cos);
+        mTanString = r.getString(R.string.tan);
+        mLogString = r.getString(R.string.lg);
+        mLnString = r.getString(R.string.ln);
+        mModString = r.getString(R.string.mod);
+        mX = r.getString(R.string.X);
+        mY = r.getString(R.string.Y);
+        mTitleString = r.getString(R.string.graphTitle);
+        mPlusString = r.getString(R.string.plus);
+        mMinusString = r.getString(R.string.minus);
+        mDivString = r.getString(R.string.div);
+        mMulString = r.getString(R.string.mul);
+        mDotString = r.getString(R.string.dot);
+        mComaString = r.getString(R.string.coma);
+        mPowerString = r.getString(R.string.power);
+        mSqrtString = r.getString(R.string.sqrt);
+        mIntegralString = r.getString(R.string.integral);
+        useRadians = CalculatorSettings.useRadians(context);
+    }
+
+    Logic(Activity activity, History history, CalculatorDisplay display) {
         mActivity = activity;
 
         final Resources r = activity.getResources();
@@ -138,11 +164,11 @@ class Logic {
         mPowerString = r.getString(R.string.power);
         mSqrtString = r.getString(R.string.sqrt);
         mIntegralString = r.getString(R.string.integral);
+        useRadians = CalculatorSettings.useRadians(activity);
 
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
-        useDegrees = degrees;
     }
 
     public void setGraph(Graph graph) {
@@ -335,7 +361,8 @@ class Logic {
                 break;
             }
         }
-
+        System.out.println(real);
+        System.out.println(imaginary);
         String result = "";
         if(value.re != 0 && value.im != 0) result = real + "+" + imaginary + "i";
         else if(value.re != 0 && value.im == 0) result = real;
@@ -346,15 +373,15 @@ class Logic {
 
     private String localize(String input) {
         // Delocalize functions (e.g. Spanish localizes "sin" as "sen")
-        if(useDegrees) {
-            input = input.replaceAll(mSinString, "sind");
-            input = input.replaceAll(mCosString, "cosd");
-            input = input.replaceAll(mTanString, "tand");
-        }
-        else {
+        if(useRadians) {
             input = input.replaceAll(mSinString, "sin");
             input = input.replaceAll(mCosString, "cos");
             input = input.replaceAll(mTanString, "tan");
+        }
+        else {
+            input = input.replaceAll(mSinString, "sind");
+            input = input.replaceAll(mCosString, "cosd");
+            input = input.replaceAll(mTanString, "tand");
         }
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
@@ -362,18 +389,12 @@ class Logic {
         return input;
     }
 
-    private String tryFormattingWithPrecision(double value, int precision) {
-        String result = Logic.tryFormattingWithPrecision(value, precision, mLineLength, mErrorString);
-        if(result.equals(mErrorString)) mIsError = true;
-        return result;
-    }
-
-    static String tryFormattingWithPrecision(double value, int precision, int lineLength, String errorString) {
+    String tryFormattingWithPrecision(double value, int precision) {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
-        String result = String.format(Locale.US, "%" + lineLength + "." + precision + "g", value);
+        String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
         if (result.equals(NAN)) { // treat NaN as Error
-            return errorString;
+            return mErrorString;
         }
         String mantissa = result;
         String exponent = null;

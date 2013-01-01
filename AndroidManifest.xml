@@ -23,23 +23,6 @@
         <receiver android:name=".CalculatorWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name=".CalculatorWidget.DIGIT_0" />
-                <action android:name=".CalculatorWidget.DIGIT_1" />
-                <action android:name=".CalculatorWidget.DIGIT_2" />
-                <action android:name=".CalculatorWidget.DIGIT_3" />
-                <action android:name=".CalculatorWidget.DIGIT_4" />
-                <action android:name=".CalculatorWidget.DIGIT_5" />
-                <action android:name=".CalculatorWidget.DIGIT_6" />
-                <action android:name=".CalculatorWidget.DIGIT_7" />
-                <action android:name=".CalculatorWidget.DIGIT_8" />
-                <action android:name=".CalculatorWidget.DIGIT_9" />
-                <action android:name=".CalculatorWidget.DOT" />
-                <action android:name=".CalculatorWidget.DIV" />
-                <action android:name=".CalculatorWidget.MUL" />
-                <action android:name=".CalculatorWidget.MINUS" />
-                <action android:name=".CalculatorWidget.PLUS" />
-                <action android:name=".CalculatorWidget.EQUALS" />
-                <action android:name=".CalculatorWidget.CLR" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/calculator_widget_info" />
         </receiver>

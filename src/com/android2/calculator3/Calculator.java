@@ -159,7 +159,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mHistoryViewParent = (ScrollView) mHistoryView.getParent();
         setUpHistory();
 
-        mLogic = new Logic(this, mHistory, mDisplay, !CalculatorSettings.useRadians(getContext()));
+        mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
         if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
 
@@ -904,7 +904,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         static boolean useRadians(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("USE_RADIANS", context.getResources().getBoolean(R.bool.TRIG_UNITS));
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("USE_RADIANS", context.getResources().getBoolean(R.bool.USE_RADIANS));
         }
     }
 }

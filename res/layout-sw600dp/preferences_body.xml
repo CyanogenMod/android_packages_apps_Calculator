@@ -34,6 +34,6 @@
                 android:key="USE_RADIANS"
                 android:switchTextOn="@string/radians"
                 android:switchTextOff="@string/degrees"
-                android:defaultValue="@bool/TRIG_UNITS" />
+                android:defaultValue="@bool/USE_RADIANS" />
     </PreferenceCategory>
 </PreferenceScreen>
