@@ -17,16 +17,19 @@
             android:id="@+id/zoomIn"
             android:src="@drawable/graph_plus"
             android:contentDescription="@null"
+            android:padding="10dp"
             style="@style/button_style" />
         <ImageButton
             android:id="@+id/zoomOut"
             android:src="@drawable/graph_minus"
             android:contentDescription="@null"
+            android:padding="10dp"
             style="@style/button_style" />
         <ImageButton
             android:id="@+id/zoomReset"
             android:src="@drawable/graph_standard"
             android:contentDescription="@null"
+            android:padding="10dp"
             style="@style/button_style" />
     </LinearLayout>
 </LinearLayout>
