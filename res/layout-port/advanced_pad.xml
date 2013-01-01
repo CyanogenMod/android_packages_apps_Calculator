@@ -69,13 +69,13 @@
             style="@style/button_small_style"
             />
         <com.android2.calculator3.ColorButton
-            android:id="@+id/power"
-            android:text="@string/power"
+            android:id="@+id/pi"
+            android:text="@string/pi"
             style="@style/button_style"
             />
         <com.android2.calculator3.ColorButton
-            android:id="@+id/percentage"
-            android:text="@string/percentage"
+            android:id="@+id/e"
+            android:text="@string/e"
             style="@style/button_style"
             />
     </LinearLayout>
@@ -86,13 +86,8 @@
         android:layout_height="0dp"
         >
         <com.android2.calculator3.ColorButton
-            android:id="@+id/pi"
-            android:text="@string/pi"
-            style="@style/button_style"
-            />
-        <com.android2.calculator3.ColorButton
-            android:id="@+id/e"
-            android:text="@string/e"
+            android:id="@+id/parentheses"
+            android:text="@string/parentheses"
             style="@style/button_style"
             />
         <com.android2.calculator3.ColorButton
@@ -103,6 +98,11 @@
         <com.android2.calculator3.ColorButton
             android:id="@+id/sqrt"
             android:text="@string/sqrt"
+            style="@style/button_style"
+            />
+        <com.android2.calculator3.ColorButton
+            android:id="@+id/power"
+            android:text="@string/power"
             style="@style/button_style"
             />
     </LinearLayout>

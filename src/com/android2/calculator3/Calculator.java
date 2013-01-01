@@ -956,5 +956,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         static boolean useRadians(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("USE_RADIANS", context.getResources().getBoolean(R.bool.USE_RADIANS));
         }
+
+        static boolean returnToBasic(Context context) {
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC", context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
+        }
     }
 }

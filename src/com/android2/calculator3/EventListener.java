@@ -19,13 +19,12 @@ package com.android2.calculator3;
 import java.util.Arrays;
 import java.util.List;
 
+import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -39,7 +38,6 @@ class EventListener implements View.OnKeyListener,
     Context mContext;
     Logic mHandler;
     ViewPager mPager;
-    private SharedPreferences mPreferences;
 
     private String mErrorString;
     private String mModString;
@@ -56,7 +54,6 @@ class EventListener implements View.OnKeyListener,
         mContext = context;
         mHandler = handler;
         mPager = pager;
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         mErrorString = mContext.getResources().getString(R.string.error);
         mModString = mContext.getResources().getString(R.string.mod);
@@ -237,7 +234,7 @@ class EventListener implements View.OnKeyListener,
                     text += "(";
                 }
                 mHandler.insert(text);
-                if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && mPreferences.getBoolean("RETURN_TO_BASIC", mContext.getResources().getBoolean(R.bool.RETURN_TO_BASIC))) {
+                if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
                     mPager.setCurrentItem(Panel.BASIC.getOrder());
                 }
             }
@@ -246,9 +243,26 @@ class EventListener implements View.OnKeyListener,
 
     @Override
     public boolean onLongClick(View view) {
+    	String text = null;
         switch(view.getId()) {
         case R.id.del:
             mHandler.onClear();
+            return true;
+        case R.id.sin:
+        	text = mContext.getString(R.string.sec) + "(";
+        	break;
+        case R.id.cos:
+        	text = mContext.getString(R.string.csc) + "(";
+        	break;
+        case R.id.tan:
+        	text = mContext.getString(R.string.cot) + "(";
+        	break;
+        }
+        if(text != null) {
+        	mHandler.insert(text);
+            if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
+                mPager.setCurrentItem(Panel.BASIC.getOrder());
+            }
             return true;
         }
         if(view instanceof TextView && ((TextView) view).getHint() != null) {

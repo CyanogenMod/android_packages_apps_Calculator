@@ -69,6 +69,8 @@
     <string name="minus" translatable="false">\u2212</string>
     <!-- Do not translate. Decimal point; don't translate. Displayed as button on screen. -->
     <string name="dot" translatable="false">.</string>
+    <!-- Do not translate. Coma; don't translate. Displayed as button on screen. -->
+    <string name="coma" translatable="false">,</string>
     <!-- Do not translate. Equal sign; don't translate. Displayed as button on screen. -->
     <string name="equal" translatable="false">=</string>
     <!-- Do not translate. Down arrow; don't translate. Displayed as button on screen. -->
@@ -79,15 +81,39 @@
     <string name="cos">cos</string>
     <!-- Displayed on buttons on screen for the tan function. -->
     <string name="tan">tan</string>
+    <!-- Displayed on buttons on screen for the sec function. -->
+    <string name="sec">sec</string>
+    <!-- Displayed on buttons on screen for the csc function. -->
+    <string name="csc">csc</string>
+    <!-- Displayed on buttons on screen for the cot function. -->
+    <string name="cot">cot</string>
 
     <!-- Do not translate. Unicode pi sign; don't translate. Displayed as button on screen. -->
     <string name="pi" translatable="false">\u03c0</string>
-    <!-- Displayed on buttons on screen for the e function. -->
+    <!-- Displayed on buttons on screen for the value of e. -->
     <string name="e">e</string>
+    <!-- Displayed on buttons on screen for the value of i. -->
+    <string name="i" translatable="false">i</string>
+    <!-- Displayed on buttons on screen for the percent function. -->
+    <string name="percentage" translatable="false">%</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="integral" translatable="false">\u222B</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dx">dX</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dy">dY</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
+    <string name="solveForX">Solve for X</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
+    <string name="solveForY">Solve for Y</string>
+    <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
+    <string name="mod">mod</string>
     <!-- Displayed on buttons on screen for the ln function. -->
     <string name="ln">ln</string>
     <!-- Displayed on buttons on screen for the log function. -->
     <string name="lg">log</string>
+    <!-- Displayed on buttons on screen for parentheses. -->
+    <string name="parentheses" translatable="false">( )</string>
     <!-- Displayed on buttons on screen for a left parenthesis. -->
     <string name="leftParen" translatable="false">(</string>
     <!-- Displayed on buttons on screen for a right parenthesis. -->
@@ -118,48 +144,35 @@
     <string name="copy">Copy \"%s\"</string>
     <!-- History menu item for removing item from history -->
     <string name="remove_from_history">Remove from history</string>
+    <!-- History menu item for viewing history -->
+    <string name="showHistory">Show History</string>
+    <!-- History menu item for hiding history -->
+    <string name="hideHistory">Hide History</string>
+    <!-- History menu item for entering settings -->
+    <string name="settings">Settings</string>
 
-    <string name="i" translatable="false">i</string>
-    <string name="percentage" translatable="false">%</string>
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
-    <string name="solveForX">Solve for X</string>
-    <string name="solveForY">Solve for Y</string>
-    <string name="integral" translatable="false">\u222B</string>
-    <string name="parentheses" translatable="false">( )</string>
-    <string name="mod">mod</string>
-    <string name="coma" translatable="false">,</string>
-
-    <string name="defaultGraphTitle">Function</string>
-    <string name="graphTitle">Function: </string>
-
-    <string name="inverse">Inv</string>
+    <!-- Matrix page text -->
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Solve</string>
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigen Values</string>
 
+    <!-- Hex page text -->
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
-
     <string name="hexDesc">Hexadecimal</string>
     <string name="binDesc">Binary</string>
     <string name="decDesc">Decimal</string>
-    <string name="determinantDesc">Determinant</string>
-    <string name="eigenvalueDesc">Eigen Values</string>
-    
-    <string name="settings">Settings</string>
-    <string name="showHistory">Show History</string>
-    <string name="hideHistory">Hide History</string>
 
+    <!-- Settings page text -->
     <string name="pref_panels">Panels</string>
     <string name="pref_actions">Actions</string>
     <string name="pref_units">Units</string>
-
     <string name="returnToBasic">Return to the basic panel</string>
-
     <string name="trigUnits">Trig Units</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string></resources>

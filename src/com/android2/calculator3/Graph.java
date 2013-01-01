@@ -62,7 +62,7 @@ public class Graph {
     }
 
     public GraphicalView getGraph(Context context) {
-        String title = context.getResources().getString(R.string.defaultGraphTitle);
+        String title = "";
         double[] xValues = new double[0];
         double[] yValues = new double[0];
         mRenderer = buildRenderer(context);
@@ -118,7 +118,7 @@ public class Graph {
         renderer.setLegendHeight(22);
         renderer.setPointSize(5f);
         renderer.setMargins(new int[] { 20, 30, 15, 20 });
-        renderer.setChartTitle(context.getResources().getString(R.string.defaultGraphTitle));
+        renderer.setChartTitle("");
         renderer.setXTitle(context.getResources().getString(R.string.X));
         renderer.setYTitle(context.getResources().getString(R.string.Y));
         renderer.setXAxisMin(Graph.MIN_HEIGHT_X);

@@ -65,20 +65,26 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         String sinString = context.getResources().getString(R.string.sin);
         String cosString = context.getResources().getString(R.string.cos);
         String tanString = context.getResources().getString(R.string.tan);
+        String secString = context.getResources().getString(R.string.sec);
+        String cscString = context.getResources().getString(R.string.csc);
+        String cotString = context.getResources().getString(R.string.cot);
         String logString = context.getResources().getString(R.string.lg);
         String lnString = context.getResources().getString(R.string.ln);
         String modString = context.getResources().getString(R.string.mod);
         String dx = context.getResources().getString(R.string.dx);
         String dy = context.getResources().getString(R.string.dy);
         
-        keywords = Arrays.asList(sinString + "(", 
-                                              cosString + "(",
-                                              tanString + "(",
-                                              logString + "(",
-                                              modString + "(",
-                                              lnString + "(",
-                                              dx,
-                                              dy);
+        keywords = Arrays.asList( sinString + "(", 
+                                  cosString + "(",
+                                  tanString + "(", 
+                                  secString + "(",
+                                  cscString + "(",
+                                  cotString + "(",
+                                  logString + "(",
+                                  modString + "(",
+                                  lnString + "(",
+                                  dx,
+                                  dy );
         setOnLongClickListener(this);
     }
 

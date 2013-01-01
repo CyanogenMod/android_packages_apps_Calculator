@@ -78,10 +78,12 @@ class Logic {
     private final String mSinString;
     private final String mCosString;
     private final String mTanString;
+    private final String mSecString;
+    private final String mCscString;
+    private final String mCotString;
     private final String mLogString;
     private final String mLnString;
     private final String mModString;
-    private final String mTitleString;
     private final String mX;
     private final String mY;
     private final String mPlusString;
@@ -123,12 +125,14 @@ class Logic {
         mSinString = r.getString(R.string.sin);
         mCosString = r.getString(R.string.cos);
         mTanString = r.getString(R.string.tan);
+        mSecString = r.getString(R.string.sec);
+        mCscString = r.getString(R.string.csc);
+        mCotString = r.getString(R.string.cot);
         mLogString = r.getString(R.string.lg);
         mLnString = r.getString(R.string.ln);
         mModString = r.getString(R.string.mod);
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
-        mTitleString = r.getString(R.string.graphTitle);
         mPlusString = r.getString(R.string.plus);
         mMinusString = r.getString(R.string.minus);
         mDivString = r.getString(R.string.div);
@@ -149,12 +153,14 @@ class Logic {
         mSinString = r.getString(R.string.sin);
         mCosString = r.getString(R.string.cos);
         mTanString = r.getString(R.string.tan);
+        mSecString = r.getString(R.string.sec);
+        mCscString = r.getString(R.string.csc);
+        mCotString = r.getString(R.string.cot);
         mLogString = r.getString(R.string.lg);
         mLnString = r.getString(R.string.ln);
         mModString = r.getString(R.string.mod);
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
-        mTitleString = r.getString(R.string.graphTitle);
         mPlusString = r.getString(R.string.plus);
         mMinusString = r.getString(R.string.minus);
         mDivString = r.getString(R.string.div);
@@ -377,11 +383,17 @@ class Logic {
             input = input.replaceAll(mSinString, "sin");
             input = input.replaceAll(mCosString, "cos");
             input = input.replaceAll(mTanString, "tan");
+            input = input.replaceAll(mSecString, "asin");
+            input = input.replaceAll(mCscString, "acos");
+            input = input.replaceAll(mCotString, "atan");
         }
         else {
             input = input.replaceAll(mSinString, "sind");
             input = input.replaceAll(mCosString, "cosd");
             input = input.replaceAll(mTanString, "tand");
+            input = input.replaceAll(mSecString, "asind");
+            input = input.replaceAll(mCscString, "acosd");
+            input = input.replaceAll(mCotString, "atand");
         }
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
@@ -460,7 +472,7 @@ class Logic {
         final String eq = getText();
 
         if(eq.isEmpty()) {
-            String title = mTitleString + eq;
+            String title = "";
             XYSeries series = new XYSeries(title);
 
             try{
@@ -506,7 +518,7 @@ class Logic {
 
         new Thread(new Runnable() {
             public void run() {
-                final String title = mTitleString + eq;
+                final String title = "";
                 final XYSeries series = new XYSeries(title);
                 final GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
                 double lastX = (maxX-minX)/2+minX;
