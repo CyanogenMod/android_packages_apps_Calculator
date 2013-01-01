@@ -88,7 +88,7 @@ public class CalculatorWidget extends AppWidgetProvider {
 
             equation.setLength(0);
             try {
-            	String result = Logic.tryFormattingWithPrecision(mSymbols.eval(input), 8, 10, error);
+                String result = Logic.tryFormattingWithPrecision(mSymbols.eval(input), 8, 10, error);
                 equation.append(result);
             } catch (SyntaxException e) {
                 equation.append(error);

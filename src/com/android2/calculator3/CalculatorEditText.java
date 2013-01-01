@@ -21,8 +21,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputType;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -38,12 +41,93 @@ public class CalculatorEditText extends EditText {
     private static final int PASTE = 2;
     private String[] mMenuItemsStrings;
 
+    private String input;
+
+    private final char plus;
+    private final char minus;
+    private final char mul;
+    private final char div;
+    private final char equal;
+    private final static char PLACEHOLDER = '\u200B';
+
     public CalculatorEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
+
+        plus = context.getString(R.string.plus).charAt(0);
+        minus = context.getString(R.string.minus).charAt(0);
+        mul = context.getString(R.string.mul).charAt(0);
+        div = context.getString(R.string.div).charAt(0);
+        equal = context.getString(R.string.equal).charAt(0);
+
+        addTextChangedListener(new TextWatcher() {
+            boolean updating = false;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(updating) return;
+
+                input = s.toString().replace(PLACEHOLDER, '^');System.out.println(input);System.out.println(input.length());
+                final StringBuilder formattedInput = new StringBuilder();
+
+                int sub_open = 0;
+                int sub_closed = 0;
+                int paren_open = 0;
+                int paren_closed = 0;
+                for(int i=0;i<input.length();i++) {
+                    char c = input.charAt(i);
+
+                    if(c == '^') {
+                        formattedInput.append("<sup>");
+                        sub_open++;
+                        if(i+1 == input.length()) {
+                        	formattedInput.append(c);
+                        	sub_open--;
+                        }
+                        else {
+                        	formattedInput.append(PLACEHOLDER);
+                        }
+                        continue;
+                    }
+
+                    if(sub_open > sub_closed) {
+                        if(paren_open == paren_closed) {
+                            // Decide when to break the <sup> started by ^
+                            if(c == plus || c == minus || c == mul || c == div || c == equal || (c == '(' && Character.isDigit(input.charAt(i-1)))) {
+                            	while(sub_open > sub_closed) {
+                                    formattedInput.append("</sup>");
+                                    sub_closed++;
+                            	}
+                                paren_open = 0;
+                                paren_closed = 0;    
+                            }
+                        }
+                        else if(c == '(') {
+                            paren_open++;
+                        }
+                        else if(c == ')') {
+                            paren_closed++;
+                        }
+                    }
+                    formattedInput.append(c);
+                }
+
+                updating = true;
+                int selectionHandle = getSelectionStart();
+                s.clear();
+                s.append(Html.fromHtml(formattedInput.toString()));
+                setSelection(selectionHandle);
+                updating = false;
+            }
+        });
     }
 
     @Override
@@ -165,5 +249,11 @@ public class CalculatorEditText extends EditText {
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }
+    }
+
+    public Editable getInput() {
+        SpannableStringBuilder e = new SpannableStringBuilder();
+        e.append(input);
+        return e;
     }
 }

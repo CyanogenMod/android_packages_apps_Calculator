@@ -359,14 +359,13 @@ class Logic {
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
         input = input.replaceAll(mModString, "mod");
-        input = input.replaceAll(",", ".");
         return input;
     }
 
     private String tryFormattingWithPrecision(double value, int precision) {
-    	String result = Logic.tryFormattingWithPrecision(value, precision, mLineLength, mErrorString);
-    	if(result.equals(mErrorString)) mIsError = true;
-    	return result;
+        String result = Logic.tryFormattingWithPrecision(value, precision, mLineLength, mErrorString);
+        if(result.equals(mErrorString)) mIsError = true;
+        return result;
     }
 
     static String tryFormattingWithPrecision(double value, int precision, int lineLength, String errorString) {
