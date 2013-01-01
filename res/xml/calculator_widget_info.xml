@@ -1,6 +1,6 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="200dp"
-    android:minHeight="400dp"
+    android:minWidth="250dp"
+    android:minHeight="250dp"
     android:initialLayout="@layout/widget"
     android:initialKeyguardLayout="@layout/widget"
     android:updatePeriodMillis="0"
