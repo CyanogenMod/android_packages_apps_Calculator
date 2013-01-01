@@ -134,7 +134,8 @@ public class Graph {
         renderer.setShowGrid(true);
         renderer.setXAxisBold(true);
         renderer.setYAxisBold(true);
-        renderer.setZoomButtonsVisible(true);
+        renderer.setZoomButtonsVisible(false);
+        renderer.setExternalZoomEnabled(true);
         XYSeriesRenderer r = new XYSeriesRenderer();
         r.setColor(Color.CYAN);
         r.setPointStyle(PointStyle.POINT);

@@ -569,7 +569,32 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 if (mChartView == null) {
                     mChartView = mGraph.getGraph(Calculator.this);
                     mChartView.setId(R.id.graphView);
-                    ((LinearLayout) mGraphPage).addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
+                    l.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+
+                    View zoomIn = mGraphPage.findViewById(R.id.zoomIn);
+                    zoomIn.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							mChartView.zoomIn();
+						}
+					});
+
+                    View zoomOut = mGraphPage.findViewById(R.id.zoomOut);
+                    zoomOut.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							mChartView.zoomOut();
+						}
+					});
+
+                    View zoomReset = mGraphPage.findViewById(R.id.zoomReset);
+                    zoomReset.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							mChartView.zoomReset();
+						}
+					});
                 } 
                 else {
                     mChartView.repaint();
