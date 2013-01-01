@@ -78,16 +78,19 @@
         <com.android2.calculator3.ColorButton
             android:id="@+id/dec"
             android:text="@string/dec"
+            android:hint="@string/decDesc"
             style="@style/button_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/bin"
             android:text="@string/bin"
+            android:hint="@string/binDesc"
             style="@style/button_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/hex"
             android:text="@string/hex"
+            android:hint="@string/hexDesc"
             style="@style/button_style"
             />
     </LinearLayout>

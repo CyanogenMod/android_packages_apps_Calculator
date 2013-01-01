@@ -19,11 +19,13 @@
         <com.android2.calculator3.ColorButton
             android:id="@+id/eigenvalue"
             android:text="@string/eigenvalue"
+            android:hint="@string/eigenvalueDesc"
             style="@style/button_small_style"
             />
         <com.android2.calculator3.ColorButton
             android:id="@+id/determinant"
             android:text="@string/determinant"
+            android:hint="@string/determinantDesc"
             style="@style/button_small_style"
             />
         <com.android2.calculator3.ColorButton

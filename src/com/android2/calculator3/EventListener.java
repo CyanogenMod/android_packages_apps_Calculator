@@ -30,6 +30,7 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 class EventListener implements View.OnKeyListener,
@@ -249,21 +250,13 @@ class EventListener implements View.OnKeyListener,
         case R.id.del:
             mHandler.onClear();
             return true;
-        case R.id.determinant:
-            Toast.makeText(mContext, R.string.determinantDesc, Toast.LENGTH_SHORT).show();
-            return true;
-        case R.id.eigenvalue:
-            Toast.makeText(mContext, R.string.eigenvalueDesc, Toast.LENGTH_SHORT).show();
-            return true;
-        case R.id.dec:
-            Toast.makeText(mContext, R.string.decDesc, Toast.LENGTH_SHORT).show();
-            return true;
-        case R.id.bin:
-            Toast.makeText(mContext, R.string.binDesc, Toast.LENGTH_SHORT).show();
-            return true;
-        case R.id.hex:
-            Toast.makeText(mContext, R.string.hexDesc, Toast.LENGTH_SHORT).show();
-            return true;
+        }
+        if(view instanceof TextView && ((TextView) view).getHint() != null) {
+        	String hint = ((TextView) view).getHint().toString();
+        	if(!hint.isEmpty()) {
+            	Toast.makeText(mContext, hint, Toast.LENGTH_SHORT).show();
+                return true;
+        	}
         }
         return false;
     }
