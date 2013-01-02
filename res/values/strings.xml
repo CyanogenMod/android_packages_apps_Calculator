@@ -173,7 +173,6 @@
     <string name="pref_actions">Actions</string>
     <string name="pref_units">Units</string>
     <string name="returnToBasic">Return to the basic panel</string>
-    <string name="advbutton">Extra button</string>
     <string name="trigUnits">Trig Units</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string></resources>

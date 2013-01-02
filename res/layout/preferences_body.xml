@@ -33,12 +33,6 @@
             android:title="@string/returnToBasic"
             android:key="RETURN_TO_BASIC"
             android:defaultValue="@bool/RETURN_TO_BASIC" />
-        <SwitchPreference
-                android:title="@string/advbutton"
-                android:key="USE_PERCENTAGE"
-                android:switchTextOn="@string/percentage"
-                android:switchTextOff="@string/parentheses"
-                android:defaultValue="@bool/USE_PERCENTAGE" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_units" >
