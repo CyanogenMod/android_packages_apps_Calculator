@@ -28,35 +28,62 @@
     <string name="digit7" msgid="658125644218958447">"7"</string>
     <string name="digit8" msgid="3134686906411558886">"8"</string>
     <string name="digit9" msgid="765379157698748031">"9"</string>
-    <string name="del" msgid="6248896117422989693">"DELETE"</string>
-    <string name="clear" msgid="8103610981407459768">"ΔΙΑΓΡ."</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="del">ΔΙΑΓΡ.</string>
+    <string name="clear">ΚΑΘΑΡ.</string>
     <string name="sin" msgid="6793866152659175277">"sin"</string>
     <string name="cos" msgid="6901841853098114414">"cos"</string>
     <string name="tan" msgid="7957459816738554960">"tan"</string>
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
-    <string name="basic" msgid="7691469861698059753">"Πίνακας βασικών πράξεων"</string>
-    <string name="advanced" msgid="7122495413742976492">"Πίνακας σύνθετων συναρτήσεων"</string>
+    <string name="basic">Βασικές πράξεις</string>
+    <string name="advanced">Σύνθετες συναρτήσεις</string>
+    <string name="matrix">Πίνακες</string>
+    <string name="graph">Γραφικές παράστασεις</string>
+    <string name="function">Συναρτήσεις</string>
+    <string name="hexPanel">Δεκαεξαδικές πράξεις</string>
     <string name="clear_history" msgid="8458043980601165012">"Εκκαθάριση ιστορικού"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Το κείμενο αντιγράφηκε."</string>
-  <string-array name="operatorDescs">
-    <item msgid="7903565108986789641">"αριστερή παρένθεση"</item>
-    <item msgid="1688156211934459752">"δεξιά παρένθεση"</item>
-    <item msgid="6664829080840305856">"παραγοντικό"</item>
-    <item msgid="2880199289575144121">"φυσικός λογάριθμος"</item>
-    <item msgid="4398774906998694599">"λογάριθμος"</item>
-    <item msgid="1791869359785943266">"τετραγωνική ρίζα"</item>
-    <item msgid="6833720171974254459">"διαιρείται με"</item>
-    <item msgid="2646574635189709515">"πολλαπλασιάζεται επί"</item>
-    <item msgid="3487936384379753697">"συν"</item>
-    <item msgid="8608534484562258856">"μείον"</item>
-    <item msgid="3456824579675198186">" βαθμός "</item>
-    <item msgid="4528629783180278651">"υψωμένο στη δύναμη"</item>
-    <item msgid="4050948027333760159">"εφαπτομένη"</item>
-    <item msgid="8716478860618683850">"ημίτονο"</item>
-    <item msgid="3203211483560707480">"συνημίτονο"</item>
-    <item msgid="8587490959348493065">"πι"</item>
-    <item msgid="8134315487552198394">"ίσον"</item>
-  </string-array>
+    <string name="copy">Αντιγραφή \"%s\"</string>
+    <string name="remove_from_history">Αφαίρεση από το ιστορικό</string>
+
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Λύση ως προς X</string>
+    <string name="solveForY">Λύση ως προς Y</string>
+    <string name="mod">mod</string>
+
+    <string name="defaultGraphTitle">Συνάρτηση</string>
+    <string name="graphTitle">Συνάρτηση: </string>
+
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Λύση</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+
+    <string name="hexDesc">Δεκαεξαδικό</string>
+    <string name="binDesc">Δυαδικό</string>
+    <string name="decDesc">Δεκαδικό</string>
+    <string name="determinantDesc">Ορίζουσα</string>
+    <string name="eigenvalueDesc">Ιδιοτιμές</string>
+    
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="showHistory">Εμφάνιση ιστορικού</string>
+    <string name="hideHistory">Απόκρυψη ιστορικού</string>
+
+    <string name="returnToBasic">Επιστροφή στον πίνακα βασικών πράξεων</string>
 </resources>
