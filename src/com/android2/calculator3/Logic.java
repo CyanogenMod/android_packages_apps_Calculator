@@ -383,16 +383,16 @@ class Logic {
             input = input.replaceAll(mSinString, "sin");
             input = input.replaceAll(mCosString, "cos");
             input = input.replaceAll(mTanString, "tan");
-            input = input.replaceAll(mSecString, "asin");
-            input = input.replaceAll(mCscString, "acos");
+            input = input.replaceAll(mCscString, "asin");
+            input = input.replaceAll(mSecString, "acos");
             input = input.replaceAll(mCotString, "atan");
         }
         else {
             input = input.replaceAll(mSinString, "sind");
             input = input.replaceAll(mCosString, "cosd");
             input = input.replaceAll(mTanString, "tand");
-            input = input.replaceAll(mSecString, "asind");
-            input = input.replaceAll(mCscString, "acosd");
+            input = input.replaceAll(mCscString, "asind");
+            input = input.replaceAll(mSecString, "acosd");
             input = input.replaceAll(mCotString, "atand");
         }
         input = input.replaceAll(mLogString, "log");

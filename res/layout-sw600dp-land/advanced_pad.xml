@@ -35,7 +35,7 @@
                 style="@style/button_small_style"
                 />
             <TextView
-                android:text="@string/sec"
+                android:text="@string/csc"
                 android:layout_alignParentRight="true"
                 style="@style/button_hint_style"
                 />
@@ -50,7 +50,7 @@
                 style="@style/button_small_style"
                 />
             <TextView
-                android:text="@string/csc"
+                android:text="@string/sec"
                 android:layout_alignParentRight="true"
                 style="@style/button_hint_style"
                 />

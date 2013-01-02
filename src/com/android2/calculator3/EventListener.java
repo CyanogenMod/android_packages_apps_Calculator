@@ -243,34 +243,34 @@ class EventListener implements View.OnKeyListener,
 
     @Override
     public boolean onLongClick(View view) {
-    	String text = null;
+        String text = null;
         switch(view.getId()) {
         case R.id.del:
             mHandler.onClear();
             return true;
         case R.id.sin:
-        	text = mContext.getString(R.string.sec) + "(";
-        	break;
+            text = mContext.getString(R.string.csc) + "(";
+            break;
         case R.id.cos:
-        	text = mContext.getString(R.string.csc) + "(";
-        	break;
+            text = mContext.getString(R.string.sec) + "(";
+            break;
         case R.id.tan:
-        	text = mContext.getString(R.string.cot) + "(";
-        	break;
+            text = mContext.getString(R.string.cot) + "(";
+            break;
         }
         if(text != null) {
-        	mHandler.insert(text);
+            mHandler.insert(text);
             if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
                 mPager.setCurrentItem(Panel.BASIC.getOrder());
             }
             return true;
         }
         if(view instanceof TextView && ((TextView) view).getHint() != null) {
-        	String hint = ((TextView) view).getHint().toString();
-        	if(!hint.isEmpty()) {
-            	Toast.makeText(mContext, hint, Toast.LENGTH_SHORT).show();
+            String hint = ((TextView) view).getHint().toString();
+            if(!hint.isEmpty()) {
+                Toast.makeText(mContext, hint, Toast.LENGTH_SHORT).show();
                 return true;
-        	}
+            }
         }
         return false;
     }
