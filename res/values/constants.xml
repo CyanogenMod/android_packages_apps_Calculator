@@ -24,6 +24,7 @@
     <item type="bool" name="MATRIX">true</item>
     <item type="bool" name="RETURN_TO_BASIC">true</item>
     <item type="bool" name="USE_RADIANS">true</item>
+    <item type="bool" name="USE_PERCENTAGE">false</item>
     <item type="dimen" name="barHeight">25dp</item>
     <item type="integer" name="barHeight">25</item>
     <item type="dimen" name="matrixInputBoxHeight">100dp</item>

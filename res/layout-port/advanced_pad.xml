@@ -121,6 +121,12 @@
             style="@style/button_style"
             />
         <com.android2.calculator3.ColorButton
+            android:id="@+id/percentage"
+            android:text="@string/percentage"
+            android:visibility="gone"
+            style="@style/button_style"
+            />
+        <com.android2.calculator3.ColorButton
             android:id="@+id/factorial"
             android:text="@string/factorial"
             style="@style/button_style"

@@ -48,7 +48,7 @@
             >
             <com.android2.calculator3.ColorButton
                 android:id="@+id/cos"
-                android:text="@string/sec"
+                android:text="@string/cos"
                 style="@style/button_small_style"
                 />
             <TextView

@@ -552,6 +552,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
                 break;
             }
+
+            mAdvancedPage.findViewById(R.id.parentheses).setVisibility((CalculatorSettings.usePercentage(getContext())) ? View.GONE : View.VISIBLE);
+            mAdvancedPage.findViewById(R.id.percentage).setVisibility((CalculatorSettings.usePercentage(getContext())) ? View.VISIBLE : View.GONE);
         }
 
         @Override
@@ -959,6 +962,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         static boolean returnToBasic(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC", context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
+        }
+
+        static boolean usePercentage(Context context) {
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("USE_PERCENTAGE", context.getResources().getBoolean(R.bool.USE_PERCENTAGE));
         }
     }
 }
