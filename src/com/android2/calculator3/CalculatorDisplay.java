@@ -188,9 +188,8 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
     }
 
     private void setText(String input) {
-        Editable text = ((EditText) getCurrentView()).getText();
-        text.clear();
-        text.append(input);
+    	EditText text = (EditText) getCurrentView();
+        text.setText(input);
     }
 
     void setText(CharSequence text, Scroll dir) {

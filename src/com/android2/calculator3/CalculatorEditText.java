@@ -53,10 +53,6 @@ public class CalculatorEditText extends EditText {
     private final char rightParen;
     private final static char PLACEHOLDER = '\u200B';
 
-    /**
-     * Formats equations
-     * Avoid setText(). Instead use getText().clear() and getText().append()
-     * */
     public CalculatorEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
@@ -136,8 +132,7 @@ public class CalculatorEditText extends EditText {
 
                 updating = true;
                 int selectionHandle = getSelectionStart();
-                s.clear();
-                s.append(Html.fromHtml(formattedInput.toString()));
+                setText(Html.fromHtml(formattedInput.toString()));
                 setSelection(selectionHandle);
                 updating = false;
             }
