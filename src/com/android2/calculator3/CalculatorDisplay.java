@@ -211,7 +211,7 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         EditText editText = (EditText) getNextView();
         editText.setText(text);
         //Calculator.log("selection to " + text.length() + "; " + text);
-        editText.setSelection(text.length());
+        editText.setSelection(editText.getText().length());
         showNext();
     }
 
