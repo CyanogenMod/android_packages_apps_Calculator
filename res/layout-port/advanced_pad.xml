@@ -31,21 +31,51 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android2.calculator3.ColorButton
-            android:id="@+id/sin"
-            android:text="@string/sin"
+        <RelativeLayout
+            android:background="@android:color/transparent"
             style="@style/button_small_style"
-            />
-        <com.android2.calculator3.ColorButton
-            android:id="@+id/cos"
-            android:text="@string/cos"
+            >
+            <com.android2.calculator3.ColorButton
+                android:id="@+id/sin"
+                android:text="@string/sin"
+                style="@style/button_small_style"
+                />
+            <TextView
+                android:text="@string/sec"
+                android:layout_alignParentRight="true"
+                style="@style/button_hint_style"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@android:color/transparent"
             style="@style/button_small_style"
-            />
-        <com.android2.calculator3.ColorButton
-            android:id="@+id/tan"
-            android:text="@string/tan"
+            >
+            <com.android2.calculator3.ColorButton
+                android:id="@+id/cos"
+                android:text="@string/cos"
+                style="@style/button_small_style"
+                />
+            <TextView
+                android:text="@string/csc"
+                android:layout_alignParentRight="true"
+                style="@style/button_hint_style"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@android:color/transparent"
             style="@style/button_small_style"
-            />
+            >
+            <com.android2.calculator3.ColorButton
+                android:id="@+id/tan"
+                android:text="@string/tan"
+                style="@style/button_small_style"
+                />
+            <TextView
+                android:text="@string/cot"
+                android:layout_alignParentRight="true"
+                style="@style/button_hint_style"
+                />
+        </RelativeLayout>
         <com.android2.calculator3.ColorButton
             android:id="@+id/i"
             android:text="@string/i"

@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <dimen name="btn_digit_text_size">40sp</dimen>
     <dimen name="btn_operation_text_size">40sp</dimen>
     <dimen name="btn_function_text_size">30sp</dimen>
@@ -28,6 +28,15 @@
        <item name="android:focusable">true</item>
        <item name="android:background">@drawable/btn_function</item>
        <item name="android:layout_marginLeft">1dp</item>
+    </style>
+
+    <style name="button_hint_style">
+       <item name="android:textSize">20dp</item>
+       <item name="android:layout_width">wrap_content</item>
+       <item name="android:layout_height">wrap_content</item>
+       <item name="android:paddingRight">10dp</item>
+       <item name="android:paddingTop">7dp</item>
+       <item name="android:textColor">@color/grey</item>
     </style>
 
     <style name="digit_button_style" parent="button_style">
