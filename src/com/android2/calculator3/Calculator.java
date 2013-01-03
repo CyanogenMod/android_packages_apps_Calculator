@@ -30,6 +30,7 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -552,6 +553,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
                 break;
             }
+
+            TextView arcsin = (TextView) mAdvancedPage.findViewById(R.id.arcsin);
+            TextView arccos = (TextView) mAdvancedPage.findViewById(R.id.arccos);
+            TextView arctan = (TextView) mAdvancedPage.findViewById(R.id.arctan);
+            arcsin.setText(Html.fromHtml(getString(R.string.sin)+"<sup>-1</sup>"));
+            arccos.setText(Html.fromHtml(getString(R.string.cos)+"<sup>-1</sup>"));
+            arctan.setText(Html.fromHtml(getString(R.string.tan)+"<sup>-1</sup>"));
         }
 
         @Override
@@ -713,6 +721,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
                 break;
             }
+
+            TextView arcsin = (TextView) mAdvancedPage.findViewById(R.id.arcsin);
+            TextView arccos = (TextView) mAdvancedPage.findViewById(R.id.arccos);
+            TextView arctan = (TextView) mAdvancedPage.findViewById(R.id.arctan);
+            arcsin.setText(Html.fromHtml(getString(R.string.sin)+"<sup>-1</sup>"));
+            arccos.setText(Html.fromHtml(getString(R.string.cos)+"<sup>-1</sup>"));
+            arctan.setText(Html.fromHtml(getString(R.string.tan)+"<sup>-1</sup>"));
         }
 
         @Override

@@ -30,6 +30,7 @@ import android.content.res.Resources;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
@@ -78,9 +79,9 @@ class Logic {
     private final String mSinString;
     private final String mCosString;
     private final String mTanString;
-    private final String mSecString;
-    private final String mCscString;
-    private final String mCotString;
+    private final String mArcsinString;
+    private final String mArccosString;
+    private final String mArctanString;
     private final String mLogString;
     private final String mLnString;
     private final String mModString;
@@ -125,9 +126,9 @@ class Logic {
         mSinString = r.getString(R.string.sin);
         mCosString = r.getString(R.string.cos);
         mTanString = r.getString(R.string.tan);
-        mSecString = r.getString(R.string.sec);
-        mCscString = r.getString(R.string.csc);
-        mCotString = r.getString(R.string.cot);
+        mArcsinString = r.getString(R.string.sin) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
+        mArccosString = r.getString(R.string.cos) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
+        mArctanString = r.getString(R.string.tan) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
         mLogString = r.getString(R.string.lg);
         mLnString = r.getString(R.string.ln);
         mModString = r.getString(R.string.mod);
@@ -153,9 +154,9 @@ class Logic {
         mSinString = r.getString(R.string.sin);
         mCosString = r.getString(R.string.cos);
         mTanString = r.getString(R.string.tan);
-        mSecString = r.getString(R.string.sec);
-        mCscString = r.getString(R.string.csc);
-        mCotString = r.getString(R.string.cot);
+        mArcsinString = r.getString(R.string.sin) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
+        mArccosString = r.getString(R.string.cos) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
+        mArctanString = r.getString(R.string.tan) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
         mLogString = r.getString(R.string.lg);
         mLnString = r.getString(R.string.ln);
         mModString = r.getString(R.string.mod);
@@ -378,23 +379,18 @@ class Logic {
     }
 
     private String localize(String input) {
-        // Delocalize functions (e.g. Spanish localizes "sin" as "sen")
-        if(useRadians) {
-            input = input.replaceAll(mSinString, "sin");
-            input = input.replaceAll(mCosString, "cos");
-            input = input.replaceAll(mTanString, "tan");
-            input = input.replaceAll(mCscString, "asin");
-            input = input.replaceAll(mSecString, "acos");
-            input = input.replaceAll(mCotString, "atan");
-        }
-        else {
-            input = input.replaceAll(mSinString, "sind");
-            input = input.replaceAll(mCosString, "cosd");
-            input = input.replaceAll(mTanString, "tand");
-            input = input.replaceAll(mCscString, "asind");
-            input = input.replaceAll(mSecString, "acosd");
-            input = input.replaceAll(mCotString, "atand");
-        }
+        // Delocalize functions (e.g. Spanish localizes "sin" as "sen"). Order matters for arc functions
+        input = input.replaceAll(Pattern.quote(mArcsinString), "asin");
+        input = input.replaceAll(Pattern.quote(mArccosString), "acos");
+        input = input.replaceAll(Pattern.quote(mArctanString), "atan");
+        input = input.replaceAll(mSinString, "sin");
+        input = input.replaceAll(mCosString, "cos");
+        input = input.replaceAll(mTanString, "tan");
+        if(!useRadians) {
+            input = input.replaceAll("sin", "sind");
+            input = input.replaceAll("cos", "cosd");
+            input = input.replaceAll("tan", "tand");
+        }System.out.println(input);
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
         input = input.replaceAll(mModString, "mod");

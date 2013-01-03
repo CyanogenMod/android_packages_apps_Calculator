@@ -25,10 +25,11 @@
     <dimen name="group_padding">16sp</dimen>
 
     <style name="button_hint_style">
-       <item name="android:textSize">20dp</item>
+       <item name="android:textSize">17dp</item>
        <item name="android:layout_width">wrap_content</item>
        <item name="android:layout_height">wrap_content</item>
-       <item name="android:paddingRight">6dp</item>
+       <item name="android:paddingRight">4dp</item>
+       <item name="android:paddingTop">5dp</item>
        <item name="android:textColor">@color/grey</item>
     </style>
 </resources>

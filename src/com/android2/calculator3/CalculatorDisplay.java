@@ -62,24 +62,24 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         mMaxDigits = attrs.getAttributeIntValue(null, ATTR_MAX_DIGITS, DEFAULT_MAX_DIGITS);
-        String sinString = context.getResources().getString(R.string.sin);
-        String cosString = context.getResources().getString(R.string.cos);
-        String tanString = context.getResources().getString(R.string.tan);
-        String secString = context.getResources().getString(R.string.sec);
-        String cscString = context.getResources().getString(R.string.csc);
-        String cotString = context.getResources().getString(R.string.cot);
-        String logString = context.getResources().getString(R.string.lg);
-        String lnString = context.getResources().getString(R.string.ln);
-        String modString = context.getResources().getString(R.string.mod);
-        String dx = context.getResources().getString(R.string.dx);
-        String dy = context.getResources().getString(R.string.dy);
+        String sinString = context.getString(R.string.sin);
+        String cosString = context.getString(R.string.cos);
+        String tanString = context.getString(R.string.tan);
+        String arcsinString = context.getString(R.string.sin) + context.getString(R.string.power) + context.getString(R.string.minus) + context.getString(R.string.digit1);
+        String arccosString = context.getString(R.string.cos) + context.getString(R.string.power) + context.getString(R.string.minus) + context.getString(R.string.digit1);
+        String arctanString = context.getString(R.string.tan) + context.getString(R.string.power) + context.getString(R.string.minus) + context.getString(R.string.digit1);
+        String logString = context.getString(R.string.lg);
+        String lnString = context.getString(R.string.ln);
+        String modString = context.getString(R.string.mod);
+        String dx = context.getString(R.string.dx);
+        String dy = context.getString(R.string.dy);
         
         keywords = Arrays.asList( sinString + "(", 
                                   cosString + "(",
                                   tanString + "(", 
-                                  secString + "(",
-                                  cscString + "(",
-                                  cotString + "(",
+                                  arcsinString + "(",
+                                  arccosString + "(",
+                                  arctanString + "(",
                                   logString + "(",
                                   modString + "(",
                                   lnString + "(",

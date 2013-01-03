@@ -41,7 +41,7 @@
                 style="@style/button_small_style"
                 />
             <TextView
-                android:text="@string/csc"
+                android:id="@+id/arcsin"
                 android:layout_alignParentRight="true"
                 style="@style/button_hint_style"
                 />
@@ -56,7 +56,7 @@
                 style="@style/button_small_style"
                 />
             <TextView
-                android:text="@string/sec"
+                android:id="@+id/arccos"
                 android:layout_alignParentRight="true"
                 style="@style/button_hint_style"
                 />
@@ -71,7 +71,7 @@
                 style="@style/button_small_style"
                 />
             <TextView
-                android:text="@string/cot"
+                android:id="@+id/arctan"
                 android:layout_alignParentRight="true"
                 style="@style/button_hint_style"
                 />

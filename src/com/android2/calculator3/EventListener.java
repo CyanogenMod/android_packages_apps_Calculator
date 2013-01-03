@@ -249,13 +249,13 @@ class EventListener implements View.OnKeyListener,
             mHandler.onClear();
             return true;
         case R.id.sin:
-            text = mContext.getString(R.string.csc) + "(";
+            text = mContext.getString(R.string.sin) + "^-1(";
             break;
         case R.id.cos:
-            text = mContext.getString(R.string.sec) + "(";
+            text = mContext.getString(R.string.cos) + "^-1(";
             break;
         case R.id.tan:
-            text = mContext.getString(R.string.cot) + "(";
+            text = mContext.getString(R.string.tan) + "^-1(";
             break;
         }
         if(text != null) {

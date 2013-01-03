@@ -107,7 +107,7 @@ public class CalculatorEditText extends EditText {
                         if(paren_open == paren_closed) {
                             // Decide when to break the <sup> started by ^
                             if(    c == plus  // 2^3+1
-                            	|| c == minus // 2^3-1
+                            	|| (c == minus && input.charAt(i-1) != power) // 2^3-1
                             	|| c == mul   // 2^3*1
                             	|| c == div   // 2^3/1
                             	|| c == equal // X^3=1
@@ -117,7 +117,15 @@ public class CalculatorEditText extends EditText {
                             	while(sub_open > sub_closed) {
                                     formattedInput.append("</sup>");
                                     sub_closed++;
-                            	} 
+                            	}
+                            	paren_open = 0;
+                            	paren_closed = 0;
+                                if(c == leftParen) {
+                                    paren_open--;
+                                }
+                                else if(c == rightParen) {
+                                    paren_closed--;
+                                }
                             }
                         }
                         if(c == leftParen) {
