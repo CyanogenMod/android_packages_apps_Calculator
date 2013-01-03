@@ -368,8 +368,6 @@ class Logic {
                 break;
             }
         }
-        System.out.println(real);
-        System.out.println(imaginary);
         String result = "";
         if(value.re != 0 && value.im != 0) result = real + "+" + imaginary + "i";
         else if(value.re != 0 && value.im == 0) result = real;
@@ -390,7 +388,7 @@ class Logic {
             input = input.replaceAll("sin", "sind");
             input = input.replaceAll("cos", "cosd");
             input = input.replaceAll("tan", "tand");
-        }System.out.println(input);
+        }
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
         input = input.replaceAll(mModString, "mod");
