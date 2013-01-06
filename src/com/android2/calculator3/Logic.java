@@ -458,6 +458,8 @@ class Logic {
 
     private boolean pointIsNaN(double lastV, double v, double max, double min) {
         return v == Double.NaN ||
+               v == Double.POSITIVE_INFINITY ||
+               v == Double.NEGATIVE_INFINITY ||
                lastV > max && v < min ||
                v > max && lastV < min;
     }
@@ -467,8 +469,7 @@ class Logic {
         final String eq = getText();
 
         if(eq.isEmpty()) {
-            String title = "";
-            XYSeries series = new XYSeries(title);
+            XYSeries series = new XYSeries("");
 
             try{
                 g.getDataset().removeSeries(g.getSeries());
@@ -483,19 +484,19 @@ class Logic {
             return;
         }
 
-        if(eq.endsWith(mPlusString) || 
-           eq.endsWith(mMinusString) || 
-           eq.endsWith(mDivString) || 
-           eq.endsWith(mMulString) || 
+        if(eq.endsWith(mPlusString) ||
+           eq.endsWith(mMinusString) ||
+           eq.endsWith(mDivString) ||
+           eq.endsWith(mMulString) ||
            eq.endsWith(mDotString) ||
            eq.endsWith(mComaString) ||
            eq.endsWith(mPowerString) ||
            eq.endsWith(mSqrtString) ||
            eq.endsWith(mIntegralString) ||
-           eq.endsWith(mSinString + "(") || 
+           eq.endsWith(mSinString + "(") ||
            eq.endsWith(mCosString + "(") ||
            eq.endsWith(mTanString + "(") ||
-           eq.endsWith(mLogString + "(") || 
+           eq.endsWith(mLogString + "(") ||
            eq.endsWith(mModString + "(") ||
            eq.endsWith(mLnString + "(")) return;
 
@@ -513,8 +514,7 @@ class Logic {
 
         new Thread(new Runnable() {
             public void run() {
-                final String title = "";
-                final XYSeries series = new XYSeries(title);
+                final XYSeries series = new XYSeries("");
                 final GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
                 double lastX = (maxX-minX)/2+minX;
                 double lastY = (maxY-minY)/2+minY;

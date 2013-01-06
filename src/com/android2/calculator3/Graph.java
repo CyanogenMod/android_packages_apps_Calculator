@@ -74,18 +74,24 @@ public class Graph {
         mChartView.addPanListener(new PanListener() {
             @Override
             public void panApplied() {
-                mLogic.updateGraph(Graph.this);
+                try {
+                    mLogic.updateGraph(Graph.this);
+                } catch(Exception e) {}
             }
         });
         mChartView.addZoomListener(new ZoomListener() {
             @Override
             public void zoomReset() {
-                mLogic.updateGraph(Graph.this);
+                try {
+                    mLogic.updateGraph(Graph.this);
+                } catch(Exception e) {}
             }
             
             @Override
-            public void zoomApplied(ZoomEvent e) {
-                mLogic.updateGraph(Graph.this);
+            public void zoomApplied(ZoomEvent event) {
+                try {
+                    mLogic.updateGraph(Graph.this);
+                } catch(Exception e) {}
             }
         }, true, true);
 
