@@ -369,7 +369,8 @@ class Logic {
             }
         }
         String result = "";
-        if(value.re != 0 && value.im != 0) result = real + "+" + imaginary + "i";
+        if(value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
+        else if(value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit -
         else if(value.re != 0 && value.im == 0) result = real;
         else if(value.re == 0 && value.im != 0) result = imaginary + "i";
         else if(value.re == 0 && value.im == 0) result = "0";
@@ -634,7 +635,7 @@ class Logic {
                 }
                 g.setSeries(series);
                 g.getDataset().addSeries(series);
-                
+
                 if(graph!=null) graph.repaint();
             }
         }).start();

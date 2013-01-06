@@ -38,7 +38,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -50,7 +49,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
-        OnClickListener, OnMenuItemClickListener, OnLongClickListener {
+        OnClickListener, OnMenuItemClickListener {
     EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
     private Persist mPersist;
@@ -66,6 +65,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private View mOverflowMenuButton;
     private Slider mPulldown;
     private Graph mGraph;
+
+    private char power;
+    private char plus;
+    private char minus;
+    private char mul;
+    private char div;
+    private char equal;
+    private char leftParen;
+    private char rightParen;
+    private final static char PLACEHOLDER = '\u200B';
 
     public enum Panel {
         GRAPH, FUNCTION, HEX, BASIC, ADVANCED, MATRIX;
@@ -124,6 +133,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mPager = (ViewPager) findViewById(R.id.panelswitch);
         mSmallPager = (ViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (ViewPager) findViewById(R.id.largePanelswitch);
+
+        power = getString(R.string.power).charAt(0);
+        plus = getString(R.string.plus).charAt(0);
+        minus = getString(R.string.minus).charAt(0);
+        mul = getString(R.string.mul).charAt(0);
+        div = getString(R.string.div).charAt(0);
+        equal = getString(R.string.equal).charAt(0);
+        leftParen = getString(R.string.leftParen).charAt(0);
+        rightParen = getString(R.string.rightParen).charAt(0);
 
         if (mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
@@ -481,13 +499,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 entry.setHistoryEntry(he);
                 entry.setHistory(mHistory);
                 TextView base = (TextView) entry.findViewById(R.id.base);
-                base.setOnLongClickListener(this);
-                base.setMaxWidth(2*mPulldown.getWidth()/5);
-                base.setText(he.getBase());
+                base.setText(Html.fromHtml(formatTextAsEquation(he.getBase())));
                 TextView edited = (TextView) entry.findViewById(R.id.edited);
-                edited.setOnLongClickListener(this);
                 edited.setText(he.getEdited());
-                edited.setMaxWidth(mPulldown.getWidth()-base.getWidth()-entry.getChildAt(1).getWidth());
                 mHistoryView.addView(entry);
             }
         }
@@ -499,9 +513,71 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         });
     }
 
-    @Override
-    public boolean onLongClick(View v) {
-        return false;
+    private String formatTextAsEquation(String input) {
+    	final StringBuilder formattedInput = new StringBuilder();
+
+        int sub_open = 0;
+        int sub_closed = 0;
+        int paren_open = 0;
+        int paren_closed = 0;
+        for(int i=0;i<input.length();i++) {
+            char c = input.charAt(i);
+            if(c == power) {
+                formattedInput.append("<sup>");
+                sub_open++;
+                if(i+1 == input.length()) {
+                	formattedInput.append(c);
+                	sub_open--;
+                }
+                else {
+                	formattedInput.append(PLACEHOLDER);
+                }
+                continue;
+            }
+
+            if(sub_open > sub_closed) {
+                if(paren_open == paren_closed) {
+                    // Decide when to break the <sup> started by ^
+                    if(    c == plus  // 2^3+1
+                    	|| (c == minus && input.charAt(i-1) != power) // 2^3-1
+                    	|| c == mul   // 2^3*1
+                    	|| c == div   // 2^3/1
+                    	|| c == equal // X^3=1
+                    	|| (c == leftParen && (Character.isDigit(input.charAt(i-1)) || input.charAt(i-1) == rightParen)) // 2^3(1) or 2^(3-1)(0)
+                    	|| (Character.isDigit(c) && input.charAt(i-1) == rightParen) // 2^(3)1
+                    	|| (!Character.isDigit(c) && Character.isDigit(input.charAt(i-1)))) { // 2^3log(1)
+                    	while(sub_open > sub_closed) {
+                            formattedInput.append("</sup>");
+                            sub_closed++;
+                    	}
+                    	paren_open = 0;
+                    	paren_closed = 0;
+                        if(c == leftParen) {
+                            paren_open--;
+                        }
+                        else if(c == rightParen) {
+                            paren_closed--;
+                        }
+                    }
+                }
+                if(c == leftParen) {
+                    paren_open++;
+                }
+                else if(c == rightParen) {
+                    paren_closed++;
+                }
+            }
+            formattedInput.append(c);
+        }
+        int unclosedParen = 0;
+        for(int i=0;i<formattedInput.length();i++) {
+        	if(formattedInput.charAt(i) == leftParen) unclosedParen++;
+        	else if(formattedInput.charAt(i) == rightParen) unclosedParen--;
+        }
+        for(int i=0;i<unclosedParen;i++) {
+        	formattedInput.append(rightParen);
+        }
+        return formattedInput.toString();
     }
 
     class PageAdapter extends PagerAdapter {
@@ -575,7 +651,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         public Object instantiateItem(View container, int position) {
             if(position == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
                 if (mChartView == null) {
-                    mChartView = mGraph.getGraph(Calculator.this);
+                    mChartView = mGraph.getGraph(getContext());
                     mChartView.setId(R.id.graphView);
                     LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
                     l.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -846,7 +922,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         public Object instantiateItem(View container, int position) {
             if(position == LargePanel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
                 if (mChartView == null) {
-                    mChartView = mGraph.getGraph(Calculator.this);
+                    mChartView = mGraph.getGraph(getContext());
                     mChartView.setId(R.id.graphView);
                     LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
                     l.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
