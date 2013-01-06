@@ -38,6 +38,7 @@
             <com.android2.calculator3.ColorButton
                 android:id="@+id/sin"
                 android:text="@string/sin"
+                android:tag="@string/arcsin"
                 style="@style/button_small_style"
                 />
             <TextView
@@ -53,6 +54,7 @@
             <com.android2.calculator3.ColorButton
                 android:id="@+id/cos"
                 android:text="@string/cos"
+                android:tag="@string/arccos"
                 style="@style/button_small_style"
                 />
             <TextView
@@ -68,6 +70,7 @@
             <com.android2.calculator3.ColorButton
                 android:id="@+id/tan"
                 android:text="@string/tan"
+                android:tag="@string/arctan"
                 style="@style/button_small_style"
                 />
             <TextView

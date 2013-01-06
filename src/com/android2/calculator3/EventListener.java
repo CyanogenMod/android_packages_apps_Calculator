@@ -95,9 +95,9 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
-            if (mHandler.getText().contains(mX) ||
+            if(mHandler.getText().contains(mX) ||
                 mHandler.getText().contains(mY)) {
-                if (!mHandler.getText().contains("=")) {
+                if(!mHandler.getText().contains("=")) {
                     mHandler.insert("=");
                 }
                 break;
@@ -220,21 +220,21 @@ class EventListener implements View.OnKeyListener,
             break;
 
         default:
-            if (view instanceof Button) {
+            if(view instanceof Button) {
                 if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
                 String text = ((Button) view).getText().toString();
-                if (!acceptableKey(text)) {
+                if(!acceptableKey(text)) {
                     break;
                 }
-                if (text.equals(mDX) || text.equals(mDY)) {
+                if(text.equals(mDX) || text.equals(mDY)) {
                     // Do nothing
                 }
-                else if (text.length() >= 2) {
+                else if(text.length() >= 2) {
                     // Add paren after sin, cos, ln, etc. from buttons
                     text += "(";
                 }
                 mHandler.insert(text);
-                if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
+                if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
                     mPager.setCurrentItem(Panel.BASIC.getOrder());
                 }
             }
@@ -248,19 +248,19 @@ class EventListener implements View.OnKeyListener,
         case R.id.del:
             mHandler.onClear();
             return true;
-        case R.id.sin:
-            text = mContext.getString(R.string.sin) + "^-1(";
-            break;
-        case R.id.cos:
-            text = mContext.getString(R.string.cos) + "^-1(";
-            break;
-        case R.id.tan:
-            text = mContext.getString(R.string.tan) + "^-1(";
-            break;
+        default:
+            text = (String) view.getTag();
+            if(!acceptableKey(text)) {
+                break;
+            }
+            if(text.length() >= 2) {
+                // Add paren after sin, cos, ln, etc. from buttons
+                text += "(";
+            }
         }
         if(text != null) {
             mHandler.insert(text);
-            if (mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
+            if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
                 mPager.setCurrentItem(Panel.BASIC.getOrder());
             }
             return true;
@@ -280,24 +280,24 @@ class EventListener implements View.OnKeyListener,
         int action = keyEvent.getAction();
 
         //Work-around for spurious key event from IME, bug #1639445
-        if (action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+        if(action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
             return true; // eat it
         }
 
         //Calculator.log("KEY " + keyCode + "; " + action);
 
-        if (keyEvent.getUnicodeChar() == '=') {
-            if (action == KeyEvent.ACTION_UP) {
+        if(keyEvent.getUnicodeChar() == '=') {
+            if(action == KeyEvent.ACTION_UP) {
                 mHandler.onEnter();
             }
             return true;
         }
 
-        if (keyCode != KeyEvent.KEYCODE_DPAD_CENTER &&
+        if(keyCode != KeyEvent.KEYCODE_DPAD_CENTER &&
             keyCode != KeyEvent.KEYCODE_DPAD_UP &&
             keyCode != KeyEvent.KEYCODE_DPAD_DOWN &&
             keyCode != KeyEvent.KEYCODE_ENTER) {
-            if (keyEvent.isPrintingKey() && action == KeyEvent.ACTION_UP) {
+            if(keyEvent.isPrintingKey() && action == KeyEvent.ACTION_UP) {
                 // Tell the handler that text was updated.
                 mHandler.onTextChanged();
             }
@@ -311,7 +311,7 @@ class EventListener implements View.OnKeyListener,
            http://b/issue?id=1022478
          */
 
-        if (action == KeyEvent.ACTION_UP) {
+        if(action == KeyEvent.ACTION_UP) {
             switch (keyCode) {
             case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_DPAD_CENTER:
@@ -331,14 +331,15 @@ class EventListener implements View.OnKeyListener,
     }
 
     private boolean acceptableKey(String text) {
-        if (text.length() == 1) {
+        if(text == null) return false;
+        if(text.length() == 1) {
             // Disable ABCDEF in DEC/BIN and 23456789 in BIN
-            if (mHandler.getMode().equals(Mode.DECIMAL)) {
+            if(mHandler.getMode().equals(Mode.DECIMAL)) {
                 for (String s : bannedInDecimal) {
                     if(s.equals(text)) return false;
                 }
             }
-            if (mHandler.getMode().equals(Mode.BINARY)) {
+            if(mHandler.getMode().equals(Mode.BINARY)) {
                 for (String s : bannedInBinary) {
                     if(s.equals(text)) return false;
                 }
