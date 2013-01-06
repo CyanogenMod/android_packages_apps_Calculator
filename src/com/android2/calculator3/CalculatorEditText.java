@@ -41,17 +41,9 @@ public class CalculatorEditText extends EditText {
     private static final int PASTE = 2;
     private String[] mMenuItemsStrings;
 
-    private String input;
+    private EquationFormatter mEquationFormatter;
 
-    private final char power;
-    private final char plus;
-    private final char minus;
-    private final char mul;
-    private final char div;
-    private final char equal;
-    private final char leftParen;
-    private final char rightParen;
-    private final static char PLACEHOLDER = '\u200B';
+    private String input;
 
     public CalculatorEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -60,14 +52,7 @@ public class CalculatorEditText extends EditText {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
 
-        power = context.getString(R.string.power).charAt(0);
-        plus = context.getString(R.string.plus).charAt(0);
-        minus = context.getString(R.string.minus).charAt(0);
-        mul = context.getString(R.string.mul).charAt(0);
-        div = context.getString(R.string.div).charAt(0);
-        equal = context.getString(R.string.equal).charAt(0);
-        leftParen = context.getString(R.string.leftParen).charAt(0);
-        rightParen = context.getString(R.string.rightParen).charAt(0);
+        mEquationFormatter = new EquationFormatter(context);
 
         addTextChangedListener(new TextWatcher() {
             boolean updating = false;
@@ -81,66 +66,11 @@ public class CalculatorEditText extends EditText {
             public void afterTextChanged(Editable s) {
                 if(updating) return;
 
-                input = s.toString().replace(PLACEHOLDER, power);
-                final StringBuilder formattedInput = new StringBuilder();
-
-                int sub_open = 0;
-                int sub_closed = 0;
-                int paren_open = 0;
-                int paren_closed = 0;
-                for(int i=0;i<input.length();i++) {
-                    char c = input.charAt(i);
-                    if(c == power) {
-                        formattedInput.append("<sup>");
-                        sub_open++;
-                        if(i+1 == input.length()) {
-                        	formattedInput.append(c);
-                        	sub_open--;
-                        }
-                        else {
-                        	formattedInput.append(PLACEHOLDER);
-                        }
-                        continue;
-                    }
-
-                    if(sub_open > sub_closed) {
-                        if(paren_open == paren_closed) {
-                            // Decide when to break the <sup> started by ^
-                            if(    c == plus  // 2^3+1
-                            	|| (c == minus && input.charAt(i-1) != power) // 2^3-1
-                            	|| c == mul   // 2^3*1
-                            	|| c == div   // 2^3/1
-                            	|| c == equal // X^3=1
-                            	|| (c == leftParen && (Character.isDigit(input.charAt(i-1)) || input.charAt(i-1) == rightParen)) // 2^3(1) or 2^(3-1)(0)
-                            	|| (Character.isDigit(c) && input.charAt(i-1) == rightParen) // 2^(3)1
-                            	|| (!Character.isDigit(c) && Character.isDigit(input.charAt(i-1)))) { // 2^3log(1)
-                            	while(sub_open > sub_closed) {
-                                    formattedInput.append("</sup>");
-                                    sub_closed++;
-                            	}
-                            	paren_open = 0;
-                            	paren_closed = 0;
-                                if(c == leftParen) {
-                                    paren_open--;
-                                }
-                                else if(c == rightParen) {
-                                    paren_closed--;
-                                }
-                            }
-                        }
-                        if(c == leftParen) {
-                            paren_open++;
-                        }
-                        else if(c == rightParen) {
-                            paren_closed++;
-                        }
-                    }
-                    formattedInput.append(c);
-                }
+                input = s.toString().replace(EquationFormatter.PLACEHOLDER, mEquationFormatter.power);
 
                 updating = true;
                 int selectionHandle = getSelectionStart();
-                setText(Html.fromHtml(formattedInput.toString()));
+                setText(Html.fromHtml(mEquationFormatter.insertSubscripts(input)));
                 setSelection(selectionHandle);
                 updating = false;
             }

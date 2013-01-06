@@ -21,15 +21,12 @@ public class HistoryLine extends LinearLayout {
     private String[] mMenuItemsStrings;
     private HistoryEntry mHistoryEntry;
     private History mHistory;
-
-    private final char leftParen;
-    private final char rightParen;
+    private EquationFormatter mEquationFormatter;
 
     public HistoryLine(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        leftParen = context.getString(R.string.leftParen).charAt(0);
-        rightParen = context.getString(R.string.rightParen).charAt(0);
+        mEquationFormatter = new EquationFormatter(context);
 
         setOnLongClickListener(new OnLongClickListener() {
             @Override
@@ -112,16 +109,6 @@ public class HistoryLine extends LinearLayout {
     }
 
     private String formatText(String input) {
-    	final StringBuilder formattedInput = new StringBuilder(input);
-
-        int unclosedParen = 0;
-        for(int i=0;i<formattedInput.length();i++) {
-        	if(formattedInput.charAt(i) == leftParen) unclosedParen++;
-        	else if(formattedInput.charAt(i) == rightParen) unclosedParen--;
-        }
-        for(int i=0;i<unclosedParen;i++) {
-        	formattedInput.append(rightParen);
-        }
-        return formattedInput.toString();
+        return mEquationFormatter.appendParenthesis(input);
     }
 }
