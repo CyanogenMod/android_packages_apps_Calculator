@@ -16,18 +16,6 @@
 
 package com.android2.calculator3;
 
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
-
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -48,6 +36,18 @@ import org.javia.arity.Complex;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
 import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.CalculatorDisplay.Scroll;
 
@@ -55,8 +55,9 @@ class Logic {
     private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
     private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
     private static final String INFINITY_UNICODE = "\u221e";
-    private static final String INFINITY = "Infinity"; // Double.toString() for Infinity
-    private static final String NAN = "NaN";  // Double.toString() for NaN
+    private static final String INFINITY = "Infinity"; // Double.toString() for
+                                                       // Infinity
+    private static final String NAN = "NaN"; // Double.toString() for NaN
 
     static final char MINUS = '\u2212';
 
@@ -67,11 +68,12 @@ class Logic {
     private CalculatorDisplay mDisplay;
     private Symbols mSymbols = new Symbols();
     private History mHistory;
-    private String  mResult = "";
+    private String mResult = "";
     private boolean mIsError = false;
     private int mLineLength = 0;
     private Graph mGraph;
     private Activity mActivity;
+    private EquationFormatter mEquationFormatter;
 
     private boolean useRadians;
 
@@ -103,15 +105,15 @@ class Logic {
     public enum Mode {
         BINARY(0), DECIMAL(1), HEXADECIMAL(2);
 
-         int quickSerializable;
+        int quickSerializable;
 
-         Mode(int num) {
-             this.quickSerializable = num;
-         }
+        Mode(int num) {
+            this.quickSerializable = num;
+        }
 
-         public int getQuickSerializable() {
-             return quickSerializable;
-         }
+        public int getQuickSerializable() {
+            return quickSerializable;
+        }
     }
 
     public interface Listener {
@@ -173,6 +175,7 @@ class Logic {
         mIntegralString = r.getString(R.string.integral);
         useRadians = CalculatorSettings.useRadians(activity);
 
+        mEquationFormatter = new EquationFormatter(activity);
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
@@ -187,7 +190,7 @@ class Logic {
     }
 
     public void setDeleteMode(int mode) {
-        if (mDeleteMode != mode) {
+        if(mDeleteMode != mode) {
             mDeleteMode = mode;
             mListener.onDeleteModeChange();
         }
@@ -209,9 +212,10 @@ class Logic {
 
     public String getText() {
         String text;
-        try{
+        try {
             text = mDisplay.getText().toString();
-        } catch(IndexOutOfBoundsException e) {
+        }
+        catch (IndexOutOfBoundsException e) {
             text = "";
         }
         return text;
@@ -239,16 +243,16 @@ class Logic {
 
     private void clearWithHistory(boolean scroll) {
         String text = mHistory.getText();
-        if (MARKER_EVALUATE_ON_RESUME.equals(text)) {
-            if (!mHistory.moveToPrevious()) {
+        if(MARKER_EVALUATE_ON_RESUME.equals(text)) {
+            if(!mHistory.moveToPrevious()) {
                 text = "";
             }
             text = mHistory.getBase();
             evaluateAndShowResult(text, CalculatorDisplay.Scroll.NONE);
-        } else {
+        }
+        else {
             mResult = "";
-            mDisplay.setText(
-                    text, scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
+            mDisplay.setText(text, scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
             mIsError = false;
         }
     }
@@ -269,16 +273,14 @@ class Logic {
 
     boolean acceptInsert(String delta) {
         String text = getText();
-        return !mIsError &&
-            (!mResult.equals(text) ||
-             isOperator(delta) ||
-             mDisplay.getSelectionStart() != text.length());
+        return !mIsError && (!mResult.equals(text) || isOperator(delta) || mDisplay.getSelectionStart() != text.length());
     }
 
     void onDelete() {
-        if (getText().equals(mResult) || mIsError) {
+        if(getText().equals(mResult) || mIsError) {
             clear(false);
-        } else {
+        }
+        else {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
         }
@@ -291,7 +293,7 @@ class Logic {
     }
 
     void onEnter() {
-        if (mDeleteMode == DELETE_MODE_CLEAR) {
+        if(mDeleteMode == DELETE_MODE_CLEAR) {
             clearWithHistory(false); // clear after an Enter on result
         }
         else {
@@ -302,13 +304,14 @@ class Logic {
     public void evaluateAndShowResult(String text, Scroll scroll) {
         try {
             String result = evaluate(text);
-            if (!text.equals(result)) {
-                mHistory.enter(text, result);
+            if(!text.equals(result)) {
+                mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
                 mResult = result;
                 mDisplay.setText(mResult, scroll);
                 setDeleteMode(DELETE_MODE_CLEAR);
             }
-        } catch (SyntaxException e) {
+        }
+        catch (SyntaxException e) {
             mIsError = true;
             mResult = mErrorString;
             mDisplay.setText(mResult, scroll);
@@ -317,13 +320,13 @@ class Logic {
     }
 
     void onUp() {
-        if (mHistory.moveToPrevious()) {
+        if(mHistory.moveToPrevious()) {
             mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.DOWN);
         }
     }
 
     void onDown() {
-        if (mHistory.moveToNext()) {
+        if(mHistory.moveToNext()) {
             mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.UP);
         }
     }
@@ -334,8 +337,9 @@ class Logic {
     }
 
     public static final int ROUND_DIGITS = 1;
+
     String evaluate(String input) throws SyntaxException {
-        if (input.trim().isEmpty()) {
+        if(input.trim().isEmpty()) {
             return "";
         }
 
@@ -356,7 +360,7 @@ class Logic {
         String real = "";
         for (int precision = mLineLength; precision > 6; precision--) {
             real = tryFormattingWithPrecision(value.re, precision);
-            if (real.length() <= mLineLength) {
+            if(real.length() <= mLineLength) {
                 break;
             }
         }
@@ -364,13 +368,14 @@ class Logic {
         String imaginary = "";
         for (int precision = mLineLength; precision > 6; precision--) {
             imaginary = tryFormattingWithPrecision(value.im, precision);
-            if (imaginary.length() <= mLineLength) {
+            if(imaginary.length() <= mLineLength) {
                 break;
             }
         }
         String result = "";
         if(value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
-        else if(value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit -
+        else if(value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit
+                                                                                // -
         else if(value.re != 0 && value.im == 0) result = real;
         else if(value.re == 0 && value.im != 0) result = imaginary + "i";
         else if(value.re == 0 && value.im == 0) result = "0";
@@ -378,7 +383,8 @@ class Logic {
     }
 
     private String localize(String input) {
-        // Delocalize functions (e.g. Spanish localizes "sin" as "sen"). Order matters for arc functions
+        // Delocalize functions (e.g. Spanish localizes "sin" as "sen"). Order
+        // matters for arc functions
         input = input.replaceAll(Pattern.quote(mArcsinString), "asin");
         input = input.replaceAll(Pattern.quote(mArccosString), "acos");
         input = input.replaceAll(Pattern.quote(mArctanString), "atan");
@@ -400,40 +406,41 @@ class Logic {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
         String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
-        if (result.equals(NAN)) { // treat NaN as Error
+        if(result.equals(NAN)) { // treat NaN as Error
             return mErrorString;
         }
         String mantissa = result;
         String exponent = null;
         int e = result.indexOf('e');
-        if (e != -1) {
+        if(e != -1) {
             mantissa = result.substring(0, e);
 
             // Strip "+" and unnecessary 0's from the exponent
             exponent = result.substring(e + 1);
-            if (exponent.startsWith("+")) {
+            if(exponent.startsWith("+")) {
                 exponent = exponent.substring(1);
             }
             exponent = String.valueOf(Integer.parseInt(exponent));
         }
 
         int period = mantissa.indexOf('.');
-        if (period == -1) {
+        if(period == -1) {
             period = mantissa.indexOf(',');
         }
-        if (period != -1) {
+        if(period != -1) {
             // Strip trailing 0's
             while (mantissa.length() > 0 && mantissa.endsWith("0")) {
                 mantissa = mantissa.substring(0, mantissa.length() - 1);
             }
-            if (mantissa.length() == period + 1) {
+            if(mantissa.length() == period + 1) {
                 mantissa = mantissa.substring(0, mantissa.length() - 1);
             }
         }
 
-        if (exponent != null) {
+        if(exponent != null) {
             result = mantissa + 'e' + exponent;
-        } else {
+        }
+        else {
             result = mantissa;
         }
         return result;
@@ -444,24 +451,17 @@ class Logic {
     }
 
     static boolean isOperator(char c) {
-        //plus minus times div
+        // plus minus times div
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
     }
 
     private boolean graphChanged(Graph graph, String equation, double minX, double maxX, double minY, double maxY) {
-        return !equation.equals(getText()) ||
-                minY != graph.getRenderer().getYAxisMin() ||
-                maxY != graph.getRenderer().getYAxisMax() ||
-                minX != graph.getRenderer().getXAxisMin() ||
-                maxX != graph.getRenderer().getXAxisMax();
+        return !equation.equals(getText()) || minY != graph.getRenderer().getYAxisMin() || maxY != graph.getRenderer().getYAxisMax()
+                || minX != graph.getRenderer().getXAxisMin() || maxX != graph.getRenderer().getXAxisMax();
     }
 
     private boolean pointIsNaN(double lastV, double v, double max, double min) {
-        return v == Double.NaN ||
-               v == Double.POSITIVE_INFINITY ||
-               v == Double.NEGATIVE_INFINITY ||
-               lastV > max && v < min ||
-               v > max && lastV < min;
+        return v == Double.NaN || v == Double.POSITIVE_INFINITY || v == Double.NEGATIVE_INFINITY || lastV > max && v < min || v > max && lastV < min;
     }
 
     void updateGraph(final Graph g) {
@@ -471,34 +471,24 @@ class Logic {
         if(eq.isEmpty()) {
             XYSeries series = new XYSeries("");
 
-            try{
+            try {
                 g.getDataset().removeSeries(g.getSeries());
                 g.setSeries(series);
                 g.getDataset().addSeries(series);
-            }catch (NullPointerException e) {
+            }
+            catch (NullPointerException e) {
                 e.printStackTrace();
             }
 
             GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
-            if(graph!=null) graph.repaint();
+            if(graph != null) graph.repaint();
             return;
         }
 
-        if(eq.endsWith(mPlusString) ||
-           eq.endsWith(mMinusString) ||
-           eq.endsWith(mDivString) ||
-           eq.endsWith(mMulString) ||
-           eq.endsWith(mDotString) ||
-           eq.endsWith(mComaString) ||
-           eq.endsWith(mPowerString) ||
-           eq.endsWith(mSqrtString) ||
-           eq.endsWith(mIntegralString) ||
-           eq.endsWith(mSinString + "(") ||
-           eq.endsWith(mCosString + "(") ||
-           eq.endsWith(mTanString + "(") ||
-           eq.endsWith(mLogString + "(") ||
-           eq.endsWith(mModString + "(") ||
-           eq.endsWith(mLnString + "(")) return;
+        if(eq.endsWith(mPlusString) || eq.endsWith(mMinusString) || eq.endsWith(mDivString) || eq.endsWith(mMulString) || eq.endsWith(mDotString)
+                || eq.endsWith(mComaString) || eq.endsWith(mPowerString) || eq.endsWith(mSqrtString) || eq.endsWith(mIntegralString)
+                || eq.endsWith(mSinString + "(") || eq.endsWith(mCosString + "(") || eq.endsWith(mTanString + "(") || eq.endsWith(mLogString + "(")
+                || eq.endsWith(mModString + "(") || eq.endsWith(mLnString + "(")) return;
 
         final String[] equation = eq.split("=");
 
@@ -516,127 +506,133 @@ class Logic {
             public void run() {
                 final XYSeries series = new XYSeries("");
                 final GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
-                double lastX = (maxX-minX)/2+minX;
-                double lastY = (maxY-minY)/2+minY;
+                double lastX = (maxX - minX) / 2 + minX;
+                double lastY = (maxY - minY) / 2 + minY;
 
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
-                    for(double x=minX;x<=maxX;x+=(0.00125*(maxX-minX))) {
+                    for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
                         if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
-                        try{
+                        try {
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[1]);
 
                             if(pointIsNaN(lastY, y, maxY, minY)) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
-                            else{
+                            else {
                                 series.add(x, y);
                             }
                             lastY = y;
-                        } catch(SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
-                    for(double y=minY;y<=maxY;y+=(0.00125*(maxY-minY))) {
+                    for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
                         if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
-                        try{
+                        try {
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[1]);
 
                             if(pointIsNaN(lastX, x, maxX, minX)) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
-                            else{
+                            else {
                                 series.add(x, y);
                             }
                             lastX = x;
-                        } catch(SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
-                    for(double x=minX;x<=maxX;x+=(0.00125*(maxX-minX))) {
+                    for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
                         if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
-                        try{
+                        try {
                             mSymbols.define(mX, x);
                             double y = mSymbols.eval(equation[0]);
 
                             if(pointIsNaN(lastY, y, maxY, minY)) {
                                 series.add(x, MathHelper.NULL_VALUE);
                             }
-                            else{
+                            else {
                                 series.add(x, y);
                             }
                             lastY = y;
-                        } catch(SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
-                    for(double y=minY;y<=maxY;y+=(0.00125*(maxY-minY))) {
+                    for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
                         if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
-                        try{
+                        try {
                             mSymbols.define(mY, y);
                             double x = mSymbols.eval(equation[0]);
 
                             if(pointIsNaN(lastX, x, maxX, minX)) {
                                 series.add(MathHelper.NULL_VALUE, y);
                             }
-                            else{
+                            else {
                                 series.add(x, y);
                             }
                             lastX = x;
-                        } catch(SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-                else{
-                    for(double x=minX;x<=maxX;x+=(0.01*(maxX-minX))) {
-                        for(double y=maxY;y>=minY;y-=(0.01*(maxY-minY))) {
+                else {
+                    for (double x = minX; x <= maxX; x += (0.01 * (maxX - minX))) {
+                        for (double y = maxY; y >= minY; y -= (0.01 * (maxY - minY))) {
                             if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
-                            try{
+                            try {
                                 mSymbols.define(mX, x);
                                 mSymbols.define(mY, y);
                                 Double leftSide = mSymbols.eval(equation[0]);
                                 Double rightSide = mSymbols.eval(equation[1]);
                                 if(leftSide < 0 && rightSide < 0) {
-                                    if(leftSide*0.97 >= rightSide && leftSide*1.03 <= rightSide) {
+                                    if(leftSide * 0.97 >= rightSide && leftSide * 1.03 <= rightSide) {
                                         series.add(x, y);
                                         break;
                                     }
                                 }
-                                else{
-                                    if(leftSide*0.97 <= rightSide && leftSide*1.03 >= rightSide) {
+                                else {
+                                    if(leftSide * 0.97 <= rightSide && leftSide * 1.03 >= rightSide) {
                                         series.add(x, y);
                                         break;
                                     }
                                 }
-                            } catch(SyntaxException e) {
+                            }
+                            catch (SyntaxException e) {
                                 e.printStackTrace();
                             }
                         }
                     }
                 }
 
-                try{
+                try {
                     g.getDataset().removeSeries(g.getSeries());
-                } catch(NullPointerException e) {
+                }
+                catch (NullPointerException e) {
                     e.printStackTrace();
                 }
                 g.setSeries(series);
                 g.getDataset().addSeries(series);
 
-                if(graph!=null) graph.repaint();
+                if(graph != null) graph.repaint();
             }
         }).start();
     }
@@ -646,18 +642,19 @@ class Logic {
         if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
 
         String result = "";
-        try{
-            for(double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()) {
+        try {
+            for (double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()) {
                 for (int precision = mLineLength; precision > 6; precision--) {
                     result = tryFormattingWithPrecision(d, precision);
-                    if (result.length() <= mLineLength) {
+                    if(result.length() <= mLineLength) {
                         break;
                     }
                 }
 
                 result += ",";
             }
-        } catch(NonSymmetricMatrixException e) {
+        }
+        catch (NonSymmetricMatrixException e) {
             e.printStackTrace();
             setText(mErrorString);
             return;
@@ -675,7 +672,7 @@ class Logic {
         String result = "";
         for (int precision = mLineLength; precision > 6; precision--) {
             result = tryFormattingWithPrecision(new LUDecomposition(matrix).getDeterminant(), precision);
-            if (result.length() <= mLineLength) {
+            if(result.length() <= mLineLength) {
                 break;
             }
         }
@@ -695,38 +692,38 @@ class Logic {
         boolean dot = false;
         boolean dotCalculated = false;
         boolean cross = false;
-        for(int i=0; i<matrices.getChildCount(); i++) {
+        for (int i = 0; i < matrices.getChildCount(); i++) {
             View v = matrices.getChildAt(i);
-            switch(v.getId()) {
-            case(R.id.matrixPlus):
-                if(matrix == null || plus || multiplication || dot || dotCalculated || cross  || (i==matrices.getChildCount()-2)) {
+            switch (v.getId()) {
+            case (R.id.matrixPlus):
+                if(matrix == null || plus || multiplication || dot || dotCalculated || cross || (i == matrices.getChildCount() - 2)) {
                     setText(mErrorString);
                     return null;
                 }
                 plus = true;
                 break;
-            case(R.id.matrixMul):
-                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross  || (i==matrices.getChildCount()-2)) {
+            case (R.id.matrixMul):
+                if(matrix == null || plus || multiplication || dot || dotCalculated || cross || (i == matrices.getChildCount() - 2)) {
                     setText(mErrorString);
                     return null;
                 }
                 multiplication = true;
                 break;
-            case(R.id.matrixDot):
-                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross || (i==matrices.getChildCount()-2)) {
+            case (R.id.matrixDot):
+                if(matrix == null || plus || multiplication || dot || dotCalculated || cross || (i == matrices.getChildCount() - 2)) {
                     setText(mErrorString);
                     return null;
                 }
                 dot = true;
                 break;
-            case(R.id.matrixCross):
-                if(matrix == null || plus || multiplication || dot || dotCalculated  || cross  || (i==matrices.getChildCount()-2)) {
+            case (R.id.matrixCross):
+                if(matrix == null || plus || multiplication || dot || dotCalculated || cross || (i == matrices.getChildCount() - 2)) {
                     setText(mErrorString);
                     return null;
                 }
                 cross = true;
                 break;
-            case(R.id.theMatrix):
+            case (R.id.theMatrix):
                 if(dotCalculated) {
                     setText(mErrorString);
                     return null;
@@ -739,9 +736,9 @@ class Logic {
 
                 double[][] matrixData = new double[n][m];
 
-                for (int j=0; j<theMatrix.getChildCount(); j++) {
+                for (int j = 0; j < theMatrix.getChildCount(); j++) {
                     LinearLayout layout = (LinearLayout) theMatrix.getChildAt(j);
-                    for(int k=0; k<layout.getChildCount(); k++) {
+                    for (int k = 0; k < layout.getChildCount(); k++) {
                         EditText view = (EditText) layout.getChildAt(k);
                         matrixData[j][k] = Double.valueOf(view.getText().toString());
                     }
@@ -751,9 +748,10 @@ class Logic {
                     matrix = new Array2DRowRealMatrix(matrixData);
                 }
                 else if(plus) {
-                    try{
+                    try {
                         matrix = matrix.add(new Array2DRowRealMatrix(matrixData));
-                    } catch(MatrixDimensionMismatchException e) {
+                    }
+                    catch (MatrixDimensionMismatchException e) {
                         e.printStackTrace();
                         setText(mErrorString);
                         return null;
@@ -761,9 +759,10 @@ class Logic {
                     plus = false;
                 }
                 else if(multiplication) {
-                    try{
+                    try {
                         matrix = matrix.multiply(new Array2DRowRealMatrix(matrixData));
-                    } catch(DimensionMismatchException e) {
+                    }
+                    catch (DimensionMismatchException e) {
                         e.printStackTrace();
                         setText(mErrorString);
                         return null;
@@ -797,12 +796,12 @@ class Logic {
                     matrix = CommonMathUtils.toRealMatrix(result);
                     cross = false;
                 }
-                else{
+                else {
                     setText(mErrorString);
                     return null;
                 }
                 break;
-            case(R.id.matrixAdd):
+            case (R.id.matrixAdd):
                 if(dotCalculated) {
                     return null;
                 }
@@ -811,7 +810,7 @@ class Logic {
         }
         if(matrix == null) return null;
 
-        matrices.removeViews(0, matrices.getChildCount()-1);
+        matrices.removeViews(0, matrices.getChildCount() - 1);
 
         double[][] data = matrix.getData();
 
@@ -825,11 +824,11 @@ class Logic {
         else {
             theMatrix.setBackground(mActivity.getResources().getDrawable(R.drawable.matrix_background));
         }
-        for (int i=0; i<data.length; i++) {
+        for (int i = 0; i < data.length; i++) {
             LinearLayout layout = new LinearLayout(mActivity);
             layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             layout.setOrientation(LinearLayout.HORIZONTAL);
-            for(int j=0; j<data[i].length; j++) {
+            for (int j = 0; j < data[i].length; j++) {
                 EditText view = (EditText) ((LinearLayout) View.inflate(mActivity, R.layout.single_matrix_input_box, layout)).getChildAt(j);
                 view.setText(tryFormattingWithPrecision(data[i][j], mLineLength));
                 view.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -849,7 +848,7 @@ class Logic {
         theMatrix.setFocusableInTouchMode(true);
         theMatrix.requestFocus();
 
-        matrices.addView(theMatrix, matrices.getChildCount()-1);
+        matrices.addView(theMatrix, matrices.getChildCount() - 1);
 
         return matrix;
     }
@@ -871,75 +870,86 @@ class Logic {
             String[] operations = text.split(REGEX_NUMBER);
             String[] numbers = text.split(REGEX_NOT_NUMBER);
             String[] translatedNumbers = new String[numbers.length];
-            for(int i=0;i<numbers.length;i++) {
-                if(!numbers[i].isEmpty())
-                switch(mode1) {
+            for (int i = 0; i < numbers.length; i++) {
+                if(!numbers[i].isEmpty()) switch (mode1) {
                 case BINARY:
-                    switch(mode2) {
+                    switch (mode2) {
                     case BINARY:
                         break;
                     case DECIMAL:
-                        try{
+                        try {
                             translatedNumbers[i] = newBase(numbers[i], 2, 10);
-                        } catch(NumberFormatException e) {
+                        }
+                        catch (NumberFormatException e) {
                             return mErrorString;
-                        } catch (SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             return mErrorString;
                         }
                         break;
                     case HEXADECIMAL:
-                        try{
+                        try {
                             translatedNumbers[i] = newBase(numbers[i], 2, 16);
-                        } catch(NumberFormatException e) {
+                        }
+                        catch (NumberFormatException e) {
                             return mErrorString;
-                        } catch (SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             return mErrorString;
                         }
                         break;
                     }
                     break;
                 case DECIMAL:
-                    switch(mode2) {
+                    switch (mode2) {
                     case BINARY:
-                        try{
+                        try {
                             translatedNumbers[i] = newBase(numbers[i], 10, 2);
-                        } catch(NumberFormatException e) {
+                        }
+                        catch (NumberFormatException e) {
                             return mErrorString;
-                        } catch (SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             return mErrorString;
                         }
                         break;
                     case DECIMAL:
                         break;
                     case HEXADECIMAL:
-                        try{
+                        try {
                             translatedNumbers[i] = newBase(numbers[i], 10, 16);
-                        } catch(NumberFormatException e) {
+                        }
+                        catch (NumberFormatException e) {
                             return mErrorString;
-                        } catch (SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             return mErrorString;
                         }
                         break;
                     }
                     break;
                 case HEXADECIMAL:
-                    switch(mode2) {
+                    switch (mode2) {
                     case BINARY:
-                        try{
+                        try {
                             translatedNumbers[i] = newBase(numbers[i], 16, 2);
-                        } catch(NumberFormatException e) {
+                        }
+                        catch (NumberFormatException e) {
                             return mErrorString;
-                        } catch (SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             return mErrorString;
                         }
                         break;
                     case DECIMAL:
-                        try{
+                        try {
                             translatedNumbers[i] = newBase(numbers[i], 16, 10);
-                        } catch(NumberFormatException e) {
+                        }
+                        catch (NumberFormatException e) {
                             e.printStackTrace();
                             return mErrorString;
-                        } catch (SyntaxException e) {
+                        }
+                        catch (SyntaxException e) {
                             e.printStackTrace();
                             return mErrorString;
                         }
@@ -953,23 +963,23 @@ class Logic {
             text = "";
             Object[] o = removeWhitespace(operations);
             Object[] n = removeWhitespace(translatedNumbers);
-            if(originalText.substring(0,1).matches(REGEX_NUMBER)) {
-                for(int i=0;i<o.length && i<n.length;i++) {
+            if(originalText.substring(0, 1).matches(REGEX_NUMBER)) {
+                for (int i = 0; i < o.length && i < n.length; i++) {
                     text += n[i];
                     text += o[i];
                 }
             }
-            else{
-                for(int i=0;i<o.length && i<n.length;i++) {
+            else {
+                for (int i = 0; i < o.length && i < n.length; i++) {
                     text += o[i];
                     text += n[i];
                 }
             }
             if(o.length > n.length) {
-                text += o[o.length-1];
+                text += o[o.length - 1];
             }
             else if(n.length > o.length) {
-                text += n[n.length-1];
+                text += n[n.length - 1];
             }
         }
         return text;
@@ -977,14 +987,15 @@ class Logic {
 
     private Object[] removeWhitespace(String[] strings) {
         ArrayList<String> formatted = new ArrayList<String>(strings.length);
-        for(String s : strings) {
-            if(s!=null && !s.isEmpty()) formatted.add(s);
+        for (String s : strings) {
+            if(s != null && !s.isEmpty()) formatted.add(s);
         }
         return formatted.toArray();
     }
 
     private final static int PRECISION = 8;
-    private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException{
+
+    private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException {
         String[] split = originalNumber.split("\\.");
         if(split[0].isEmpty()) {
             split[0] = "0";
@@ -994,7 +1005,7 @@ class Logic {
         }
 
         String wholeNumber = "";
-        switch(base) {
+        switch (base) {
         case 2:
             wholeNumber = Long.toBinaryString(Long.parseLong(split[0]));
             break;
@@ -1005,19 +1016,20 @@ class Logic {
             wholeNumber = Long.toHexString(Long.parseLong(split[0]));
             break;
         }
-        if(split.length==1) return wholeNumber.toUpperCase(Locale.US);
+        if(split.length == 1) return wholeNumber.toUpperCase(Locale.US);
 
         double decimal = 0;
         if(originalBase != 10) {
             String decimalFraction = Long.toString(Long.parseLong(split[1], originalBase)) + "/" + originalBase + "^" + split[1].length();
             decimal = mSymbols.eval(decimalFraction);
-        } else {
+        }
+        else {
             decimal = Double.parseDouble("0." + split[1]);
         }
-        if(decimal==0) return wholeNumber.toUpperCase(Locale.US);
+        if(decimal == 0) return wholeNumber.toUpperCase(Locale.US);
 
         String decimalNumber = "";
-        for(int i=0,id=0;decimal!=0 && i<=PRECISION;i++) {
+        for (int i = 0, id = 0; decimal != 0 && i <= PRECISION; i++) {
             decimal *= base;
             id = (int) Math.floor(decimal);
             decimal -= id;

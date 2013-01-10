@@ -21,12 +21,9 @@ public class HistoryLine extends LinearLayout {
     private String[] mMenuItemsStrings;
     private HistoryEntry mHistoryEntry;
     private History mHistory;
-    private EquationFormatter mEquationFormatter;
 
     public HistoryLine(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        mEquationFormatter = new EquationFormatter(context);
 
         setOnLongClickListener(new OnLongClickListener() {
             @Override
@@ -40,11 +37,11 @@ public class HistoryLine extends LinearLayout {
     @Override
     public void onCreateContextMenu(ContextMenu menu) {
         MenuHandler handler = new MenuHandler();
-        if (mMenuItemsStrings == null) {
+        if(mMenuItemsStrings == null) {
             Resources resources = getResources();
             mMenuItemsStrings = new String[4];
-            mMenuItemsStrings[COPY] = String.format(resources.getString(R.string.copy), formatText(mHistoryEntry.getBase())+"="+mHistoryEntry.getEdited());
-            mMenuItemsStrings[COPY_BASE] = String.format(resources.getString(R.string.copy), formatText(mHistoryEntry.getBase()));
+            mMenuItemsStrings[COPY] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase()) + "=" + mHistoryEntry.getEdited();
+            mMenuItemsStrings[COPY_BASE] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase());
             mMenuItemsStrings[COPY_EDITED] = String.format(resources.getString(R.string.copy), mHistoryEntry.getEdited());
             mMenuItemsStrings[REMOVE] = resources.getString(R.string.remove_from_history);
         }
@@ -61,19 +58,19 @@ public class HistoryLine extends LinearLayout {
 
     public boolean onTextContextMenuItem(CharSequence title) {
         boolean handled = false;
-        if (TextUtils.equals(title,  mMenuItemsStrings[COPY])) {
-            copyContent(formatText(mHistoryEntry.getBase())+"="+mHistoryEntry.getEdited());
+        if(TextUtils.equals(title, mMenuItemsStrings[COPY])) {
+            copyContent(mHistoryEntry.getBase() + "=" + mHistoryEntry.getEdited());
             handled = true;
         }
-        else if (TextUtils.equals(title,  mMenuItemsStrings[COPY_BASE])) {
-            copyContent(formatText(mHistoryEntry.getBase()));
+        else if(TextUtils.equals(title, mMenuItemsStrings[COPY_BASE])) {
+            copyContent(mHistoryEntry.getBase());
             handled = true;
         }
-        else if (TextUtils.equals(title,  mMenuItemsStrings[COPY_EDITED])) {
+        else if(TextUtils.equals(title, mMenuItemsStrings[COPY_EDITED])) {
             copyContent(mHistoryEntry.getEdited());
             handled = true;
         }
-        else if (TextUtils.equals(title,  mMenuItemsStrings[REMOVE])) {
+        else if(TextUtils.equals(title, mMenuItemsStrings[REMOVE])) {
             removeContent();
             handled = true;
         }
@@ -81,8 +78,7 @@ public class HistoryLine extends LinearLayout {
     }
 
     private void copyContent(String content) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
-                Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, content));
         Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
     }
@@ -106,9 +102,5 @@ public class HistoryLine extends LinearLayout {
 
     public void setHistory(History history) {
         this.mHistory = history;
-    }
-
-    private String formatText(String input) {
-        return mEquationFormatter.appendParenthesis(input);
     }
 }

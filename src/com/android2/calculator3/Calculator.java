@@ -18,10 +18,6 @@ package com.android2.calculator3;
 
 import org.achartengine.GraphicalView;
 
-import com.xlythe.slider.Slider;
-import com.xlythe.slider.Slider.Direction;
-import com.xlythe.slider.Slider.OnSlideListener;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -38,9 +34,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -48,8 +44,11 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
-        OnClickListener, OnMenuItemClickListener {
+import com.xlythe.slider.Slider;
+import com.xlythe.slider.Slider.Direction;
+import com.xlythe.slider.Slider.OnSlideListener;
+
+public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener, OnClickListener, OnMenuItemClickListener {
     EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
     private Persist mPersist;
@@ -71,40 +70,43 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     public enum Panel {
         GRAPH, FUNCTION, HEX, BASIC, ADVANCED, MATRIX;
 
-         int order;
-         public void setOrder(int order) {
-             this.order = order;
-         }
+        int order;
 
-         public int getOrder() {
-             return order;
-         }
+        public void setOrder(int order) {
+            this.order = order;
+        }
+
+        public int getOrder() {
+            return order;
+        }
     }
 
     public enum SmallPanel {
         HEX, ADVANCED, FUNCTION;
 
-         int order;
-         public void setOrder(int order) {
-             this.order = order;
-         }
+        int order;
 
-         public int getOrder() {
-             return order;
-         }
+        public void setOrder(int order) {
+            this.order = order;
+        }
+
+        public int getOrder() {
+            return order;
+        }
     }
 
     public enum LargePanel {
         GRAPH, BASIC, MATRIX;
 
-         int order;
-         public void setOrder(int order) {
-             this.order = order;
-         }
+        int order;
 
-         public int getOrder() {
-             return order;
-         }
+        public void setOrder(int order) {
+            this.order = order;
+        }
+
+        public int getOrder() {
+            return order;
+        }
     }
 
     private static final String LOG_TAG = "Calculator";
@@ -118,8 +120,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         super.onCreate(state);
 
         // Disable IME for this application
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
-                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
         setContentView(R.layout.main);
         mPager = (ViewPager) findViewById(R.id.panelswitch);
@@ -128,12 +129,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mEquationFormatter = new EquationFormatter(this);
 
-        if (mClearButton == null) {
+        if(mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
             mClearButton.setOnClickListener(mListener);
             mClearButton.setOnLongClickListener(mListener);
         }
-        if (mBackspaceButton == null) {
+        if(mBackspaceButton == null) {
             mBackspaceButton = findViewById(R.id.del);
             mBackspaceButton.setOnClickListener(mListener);
             mBackspaceButton.setOnLongClickListener(mListener);
@@ -173,12 +174,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         HistoryAdapter historyAdapter = new HistoryAdapter(this, mHistory, mLogic);
         mHistory.setObserver(historyAdapter);
 
-        if (mPager != null) {
+        if(mPager != null) {
             mPager.setAdapter(new PageAdapter(mPager));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
         }
-        else if (mSmallPager != null && mLargePager != null) {
-            //Expanded UI
+        else if(mSmallPager != null && mLargePager != null) {
+            // Expanded UI
             mSmallPager.setAdapter(new SmallPageAdapter(mSmallPager));
             mLargePager.setAdapter(new LargePageAdapter(mLargePager));
             mSmallPager.setCurrentItem(state == null ? SmallPanel.ADVANCED.getOrder() : state.getInt(STATE_CURRENT_VIEW_SMALL, SmallPanel.ADVANCED.getOrder()));
@@ -187,7 +188,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mListener.setHandler(this, mLogic, mPager);
         mDisplay.setOnKeyListener(mListener);
 
-        if (!ViewConfiguration.get(this).hasPermanentMenuKey()) {
+        if(!ViewConfiguration.get(this).hasPermanentMenuKey()) {
             createFakeMenu();
         }
 
@@ -199,10 +200,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     private void updateDeleteMode() {
-        if (mLogic.getDeleteMode() == Logic.DELETE_MODE_BACKSPACE) {
+        if(mLogic.getDeleteMode() == Logic.DELETE_MODE_BACKSPACE) {
             mClearButton.setVisibility(View.GONE);
             mBackspaceButton.setVisibility(View.VISIBLE);
-        } else {
+        }
+        else {
             mClearButton.setVisibility(View.VISIBLE);
             mBackspaceButton.setVisibility(View.GONE);
         }
@@ -240,13 +242,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mFunctionPanel = menu.findItem(R.id.function);
-        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()) && !mPulldown.isSliderOpen());
+        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext())
+                && !mPulldown.isSliderOpen());
 
         MenuItem mBasicPanel = menu.findItem(R.id.basic);
         if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
-        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()) && !mPulldown.isSliderOpen());
+        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext())
+                && !mPulldown.isSliderOpen());
 
         MenuItem mHexPanel = menu.findItem(R.id.hex);
         if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()) && !mPulldown.isSliderOpen());
@@ -256,7 +260,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     private void createFakeMenu() {
         mOverflowMenuButton = findViewById(R.id.overflow_menu);
-        if (mOverflowMenuButton != null) {
+        if(mOverflowMenuButton != null) {
             mOverflowMenuButton.setVisibility(View.VISIBLE);
             mOverflowMenuButton.setOnClickListener(this);
         }
@@ -265,12 +269,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.overflow_menu:
-                PopupMenu menu = constructPopupMenu();
-                if (menu != null) {
-                    menu.show();
-                }
-                break;
+        case R.id.overflow_menu:
+            PopupMenu menu = constructPopupMenu();
+            if(menu != null) {
+                menu.show();
+            }
+            break;
         }
     }
 
@@ -299,12 +303,14 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     private boolean getFunctionVisibility() {
-//        if(mPager != null) {
-//            return mPager.getCurrentItem() == Panel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(getContext());
-//        }
-//        else if(mSmallPager != null) {
-//            return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(getContext());
-//        }
+        // if(mPager != null) {
+        // return mPager.getCurrentItem() == Panel.FUNCTION.getOrder() &&
+        // CalculatorSettings.functionPanel(getContext());
+        // }
+        // else if(mSmallPager != null) {
+        // return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder()
+        // && CalculatorSettings.functionPanel(getContext());
+        // }
         return false;
     }
 
@@ -351,67 +357,67 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.clear_history:
-                mHistory.clear();
-                mLogic.onClear();
-                mHistoryView.removeAllViews();
-                break;
+        case R.id.clear_history:
+            mHistory.clear();
+            mLogic.onClear();
+            mHistoryView.removeAllViews();
+            break;
 
-            case R.id.show_history:
-                mPulldown.animateSliderOpen();
-                break;
+        case R.id.show_history:
+            mPulldown.animateSliderOpen();
+            break;
 
-            case R.id.hide_history:
-                mPulldown.animateSliderClosed();
-                break;
+        case R.id.hide_history:
+            mPulldown.animateSliderClosed();
+            break;
 
-            case R.id.basic:
-                if (!getBasicVisibility()) {
-                    if(mPager!=null) mPager.setCurrentItem(Panel.BASIC.getOrder());
-                    else if(mLargePager!=null) mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
-                }
-                break;
+        case R.id.basic:
+            if(!getBasicVisibility()) {
+                if(mPager != null) mPager.setCurrentItem(Panel.BASIC.getOrder());
+                else if(mLargePager != null) mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
+            }
+            break;
 
-            case R.id.advanced:
-                if (!getAdvancedVisibility()) {
-                    if(mPager!=null) mPager.setCurrentItem(Panel.ADVANCED.getOrder());
-                    else if(mSmallPager!=null) mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
-                }
-                break;
+        case R.id.advanced:
+            if(!getAdvancedVisibility()) {
+                if(mPager != null) mPager.setCurrentItem(Panel.ADVANCED.getOrder());
+                else if(mSmallPager != null) mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
+            }
+            break;
 
-            case R.id.function:
-                if (!getFunctionVisibility()) {
-                    if(mPager!=null) mPager.setCurrentItem(Panel.FUNCTION.getOrder());
-                    else if(mSmallPager!=null) mSmallPager.setCurrentItem(SmallPanel.FUNCTION.getOrder());
-                }
-                break;
+        case R.id.function:
+            if(!getFunctionVisibility()) {
+                if(mPager != null) mPager.setCurrentItem(Panel.FUNCTION.getOrder());
+                else if(mSmallPager != null) mSmallPager.setCurrentItem(SmallPanel.FUNCTION.getOrder());
+            }
+            break;
 
-            case R.id.graph:
-                if (!getGraphVisibility()) {
-                    if(mPager!=null) mPager.setCurrentItem(Panel.GRAPH.getOrder());
-                    else if(mLargePager!=null) mLargePager.setCurrentItem(LargePanel.GRAPH.getOrder());
-                }
-                break;
+        case R.id.graph:
+            if(!getGraphVisibility()) {
+                if(mPager != null) mPager.setCurrentItem(Panel.GRAPH.getOrder());
+                else if(mLargePager != null) mLargePager.setCurrentItem(LargePanel.GRAPH.getOrder());
+            }
+            break;
 
-            case R.id.matrix:
-                if (!getMatrixVisibility()) {
-                    if(mPager!=null) mPager.setCurrentItem(Panel.MATRIX.getOrder());
-                    else if(mLargePager!=null) mLargePager.setCurrentItem(LargePanel.MATRIX.getOrder());
-                }
-                break;
-                
-            case R.id.hex:
-                if (!getHexVisibility()) {
-                    if(mPager!=null) mPager.setCurrentItem(Panel.HEX.getOrder());
-                    else if(mSmallPager!=null) mSmallPager.setCurrentItem(SmallPanel.HEX.getOrder());
-                }
-                break;
-                
-            case R.id.settings:
-                Intent intent = new Intent(this, Preferences.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
+        case R.id.matrix:
+            if(!getMatrixVisibility()) {
+                if(mPager != null) mPager.setCurrentItem(Panel.MATRIX.getOrder());
+                else if(mLargePager != null) mLargePager.setCurrentItem(LargePanel.MATRIX.getOrder());
+            }
+            break;
+
+        case R.id.hex:
+            if(!getHexVisibility()) {
+                if(mPager != null) mPager.setCurrentItem(Panel.HEX.getOrder());
+                else if(mSmallPager != null) mSmallPager.setCurrentItem(SmallPanel.HEX.getOrder());
+            }
+            break;
+
+        case R.id.settings:
+            Intent intent = new Intent(this, Preferences.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -420,15 +426,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
 
-        if (mPager != null) {
+        if(mPager != null) {
             state.putInt(STATE_CURRENT_VIEW, mPager.getCurrentItem());
         }
 
-        if (mSmallPager != null) {
+        if(mSmallPager != null) {
             state.putInt(STATE_CURRENT_VIEW_SMALL, mSmallPager.getCurrentItem());
         }
 
-        if (mLargePager != null) {
+        if(mLargePager != null) {
             state.putInt(STATE_CURRENT_VIEW_LARGE, mLargePager.getCurrentItem());
         }
     }
@@ -448,11 +454,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mPulldown.animateSliderClosed();
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility()) && CalculatorSettings.basicPanel(getContext())) {
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null
+                && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())
+                && CalculatorSettings.basicPanel(getContext())) {
             mPager.setCurrentItem(Panel.BASIC.getOrder());
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility()) && CalculatorSettings.basicPanel(getContext()) && CalculatorSettings.advancedPanel(getContext())) {
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null
+                && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())
+                && CalculatorSettings.basicPanel(getContext()) && CalculatorSettings.advancedPanel(getContext())) {
             mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
             mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
             return true;
@@ -461,7 +471,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     static void log(String message) {
-        if (LOG_ENABLED) {
+        if(LOG_ENABLED) {
             Log.v(LOG_TAG, message);
         }
     }
@@ -478,13 +488,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     private void setUpHistory() {
         mHistoryView.removeAllViews();
-        for(HistoryEntry he : mHistory.mEntries) {
+        for (HistoryEntry he : mHistory.mEntries) {
             if(!he.getBase().isEmpty()) {
                 HistoryLine entry = (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
                 entry.setHistoryEntry(he);
                 entry.setHistory(mHistory);
                 TextView base = (TextView) entry.findViewById(R.id.base);
-                base.setText(Html.fromHtml(mEquationFormatter.appendParenthesis(mEquationFormatter.insertSubscripts((he.getBase())))));
+                base.setText(Html.fromHtml(mEquationFormatter.insertSupscripts((he.getBase()))));
                 TextView edited = (TextView) entry.findViewById(R.id.edited);
                 edited.setText(he.getEdited());
                 mHistoryView.addView(entry);
@@ -527,16 +537,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             setOrder();
 
             final View clearButton = simplePage.findViewById(R.id.clear);
-            if (clearButton != null) {
+            if(clearButton != null) {
                 mClearButton = clearButton;
             }
 
             final View backspaceButton = simplePage.findViewById(R.id.del);
-            if (backspaceButton != null) {
+            if(backspaceButton != null) {
                 mBackspaceButton = backspaceButton;
             }
 
-            switch(mLogic.getMode()) {
+            switch (mLogic.getMode()) {
             case BINARY:
                 mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
                 break;
@@ -551,9 +561,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             TextView arcsin = (TextView) mAdvancedPage.findViewById(R.id.arcsin);
             TextView arccos = (TextView) mAdvancedPage.findViewById(R.id.arccos);
             TextView arctan = (TextView) mAdvancedPage.findViewById(R.id.arctan);
-            arcsin.setText(Html.fromHtml(getString(R.string.sin)+"<sup>-1</sup>"));
-            arccos.setText(Html.fromHtml(getString(R.string.cos)+"<sup>-1</sup>"));
-            arctan.setText(Html.fromHtml(getString(R.string.tan)+"<sup>-1</sup>"));
+            arcsin.setText(Html.fromHtml(getString(R.string.sin) + "<sup>-1</sup>"));
+            arccos.setText(Html.fromHtml(getString(R.string.cos) + "<sup>-1</sup>"));
+            arctan.setText(Html.fromHtml(getString(R.string.tan) + "<sup>-1</sup>"));
         }
 
         @Override
@@ -562,13 +572,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void startUpdate(View container) {
-        }
+        public void startUpdate(View container) {}
 
         @Override
         public Object instantiateItem(View container, int position) {
             if(position == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
-                if (mChartView == null) {
+                if(mChartView == null) {
                     mChartView = mGraph.getGraph(getContext());
                     mChartView.setId(R.id.graphView);
                     LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
@@ -597,7 +606,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                             mChartView.zoomReset();
                         }
                     });
-                } 
+                }
                 else {
                     mChartView.repaint();
                 }
@@ -633,8 +642,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void finishUpdate(View container) {
-        }
+        public void finishUpdate(View container) {}
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
@@ -647,13 +655,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {
-        }
+        public void restoreState(Parcelable state, ClassLoader loader) {}
 
         @Override
         public void notifyDataSetChanged() {
             super.notifyDataSetChanged();
-            
+
             setOrder();
         }
 
@@ -698,13 +705,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             final View hexPage = inflater.inflate(R.layout.hex_pad, parent, false);
             final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
             final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
-            
+
             mHexPage = hexPage;
             mFunctionPage = functionPage;
             mAdvancedPage = advancedPage;
             setOrder();
 
-            switch(mLogic.getMode()) {
+            switch (mLogic.getMode()) {
             case BINARY:
                 mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
                 break;
@@ -719,9 +726,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             TextView arcsin = (TextView) mAdvancedPage.findViewById(R.id.arcsin);
             TextView arccos = (TextView) mAdvancedPage.findViewById(R.id.arccos);
             TextView arctan = (TextView) mAdvancedPage.findViewById(R.id.arctan);
-            arcsin.setText(Html.fromHtml(getString(R.string.sin)+"<sup>-1</sup>"));
-            arccos.setText(Html.fromHtml(getString(R.string.cos)+"<sup>-1</sup>"));
-            arctan.setText(Html.fromHtml(getString(R.string.tan)+"<sup>-1</sup>"));
+            arcsin.setText(Html.fromHtml(getString(R.string.sin) + "<sup>-1</sup>"));
+            arccos.setText(Html.fromHtml(getString(R.string.cos) + "<sup>-1</sup>"));
+            arctan.setText(Html.fromHtml(getString(R.string.tan) + "<sup>-1</sup>"));
         }
 
         @Override
@@ -730,8 +737,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void startUpdate(View container) {
-        }
+        public void startUpdate(View container) {}
 
         @Override
         public Object instantiateItem(View container, int position) {
@@ -756,8 +762,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void finishUpdate(View container) {
-        }
+        public void finishUpdate(View container) {}
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
@@ -770,13 +775,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {
-        }
+        public void restoreState(Parcelable state, ClassLoader loader) {}
 
         @Override
         public void notifyDataSetChanged() {
             super.notifyDataSetChanged();
-            
+
             setOrder();
         }
 
@@ -817,12 +821,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             setOrder();
 
             final View clearButton = simplePage.findViewById(R.id.clear);
-            if (clearButton != null) {
+            if(clearButton != null) {
                 mClearButton = clearButton;
             }
 
             final View backspaceButton = simplePage.findViewById(R.id.del);
-            if (backspaceButton != null) {
+            if(backspaceButton != null) {
                 mBackspaceButton = backspaceButton;
             }
         }
@@ -833,13 +837,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void startUpdate(View container) {
-        }
+        public void startUpdate(View container) {}
 
         @Override
         public Object instantiateItem(View container, int position) {
             if(position == LargePanel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
-                if (mChartView == null) {
+                if(mChartView == null) {
                     mChartView = mGraph.getGraph(getContext());
                     mChartView.setId(R.id.graphView);
                     LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
@@ -868,7 +871,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                             mChartView.zoomReset();
                         }
                     });
-                } 
+                }
                 else {
                     mChartView.repaint();
                 }
@@ -892,8 +895,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void finishUpdate(View container) {
-        }
+        public void finishUpdate(View container) {}
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
@@ -906,13 +908,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {
-        }
+        public void restoreState(Parcelable state, ClassLoader loader) {}
 
         @Override
         public void notifyDataSetChanged() {
             super.notifyDataSetChanged();
-            
+
             setOrder();
         }
 
@@ -947,7 +948,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         static boolean functionPanel(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.FUNCTION.toString(), context.getResources().getBoolean(R.bool.FUNCTION));
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.FUNCTION.toString(),
+                    context.getResources().getBoolean(R.bool.FUNCTION));
         }
 
         static boolean basicPanel(Context context) {
@@ -955,7 +957,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         static boolean advancedPanel(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.ADVANCED.toString(), context.getResources().getBoolean(R.bool.ADVANCED));
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.ADVANCED.toString(),
+                    context.getResources().getBoolean(R.bool.ADVANCED));
         }
 
         static boolean matrixPanel(Context context) {
@@ -967,7 +970,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         static boolean returnToBasic(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC", context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC",
+                    context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
         }
     }
 }
