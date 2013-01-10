@@ -102,11 +102,12 @@ public class CalculatorWidget extends AppWidgetProvider {
             equation.setLength(0);
             try {
                 equation.append(mLogic.evaluate(input));
-            } catch (SyntaxException e) {
+            }
+            catch (SyntaxException e) {
                 equation.append(context.getResources().getString(R.string.error));
             }
         }
-        else if(intent.getAction().equals("clear")) {
+        else if(intent.getAction().equals(CLR)) {
             equation.setLength(0);
         }
         ComponentName calcWidget = new ComponentName(context, CalculatorWidget.class);
