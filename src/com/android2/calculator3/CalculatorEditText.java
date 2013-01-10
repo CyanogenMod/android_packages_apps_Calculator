@@ -56,11 +56,12 @@ public class CalculatorEditText extends EditText {
 
         addTextChangedListener(new TextWatcher() {
             boolean updating = false;
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -70,7 +71,7 @@ public class CalculatorEditText extends EditText {
 
                 updating = true;
                 int selectionHandle = getSelectionStart();
-                setText(Html.fromHtml(mEquationFormatter.insertSubscripts(input)));
+                setText(Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
                 setSelection(selectionHandle);
                 updating = false;
             }
@@ -91,13 +92,15 @@ public class CalculatorEditText extends EditText {
 
     public boolean onTextContextMenuItem(CharSequence title) {
         boolean handled = false;
-        if (TextUtils.equals(title, mMenuItemsStrings[CUT])) {
+        if(TextUtils.equals(title, mMenuItemsStrings[CUT])) {
             cutContent();
             handled = true;
-        } else if (TextUtils.equals(title,  mMenuItemsStrings[COPY])) {
+        }
+        else if(TextUtils.equals(title, mMenuItemsStrings[COPY])) {
             copyContent();
             handled = true;
-        } else if (TextUtils.equals(title,  mMenuItemsStrings[PASTE])) {
+        }
+        else if(TextUtils.equals(title, mMenuItemsStrings[PASTE])) {
             pasteContent();
             handled = true;
         }
@@ -107,7 +110,7 @@ public class CalculatorEditText extends EditText {
     @Override
     public void onCreateContextMenu(ContextMenu menu) {
         MenuHandler handler = new MenuHandler();
-        if (mMenuItemsStrings == null) {
+        if(mMenuItemsStrings == null) {
             Resources resources = getResources();
             mMenuItemsStrings = new String[3];
             mMenuItemsStrings[CUT] = resources.getString(android.R.string.cut);
@@ -117,20 +120,18 @@ public class CalculatorEditText extends EditText {
         for (int i = 0; i < mMenuItemsStrings.length; i++) {
             menu.add(Menu.NONE, i, i, mMenuItemsStrings[i]).setOnMenuItemClickListener(handler);
         }
-        if (getText().length() == 0) {
+        if(getText().length() == 0) {
             menu.getItem(CUT).setVisible(false);
             menu.getItem(COPY).setVisible(false);
         }
         ClipData primaryClip = getPrimaryClip();
-        if (primaryClip == null || primaryClip.getItemCount() == 0
-                || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
+        if(primaryClip == null || primaryClip.getItemCount() == 0 || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
             menu.getItem(PASTE).setVisible(false);
         }
     }
 
     private void setPrimaryClip(ClipData clip) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().
-                getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(clip);
     }
 
@@ -138,8 +139,7 @@ public class CalculatorEditText extends EditText {
         final Editable text = getText();
         int textLength = text.length();
         setSelection(0, textLength);
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
-                Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
         Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
         setSelection(textLength);
@@ -155,17 +155,16 @@ public class CalculatorEditText extends EditText {
     }
 
     private ClipData getPrimaryClip() {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
-                Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         return clipboard.getPrimaryClip();
     }
 
     private void pasteContent() {
         ClipData clip = getPrimaryClip();
-        if (clip != null) {
+        if(clip != null) {
             for (int i = 0; i < clip.getItemCount(); i++) {
                 CharSequence paste = clip.getItemAt(i).coerceToText(getContext());
-                if (canPaste(paste)) {
+                if(canPaste(paste)) {
                     ((Editable) getText()).insert(getSelectionEnd(), paste);
                 }
             }
