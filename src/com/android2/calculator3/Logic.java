@@ -23,30 +23,14 @@ import java.util.regex.Pattern;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
 import org.achartengine.util.MathHelper;
-import org.apache.commons.math3.exception.DimensionMismatchException;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.EigenDecomposition;
-import org.apache.commons.math3.linear.LUDecomposition;
-import org.apache.commons.math3.linear.MatrixDimensionMismatchException;
-import org.apache.commons.math3.linear.NonSymmetricMatrixException;
-import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.linear.RealVector;
 import org.javia.arity.Complex;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.CalculatorDisplay.Scroll;
@@ -66,13 +50,14 @@ class Logic {
     public static final int DELETE_MODE_CLEAR = 1;
 
     private CalculatorDisplay mDisplay;
+    private GraphicalView mGraphDisplay;
     private Symbols mSymbols = new Symbols();
     private History mHistory;
     private String mResult = "";
     private boolean mIsError = false;
     private int mLineLength = 0;
     private Graph mGraph;
-    private Activity mActivity;
+    // private Activity mActivity;
     private EquationFormatter mEquationFormatter;
 
     private boolean useRadians;
@@ -148,10 +133,8 @@ class Logic {
         useRadians = CalculatorSettings.useRadians(context);
     }
 
-    Logic(Activity activity, History history, CalculatorDisplay display) {
-        mActivity = activity;
-
-        final Resources r = activity.getResources();
+    Logic(Context context, History history, CalculatorDisplay display, GraphicalView graphDisplay) {
+        final Resources r = context.getResources();
         mErrorString = r.getString(R.string.error);
         mSinString = r.getString(R.string.sin);
         mCosString = r.getString(R.string.cos);
@@ -173,12 +156,13 @@ class Logic {
         mPowerString = r.getString(R.string.power);
         mSqrtString = r.getString(R.string.sqrt);
         mIntegralString = r.getString(R.string.integral);
-        useRadians = CalculatorSettings.useRadians(activity);
+        useRadians = CalculatorSettings.useRadians(context);
 
-        mEquationFormatter = new EquationFormatter(activity);
+        mEquationFormatter = new EquationFormatter(context);
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
+        mGraphDisplay = graphDisplay;
     }
 
     public void setGraph(Graph graph) {
@@ -480,8 +464,7 @@ class Logic {
                 e.printStackTrace();
             }
 
-            GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
-            if(graph != null) graph.repaint();
+            if(mGraphDisplay != null) mGraphDisplay.repaint();
             return;
         }
 
@@ -505,7 +488,6 @@ class Logic {
         new Thread(new Runnable() {
             public void run() {
                 final XYSeries series = new XYSeries("");
-                final GraphicalView graph = (GraphicalView) mActivity.findViewById(R.id.graphView);
                 double lastX = (maxX - minX) / 2 + minX;
                 double lastY = (maxY - minY) / 2 + minY;
 
@@ -632,33 +614,13 @@ class Logic {
                 g.setSeries(series);
                 g.getDataset().addSeries(series);
 
-                if(graph != null) graph.repaint();
+                if(mGraphDisplay != null) mGraphDisplay.repaint();
             }
         }).start();
     }
 
     void findEigenvalue() {
-        RealMatrix matrix = solveMatrix();
-        if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
-
         String result = "";
-        try {
-            for (double d : new EigenDecomposition(matrix, 0).getRealEigenvalues()) {
-                for (int precision = mLineLength; precision > 6; precision--) {
-                    result = tryFormattingWithPrecision(d, precision);
-                    if(result.length() <= mLineLength) {
-                        break;
-                    }
-                }
-
-                result += ",";
-            }
-        }
-        catch (NonSymmetricMatrixException e) {
-            e.printStackTrace();
-            setText(mErrorString);
-            return;
-        }
 
         mResult = result;
         mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
@@ -666,191 +628,15 @@ class Logic {
     }
 
     void findDeterminant() {
-        RealMatrix matrix = solveMatrix();
-        if(matrix == null || matrix.getColumnDimension() != matrix.getRowDimension()) return;
-
         String result = "";
-        for (int precision = mLineLength; precision > 6; precision--) {
-            result = tryFormattingWithPrecision(new LUDecomposition(matrix).getDeterminant(), precision);
-            if(result.length() <= mLineLength) {
-                break;
-            }
-        }
 
         mResult = result;
         mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
         setDeleteMode(DELETE_MODE_CLEAR);
     }
 
-    @SuppressLint("NewApi")
-    @SuppressWarnings("deprecation")
-    RealMatrix solveMatrix() {
-        final LinearLayout matrices = (LinearLayout) mActivity.findViewById(R.id.matrices);
-        RealMatrix matrix = null;
-        boolean plus = false;
-        boolean multiplication = false;
-        boolean dot = false;
-        boolean dotCalculated = false;
-        boolean cross = false;
-        for (int i = 0; i < matrices.getChildCount(); i++) {
-            View v = matrices.getChildAt(i);
-            switch (v.getId()) {
-            case (R.id.matrixPlus):
-                if(matrix == null || plus || multiplication || dot || dotCalculated || cross || (i == matrices.getChildCount() - 2)) {
-                    setText(mErrorString);
-                    return null;
-                }
-                plus = true;
-                break;
-            case (R.id.matrixMul):
-                if(matrix == null || plus || multiplication || dot || dotCalculated || cross || (i == matrices.getChildCount() - 2)) {
-                    setText(mErrorString);
-                    return null;
-                }
-                multiplication = true;
-                break;
-            case (R.id.matrixDot):
-                if(matrix == null || plus || multiplication || dot || dotCalculated || cross || (i == matrices.getChildCount() - 2)) {
-                    setText(mErrorString);
-                    return null;
-                }
-                dot = true;
-                break;
-            case (R.id.matrixCross):
-                if(matrix == null || plus || multiplication || dot || dotCalculated || cross || (i == matrices.getChildCount() - 2)) {
-                    setText(mErrorString);
-                    return null;
-                }
-                cross = true;
-                break;
-            case (R.id.theMatrix):
-                if(dotCalculated) {
-                    setText(mErrorString);
-                    return null;
-                }
-
-                LinearLayout theMatrix = (LinearLayout) v;
-
-                int n = theMatrix.getChildCount();
-                int m = ((LinearLayout) theMatrix.getChildAt(0)).getChildCount();
-
-                double[][] matrixData = new double[n][m];
-
-                for (int j = 0; j < theMatrix.getChildCount(); j++) {
-                    LinearLayout layout = (LinearLayout) theMatrix.getChildAt(j);
-                    for (int k = 0; k < layout.getChildCount(); k++) {
-                        EditText view = (EditText) layout.getChildAt(k);
-                        matrixData[j][k] = Double.valueOf(view.getText().toString());
-                    }
-                }
-
-                if(matrix == null) {
-                    matrix = new Array2DRowRealMatrix(matrixData);
-                }
-                else if(plus) {
-                    try {
-                        matrix = matrix.add(new Array2DRowRealMatrix(matrixData));
-                    }
-                    catch (MatrixDimensionMismatchException e) {
-                        e.printStackTrace();
-                        setText(mErrorString);
-                        return null;
-                    }
-                    plus = false;
-                }
-                else if(multiplication) {
-                    try {
-                        matrix = matrix.multiply(new Array2DRowRealMatrix(matrixData));
-                    }
-                    catch (DimensionMismatchException e) {
-                        e.printStackTrace();
-                        setText(mErrorString);
-                        return null;
-                    }
-                    multiplication = false;
-                }
-                else if(dot) {
-                    if(matrix.getColumnDimension() > 1) {
-                        setText(mErrorString);
-                        return null;
-                    }
-
-                    RealVector vector = matrix.getColumnVector(0);
-                    RealVector vectorData = new Array2DRowRealMatrix(matrixData).getColumnVector(0);
-                    String result = tryFormattingWithPrecision(vector.dotProduct(vectorData), 2);
-                    mResult = result;
-                    mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
-                    setDeleteMode(DELETE_MODE_CLEAR);
-                    dot = false;
-                    dotCalculated = true;
-                }
-                else if(cross) {
-                    if(matrix.getColumnDimension() > 1 || matrix.getRowDimension() != 3) {
-                        setText(mErrorString);
-                        return null;
-                    }
-
-                    RealVector vector = matrix.getColumnVector(0);
-                    RealVector vectorData = new Array2DRowRealMatrix(matrixData).getColumnVector(0);
-                    Vector3D result = Vector3D.crossProduct(CommonMathUtils.toVector3D(vector), CommonMathUtils.toVector3D(vectorData));
-                    matrix = CommonMathUtils.toRealMatrix(result);
-                    cross = false;
-                }
-                else {
-                    setText(mErrorString);
-                    return null;
-                }
-                break;
-            case (R.id.matrixAdd):
-                if(dotCalculated) {
-                    return null;
-                }
-                break;
-            }
-        }
-        if(matrix == null) return null;
-
-        matrices.removeViews(0, matrices.getChildCount() - 1);
-
-        double[][] data = matrix.getData();
-
-        final LinearLayout theMatrix = new LinearLayout(mActivity);
-        theMatrix.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        theMatrix.setOrientation(LinearLayout.VERTICAL);
-        theMatrix.setId(R.id.theMatrix);
-        if(android.os.Build.VERSION.SDK_INT < 16) {
-            theMatrix.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.matrix_background));
-        }
-        else {
-            theMatrix.setBackground(mActivity.getResources().getDrawable(R.drawable.matrix_background));
-        }
-        for (int i = 0; i < data.length; i++) {
-            LinearLayout layout = new LinearLayout(mActivity);
-            layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            layout.setOrientation(LinearLayout.HORIZONTAL);
-            for (int j = 0; j < data[i].length; j++) {
-                EditText view = (EditText) ((LinearLayout) View.inflate(mActivity, R.layout.single_matrix_input_box, layout)).getChildAt(j);
-                view.setText(tryFormattingWithPrecision(data[i][j], mLineLength));
-                view.setOnFocusChangeListener(new OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if(hasFocus) {
-                            View theMatrix = (View) v.getParent().getParent();
-                            ViewGroup parent = (ViewGroup) theMatrix.getParent();
-                            parent.removeView(theMatrix);
-                        }
-                    }
-                });
-            }
-            theMatrix.addView(layout);
-        }
-        theMatrix.setFocusable(true);
-        theMatrix.setFocusableInTouchMode(true);
-        theMatrix.requestFocus();
-
-        matrices.addView(theMatrix, matrices.getChildCount() - 1);
-
-        return matrix;
+    void solveMatrix() {
+        return;
     }
 
     public Mode getMode() {

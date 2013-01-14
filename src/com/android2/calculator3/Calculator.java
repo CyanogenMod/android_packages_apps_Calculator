@@ -51,6 +51,7 @@ import com.xlythe.slider.Slider.OnSlideListener;
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener, OnClickListener, OnMenuItemClickListener {
     EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
+    private GraphicalView mGraphDisplay;
     private Persist mPersist;
     private History mHistory;
     private LinearLayout mHistoryView;
@@ -164,16 +165,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mHistoryViewParent = (ScrollView) mHistoryView.getParent();
         setUpHistory();
 
-        mLogic = new Logic(this, mHistory, mDisplay);
-        mLogic.setListener(this);
-        if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
-
-        mLogic.setDeleteMode(mPersist.getDeleteMode());
-        mLogic.setLineLength(mDisplay.getMaxDigits());
-
-        HistoryAdapter historyAdapter = new HistoryAdapter(this, mHistory, mLogic);
-        mHistory.setObserver(historyAdapter);
-
         if(mPager != null) {
             mPager.setAdapter(new PageAdapter(mPager));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
@@ -185,6 +176,17 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mSmallPager.setCurrentItem(state == null ? SmallPanel.ADVANCED.getOrder() : state.getInt(STATE_CURRENT_VIEW_SMALL, SmallPanel.ADVANCED.getOrder()));
             mLargePager.setCurrentItem(state == null ? LargePanel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW_LARGE, LargePanel.BASIC.getOrder()));
         }
+
+        mLogic = new Logic(this, mHistory, mDisplay, mGraphDisplay);
+        mLogic.setListener(this);
+        if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
+
+        mLogic.setDeleteMode(mPersist.getDeleteMode());
+        mLogic.setLineLength(mDisplay.getMaxDigits());
+
+        HistoryAdapter historyAdapter = new HistoryAdapter(this, mHistory, mLogic);
+        mHistory.setObserver(historyAdapter);
+
         mListener.setHandler(this, mLogic, mPager);
         mDisplay.setOnKeyListener(mListener);
 
@@ -515,7 +517,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         private View mAdvancedPage;
         private View mHexPage;
         private View mMatrixPage;
-        private GraphicalView mChartView;
 
         private int count = 0;
 
@@ -577,17 +578,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         @Override
         public Object instantiateItem(View container, int position) {
             if(position == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
-                if(mChartView == null) {
-                    mChartView = mGraph.getGraph(getContext());
-                    mChartView.setId(R.id.graphView);
+                if(mGraphDisplay == null) {
+                    mGraphDisplay = mGraph.getGraph(getContext());
                     LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
-                    l.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
                     View zoomIn = mGraphPage.findViewById(R.id.zoomIn);
                     zoomIn.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mChartView.zoomIn();
+                            mGraphDisplay.zoomIn();
                         }
                     });
 
@@ -595,7 +595,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                     zoomOut.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mChartView.zoomOut();
+                            mGraphDisplay.zoomOut();
                         }
                     });
 
@@ -603,12 +603,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                     zoomReset.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mChartView.zoomReset();
+                            mGraphDisplay.zoomReset();
                         }
                     });
                 }
                 else {
-                    mChartView.repaint();
+                    mGraphDisplay.repaint();
                 }
                 ((ViewGroup) container).addView(mGraphPage);
                 return mGraphPage;
@@ -805,7 +805,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         private View mGraphPage;
         private View mSimplePage;
         private View mMatrixPage;
-        private GraphicalView mChartView;
 
         private int count = 0;
 
@@ -842,17 +841,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         @Override
         public Object instantiateItem(View container, int position) {
             if(position == LargePanel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
-                if(mChartView == null) {
-                    mChartView = mGraph.getGraph(getContext());
-                    mChartView.setId(R.id.graphView);
+                if(mGraphDisplay == null) {
+                    mGraphDisplay = mGraph.getGraph(getContext());
                     LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
-                    l.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
                     View zoomIn = mGraphPage.findViewById(R.id.zoomIn);
                     zoomIn.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mChartView.zoomIn();
+                            mGraphDisplay.zoomIn();
                         }
                     });
 
@@ -860,7 +858,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                     zoomOut.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mChartView.zoomOut();
+                            mGraphDisplay.zoomOut();
                         }
                     });
 
@@ -868,12 +866,12 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                     zoomReset.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mChartView.zoomReset();
+                            mGraphDisplay.zoomReset();
                         }
                     });
                 }
                 else {
-                    mChartView.repaint();
+                    mGraphDisplay.repaint();
                 }
                 ((ViewGroup) container).addView(mGraphPage);
                 return mGraphPage;

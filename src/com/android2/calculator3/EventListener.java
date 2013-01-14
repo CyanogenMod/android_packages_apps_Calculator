@@ -19,10 +19,6 @@ package com.android2.calculator3;
 import java.util.Arrays;
 import java.util.List;
 
-import com.android2.calculator3.Calculator.CalculatorSettings;
-import com.android2.calculator3.Calculator.Panel;
-import com.android2.calculator3.Logic.Mode;
-
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -32,9 +28,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-class EventListener implements View.OnKeyListener,
-                               View.OnClickListener,
-                               View.OnLongClickListener {
+import com.android2.calculator3.Calculator.CalculatorSettings;
+import com.android2.calculator3.Calculator.Panel;
+import com.android2.calculator3.Logic.Mode;
+
+class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
     Context mContext;
     Logic mHandler;
     ViewPager mPager;
@@ -78,8 +76,8 @@ class EventListener implements View.OnKeyListener,
         String D = context.getResources().getString(R.string.D);
         String E = context.getResources().getString(R.string.E);
         String F = context.getResources().getString(R.string.F);
-        bannedInDecimal = Arrays.asList(A,B,C,D,E,F);
-        bannedInBinary = Arrays.asList(A,B,C,D,E,F,digit2,digit3,digit4,digit5,digit6,digit7,digit8,digit9);
+        bannedInDecimal = Arrays.asList(A, B, C, D, E, F);
+        bannedInBinary = Arrays.asList(A, B, C, D, E, F, digit2, digit3, digit4, digit5, digit6, digit7, digit8, digit9);
     }
 
     @Override
@@ -95,8 +93,7 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
-            if(mHandler.getText().contains(mX) ||
-                mHandler.getText().contains(mY)) {
+            if(mHandler.getText().contains(mX) || mHandler.getText().contains(mY)) {
                 if(!mHandler.getText().contains("=")) {
                     mHandler.insert("=");
                 }
@@ -105,60 +102,42 @@ class EventListener implements View.OnKeyListener,
             mHandler.onEnter();
             break;
 
-        case R.id.eigenvalue:
-            mHandler.findEigenvalue();
-            break;
-
-        case R.id.determinant:
-            mHandler.findDeterminant();
-            break;
-
-        case R.id.solve:
-            mHandler.solveMatrix();
-            break;
-
         case R.id.solveForX:
-            WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(),
-                    new WolframAlpha.ResultsRunnable() {
-                        @Override
-                        public void run() {
-                            String text = "";
-                            for(String s : results) {
-                                text += s + ", ";
-                            }
-                            if(text.length()>2) text = text.substring(0, text.length()-2);
-                            mHandler.setText(text);
-                        }
-                    },
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            mHandler.setText(mErrorString);
-                        }
-                    },
-                    mContext.getResources().getString(R.string.wolframAlphaKey));
+            WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(), new WolframAlpha.ResultsRunnable() {
+                @Override
+                public void run() {
+                    String text = "";
+                    for (String s : results) {
+                        text += s + ", ";
+                    }
+                    if(text.length() > 2) text = text.substring(0, text.length() - 2);
+                    mHandler.setText(text);
+                }
+            }, new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.setText(mErrorString);
+                }
+            }, mContext.getResources().getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.solveForY:
-            WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(),
-                    new WolframAlpha.ResultsRunnable() {
-                        @Override
-                        public void run() {
-                            String text = "";
-                            for(String s : results) {
-                                text += s + ", ";
-                            }
-                            if(text.length()>2) text = text.substring(0, text.length()-2);
-                            mHandler.setText(text);
-                        }
-                    },
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            mHandler.setText(mErrorString);
-                        }
-                    },
-                    mContext.getResources().getString(R.string.wolframAlphaKey));
+            WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(), new WolframAlpha.ResultsRunnable() {
+                @Override
+                public void run() {
+                    String text = "";
+                    for (String s : results) {
+                        text += s + ", ";
+                    }
+                    if(text.length() > 2) text = text.substring(0, text.length() - 2);
+                    mHandler.setText(text);
+                }
+            }, new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.setText(mErrorString);
+                }
+            }, mContext.getResources().getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.hex:
@@ -186,14 +165,14 @@ class EventListener implements View.OnKeyListener,
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
                 String[] equation = mHandler.getText().split("=");
-                if(equation.length>1) {
+                if(equation.length > 1) {
                     mHandler.setText(equation[0] + "=(" + equation[1] + ")");
                 }
-                else{
+                else {
                     mHandler.setText(equation[0] + "=()");
                 }
             }
-            else{
+            else {
                 mHandler.setText("(" + mHandler.getText() + ")");
             }
             break;
@@ -202,18 +181,18 @@ class EventListener implements View.OnKeyListener,
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
                 String[] equation = mHandler.getText().split("=");
-                if(equation.length>1) {
+                if(equation.length > 1) {
                     mHandler.setText(equation[0] + "=" + mModString + "(" + equation[1] + ",");
                 }
-                else{
+                else {
                     mHandler.insert(mModString + "(");
                 }
             }
-            else{
-                if(mHandler.getText().length()>0) {
+            else {
+                if(mHandler.getText().length() > 0) {
                     mHandler.setText(mModString + "(" + mHandler.getText() + ",");
                 }
-                else{
+                else {
                     mHandler.insert(mModString + "(");
                 }
             }
@@ -244,7 +223,7 @@ class EventListener implements View.OnKeyListener,
     @Override
     public boolean onLongClick(View view) {
         String text = null;
-        switch(view.getId()) {
+        switch (view.getId()) {
         case R.id.del:
             mHandler.onClear();
             return true;
@@ -279,12 +258,12 @@ class EventListener implements View.OnKeyListener,
     public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
         int action = keyEvent.getAction();
 
-        //Work-around for spurious key event from IME, bug #1639445
+        // Work-around for spurious key event from IME, bug #1639445
         if(action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
             return true; // eat it
         }
 
-        //Calculator.log("KEY " + keyCode + "; " + action);
+        // Calculator.log("KEY " + keyCode + "; " + action);
 
         if(keyEvent.getUnicodeChar() == '=') {
             if(action == KeyEvent.ACTION_UP) {
@@ -293,10 +272,8 @@ class EventListener implements View.OnKeyListener,
             return true;
         }
 
-        if(keyCode != KeyEvent.KEYCODE_DPAD_CENTER &&
-            keyCode != KeyEvent.KEYCODE_DPAD_UP &&
-            keyCode != KeyEvent.KEYCODE_DPAD_DOWN &&
-            keyCode != KeyEvent.KEYCODE_ENTER) {
+        if(keyCode != KeyEvent.KEYCODE_DPAD_CENTER && keyCode != KeyEvent.KEYCODE_DPAD_UP && keyCode != KeyEvent.KEYCODE_DPAD_DOWN
+                && keyCode != KeyEvent.KEYCODE_ENTER) {
             if(keyEvent.isPrintingKey() && action == KeyEvent.ACTION_UP) {
                 // Tell the handler that text was updated.
                 mHandler.onTextChanged();
@@ -305,10 +282,9 @@ class EventListener implements View.OnKeyListener,
         }
 
         /*
-           We should act on KeyEvent.ACTION_DOWN, but strangely
-           sometimes the DOWN event isn't received, only the UP.
-           So the workaround is to act on UP...
-           http://b/issue?id=1022478
+         * We should act on KeyEvent.ACTION_DOWN, but strangely sometimes the
+         * DOWN event isn't received, only the UP. So the workaround is to act
+         * on UP... http://b/issue?id=1022478
          */
 
         if(action == KeyEvent.ACTION_UP) {
