@@ -165,6 +165,16 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mHistoryViewParent = (ScrollView) mHistoryView.getParent();
         setUpHistory();
 
+        mLogic = new Logic(this, mHistory, mDisplay);
+        mLogic.setListener(this);
+        if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
+
+        mLogic.setDeleteMode(mPersist.getDeleteMode());
+        mLogic.setLineLength(mDisplay.getMaxDigits());
+
+        HistoryAdapter historyAdapter = new HistoryAdapter(this, mHistory, mLogic);
+        mHistory.setObserver(historyAdapter);
+
         if(mPager != null) {
             mPager.setAdapter(new PageAdapter(mPager));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
@@ -176,16 +186,6 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mSmallPager.setCurrentItem(state == null ? SmallPanel.ADVANCED.getOrder() : state.getInt(STATE_CURRENT_VIEW_SMALL, SmallPanel.ADVANCED.getOrder()));
             mLargePager.setCurrentItem(state == null ? LargePanel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW_LARGE, LargePanel.BASIC.getOrder()));
         }
-
-        mLogic = new Logic(this, mHistory, mDisplay, mGraphDisplay);
-        mLogic.setListener(this);
-        if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
-
-        mLogic.setDeleteMode(mPersist.getDeleteMode());
-        mLogic.setLineLength(mDisplay.getMaxDigits());
-
-        HistoryAdapter historyAdapter = new HistoryAdapter(this, mHistory, mLogic);
-        mHistory.setObserver(historyAdapter);
 
         mListener.setHandler(this, mLogic, mPager);
         mDisplay.setOnKeyListener(mListener);
@@ -559,12 +559,20 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 break;
             }
 
-            TextView arcsin = (TextView) mAdvancedPage.findViewById(R.id.arcsin);
-            TextView arccos = (TextView) mAdvancedPage.findViewById(R.id.arccos);
-            TextView arctan = (TextView) mAdvancedPage.findViewById(R.id.arctan);
-            arcsin.setText(Html.fromHtml(getString(R.string.sin) + "<sup>-1</sup>"));
-            arccos.setText(Html.fromHtml(getString(R.string.cos) + "<sup>-1</sup>"));
-            arctan.setText(Html.fromHtml(getString(R.string.tan) + "<sup>-1</sup>"));
+            final TextView arcsin = (TextView) advancedPage.findViewById(R.id.arcsin);
+            if(arcsin != null) {
+                arcsin.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arcsin.getText().toString())));
+            }
+
+            final TextView arccos = (TextView) advancedPage.findViewById(R.id.arccos);
+            if(arccos != null) {
+                arccos.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arccos.getText().toString())));
+            }
+
+            final TextView arctan = (TextView) advancedPage.findViewById(R.id.arctan);
+            if(arctan != null) {
+                arctan.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arctan.getText().toString())));
+            }
         }
 
         @Override
@@ -580,6 +588,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             if(position == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
                 if(mGraphDisplay == null) {
                     mGraphDisplay = mGraph.getGraph(getContext());
+                    mLogic.setGraphDisplay(mGraphDisplay);
                     LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
                     l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
@@ -723,12 +732,20 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 break;
             }
 
-            TextView arcsin = (TextView) mAdvancedPage.findViewById(R.id.arcsin);
-            TextView arccos = (TextView) mAdvancedPage.findViewById(R.id.arccos);
-            TextView arctan = (TextView) mAdvancedPage.findViewById(R.id.arctan);
-            arcsin.setText(Html.fromHtml(getString(R.string.sin) + "<sup>-1</sup>"));
-            arccos.setText(Html.fromHtml(getString(R.string.cos) + "<sup>-1</sup>"));
-            arctan.setText(Html.fromHtml(getString(R.string.tan) + "<sup>-1</sup>"));
+            final TextView arcsin = (TextView) advancedPage.findViewById(R.id.arcsin);
+            if(arcsin != null) {
+                arcsin.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arcsin.getText().toString())));
+            }
+
+            final TextView arccos = (TextView) advancedPage.findViewById(R.id.arccos);
+            if(arccos != null) {
+                arccos.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arccos.getText().toString())));
+            }
+
+            final TextView arctan = (TextView) advancedPage.findViewById(R.id.arctan);
+            if(arctan != null) {
+                arctan.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arctan.getText().toString())));
+            }
         }
 
         @Override
@@ -843,6 +860,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             if(position == LargePanel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
                 if(mGraphDisplay == null) {
                     mGraphDisplay = mGraph.getGraph(getContext());
+                    mLogic.setGraphDisplay(mGraphDisplay);
                     LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
                     l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 

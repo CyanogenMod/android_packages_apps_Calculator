@@ -17,7 +17,7 @@ public class MatrixDisplayFragment extends Fragment {
         setRetainInstance(true);
 
         if(s == null) {
-
+            s = new HorizontalScrollView(mContext);
         }
         else {
             ViewGroup parent = (ViewGroup) s.getParent();

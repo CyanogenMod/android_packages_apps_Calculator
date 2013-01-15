@@ -22,8 +22,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
-import android.widget.Button;
 import android.view.MotionEvent;
+import android.widget.Button;
 
 /**
  * Button with click-animation effect.
@@ -70,10 +70,11 @@ class ColorButton extends Button {
         float textWidth = paint.measureText(getText().toString());
         float width = getWidth() - getPaddingLeft() - getPaddingRight();
         float textSize = getTextSize();
-        if (textWidth > width) {
+        if(textWidth > width) {
             paint.setTextSize(textSize * width / textWidth);
             mTextX = getPaddingLeft();
-        } else {
+        }
+        else {
             mTextX = (getWidth() - textWidth) / 2;
         }
         mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
@@ -94,16 +95,18 @@ class ColorButton extends Button {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if (mAnimStart != -1) {
+        if(mAnimStart != -1) {
             int animDuration = (int) (System.currentTimeMillis() - mAnimStart);
 
-            if (animDuration >= CLICK_FEEDBACK_DURATION) {
+            if(animDuration >= CLICK_FEEDBACK_DURATION) {
                 mAnimStart = -1;
-            } else {
+            }
+            else {
                 drawMagicFlame(animDuration, canvas);
                 postInvalidateDelayed(CLICK_FEEDBACK_INTERVAL);
             }
-        } else if (isPressed()) {
+        }
+        else if(isPressed()) {
             drawMagicFlame(0, canvas);
         }
 
@@ -121,18 +124,19 @@ class ColorButton extends Button {
         boolean result = super.onTouchEvent(event);
 
         switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                if (isPressed()) {
-                    animateClickFeedback();
-                } else {
-                    invalidate();
-                }
-                break;
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_CANCEL:
-                mAnimStart = -1;
+        case MotionEvent.ACTION_UP:
+            if(isPressed()) {
+                animateClickFeedback();
+            }
+            else {
                 invalidate();
-                break;
+            }
+            break;
+        case MotionEvent.ACTION_DOWN:
+        case MotionEvent.ACTION_CANCEL:
+            mAnimStart = -1;
+            invalidate();
+            break;
         }
 
         return result;

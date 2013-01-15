@@ -159,6 +159,13 @@
     <string name="crossProduct">Cross</string>
     <string name="determinantDesc">Determinant</string>
     <string name="eigenvalueDesc">Eigen Values</string>
+    <string name="plus_row">+Row</string>
+    <string name="minus_row">-Row</string>
+    <string name="plus_col">+Col</string>
+    <string name="minus_col">-Col</string>
+    <string name="matrix_new">[ ]</string>
+    <string name="matrix_inverse">-1</string>
+    <string name="matrix_transpose">T</string>
 
     <!-- Hex page text -->
     <string name="hex">Hex</string>

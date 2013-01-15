@@ -133,7 +133,7 @@ class Logic {
         useRadians = CalculatorSettings.useRadians(context);
     }
 
-    Logic(Context context, History history, CalculatorDisplay display, GraphicalView graphDisplay) {
+    Logic(Context context, History history, CalculatorDisplay display) {
         final Resources r = context.getResources();
         mErrorString = r.getString(R.string.error);
         mSinString = r.getString(R.string.sin);
@@ -162,6 +162,9 @@ class Logic {
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
+    }
+
+    public void setGraphDisplay(GraphicalView graphDisplay) {
         mGraphDisplay = graphDisplay;
     }
 

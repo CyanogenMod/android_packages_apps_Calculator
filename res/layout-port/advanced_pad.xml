@@ -43,6 +43,7 @@
                 />
             <TextView
                 android:id="@+id/arcsin"
+                android:text="@string/arcsin"
                 android:layout_alignParentRight="true"
                 style="@style/button_hint_style"
                 />
@@ -59,6 +60,7 @@
                 />
             <TextView
                 android:id="@+id/arccos"
+                android:text="@string/arccos"
                 android:layout_alignParentRight="true"
                 style="@style/button_hint_style"
                 />
@@ -75,6 +77,7 @@
                 />
             <TextView
                 android:id="@+id/arctan"
+                android:text="@string/arctan"
                 android:layout_alignParentRight="true"
                 style="@style/button_hint_style"
                 />
