@@ -17,7 +17,7 @@
         <!--  Include preferences -->
         <fragment
             android:id="@+id/preferences"
-            android:name="com.android2.calculator3.PreferencesFragment"
+            android:name="com.android2.calculator3.view.PreferencesFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/version" />

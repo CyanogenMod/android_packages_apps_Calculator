@@ -1,4 +1,4 @@
-package com.android2.calculator3;
+package com.android2.calculator3.view;
 
 import android.app.Fragment;
 import android.content.Context;

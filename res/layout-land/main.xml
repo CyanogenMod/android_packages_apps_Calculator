@@ -27,19 +27,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5" >
-        <com.android2.calculator3.CalculatorDisplay
+        <com.android2.calculator3.view.CalculatorDisplay
             android:id="@+id/display"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"
             maxDigits="@integer/max_digits">
 
-            <com.android2.calculator3.CalculatorEditText
+            <com.android2.calculator3.view.CalculatorEditText
                 style="@style/display_style" />
-            <com.android2.calculator3.CalculatorEditText
+            <com.android2.calculator3.view.CalculatorEditText
                 style="@style/display_style" />
 
-        </com.android2.calculator3.CalculatorDisplay>
+        </com.android2.calculator3.view.CalculatorDisplay>
         <ImageButton android:id="@+id/overflow_menu"
             android:layout_width="48dip"
             android:layout_height="match_parent"
@@ -86,7 +86,7 @@
             android:scrollbarThumbHorizontal="@drawable/btn_function" >
             <include layout="@layout/history_panel" />
         </com.xlythe.slider.Slider>
-        <com.android2.calculator3.CalculatorViewPager
+        <com.android2.calculator3.view.CalculatorViewPager
             android:id="@+id/panelswitch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

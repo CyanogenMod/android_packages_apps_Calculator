@@ -1,4 +1,4 @@
-<com.android2.calculator3.HistoryLine xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android2.calculator3.view.HistoryLine xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,4 +17,4 @@
         android:textColor="@color/history_result"
         android:gravity="right"
         android:id="@+id/edited" />
-</com.android2.calculator3.HistoryLine>
+</com.android2.calculator3.view.HistoryLine>
