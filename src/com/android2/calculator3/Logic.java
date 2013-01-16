@@ -33,9 +33,10 @@ import android.view.KeyEvent;
 import android.widget.EditText;
 
 import com.android2.calculator3.Calculator.CalculatorSettings;
-import com.android2.calculator3.CalculatorDisplay.Scroll;
+import com.android2.calculator3.view.CalculatorDisplay;
+import com.android2.calculator3.view.CalculatorDisplay.Scroll;
 
-class Logic {
+public class Logic {
     private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
     private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
     private static final String INFINITY_UNICODE = "\u221e";

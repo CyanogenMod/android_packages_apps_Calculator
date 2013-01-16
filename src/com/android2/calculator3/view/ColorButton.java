@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3;
+package com.android2.calculator3.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -24,6 +24,10 @@ import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.Button;
+
+import com.android2.calculator3.Calculator;
+import com.android2.calculator3.EventListener;
+import com.android2.calculator3.R;
 
 /**
  * Button with click-animation effect.

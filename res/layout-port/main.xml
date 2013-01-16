@@ -93,7 +93,7 @@
                 android:layout_weight="1"
                 android:layout_height="@dimen/barHeight">
                 <!-- marginRight has to be 0 to catch border-touch -->
-                <com.android2.calculator3.ColorButton
+                <com.android2.calculator3.view.ColorButton
                     android:id="@+id/clear"
                     android:text="@string/clear"
                     android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                     android:textSize="15dp"
                     style="@style/button_style" />
                 <!-- marginRight has to be 0 to catch border-touch -->
-                <com.android2.calculator3.ColorButton
+                <com.android2.calculator3.view.ColorButton
                     android:id="@+id/del"
                     android:text="@string/del"
                     android:layout_width="match_parent"

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3;
+package com.android2.calculator3.view;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,27 +29,31 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ViewSwitcher;
-import android.view.View.OnLongClickListener;
+
+import com.android2.calculator3.CalculatorEditable;
+import com.android2.calculator3.Logic;
+import com.android2.calculator3.R;
 
 /**
  * Provides vertical scrolling for the input/result EditText.
  */
-class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
-
+public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
     private static final String ATTR_MAX_DIGITS = "maxDigits";
     private static final int DEFAULT_MAX_DIGITS = 10;
 
     // only these chars are accepted from keyboard
-    private static final char[] ACCEPTED_CHARS =
-        "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
+    private static final char[] ACCEPTED_CHARS = "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
 
     private static final int ANIM_DURATION = 500;
 
-    enum Scroll { UP, DOWN, NONE }
+    public enum Scroll {
+        UP, DOWN, NONE
+    }
 
     TranslateAnimation inAnimUp;
     TranslateAnimation outAnimUp;
@@ -65,26 +69,20 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         String sinString = context.getString(R.string.sin);
         String cosString = context.getString(R.string.cos);
         String tanString = context.getString(R.string.tan);
-        String arcsinString = context.getString(R.string.sin) + context.getString(R.string.power) + context.getString(R.string.minus) + context.getString(R.string.digit1);
-        String arccosString = context.getString(R.string.cos) + context.getString(R.string.power) + context.getString(R.string.minus) + context.getString(R.string.digit1);
-        String arctanString = context.getString(R.string.tan) + context.getString(R.string.power) + context.getString(R.string.minus) + context.getString(R.string.digit1);
+        String arcsinString = context.getString(R.string.sin) + context.getString(R.string.power) + context.getString(R.string.minus)
+                + context.getString(R.string.digit1);
+        String arccosString = context.getString(R.string.cos) + context.getString(R.string.power) + context.getString(R.string.minus)
+                + context.getString(R.string.digit1);
+        String arctanString = context.getString(R.string.tan) + context.getString(R.string.power) + context.getString(R.string.minus)
+                + context.getString(R.string.digit1);
         String logString = context.getString(R.string.lg);
         String lnString = context.getString(R.string.ln);
         String modString = context.getString(R.string.mod);
         String dx = context.getString(R.string.dx);
         String dy = context.getString(R.string.dy);
-        
-        keywords = Arrays.asList( sinString + "(", 
-                                  cosString + "(",
-                                  tanString + "(", 
-                                  arcsinString + "(",
-                                  arccosString + "(",
-                                  arctanString + "(",
-                                  logString + "(",
-                                  modString + "(",
-                                  lnString + "(",
-                                  dx,
-                                  dy );
+
+        keywords = Arrays.asList(sinString + "(", cosString + "(", tanString + "(", arcsinString + "(", arccosString + "(", arctanString + "(",
+                logString + "(", modString + "(", lnString + "(", dx, dy);
         setOnLongClickListener(this);
     }
 
@@ -94,48 +92,47 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
 
     @SuppressLint("NewApi")
     @SuppressWarnings("deprecation")
-    protected void setLogic(Logic logic) {
-        NumberKeyListener calculatorKeyListener =
-            new NumberKeyListener() {
-                public int getInputType() {
-                    return EditorInfo.TYPE_CLASS_TEXT;
-                }
+    public void setLogic(Logic logic) {
+        NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
+            public int getInputType() {
+                return EditorInfo.TYPE_CLASS_TEXT;
+            }
 
-                @Override
-                protected char[] getAcceptedChars() {
-                    return ACCEPTED_CHARS;
-                }
+            @Override
+            protected char[] getAcceptedChars() {
+                return ACCEPTED_CHARS;
+            }
 
-                @Override
-                public CharSequence filter(CharSequence source, int start, int end,
-                                           Spanned dest, int dstart, int dend) {
-                    /* the EditText should still accept letters (eg. 'sin')
-                       coming from the on-screen touch buttons, so don't filter anything.
-                    */
-                    return null;
-                }
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                /*
+                 * the EditText should still accept letters (eg. 'sin') coming
+                 * from the on-screen touch buttons, so don't filter anything.
+                 */
+                return null;
+            }
 
-                @Override
-                public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_DEL) {
-                        int selectionHandle = getSelectionStart();
-                        String textBeforeInsertionHandle = getText().toString().substring(0, selectionHandle);
-                        String textAfterInsertionHandle = getText().toString().substring(selectionHandle, getText().length());
+            @Override
+            public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_DEL) {
+                    int selectionHandle = getSelectionStart();
+                    String textBeforeInsertionHandle = getText().toString().substring(0, selectionHandle);
+                    String textAfterInsertionHandle = getText().toString().substring(selectionHandle, getText().length());
 
-                        for(String s : keywords) {
-                            if(textBeforeInsertionHandle.endsWith(s)) {
-                                int deletionLength = s.length();
-                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length()-deletionLength) +
-                                        textAfterInsertionHandle;
-                                setText(text);
-                                setSelection(selectionHandle-deletionLength);
-                                return true;
-                            }
+                    for (String s : keywords) {
+                        if(textBeforeInsertionHandle.endsWith(s)) {
+                            int deletionLength = s.length();
+                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)
+                                    + textAfterInsertionHandle;
+                            setText(text);
+                            setSelection(selectionHandle - deletionLength);
+                            return true;
                         }
                     }
-                    return super.onKeyDown(view, content, keyCode, event);
                 }
-            };
+                return super.onKeyDown(view, content, keyCode, event);
+            }
+        };
 
         Editable.Factory factory = new CalculatorEditable.Factory(logic);
         for (int i = 0; i < 2; ++i) {
@@ -172,17 +169,17 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         outAnimDown.setDuration(ANIM_DURATION);
     }
 
-    void insert(String delta) {
+    public void insert(String delta) {
         EditText editor = (EditText) getCurrentView();
         int cursor = editor.getSelectionStart();
         editor.getText().insert(cursor, delta);
     }
 
-    EditText getEditText() {
+    public EditText getEditText() {
         return (EditText) getCurrentView();
     }
 
-    Editable getText() {
+    public Editable getText() {
         CalculatorEditText text = (CalculatorEditText) getCurrentView();
         return text.getInput();
     }
@@ -192,30 +189,32 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
         text.setText(input);
     }
 
-    void setText(CharSequence text, Scroll dir) {
-        if (getText().length() == 0) {
+    public void setText(CharSequence text, Scroll dir) {
+        if(getText().length() == 0) {
             dir = Scroll.NONE;
         }
 
-        if (dir == Scroll.UP) {
+        if(dir == Scroll.UP) {
             setInAnimation(inAnimUp);
             setOutAnimation(outAnimUp);
-        } else if (dir == Scroll.DOWN) {
+        }
+        else if(dir == Scroll.DOWN) {
             setInAnimation(inAnimDown);
             setOutAnimation(outAnimDown);
-        } else { // Scroll.NONE
+        }
+        else { // Scroll.NONE
             setInAnimation(null);
             setOutAnimation(null);
         }
 
         EditText editText = (EditText) getNextView();
         editText.setText(text);
-        //Calculator.log("selection to " + text.length() + "; " + text);
+        // Calculator.log("selection to " + text.length() + "; " + text);
         editText.setSelection(editText.getText().length());
         showNext();
     }
 
-    int getSelectionStart() {
+    public int getSelectionStart() {
         EditText text = (EditText) getCurrentView();
         return text.getSelectionStart();
     }
@@ -227,8 +226,8 @@ class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
 
     @Override
     protected void onFocusChanged(boolean gain, int direction, Rect prev) {
-        //Calculator.log("focus " + gain + "; " + direction + "; " + prev);
-        if (!gain) {
+        // Calculator.log("focus " + gain + "; " + direction + "; " + prev);
+        if(!gain) {
             requestFocus();
         }
     }

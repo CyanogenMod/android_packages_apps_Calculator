@@ -35,7 +35,7 @@
             android:background="@android:color/transparent"
             style="@style/button_small_style"
             >
-            <com.android2.calculator3.ColorButton
+            <com.android2.calculator3.view.ColorButton
                 android:id="@+id/sin"
                 android:text="@string/sin"
                 android:tag="@string/arcsin"
@@ -51,7 +51,7 @@
             android:background="@android:color/transparent"
             style="@style/button_small_style"
             >
-            <com.android2.calculator3.ColorButton
+            <com.android2.calculator3.view.ColorButton
                 android:id="@+id/cos"
                 android:text="@string/cos"
                 android:tag="@string/arccos"
@@ -67,7 +67,7 @@
             android:background="@android:color/transparent"
             style="@style/button_small_style"
             >
-            <com.android2.calculator3.ColorButton
+            <com.android2.calculator3.view.ColorButton
                 android:id="@+id/tan"
                 android:text="@string/tan"
                 android:tag="@string/arctan"
@@ -79,12 +79,12 @@
                 style="@style/button_hint_style"
                 />
         </RelativeLayout>
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/power"
             android:text="@string/power"
             style="@style/button_style"
             />
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/percentage"
             android:text="@string/percentage"
             style="@style/button_style"
@@ -96,27 +96,27 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/ln"
             android:text="@string/ln"
             style="@style/button_small_style"
             />
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/lg"
             android:text="@string/lg"
             style="@style/button_small_style"
             />
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/e"
             android:text="@string/e"
             style="@style/button_style"
             />
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/pi"
             android:text="@string/pi"
             style="@style/button_style"
             />
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/i"
             android:text="@string/i"
             style="@style/button_style"
@@ -128,25 +128,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/sqrt"
             android:text="@string/sqrt"
             android:layout_weight="2"
             style="@style/btn_function_cell_style"
             />
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/factorial"
             android:text="@string/factorial"
             android:layout_weight="2"
             style="@style/btn_function_cell_style"
             />
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"
             android:layout_weight="3"
             style="@style/btn_digit_cell_style"
             />
-        <com.android2.calculator3.ColorButton
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/Y"
             android:text="@string/Y"
             android:layout_weight="3"

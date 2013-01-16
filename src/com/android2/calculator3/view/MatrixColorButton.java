@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2008 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,16 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3;
+package com.android2.calculator3.view;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
-public class CalculatorViewPager extends ViewPager {
-    public CalculatorViewPager(Context context) {
-        super(context);
-    }
-
-    public CalculatorViewPager(Context context, AttributeSet attrs) {
+/**
+ * Button with click-animation effect.
+ */
+class MatrixColorButton extends ColorButton {
+    public MatrixColorButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    /**
-     * ViewPager inherits ViewGroup's default behavior of delayed clicks
-     * on its children, but in order to make the calc buttons more responsive
-     * we disable that here.
-     */
-    public boolean shouldDelayChildPressedState() {
-        return false;
     }
 }

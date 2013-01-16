@@ -1,7 +1,9 @@
-package com.android2.calculator3;
+package com.android2.calculator3.view;
 
 import android.content.Context;
 import android.widget.TableLayout;
+
+import com.android2.calculator3.R;
 
 public class MatrixView extends TableLayout {
 

@@ -44,12 +44,14 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android2.calculator3.view.CalculatorDisplay;
+import com.android2.calculator3.view.HistoryLine;
 import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
 import com.xlythe.slider.Slider.OnSlideListener;
 
 public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener, OnClickListener, OnMenuItemClickListener {
-    EventListener mListener = new EventListener();
+    public EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
     private GraphicalView mGraphDisplay;
     private Persist mPersist;

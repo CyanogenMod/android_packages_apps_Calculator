@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3;
+package com.android2.calculator3.view;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -34,6 +34,9 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.android2.calculator3.EquationFormatter;
+import com.android2.calculator3.R;
 
 public class CalculatorEditText extends EditText {
     private static final int CUT = 0;

@@ -32,7 +32,7 @@ import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
 
-class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
+public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
     Context mContext;
     Logic mHandler;
     ViewPager mPager;
