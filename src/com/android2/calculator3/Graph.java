@@ -28,6 +28,7 @@ import org.achartengine.tools.ZoomListener;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint.Align;
 
 public class Graph {
     private GraphicalView mChartView;
@@ -76,7 +77,8 @@ public class Graph {
             public void panApplied() {
                 try {
                     mLogic.updateGraph(Graph.this);
-                } catch(Exception e) {}
+                }
+                catch(Exception e) {}
             }
         });
         mChartView.addZoomListener(new ZoomListener() {
@@ -84,14 +86,16 @@ public class Graph {
             public void zoomReset() {
                 try {
                     mLogic.updateGraph(Graph.this);
-                } catch(Exception e) {}
+                }
+                catch(Exception e) {}
             }
-            
+
             @Override
             public void zoomApplied(ZoomEvent event) {
                 try {
                     mLogic.updateGraph(Graph.this);
-                } catch(Exception e) {}
+                }
+                catch(Exception e) {}
             }
         }, true, true);
 
@@ -109,7 +113,7 @@ public class Graph {
     private void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
         mSeries = new XYSeries(title, scale);
         int seriesLength = xValues.length;
-        for (int k = 0; k < seriesLength; k++) {
+        for(int k = 0; k < seriesLength; k++) {
             mSeries.add(xValues[k], yValues[k]);
         }
         dataset.addSeries(mSeries);
@@ -133,6 +137,7 @@ public class Graph {
         renderer.setYAxisMax(Graph.MAX_HEIGHT_Y);
         renderer.setAxesColor(Color.GRAY);
         renderer.setLabelsColor(Color.LTGRAY);
+        renderer.setYLabelsAlign(Align.RIGHT);
         renderer.setXLabels(20);
         renderer.setYLabels(20);
         renderer.setPanEnabled(true);

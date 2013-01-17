@@ -6,24 +6,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 
 public class MatrixDisplayFragment extends Fragment {
     Context mContext;
-    HorizontalScrollView s;
+    LinearLayout layout;
 
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         setRetainInstance(true);
 
-        if(s == null) {
-            s = new HorizontalScrollView(mContext);
+        if(layout == null) {
+            layout = new LinearLayout(mContext);
+            layout.setOrientation(LinearLayout.HORIZONTAL);
         }
         else {
-            ViewGroup parent = (ViewGroup) s.getParent();
-            parent.removeView(s);
+            ViewGroup parent = (ViewGroup) layout.getParent();
+            parent.removeView(layout);
         }
 
-        return s;
+        return layout;
     }
 }

@@ -53,29 +53,29 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         mHandler = handler;
         mPager = pager;
 
-        mErrorString = mContext.getResources().getString(R.string.error);
-        mModString = mContext.getResources().getString(R.string.mod);
-        mX = mContext.getResources().getString(R.string.X);
-        mY = mContext.getResources().getString(R.string.Y);
-        mDX = mContext.getResources().getString(R.string.dx);
-        mDY = mContext.getResources().getString(R.string.dy);
-        solveForX = mContext.getResources().getString(R.string.solveForX);
-        solveForY = mContext.getResources().getString(R.string.solveForY);
+        mErrorString = mContext.getString(R.string.error);
+        mModString = mContext.getString(R.string.mod);
+        mX = mContext.getString(R.string.X);
+        mY = mContext.getString(R.string.Y);
+        mDX = mContext.getString(R.string.dx);
+        mDY = mContext.getString(R.string.dy);
+        solveForX = mContext.getString(R.string.solveForX);
+        solveForY = mContext.getString(R.string.solveForY);
 
-        String digit2 = context.getResources().getString(R.string.digit2);
-        String digit3 = context.getResources().getString(R.string.digit3);
-        String digit4 = context.getResources().getString(R.string.digit4);
-        String digit5 = context.getResources().getString(R.string.digit5);
-        String digit6 = context.getResources().getString(R.string.digit6);
-        String digit7 = context.getResources().getString(R.string.digit7);
-        String digit8 = context.getResources().getString(R.string.digit8);
-        String digit9 = context.getResources().getString(R.string.digit9);
-        String A = context.getResources().getString(R.string.A);
-        String B = context.getResources().getString(R.string.B);
-        String C = context.getResources().getString(R.string.C);
-        String D = context.getResources().getString(R.string.D);
-        String E = context.getResources().getString(R.string.E);
-        String F = context.getResources().getString(R.string.F);
+        String digit2 = mContext.getString(R.string.digit2);
+        String digit3 = mContext.getString(R.string.digit3);
+        String digit4 = mContext.getString(R.string.digit4);
+        String digit5 = mContext.getString(R.string.digit5);
+        String digit6 = mContext.getString(R.string.digit6);
+        String digit7 = mContext.getString(R.string.digit7);
+        String digit8 = mContext.getString(R.string.digit8);
+        String digit9 = mContext.getString(R.string.digit9);
+        String A = mContext.getString(R.string.A);
+        String B = mContext.getString(R.string.B);
+        String C = mContext.getString(R.string.C);
+        String D = mContext.getString(R.string.D);
+        String E = mContext.getString(R.string.E);
+        String F = mContext.getString(R.string.F);
         bannedInDecimal = Arrays.asList(A, B, C, D, E, F);
         bannedInBinary = Arrays.asList(A, B, C, D, E, F, digit2, digit3, digit4, digit5, digit6, digit7, digit8, digit9);
     }
@@ -118,7 +118,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 public void run() {
                     mHandler.setText(mErrorString);
                 }
-            }, mContext.getResources().getString(R.string.wolframAlphaKey));
+            }, mContext.getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.solveForY:
@@ -137,7 +137,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 public void run() {
                     mHandler.setText(mErrorString);
                 }
-            }, mContext.getResources().getString(R.string.wolframAlphaKey));
+            }, mContext.getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.hex:

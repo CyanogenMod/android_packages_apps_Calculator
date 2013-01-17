@@ -1,7 +1,9 @@
-package com.android2.calculator3;
+package com.android2.calculator3.view;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.android2.calculator3.R;
 
 public class PreferencesFragment extends PreferenceFragment {
     @Override
