@@ -50,8 +50,9 @@ import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
 import com.xlythe.slider.Slider.OnSlideListener;
 
-public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener, OnClickListener, OnMenuItemClickListener {
+public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener {
     public EventListener mListener = new EventListener();
+    public EventListener mMatrixListener = new MatrixEventListener();
     private CalculatorDisplay mDisplay;
     private GraphicalView mGraphDisplay;
     private Persist mPersist;
@@ -272,7 +273,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch(v.getId()) {
         case R.id.overflow_menu:
             PopupMenu menu = constructPopupMenu();
             if(menu != null) {
@@ -360,7 +361,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch(item.getItemId()) {
         case R.id.clear_history:
             mHistory.clear();
             mLogic.onClear();
@@ -481,18 +482,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     @Override
-    public void onChange() {
-        invalidateOptionsMenu();
-    }
-
-    @Override
     public void onDeleteModeChange() {
         updateDeleteMode();
     }
 
     private void setUpHistory() {
         mHistoryView.removeAllViews();
-        for (HistoryEntry he : mHistory.mEntries) {
+        for(HistoryEntry he : mHistory.mEntries) {
             if(!he.getBase().isEmpty()) {
                 HistoryLine entry = (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
                 entry.setHistoryEntry(he);
@@ -549,7 +545,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 mBackspaceButton = backspaceButton;
             }
 
-            switch (mLogic.getMode()) {
+            switch(mLogic.getMode()) {
             case BINARY:
                 mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
                 break;
@@ -722,7 +718,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mAdvancedPage = advancedPage;
             setOrder();
 
-            switch (mLogic.getMode()) {
+            switch(mLogic.getMode()) {
             case BINARY:
                 mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
                 break;
