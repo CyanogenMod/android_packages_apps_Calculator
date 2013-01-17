@@ -50,10 +50,11 @@ import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
 import com.xlythe.slider.Slider.OnSlideListener;
 
-public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener {
+public class Calculator extends Activity implements ViewPager.OnPageChangeListener, Logic.Listener, OnClickListener, OnMenuItemClickListener {
     public EventListener mListener = new EventListener();
     public EventListener mMatrixListener = new MatrixEventListener();
     private CalculatorDisplay mDisplay;
+    private View mMatrixDisplay;
     private GraphicalView mGraphDisplay;
     private Persist mPersist;
     private History mHistory;
@@ -150,6 +151,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mHistory = mPersist.history;
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
+        mMatrixDisplay = findViewById(R.id.matrixDisplay);
 
         mPulldown = (Slider) findViewById(R.id.pulldown);
         int barHeight = getResources().getInteger(R.integer.barHeight);
@@ -181,6 +183,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         if(mPager != null) {
             mPager.setAdapter(new PageAdapter(mPager));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
+            mPager.setOnPageChangeListener(this);
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
@@ -188,6 +191,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mLargePager.setAdapter(new LargePageAdapter(mLargePager));
             mSmallPager.setCurrentItem(state == null ? SmallPanel.ADVANCED.getOrder() : state.getInt(STATE_CURRENT_VIEW_SMALL, SmallPanel.ADVANCED.getOrder()));
             mLargePager.setCurrentItem(state == null ? LargePanel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW_LARGE, LargePanel.BASIC.getOrder()));
+            mSmallPager.setOnPageChangeListener(this);
+            mLargePager.setOnPageChangeListener(this);
         }
 
         mListener.setHandler(this, mLogic, mPager);
@@ -986,6 +991,24 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         static boolean returnToBasic(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC",
                     context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int arg0) {}
+
+    @Override
+    public void onPageScrolled(int arg0, float arg1, int arg2) {}
+
+    @Override
+    public void onPageSelected(int page) {
+        if(getMatrixVisibility()) {
+            mDisplay.setVisibility(View.GONE);
+            mMatrixDisplay.setVisibility(View.VISIBLE);
+        }
+        else {
+            mDisplay.setVisibility(View.VISIBLE);
+            mMatrixDisplay.setVisibility(View.GONE);
         }
     }
 }
