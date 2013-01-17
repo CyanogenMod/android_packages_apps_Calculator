@@ -136,13 +136,9 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
 
         if(mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
-            mClearButton.setOnClickListener(mListener);
-            mClearButton.setOnLongClickListener(mListener);
         }
         if(mBackspaceButton == null) {
             mBackspaceButton = findViewById(R.id.del);
-            mBackspaceButton.setOnClickListener(mListener);
-            mBackspaceButton.setOnLongClickListener(mListener);
         }
 
         mPersist = new Persist(this);
@@ -218,11 +214,6 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
             mClearButton.setVisibility(View.VISIBLE);
             mBackspaceButton.setVisibility(View.GONE);
         }
-    }
-
-    void setOnClickListener(View root, int id) {
-        final View target = root != null ? root.findViewById(id) : findViewById(id);
-        target.setOnClickListener(mListener);
     }
 
     @Override

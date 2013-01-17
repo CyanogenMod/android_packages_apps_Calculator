@@ -25,7 +25,7 @@ class MatrixColorButton extends ColorButton {
     public MatrixColorButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         Calculator calc = (Calculator) context;
-        mListener = calc.mListener;
+        mListener = calc.mMatrixListener;
         setOnClickListener(mListener);
         setOnLongClickListener(mListener);
     }
