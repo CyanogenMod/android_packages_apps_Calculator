@@ -52,6 +52,9 @@ public class MatrixEventListener extends EventListener {
             mHandler.onEnter();
             break;
 
+        case R.id.matrix:
+            break;
+
         default:
             if(view instanceof Button) {
                 if(mHandler.getText().equals(mErrorString)) mHandler.setText("");

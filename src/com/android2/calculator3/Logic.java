@@ -39,9 +39,9 @@ import com.android2.calculator3.view.CalculatorDisplay.Scroll;
 public class Logic {
     private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
     private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
-    private static final String INFINITY_UNICODE = "\u221e";
-    private static final String INFINITY = "Infinity"; // Double.toString() for
-                                                       // Infinity
+    static final String INFINITY_UNICODE = "\u221e";
+    static final String INFINITY = "Infinity"; // Double.toString() for
+                                               // Infinity
     private static final String NAN = "NaN"; // Double.toString() for NaN
 
     static final char MINUS = '\u2212';
@@ -52,18 +52,17 @@ public class Logic {
 
     private CalculatorDisplay mDisplay;
     private GraphicalView mGraphDisplay;
-    private Symbols mSymbols = new Symbols();
+    Symbols mSymbols = new Symbols();
     private History mHistory;
-    private String mResult = "";
-    private boolean mIsError = false;
-    private int mLineLength = 0;
+    String mResult = "";
+    boolean mIsError = false;
+    int mLineLength = 0;
     private Graph mGraph;
-    // private Activity mActivity;
-    private EquationFormatter mEquationFormatter;
+    EquationFormatter mEquationFormatter;
 
     private boolean useRadians;
 
-    private final String mErrorString;
+    final String mErrorString;
     private final String mSinString;
     private final String mCosString;
     private final String mTanString;
@@ -85,7 +84,7 @@ public class Logic {
     private final String mSqrtString;
     private final String mIntegralString;
 
-    private int mDeleteMode = DELETE_MODE_BACKSPACE;
+    int mDeleteMode = DELETE_MODE_BACKSPACE;
     private Mode mode = Mode.DECIMAL;
 
     public enum Mode {
@@ -109,29 +108,7 @@ public class Logic {
     private Listener mListener;
 
     Logic(Context context) {
-        final Resources r = context.getResources();
-        mErrorString = r.getString(R.string.error);
-        mSinString = r.getString(R.string.sin);
-        mCosString = r.getString(R.string.cos);
-        mTanString = r.getString(R.string.tan);
-        mArcsinString = r.getString(R.string.sin) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
-        mArccosString = r.getString(R.string.cos) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
-        mArctanString = r.getString(R.string.tan) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
-        mLogString = r.getString(R.string.lg);
-        mLnString = r.getString(R.string.ln);
-        mModString = r.getString(R.string.mod);
-        mX = r.getString(R.string.X);
-        mY = r.getString(R.string.Y);
-        mPlusString = r.getString(R.string.plus);
-        mMinusString = r.getString(R.string.minus);
-        mDivString = r.getString(R.string.div);
-        mMulString = r.getString(R.string.mul);
-        mDotString = r.getString(R.string.dot);
-        mComaString = r.getString(R.string.coma);
-        mPowerString = r.getString(R.string.power);
-        mSqrtString = r.getString(R.string.sqrt);
-        mIntegralString = r.getString(R.string.integral);
-        useRadians = CalculatorSettings.useRadians(context);
+        this(context, null, null);
     }
 
     Logic(Context context, History history, CalculatorDisplay display) {
@@ -162,7 +139,7 @@ public class Logic {
         mEquationFormatter = new EquationFormatter(context);
         mHistory = history;
         mDisplay = display;
-        mDisplay.setLogic(this);
+        if(mDisplay != null) mDisplay.setLogic(this);
     }
 
     public void setGraphDisplay(GraphicalView graphDisplay) {
@@ -203,7 +180,7 @@ public class Logic {
         try {
             text = mDisplay.getText().toString();
         }
-        catch (IndexOutOfBoundsException e) {
+        catch(IndexOutOfBoundsException e) {
             text = "";
         }
         return text;
@@ -299,7 +276,7 @@ public class Logic {
                 setDeleteMode(DELETE_MODE_CLEAR);
             }
         }
-        catch (SyntaxException e) {
+        catch(SyntaxException e) {
             mIsError = true;
             mResult = mErrorString;
             mDisplay.setText(mResult, scroll);
@@ -333,7 +310,7 @@ public class Logic {
 
         // Drop final infix operators (they can only result in error)
         int size = input.length();
-        while (size > 0 && isOperator(input.charAt(size - 1))) {
+        while(size > 0 && isOperator(input.charAt(size - 1))) {
             input = input.substring(0, size - 1);
             --size;
         }
@@ -346,7 +323,7 @@ public class Logic {
         Complex value = mSymbols.evalComplex(decimalInput);
 
         String real = "";
-        for (int precision = mLineLength; precision > 6; precision--) {
+        for(int precision = mLineLength; precision > 6; precision--) {
             real = tryFormattingWithPrecision(value.re, precision);
             if(real.length() <= mLineLength) {
                 break;
@@ -354,7 +331,7 @@ public class Logic {
         }
 
         String imaginary = "";
-        for (int precision = mLineLength; precision > 6; precision--) {
+        for(int precision = mLineLength; precision > 6; precision--) {
             imaginary = tryFormattingWithPrecision(value.im, precision);
             if(imaginary.length() <= mLineLength) {
                 break;
@@ -370,7 +347,7 @@ public class Logic {
         return updateTextToNewMode(result, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
     }
 
-    private String localize(String input) {
+    String localize(String input) {
         // Delocalize functions (e.g. Spanish localizes "sin" as "sen"). Order
         // matters for arc functions
         input = input.replaceAll(Pattern.quote(mArcsinString), "asin");
@@ -417,7 +394,7 @@ public class Logic {
         }
         if(period != -1) {
             // Strip trailing 0's
-            while (mantissa.length() > 0 && mantissa.endsWith("0")) {
+            while(mantissa.length() > 0 && mantissa.endsWith("0")) {
                 mantissa = mantissa.substring(0, mantissa.length() - 1);
             }
             if(mantissa.length() == period + 1) {
@@ -464,7 +441,7 @@ public class Logic {
                 g.setSeries(series);
                 g.getDataset().addSeries(series);
             }
-            catch (NullPointerException e) {
+            catch(NullPointerException e) {
                 e.printStackTrace();
             }
 
@@ -496,7 +473,7 @@ public class Logic {
                 double lastY = (maxY - minY) / 2 + minY;
 
                 if(equation[0].equals(mY) && !equation[1].contains(mY)) {
-                    for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
+                    for(double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
                         if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                         try {
@@ -511,13 +488,13 @@ public class Logic {
                             }
                             lastY = y;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
-                    for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
+                    for(double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
                         if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                         try {
@@ -532,13 +509,13 @@ public class Logic {
                             }
                             lastX = x;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
-                    for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
+                    for(double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
                         if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                         try {
@@ -553,13 +530,13 @@ public class Logic {
                             }
                             lastY = y;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
-                    for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
+                    for(double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
                         if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                         try {
@@ -574,14 +551,14 @@ public class Logic {
                             }
                             lastX = x;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 else {
-                    for (double x = minX; x <= maxX; x += (0.01 * (maxX - minX))) {
-                        for (double y = maxY; y >= minY; y -= (0.01 * (maxY - minY))) {
+                    for(double x = minX; x <= maxX; x += (0.01 * (maxX - minX))) {
+                        for(double y = maxY; y >= minY; y -= (0.01 * (maxY - minY))) {
                             if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                             try {
@@ -602,7 +579,7 @@ public class Logic {
                                     }
                                 }
                             }
-                            catch (SyntaxException e) {
+                            catch(SyntaxException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -612,7 +589,7 @@ public class Logic {
                 try {
                     g.getDataset().removeSeries(g.getSeries());
                 }
-                catch (NullPointerException e) {
+                catch(NullPointerException e) {
                     e.printStackTrace();
                 }
                 g.setSeries(series);
@@ -623,25 +600,11 @@ public class Logic {
         }).start();
     }
 
-    void findEigenvalue() {
-        String result = "";
+    void findEigenvalue() {}
 
-        mResult = result;
-        mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
-        setDeleteMode(DELETE_MODE_CLEAR);
-    }
+    void findDeterminant() {}
 
-    void findDeterminant() {
-        String result = "";
-
-        mResult = result;
-        mDisplay.setText(mResult, CalculatorDisplay.Scroll.UP);
-        setDeleteMode(DELETE_MODE_CLEAR);
-    }
-
-    void solveMatrix() {
-        return;
-    }
+    void solveMatrix() {}
 
     public Mode getMode() {
         return mode;
@@ -660,20 +623,20 @@ public class Logic {
             String[] operations = text.split(REGEX_NUMBER);
             String[] numbers = text.split(REGEX_NOT_NUMBER);
             String[] translatedNumbers = new String[numbers.length];
-            for (int i = 0; i < numbers.length; i++) {
-                if(!numbers[i].isEmpty()) switch (mode1) {
+            for(int i = 0; i < numbers.length; i++) {
+                if(!numbers[i].isEmpty()) switch(mode1) {
                 case BINARY:
-                    switch (mode2) {
+                    switch(mode2) {
                     case BINARY:
                         break;
                     case DECIMAL:
                         try {
                             translatedNumbers[i] = newBase(numbers[i], 2, 10);
                         }
-                        catch (NumberFormatException e) {
+                        catch(NumberFormatException e) {
                             return mErrorString;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             return mErrorString;
                         }
                         break;
@@ -681,25 +644,25 @@ public class Logic {
                         try {
                             translatedNumbers[i] = newBase(numbers[i], 2, 16);
                         }
-                        catch (NumberFormatException e) {
+                        catch(NumberFormatException e) {
                             return mErrorString;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             return mErrorString;
                         }
                         break;
                     }
                     break;
                 case DECIMAL:
-                    switch (mode2) {
+                    switch(mode2) {
                     case BINARY:
                         try {
                             translatedNumbers[i] = newBase(numbers[i], 10, 2);
                         }
-                        catch (NumberFormatException e) {
+                        catch(NumberFormatException e) {
                             return mErrorString;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             return mErrorString;
                         }
                         break;
@@ -709,25 +672,25 @@ public class Logic {
                         try {
                             translatedNumbers[i] = newBase(numbers[i], 10, 16);
                         }
-                        catch (NumberFormatException e) {
+                        catch(NumberFormatException e) {
                             return mErrorString;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             return mErrorString;
                         }
                         break;
                     }
                     break;
                 case HEXADECIMAL:
-                    switch (mode2) {
+                    switch(mode2) {
                     case BINARY:
                         try {
                             translatedNumbers[i] = newBase(numbers[i], 16, 2);
                         }
-                        catch (NumberFormatException e) {
+                        catch(NumberFormatException e) {
                             return mErrorString;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             return mErrorString;
                         }
                         break;
@@ -735,11 +698,11 @@ public class Logic {
                         try {
                             translatedNumbers[i] = newBase(numbers[i], 16, 10);
                         }
-                        catch (NumberFormatException e) {
+                        catch(NumberFormatException e) {
                             e.printStackTrace();
                             return mErrorString;
                         }
-                        catch (SyntaxException e) {
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                             return mErrorString;
                         }
@@ -754,13 +717,13 @@ public class Logic {
             Object[] o = removeWhitespace(operations);
             Object[] n = removeWhitespace(translatedNumbers);
             if(originalText.substring(0, 1).matches(REGEX_NUMBER)) {
-                for (int i = 0; i < o.length && i < n.length; i++) {
+                for(int i = 0; i < o.length && i < n.length; i++) {
                     text += n[i];
                     text += o[i];
                 }
             }
             else {
-                for (int i = 0; i < o.length && i < n.length; i++) {
+                for(int i = 0; i < o.length && i < n.length; i++) {
                     text += o[i];
                     text += n[i];
                 }
@@ -777,7 +740,7 @@ public class Logic {
 
     private Object[] removeWhitespace(String[] strings) {
         ArrayList<String> formatted = new ArrayList<String>(strings.length);
-        for (String s : strings) {
+        for(String s : strings) {
             if(s != null && !s.isEmpty()) formatted.add(s);
         }
         return formatted.toArray();
@@ -795,7 +758,7 @@ public class Logic {
         }
 
         String wholeNumber = "";
-        switch (base) {
+        switch(base) {
         case 2:
             wholeNumber = Long.toBinaryString(Long.parseLong(split[0]));
             break;
@@ -819,7 +782,7 @@ public class Logic {
         if(decimal == 0) return wholeNumber.toUpperCase(Locale.US);
 
         String decimalNumber = "";
-        for (int i = 0, id = 0; decimal != 0 && i <= PRECISION; i++) {
+        for(int i = 0, id = 0; decimal != 0 && i <= PRECISION; i++) {
             decimal *= base;
             id = (int) Math.floor(decimal);
             decimal -= id;

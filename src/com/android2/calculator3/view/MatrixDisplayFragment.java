@@ -6,19 +6,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 public class MatrixDisplayFragment extends Fragment {
     Context mContext;
-    LinearLayout layout;
+    public MatrixDisplay layout;
 
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         setRetainInstance(true);
 
         if(layout == null) {
-            layout = new LinearLayout(mContext);
-            layout.setOrientation(LinearLayout.HORIZONTAL);
+            layout = new MatrixDisplay(mContext);
         }
         else {
             ViewGroup parent = (ViewGroup) layout.getParent();
