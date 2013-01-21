@@ -27,7 +27,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,19 +49,15 @@ import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
 import com.xlythe.slider.Slider.OnSlideListener;
 
-public class Calculator extends Activity implements ViewPager.OnPageChangeListener, Logic.Listener, OnClickListener, OnMenuItemClickListener {
+public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener {
     public EventListener mListener = new EventListener();
-    public MatrixEventListener mMatrixListener = new MatrixEventListener();
     private CalculatorDisplay mDisplay;
-    private View mMatrixDisplayContainer;
-    // private MatrixDisplayFragment mMatrixDisplay;
     private GraphicalView mGraphDisplay;
     private Persist mPersist;
     private History mHistory;
     private LinearLayout mHistoryView;
     private ScrollView mHistoryViewParent;
     private Logic mLogic;
-    private Logic mMatrixLogic;
     private ViewPager mPager;
     private ViewPager mSmallPager;
     private ViewPager mLargePager;
@@ -116,8 +111,6 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
         }
     }
 
-    private static final String LOG_TAG = "Calculator";
-    private static final boolean LOG_ENABLED = false;
     private static final String STATE_CURRENT_VIEW = "state-current-view";
     private static final String STATE_CURRENT_VIEW_SMALL = "state-current-view-small";
     private static final String STATE_CURRENT_VIEW_LARGE = "state-current-view-large";
@@ -149,7 +142,6 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
         mHistory = mPersist.history;
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
-        mMatrixDisplayContainer = findViewById(R.id.matrixDisplay);
 
         mPulldown = (Slider) findViewById(R.id.pulldown);
         int barHeight = getResources().getInteger(R.integer.barHeight);
@@ -170,7 +162,6 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
-        mMatrixLogic = new MatrixLogic(this);
         if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
@@ -182,7 +173,6 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
         if(mPager != null) {
             mPager.setAdapter(new PageAdapter(mPager));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
-            mPager.setOnPageChangeListener(this);
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
@@ -190,11 +180,9 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
             mLargePager.setAdapter(new LargePageAdapter(mLargePager));
             mSmallPager.setCurrentItem(state == null ? SmallPanel.ADVANCED.getOrder() : state.getInt(STATE_CURRENT_VIEW_SMALL, SmallPanel.ADVANCED.getOrder()));
             mLargePager.setCurrentItem(state == null ? LargePanel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW_LARGE, LargePanel.BASIC.getOrder()));
-            mLargePager.setOnPageChangeListener(this);
         }
 
         mListener.setHandler(this, mLogic, mPager);
-        mMatrixListener.setHandler(this, mMatrixLogic);
         mDisplay.setOnKeyListener(mListener);
 
         if(!ViewConfiguration.get(this).hasPermanentMenuKey()) {
@@ -472,12 +460,6 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
             return true;
         }
         return super.onKeyDown(keyCode, keyEvent);
-    }
-
-    static void log(String message) {
-        if(LOG_ENABLED) {
-            Log.v(LOG_TAG, message);
-        }
     }
 
     @Override
@@ -985,24 +967,6 @@ public class Calculator extends Activity implements ViewPager.OnPageChangeListen
         static boolean returnToBasic(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC",
                     context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int arg0) {}
-
-    @Override
-    public void onPageScrolled(int arg0, float arg1, int arg2) {}
-
-    @Override
-    public void onPageSelected(int page) {
-        if(getMatrixVisibility()) {
-            mDisplay.setVisibility(View.GONE);
-            mMatrixDisplayContainer.setVisibility(View.VISIBLE);
-        }
-        else {
-            mDisplay.setVisibility(View.VISIBLE);
-            mMatrixDisplayContainer.setVisibility(View.GONE);
         }
     }
 }

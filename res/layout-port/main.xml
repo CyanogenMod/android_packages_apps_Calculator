@@ -36,22 +36,11 @@
              android:layout_height="match_parent"
              android:layout_weight="1"
              maxDigits="@integer/max_digits">
-            <com.android2.calculator3.view.CalculatorEditText
+            <com.android2.calculator3.view.MatrixEnabledDisplay
                 style="@style/display_style" />
-            <com.android2.calculator3.view.CalculatorEditText
+            <com.android2.calculator3.view.MatrixEnabledDisplay
                 style="@style/display_style" />
         </com.android2.calculator3.view.CalculatorDisplay>
-        <LinearLayout
-            android:id="@+id/matrixDisplay"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:visibility="gone" >
-	        <fragment class="com.android2.calculator3.view.MatrixDisplayFragment"
-	            android:id="@+id/matrixDisplayFragment"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent" />
-        </LinearLayout>
         <ImageButton android:id="@+id/overflow_menu"
             android:layout_width="48dip"
             android:layout_height="match_parent"

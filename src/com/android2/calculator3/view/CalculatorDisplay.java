@@ -32,7 +32,6 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.ViewSwitcher;
 
 import com.android2.calculator3.CalculatorEditable;
@@ -119,7 +118,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                     String textBeforeInsertionHandle = getText().toString().substring(0, selectionHandle);
                     String textAfterInsertionHandle = getText().toString().substring(selectionHandle, getText().length());
 
-                    for (String s : keywords) {
+                    for(String s : keywords) {
                         if(textBeforeInsertionHandle.endsWith(s)) {
                             int deletionLength = s.length();
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)
@@ -135,8 +134,8 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         };
 
         Editable.Factory factory = new CalculatorEditable.Factory(logic);
-        for (int i = 0; i < 2; ++i) {
-            EditText text = (EditText) getChildAt(i);
+        for(int i = 0; i < 2; ++i) {
+            MatrixEnabledDisplay text = (MatrixEnabledDisplay) getChildAt(i);
             if(android.os.Build.VERSION.SDK_INT < 16) {
                 text.setBackgroundDrawable(null);
             }
@@ -145,7 +144,6 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             }
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
-            text.setSingleLine();
             text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
         }
     }
@@ -170,22 +168,18 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     }
 
     public void insert(String delta) {
-        EditText editor = (EditText) getCurrentView();
-        int cursor = editor.getSelectionStart();
-        editor.getText().insert(cursor, delta);
-    }
-
-    public EditText getEditText() {
-        return (EditText) getCurrentView();
+        MatrixEnabledDisplay editor = (MatrixEnabledDisplay) getCurrentView();
+        int cursor = editor.getActiveEditText().getSelectionStart();
+        editor.getActiveEditText().getText().insert(cursor, delta);
     }
 
     public Editable getText() {
-        CalculatorEditText text = (CalculatorEditText) getCurrentView();
-        return text.getInput();
+        MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
+        return text.getText();
     }
 
     private void setText(String input) {
-        EditText text = (EditText) getCurrentView();
+        MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
         text.setText(input);
     }
 
@@ -207,26 +201,24 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             setOutAnimation(null);
         }
 
-        EditText editText = (EditText) getNextView();
+        MatrixEnabledDisplay editText = (MatrixEnabledDisplay) getNextView();
         editText.setText(text);
-        // Calculator.log("selection to " + text.length() + "; " + text);
-        editText.setSelection(editText.getText().length());
+        editText.getActiveEditText().setSelection(editText.getActiveEditText().getText().length());
         showNext();
     }
 
     public int getSelectionStart() {
-        EditText text = (EditText) getCurrentView();
-        return text.getSelectionStart();
+        MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
+        return text.getActiveEditText().getSelectionStart();
     }
 
     private void setSelection(int position) {
-        EditText text = (EditText) getCurrentView();
-        text.setSelection(position);
+        MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
+        text.getActiveEditText().setSelection(position);
     }
 
     @Override
     protected void onFocusChanged(boolean gain, int direction, Rect prev) {
-        // Calculator.log("focus " + gain + "; " + direction + "; " + prev);
         if(!gain) {
             requestFocus();
         }

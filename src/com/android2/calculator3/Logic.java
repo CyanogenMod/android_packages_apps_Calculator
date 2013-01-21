@@ -30,7 +30,6 @@ import org.javia.arity.SyntaxException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.KeyEvent;
-import android.widget.EditText;
 
 import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.view.CalculatorDisplay;
@@ -169,12 +168,6 @@ public class Logic {
         mLineLength = nDigits;
     }
 
-    boolean eatHorizontalMove(boolean toLeft) {
-        EditText editText = mDisplay.getEditText();
-        int cursorPos = editText.getSelectionStart();
-        return toLeft ? cursorPos == 0 : cursorPos >= editText.length();
-    }
-
     public String getText() {
         String text;
         try {
@@ -195,7 +188,7 @@ public class Logic {
     void insert(String delta) {
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
-        updateGraph(mGraph);
+        updateGraphCatchErrors(mGraph);
     }
 
     public void onTextChanged() {
@@ -249,12 +242,12 @@ public class Logic {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
         }
-        updateGraph(mGraph);
+        updateGraphCatchErrors(mGraph);
     }
 
     void onClear() {
         clear(mDeleteMode == DELETE_MODE_CLEAR);
-        updateGraph(mGraph);
+        updateGraphCatchErrors(mGraph);
     }
 
     void onEnter() {
@@ -429,6 +422,15 @@ public class Logic {
         return v == Double.NaN || v == Double.POSITIVE_INFINITY || v == Double.NEGATIVE_INFINITY || lastV > max && v < min || v > max && lastV < min;
     }
 
+    void updateGraphCatchErrors(Graph g) {
+        try {
+            updateGraph(g);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     void updateGraph(final Graph g) {
         if(g == null) return;
         final String eq = getText();
@@ -599,12 +601,6 @@ public class Logic {
             }
         }).start();
     }
-
-    void findEigenvalue() {}
-
-    void findDeterminant() {}
-
-    void solveMatrix() {}
 
     public Mode getMode() {
         return mode;

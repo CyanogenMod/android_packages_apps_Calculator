@@ -34,7 +34,6 @@ public class HistoryEntry {
         if(version >= VERSION_1) {
             mBase = in.readUTF();
             mEdited = in.readUTF();
-            // Calculator.log("load " + mEdited);
         }
         else {
             throw new IOException("invalid version " + version);
@@ -44,7 +43,6 @@ public class HistoryEntry {
     void write(DataOutput out) throws IOException {
         out.writeUTF(mBase);
         out.writeUTF(mEdited);
-        // Calculator.log("save " + mEdited);
     }
 
     @Override
