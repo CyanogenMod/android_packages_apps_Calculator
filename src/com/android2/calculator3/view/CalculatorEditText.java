@@ -16,36 +16,23 @@
 
 package com.android2.calculator3.view;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.res.Resources;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.ActionMode;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android2.calculator3.EquationFormatter;
-import com.android2.calculator3.R;
 
 public class CalculatorEditText extends EditText {
-    private static final int CUT = 0;
-    private static final int COPY = 1;
-    private static final int PASTE = 2;
-    private String[] mMenuItemsStrings;
-
     private EquationFormatter mEquationFormatter;
-
     private String input;
 
     public CalculatorEditText(Context context, AttributeSet attrs) {
@@ -81,103 +68,6 @@ public class CalculatorEditText extends EditText {
         });
     }
 
-    @Override
-    public boolean performLongClick() {
-        showContextMenu();
-        return true;
-    }
-
-    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
-        public boolean onMenuItemClick(MenuItem item) {
-            return onTextContextMenuItem(item.getTitle());
-        }
-    }
-
-    public boolean onTextContextMenuItem(CharSequence title) {
-        boolean handled = false;
-        if(TextUtils.equals(title, mMenuItemsStrings[CUT])) {
-            cutContent();
-            handled = true;
-        }
-        else if(TextUtils.equals(title, mMenuItemsStrings[COPY])) {
-            copyContent();
-            handled = true;
-        }
-        else if(TextUtils.equals(title, mMenuItemsStrings[PASTE])) {
-            pasteContent();
-            handled = true;
-        }
-        return handled;
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu) {
-        MenuHandler handler = new MenuHandler();
-        if(mMenuItemsStrings == null) {
-            Resources resources = getResources();
-            mMenuItemsStrings = new String[3];
-            mMenuItemsStrings[CUT] = resources.getString(android.R.string.cut);
-            mMenuItemsStrings[COPY] = resources.getString(android.R.string.copy);
-            mMenuItemsStrings[PASTE] = resources.getString(android.R.string.paste);
-        }
-        for (int i = 0; i < mMenuItemsStrings.length; i++) {
-            menu.add(Menu.NONE, i, i, mMenuItemsStrings[i]).setOnMenuItemClickListener(handler);
-        }
-        if(getText().length() == 0) {
-            menu.getItem(CUT).setVisible(false);
-            menu.getItem(COPY).setVisible(false);
-        }
-        ClipData primaryClip = getPrimaryClip();
-        if(primaryClip == null || primaryClip.getItemCount() == 0 || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
-            menu.getItem(PASTE).setVisible(false);
-        }
-    }
-
-    private void setPrimaryClip(ClipData clip) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(clip);
-    }
-
-    private void copyContent() {
-        final Editable text = getText();
-        int textLength = text.length();
-        setSelection(0, textLength);
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
-        Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
-        setSelection(textLength);
-    }
-
-    private void cutContent() {
-        final Editable text = getText();
-        int textLength = text.length();
-        setSelection(0, textLength);
-        setPrimaryClip(ClipData.newPlainText(null, text));
-        ((Editable) getText()).delete(0, textLength);
-        setSelection(0);
-    }
-
-    private ClipData getPrimaryClip() {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        return clipboard.getPrimaryClip();
-    }
-
-    private void pasteContent() {
-        ClipData clip = getPrimaryClip();
-        if(clip != null) {
-            for (int i = 0; i < clip.getItemCount(); i++) {
-                CharSequence paste = clip.getItemAt(i).coerceToText(getContext());
-                if(canPaste(paste)) {
-                    ((Editable) getText()).insert(getSelectionEnd(), paste);
-                }
-            }
-        }
-    }
-
-    private boolean canPaste(CharSequence paste) {
-        return paste.length() > 0;
-    }
-
     class NoTextSelectionMode implements ActionMode.Callback {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
@@ -186,7 +76,6 @@ public class CalculatorEditText extends EditText {
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            copyContent();
             // Prevents the selection action mode on double tap.
             return false;
         }
