@@ -206,6 +206,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     }
 
     public int getSelectionStart() {
+        if(getActiveEditText() == null) return 0;
         return getActiveEditText().getSelectionStart();
     }
 

@@ -98,6 +98,45 @@ public class MatrixView extends TableLayout {
     }
 
     public static String load(String text, MatrixEnabledDisplay parent) {
+        if(!MatrixView.verify(text)) return text;
+
+        String matrix = MatrixView.parseMatrix(text);
+        text = text.substring(matrix.length() + 1);
+        int rows = MatrixView.countOccurrences(matrix, '[') - 1;
+        int columns = MatrixView.countOccurrences(matrix, ',') / rows + 1;
+
+        System.out.println(rows);
+        System.out.println(columns);
+
         return text;
+    }
+
+    private static boolean verify(String text) {
+        return text.startsWith("[[");
+    }
+
+    private static int countOccurrences(String haystack, char needle) {
+        int count = 0;
+        for(int i = 0; i < haystack.length(); i++) {
+            if(haystack.charAt(i) == needle) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static String parseMatrix(String text) {
+        int bracket_open = 0;
+        int bracket_closed = 0;
+        for(int i = 0; i < text.length(); i++) {
+            if(text.charAt(i) == '[') {
+                bracket_open++;
+            }
+            else if(text.charAt(i) == ']') {
+                bracket_closed++;
+            }
+            if(bracket_open == bracket_closed) return text.substring(0, i);
+        }
+        return "";
     }
 }

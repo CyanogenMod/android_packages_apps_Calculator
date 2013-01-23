@@ -22,10 +22,10 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -36,14 +36,15 @@ public class CalculatorEditText extends EditText {
     private EquationFormatter mEquationFormatter;
     private String input;
 
-    public CalculatorEditText(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public CalculatorEditText(final MatrixEnabledDisplay parent) {
+        super(parent.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
+        setTextAppearance(getContext(), R.style.display_style);
 
-        mEquationFormatter = new EquationFormatter(context);
+        mEquationFormatter = new EquationFormatter(getContext());
 
         addTextChangedListener(new TextWatcher() {
             boolean updating = false;
@@ -70,6 +71,13 @@ public class CalculatorEditText extends EditText {
                     setSelection(1);
                 }
                 updating = false;
+            }
+        });
+
+        setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) parent.mActiveEditText = CalculatorEditText.this;
             }
         });
     }
@@ -106,17 +114,31 @@ public class CalculatorEditText extends EditText {
         return input;
     }
 
-    public static String load(String text, MatrixEnabledDisplay parent) {
-        CalculatorEditText et = new CalculatorEditText(parent.getContext(), null);
-        et.setTextAppearance(parent.getContext(), R.style.display_style);
-        et.setBackgroundResource(android.R.color.transparent);
-        et.setText(text);
-        et.setSelection(text.length());
+    public static String load(String text, final MatrixEnabledDisplay parent) {
+        if(text.isEmpty()) return text;
+        final CalculatorEditText et = new CalculatorEditText(parent);
+        et.setText(text.substring(0, 1));
+        et.setSelection(1);
         et.setKeyListener(parent.mKeyListener);
         et.setEditableFactory(parent.mFactory);
+        et.setBackgroundResource(android.R.color.transparent);
         parent.addView(et);
         parent.mActiveEditText = et;
         et.requestFocus();
-        return "";
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() == 0) {
+                    parent.removeView(et);
+                }
+            }
+        });
+        return text.substring(1, text.length());
     }
 }

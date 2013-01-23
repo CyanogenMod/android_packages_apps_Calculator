@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -31,6 +32,31 @@ public class MatrixEnabledDisplay extends LinearLayout {
         setOrientation(HORIZONTAL);
     }
 
+    @Override
+    public void removeAllViews() {
+        super.removeAllViews();
+        mActiveEditText = null;
+    }
+
+    @Override
+    public void removeView(View view) {
+        int index = getChildIndex(view);
+        if(index == -1) return;
+        super.removeViewAt(index);
+        if(mActiveEditText == view) {
+            if(getChildCount() == 0) mActiveEditText = null;
+            else if(index == 0) getChildAt(0).requestFocus();
+            else getChildAt(index - 1).requestFocus();
+        }
+    }
+
+    public int getChildIndex(View view) {
+        for(int i = 0; i < getChildCount(); i++) {
+            if(getChildAt(i) == view) return i;
+        }
+        return -1;
+    }
+
     public String getText() {
         String text = "";
         for(int i = 0; i < getChildCount(); i++) {
@@ -41,7 +67,10 @@ public class MatrixEnabledDisplay extends LinearLayout {
 
     public void clear() {
         removeAllViews();
-        mActiveEditText = null;
+    }
+
+    public void insert(CharSequence delta) {
+        insert(delta.toString());
     }
 
     public void insert(String delta) {
@@ -62,7 +91,16 @@ public class MatrixEnabledDisplay extends LinearLayout {
         clear();
         while(!text.isEmpty()) {
             text = MatrixView.load(text, this);
-            text = CalculatorEditText.load(text, this);
+
+            // The default. Append the next character to the EditText (or create
+            // an EditText if none exists)
+            if(CalculatorEditText.class.isInstance(getLastView())) {
+                ((CalculatorEditText) getLastView()).append(text.subSequence(0, 1));
+                text = text.substring(1, text.length());
+            }
+            else {
+                text = CalculatorEditText.load(text, this);
+            }
         }
     }
 
@@ -76,6 +114,11 @@ public class MatrixEnabledDisplay extends LinearLayout {
 
     public CalculatorEditText getActiveEditText() {
         return mActiveEditText;
+    }
+
+    private View getLastView() {
+        if(getChildCount() == 0) return null;
+        return getChildAt(getChildCount() - 1);
     }
 
     @Override
@@ -159,7 +202,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
             for(int i = 0; i < clip.getItemCount(); i++) {
                 CharSequence paste = clip.getItemAt(i).coerceToText(getContext());
                 if(canPaste(paste)) {
-                    getActiveEditText().getText().insert(getActiveEditText().getSelectionEnd(), paste);
+                    insert(paste);
                 }
             }
         }
