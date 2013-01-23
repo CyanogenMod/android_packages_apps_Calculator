@@ -161,6 +161,33 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
             break;
 
+        case R.id.matrix:
+            mHandler.insert("[[,][,]]");
+            break;
+
+        case R.id.matrix_inverse:
+            mHandler.insert("^(-1)");
+            break;
+
+        case R.id.matrix_transpose:
+            mHandler.insert("^T");
+            break;
+
+        case R.id.plus_row:
+            break;
+
+        case R.id.minus_row:
+            break;
+
+        case R.id.plus_col:
+            break;
+
+        case R.id.minus_col:
+            break;
+
+        case R.id.next:
+            break;
+
         case R.id.parentheses:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
