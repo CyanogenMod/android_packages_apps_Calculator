@@ -131,9 +131,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         if(mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
+            mClearButton.setOnClickListener(mListener);
+            mClearButton.setOnLongClickListener(mListener);
         }
         if(mBackspaceButton == null) {
             mBackspaceButton = findViewById(R.id.del);
+            mBackspaceButton.setOnClickListener(mListener);
+            mBackspaceButton.setOnLongClickListener(mListener);
         }
 
         mPersist = new Persist(this);
@@ -793,6 +797,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             final View backspaceButton = simplePage.findViewById(R.id.del);
             if(backspaceButton != null) {
                 mBackspaceButton = backspaceButton;
+                mBackspaceButton.setOnClickListener(mListener);
+                mBackspaceButton.setOnLongClickListener(mListener);
             }
         }
 

@@ -114,7 +114,6 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             @Override
             public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_DEL) {
-                    System.out.println("Oh shit delete");
                     int selectionHandle = getSelectionStart();
                     String textBeforeInsertionHandle = getActiveEditText().getInput().toString().substring(0, selectionHandle);
                     String textAfterInsertionHandle = getActiveEditText().getInput().toString().substring(selectionHandle, getText().length());

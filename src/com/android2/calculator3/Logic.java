@@ -235,12 +235,10 @@ public class Logic {
     }
 
     void onDelete() {
-        System.out.println("test");
         if(getText().equals(mResult) || mIsError) {
             clear(false);
         }
         else {
-            System.out.println("test");
             mDisplay.getActiveEditText().dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
         }
