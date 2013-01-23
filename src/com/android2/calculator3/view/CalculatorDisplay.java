@@ -114,16 +114,17 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             @Override
             public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_DEL) {
+                    System.out.println("Oh shit delete");
                     int selectionHandle = getSelectionStart();
-                    String textBeforeInsertionHandle = getText().toString().substring(0, selectionHandle);
-                    String textAfterInsertionHandle = getText().toString().substring(selectionHandle, getText().length());
+                    String textBeforeInsertionHandle = getActiveEditText().getInput().toString().substring(0, selectionHandle);
+                    String textAfterInsertionHandle = getActiveEditText().getInput().toString().substring(selectionHandle, getText().length());
 
                     for(String s : keywords) {
                         if(textBeforeInsertionHandle.endsWith(s)) {
                             int deletionLength = s.length();
                             String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)
                                     + textAfterInsertionHandle;
-                            setText(text);
+                            getActiveEditText().setText(text);
                             setSelection(selectionHandle - deletionLength);
                             return true;
                         }
@@ -167,20 +168,19 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         outAnimDown.setDuration(ANIM_DURATION);
     }
 
-    public void insert(String delta) {
+    public CalculatorEditText getActiveEditText() {
         MatrixEnabledDisplay editor = (MatrixEnabledDisplay) getCurrentView();
-        int cursor = editor.getActiveEditText().getSelectionStart();
-        editor.getActiveEditText().getText().insert(cursor, delta);
+        return editor.getActiveEditText();
     }
 
-    public Editable getText() {
+    public void insert(String delta) {
+        int cursor = getActiveEditText().getSelectionStart();
+        getActiveEditText().getText().insert(cursor, delta);
+    }
+
+    public String getText() {
         MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
         return text.getText();
-    }
-
-    private void setText(String input) {
-        MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
-        text.setText(input);
     }
 
     public void setText(CharSequence text, Scroll dir) {
@@ -208,13 +208,11 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     }
 
     public int getSelectionStart() {
-        MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
-        return text.getActiveEditText().getSelectionStart();
+        return getActiveEditText().getSelectionStart();
     }
 
     private void setSelection(int position) {
-        MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
-        text.getActiveEditText().setSelection(position);
+        getActiveEditText().setSelection(position);
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.Resources;
-import android.text.Editable;
 import android.text.Editable.Factory;
 import android.text.TextUtils;
 import android.text.method.KeyListener;
@@ -12,7 +11,6 @@ import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -29,13 +27,18 @@ public class MatrixEnabledDisplay extends LinearLayout {
     public MatrixEnabledDisplay(Context context, AttributeSet attr) {
         super(context, attr);
         setOrientation(HORIZONTAL);
-        text = new CalculatorEditText(context, null);
+        text = new CalculatorEditText(context, attr);
         text.setSingleLine();
+        text.setBackgroundResource(android.R.color.transparent);
         addView(text);
     }
 
-    public Editable getText() {
-        return text.getInput();// TODO Remove IDs? Make IDs invisible chars?
+    public String getText() {
+        String text = "";
+        for(int i = 0; i < getChildCount(); i++) {
+            text += ((CalculatorEditText) getChildAt(i)).getInput();
+        }
+        return text;
     }
 
     public void clear() {
@@ -54,7 +57,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
         text.setEditableFactory(factory);
     }
 
-    public EditText getActiveEditText() {
+    public CalculatorEditText getActiveEditText() {
         return text;
     }
 
@@ -116,14 +119,14 @@ public class MatrixEnabledDisplay extends LinearLayout {
     }
 
     private void copyContent() {
-        final Editable text = getText();
+        final String text = getText();
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
         Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
     }
 
     private void cutContent() {
-        final Editable text = getText();
+        final String text = getText();
         setPrimaryClip(ClipData.newPlainText(null, text));
     }
 
@@ -138,7 +141,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
             for(int i = 0; i < clip.getItemCount(); i++) {
                 CharSequence paste = clip.getItemAt(i).coerceToText(getContext());
                 if(canPaste(paste)) {
-                    ((Editable) getText()).insert(getActiveEditText().getSelectionEnd(), paste);
+                    getActiveEditText().getText().insert(getActiveEditText().getSelectionEnd(), paste);
                 }
             }
         }
