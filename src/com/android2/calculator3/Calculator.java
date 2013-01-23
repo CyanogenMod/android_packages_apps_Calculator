@@ -537,21 +537,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
                 break;
             }
-
-            final TextView arcsin = (TextView) advancedPage.findViewById(R.id.arcsin);
-            if(arcsin != null) {
-                arcsin.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arcsin.getText().toString())));
-            }
-
-            final TextView arccos = (TextView) advancedPage.findViewById(R.id.arccos);
-            if(arccos != null) {
-                arccos.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arccos.getText().toString())));
-            }
-
-            final TextView arctan = (TextView) advancedPage.findViewById(R.id.arctan);
-            if(arctan != null) {
-                arctan.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arctan.getText().toString())));
-            }
         }
 
         @Override
@@ -709,21 +694,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             case HEXADECIMAL:
                 mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
                 break;
-            }
-
-            final TextView arcsin = (TextView) advancedPage.findViewById(R.id.arcsin);
-            if(arcsin != null) {
-                arcsin.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arcsin.getText().toString())));
-            }
-
-            final TextView arccos = (TextView) advancedPage.findViewById(R.id.arccos);
-            if(arccos != null) {
-                arccos.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arccos.getText().toString())));
-            }
-
-            final TextView arctan = (TextView) advancedPage.findViewById(R.id.arctan);
-            if(arctan != null) {
-                arctan.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(arctan.getText().toString())));
             }
         }
 

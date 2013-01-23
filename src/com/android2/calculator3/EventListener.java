@@ -83,7 +83,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        switch (id) {
+        switch(id) {
         case R.id.del:
             mHandler.onDelete();
             break;
@@ -107,7 +107,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 @Override
                 public void run() {
                     String text = "";
-                    for (String s : results) {
+                    for(String s : results) {
                         text += s + ", ";
                     }
                     if(text.length() > 2) text = text.substring(0, text.length() - 2);
@@ -126,7 +126,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 @Override
                 public void run() {
                     String text = "";
-                    for (String s : results) {
+                    for(String s : results) {
                         text += s + ", ";
                     }
                     if(text.length() > 2) text = text.substring(0, text.length() - 2);
@@ -222,32 +222,28 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
     @Override
     public boolean onLongClick(View view) {
-        String text = null;
-        switch (view.getId()) {
+        switch(view.getId()) {
         case R.id.del:
             mHandler.onClear();
-            return true;
-        default:
-            text = (String) view.getTag();
-            if(!acceptableKey(text)) {
-                break;
-            }
-            if(text.length() >= 2) {
-                // Add paren after sin, cos, ln, etc. from buttons
-                text += "(";
-            }
         }
-        if(text != null) {
-            mHandler.insert(text);
-            if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
-                mPager.setCurrentItem(Panel.BASIC.getOrder());
+        if(view.getTag() != null) {
+            String text = (String) view.getTag();
+            if(!text.isEmpty()) {
+                Toast.makeText(mContext, text, Toast.LENGTH_SHORT).show();
+                return true;
             }
-            return true;
         }
         if(view instanceof TextView && ((TextView) view).getHint() != null) {
-            String hint = ((TextView) view).getHint().toString();
-            if(!hint.isEmpty()) {
-                Toast.makeText(mContext, hint, Toast.LENGTH_SHORT).show();
+            String text = ((TextView) view).getHint().toString();
+            if(acceptableKey(text)) {
+                if(text.length() >= 2) {
+                    // Add paren after sin, cos, ln, etc. from buttons
+                    text += "(";
+                }
+                mHandler.insert(text);
+                if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
+                    mPager.setCurrentItem(Panel.BASIC.getOrder());
+                }
                 return true;
             }
         }
@@ -262,8 +258,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         if(action == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
             return true; // eat it
         }
-
-        // Calculator.log("KEY " + keyCode + "; " + action);
 
         if(keyEvent.getUnicodeChar() == '=') {
             if(action == KeyEvent.ACTION_UP) {
@@ -288,7 +282,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
          */
 
         if(action == KeyEvent.ACTION_UP) {
-            switch (keyCode) {
+            switch(keyCode) {
             case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_DPAD_CENTER:
                 mHandler.onEnter();
@@ -307,16 +301,15 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     }
 
     private boolean acceptableKey(String text) {
-        if(text == null) return false;
         if(text.length() == 1) {
             // Disable ABCDEF in DEC/BIN and 23456789 in BIN
             if(mHandler.getMode().equals(Mode.DECIMAL)) {
-                for (String s : bannedInDecimal) {
+                for(String s : bannedInDecimal) {
                     if(s.equals(text)) return false;
                 }
             }
             if(mHandler.getMode().equals(Mode.BINARY)) {
-                for (String s : bannedInBinary) {
+                for(String s : bannedInBinary) {
                     if(s.equals(text)) return false;
                 }
             }

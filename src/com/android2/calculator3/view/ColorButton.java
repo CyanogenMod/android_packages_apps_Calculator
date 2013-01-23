@@ -16,11 +16,14 @@
 
 package com.android2.calculator3.view;
 
+import java.util.regex.Pattern;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -42,6 +45,8 @@ class ColorButton extends Button {
     long mAnimStart;
     EventListener mListener;
     Paint mFeedbackPaint;
+    Paint mHintPaint;
+    Rect bounds = new Rect();
 
     public ColorButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -60,6 +65,9 @@ class ColorButton extends Button {
         mFeedbackPaint.setStyle(Style.STROKE);
         mFeedbackPaint.setStrokeWidth(2);
         getPaint().setColor(res.getColor(R.color.button_text));
+        mHintPaint = new Paint();
+        mHintPaint.setColor(res.getColor(R.color.grey));
+        mHintPaint.setTextSize((float) (getTextSize() * .8));
 
         mAnimStart = -1;
     }
@@ -116,6 +124,22 @@ class ColorButton extends Button {
 
         CharSequence text = getText();
         canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
+
+        CharSequence hint = getHint();
+        if(hint != null) {
+            String[] exponents = hint.toString().split(Pattern.quote("^"));
+            mHintPaint.getTextBounds(hint.toString(), 0, hint.length(), bounds);
+            int width = getWidth() - bounds.width();
+            int height = bounds.height() + ((exponents.length - 1) * 10) + 3;
+            int offsetX = 0;
+            int offsetY = 0;
+            for(String str : exponents) {
+                canvas.drawText(str, 0, str.length(), width + offsetX, height - offsetY, mHintPaint);
+                mHintPaint.getTextBounds(str, 0, str.length(), bounds);
+                offsetY += 10;
+                offsetX += bounds.width();
+            }
+        }
     }
 
     public void animateClickFeedback() {
@@ -127,7 +151,7 @@ class ColorButton extends Button {
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = super.onTouchEvent(event);
 
-        switch (event.getAction()) {
+        switch(event.getAction()) {
         case MotionEvent.ACTION_UP:
             if(isPressed()) {
                 animateClickFeedback();

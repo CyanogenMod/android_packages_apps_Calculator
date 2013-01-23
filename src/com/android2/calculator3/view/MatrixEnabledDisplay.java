@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.Editable.Factory;
 import android.text.TextUtils;
 import android.text.method.KeyListener;
+import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,8 +26,8 @@ public class MatrixEnabledDisplay extends LinearLayout {
 
     CalculatorEditText text;
 
-    public MatrixEnabledDisplay(Context context) {
-        super(context);
+    public MatrixEnabledDisplay(Context context, AttributeSet attr) {
+        super(context, attr);
         setOrientation(HORIZONTAL);
         text = new CalculatorEditText(context, null);
         text.setSingleLine();
