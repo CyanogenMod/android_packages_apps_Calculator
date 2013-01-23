@@ -10,6 +10,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -49,7 +50,7 @@ public class HistoryLine extends LinearLayout {
             mMenuItemsStrings[COPY_EDITED] = String.format(resources.getString(R.string.copy), mHistoryEntry.getEdited());
             mMenuItemsStrings[REMOVE] = resources.getString(R.string.remove_from_history);
         }
-        for (int i = 0; i < mMenuItemsStrings.length; i++) {
+        for(int i = 0; i < mMenuItemsStrings.length; i++) {
             menu.add(Menu.NONE, i, i, mMenuItemsStrings[i]).setOnMenuItemClickListener(handler);
         }
     }
@@ -89,7 +90,7 @@ public class HistoryLine extends LinearLayout {
 
     private void removeContent() {
         mHistory.remove(mHistoryEntry);
-        ((LinearLayout) getParent()).removeView(this);
+        ((ViewGroup) getParent()).removeView(this);
     }
 
     public HistoryEntry getHistoryEntry() {
