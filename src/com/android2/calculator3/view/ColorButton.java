@@ -128,15 +128,12 @@ class ColorButton extends Button {
         CharSequence hint = getHint();
         if(hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
-            mHintPaint.getTextBounds(hint.toString(), 0, hint.length(), bounds);
-            int width = getWidth() - bounds.width();
-            int height = bounds.height() + ((exponents.length - 1) * 10) + 3;
-            int offsetX = 0;
-            int offsetY = 0;
+            int offsetX = 20;
+            int offsetY = 45;
             for(String str : exponents) {
-                canvas.drawText(str, 0, str.length(), width + offsetX, height - offsetY, mHintPaint);
+                canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
                 mHintPaint.getTextBounds(str, 0, str.length(), bounds);
-                offsetY += 10;
+                offsetY += 15;
                 offsetX += bounds.width();
             }
         }

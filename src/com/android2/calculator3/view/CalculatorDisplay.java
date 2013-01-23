@@ -167,14 +167,14 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         outAnimDown.setDuration(ANIM_DURATION);
     }
 
-    public CalculatorEditText getActiveEditText() {
+    private CalculatorEditText getActiveEditText() {
         MatrixEnabledDisplay editor = (MatrixEnabledDisplay) getCurrentView();
         return editor.getActiveEditText();
     }
 
     public void insert(String delta) {
-        int cursor = getActiveEditText().getSelectionStart();
-        getActiveEditText().getText().insert(cursor, delta);
+        MatrixEnabledDisplay editor = (MatrixEnabledDisplay) getCurrentView();
+        editor.insert(delta);
     }
 
     public String getText() {
@@ -202,7 +202,6 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
         MatrixEnabledDisplay editText = (MatrixEnabledDisplay) getNextView();
         editText.setText(text);
-        editText.getActiveEditText().setSelection(editText.getActiveEditText().getText().length());
         showNext();
     }
 

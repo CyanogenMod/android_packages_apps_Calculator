@@ -163,14 +163,17 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
         case R.id.matrix:
             mHandler.insert("[[,][,]]");
+            returnToBasic();
             break;
 
         case R.id.matrix_inverse:
             mHandler.insert("^(-1)");
+            returnToBasic();
             break;
 
         case R.id.matrix_transpose:
             mHandler.insert("^T");
+            returnToBasic();
             break;
 
         case R.id.plus_row:
@@ -202,6 +205,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             else {
                 mHandler.setText("(" + mHandler.getText() + ")");
             }
+            returnToBasic();
             break;
 
         case R.id.mod:
@@ -223,6 +227,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                     mHandler.insert(mModString + "(");
                 }
             }
+            returnToBasic();
             break;
 
         default:
@@ -240,9 +245,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                     text += "(";
                 }
                 mHandler.insert(text);
-                if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
-                    mPager.setCurrentItem(Panel.BASIC.getOrder());
-                }
+                returnToBasic();
             }
         }
     }
@@ -268,9 +271,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                     text += "(";
                 }
                 mHandler.insert(text);
-                if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
-                    mPager.setCurrentItem(Panel.BASIC.getOrder());
-                }
+                returnToBasic();
                 return true;
             }
         }
@@ -342,5 +343,13 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             }
         }
         return true;
+    }
+
+    private boolean returnToBasic() {
+        if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
+            mPager.setCurrentItem(Panel.BASIC.getOrder());
+            return true;
+        }
+        return false;
     }
 }

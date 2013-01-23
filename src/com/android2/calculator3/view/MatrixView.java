@@ -57,6 +57,11 @@ public class MatrixView extends TableLayout {
     }
 
     public SimpleMatrix getSimpleMatrix() {
+        SimpleMatrix sm = new SimpleMatrix(getData());
+        return sm;
+    }
+
+    private double[][] getData() {
         double[][] data = new double[rows][columns];
         for(int row = 0; row < rows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
@@ -65,8 +70,7 @@ public class MatrixView extends TableLayout {
                 data[row][column] = Double.valueOf(et.getText().toString());
             }
         }
-        SimpleMatrix sm = new SimpleMatrix(data);
-        return sm;
+        return data;
     }
 
     private EditText createEditText() {
@@ -74,5 +78,26 @@ public class MatrixView extends TableLayout {
         et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
         et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         return et;
+    }
+
+    @Override
+    public String toString() {
+        String input = "[";
+        double[][] data = getData();
+        for(int i = 0; i < rows; i++) {
+            input += "[";
+            for(int j = 0; j < columns; j++) {
+                input += data[i][j] + ",";
+            }
+            // Remove trailing ,
+            input = input.substring(0, input.length() - 1);
+            input += "]";
+        }
+        input += "]";
+        return input;
+    }
+
+    public static String load(String text, MatrixEnabledDisplay parent) {
+        return text;
     }
 }

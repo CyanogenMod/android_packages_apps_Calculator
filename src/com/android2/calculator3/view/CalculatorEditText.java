@@ -30,6 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.android2.calculator3.EquationFormatter;
+import com.android2.calculator3.R;
 
 public class CalculatorEditText extends EditText {
     private EquationFormatter mEquationFormatter;
@@ -98,5 +99,24 @@ public class CalculatorEditText extends EditText {
         SpannableStringBuilder e = new SpannableStringBuilder();
         e.append(input);
         return e;
+    }
+
+    @Override
+    public String toString() {
+        return input;
+    }
+
+    public static String load(String text, MatrixEnabledDisplay parent) {
+        CalculatorEditText et = new CalculatorEditText(parent.getContext(), null);
+        et.setTextAppearance(parent.getContext(), R.style.display_style);
+        et.setBackgroundResource(android.R.color.transparent);
+        et.setText(text);
+        et.setSelection(text.length());
+        et.setKeyListener(parent.mKeyListener);
+        et.setEditableFactory(parent.mFactory);
+        parent.addView(et);
+        parent.mActiveEditText = et;
+        et.requestFocus();
+        return "";
     }
 }

@@ -169,14 +169,7 @@ public class Logic {
     }
 
     public String getText() {
-        String text;
-        try {
-            text = mDisplay.getText().toString();
-        }
-        catch(IndexOutOfBoundsException e) {
-            text = "";
-        }
-        return text;
+        return mDisplay.getText();
     }
 
     void setText(String text) {
@@ -239,7 +232,7 @@ public class Logic {
             clear(false);
         }
         else {
-            mDisplay.getActiveEditText().dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
+            mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
         }
         updateGraphCatchErrors(mGraph);

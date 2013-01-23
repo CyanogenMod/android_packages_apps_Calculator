@@ -22,43 +22,60 @@ public class MatrixEnabledDisplay extends LinearLayout {
     private static final int PASTE = 2;
     private String[] mMenuItemsStrings;
 
-    CalculatorEditText text;
+    CalculatorEditText mActiveEditText;
+    KeyListener mKeyListener;
+    Factory mFactory;
 
     public MatrixEnabledDisplay(Context context, AttributeSet attr) {
         super(context, attr);
         setOrientation(HORIZONTAL);
-        text = new CalculatorEditText(context, attr);
-        text.setSingleLine();
-        text.setBackgroundResource(android.R.color.transparent);
-        addView(text);
     }
 
     public String getText() {
         String text = "";
         for(int i = 0; i < getChildCount(); i++) {
-            text += ((CalculatorEditText) getChildAt(i)).getInput();
+            text += getChildAt(i).toString();
         }
         return text;
     }
 
     public void clear() {
-        text.setText("");
+        removeAllViews();
+        mActiveEditText = null;
+    }
+
+    public void insert(String delta) {
+        if(mActiveEditText == null) {
+            setText(delta);
+        }
+        else {
+            int cursor = getActiveEditText().getSelectionStart();
+            getActiveEditText().getText().insert(cursor, delta);
+        }
     }
 
     public void setText(CharSequence text) {
-        this.text.setText(text);
+        setText(text.toString());
+    }
+
+    public void setText(String text) {
+        clear();
+        while(!text.isEmpty()) {
+            text = MatrixView.load(text, this);
+            text = CalculatorEditText.load(text, this);
+        }
     }
 
     public void setKeyListener(KeyListener input) {
-        text.setKeyListener(input);
+        mKeyListener = input;
     }
 
     public void setEditableFactory(Factory factory) {
-        text.setEditableFactory(factory);
+        mFactory = factory;
     }
 
     public CalculatorEditText getActiveEditText() {
-        return text;
+        return mActiveEditText;
     }
 
     @Override
