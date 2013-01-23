@@ -128,6 +128,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
     private void cutContent() {
         final String text = getText();
         setPrimaryClip(ClipData.newPlainText(null, text));
+        clear();
     }
 
     private ClipData getPrimaryClip() {

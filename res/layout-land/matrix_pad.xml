@@ -81,18 +81,18 @@
             android:orientation="vertical"
             android:background="@android:color/transparent"
             style="@style/digit_button_style" >
-	        <com.android2.calculator3.view.ColorButton
-	            android:id="@+id/minus_col"
-	            android:text="@string/minus_col"
-	            android:textSize="25sp"
-	            style="@style/button_style"
-	            />
-	        <com.android2.calculator3.view.ColorButton
-	            android:id="@+id/plus_col"
-	            android:text="@string/plus_col"
-	            android:textSize="25sp"
-	            style="@style/button_style"
-	            />
+            <com.android2.calculator3.view.ColorButton
+                android:id="@+id/minus_col"
+                android:text="@string/minus_col"
+                android:textSize="25sp"
+                style="@style/button_style"
+                />
+            <com.android2.calculator3.view.ColorButton
+                android:id="@+id/plus_col"
+                android:text="@string/plus_col"
+                android:textSize="25sp"
+                style="@style/button_style"
+                />
         </LinearLayout>
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/mul"
@@ -125,18 +125,18 @@
             android:orientation="vertical"
             android:background="@android:color/transparent"
             style="@style/digit_button_style" >
-	        <com.android2.calculator3.view.ColorButton
-	            android:id="@+id/minus_row"
-	            android:text="@string/minus_row"
-	            android:textSize="25sp"
-	            style="@style/button_style"
-	            />
-	        <com.android2.calculator3.view.ColorButton
-	            android:id="@+id/plus_row"
-	            android:text="@string/plus_row"
-	            android:textSize="25sp"
-	            style="@style/button_style"
-	            />
+            <com.android2.calculator3.view.ColorButton
+                android:id="@+id/minus_row"
+                android:text="@string/minus_row"
+                android:textSize="25sp"
+                style="@style/button_style"
+                />
+            <com.android2.calculator3.view.ColorButton
+                android:id="@+id/plus_row"
+                android:text="@string/plus_row"
+                android:textSize="25sp"
+                style="@style/button_style"
+                />
         </LinearLayout>
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/plus"

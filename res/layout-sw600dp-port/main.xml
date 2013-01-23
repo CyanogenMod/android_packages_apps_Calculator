@@ -33,7 +33,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:minHeight="@dimen/min_display_height"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:background="@android:color/transparent">
             
             <com.android2.calculator3.view.CalculatorDisplay

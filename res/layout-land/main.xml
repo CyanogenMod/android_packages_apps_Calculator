@@ -25,8 +25,9 @@
               android:background="@color/background">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5" >
+        android:minHeight="@dimen/min_display_height"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
         <com.android2.calculator3.view.CalculatorDisplay
             android:id="@+id/display"
             android:layout_width="0dp"
