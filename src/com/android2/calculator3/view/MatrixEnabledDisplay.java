@@ -87,15 +87,13 @@ public class MatrixEnabledDisplay extends LinearLayout {
 
                         getActiveEditText().setText(leftText);
                         text = MatrixView.load(text, this, index + 1);
-                        // CalculatorEditText.load(" ", this, index + 2);
-                        // ((CalculatorEditText) getChildAt(index +
-                        // 2)).setText(rightText);
+                        CalculatorEditText.fullLoad(rightText, this, index + 2);
                         if(text.isEmpty()) {
                             getChildAt(index + 1).requestFocus();
                         }
-                        // else {
-                        // getChildAt(index + 2).requestFocus();
-                        // }
+                        else {
+                            getChildAt(index + 2).requestFocus();
+                        }
                     }
                     else {
                         getActiveEditText().getText().insert(cursor, text.subSequence(0, 1));

@@ -198,6 +198,8 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.next:
+            View v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_FORWARD);
+            if(v != null) v.requestFocus();
             break;
 
         case R.id.parentheses:
