@@ -19,7 +19,6 @@ package com.android2.calculator3.view;
 import java.util.Arrays;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
@@ -89,8 +88,6 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         return mMaxDigits;
     }
 
-    @SuppressLint("NewApi")
-    @SuppressWarnings("deprecation")
     public void setLogic(Logic logic) {
         NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
             public int getInputType() {
@@ -116,7 +113,8 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                 if(keyCode == KeyEvent.KEYCODE_DEL) {
                     int selectionHandle = getSelectionStart();
                     String textBeforeInsertionHandle = getActiveEditText().getInput().toString().substring(0, selectionHandle);
-                    String textAfterInsertionHandle = getActiveEditText().getInput().toString().substring(selectionHandle, getText().length());
+                    String textAfterInsertionHandle = getActiveEditText().getInput().toString()
+                            .substring(selectionHandle, getActiveEditText().getInput().length());
 
                     for(String s : keywords) {
                         if(textBeforeInsertionHandle.endsWith(s)) {
@@ -135,13 +133,8 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
         Editable.Factory factory = new CalculatorEditable.Factory(logic);
         for(int i = 0; i < 2; ++i) {
-            MatrixEnabledDisplay text = (MatrixEnabledDisplay) getChildAt(i);
-            if(android.os.Build.VERSION.SDK_INT < 16) {
-                text.setBackgroundDrawable(null);
-            }
-            else {
-                text.setBackground(null);
-            }
+            MatrixEnabledDisplay text = ((ScrollableDisplay) getChildAt(i)).getView();
+            text.setBackgroundResource(android.R.color.transparent);
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
             text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
@@ -168,17 +161,17 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     }
 
     public CalculatorEditText getActiveEditText() {
-        MatrixEnabledDisplay editor = (MatrixEnabledDisplay) getCurrentView();
+        MatrixEnabledDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
         return editor.getActiveEditText();
     }
 
     public void insert(String delta) {
-        MatrixEnabledDisplay editor = (MatrixEnabledDisplay) getCurrentView();
+        MatrixEnabledDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
         editor.insert(delta);
     }
 
     public String getText() {
-        MatrixEnabledDisplay text = (MatrixEnabledDisplay) getCurrentView();
+        MatrixEnabledDisplay text = ((ScrollableDisplay) getCurrentView()).getView();
         return text.getText();
     }
 
@@ -200,7 +193,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             setOutAnimation(null);
         }
 
-        MatrixEnabledDisplay editText = (MatrixEnabledDisplay) getNextView();
+        MatrixEnabledDisplay editText = ((ScrollableDisplay) getNextView()).getView();
         editText.setText(text.toString());
         showNext();
     }

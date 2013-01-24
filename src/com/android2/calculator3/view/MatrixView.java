@@ -105,7 +105,10 @@ public class MatrixView extends TableLayout {
     }
 
     public static String load(String text, MatrixEnabledDisplay parent) {
-        return MatrixView.load(text, parent, parent.getChildCount());
+        text = MatrixView.load(text, parent, parent.getChildCount());
+        // Always append a trailing EditText
+        CalculatorEditText.load("", parent);
+        return text;
     }
 
     public static String load(String text, MatrixEnabledDisplay parent, int pos) {

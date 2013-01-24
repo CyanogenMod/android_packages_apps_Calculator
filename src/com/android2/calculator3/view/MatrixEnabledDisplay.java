@@ -43,11 +43,14 @@ public class MatrixEnabledDisplay extends LinearLayout {
         int index = getChildIndex(view);
         if(index == -1) return;
         super.removeViewAt(index);
-        if(mActiveEditText == view) {
-            if(getChildCount() == 0) mActiveEditText = null;
-            else if(index == 0) getChildAt(0).requestFocus();
-            else getChildAt(index - 1).requestFocus();
-        }
+        // Combine the 2 EditTexts on either side
+        CalculatorEditText leftSide = (CalculatorEditText) getChildAt(index - 1);
+        CalculatorEditText rightSide = (CalculatorEditText) getChildAt(index);
+        int cursor = leftSide.getText().length();
+        leftSide.setText(leftSide.getText().toString() + rightSide.getText().toString());
+        super.removeViewAt(index); // Remove the second EditText
+        leftSide.requestFocus();
+        leftSide.setSelection(cursor);
     }
 
     public int getChildIndex(View view) {
@@ -87,7 +90,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
 
                         getActiveEditText().setText(leftText);
                         text = MatrixView.load(text, this, index + 1);
-                        CalculatorEditText.fullLoad(rightText, this, index + 2);
+                        CalculatorEditText.load(rightText, this, index + 2);
                         if(text.isEmpty()) {
                             getChildAt(index + 1).requestFocus();
                         }
@@ -110,18 +113,13 @@ public class MatrixEnabledDisplay extends LinearLayout {
 
     public void setText(String text) {
         clear();
+        CalculatorEditText.load("", this, 0);
         while(!text.isEmpty()) {
             text = MatrixView.load(text, this);
 
-            // The default. Append the next character to the EditText (or create
-            // an EditText if none exists)
-            if(CalculatorEditText.class.isInstance(getLastView())) {
-                ((CalculatorEditText) getLastView()).append(text.subSequence(0, 1));
-                text = text.substring(1, text.length());
-            }
-            else {
-                text = CalculatorEditText.load(text, this);
-            }
+            // Append the next character to the trailing EditText
+            ((CalculatorEditText) getLastView()).append(text.subSequence(0, 1));
+            text = text.substring(1, text.length());
         }
     }
 

@@ -129,20 +129,6 @@ public class CalculatorEditText extends EditText {
     }
 
     public static String load(String text, final MatrixEnabledDisplay parent, final int pos) {
-        if(text.isEmpty()) return text;
-        final CalculatorEditText et = new CalculatorEditText(parent);
-        et.setText(text.substring(0, 1));
-        et.setSelection(1);
-        et.setKeyListener(parent.mKeyListener);
-        et.setEditableFactory(parent.mFactory);
-        et.setBackgroundResource(android.R.color.transparent);
-        et.setTextAppearance(parent.getContext(), R.style.display_style);
-        parent.addView(et, pos);
-        et.requestFocus();
-        return text.substring(1, text.length());
-    }
-
-    public static String fullLoad(String text, final MatrixEnabledDisplay parent, final int pos) {
         final CalculatorEditText et = new CalculatorEditText(parent);
         et.setText(text);
         et.setSelection(0);
