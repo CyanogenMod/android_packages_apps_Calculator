@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
+import com.android2.calculator3.view.MatrixView;
 
 public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
     Context mContext;
@@ -177,15 +178,23 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.plus_row:
+            if(mHandler.mDisplay.getActiveEditText().getContainer() instanceof MatrixView) ((MatrixView) mHandler.mDisplay.getActiveEditText().getContainer())
+                    .addRow();
             break;
 
         case R.id.minus_row:
+            if(mHandler.mDisplay.getActiveEditText().getContainer() instanceof MatrixView) ((MatrixView) mHandler.mDisplay.getActiveEditText().getContainer())
+                    .removeRow();
             break;
 
         case R.id.plus_col:
+            if(mHandler.mDisplay.getActiveEditText().getContainer() instanceof MatrixView) ((MatrixView) mHandler.mDisplay.getActiveEditText().getContainer())
+                    .addColumn();
             break;
 
         case R.id.minus_col:
+            if(mHandler.mDisplay.getActiveEditText().getContainer() instanceof MatrixView) ((MatrixView) mHandler.mDisplay.getActiveEditText().getContainer())
+                    .removeColumn();
             break;
 
         case R.id.next:

@@ -167,7 +167,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         outAnimDown.setDuration(ANIM_DURATION);
     }
 
-    private CalculatorEditText getActiveEditText() {
+    public CalculatorEditText getActiveEditText() {
         MatrixEnabledDisplay editor = (MatrixEnabledDisplay) getCurrentView();
         return editor.getActiveEditText();
     }
@@ -201,7 +201,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         }
 
         MatrixEnabledDisplay editText = (MatrixEnabledDisplay) getNextView();
-        editText.setText(text);
+        editText.setText(text.toString());
         showNext();
     }
 

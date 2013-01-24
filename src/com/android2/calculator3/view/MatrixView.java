@@ -2,7 +2,6 @@ package com.android2.calculator3.view;
 
 import org.ejml.simple.SimpleMatrix;
 
-import android.content.Context;
 import android.text.InputType;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -11,10 +10,12 @@ import android.widget.TableRow;
 import com.android2.calculator3.R;
 
 public class MatrixView extends TableLayout {
-    int rows, columns = 2;
+    int rows, columns = 0;
+    MatrixEnabledDisplay parent;
 
-    public MatrixView(Context context) {
-        super(context);
+    public MatrixView(MatrixEnabledDisplay parent) {
+        super(parent.getContext());
+        this.parent = parent;
         setup();
     }
 
@@ -25,7 +26,7 @@ public class MatrixView extends TableLayout {
     public void addRow() {
         rows++;
         TableRow tr = new TableRow(getContext());
-        tr.setLayoutParams(new MatrixView.LayoutParams(MatrixView.LayoutParams.MATCH_PARENT, MatrixView.LayoutParams.MATCH_PARENT, 1));
+        tr.setLayoutParams(new MatrixView.LayoutParams(MatrixView.LayoutParams.WRAP_CONTENT, MatrixView.LayoutParams.WRAP_CONTENT, 1));
         addView(tr);
 
         for(int i = 0; i < columns; i++) {
@@ -36,6 +37,8 @@ public class MatrixView extends TableLayout {
     public void removeRow() {
         rows--;
         removeViewAt(0);
+
+        if(rows == 0 || columns == 0) parent.removeView(this);
     }
 
     public void addColumn() {
@@ -54,6 +57,8 @@ public class MatrixView extends TableLayout {
             TableRow tr = (TableRow) getChildAt(i);
             tr.removeViewAt(0);
         }
+
+        if(rows == 0 || columns == 0) parent.removeView(this);
     }
 
     public SimpleMatrix getSimpleMatrix() {
@@ -66,17 +71,19 @@ public class MatrixView extends TableLayout {
         for(int row = 0; row < rows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
             for(int column = 0; column < columns; column++) {
-                EditText et = (EditText) tr.getChildAt(column);
-                data[row][column] = Double.valueOf(et.getText().toString());
+                String input = ((EditText) tr.getChildAt(column)).getText().toString();
+                if(input.isEmpty()) data[row][column] = 0;
+                else data[row][column] = Double.valueOf(input);
             }
         }
         return data;
     }
 
     private EditText createEditText() {
-        EditText et = new EditText(getContext());
-        et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
+        final CalculatorEditText et = new CalculatorEditText(parent);
+        et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
         et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        et.setContainer(this);
         return et;
     }
 
@@ -98,6 +105,10 @@ public class MatrixView extends TableLayout {
     }
 
     public static String load(String text, MatrixEnabledDisplay parent) {
+        return MatrixView.load(text, parent, parent.getChildCount());
+    }
+
+    public static String load(String text, MatrixEnabledDisplay parent, int pos) {
         if(!MatrixView.verify(text)) return text;
 
         String matrix = MatrixView.parseMatrix(text);
@@ -105,13 +116,19 @@ public class MatrixView extends TableLayout {
         int rows = MatrixView.countOccurrences(matrix, '[') - 1;
         int columns = MatrixView.countOccurrences(matrix, ',') / rows + 1;
 
-        System.out.println(rows);
-        System.out.println(columns);
+        MatrixView mv = new MatrixView(parent);
+        for(int i = 0; i < rows; i++) {
+            mv.addRow();
+        }
+        for(int i = 0; i < columns; i++) {
+            mv.addColumn();
+        }
+        parent.addView(mv, pos);
 
         return text;
     }
 
-    private static boolean verify(String text) {
+    public static boolean verify(String text) {
         return text.startsWith("[[");
     }
 

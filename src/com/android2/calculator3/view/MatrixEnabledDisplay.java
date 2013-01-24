@@ -69,22 +69,45 @@ public class MatrixEnabledDisplay extends LinearLayout {
         removeAllViews();
     }
 
-    public void insert(CharSequence delta) {
-        insert(delta.toString());
-    }
-
     public void insert(String delta) {
         if(mActiveEditText == null) {
             setText(delta);
         }
         else {
-            int cursor = getActiveEditText().getSelectionStart();
-            getActiveEditText().getText().insert(cursor, delta);
-        }
-    }
+            if(CalculatorEditText.class.isInstance(getActiveEditText())) {
+                // Logic to insert, split text if there's another view, etc
+                String text = delta;
+                while(!text.isEmpty()) {
+                    int cursor = getActiveEditText().getSelectionStart();
 
-    public void setText(CharSequence text) {
-        setText(text.toString());
+                    if(MatrixView.verify(text)) {
+                        final String leftText = getActiveEditText().getText().toString().substring(0, cursor);
+                        final String rightText = getActiveEditText().getText().toString().substring(cursor);
+                        final int index = getChildIndex(getActiveEditText());
+
+                        getActiveEditText().setText(leftText);
+                        text = MatrixView.load(text, this, index + 1);
+                        // CalculatorEditText.load(" ", this, index + 2);
+                        // ((CalculatorEditText) getChildAt(index +
+                        // 2)).setText(rightText);
+                        if(text.isEmpty()) {
+                            getChildAt(index + 1).requestFocus();
+                        }
+                        // else {
+                        // getChildAt(index + 2).requestFocus();
+                        // }
+                    }
+                    else {
+                        getActiveEditText().getText().insert(cursor, text.subSequence(0, 1));
+                        text = text.substring(1, text.length());
+                    }
+                }
+            }
+            else {
+                int cursor = getActiveEditText().getSelectionStart();
+                getActiveEditText().getText().insert(cursor, delta);
+            }
+        }
     }
 
     public void setText(String text) {
@@ -202,7 +225,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
             for(int i = 0; i < clip.getItemCount(); i++) {
                 CharSequence paste = clip.getItemAt(i).coerceToText(getContext());
                 if(canPaste(paste)) {
-                    insert(paste);
+                    insert(paste.toString());
                 }
             }
         }

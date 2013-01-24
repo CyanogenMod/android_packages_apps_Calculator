@@ -49,7 +49,7 @@ public class Logic {
     public static final int DELETE_MODE_BACKSPACE = 0;
     public static final int DELETE_MODE_CLEAR = 1;
 
-    private CalculatorDisplay mDisplay;
+    CalculatorDisplay mDisplay;
     private GraphicalView mGraphDisplay;
     Symbols mSymbols = new Symbols();
     private History mHistory;
