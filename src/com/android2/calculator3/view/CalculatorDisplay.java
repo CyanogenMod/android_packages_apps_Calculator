@@ -68,12 +68,9 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         String sinString = context.getString(R.string.sin);
         String cosString = context.getString(R.string.cos);
         String tanString = context.getString(R.string.tan);
-        String arcsinString = context.getString(R.string.sin) + context.getString(R.string.power) + context.getString(R.string.minus)
-                + context.getString(R.string.digit1);
-        String arccosString = context.getString(R.string.cos) + context.getString(R.string.power) + context.getString(R.string.minus)
-                + context.getString(R.string.digit1);
-        String arctanString = context.getString(R.string.tan) + context.getString(R.string.power) + context.getString(R.string.minus)
-                + context.getString(R.string.digit1);
+        String arcsinString = context.getString(R.string.arcsin);
+        String arccosString = context.getString(R.string.arccos);
+        String arctanString = context.getString(R.string.arctan);
         String logString = context.getString(R.string.lg);
         String lnString = context.getString(R.string.ln);
         String modString = context.getString(R.string.mod);
