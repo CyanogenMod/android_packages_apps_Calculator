@@ -29,6 +29,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -36,8 +37,12 @@ import android.widget.EditText;
 import com.android2.calculator3.LogicalDensity;
 import com.android2.calculator3.R;
 
-public class MatrixEditText extends EditText {
+public class MatrixEditText extends EditText implements OnFocusChangeListener {
     private static final char[] ACCEPTED_CHARS = "0123456789.-\u2212".toCharArray();
+
+    private MatrixView parent;
+    private AdvancedDisplay display;
+    private View nextView;
 
     public MatrixEditText(Context context) {
         super(context);
@@ -50,56 +55,52 @@ public class MatrixEditText extends EditText {
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
         setPadding(LogicalDensity.convertDpToPixel(17, getContext()), 0, LogicalDensity.convertDpToPixel(17, getContext()), 0);
+        this.parent = parent;
+        this.display = display;
+        setKeyListener(new MatrixKeyListener());
+        setOnFocusChangeListener(this);
+    }
 
-        setKeyListener(new NumberKeyListener() {
+    class MatrixKeyListener extends NumberKeyListener {
+        @Override
+        public int getInputType() {
+            return EditorInfo.TYPE_CLASS_NUMBER;
+        }
 
-            @Override
-            public int getInputType() {
-                return EditorInfo.TYPE_CLASS_NUMBER;
-            }
+        @Override
+        protected char[] getAcceptedChars() {
+            return ACCEPTED_CHARS;
+        }
 
-            @Override
-            protected char[] getAcceptedChars() {
-                return ACCEPTED_CHARS;
-            }
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            for(int i = start; i < end; i++) {
+                String checkMe = String.valueOf(source.charAt(i));
 
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                for(int i = start; i < end; i++) {
-                    String checkMe = String.valueOf(source.charAt(i));
-
-                    Pattern pattern;
-                    if(getText().toString().contains(".")) {
-                        pattern = Pattern.compile("[123456789]");
-                    }
-                    else {
-                        pattern = Pattern.compile("[123456789\\.]");
-                    }
-                    Matcher matcher = pattern.matcher(checkMe);
-                    boolean valid = matcher.matches();
-                    if(i == 0 && dstart == 0 && (checkMe.equals(getResources().getString(R.string.minus)) || checkMe.equals("-"))) valid = true;
-                    if(!valid) {
-                        return "";
-                    }
+                Pattern pattern;
+                if(getText().toString().contains(".")) {
+                    pattern = Pattern.compile("[123456789]");
                 }
-                return null;
-            }
-
-            @Override
-            public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_DEL) {
-                    if(parent.isEmpty()) display.removeView(parent);
+                else {
+                    pattern = Pattern.compile("[123456789\\.]");
                 }
-                return super.onKeyDown(view, content, keyCode, event);
+                Matcher matcher = pattern.matcher(checkMe);
+                boolean valid = matcher.matches();
+                if(i == 0 && dstart == 0 && (checkMe.equals(getResources().getString(R.string.minus)) || checkMe.equals("-"))) valid = true;
+                if(!valid) {
+                    return "";
+                }
             }
+            return null;
+        }
 
-        });
-        setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) display.mActiveEditText = MatrixEditText.this;
+        @Override
+        public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
+            if(keyCode == KeyEvent.KEYCODE_DEL) {
+                if(parent.isEmpty()) display.removeView(parent);
             }
-        });
+            return super.onKeyDown(view, content, keyCode, event);
+        }
     }
 
     class NoTextSelectionMode implements ActionMode.Callback {
@@ -124,7 +125,25 @@ public class MatrixEditText extends EditText {
     }
 
     @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(hasFocus) display.mActiveEditText = MatrixEditText.this;
+    }
+
+    @Override
     public String toString() {
         return getText().toString();
+    }
+
+    @Override
+    public View focusSearch(int direction) {
+        switch(direction) {
+        case View.FOCUS_FORWARD:
+            if(nextView != null) return nextView;
+        }
+        return super.focusSearch(direction);
+    }
+
+    public void setNextView(View nextView) {
+        this.nextView = nextView;
     }
 }

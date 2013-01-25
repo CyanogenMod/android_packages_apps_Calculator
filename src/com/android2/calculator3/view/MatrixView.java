@@ -36,7 +36,7 @@ public class MatrixView extends TableLayout {
 
     public void removeRow() {
         rows--;
-        removeViewAt(0);
+        removeViewAt(getChildCount() - 1);
 
         if(rows == 0 || columns == 0) parent.removeView(this);
     }
@@ -55,7 +55,7 @@ public class MatrixView extends TableLayout {
 
         for(int i = 0; i < rows; i++) {
             TableRow tr = (TableRow) getChildAt(i);
-            tr.removeViewAt(0);
+            tr.removeViewAt(tr.getChildCount() - 1);
         }
 
         if(rows == 0 || columns == 0) parent.removeView(this);
