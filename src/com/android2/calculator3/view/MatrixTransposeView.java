@@ -16,6 +16,7 @@
 
 package com.android2.calculator3.view;
 
+import android.content.Context;
 import android.text.Html;
 import android.text.InputType;
 import android.view.ActionMode;
@@ -28,7 +29,11 @@ import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
 public class MatrixTransposeView extends EditText {
-    public MatrixTransposeView(final MatrixEnabledDisplay display) {
+    public MatrixTransposeView(Context context) {
+        super(context);
+    }
+
+    public MatrixTransposeView(final AdvancedDisplay display) {
         super(display.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -73,7 +78,7 @@ public class MatrixTransposeView extends EditText {
         return "^T";
     }
 
-    public static boolean load(final MutableString text, final MatrixEnabledDisplay parent) {
+    public static boolean load(final MutableString text, final AdvancedDisplay parent) {
         boolean changed = MatrixTransposeView.load(text, parent, parent.getChildCount());
         if(changed) {
             // Always append a trailing EditText
@@ -82,7 +87,7 @@ public class MatrixTransposeView extends EditText {
         return changed;
     }
 
-    public static boolean load(final MutableString text, final MatrixEnabledDisplay parent, final int pos) {
+    public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
         if(!text.startsWith("^T")) return false;
 
         text.setText(text.substring(2));

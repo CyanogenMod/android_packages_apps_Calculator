@@ -39,7 +39,11 @@ import com.android2.calculator3.R;
 public class MatrixEditText extends EditText {
     private static final char[] ACCEPTED_CHARS = "0123456789.-\u2212".toCharArray();
 
-    public MatrixEditText(final MatrixEnabledDisplay display, final MatrixView parent) {
+    public MatrixEditText(Context context) {
+        super(context);
+    }
+
+    public MatrixEditText(final AdvancedDisplay display, final MatrixView parent) {
         super(display.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);

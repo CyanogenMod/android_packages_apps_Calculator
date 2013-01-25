@@ -35,7 +35,11 @@ public class CalculatorEditText extends EditText {
     private EquationFormatter mEquationFormatter;
     private String input;
 
-    public CalculatorEditText(final MatrixEnabledDisplay display) {
+    public CalculatorEditText(Context context) {
+        super(context);
+    }
+
+    public CalculatorEditText(final AdvancedDisplay display) {
         super(display.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -106,11 +110,11 @@ public class CalculatorEditText extends EditText {
         return input;
     }
 
-    public static String load(String text, final MatrixEnabledDisplay parent) {
+    public static String load(String text, final AdvancedDisplay parent) {
         return CalculatorEditText.load(text, parent, parent.getChildCount());
     }
 
-    public static String load(String text, final MatrixEnabledDisplay parent, final int pos) {
+    public static String load(String text, final AdvancedDisplay parent, final int pos) {
         final CalculatorEditText et = new CalculatorEditText(parent);
         et.setText(text);
         et.setSelection(0);

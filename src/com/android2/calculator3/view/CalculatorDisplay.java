@@ -112,7 +112,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                     int selectionHandle = getSelectionStart();
                     if(selectionHandle == 0) {
                         // Remove the view in front
-                        MatrixEnabledDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
+                        AdvancedDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
                         int index = editor.getChildIndex(getActiveEditText());
                         if(index > 0) {
                             editor.removeView(editor.getChildAt(index - 1));
@@ -141,7 +141,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
         Editable.Factory factory = new CalculatorEditable.Factory(logic);
         for(int i = 0; i < 2; ++i) {
-            MatrixEnabledDisplay text = ((ScrollableDisplay) getChildAt(i)).getView();
+            AdvancedDisplay text = ((ScrollableDisplay) getChildAt(i)).getView();
             text.setBackgroundResource(android.R.color.transparent);
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
@@ -169,17 +169,17 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     }
 
     public EditText getActiveEditText() {
-        MatrixEnabledDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
+        AdvancedDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
         return editor.getActiveEditText();
     }
 
     public void insert(String delta) {
-        MatrixEnabledDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
+        AdvancedDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
         editor.insert(delta);
     }
 
     public String getText() {
-        MatrixEnabledDisplay text = ((ScrollableDisplay) getCurrentView()).getView();
+        AdvancedDisplay text = ((ScrollableDisplay) getCurrentView()).getView();
         return text.getText();
     }
 
@@ -201,7 +201,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             setOutAnimation(null);
         }
 
-        MatrixEnabledDisplay editor = ((ScrollableDisplay) getNextView()).getView();
+        AdvancedDisplay editor = ((ScrollableDisplay) getNextView()).getView();
         editor.setText(text.toString());
         showNext();
     }
@@ -224,6 +224,6 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
     @Override
     public boolean onLongClick(View v) {
-        return getCurrentView().performLongClick();
+        return ((ScrollableDisplay) getCurrentView()).getView().performLongClick();
     }
 }

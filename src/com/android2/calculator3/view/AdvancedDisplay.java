@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
-public class MatrixEnabledDisplay extends LinearLayout {
+public class AdvancedDisplay extends LinearLayout {
     private static final int CUT = 0;
     private static final int COPY = 1;
     private static final int PASTE = 2;
@@ -29,7 +29,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
     KeyListener mKeyListener;
     Factory mFactory;
 
-    public MatrixEnabledDisplay(Context context, AttributeSet attr) {
+    public AdvancedDisplay(Context context, AttributeSet attr) {
         super(context, attr);
         setOrientation(HORIZONTAL);
     }
@@ -90,10 +90,12 @@ public class MatrixEnabledDisplay extends LinearLayout {
                     else if(MatrixTransposeView.load(text, this, index + 1)) {
                         splitText(cursor, index, text);
                         getChildAt(index + 2).requestFocus();
+                        ((CalculatorEditText) getChildAt(index + 2)).setSelection(0);
                     }
                     else if(MatrixInverseView.load(text, this, index + 1)) {
                         splitText(cursor, index, text);
                         getChildAt(index + 2).requestFocus();
+                        ((CalculatorEditText) getChildAt(index + 2)).setSelection(0);
                     }
                     else {
                         getActiveEditText().getText().insert(cursor, text.subSequence(0, 1));
@@ -118,6 +120,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
         }
         else {
             getChildAt(index + 2).requestFocus();
+            ((CalculatorEditText) getChildAt(index + 2)).setSelection(0);
         }
     }
 
@@ -131,7 +134,8 @@ public class MatrixEnabledDisplay extends LinearLayout {
             if(MatrixInverseView.load(ms, this)) continue;
 
             // Append the next character to the trailing EditText
-            ((CalculatorEditText) getLastView()).append(ms.subSequence(0, 1));
+            ((CalculatorEditText) getLastView()).setText(((CalculatorEditText) getLastView()).getText() + ms.substring(0, 1));
+            ((CalculatorEditText) getLastView()).setSelection(((CalculatorEditText) getLastView()).length());
             ms.setText(ms.substring(1, ms.length()));
         }
     }

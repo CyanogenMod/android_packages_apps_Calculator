@@ -11,9 +11,9 @@ import com.android2.calculator3.R;
 
 public class MatrixView extends TableLayout {
     int rows, columns = 0;
-    MatrixEnabledDisplay parent;
+    AdvancedDisplay parent;
 
-    public MatrixView(MatrixEnabledDisplay parent) {
+    public MatrixView(AdvancedDisplay parent) {
         super(parent.getContext());
         this.parent = parent;
         setup();
@@ -120,7 +120,7 @@ public class MatrixView extends TableLayout {
         return input;
     }
 
-    public static boolean load(final MutableString text, final MatrixEnabledDisplay parent) {
+    public static boolean load(final MutableString text, final AdvancedDisplay parent) {
         boolean changed = MatrixView.load(text, parent, parent.getChildCount());
         if(changed) {
             // Always append a trailing EditText
@@ -129,7 +129,7 @@ public class MatrixView extends TableLayout {
         return changed;
     }
 
-    public static boolean load(final MutableString text, final MatrixEnabledDisplay parent, final int pos) {
+    public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
         if(!MatrixView.verify(text)) return false;
 
         String matrix = MatrixView.parseMatrix(text.getText());
