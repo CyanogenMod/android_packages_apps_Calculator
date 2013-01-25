@@ -20,7 +20,6 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
-import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -111,12 +110,6 @@ public class CalculatorEditText extends EditText {
 
     public View getContainer() {
         return container;
-    }
-
-    public Editable getInput() {
-        SpannableStringBuilder e = new SpannableStringBuilder();
-        e.append(input);
-        return e;
     }
 
     @Override

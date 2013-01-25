@@ -12,6 +12,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
     private static final int PASTE = 2;
     private String[] mMenuItemsStrings;
 
-    CalculatorEditText mActiveEditText;
+    EditText mActiveEditText;
     KeyListener mKeyListener;
     Factory mFactory;
 
@@ -131,7 +132,7 @@ public class MatrixEnabledDisplay extends LinearLayout {
         mFactory = factory;
     }
 
-    public CalculatorEditText getActiveEditText() {
+    public EditText getActiveEditText() {
         return mActiveEditText;
     }
 

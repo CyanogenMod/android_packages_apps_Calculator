@@ -2,7 +2,6 @@ package com.android2.calculator3.view;
 
 import org.ejml.simple.SimpleMatrix;
 
-import android.text.InputType;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -72,18 +71,22 @@ public class MatrixView extends TableLayout {
             TableRow tr = (TableRow) getChildAt(row);
             for(int column = 0; column < columns; column++) {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
+                if(input.startsWith(getResources().getString(R.string.minus))) {
+                    if(input.length() == 1) input = "";
+                    else input = "-" + input.substring(1);
+                }
                 if(input.isEmpty()) data[row][column] = 0;
-                else data[row][column] = Double.valueOf(input);
+                else {
+                    data[row][column] = Double.valueOf(input);
+                }
             }
         }
         return data;
     }
 
     private EditText createEditText() {
-        final CalculatorEditText et = new CalculatorEditText(parent);
+        final EditText et = new MatrixEditText(parent);
         et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-        et.setContainer(this);
         return et;
     }
 

@@ -83,6 +83,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
+        View v;
         int id = view.getId();
         switch(id) {
         case R.id.del:
@@ -97,6 +98,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             if(mHandler.getText().contains(mX) || mHandler.getText().contains(mY)) {
                 if(!mHandler.getText().contains("=")) {
                     mHandler.insert("=");
+                    returnToBasic();
                 }
                 break;
             }
@@ -178,27 +180,27 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.plus_row:
-            if(mHandler.mDisplay.getActiveEditText().getContainer() instanceof MatrixView) ((MatrixView) mHandler.mDisplay.getActiveEditText().getContainer())
-                    .addRow();
+            v = (View) ((View) mHandler.mDisplay.getActiveEditText().getParent()).getParent();
+            if(v instanceof MatrixView) ((MatrixView) v).addRow();
             break;
 
         case R.id.minus_row:
-            if(mHandler.mDisplay.getActiveEditText().getContainer() instanceof MatrixView) ((MatrixView) mHandler.mDisplay.getActiveEditText().getContainer())
-                    .removeRow();
+            v = (View) ((View) mHandler.mDisplay.getActiveEditText().getParent()).getParent();
+            if(v instanceof MatrixView) ((MatrixView) v).removeRow();
             break;
 
         case R.id.plus_col:
-            if(mHandler.mDisplay.getActiveEditText().getContainer() instanceof MatrixView) ((MatrixView) mHandler.mDisplay.getActiveEditText().getContainer())
-                    .addColumn();
+            v = (View) ((View) mHandler.mDisplay.getActiveEditText().getParent()).getParent();
+            if(v instanceof MatrixView) ((MatrixView) v).addColumn();
             break;
 
         case R.id.minus_col:
-            if(mHandler.mDisplay.getActiveEditText().getContainer() instanceof MatrixView) ((MatrixView) mHandler.mDisplay.getActiveEditText().getContainer())
-                    .removeColumn();
+            v = (View) ((View) mHandler.mDisplay.getActiveEditText().getParent()).getParent();
+            if(v instanceof MatrixView) ((MatrixView) v).removeColumn();
             break;
 
         case R.id.next:
-            View v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_FORWARD);
+            v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_FORWARD);
             if(v != null) v.requestFocus();
             break;
 

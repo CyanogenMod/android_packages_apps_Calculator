@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ViewSwitcher;
 
 import com.android2.calculator3.CalculatorEditable;
@@ -112,9 +113,8 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_DEL) {
                     int selectionHandle = getSelectionStart();
-                    String textBeforeInsertionHandle = getActiveEditText().getInput().toString().substring(0, selectionHandle);
-                    String textAfterInsertionHandle = getActiveEditText().getInput().toString()
-                            .substring(selectionHandle, getActiveEditText().getInput().length());
+                    String textBeforeInsertionHandle = getActiveEditText().toString().substring(0, selectionHandle);
+                    String textAfterInsertionHandle = getActiveEditText().toString().substring(selectionHandle, getActiveEditText().toString().length());
 
                     for(String s : keywords) {
                         if(textBeforeInsertionHandle.endsWith(s)) {
@@ -160,7 +160,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         outAnimDown.setDuration(ANIM_DURATION);
     }
 
-    public CalculatorEditText getActiveEditText() {
+    public EditText getActiveEditText() {
         MatrixEnabledDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
         return editor.getActiveEditText();
     }
