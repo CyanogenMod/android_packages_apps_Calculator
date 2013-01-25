@@ -26,5 +26,4 @@
     <item type="bool" name="USE_RADIANS">true</item>
     <item type="dimen" name="barHeight">25dp</item>
     <item type="integer" name="barHeight">25</item>
-    <item type="string" name="wolframAlphaKey">T2YJW3-7XQX257LAP</item>
 </resources>

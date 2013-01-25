@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -44,8 +43,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     private String mY;
     private String mDX;
     private String mDY;
-    private String solveForX;
-    private String solveForY;
     private List<String> bannedInDecimal;
     private List<String> bannedInBinary;
 
@@ -60,8 +57,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         mY = mContext.getString(R.string.Y);
         mDX = mContext.getString(R.string.dx);
         mDY = mContext.getString(R.string.dy);
-        solveForX = mContext.getString(R.string.solveForX);
-        solveForY = mContext.getString(R.string.solveForY);
 
         String digit2 = mContext.getString(R.string.digit2);
         String digit3 = mContext.getString(R.string.digit3);
@@ -106,41 +101,9 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.solveForX:
-            WolframAlpha.solve(mHandler.getText() + ", " + solveForX, new Handler(), new WolframAlpha.ResultsRunnable() {
-                @Override
-                public void run() {
-                    String text = "";
-                    for(String s : results) {
-                        text += s + ", ";
-                    }
-                    if(text.length() > 2) text = text.substring(0, text.length() - 2);
-                    mHandler.setText(text);
-                }
-            }, new Runnable() {
-                @Override
-                public void run() {
-                    mHandler.setText(mErrorString);
-                }
-            }, mContext.getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.solveForY:
-            WolframAlpha.solve(mHandler.getText() + ", " + solveForY, new Handler(), new WolframAlpha.ResultsRunnable() {
-                @Override
-                public void run() {
-                    String text = "";
-                    for(String s : results) {
-                        text += s + ", ";
-                    }
-                    if(text.length() > 2) text = text.substring(0, text.length() - 2);
-                    mHandler.setText(text);
-                }
-            }, new Runnable() {
-                @Override
-                public void run() {
-                    mHandler.setText(mErrorString);
-                }
-            }, mContext.getString(R.string.wolframAlphaKey));
             break;
 
         case R.id.hex:
