@@ -46,9 +46,9 @@
                 maxDigits="@integer/max_digits"
                 >
     
-                <com.android2.calculator3.view.MatrixEnabledDisplay
+                <com.android2.calculator3.view.ScrollableDisplay
                     style="@style/display_style" />
-                <com.android2.calculator3.view.MatrixEnabledDisplay
+                <com.android2.calculator3.view.ScrollableDisplay
                     style="@style/display_style" />
     
             </com.android2.calculator3.view.CalculatorDisplay>

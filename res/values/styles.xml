@@ -20,7 +20,7 @@
     <dimen name="btn_clear_text_size">30sp</dimen>
     <dimen name="display_text_size">40sp</dimen>
     <dimen name="small_display_text_size">20sp</dimen>
-    <dimen name="min_display_height">90dp</dimen>
+    <dimen name="min_display_height">105dp</dimen>
 
     <style name="button_style">
        <item name="android:textSize">40dp</item>

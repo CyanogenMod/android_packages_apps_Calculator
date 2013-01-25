@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
 public class MatrixView extends TableLayout {
@@ -84,8 +85,20 @@ public class MatrixView extends TableLayout {
         return data;
     }
 
+    boolean isEmpty() {
+        boolean empty = true;
+        for(int row = 0; row < rows; row++) {
+            TableRow tr = (TableRow) getChildAt(row);
+            for(int column = 0; column < columns; column++) {
+                String input = ((EditText) tr.getChildAt(column)).getText().toString();
+                if(!input.isEmpty()) empty = false;
+            }
+        }
+        return empty;
+    }
+
     private EditText createEditText() {
-        final EditText et = new MatrixEditText(parent);
+        final EditText et = new MatrixEditText(parent, this);
         et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
         return et;
     }
@@ -107,21 +120,20 @@ public class MatrixView extends TableLayout {
         return input;
     }
 
-    public static String load(String text, MatrixEnabledDisplay parent) {
-        int length = text.length();
-        text = MatrixView.load(text, parent, parent.getChildCount());
-        if(text.length() != length) {
+    public static boolean load(final MutableString text, final MatrixEnabledDisplay parent) {
+        boolean changed = MatrixView.load(text, parent, parent.getChildCount());
+        if(changed) {
             // Always append a trailing EditText
             CalculatorEditText.load("", parent);
         }
-        return text;
+        return changed;
     }
 
-    public static String load(String text, MatrixEnabledDisplay parent, int pos) {
-        if(!MatrixView.verify(text)) return text;
+    public static boolean load(final MutableString text, final MatrixEnabledDisplay parent, final int pos) {
+        if(!MatrixView.verify(text)) return false;
 
-        String matrix = MatrixView.parseMatrix(text);
-        text = text.substring(matrix.length() + 1);
+        String matrix = MatrixView.parseMatrix(text.getText());
+        text.setText(text.substring(matrix.length() + 1));
         int rows = MatrixView.countOccurrences(matrix, '[') - 1;
         int columns = MatrixView.countOccurrences(matrix, ',') / rows + 1;
 
@@ -134,10 +146,10 @@ public class MatrixView extends TableLayout {
         }
         parent.addView(mv, pos);
 
-        return text;
+        return true;
     }
 
-    public static boolean verify(String text) {
+    private static boolean verify(MutableString text) {
         return text.startsWith("[[");
     }
 

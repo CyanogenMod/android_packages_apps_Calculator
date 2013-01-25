@@ -34,7 +34,6 @@ import com.android2.calculator3.R;
 public class CalculatorEditText extends EditText {
     private EquationFormatter mEquationFormatter;
     private String input;
-    private View container;
 
     public CalculatorEditText(final MatrixEnabledDisplay display) {
         super(display.getContext());
@@ -73,8 +72,6 @@ public class CalculatorEditText extends EditText {
             }
         });
 
-        setContainer(this);
-
         setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -102,14 +99,6 @@ public class CalculatorEditText extends EditText {
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }
-    }
-
-    public void setContainer(View container) {
-        this.container = container;
-    }
-
-    public View getContainer() {
-        return container;
     }
 
     @Override

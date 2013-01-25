@@ -110,17 +110,28 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_DEL) {
                     int selectionHandle = getSelectionStart();
-                    String textBeforeInsertionHandle = getActiveEditText().toString().substring(0, selectionHandle);
-                    String textAfterInsertionHandle = getActiveEditText().toString().substring(selectionHandle, getActiveEditText().toString().length());
+                    if(selectionHandle == 0) {
+                        // Remove the view in front
+                        MatrixEnabledDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
+                        int index = editor.getChildIndex(getActiveEditText());
+                        if(index > 0) {
+                            editor.removeView(editor.getChildAt(index - 1));
+                        }
+                    }
+                    else {
+                        // Check and remove keywords
+                        String textBeforeInsertionHandle = getActiveEditText().toString().substring(0, selectionHandle);
+                        String textAfterInsertionHandle = getActiveEditText().toString().substring(selectionHandle, getActiveEditText().toString().length());
 
-                    for(String s : keywords) {
-                        if(textBeforeInsertionHandle.endsWith(s)) {
-                            int deletionLength = s.length();
-                            String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)
-                                    + textAfterInsertionHandle;
-                            getActiveEditText().setText(text);
-                            setSelection(selectionHandle - deletionLength);
-                            return true;
+                        for(String s : keywords) {
+                            if(textBeforeInsertionHandle.endsWith(s)) {
+                                int deletionLength = s.length();
+                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)
+                                        + textAfterInsertionHandle;
+                                getActiveEditText().setText(text);
+                                setSelection(selectionHandle - deletionLength);
+                                return true;
+                            }
                         }
                     }
                 }
@@ -190,8 +201,8 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             setOutAnimation(null);
         }
 
-        MatrixEnabledDisplay editText = ((ScrollableDisplay) getNextView()).getView();
-        editText.setText(text.toString());
+        MatrixEnabledDisplay editor = ((ScrollableDisplay) getNextView()).getView();
+        editor.setText(text.toString());
         showNext();
     }
 

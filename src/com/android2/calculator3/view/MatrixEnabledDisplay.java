@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
 public class MatrixEnabledDisplay extends LinearLayout {
@@ -80,28 +81,23 @@ public class MatrixEnabledDisplay extends LinearLayout {
         else {
             if(CalculatorEditText.class.isInstance(getActiveEditText())) {
                 // Logic to insert, split text if there's another view, etc
-                String text = delta;
+                final MutableString text = new MutableString(delta);
                 while(!text.isEmpty()) {
                     int cursor = getActiveEditText().getSelectionStart();
+                    final int index = getChildIndex(getActiveEditText());
 
-                    if(MatrixView.verify(text)) {
-                        final String leftText = getActiveEditText().getText().toString().substring(0, cursor);
-                        final String rightText = getActiveEditText().getText().toString().substring(cursor);
-                        final int index = getChildIndex(getActiveEditText());
-
-                        getActiveEditText().setText(leftText);
-                        text = MatrixView.load(text, this, index + 1);
-                        CalculatorEditText.load(rightText, this, index + 2);
-                        if(text.isEmpty()) {
-                            getChildAt(index + 1).requestFocus();
-                        }
-                        else {
-                            getChildAt(index + 2).requestFocus();
-                        }
+                    if(MatrixView.load(text, this, index + 1)) splitText(cursor, index, text);
+                    else if(MatrixTransposeView.load(text, this, index + 1)) {
+                        splitText(cursor, index, text);
+                        getChildAt(index + 2).requestFocus();
+                    }
+                    else if(MatrixInverseView.load(text, this, index + 1)) {
+                        splitText(cursor, index, text);
+                        getChildAt(index + 2).requestFocus();
                     }
                     else {
                         getActiveEditText().getText().insert(cursor, text.subSequence(0, 1));
-                        text = text.substring(1, text.length());
+                        text.setText(text.substring(1, text.length()));
                     }
                 }
             }
@@ -112,15 +108,31 @@ public class MatrixEnabledDisplay extends LinearLayout {
         }
     }
 
+    private void splitText(int cursor, int index, MutableString text) {
+        final String leftText = getActiveEditText().getText().toString().substring(0, cursor);
+        final String rightText = getActiveEditText().getText().toString().substring(cursor);
+        getActiveEditText().setText(leftText);
+        CalculatorEditText.load(rightText, this, index + 2);
+        if(text.isEmpty()) {
+            getChildAt(index + 1).requestFocus();
+        }
+        else {
+            getChildAt(index + 2).requestFocus();
+        }
+    }
+
     public void setText(String text) {
         clear();
         CalculatorEditText.load("", this, 0);
-        while(!text.isEmpty()) {
-            text = MatrixView.load(text, this);
+        final MutableString ms = new MutableString(text);
+        while(!ms.isEmpty()) {
+            if(MatrixView.load(ms, this)) continue;
+            if(MatrixTransposeView.load(ms, this)) continue;
+            if(MatrixInverseView.load(ms, this)) continue;
 
             // Append the next character to the trailing EditText
-            ((CalculatorEditText) getLastView()).append(text.subSequence(0, 1));
-            text = text.substring(1, text.length());
+            ((CalculatorEditText) getLastView()).append(ms.subSequence(0, 1));
+            ms.setText(ms.substring(1, ms.length()));
         }
     }
 
