@@ -44,6 +44,8 @@ public class Logic {
     private static final String NAN = "NaN"; // Double.toString() for NaN
 
     static final char MINUS = '\u2212';
+    static final char MUL = '\u00d7';
+    static final char PLUS = '+';
 
     public static final String MARKER_EVALUATE_ON_RESUME = "?";
     public static final int DELETE_MODE_BACKSPACE = 0;

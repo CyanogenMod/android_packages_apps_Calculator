@@ -33,6 +33,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.android2.calculator3.LogicalDensity;
 import com.android2.calculator3.R;
 
 public class MatrixEditText extends EditText {
@@ -44,6 +45,7 @@ public class MatrixEditText extends EditText {
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
+        setPadding(LogicalDensity.convertDpToPixel(17, getContext()), 0, LogicalDensity.convertDpToPixel(17, getContext()), 0);
 
         setKeyListener(new NumberKeyListener() {
 

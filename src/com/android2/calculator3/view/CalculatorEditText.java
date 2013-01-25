@@ -118,6 +118,7 @@ public class CalculatorEditText extends EditText {
         et.setEditableFactory(parent.mFactory);
         et.setBackgroundResource(android.R.color.transparent);
         et.setTextAppearance(parent.getContext(), R.style.display_style);
+        et.setPadding(5, 0, 5, 0);
         parent.addView(et, pos);
         et.requestFocus();
         return "";

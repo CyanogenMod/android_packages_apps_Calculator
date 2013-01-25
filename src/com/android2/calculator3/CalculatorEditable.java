@@ -54,7 +54,7 @@ public class CalculatorEditable extends SpannableStringBuilder {
             end = length();
         }
 
-        for (int i = ORIGINALS.length - 1; i >= 0; --i) {
+        for(int i = ORIGINALS.length - 1; i >= 0; --i) {
             delta = delta.replace(ORIGINALS[i], REPLACEMENTS[i]);
         }
 
@@ -65,7 +65,7 @@ public class CalculatorEditable extends SpannableStringBuilder {
             // don't allow two dots in the same number
             if(text == '.') {
                 int p = start - 1;
-                while (p >= 0 && Character.isDigit(charAt(p))) {
+                while(p >= 0 && Character.isDigit(charAt(p))) {
                     --p;
                 }
                 if(p >= 0 && charAt(p) == '.') {
@@ -82,14 +82,14 @@ public class CalculatorEditable extends SpannableStringBuilder {
 
             // don't allow multiple successive operators
             if(Logic.isOperator(text)) {
-                while (Logic.isOperator(prevChar) && (text != Logic.MINUS || prevChar == '+')) {
+                while(Logic.isOperator(prevChar) && (text != Logic.MINUS || prevChar == '+')) {
                     --start;
                     prevChar = start > 0 ? charAt(start - 1) : '\0';
                 }
             }
 
-            // don't allow leading operator + * /
-            if(start == 0 && Logic.isOperator(text) && text != Logic.MINUS) {
+            // don't allow leading operator /
+            if(start == 0 && Logic.isOperator(text) && text != Logic.PLUS && text != Logic.MINUS && text != Logic.MUL) {
                 return super.replace(start, end, "");
             }
         }

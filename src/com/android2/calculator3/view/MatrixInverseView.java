@@ -35,6 +35,7 @@ public class MatrixInverseView extends EditText {
         setText(Html.fromHtml("<sup>-1</sup>"));
         setBackgroundResource(android.R.color.transparent);
         setTextAppearance(display.getContext(), R.style.display_style);
+        setPadding(0, 0, 0, 0);
     }
 
     @Override
