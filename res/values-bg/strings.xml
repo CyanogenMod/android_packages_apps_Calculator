@@ -40,23 +40,4 @@
     <string name="advanced" msgid="7122495413742976492">"Разширен панел"</string>
     <string name="clear_history" msgid="8458043980601165012">"Изчистване на историята"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Текстът е копиран."</string>
-  <string-array name="operatorDescs">
-    <item msgid="7903565108986789641">"лява кръгла скоба"</item>
-    <item msgid="1688156211934459752">"дясна кръгла скоба"</item>
-    <item msgid="6664829080840305856">"факториел"</item>
-    <item msgid="2880199289575144121">"естествен логаритъм"</item>
-    <item msgid="4398774906998694599">"логаритъм"</item>
-    <item msgid="1791869359785943266">"корен квадратен"</item>
-    <item msgid="6833720171974254459">"делено на"</item>
-    <item msgid="2646574635189709515">"умножено по"</item>
-    <item msgid="3487936384379753697">"плюс"</item>
-    <item msgid="8608534484562258856">"минус"</item>
-    <item msgid="3456824579675198186">" запетая "</item>
-    <item msgid="4528629783180278651">"степен"</item>
-    <item msgid="4050948027333760159">"тангенс"</item>
-    <item msgid="8716478860618683850">"синус"</item>
-    <item msgid="3203211483560707480">"косинус"</item>
-    <item msgid="8587490959348493065">"пи"</item>
-    <item msgid="8134315487552198394">"равно на"</item>
-  </string-array>
 </resources>
