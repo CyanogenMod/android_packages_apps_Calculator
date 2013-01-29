@@ -40,6 +40,8 @@
     <string name="advanced" msgid="7122495413742976492">"Pokročilé funkce"</string>
     <string name="clear_history" msgid="8458043980601165012">"Vymazat historii"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Text zkopírován."</string>
+    <string name="copy">Kopírovat \"%s\"</string>
+    <string name="remove_from_history">Odebrat z historie</string>
 
     <!-- Update for JB -->
     <string name="A">A</string>
@@ -77,4 +79,5 @@
     <string name="settings">Nastavení</string>
     <string name="showHistory">Zobrazit historii</string>
     <string name="hideHistory">Skrýt historii</string>
+    <string name="returnToBasic">Návrat na základní panel</string>
 </resources>
