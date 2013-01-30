@@ -13,8 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <item type="dimen" name="barHeight">60dp</item>
-    <item type="integer" name="barHeight">60</item>
+<resources>
+    <dimen name="barHeight">60dp</dimen>
+    <integer name="barHeight">60</integer>
 </resources>

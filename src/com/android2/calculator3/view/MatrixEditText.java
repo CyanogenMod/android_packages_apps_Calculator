@@ -42,7 +42,6 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
 
     private MatrixView parent;
     private AdvancedDisplay display;
-    private View nextView;
 
     public MatrixEditText(Context context) {
         super(context);
@@ -138,12 +137,8 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
     public View focusSearch(int direction) {
         switch(direction) {
         case View.FOCUS_FORWARD:
-            if(nextView != null) return nextView;
+            return parent.nextView(this);
         }
         return super.focusSearch(direction);
-    }
-
-    public void setNextView(View nextView) {
-        this.nextView = nextView;
     }
 }

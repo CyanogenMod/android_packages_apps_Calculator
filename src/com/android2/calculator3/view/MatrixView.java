@@ -2,6 +2,7 @@ package com.android2.calculator3.view;
 
 import org.ejml.simple.SimpleMatrix;
 
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -76,6 +77,12 @@ public class MatrixView extends TableLayout {
                     if(input.length() == 1) input = "";
                     else input = "-" + input.substring(1);
                 }
+                if(input.startsWith(".")) {
+                    input = "0" + input;
+                }
+                if(input.startsWith("-.")) {
+                    input = "-0" + input.substring(1);
+                }
                 if(input.isEmpty()) data[row][column] = 0;
                 else {
                     data[row][column] = Double.valueOf(input);
@@ -101,6 +108,18 @@ public class MatrixView extends TableLayout {
         final EditText et = new MatrixEditText(parent, this);
         et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
         return et;
+    }
+
+    View nextView(View currentView) {
+        boolean foundCurrentView = false;
+        for(int row = 0; row < rows; row++) {
+            TableRow tr = (TableRow) getChildAt(row);
+            for(int column = 0; column < columns; column++) {
+                if(foundCurrentView) return tr.getChildAt(column);
+                else if(currentView == tr.getChildAt(column)) foundCurrentView = true;
+            }
+        }
+        return parent.getChildAt(parent.getChildIndex(this) + 1);
     }
 
     @Override

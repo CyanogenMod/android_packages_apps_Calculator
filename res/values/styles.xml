@@ -21,6 +21,8 @@
     <dimen name="display_text_size">40sp</dimen>
     <dimen name="small_display_text_size">20sp</dimen>
     <dimen name="min_display_height">105dp</dimen>
+    <dimen name="barHeight">25dp</dimen>
+    <integer name="barHeight">25</integer>
 
     <style name="button_style">
        <item name="android:textSize">40dp</item>
