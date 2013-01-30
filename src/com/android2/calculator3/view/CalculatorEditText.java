@@ -17,6 +17,9 @@
 package com.android2.calculator3.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
@@ -32,8 +35,11 @@ import com.android2.calculator3.EquationFormatter;
 import com.android2.calculator3.R;
 
 public class CalculatorEditText extends EditText {
+    private static final int BLINK = 500;
+
     private EquationFormatter mEquationFormatter;
     private AdvancedDisplay mDisplay;
+    private long mShowCursor = SystemClock.uptimeMillis();
     private String input;
 
     public CalculatorEditText(Context context) {
@@ -119,6 +125,33 @@ public class CalculatorEditText extends EditText {
             return mDisplay.nextView(this);
         }
         return super.focusSearch(direction);
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        // Doesn't draw the cursor if textLength is 0. Because we're an array of
+        // EditTexts, we'd prefer that it did.
+        if(getText().length() == 0 && getSelectionStart() == getSelectionEnd()) {
+            if((SystemClock.uptimeMillis() - mShowCursor) % (2 * BLINK) < BLINK) {
+                // if(mHighlightPathBogus) {
+                // mHighlightPath.reset();
+                // mLayout.getCursorPath(selStart, mHighlightPath, mText);
+                // mHighlightPathBogus = false;
+                // }
+
+                // XXX should pass to skin instead of drawing directly
+                Paint mHighlightPaint = new Paint();
+                mHighlightPaint.setColor(getCurrentTextColor());
+                mHighlightPaint.setStyle(Paint.Style.STROKE);
+
+                // highlight = mHighlightPath;
+            }
+        }
+    }
+
+    public static String load(final AdvancedDisplay parent) {
+        return CalculatorEditText.load("", parent);
     }
 
     public static String load(String text, final AdvancedDisplay parent) {

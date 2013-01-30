@@ -147,6 +147,7 @@ public class AdvancedDisplay extends LinearLayout {
             ((CalculatorEditText) getLastView()).setSelection(((CalculatorEditText) getLastView()).length());
             ms.setText(ms.substring(1, ms.length()));
         }
+        getLastView().requestFocus();
     }
 
     public void setKeyListener(KeyListener input) {

@@ -112,7 +112,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                     int selectionHandle = getSelectionStart();
                     if(selectionHandle == 0) {
                         // Remove the view in front
-                        AdvancedDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
+                        AdvancedDisplay editor = getAdvancedDisplay();
                         int index = editor.getChildIndex(getActiveEditText());
                         if(index > 0) {
                             editor.removeView(editor.getChildAt(index - 1));
@@ -168,18 +168,22 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         outAnimDown.setDuration(ANIM_DURATION);
     }
 
+    public AdvancedDisplay getAdvancedDisplay() {
+        return ((ScrollableDisplay) getCurrentView()).getView();
+    }
+
     public EditText getActiveEditText() {
-        AdvancedDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
+        AdvancedDisplay editor = getAdvancedDisplay();
         return editor.getActiveEditText();
     }
 
     public void insert(String delta) {
-        AdvancedDisplay editor = ((ScrollableDisplay) getCurrentView()).getView();
+        AdvancedDisplay editor = getAdvancedDisplay();
         editor.insert(delta);
     }
 
     public String getText() {
-        AdvancedDisplay text = ((ScrollableDisplay) getCurrentView()).getView();
+        AdvancedDisplay text = getAdvancedDisplay();
         return text.getText();
     }
 
@@ -224,6 +228,6 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
     @Override
     public boolean onLongClick(View v) {
-        return ((ScrollableDisplay) getCurrentView()).getView().performLongClick();
+        return getAdvancedDisplay().performLongClick();
     }
 }

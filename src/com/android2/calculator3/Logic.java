@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
 import org.achartengine.util.MathHelper;
+import org.ejml.simple.SimpleMatrix;
 import org.javia.arity.Complex;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
@@ -30,10 +31,15 @@ import org.javia.arity.SyntaxException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.android2.calculator3.Calculator.CalculatorSettings;
+import com.android2.calculator3.view.AdvancedDisplay;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorDisplay.Scroll;
+import com.android2.calculator3.view.MatrixInverseView;
+import com.android2.calculator3.view.MatrixTransposeView;
+import com.android2.calculator3.view.MatrixView;
 
 public class Logic {
     private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
@@ -255,20 +261,35 @@ public class Logic {
     }
 
     public void evaluateAndShowResult(String text, Scroll scroll) {
-        try {
-            String result = evaluate(text);
+        boolean containsMatrices = false;
+        for(int i = 0; i < mDisplay.getAdvancedDisplay().getChildCount(); i++) {
+            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixView) containsMatrices = true;
+        }
+        if(containsMatrices) {
+            String result = evaluateMatrices(mDisplay.getAdvancedDisplay());
             if(!text.equals(result)) {
-                mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
+                mHistory.enter(text, result);
                 mResult = result;
                 mDisplay.setText(mResult, scroll);
                 setDeleteMode(DELETE_MODE_CLEAR);
             }
         }
-        catch(SyntaxException e) {
-            mIsError = true;
-            mResult = mErrorString;
-            mDisplay.setText(mResult, scroll);
-            setDeleteMode(DELETE_MODE_CLEAR);
+        else {
+            try {
+                String result = evaluate(text);
+                if(!text.equals(result)) {
+                    mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
+                    mResult = result;
+                    mDisplay.setText(mResult, scroll);
+                    setDeleteMode(DELETE_MODE_CLEAR);
+                }
+            }
+            catch(SyntaxException e) {
+                mIsError = true;
+                mResult = mErrorString;
+                mDisplay.setText(mResult, scroll);
+                setDeleteMode(DELETE_MODE_CLEAR);
+            }
         }
     }
 
@@ -406,6 +427,40 @@ public class Logic {
     static boolean isOperator(char c) {
         // plus minus times div
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
+    }
+
+    private String evaluateMatrices(AdvancedDisplay display) {
+        SimpleMatrix matrix = null;
+        boolean add = false;
+        boolean multiply = false;
+        for(int i = 0; i < display.getChildCount(); i++) {
+            View child = display.getChildAt(i);
+            if(child instanceof MatrixView) {
+                if(!add && !multiply) {
+                    matrix = ((MatrixView) child).getSimpleMatrix();
+                }
+                else if(add) {
+                    add = false;
+                    matrix = matrix.plus(((MatrixView) child).getSimpleMatrix());
+                }
+                else if(multiply) {
+                    multiply = false;
+                    matrix = matrix.mult(((MatrixView) child).getSimpleMatrix());
+                }
+            }
+            else if(child instanceof MatrixTransposeView) {
+                matrix = matrix.transpose();
+            }
+            else if(child instanceof MatrixInverseView) {
+                matrix = matrix.invert();
+            }
+            else {
+                String text = child.toString();
+                if(text.startsWith(String.valueOf(MUL))) multiply = true;
+                else if(text.startsWith(String.valueOf(PLUS))) add = true;
+            }
+        }
+        return MatrixView.matrixToString(matrix);
     }
 
     private boolean graphChanged(Graph graph, String equation, double minX, double maxX, double minY, double maxY) {

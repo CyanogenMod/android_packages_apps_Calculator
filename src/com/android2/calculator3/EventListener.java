@@ -100,12 +100,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             mHandler.onEnter();
             break;
 
-        case R.id.solveForX:
-            break;
-
-        case R.id.solveForY:
-            break;
-
         case R.id.hex:
             mHandler.setText(mHandler.setMode(Mode.HEXADECIMAL));
             view.setBackgroundResource(R.color.pressed_color);

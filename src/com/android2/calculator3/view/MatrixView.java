@@ -1,7 +1,10 @@
 package com.android2.calculator3.view;
 
+import java.text.DecimalFormat;
+
 import org.ejml.simple.SimpleMatrix;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -11,8 +14,13 @@ import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
 public class MatrixView extends TableLayout {
+    private static String FORMAT = "#.######";
     int rows, columns = 0;
     AdvancedDisplay parent;
+
+    public MatrixView(Context context) {
+        super(context);
+    }
 
     public MatrixView(AdvancedDisplay parent) {
         super(parent.getContext());
@@ -124,12 +132,31 @@ public class MatrixView extends TableLayout {
 
     @Override
     public String toString() {
+        DecimalFormat formatter = new DecimalFormat(FORMAT);
         String input = "[";
         double[][] data = getData();
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += data[i][j] + ",";
+                input += formatter.format(data[i][j]) + ",";
+            }
+            // Remove trailing ,
+            input = input.substring(0, input.length() - 1);
+            input += "]";
+        }
+        input += "]";
+        return input;
+    }
+
+    public static String matrixToString(SimpleMatrix matrix) {
+        DecimalFormat formatter = new DecimalFormat(FORMAT);
+        int rows = matrix.numRows();
+        int columns = matrix.numCols();
+        String input = "[";
+        for(int i = 0; i < rows; i++) {
+            input += "[";
+            for(int j = 0; j < columns; j++) {
+                input += formatter.format(matrix.get(i, j)) + ",";
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);
@@ -143,7 +170,7 @@ public class MatrixView extends TableLayout {
         boolean changed = MatrixView.load(text, parent, parent.getChildCount());
         if(changed) {
             // Always append a trailing EditText
-            CalculatorEditText.load("", parent);
+            CalculatorEditText.load(parent);
         }
         return changed;
     }
@@ -152,7 +179,7 @@ public class MatrixView extends TableLayout {
         if(!MatrixView.verify(text)) return false;
 
         String matrix = MatrixView.parseMatrix(text.getText());
-        text.setText(text.substring(matrix.length() + 1));
+        text.setText(text.substring(matrix.length()));
         int rows = MatrixView.countOccurrences(matrix, '[') - 1;
         int columns = MatrixView.countOccurrences(matrix, ',') / rows + 1;
 
@@ -162,6 +189,15 @@ public class MatrixView extends TableLayout {
         }
         for(int i = 0; i < columns; i++) {
             mv.addColumn();
+        }
+        String[] data = matrix.split(",|\\]\\[");
+        for(int order = 0, row = 0; row < rows; row++) {
+            TableRow tr = (TableRow) mv.getChildAt(row);
+            for(int column = 0; column < columns; column++) {
+                EditText input = (EditText) tr.getChildAt(column);
+                input.setText(data[order].replaceAll("[\\[\\]]", ""));
+                order++;
+            }
         }
         parent.addView(mv, pos);
 
@@ -192,7 +228,7 @@ public class MatrixView extends TableLayout {
             else if(text.charAt(i) == ']') {
                 bracket_closed++;
             }
-            if(bracket_open == bracket_closed) return text.substring(0, i);
+            if(bracket_open == bracket_closed) return text.substring(0, i + 1);
         }
         return "";
     }

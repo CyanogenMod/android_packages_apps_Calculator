@@ -78,10 +78,10 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
 
                 Pattern pattern;
                 if(getText().toString().contains(".")) {
-                    pattern = Pattern.compile("[123456789]");
+                    pattern = Pattern.compile("[0123456789]");
                 }
                 else {
-                    pattern = Pattern.compile("[123456789\\.]");
+                    pattern = Pattern.compile("[0123456789\\.]");
                 }
                 Matcher matcher = pattern.matcher(checkMe);
                 boolean valid = matcher.matches();
