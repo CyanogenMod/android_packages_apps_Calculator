@@ -265,31 +265,22 @@ public class Logic {
         for(int i = 0; i < mDisplay.getAdvancedDisplay().getChildCount(); i++) {
             if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixView) containsMatrices = true;
         }
-        if(containsMatrices) {
-            String result = evaluateMatrices(mDisplay.getAdvancedDisplay());
+        try {
+            String result;
+            if(containsMatrices) result = evaluateMatrices(mDisplay.getAdvancedDisplay());
+            else result = evaluate(text);
             if(!text.equals(result)) {
-                mHistory.enter(text, result);
+                mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
                 mResult = result;
                 mDisplay.setText(mResult, scroll);
                 setDeleteMode(DELETE_MODE_CLEAR);
             }
         }
-        else {
-            try {
-                String result = evaluate(text);
-                if(!text.equals(result)) {
-                    mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
-                    mResult = result;
-                    mDisplay.setText(mResult, scroll);
-                    setDeleteMode(DELETE_MODE_CLEAR);
-                }
-            }
-            catch(SyntaxException e) {
-                mIsError = true;
-                mResult = mErrorString;
-                mDisplay.setText(mResult, scroll);
-                setDeleteMode(DELETE_MODE_CLEAR);
-            }
+        catch(SyntaxException e) {
+            mIsError = true;
+            mResult = mErrorString;
+            mDisplay.setText(mResult, scroll);
+            setDeleteMode(DELETE_MODE_CLEAR);
         }
     }
 
@@ -429,7 +420,7 @@ public class Logic {
         return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
     }
 
-    private String evaluateMatrices(AdvancedDisplay display) {
+    private String evaluateMatrices(AdvancedDisplay display) throws SyntaxException {
         SimpleMatrix matrix = null;
         boolean add = false;
         boolean multiply = false;
@@ -441,23 +432,29 @@ public class Logic {
                 }
                 else if(add) {
                     add = false;
+                    if(matrix == null) throw new SyntaxException();
                     matrix = matrix.plus(((MatrixView) child).getSimpleMatrix());
                 }
                 else if(multiply) {
                     multiply = false;
+                    if(matrix == null) throw new SyntaxException();
                     matrix = matrix.mult(((MatrixView) child).getSimpleMatrix());
                 }
             }
             else if(child instanceof MatrixTransposeView) {
+                if(matrix == null) throw new SyntaxException();
                 matrix = matrix.transpose();
             }
             else if(child instanceof MatrixInverseView) {
+                if(matrix == null) throw new SyntaxException();
                 matrix = matrix.invert();
             }
             else {
                 String text = child.toString();
+                if(text.length() > 1) throw new SyntaxException();
                 if(text.startsWith(String.valueOf(MUL))) multiply = true;
                 else if(text.startsWith(String.valueOf(PLUS))) add = true;
+                else throw new SyntaxException();
             }
         }
         return MatrixView.matrixToString(matrix);
