@@ -33,6 +33,7 @@ import com.android2.calculator3.R;
 
 public class CalculatorEditText extends EditText {
     private EquationFormatter mEquationFormatter;
+    private AdvancedDisplay mDisplay;
     private String input;
 
     public CalculatorEditText(Context context) {
@@ -47,6 +48,7 @@ public class CalculatorEditText extends EditText {
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
 
         mEquationFormatter = new EquationFormatter(getContext());
+        mDisplay = display;
 
         addTextChangedListener(new TextWatcher() {
             boolean updating = false;
@@ -108,6 +110,15 @@ public class CalculatorEditText extends EditText {
     @Override
     public String toString() {
         return input;
+    }
+
+    @Override
+    public View focusSearch(int direction) {
+        switch(direction) {
+        case View.FOCUS_FORWARD:
+            return mDisplay.nextView(this);
+        }
+        return super.focusSearch(direction);
     }
 
     public static String load(String text, final AdvancedDisplay parent) {

@@ -74,6 +74,15 @@ public class AdvancedDisplay extends LinearLayout {
         removeAllViews();
     }
 
+    View nextView(View currentView) {
+        boolean foundCurrentView = false;
+        for(int i = 0; i < getChildCount(); i++) {
+            if(foundCurrentView) return getChildAt(i);
+            else if(currentView == getChildAt(i)) foundCurrentView = true;
+        }
+        return getChildAt(0);
+    }
+
     public void insert(String delta) {
         if(mActiveEditText == null) {
             setText(delta);
