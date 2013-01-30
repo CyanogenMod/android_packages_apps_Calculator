@@ -82,7 +82,7 @@ public class MatrixInverseView extends EditText {
         boolean changed = MatrixInverseView.load(text, parent, parent.getChildCount());
         if(changed) {
             // Always append a trailing EditText
-            CalculatorEditText.load("", parent);
+            CalculatorEditText.load(parent);
         }
         return changed;
     }

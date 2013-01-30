@@ -19,6 +19,7 @@ package com.android2.calculator3.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.Html;
@@ -40,6 +41,14 @@ public class CalculatorEditText extends EditText {
     private EquationFormatter mEquationFormatter;
     private AdvancedDisplay mDisplay;
     private long mShowCursor = SystemClock.uptimeMillis();
+    Paint mHighlightPaint = new Paint();
+    Handler mHandler = new Handler();
+    Runnable mRefresher = new Runnable() {
+        @Override
+        public void run() {
+            CalculatorEditText.this.invalidate();
+        }
+    };
     private String input;
 
     public CalculatorEditText(Context context) {
@@ -130,22 +139,14 @@ public class CalculatorEditText extends EditText {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        // Doesn't draw the cursor if textLength is 0. Because we're an array of
-        // EditTexts, we'd prefer that it did.
-        if(getText().length() == 0 && getSelectionStart() == getSelectionEnd()) {
+        // TextViews don't draw the cursor if textLength is 0. Because we're an
+        // array of TextViews, we'd prefer that it did.
+        if(getText().length() == 0 && isEnabled() && (isFocused() || isPressed())) {
             if((SystemClock.uptimeMillis() - mShowCursor) % (2 * BLINK) < BLINK) {
-                // if(mHighlightPathBogus) {
-                // mHighlightPath.reset();
-                // mLayout.getCursorPath(selStart, mHighlightPath, mText);
-                // mHighlightPathBogus = false;
-                // }
-
-                // XXX should pass to skin instead of drawing directly
-                Paint mHighlightPaint = new Paint();
                 mHighlightPaint.setColor(getCurrentTextColor());
                 mHighlightPaint.setStyle(Paint.Style.STROKE);
-
-                // highlight = mHighlightPath;
+                canvas.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight(), mHighlightPaint);
+                mHandler.postAtTime(mRefresher, SystemClock.uptimeMillis() + BLINK);
             }
         }
     }

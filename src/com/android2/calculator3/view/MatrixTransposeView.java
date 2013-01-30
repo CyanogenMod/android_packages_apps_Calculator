@@ -82,7 +82,7 @@ public class MatrixTransposeView extends EditText {
         boolean changed = MatrixTransposeView.load(text, parent, parent.getChildCount());
         if(changed) {
             // Always append a trailing EditText
-            CalculatorEditText.load("", parent);
+            CalculatorEditText.load(parent);
         }
         return changed;
     }
