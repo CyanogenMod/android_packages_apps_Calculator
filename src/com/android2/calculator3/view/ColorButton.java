@@ -30,6 +30,7 @@ import android.widget.Button;
 
 import com.android2.calculator3.Calculator;
 import com.android2.calculator3.EventListener;
+import com.android2.calculator3.LogicalDensity;
 import com.android2.calculator3.R;
 
 /**
@@ -128,12 +129,12 @@ class ColorButton extends Button {
         CharSequence hint = getHint();
         if(hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
-            int offsetX = 20;
-            int offsetY = 45;
+            int offsetX = LogicalDensity.convertDpToPixel(10, getContext());
+            int offsetY = LogicalDensity.convertDpToPixel(23, getContext());
             for(String str : exponents) {
                 canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
                 mHintPaint.getTextBounds(str, 0, str.length(), bounds);
-                offsetY += 15;
+                offsetY += LogicalDensity.convertDpToPixel(6, getContext());
                 offsetX += bounds.width();
             }
         }
