@@ -452,6 +452,7 @@ public class Logic {
             else {
                 String text = child.toString();
                 if(text.length() > 1) throw new SyntaxException();
+                else if(text.length() == 0) continue;
                 if(text.startsWith(String.valueOf(MUL))) multiply = true;
                 else if(text.startsWith(String.valueOf(PLUS))) add = true;
                 else throw new SyntaxException();
