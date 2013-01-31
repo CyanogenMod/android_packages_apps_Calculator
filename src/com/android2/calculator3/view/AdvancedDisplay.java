@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import android.text.Editable.Factory;
 import android.text.TextUtils;
 import android.text.method.KeyListener;
-import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,8 +28,8 @@ public class AdvancedDisplay extends LinearLayout {
     KeyListener mKeyListener;
     Factory mFactory;
 
-    public AdvancedDisplay(Context context, AttributeSet attr) {
-        super(context, attr);
+    public AdvancedDisplay(Context context) {
+        super(context);
         setOrientation(HORIZONTAL);
     }
 
@@ -135,7 +134,7 @@ public class AdvancedDisplay extends LinearLayout {
 
     public void setText(String text) {
         clear();
-        CalculatorEditText.load("", this, 0);
+        CalculatorEditText.load(this);
         final MutableString ms = new MutableString(text);
         while(!ms.isEmpty()) {
             if(MatrixView.load(ms, this)) continue;

@@ -142,10 +142,10 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         Editable.Factory factory = new CalculatorEditable.Factory(logic);
         for(int i = 0; i < 2; ++i) {
             AdvancedDisplay text = ((ScrollableDisplay) getChildAt(i)).getView();
-            text.setBackgroundResource(android.R.color.transparent);
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
-            text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
+            text.setLayoutParams(new ScrollableDisplay.LayoutParams(ScrollableDisplay.LayoutParams.WRAP_CONTENT, ScrollableDisplay.LayoutParams.WRAP_CONTENT,
+                    Gravity.RIGHT | Gravity.CENTER_VERTICAL));
         }
     }
 

@@ -25,6 +25,7 @@ import android.text.InputType;
 import android.text.Spanned;
 import android.text.method.NumberKeyListener;
 import android.view.ActionMode;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,6 +59,7 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         this.display = display;
         setKeyListener(new MatrixKeyListener());
         setOnFocusChangeListener(this);
+        setGravity(Gravity.CENTER);
     }
 
     class MatrixKeyListener extends NumberKeyListener {
