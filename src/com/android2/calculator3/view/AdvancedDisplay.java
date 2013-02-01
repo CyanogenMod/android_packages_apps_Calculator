@@ -161,7 +161,7 @@ public class AdvancedDisplay extends LinearLayout {
         return mActiveEditText;
     }
 
-    private View getLastView() {
+    public View getLastView() {
         if(getChildCount() == 0) return null;
         return getChildAt(getChildCount() - 1);
     }

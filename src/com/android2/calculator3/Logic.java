@@ -44,7 +44,7 @@ import com.android2.calculator3.view.MatrixView;
 public class Logic {
     private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
     private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
-    static final String INFINITY_UNICODE = "\u221e";
+    public static final String INFINITY_UNICODE = "\u221e";
     static final String INFINITY = "Infinity"; // Double.toString() for
                                                // Infinity
     private static final String NAN = "NaN"; // Double.toString() for NaN

@@ -208,6 +208,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         AdvancedDisplay editor = ((ScrollableDisplay) getNextView()).getView();
         editor.setText(text.toString());
         showNext();
+        getAdvancedDisplay().getLastView().requestFocus();
     }
 
     public int getSelectionStart() {

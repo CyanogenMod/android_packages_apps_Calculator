@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.android2.calculator3.Logic;
 import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
@@ -92,8 +93,15 @@ public class MatrixView extends TableLayout {
                     input = "-0" + input.substring(1);
                 }
                 if(input.isEmpty()) data[row][column] = 0;
+                else if(input.equals("-" + Logic.INFINITY_UNICODE)) data[row][column] = Double.NEGATIVE_INFINITY;
+                else if(input.equals(Logic.INFINITY_UNICODE)) data[row][column] = Double.POSITIVE_INFINITY;
                 else {
-                    data[row][column] = Double.valueOf(input);
+                    try {
+                        data[row][column] = Double.valueOf(input);
+                    }
+                    catch(Exception e) {
+                        data[row][column] = Double.NaN;
+                    }
                 }
             }
         }
