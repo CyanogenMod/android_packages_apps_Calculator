@@ -59,4 +59,41 @@
     <item msgid="8587490959348493065">"pi"</item>
     <item msgid="8134315487552198394">"gelyk aan"</item>
   </string-array>
+
+    <!-- History menu item for copying item -->
+    <string name="copy">Kopie \"%s\"</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Verwyder van geskiedenis</string>
+
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Los op vir X</string>
+    <string name="solveForY">Los op vir Y</string>
+    <string name="mod">mod</string>
+
+    <string name="defaultGraphTitle">Funksie</string>
+    <string name="graphTitle">Funksie: </string>
+
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Los op</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+
+    <string name="hexDesc">Hexadesimaal</string>
+    <string name="binDesc">Binêr</string>
+    <string name="decDesc">Desimaal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigen Values</string>
+    
+    <string name="settings">Instellings</string>
+    <string name="showHistory">Wys Geskiedenis</string>
+    <string name="hideHistory">Versteek Geskiedenis</string>
+
+    <string name="returnToBasic">Terug na die basiese paneel</string>
 </resources>
