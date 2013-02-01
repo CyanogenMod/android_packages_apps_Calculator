@@ -56,12 +56,6 @@ class ColorButton extends Button {
         mListener = calc.mListener;
         setOnClickListener(mListener);
         setOnLongClickListener(mListener);
-        setSingleLine();
-    }
-
-    @Override
-    public boolean canScrollHorizontally(int direction) {
-        return false;
     }
 
     private void init(Calculator calc) {
