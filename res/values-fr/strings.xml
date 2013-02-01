@@ -16,42 +16,53 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="8095131950334945205">"Calculatrice"</string>
-    <string name="error" msgid="9197457880925804499">"Erreur"</string>
-    <string name="digit0" msgid="8069590963464434135">"0"</string>
-    <string name="digit1" msgid="8535041374797804029">"1"</string>
-    <string name="digit2" msgid="8977354203154316247">"2"</string>
-    <string name="digit3" msgid="148544090755132760">"3"</string>
-    <string name="digit4" msgid="2199490603838247678">"4"</string>
-    <string name="digit5" msgid="7568514524384173087">"5"</string>
-    <string name="digit6" msgid="6705952561049362551">"6"</string>
-    <string name="digit7" msgid="658125644218958447">"7"</string>
-    <string name="digit8" msgid="3134686906411558886">"8"</string>
-    <string name="digit9" msgid="765379157698748031">"9"</string>
-    <string name="del" msgid="6248896117422989693">"SUPPR."</string>
-    <string name="clear" msgid="8103610981407459768">"EFF."</string>
-    <string name="sin" msgid="6793866152659175277">"sin"</string>
-    <string name="cos" msgid="6901841853098114414">"cos"</string>
-    <string name="tan" msgid="7957459816738554960">"tan"</string>
-    <string name="e" msgid="1377847800971731483">"e"</string>
-    <string name="ln" msgid="6888500680285403344">"ln"</string>
-    <string name="lg" msgid="873623857385418182">"log"</string>
-    <string name="basic" msgid="7691469861698059753">"Panneau de base"</string>
-    <string name="advanced" msgid="7122495413742976492">"Fonctions avancées"</string>
+    <string name="app_name">Calculatrice</string>
+    <string name="error">Erreur</string>
+    <string name="digit0">0</string>
+    <string name="digit1">1</string>
+    <string name="digit2">2</string>
+    <string name="digit3">3</string>
+    <string name="digit4">4</string>
+    <string name="digit5">5</string>
+    <string name="digit6">6</string>
+    <string name="digit7">7</string>
+    <string name="digit8">8</string>
+    <string name="digit9">9</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="del">SUPPR.</string>
+    <string name="clear">EFF.</string>
+    <string name="dot">,</string>
+    <string name="sin">sin</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
+    <string name="e">e</string>
+    <string name="ln">ln</string>
+    <string name="lg">log</string>
+    <string name="basic">Panneau de base</string>
+    <string name="advanced">Fonctions avancées</string>
     <string name="matrix">Panneau matrice</string>
     <string name="graph">Panneau graphique</string>
     <string name="function">Panneau fonction</string>
     <string name="hexPanel">Panneau hexadécimal</string>
-    <string name="clear_history" msgid="8458043980601165012">"Effacer l\'historique"</string>
-    <string name="text_copied_toast" msgid="5801480710472541833">"Texte copié."</string>
+    <string name="clear_history">Effacer l\'historique</string>
+    <string name="text_copied_toast">Texte copié.</string>
     <string name="copy">Copier \"%s\"</string>
     <string name="remove_from_history">Supprimer de l\'historique</string>
-<!--  I don't found translation for Dot, Cross, Eigen and Eigen Values -->
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
     <string name="solveForX">Résoudre pour X</string>
     <string name="solveForY">Résoudre pour Y</string>
     <string name="mod">mod</string>
     <string name="defaultGraphTitle">Fonction</string>
     <string name="graphTitle">Fonction: </string>
+<!--  I don't found translation for Dot, Cross, Eigen and Eigen Values -->
     <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
@@ -65,28 +76,9 @@
     <string name="binDesc">Binaire</string>
     <string name="decDesc">Décimal</string>
     <string name="determinantDesc">Déterminant</string>
-    <string name="eigenvalueDesc">Eigen Values</string>
+    <string name="eigenvalueDesc">Eigen Values</string> 
     <string name="settings">Paramètres</string>
     <string name="showHistory">Afficher l\'historique</string>
     <string name="hideHistory">Cacher l\'historique</string>
     <string name="returnToBasic">Retourner au menu simple</string>
-  <string-array name="operatorDescs">
-    <item msgid="7903565108986789641">"parenthèse gauche"</item>
-    <item msgid="1688156211934459752">"parenthèse droite"</item>
-    <item msgid="6664829080840305856">"factoriel"</item>
-    <item msgid="2880199289575144121">"logarithme naturel"</item>
-    <item msgid="4398774906998694599">"logarithme"</item>
-    <item msgid="1791869359785943266">"racine carrée"</item>
-    <item msgid="6833720171974254459">"divisé par"</item>
-    <item msgid="2646574635189709515">"multiplié par"</item>
-    <item msgid="3487936384379753697">"plus"</item>
-    <item msgid="8608534484562258856">"moins"</item>
-    <item msgid="3456824579675198186">" point "</item>
-    <item msgid="4528629783180278651">"puissance"</item>
-    <item msgid="4050948027333760159">"tangeante"</item>
-    <item msgid="8716478860618683850">"sinus"</item>
-    <item msgid="3203211483560707480">"cosinus"</item>
-    <item msgid="8587490959348493065">"pi"</item>
-    <item msgid="8134315487552198394">"égale"</item>
-  </string-array>
 </resources>

@@ -56,6 +56,12 @@ class ColorButton extends Button {
         mListener = calc.mListener;
         setOnClickListener(mListener);
         setOnLongClickListener(mListener);
+        setSingleLine();
+    }
+
+    @Override
+    public boolean canScrollHorizontally(int direction) {
+        return false;
     }
 
     private void init(Calculator calc) {
@@ -130,7 +136,7 @@ class ColorButton extends Button {
         if(hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
             int offsetX = LogicalDensity.convertDpToPixel(10, getContext());
-            int offsetY = LogicalDensity.convertDpToPixel(23, getContext());
+            int offsetY = LogicalDensity.convertDpToPixel(22, getContext());
             for(String str : exponents) {
                 canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
                 mHintPaint.getTextBounds(str, 0, str.length(), bounds);

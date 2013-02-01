@@ -78,4 +78,8 @@
     <string name="settings">Instellingen</string>
     <string name="showHistory">Geschiedenis tonen</string>
     <string name="hideHistory">Geschiedenis verbergen</string>
+    <string name="copy">\'%s\' kopiëren</string>
+    <string name="remove_from_history">Verwijderen uit geschiedenis</string>
+    <string name="returnToBasic">Terug naar Basispaneel</string>
+    <string name="dot">,</string>
 </resources>
