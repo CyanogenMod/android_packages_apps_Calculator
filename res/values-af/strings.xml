@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,22 +12,127 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="8095131950334945205">"Sakrekenaar"</string>
-    <string name="error" msgid="9197457880925804499">"Fout"</string>
-    <string name="del" msgid="6248896117422989693">"VEE UIT"</string>
-    <string name="clear" msgid="8103610981407459768">"CLR"</string>
-    <string name="sin" msgid="6793866152659175277">"sin"</string>
-    <string name="cos" msgid="6901841853098114414">"cos"</string>
-    <string name="tan" msgid="7957459816738554960">"tan"</string>
-    <string name="e" msgid="1377847800971731483">"e"</string>
-    <string name="ln" msgid="6888500680285403344">"ln"</string>
-    <string name="lg" msgid="873623857385418182">"log"</string>
-    <string name="basic" msgid="7691469861698059753">"Basiese paneel"</string>
-    <string name="advanced" msgid="7122495413742976492">"Gevorderde paneel"</string>
-    <string name="clear_history" msgid="8458043980601165012">"Vee geskiedenis uit"</string>
-    <string name="text_copied_toast" msgid="5801480710472541833">"Teks gekopieer."</string>
+<resources>
+    <!-- Application name -->
+    <string name="app_name">Sakrekenaar</string>
+    <!-- Application copyright -->
+    <string name="application_copyright">Kopiereg \u00A9 CyanogenMod 2013</string>
+    <!-- Application version -->
+    <string name="application_version" translatable="false">3.1.2</string>
+    <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
+    <string name="error">Fout</string>
+    <!-- Displayed letters for the variable digit buttons -->
+    <string name="X">X</string>
+    <!-- Displayed letters for the variable digit buttons -->
+    <string name="Y">Y</string>
+    <!-- Button name on screen to delete the last entered digit or operator -->
+    <string name="del">VEE UIT</string>
+    <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6] -->
+    <string name="clear">CLR</string>
+    <!-- Displayed on buttons on screen for the sin function. -->
+    <string name="sin">sin</string>
+    <!-- Displayed on buttons on screen for the cos function. -->
+    <string name="cos">cos</string>
+    <!-- Displayed on buttons on screen for the tan function. -->
+    <string name="tan">tan</string>
+    <!-- Displayed on buttons on screen for the arcsin function. -->
+    <string name="arcsin">sin^\u22121</string>
+    <!-- Displayed on buttons on screen for the arccos function. -->
+    <string name="arccos">cos^\u22121</string>
+    <!-- Displayed on buttons on screen for the arctan function. -->
+    <string name="arctan">tan^\u22121</string>
+
+    <!-- Displayed on buttons on screen for the value of e. -->
+    <string name="e">e</string>
+    <!-- Displayed on buttons on screen for the value of i. -->
+    <string name="i" translatable="false">i</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dx">dX</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dy">dY</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
+    <string name="solveForX">Los op vir X</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
+    <string name="solveForY">Los op vir Y</string>
+    <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
+    <string name="mod">mod</string>
+    <!-- Displayed on buttons on screen for the ln function. -->
+    <string name="ln">ln</string>
+    <!-- Displayed on buttons on screen for the log function. -->
+    <string name="lg">log</string>
+    <!-- Displayed on buttons on screen for parentheses. -->
+    <!-- Menu item text to take user to the screen with the basic digits and operators. -->
+    <string name="basic">Basiese paneel</string>
+    <!-- Menu item text to take user to the screen with the advanced functions, such as sin, cos, ln, log, etc. -->
+    <string name="advanced">Gevorderde paneel</string>
+    <!-- Menu item text to take user to the screen with matrices. -->
+    <string name="matrix">Matriks paneel</string>
+    <!-- Menu item text to take user to the screen with the graph. -->
+    <string name="graph">Grafiese paneel</string>
+    <!-- Menu item text to take user to the screen with the function operators. -->
+    <string name="function">Funksie paneel</string>
+    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
+    <string name="hexPanel">Hex paneel</string>
+    <!-- Menu item text to clear the calculation history. -->
+    <string name="clear_history">Vee geskiedenis uit</string>
+    <!-- Toast shown when text is copied to the clipboard. -->
+    <string name="text_copied_toast">Teks gekopieer.</string>
+    <!-- History menu item for copying item -->
+    <string name="copy">Kopie \"%s\"</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Verwyder van geskiedenis</string>
+    <!-- History menu item for viewing history -->
+    <string name="showHistory">Wys geskiedenis</string>
+    <!-- History menu item for hiding history -->
+    <string name="hideHistory">Versteek geskiedenis</string>
+    <!-- History menu item for entering settings -->
+    <string name="settings">Instellings</string>
+
+    <!-- Matrix page text -->
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Los op</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+    <string name="determinantDesc">Bepaler</string>
+    <string name="eigenvalueDesc">Eiewaardes</string>
+    <string name="plus_row">+Ry</string>
+    <string name="minus_row">-Ry</string>
+    <string name="plus_col">+Kol</string>
+    <string name="minus_col">-Kol</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Volgende</string>
+
+    <!-- Hex page text -->
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Des</string>
+    <string name="hexDesc">Heksadesimaal</string>
+    <string name="binDesc">Binêr</string>
+    <string name="decDesc">Desimaal</string>
+
+    <!-- Settings page text -->
+    <string name="pref_panels">Panele</string>
+    <string name="pref_actions">Aksies</string>
+    <string name="pref_units">Eenhede</string>
+    <string name="pref_application">Program</string>
+    <string name="returnToBasic">Terug na die basiese paneel</string>
+    <string name="trigUnits">Trig eenhede</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+
+    <!-- Clings -->
+    <string name="cling_simple_title">Welkom</string>
+    <string name="cling_simple_msg">Skuif links en regs om meer inhoud te bekom. Onnodige bladsye kan afgeskakel word in instellings.</string>
+    <string name="cling_matrix_title">Matrikse</string>
+    <string name="cling_matrix_msg">Tik hier om te begin bou aan en die oplos van matrikse.</string>
+    <string name="cling_hex_title">Verander basisse</string>
+    <string name="cling_hex_msg">Skakel tussen desimaal (DES), binêre (bin), en heksadesimaal (hex)\n\nWaarskuwing: As jy glo dat jy verkeerde resultate kry, is jy waarskynlik in die verkeerde basis. Die standaard is desimaal.</string>
+    <string name="cling_graph_title">Grafiek</string>
+    <string name="cling_graph_msg">Grafieke sal outomaties hier verskyn. Gaan na die gevorderde paneel en bou \'n ​​funksie met behulp van X en Y.</string>
+    <string name="cling_dismiss">OK</string>
+
+    <string name="easter_egg">\"Magikarp\" gebruik \"Splash\" maar niks het gebeur nie.</string>
 </resources>
