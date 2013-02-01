@@ -40,4 +40,40 @@
     <string name="advanced" msgid="7122495413742976492">"Gevorderde paneel"</string>
     <string name="clear_history" msgid="8458043980601165012">"Vee geskiedenis uit"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Teks gekopieer."</string>
+    <!-- History menu item for copying item -->
+    <string name="copy">Kopie \"%s\"</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Verwyder van geskiedenis</string>
+
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Los op vir X</string>
+    <string name="solveForY">Los op vir Y</string>
+    <string name="mod">mod</string>
+
+    <string name="defaultGraphTitle">Funksie</string>
+    <string name="graphTitle">Funksie: </string>
+
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Los op</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Kruis</string>
+
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+
+    <string name="hexDesc">Hexadesimaal</string>
+    <string name="binDesc">Binêr</string>
+    <string name="decDesc">Desimaal</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigen Waardes</string>
+
+    <string name="settings">Instellings</string>
+    <string name="showHistory">Wys geskiedenis</string>
+    <string name="hideHistory">Versteek geskiedenis</string>
+
+    <string name="returnToBasic">Terug na die basiese paneel</string>
 </resources>
