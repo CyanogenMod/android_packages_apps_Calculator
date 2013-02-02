@@ -127,7 +127,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.matrix_inverse:
-            mHandler.insert(MatrixInverseView.PLACEHOLDER + "^(-1)");
+            mHandler.insert(MatrixInverseView.PATTERN);
             returnToBasic();
             break;
 

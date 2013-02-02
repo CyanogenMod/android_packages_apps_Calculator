@@ -29,7 +29,8 @@ import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
 public class MatrixInverseView extends EditText {
-    public final static char PLACEHOLDER = '\uFEFF';
+    private final static char PLACEHOLDER = '\uFEFF';
+    public final static String PATTERN = PLACEHOLDER + "^-1";
 
     public MatrixInverseView(Context context) {
         super(context);
@@ -77,7 +78,7 @@ public class MatrixInverseView extends EditText {
 
     @Override
     public String toString() {
-        return PLACEHOLDER + "^(-1)";
+        return PATTERN;
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent) {
@@ -90,9 +91,9 @@ public class MatrixInverseView extends EditText {
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
-        if(!text.startsWith(PLACEHOLDER + "^(-1)")) return false;
+        if(!text.startsWith(PATTERN)) return false;
 
-        text.setText(text.substring(6));
+        text.setText(text.substring(PATTERN.length()));
 
         MatrixInverseView mv = new MatrixInverseView(parent);
         parent.addView(mv, pos);
