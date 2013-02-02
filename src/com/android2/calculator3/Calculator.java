@@ -489,7 +489,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 entry.setHistoryEntry(he);
                 entry.setHistory(mHistory);
                 TextView base = (TextView) entry.findViewById(R.id.base);
-                base.setText(Html.fromHtml(mEquationFormatter.removeUnseenlyText(mEquationFormatter.insertSupscripts((he.getBase())))));
+                base.setText(Html.fromHtml(mEquationFormatter.insertSupscripts((he.getBase()))));
                 TextView edited = (TextView) entry.findViewById(R.id.edited);
                 edited.setText(he.getEdited());
                 mHistoryView.addView(entry);

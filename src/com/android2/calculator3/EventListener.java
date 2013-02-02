@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
+import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixView;
 
 public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
@@ -126,7 +127,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.matrix_inverse:
-            mHandler.insert("^[-1]");
+            mHandler.insert(MatrixInverseView.PLACEHOLDER + "^(-1)");
             returnToBasic();
             break;
 

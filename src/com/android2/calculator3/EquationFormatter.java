@@ -99,8 +99,4 @@ public class EquationFormatter {
         }
         return formattedInput.toString();
     }
-
-    public String removeUnseenlyText(String input) {
-        return input.replaceAll("[-1]", "-1");
-    }
 }
