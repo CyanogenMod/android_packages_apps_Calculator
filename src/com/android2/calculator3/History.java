@@ -37,7 +37,7 @@ public class History {
     History(int version, DataInput in) throws IOException {
         if(version >= VERSION_1) {
             int size = in.readInt();
-            for (int i = 0; i < size; ++i) {
+            for(int i = 0; i < size; ++i) {
                 mEntries.add(new HistoryEntry(version, in));
             }
             mPos = in.readInt();
@@ -66,7 +66,7 @@ public class History {
 
     void write(DataOutput out) throws IOException {
         out.writeInt(mEntries.size());
-        for (HistoryEntry entry : mEntries) {
+        for(HistoryEntry entry : mEntries) {
             entry.write(out);
         }
         out.writeInt(mPos);

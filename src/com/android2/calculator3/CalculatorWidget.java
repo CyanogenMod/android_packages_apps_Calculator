@@ -103,7 +103,7 @@ public class CalculatorWidget extends AppWidgetProvider {
             try {
                 equation.append(mLogic.evaluate(input));
             }
-            catch (SyntaxException e) {
+            catch(SyntaxException e) {
                 equation.append(context.getResources().getString(R.string.error));
             }
         }

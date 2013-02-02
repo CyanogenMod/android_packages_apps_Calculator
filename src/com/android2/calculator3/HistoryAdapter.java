@@ -75,7 +75,7 @@ class HistoryAdapter extends BaseAdapter {
             String res = mEval.evaluate(base);
             result.setText("= " + res);
         }
-        catch (SyntaxException e) {
+        catch(SyntaxException e) {
             result.setText("");
         }
 
