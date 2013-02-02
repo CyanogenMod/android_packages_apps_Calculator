@@ -16,8 +16,6 @@
 
 package com.android2.calculator3;
 
-import org.achartengine.GraphicalView;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -27,21 +25,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.preference.PreferenceManager;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.Display;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
@@ -51,24 +43,24 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android2.calculator3.view.CalculatorDisplay;
+import com.android2.calculator3.view.CalculatorViewPager;
 import com.android2.calculator3.view.Cling;
 import com.android2.calculator3.view.HistoryLine;
 import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
 import com.xlythe.slider.Slider.OnSlideListener;
 
-public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener, ViewPager.OnPageChangeListener {
+public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener, CalculatorViewPager.OnPageChangeListener {
     public EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
-    private GraphicalView mGraphDisplay;
     private Persist mPersist;
     private History mHistory;
     private LinearLayout mHistoryView;
     private ScrollView mHistoryViewParent;
     private Logic mLogic;
-    private ViewPager mPager;
-    private ViewPager mSmallPager;
-    private ViewPager mLargePager;
+    private CalculatorViewPager mPager;
+    private CalculatorViewPager mSmallPager;
+    private CalculatorViewPager mLargePager;
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
@@ -131,9 +123,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
         setContentView(R.layout.main);
-        mPager = (ViewPager) findViewById(R.id.panelswitch);
-        mSmallPager = (ViewPager) findViewById(R.id.smallPanelswitch);
-        mLargePager = (ViewPager) findViewById(R.id.largePanelswitch);
+        mPager = (CalculatorViewPager) findViewById(R.id.panelswitch);
+        mSmallPager = (CalculatorViewPager) findViewById(R.id.smallPanelswitch);
+        mLargePager = (CalculatorViewPager) findViewById(R.id.largePanelswitch);
 
         mEquationFormatter = new EquationFormatter(this);
 
@@ -182,8 +174,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         HistoryAdapter historyAdapter = new HistoryAdapter(this, mHistory, mLogic);
         mHistory.setObserver(historyAdapter);
 
+        mGraph = new Graph(mLogic);
+
         if(mPager != null) {
-            mPager.setAdapter(new PageAdapter(mPager));
+            mPager.setAdapter(new PageAdapter(mPager, mGraph, mLogic));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
             mPager.setOnPageChangeListener(this);
             if(getBasicVisibility()) {
@@ -192,8 +186,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
-            mSmallPager.setAdapter(new SmallPageAdapter(mSmallPager));
-            mLargePager.setAdapter(new LargePageAdapter(mLargePager));
+            mSmallPager.setAdapter(new SmallPageAdapter(mSmallPager, mLogic));
+            mLargePager.setAdapter(new LargePageAdapter(mLargePager, mGraph, mLogic));
             mSmallPager.setCurrentItem(state == null ? SmallPanel.ADVANCED.getOrder() : state.getInt(STATE_CURRENT_VIEW_SMALL, SmallPanel.ADVANCED.getOrder()));
             mLargePager.setCurrentItem(state == null ? LargePanel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW_LARGE, LargePanel.BASIC.getOrder()));
             mSmallPager.setOnPageChangeListener(this);
@@ -213,7 +207,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mLogic.resumeWithHistory();
         updateDeleteMode();
 
-        mGraph = new Graph(mLogic);
         mPulldown.bringToFront();
     }
 
@@ -496,7 +489,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 entry.setHistoryEntry(he);
                 entry.setHistory(mHistory);
                 TextView base = (TextView) entry.findViewById(R.id.base);
-                base.setText(Html.fromHtml(mEquationFormatter.insertSupscripts((he.getBase()))));
+                base.setText(Html.fromHtml(mEquationFormatter.removeUnseenlyText(mEquationFormatter.insertSupscripts((he.getBase())))));
                 TextView edited = (TextView) entry.findViewById(R.id.edited);
                 edited.setText(he.getEdited());
                 mHistoryView.addView(entry);
@@ -508,418 +501,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 mHistoryViewParent.fullScroll(View.FOCUS_DOWN);
             }
         });
-    }
-
-    class PageAdapter extends PagerAdapter {
-        private View mGraphPage;
-        private View mFunctionPage;
-        private View mSimplePage;
-        private View mAdvancedPage;
-        private View mHexPage;
-        private View mMatrixPage;
-
-        private int count = 0;
-
-        public PageAdapter(ViewPager parent) {
-            final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            final View graphPage = inflater.inflate(R.layout.graph_pad, parent, false);
-            final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
-            final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
-            final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
-            final View hexPage = inflater.inflate(R.layout.hex_pad, parent, false);
-            final View matrixPage = inflater.inflate(R.layout.matrix_pad, parent, false);
-
-            mGraphPage = graphPage;
-            mFunctionPage = functionPage;
-            mHexPage = hexPage;
-            mSimplePage = simplePage;
-            mAdvancedPage = advancedPage;
-            mMatrixPage = matrixPage;
-            setOrder();
-
-            final View clearButton = simplePage.findViewById(R.id.clear);
-            if(clearButton != null) {
-                mClearButton = clearButton;
-            }
-
-            final View backspaceButton = simplePage.findViewById(R.id.del);
-            if(backspaceButton != null) {
-                mBackspaceButton = backspaceButton;
-            }
-
-            switch(mLogic.getMode()) {
-            case BINARY:
-                mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
-                break;
-            case DECIMAL:
-                mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
-                break;
-            case HEXADECIMAL:
-                mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
-                break;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return count;
-        }
-
-        @Override
-        public void startUpdate(View container) {}
-
-        @Override
-        public Object instantiateItem(View container, int position) {
-            if(position == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
-                if(mGraphDisplay == null) {
-                    mGraphDisplay = mGraph.getGraph(getContext());
-                    mLogic.setGraphDisplay(mGraphDisplay);
-                    LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
-                    l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-                    View zoomIn = mGraphPage.findViewById(R.id.zoomIn);
-                    zoomIn.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mGraphDisplay.zoomIn();
-                        }
-                    });
-
-                    View zoomOut = mGraphPage.findViewById(R.id.zoomOut);
-                    zoomOut.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mGraphDisplay.zoomOut();
-                        }
-                    });
-
-                    View zoomReset = mGraphPage.findViewById(R.id.zoomReset);
-                    zoomReset.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mGraphDisplay.zoomReset();
-                        }
-                    });
-                }
-                else {
-                    mGraphDisplay.repaint();
-                }
-                ((ViewGroup) container).addView(mGraphPage);
-                return mGraphPage;
-            }
-            else if(position == Panel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(getContext())) {
-                ((ViewGroup) container).addView(mFunctionPage);
-                return mFunctionPage;
-            }
-            else if(position == Panel.BASIC.getOrder() && CalculatorSettings.basicPanel(getContext())) {
-                ((ViewGroup) container).addView(mSimplePage);
-                return mSimplePage;
-            }
-            else if(position == Panel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(getContext())) {
-                ((ViewGroup) container).addView(mAdvancedPage);
-                return mAdvancedPage;
-            }
-            else if(position == Panel.HEX.getOrder() && CalculatorSettings.hexPanel(getContext())) {
-                ((ViewGroup) container).addView(mHexPage);
-                return mHexPage;
-            }
-            else if(position == Panel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(getContext())) {
-                ((ViewGroup) container).addView(mMatrixPage);
-                return mMatrixPage;
-            }
-            return null;
-        }
-
-        @Override
-        public void destroyItem(View container, int position, Object object) {
-            ((ViewGroup) container).removeView((View) object);
-        }
-
-        @Override
-        public void finishUpdate(View container) {}
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {}
-
-        @Override
-        public void notifyDataSetChanged() {
-            super.notifyDataSetChanged();
-
-            setOrder();
-        }
-
-        private void setOrder() {
-            count = 0;
-            if(CalculatorSettings.graphPanel(getContext())) {
-                Panel.GRAPH.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.functionPanel(getContext())) {
-                Panel.FUNCTION.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.hexPanel(getContext())) {
-                Panel.HEX.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.basicPanel(getContext())) {
-                Panel.BASIC.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.advancedPanel(getContext())) {
-                Panel.ADVANCED.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.matrixPanel(getContext())) {
-                Panel.MATRIX.setOrder(count);
-                count++;
-            }
-        }
-    }
-
-    class SmallPageAdapter extends PagerAdapter {
-        private View mHexPage;
-        private View mFunctionPage;
-        private View mAdvancedPage;
-
-        private int count = 0;
-
-        public SmallPageAdapter(ViewPager parent) {
-            final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            final View hexPage = inflater.inflate(R.layout.hex_pad, parent, false);
-            final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
-            final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
-
-            mHexPage = hexPage;
-            mFunctionPage = functionPage;
-            mAdvancedPage = advancedPage;
-            setOrder();
-
-            switch(mLogic.getMode()) {
-            case BINARY:
-                mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
-                break;
-            case DECIMAL:
-                mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
-                break;
-            case HEXADECIMAL:
-                mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
-                break;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return count;
-        }
-
-        @Override
-        public void startUpdate(View container) {}
-
-        @Override
-        public Object instantiateItem(View container, int position) {
-            if(position == SmallPanel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(getContext())) {
-                ((ViewGroup) container).addView(mFunctionPage);
-                return mFunctionPage;
-            }
-            else if(position == SmallPanel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(getContext())) {
-                ((ViewGroup) container).addView(mAdvancedPage);
-                return mAdvancedPage;
-            }
-            else if(position == SmallPanel.HEX.getOrder() && CalculatorSettings.hexPanel(getContext())) {
-                ((ViewGroup) container).addView(mHexPage);
-                return mHexPage;
-            }
-            return null;
-        }
-
-        @Override
-        public void destroyItem(View container, int position, Object object) {
-            ((ViewGroup) container).removeView((View) object);
-        }
-
-        @Override
-        public void finishUpdate(View container) {}
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {}
-
-        @Override
-        public void notifyDataSetChanged() {
-            super.notifyDataSetChanged();
-
-            setOrder();
-        }
-
-        private void setOrder() {
-            count = 0;
-            if(CalculatorSettings.hexPanel(getContext())) {
-                SmallPanel.HEX.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.advancedPanel(getContext())) {
-                SmallPanel.ADVANCED.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.functionPanel(getContext())) {
-                SmallPanel.FUNCTION.setOrder(count);
-                count++;
-            }
-        }
-    }
-
-    class LargePageAdapter extends PagerAdapter {
-        private View mGraphPage;
-        private View mSimplePage;
-        private View mMatrixPage;
-
-        private int count = 0;
-
-        public LargePageAdapter(ViewPager parent) {
-            final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            final View graphPage = inflater.inflate(R.layout.graph_pad, parent, false);
-            final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
-            final View matrixPage = inflater.inflate(R.layout.matrix_pad, parent, false);
-
-            mGraphPage = graphPage;
-            mSimplePage = simplePage;
-            mMatrixPage = matrixPage;
-            setOrder();
-
-            final View clearButton = simplePage.findViewById(R.id.clear);
-            if(clearButton != null) {
-                mClearButton = clearButton;
-            }
-
-            final View backspaceButton = simplePage.findViewById(R.id.del);
-            if(backspaceButton != null) {
-                mBackspaceButton = backspaceButton;
-                mBackspaceButton.setOnClickListener(mListener);
-                mBackspaceButton.setOnLongClickListener(mListener);
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return count;
-        }
-
-        @Override
-        public void startUpdate(View container) {}
-
-        @Override
-        public Object instantiateItem(View container, int position) {
-            if(position == LargePanel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext())) {
-                if(mGraphDisplay == null) {
-                    mGraphDisplay = mGraph.getGraph(getContext());
-                    mLogic.setGraphDisplay(mGraphDisplay);
-                    LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
-                    l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-                    View zoomIn = mGraphPage.findViewById(R.id.zoomIn);
-                    zoomIn.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mGraphDisplay.zoomIn();
-                        }
-                    });
-
-                    View zoomOut = mGraphPage.findViewById(R.id.zoomOut);
-                    zoomOut.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mGraphDisplay.zoomOut();
-                        }
-                    });
-
-                    View zoomReset = mGraphPage.findViewById(R.id.zoomReset);
-                    zoomReset.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mGraphDisplay.zoomReset();
-                        }
-                    });
-                }
-                else {
-                    mGraphDisplay.repaint();
-                }
-                ((ViewGroup) container).addView(mGraphPage);
-                return mGraphPage;
-            }
-            else if(position == LargePanel.BASIC.getOrder() && CalculatorSettings.basicPanel(getContext())) {
-                ((ViewGroup) container).addView(mSimplePage);
-                return mSimplePage;
-            }
-            else if(position == LargePanel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(getContext())) {
-                ((ViewGroup) container).addView(mMatrixPage);
-                return mMatrixPage;
-            }
-            return null;
-        }
-
-        @Override
-        public void destroyItem(View container, int position, Object object) {
-            ((ViewGroup) container).removeView((View) object);
-        }
-
-        @Override
-        public void finishUpdate(View container) {}
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {}
-
-        @Override
-        public void notifyDataSetChanged() {
-            super.notifyDataSetChanged();
-
-            setOrder();
-        }
-
-        private void setOrder() {
-            count = 0;
-            if(CalculatorSettings.graphPanel(getContext())) {
-                LargePanel.GRAPH.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.basicPanel(getContext())) {
-                LargePanel.BASIC.setOrder(count);
-                count++;
-            }
-            if(CalculatorSettings.matrixPanel(getContext())) {
-                LargePanel.MATRIX.setOrder(count);
-                count++;
-            }
-        }
     }
 
     private Context getContext() {
@@ -948,6 +529,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 cling.setAlpha(1f);
             }
         }
+        if(mPager != null) mPager.setPagingEnabled(false);
+        if(mSmallPager != null) mSmallPager.setPagingEnabled(false);
+        if(mLargePager != null) mLargePager.setPagingEnabled(false);
         return cling;
     }
 
@@ -965,6 +549,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             });
             anim.start();
         }
+        if(mPager != null) mPager.setPagingEnabled(true);
+        if(mSmallPager != null) mSmallPager.setPagingEnabled(true);
+        if(mLargePager != null) mLargePager.setPagingEnabled(true);
     }
 
     private void removeCling(int id) {
@@ -978,6 +565,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 }
             });
         }
+        if(mPager != null) mPager.setPagingEnabled(true);
+        if(mSmallPager != null) mSmallPager.setPagingEnabled(true);
+        if(mLargePager != null) mLargePager.setPagingEnabled(true);
     }
 
     public void showFirstRunSimpleCling() {
@@ -986,9 +576,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             Display display = getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
-            int[] location = new int[2];
+            int[] location = new int[3];
             location[0] = 0;
             location[1] = size.y / 2;
+            location[2] = 10;
             initCling(R.id.simple_cling, location, 0, true, false);
         }
         else {
@@ -1003,7 +594,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             if(mPager != null) v = ((PageAdapter) mPager.getAdapter()).mMatrixPage.findViewById(R.id.matrix);
             else if(mLargePager != null) v = ((LargePageAdapter) mLargePager.getAdapter()).mMatrixPage.findViewById(R.id.matrix);
             else v = null;
-            int[] location = new int[2];
+            int[] location = new int[3];
 
             v.setOnClickListener(new OnClickListener() {
                 @Override
@@ -1017,6 +608,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             v.getLocationOnScreen(location);
             location[0] = location[0] + v.getWidth() / 2;
             location[1] = location[1] + v.getHeight() / 2;
+            location[2] = -1;
             initCling(R.id.matrix_cling, location, v.getWidth() / 2, false, true);
         }
         else {
@@ -1062,51 +654,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     public void dismissGraphCling(View v) {
         Cling cling = (Cling) findViewById(R.id.graph_cling);
         dismissCling(cling, Cling.GRAPH_CLING_DISMISSED_KEY, Cling.DISMISS_CLING_DURATION);
-    }
-
-    static class CalculatorSettings {
-        static boolean graphPanel(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.GRAPH.toString(), context.getResources().getBoolean(R.bool.GRAPH));
-        }
-
-        static boolean hexPanel(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.HEX.toString(), context.getResources().getBoolean(R.bool.HEX));
-        }
-
-        static boolean functionPanel(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.FUNCTION.toString(),
-                    context.getResources().getBoolean(R.bool.FUNCTION));
-        }
-
-        static boolean basicPanel(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.BASIC.toString(), context.getResources().getBoolean(R.bool.BASIC));
-        }
-
-        static boolean advancedPanel(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.ADVANCED.toString(),
-                    context.getResources().getBoolean(R.bool.ADVANCED));
-        }
-
-        static boolean matrixPanel(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.MATRIX.toString(), context.getResources().getBoolean(R.bool.MATRIX));
-        }
-
-        static boolean useRadians(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("USE_RADIANS", context.getResources().getBoolean(R.bool.USE_RADIANS));
-        }
-
-        static boolean returnToBasic(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC",
-                    context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
-        }
-
-        static boolean isDismissed(Context context, String key) {
-            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
-        }
-
-        static void saveKey(Context context, String key, boolean value) {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).commit();
-        }
     }
 
     @Override

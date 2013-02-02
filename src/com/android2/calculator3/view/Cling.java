@@ -106,7 +106,7 @@ public class Cling extends FrameLayout {
         if(mPositionData != null) {
             return mPositionData;
         }
-        return new int[] { -1, -1 };
+        return new int[] { -1, -1, -1 };
     }
 
     @Override
@@ -143,6 +143,7 @@ public class Cling extends FrameLayout {
 
             int cx = -1;
             int cy = -1;
+            int cz = -1;
             float scale = mRevealRadius / mPunchThroughGraphicCenterRadius;
             int dw = (int) (scale * mPunchThroughGraphic.getIntrinsicWidth());
             int dh = (int) (scale * mPunchThroughGraphic.getIntrinsicHeight());
@@ -152,6 +153,7 @@ public class Cling extends FrameLayout {
             int[] pos = getPunchThroughPosition();
             cx = pos[0];
             cy = pos[1] - statusBarHeight;
+            cz = pos[2];
             if(cx > -1 && cy > -1 && scale > 0) {
                 c.drawCircle(cx, cy, mRevealRadius, mErasePaint);
                 mPunchThroughGraphic.setBounds(cx - dw / 2, cy - dh / 2, cx + dw / 2, cy + dh / 2);
@@ -163,7 +165,7 @@ public class Cling extends FrameLayout {
                 if(mHandTouchGraphic == null) {
                     mHandTouchGraphic = getResources().getDrawable(R.drawable.hand);
                 }
-                int offset = 10;
+                int offset = cz;
                 mHandTouchGraphic.setBounds(cx + offset, cy + offset, cx + mHandTouchGraphic.getIntrinsicWidth() + offset,
                         cy + mHandTouchGraphic.getIntrinsicHeight() + offset);
                 mHandTouchGraphic.draw(c);

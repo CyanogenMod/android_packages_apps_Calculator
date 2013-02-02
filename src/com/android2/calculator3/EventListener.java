@@ -27,7 +27,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
 import com.android2.calculator3.view.MatrixView;

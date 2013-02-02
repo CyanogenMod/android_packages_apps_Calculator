@@ -29,11 +29,11 @@ public class EquationFormatter {
         final StringBuilder formattedInput = new StringBuilder(input);
 
         int unclosedParen = 0;
-        for (int i = 0; i < formattedInput.length(); i++) {
+        for(int i = 0; i < formattedInput.length(); i++) {
             if(formattedInput.charAt(i) == leftParen) unclosedParen++;
             else if(formattedInput.charAt(i) == rightParen) unclosedParen--;
         }
-        for (int i = 0; i < unclosedParen; i++) {
+        for(int i = 0; i < unclosedParen; i++) {
             formattedInput.append(rightParen);
         }
         return formattedInput.toString();
@@ -46,7 +46,7 @@ public class EquationFormatter {
         int sub_closed = 0;
         int paren_open = 0;
         int paren_closed = 0;
-        for (int i = 0; i < input.length(); i++) {
+        for(int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
             if(c == power) {
                 formattedInput.append("<sup>");
@@ -74,7 +74,7 @@ public class EquationFormatter {
                                                                                                                                  // 2^(3-1)(0)
                             || (Character.isDigit(c) && input.charAt(i - 1) == rightParen) // 2^(3)1
                             || (!Character.isDigit(c) && Character.isDigit(input.charAt(i - 1)))) { // 2^3log(1)
-                        while (sub_open > sub_closed) {
+                        while(sub_open > sub_closed) {
                             formattedInput.append("</sup>");
                             sub_closed++;
                         }
@@ -98,5 +98,9 @@ public class EquationFormatter {
             formattedInput.append(c);
         }
         return formattedInput.toString();
+    }
+
+    public String removeUnseenlyText(String input) {
+        return input.replaceAll("[-1]", "-1");
     }
 }

@@ -33,7 +33,6 @@ import android.content.res.Resources;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.android2.calculator3.Calculator.CalculatorSettings;
 import com.android2.calculator3.view.AdvancedDisplay;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorDisplay.Scroll;
