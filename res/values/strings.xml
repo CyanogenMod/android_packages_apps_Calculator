@@ -183,4 +183,16 @@
     <string name="returnToBasic">Return to the basic panel</string>
     <string name="trigUnits">Trig Units</string>
     <string name="radians">RAD</string>
-    <string name="degrees">DEG</string></resources>
+    <string name="degrees">DEG</string>
+    
+    <!-- Clings -->
+    <string name="cling_simple_title">Welcome</string>
+    <string name="cling_simple_msg">Slide left and right to access more content. Unncessary pages can be disabled in the settings.</string>
+    <string name="cling_matrix_title">Matrices</string>
+    <string name="cling_matrix_msg">Click here to start building and solving matrices.</string>
+    <string name="cling_hex_title">Change bases</string>
+    <string name="cling_hex_msg">Change between decimal (dec), binary (bin), and hexadecimal (hex).</string>
+    <string name="cling_graph_title">Graph</string>
+    <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y to see it in action.</string>
+    <string name="cling_dismiss">OK</string>
+    <add-resource type="string" name="default_folder_name" /></resources>

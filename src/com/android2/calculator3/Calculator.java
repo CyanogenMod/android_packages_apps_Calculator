@@ -18,7 +18,11 @@ package com.android2.calculator3;
 
 import org.achartengine.GraphicalView;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +41,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
@@ -44,12 +49,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android2.calculator3.view.CalculatorDisplay;
+import com.android2.calculator3.view.Cling;
 import com.android2.calculator3.view.HistoryLine;
 import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
 import com.xlythe.slider.Slider.OnSlideListener;
 
-public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener {
+public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener, ViewPager.OnPageChangeListener {
     public EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
     private GraphicalView mGraphDisplay;
@@ -177,6 +183,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         if(mPager != null) {
             mPager.setAdapter(new PageAdapter(mPager));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
+            mPager.setOnPageChangeListener(this);
+            if(getBasicVisibility()) {
+                showFirstRunSimpleCling();
+            }
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
@@ -184,6 +194,11 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mLargePager.setAdapter(new LargePageAdapter(mLargePager));
             mSmallPager.setCurrentItem(state == null ? SmallPanel.ADVANCED.getOrder() : state.getInt(STATE_CURRENT_VIEW_SMALL, SmallPanel.ADVANCED.getOrder()));
             mLargePager.setCurrentItem(state == null ? LargePanel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW_LARGE, LargePanel.BASIC.getOrder()));
+            mSmallPager.setOnPageChangeListener(this);
+            mLargePager.setOnPageChangeListener(this);
+            if(getBasicVisibility()) {
+                showFirstRunSimpleCling();
+            }
         }
 
         mListener.setHandler(this, mLogic, mPager);
@@ -909,6 +924,120 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         return Calculator.this;
     }
 
+    /* Cling related */
+    private boolean isClingsEnabled() {
+        // disable clings when running in a test harness
+        if(ActivityManager.isRunningInTestHarness()) return false;
+        return true;
+    }
+
+    private Cling initCling(int clingId, int[] positionData, boolean animate, int delay) {
+        Cling cling = (Cling) findViewById(clingId);
+        if(cling != null) {
+            cling.init(this, positionData);
+            cling.setVisibility(View.VISIBLE);
+            cling.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            if(animate) {
+                cling.buildLayer();
+                cling.setAlpha(0f);
+                cling.animate().alpha(1f).setInterpolator(new AccelerateInterpolator()).setDuration(Cling.SHOW_CLING_DURATION).setStartDelay(delay).start();
+            }
+            else {
+                cling.setAlpha(1f);
+            }
+        }
+        return cling;
+    }
+
+    private void dismissCling(final Cling cling, final String flag, int duration) {
+        if(cling != null) {
+            cling.dismiss();
+            ObjectAnimator anim = ObjectAnimator.ofFloat(cling, "alpha", 0f);
+            anim.setDuration(duration);
+            anim.addListener(new AnimatorListenerAdapter() {
+                public void onAnimationEnd(Animator animation) {
+                    cling.setVisibility(View.GONE);
+                    cling.cleanup();
+                    CalculatorSettings.saveKey(getContext(), flag, true);
+                };
+            });
+            anim.start();
+        }
+    }
+
+    private void removeCling(int id) {
+        final View cling = findViewById(id);
+        if(cling != null) {
+            final ViewGroup parent = (ViewGroup) cling.getParent();
+            parent.post(new Runnable() {
+                @Override
+                public void run() {
+                    parent.removeView(cling);
+                }
+            });
+        }
+    }
+
+    public void showFirstRunSimpleCling() {
+        // Enable the clings only if they have not been dismissed before
+        if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.SIMPLE_CLING_DISMISSED_KEY)) {
+            initCling(R.id.simple_cling, null, false, 0);
+        }
+        else {
+            removeCling(R.id.simple_cling);
+        }
+    }
+
+    public void showFirstRunMatrixCling() {
+        // Enable the clings only if they have not been dismissed before
+        if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.MATRIX_CLING_DISMISSED_KEY)) {
+            initCling(R.id.matrix_cling, null, true, 0);
+        }
+        else {
+            removeCling(R.id.matrix_cling);
+        }
+    }
+
+    public void showFirstRunHexCling() {
+        // Enable the clings only if they have not been dismissed before
+        if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.HEX_CLING_DISMISSED_KEY)) {
+            initCling(R.id.hex_cling, null, true, 0);
+        }
+        else {
+            removeCling(R.id.hex_cling);
+        }
+    }
+
+    public void showFirstRunGraphCling() {
+        // Enable the clings only if they have not been dismissed before
+        if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.GRAPH_CLING_DISMISSED_KEY)) {
+            initCling(R.id.graph_cling, null, true, 0);
+        }
+        else {
+            removeCling(R.id.graph_cling);
+        }
+    }
+
+    public void dismissSimpleCling(View v) {
+        Cling cling = (Cling) findViewById(R.id.simple_cling);
+        dismissCling(cling, Cling.SIMPLE_CLING_DISMISSED_KEY, Cling.DISMISS_CLING_DURATION);
+    }
+
+    public void dismissMatrixCling(View v) {
+        Cling cling = (Cling) findViewById(R.id.matrix_cling);
+        dismissCling(cling, Cling.MATRIX_CLING_DISMISSED_KEY, Cling.DISMISS_CLING_DURATION);
+    }
+
+    public void dismissHexCling(View v) {
+        Cling cling = (Cling) findViewById(R.id.hex_cling);
+        dismissCling(cling, Cling.HEX_CLING_DISMISSED_KEY, Cling.DISMISS_CLING_DURATION);
+    }
+
+    public void dismissGraphCling(View v) {
+        Cling cling = (Cling) findViewById(R.id.graph_cling);
+        dismissCling(cling, Cling.GRAPH_CLING_DISMISSED_KEY, Cling.DISMISS_CLING_DURATION);
+    }
+
     static class CalculatorSettings {
         static boolean graphPanel(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.GRAPH.toString(), context.getResources().getBoolean(R.bool.GRAPH));
@@ -943,6 +1072,36 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         static boolean returnToBasic(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC",
                     context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
+        }
+
+        static boolean isDismissed(Context context, String key) {
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
+        }
+
+        static void saveKey(Context context, String key, boolean value) {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).commit();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {}
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+    @Override
+    public void onPageSelected(int position) {
+        if(getBasicVisibility()) {
+            showFirstRunSimpleCling();
+        }
+        else if(getMatrixVisibility()) {
+            showFirstRunMatrixCling();
+        }
+        else if(getHexVisibility()) {
+            showFirstRunHexCling();
+        }
+        else if(getGraphVisibility()) {
+            showFirstRunGraphCling();
         }
     }
 }
