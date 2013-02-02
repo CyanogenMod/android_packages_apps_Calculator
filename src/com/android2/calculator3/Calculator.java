@@ -933,10 +933,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         return true;
     }
 
-    private Cling initCling(int clingId, int[] positionData, float revealRadius, boolean animate) {
+    private Cling initCling(int clingId, int[] positionData, float revealRadius, boolean showHand, boolean animate) {
         Cling cling = (Cling) findViewById(clingId);
         if(cling != null) {
-            cling.init(this, positionData, revealRadius);
+            cling.init(this, positionData, revealRadius, showHand);
             cling.setVisibility(View.VISIBLE);
             cling.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             if(animate) {
@@ -989,7 +989,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             int[] location = new int[2];
             location[0] = 0;
             location[1] = size.y / 2;
-            initCling(R.id.simple_cling, location, 0, false);
+            initCling(R.id.simple_cling, location, 0, true, false);
         }
         else {
             removeCling(R.id.simple_cling);
@@ -1017,7 +1017,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             v.getLocationOnScreen(location);
             location[0] = location[0] + v.getWidth() / 2;
             location[1] = location[1] + v.getHeight() / 2;
-            initCling(R.id.matrix_cling, location, v.getWidth() / 2, true);
+            initCling(R.id.matrix_cling, location, v.getWidth() / 2, false, true);
         }
         else {
             removeCling(R.id.matrix_cling);
@@ -1027,7 +1027,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     public void showFirstRunHexCling() {
         // Enable the clings only if they have not been dismissed before
         if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.HEX_CLING_DISMISSED_KEY)) {
-            initCling(R.id.hex_cling, null, 0, true);
+            initCling(R.id.hex_cling, null, 0, false, true);
         }
         else {
             removeCling(R.id.hex_cling);
@@ -1037,7 +1037,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     public void showFirstRunGraphCling() {
         // Enable the clings only if they have not been dismissed before
         if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.GRAPH_CLING_DISMISSED_KEY)) {
-            initCling(R.id.graph_cling, null, 0, true);
+            initCling(R.id.graph_cling, null, 0, false, true);
         }
         else {
             removeCling(R.id.graph_cling);

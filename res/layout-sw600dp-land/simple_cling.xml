@@ -14,9 +14,7 @@
      limitations under the License.
 -->
 <com.android2.calculator3.view.Cling
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:launcher="http://schemas.android.com/apk/res/com.android2.calculator3"
-    launcher:drawIdentifier="simple_portrait">
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

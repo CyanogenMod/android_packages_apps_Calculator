@@ -18,7 +18,6 @@ package com.android2.calculator3.view;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -42,24 +41,15 @@ public class Cling extends FrameLayout {
     public static final String HEX_CLING_DISMISSED_KEY = "cling.hex.dismissed";
     public static final String GRAPH_CLING_DISMISSED_KEY = "cling.graph.dismissed";
 
-    private static String SIMPLE_PORTRAIT = "simple_portrait";
-    private static String SIMPLE_LANDSCAPE = "simple_landscape";
-    private static String MATRIX_PORTRAIT = "matrix_portrait";
-    private static String MATRIX_LANDSCAPE = "matrix_landscape";
-    private static String HEX_PORTRAIT = "hex_portrait";
-    private static String HEX_LANDSCAPE = "hex_landscape";
-    private static String GRAPH_PORTRAIT = "graph_portrait";
-    private static String GRAPH_LANDSCAPE = "graph_landscape";
-
     private Calculator mCalculator;
     private boolean mIsInitialized;
-    private String mDrawIdentifier;
     private Drawable mBackground;
     private Drawable mPunchThroughGraphic;
     private Drawable mHandTouchGraphic;
     private int mPunchThroughGraphicCenterRadius;
     private float mRevealRadius;
     private int[] mPositionData;
+    private boolean mShowHand;
     private boolean mDismissed;
 
     private Paint mErasePaint;
@@ -74,16 +64,13 @@ public class Cling extends FrameLayout {
 
     public Cling(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Cling, defStyle, 0);
-        mDrawIdentifier = a.getString(R.styleable.Cling_drawIdentifier);
-        a.recycle();
     }
 
-    public void init(Calculator c, int[] positionData, float revealRadius) {
+    public void init(Calculator c, int[] positionData, float revealRadius, boolean showHand) {
         if(!mIsInitialized) {
             mCalculator = c;
             mPositionData = positionData;
+            mShowHand = showHand;
             mDismissed = false;
 
             Resources r = getContext().getResources();
@@ -172,7 +159,7 @@ public class Cling extends FrameLayout {
             }
 
             // Draw the hand graphic
-            if(mDrawIdentifier.equals(SIMPLE_PORTRAIT) || mDrawIdentifier.equals(SIMPLE_LANDSCAPE)) {
+            if(mShowHand) {
                 if(mHandTouchGraphic == null) {
                     mHandTouchGraphic = getResources().getDrawable(R.drawable.hand);
                 }
