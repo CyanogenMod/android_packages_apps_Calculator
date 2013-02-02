@@ -30,6 +30,7 @@ import android.util.DisplayMetrics;
 import android.widget.FrameLayout;
 
 import com.android2.calculator3.Calculator;
+import com.android2.calculator3.LogicalDensity;
 import com.android2.calculator3.R;
 
 public class Cling extends FrameLayout {
@@ -57,8 +58,6 @@ public class Cling extends FrameLayout {
     private Drawable mPunchThroughGraphic;
     private Drawable mHandTouchGraphic;
     private int mPunchThroughGraphicCenterRadius;
-    private int mAppIconSize;
-    private int mButtonBarHeight;
     private float mRevealRadius;
     private int[] mPositionData;
     private boolean mDismissed;
@@ -81,7 +80,7 @@ public class Cling extends FrameLayout {
         a.recycle();
     }
 
-    public void init(Calculator c, int[] positionData) {
+    public void init(Calculator c, int[] positionData, float revealRadius) {
         if(!mIsInitialized) {
             mCalculator = c;
             mPositionData = positionData;
@@ -90,9 +89,7 @@ public class Cling extends FrameLayout {
             Resources r = getContext().getResources();
             mPunchThroughGraphic = r.getDrawable(R.drawable.cling);
             mPunchThroughGraphicCenterRadius = r.getDimensionPixelSize(R.dimen.clingPunchThroughGraphicCenterRadius);
-            mAppIconSize = 0;// r.getDimensionPixelSize(R.dimen.app_icon_size);
-            mRevealRadius = mAppIconSize * 1f;
-            mButtonBarHeight = 0;// r.getDimensionPixelSize(R.dimen.button_bar_height);
+            mRevealRadius = revealRadius;
 
             mErasePaint = new Paint();
             mErasePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
@@ -118,23 +115,8 @@ public class Cling extends FrameLayout {
         mIsInitialized = false;
     }
 
-    private int[] getPunchThroughPosition() {// TODO No idea what this is for
-        if(mDrawIdentifier.equals(SIMPLE_PORTRAIT) || mDrawIdentifier.equals(HEX_PORTRAIT)) {
-            return new int[] { getMeasuredWidth() / 2, getMeasuredHeight() - (mButtonBarHeight / 2) };
-        }
-        else if(mDrawIdentifier.equals(SIMPLE_LANDSCAPE)) {
-            return new int[] { getMeasuredWidth() - (mButtonBarHeight / 2), getMeasuredHeight() / 2 };
-        }
-        else if(mDrawIdentifier.equals(MATRIX_PORTRAIT) || mDrawIdentifier.equals(MATRIX_LANDSCAPE)) {
-            return new int[] { mButtonBarHeight / 2, mButtonBarHeight / 2 };
-        }
-        else if(mDrawIdentifier.equals(GRAPH_PORTRAIT)) {
-            final float scale = getResources().getDisplayMetrics().density;
-            final int cornerXOffset = (int) (scale * 15);
-            final int cornerYOffset = (int) (scale * 10);
-            return new int[] { getMeasuredWidth() - cornerXOffset, cornerYOffset };
-        }
-        else if(mDrawIdentifier.equals(HEX_LANDSCAPE) || mDrawIdentifier.equals(GRAPH_LANDSCAPE)) {
+    private int[] getPunchThroughPosition() {
+        if(mPositionData != null) {
             return mPositionData;
         }
         return new int[] { -1, -1 };
@@ -179,21 +161,22 @@ public class Cling extends FrameLayout {
             int dh = (int) (scale * mPunchThroughGraphic.getIntrinsicHeight());
 
             // Determine where to draw the punch through graphic
+            int statusBarHeight = LogicalDensity.convertDpToPixel(25, getContext());
             int[] pos = getPunchThroughPosition();
             cx = pos[0];
-            cy = pos[1];
-            if(cx > -1 && cy > -1) {
+            cy = pos[1] - statusBarHeight;
+            if(cx > -1 && cy > -1 && scale > 0) {
                 c.drawCircle(cx, cy, mRevealRadius, mErasePaint);
                 mPunchThroughGraphic.setBounds(cx - dw / 2, cy - dh / 2, cx + dw / 2, cy + dh / 2);
                 mPunchThroughGraphic.draw(c);
             }
 
-            // Draw the hand graphic in All Apps
+            // Draw the hand graphic
             if(mDrawIdentifier.equals(SIMPLE_PORTRAIT) || mDrawIdentifier.equals(SIMPLE_LANDSCAPE)) {
                 if(mHandTouchGraphic == null) {
                     mHandTouchGraphic = getResources().getDrawable(R.drawable.hand);
                 }
-                int offset = mAppIconSize / 4;
+                int offset = 10;
                 mHandTouchGraphic.setBounds(cx + offset, cy + offset, cx + mHandTouchGraphic.getIntrinsicWidth() + offset,
                         cy + mHandTouchGraphic.getIntrinsicHeight() + offset);
                 mHandTouchGraphic.draw(c);
