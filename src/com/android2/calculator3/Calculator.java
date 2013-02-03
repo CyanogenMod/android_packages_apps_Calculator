@@ -596,7 +596,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 @Override
                 public void onClick(View v) {
                     mListener.onClick(v);
-                    removeCling(R.id.matrix_cling);
+                    dismissMatrixCling(v);
                     v.setOnClickListener(mListener);
                 }
             });
