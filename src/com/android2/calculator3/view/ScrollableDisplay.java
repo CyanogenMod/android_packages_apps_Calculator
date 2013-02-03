@@ -43,10 +43,10 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        // HorizontalScrollView is broken for Gravity.RIGHT. So we're fixing it.
         int childWidth = getView().getWidth();
         super.onLayout(changed, left, top, right, bottom);
         int delta = getView().getWidth() - childWidth;
-        // HorizontalScrollView is broken for Gravity.RIGHT. So we're fixing it.
         AdvancedDisplay view = getView();
         ScrollableDisplay.LayoutParams p = (LayoutParams) view.getLayoutParams();
         int horizontalGravity = p.gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
@@ -59,6 +59,7 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
                 removeViewAt(0);
                 addView(view);
                 view.getActiveEditText().requestFocus();
+                super.onLayout(changed, left, top, right, bottom);
             }
         }
         else if(gravityRight) {
@@ -69,9 +70,9 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
                 removeViewAt(0);
                 addView(view);
                 view.getActiveEditText().requestFocus();
+                super.onLayout(changed, left, top, right, bottom);
             }
         }
-        super.onLayout(changed, left, top, right, bottom);
         if(gravityRight && delta > 0) scrollBy(delta, 0);
     }
 }
