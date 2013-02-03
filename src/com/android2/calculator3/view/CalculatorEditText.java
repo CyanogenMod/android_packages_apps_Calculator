@@ -49,7 +49,7 @@ public class CalculatorEditText extends EditText {
             CalculatorEditText.this.invalidate();
         }
     };
-    private String input;
+    private String input = "";
 
     public CalculatorEditText(Context context) {
         super(context);
@@ -82,7 +82,8 @@ public class CalculatorEditText extends EditText {
 
                 updating = true;
                 int selectionHandle = getSelectionStart();
-                setText(Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
+                s.clear();
+                s.insert(0, Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
                 try {
                     setSelection(selectionHandle);
                 }
