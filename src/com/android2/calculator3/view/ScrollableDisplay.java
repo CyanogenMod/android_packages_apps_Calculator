@@ -39,11 +39,13 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
         return scrollRange;
     }
 
-    boolean gravityRight;
+    private boolean gravityRight;
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        int childWidth = getView().getWidth();
         super.onLayout(changed, left, top, right, bottom);
+        int delta = getView().getWidth() - childWidth;
         // HorizontalScrollView is broken for Gravity.RIGHT. So we're fixing it.
         AdvancedDisplay view = getView();
         ScrollableDisplay.LayoutParams p = (LayoutParams) view.getLayoutParams();
@@ -70,5 +72,6 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
             }
         }
         super.onLayout(changed, left, top, right, bottom);
+        if(gravityRight) scrollBy(delta, 0);
     }
 }
