@@ -30,17 +30,45 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
         return false;
     }
 
+    private int getScrollRange() {
+        int scrollRange = 0;
+        if(getChildCount() > 0) {
+            View child = getChildAt(0);
+            scrollRange = Math.max(0, child.getWidth() - (getWidth() - getPaddingLeft() - getPaddingRight()));
+        }
+        return scrollRange;
+    }
+
+    boolean gravityRight;
+
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
         // HorizontalScrollView is broken for Gravity.RIGHT. So we're fixing it.
-        ScrollableDisplay.LayoutParams p = (LayoutParams) getView().getLayoutParams();
+        AdvancedDisplay view = getView();
+        ScrollableDisplay.LayoutParams p = (LayoutParams) view.getLayoutParams();
         int horizontalGravity = p.gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+        int verticalGravity = p.gravity & Gravity.VERTICAL_GRAVITY_MASK;
         if(horizontalGravity == Gravity.RIGHT) {
-            // TODO Fix layouts with Gravity.RIGHT
-            super.onLayout(changed, left, top, right, bottom);
+            if(getScrollRange() > 0) {
+                gravityRight = true;
+                p.gravity = Gravity.LEFT | verticalGravity;
+                view.setLayoutParams(p);
+                removeViewAt(0);
+                addView(view);
+                view.getActiveEditText().requestFocus();
+            }
         }
-        else {
-            super.onLayout(changed, left, top, right, bottom);
+        else if(gravityRight) {
+            if(getScrollRange() == 0) {
+                gravityRight = false;
+                p.gravity = Gravity.RIGHT | verticalGravity;
+                view.setLayoutParams(p);
+                removeViewAt(0);
+                addView(view);
+                view.getActiveEditText().requestFocus();
+            }
         }
+        super.onLayout(changed, left, top, right, bottom);
     }
 }
