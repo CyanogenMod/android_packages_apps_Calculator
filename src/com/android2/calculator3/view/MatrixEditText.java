@@ -143,4 +143,8 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         }
         return super.focusSearch(direction);
     }
+
+    public MatrixView getMatrixView() {
+        return parent;
+    }
 }

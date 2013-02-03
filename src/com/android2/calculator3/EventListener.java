@@ -30,9 +30,9 @@ import android.widget.Toast;
 
 import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
+import com.android2.calculator3.view.MatrixEditText;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
-import com.android2.calculator3.view.MatrixView;
 
 public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
     Context mContext;
@@ -139,23 +139,23 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.plus_row:
-            v = (View) ((View) mHandler.mDisplay.getActiveEditText().getParent()).getParent();
-            if(v instanceof MatrixView) ((MatrixView) v).addRow();
+            v = mHandler.mDisplay.getActiveEditText();
+            if(v instanceof MatrixEditText) ((MatrixEditText) v).getMatrixView().addRow();
             break;
 
         case R.id.minus_row:
-            v = (View) ((View) mHandler.mDisplay.getActiveEditText().getParent()).getParent();
-            if(v instanceof MatrixView) ((MatrixView) v).removeRow();
+            v = mHandler.mDisplay.getActiveEditText();
+            if(v instanceof MatrixEditText) ((MatrixEditText) v).getMatrixView().removeRow();
             break;
 
         case R.id.plus_col:
-            v = (View) ((View) mHandler.mDisplay.getActiveEditText().getParent()).getParent();
-            if(v instanceof MatrixView) ((MatrixView) v).addColumn();
+            v = mHandler.mDisplay.getActiveEditText();
+            if(v instanceof MatrixEditText) ((MatrixEditText) v).getMatrixView().addColumn();
             break;
 
         case R.id.minus_col:
-            v = (View) ((View) mHandler.mDisplay.getActiveEditText().getParent()).getParent();
-            if(v instanceof MatrixView) ((MatrixView) v).removeColumn();
+            v = mHandler.mDisplay.getActiveEditText();
+            if(v instanceof MatrixEditText) ((MatrixEditText) v).getMatrixView().removeColumn();
             break;
 
         case R.id.next:
