@@ -35,8 +35,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.android2.calculator3.Logic;
 import com.android2.calculator3.LogicalDensity;
-import com.android2.calculator3.R;
 
 public class MatrixEditText extends EditText implements OnFocusChangeListener {
     private static final char[] ACCEPTED_CHARS = "0123456789.-\u2212".toCharArray();
@@ -87,7 +87,7 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
                 }
                 Matcher matcher = pattern.matcher(checkMe);
                 boolean valid = matcher.matches();
-                if(i == 0 && dstart == 0 && (checkMe.equals(getResources().getString(R.string.minus)) || checkMe.equals("-"))) valid = true;
+                if(i == 0 && dstart == 0 && (checkMe.charAt(0) == '\u2212' || checkMe.equals("-"))) valid = true;
                 if(!valid) {
                     return "";
                 }
@@ -127,7 +127,12 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if(hasFocus) display.mActiveEditText = MatrixEditText.this;
+        if(hasFocus) {
+            display.mActiveEditText = MatrixEditText.this;
+            if(getText().toString().equals(Logic.NAN)) {
+                setText("");
+            }
+        }
     }
 
     @Override

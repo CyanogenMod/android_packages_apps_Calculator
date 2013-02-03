@@ -45,7 +45,7 @@ public class HistoryLine extends LinearLayout {
         if(mMenuItemsStrings == null) {
             Resources resources = getResources();
             mMenuItemsStrings = new String[4];
-            mMenuItemsStrings[COPY] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase()) + "=" + mHistoryEntry.getEdited();
+            mMenuItemsStrings[COPY] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase() + "=" + mHistoryEntry.getEdited());
             mMenuItemsStrings[COPY_BASE] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase());
             mMenuItemsStrings[COPY_EDITED] = String.format(resources.getString(R.string.copy), mHistoryEntry.getEdited());
             mMenuItemsStrings[REMOVE] = resources.getString(R.string.remove_from_history);

@@ -3,6 +3,7 @@ package com.android2.calculator3.view;
 import java.text.DecimalFormat;
 
 import org.ejml.simple.SimpleMatrix;
+import org.javia.arity.SyntaxException;
 
 import android.content.Context;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.android2.calculator3.R;
 
 public class MatrixView extends TableLayout {
     private static String FORMAT = "#.######";
+    private static DecimalFormat FORMATTER = new DecimalFormat(FORMAT);
     int rows, columns = 0;
     AdvancedDisplay parent;
 
@@ -72,37 +74,25 @@ public class MatrixView extends TableLayout {
         if(rows == 0 || columns == 0) parent.removeView(this);
     }
 
-    public SimpleMatrix getSimpleMatrix() {
+    public SimpleMatrix getSimpleMatrix() throws SyntaxException {
         SimpleMatrix sm = new SimpleMatrix(getData());
         return sm;
     }
 
-    private double[][] getData() {
+    private double[][] getData() throws SyntaxException {
         double[][] data = new double[rows][columns];
         for(int row = 0; row < rows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
             for(int column = 0; column < columns; column++) {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
-                if(input.startsWith(getResources().getString(R.string.minus))) {
-                    if(input.length() == 1) input = "";
-                    else input = "-" + input.substring(1);
+                input = stringify(input);
+                if(input.isEmpty()) throw new SyntaxException();
+                input = input.replaceAll(Logic.INFINITY_UNICODE, Logic.INFINITY);
+                try {
+                    data[row][column] = Double.valueOf(input);
                 }
-                if(input.startsWith(".")) {
-                    input = "0" + input;
-                }
-                if(input.startsWith("-.")) {
-                    input = "-0" + input.substring(1);
-                }
-                if(input.isEmpty()) data[row][column] = 0;
-                else if(input.equals("-" + Logic.INFINITY_UNICODE)) data[row][column] = Double.NEGATIVE_INFINITY;
-                else if(input.equals(Logic.INFINITY_UNICODE)) data[row][column] = Double.POSITIVE_INFINITY;
-                else {
-                    try {
-                        data[row][column] = Double.valueOf(input);
-                    }
-                    catch(Exception e) {
-                        data[row][column] = Double.NaN;
-                    }
+                catch(Exception e) {
+                    data[row][column] = Double.NaN;
                 }
             }
         }
@@ -110,34 +100,37 @@ public class MatrixView extends TableLayout {
     }
 
     private String[][] getDataAsString() {
-        DecimalFormat formatter = new DecimalFormat(FORMAT);
         String[][] data = new String[rows][columns];
         for(int row = 0; row < rows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
             for(int column = 0; column < columns; column++) {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
-                if(input.isEmpty()) data[row][column] = "";
-                else {
-                    if(input.startsWith(getResources().getString(R.string.minus))) {
-                        if(input.length() == 1) input = "";
-                        else input = "-" + input.substring(1);
-                    }
-                    if(input.startsWith(".")) {
-                        input = "0" + input;
-                    }
-                    if(input.startsWith("-.")) {
-                        input = "-0" + input.substring(1);
-                    }
-                    try {
-                        data[row][column] = formatter.format(Double.valueOf(input));
-                    }
-                    catch(Exception e) {
-                        data[row][column] = "";
-                    }
-                }
+                data[row][column] = stringify(input);
             }
         }
         return data;
+    }
+
+    private String stringify(String input) {
+        if(input.isEmpty()) return "";
+        else {
+            if(input.charAt(0) == '\u2212') {
+                if(input.length() == 1) input = "";
+                else input = "-" + input.substring(1);
+            }
+            if(input.startsWith(".")) {
+                input = "0" + input;
+            }
+            else if(input.startsWith("-.")) {
+                input = "-0" + input.substring(1);
+            }
+            try {
+                return FORMATTER.format(Double.valueOf(input));
+            }
+            catch(Exception e) {
+                return "";
+            }
+        }
     }
 
     boolean isEmpty() {

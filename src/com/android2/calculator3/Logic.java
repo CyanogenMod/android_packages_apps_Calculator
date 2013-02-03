@@ -44,9 +44,10 @@ public class Logic {
     private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
     private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
     public static final String INFINITY_UNICODE = "\u221e";
-    static final String INFINITY = "Infinity"; // Double.toString() for
-                                               // Infinity
-    private static final String NAN = "NaN"; // Double.toString() for NaN
+    // Double.toString() for Infinity
+    public static final String INFINITY = "Infinity";
+    // Double.toString() for NaN
+    public static final String NAN = "NaN";
 
     static final char MINUS = '\u2212';
     static final char MUL = '\u00d7';
