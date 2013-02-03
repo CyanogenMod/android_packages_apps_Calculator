@@ -31,6 +31,7 @@ public class MatrixView extends TableLayout {
 
     private void setup() {
         setBackgroundResource(R.drawable.matrix_background);
+        setFocusable(true);
     }
 
     public void addRow() {

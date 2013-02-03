@@ -23,12 +23,12 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
-public class MatrixInverseView extends EditText {
+public class MatrixInverseView extends TextView {
     private final static char PLACEHOLDER = '\uFEFF';
     public final static String PATTERN = PLACEHOLDER + "^-1";
 
@@ -41,7 +41,6 @@ public class MatrixInverseView extends EditText {
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         setText(Html.fromHtml("<sup>-1</sup>"));
-        setBackgroundResource(android.R.color.transparent);
         setTextAppearance(display.getContext(), R.style.display_style);
         setPadding(0, 0, 0, 0);
     }

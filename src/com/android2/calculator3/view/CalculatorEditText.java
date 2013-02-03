@@ -131,7 +131,10 @@ public class CalculatorEditText extends EditText {
     public View focusSearch(int direction) {
         switch(direction) {
         case View.FOCUS_FORWARD:
-            return mDisplay.nextView(this);
+            View v = mDisplay.nextView(this);
+            while(!v.isFocusable())
+                v = mDisplay.nextView(v);
+            return v;
         }
         return super.focusSearch(direction);
     }

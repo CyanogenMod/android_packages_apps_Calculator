@@ -24,12 +24,14 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Logic.Mode;
 import com.android2.calculator3.view.MatrixInverseView;
+import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
 
 public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
@@ -132,7 +134,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.matrix_transpose:
-            mHandler.insert("^T");
+            mHandler.insert(MatrixTransposeView.PATTERN);
             returnToBasic();
             break;
 
@@ -157,8 +159,16 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.next:
-            v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_FORWARD);
-            if(v != null) v.requestFocus();
+            EditText active = mHandler.mDisplay.getActiveEditText();
+            if(active.getSelectionStart() == active.getText().length()) {
+                v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_FORWARD);
+                if(v != null) v.requestFocus();
+                active = mHandler.mDisplay.getActiveEditText();
+                active.setSelection(0);
+            }
+            else {
+                active.setSelection(active.getSelectionStart() + 1);
+            }
             break;
 
         case R.id.parentheses:
