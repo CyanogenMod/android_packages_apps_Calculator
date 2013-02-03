@@ -69,6 +69,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
     private EquationFormatter mEquationFormatter;
 
+    private boolean clingActive = false;
+
     public enum Panel {
         GRAPH, FUNCTION, HEX, BASIC, ADVANCED, MATRIX;
 
@@ -452,19 +454,16 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && mPulldown.isSliderOpen()) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && mPulldown.isSliderOpen() && !clingActive) {
             mPulldown.animateSliderClosed();
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null
-                && (getAdvancedVisibility() || getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())
-                && CalculatorSettings.basicPanel(getContext())) {
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && !getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !clingActive) {
             mPager.setCurrentItem(Panel.BASIC.getOrder());
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null
-                && (getFunctionVisibility() || getGraphVisibility() || getMatrixVisibility() || getHexVisibility())
-                && CalculatorSettings.basicPanel(getContext()) && CalculatorSettings.advancedPanel(getContext())) {
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !(getAdvancedVisibility() && getBasicVisibility())
+                && CalculatorSettings.basicPanel(getContext()) && CalculatorSettings.advancedPanel(getContext()) && !clingActive) {
             mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
             mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
             return true;
@@ -511,6 +510,11 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private Cling initCling(int clingId, int[] positionData, float revealRadius, boolean showHand, boolean animate) {
+        if(mPager != null) mPager.setPagingEnabled(false);
+        if(mSmallPager != null) mSmallPager.setPagingEnabled(false);
+        if(mLargePager != null) mLargePager.setPagingEnabled(false);
+        clingActive = true;
+
         Cling cling = (Cling) findViewById(clingId);
         if(cling != null) {
             cling.init(this, positionData, revealRadius, showHand);
@@ -525,13 +529,15 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 cling.setAlpha(1f);
             }
         }
-        if(mPager != null) mPager.setPagingEnabled(false);
-        if(mSmallPager != null) mSmallPager.setPagingEnabled(false);
-        if(mLargePager != null) mLargePager.setPagingEnabled(false);
         return cling;
     }
 
     private void dismissCling(final Cling cling, final String flag, int duration) {
+        if(mPager != null) mPager.setPagingEnabled(true);
+        if(mSmallPager != null) mSmallPager.setPagingEnabled(true);
+        if(mLargePager != null) mLargePager.setPagingEnabled(true);
+        clingActive = false;
+
         if(cling != null) {
             cling.dismiss();
             ObjectAnimator anim = ObjectAnimator.ofFloat(cling, "alpha", 0f);
@@ -545,12 +551,14 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             });
             anim.start();
         }
-        if(mPager != null) mPager.setPagingEnabled(true);
-        if(mSmallPager != null) mSmallPager.setPagingEnabled(true);
-        if(mLargePager != null) mLargePager.setPagingEnabled(true);
     }
 
     private void removeCling(int id) {
+        if(mPager != null) mPager.setPagingEnabled(true);
+        if(mSmallPager != null) mSmallPager.setPagingEnabled(true);
+        if(mLargePager != null) mLargePager.setPagingEnabled(true);
+        clingActive = false;
+
         final View cling = findViewById(id);
         if(cling != null) {
             final ViewGroup parent = (ViewGroup) cling.getParent();
@@ -561,9 +569,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 }
             });
         }
-        if(mPager != null) mPager.setPagingEnabled(true);
-        if(mSmallPager != null) mSmallPager.setPagingEnabled(true);
-        if(mLargePager != null) mLargePager.setPagingEnabled(true);
     }
 
     public void showFirstRunSimpleCling(boolean animate) {
@@ -656,13 +661,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         if(getBasicVisibility()) {
             showFirstRunSimpleCling(animate);
         }
-        else if(getMatrixVisibility()) {
+        if(getMatrixVisibility()) {
             showFirstRunMatrixCling(animate);
         }
-        else if(getHexVisibility()) {
+        if(getHexVisibility()) {
             showFirstRunHexCling(animate);
         }
-        else if(getGraphVisibility()) {
+        if(getGraphVisibility()) {
             showFirstRunGraphCling(animate);
         }
     }
