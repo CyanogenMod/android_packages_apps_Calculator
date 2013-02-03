@@ -78,18 +78,8 @@ public class Logic {
     private final String mArctanString;
     private final String mLogString;
     private final String mLnString;
-    private final String mModString;
     private final String mX;
     private final String mY;
-    private final String mPlusString;
-    private final String mMinusString;
-    private final String mDivString;
-    private final String mMulString;
-    private final String mDotString;
-    private final String mComaString;
-    private final String mPowerString;
-    private final String mSqrtString;
-    private final String mIntegralString;
 
     int mDeleteMode = DELETE_MODE_BACKSPACE;
     private Mode mode = Mode.DECIMAL;
@@ -124,26 +114,16 @@ public class Logic {
         mSinString = r.getString(R.string.sin);
         mCosString = r.getString(R.string.cos);
         mTanString = r.getString(R.string.tan);
-        mArcsinString = r.getString(R.string.sin) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
-        mArccosString = r.getString(R.string.cos) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
-        mArctanString = r.getString(R.string.tan) + r.getString(R.string.power) + r.getString(R.string.minus) + r.getString(R.string.digit1);
+        mArcsinString = r.getString(R.string.arcsin);
+        mArccosString = r.getString(R.string.arccos);
+        mArctanString = r.getString(R.string.arctan);
         mLogString = r.getString(R.string.lg);
         mLnString = r.getString(R.string.ln);
-        mModString = r.getString(R.string.mod);
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
-        mPlusString = r.getString(R.string.plus);
-        mMinusString = r.getString(R.string.minus);
-        mDivString = r.getString(R.string.div);
-        mMulString = r.getString(R.string.mul);
-        mDotString = r.getString(R.string.dot);
-        mComaString = r.getString(R.string.coma);
-        mPowerString = r.getString(R.string.power);
-        mSqrtString = r.getString(R.string.sqrt);
-        mIntegralString = r.getString(R.string.integral);
         useRadians = CalculatorSettings.useRadians(context);
 
-        mEquationFormatter = new EquationFormatter(context);
+        mEquationFormatter = new EquationFormatter();
         mHistory = history;
         mDisplay = display;
         if(mDisplay != null) mDisplay.setLogic(this);
@@ -363,7 +343,6 @@ public class Logic {
         }
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
-        input = input.replaceAll(mModString, "mod");
         return input;
     }
 
@@ -499,10 +478,7 @@ public class Logic {
             return;
         }
 
-        if(eq.endsWith(mPlusString) || eq.endsWith(mMinusString) || eq.endsWith(mDivString) || eq.endsWith(mMulString) || eq.endsWith(mDotString)
-                || eq.endsWith(mComaString) || eq.endsWith(mPowerString) || eq.endsWith(mSqrtString) || eq.endsWith(mIntegralString)
-                || eq.endsWith(mSinString + "(") || eq.endsWith(mCosString + "(") || eq.endsWith(mTanString + "(") || eq.endsWith(mLogString + "(")
-                || eq.endsWith(mModString + "(") || eq.endsWith(mLnString + "(")) return;
+        if(isOperator(eq.charAt(eq.length() - 1))) return;
 
         final String[] equation = eq.split("=");
 

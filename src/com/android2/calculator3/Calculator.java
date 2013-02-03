@@ -127,7 +127,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mSmallPager = (CalculatorViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (CalculatorViewPager) findViewById(R.id.largePanelswitch);
 
-        mEquationFormatter = new EquationFormatter(this);
+        mEquationFormatter = new EquationFormatter();
 
         if(mClearButton == null) {
             mClearButton = findViewById(R.id.clear);

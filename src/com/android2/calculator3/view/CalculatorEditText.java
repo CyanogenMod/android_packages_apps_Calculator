@@ -62,7 +62,7 @@ public class CalculatorEditText extends EditText {
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
 
-        mEquationFormatter = new EquationFormatter(getContext());
+        mEquationFormatter = new EquationFormatter();
         mDisplay = display;
 
         addTextChangedListener(new TextWatcher() {
@@ -78,12 +78,20 @@ public class CalculatorEditText extends EditText {
             public void afterTextChanged(Editable s) {
                 if(updating) return;
 
-                input = s.toString().replace(EquationFormatter.PLACEHOLDER, mEquationFormatter.power);
+                input = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER);
 
                 updating = true;
                 int selectionHandle = getSelectionStart();
-                s.clear();
-                s.insert(0, Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
+                if(getWidth() == 0) {
+                    // Wont show exponents unless I use setText on startup
+                    setText(Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
+                }
+                else {
+                    // Use Editable.insert to avoid the Dictionary from
+                    // complaining and underlying everything in red
+                    s.clear();
+                    s.insert(0, Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
+                }
                 try {
                     setSelection(selectionHandle);
                 }
