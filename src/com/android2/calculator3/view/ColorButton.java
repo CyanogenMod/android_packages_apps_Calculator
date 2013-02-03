@@ -123,14 +123,11 @@ class ColorButton extends Button {
             drawMagicFlame(0, canvas);
         }
 
-        CharSequence text = getText();
-        canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
-
         CharSequence hint = getHint();
         if(hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
             int offsetX = LogicalDensity.convertDpToPixel(10, getContext());
-            int offsetY = LogicalDensity.convertDpToPixel(22, getContext());
+            int offsetY = LogicalDensity.convertDpToPixel(20, getContext());
             for(String str : exponents) {
                 canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
                 mHintPaint.getTextBounds(str, 0, str.length(), bounds);
@@ -138,6 +135,9 @@ class ColorButton extends Button {
                 offsetX += bounds.width();
             }
         }
+
+        CharSequence text = getText();
+        canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
     }
 
     public void animateClickFeedback() {
