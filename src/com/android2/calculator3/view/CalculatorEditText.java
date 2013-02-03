@@ -23,7 +23,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.Html;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -58,7 +57,6 @@ public class CalculatorEditText extends EditText {
     public CalculatorEditText(final AdvancedDisplay display) {
         super(display.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
-        setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
 

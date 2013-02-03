@@ -51,7 +51,6 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
     public MatrixEditText(final AdvancedDisplay display, final MatrixView parent) {
         super(display.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
-        setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
         setPadding(LogicalDensity.convertDpToPixel(17, getContext()), 0, LogicalDensity.convertDpToPixel(17, getContext()), 0);
@@ -65,7 +64,7 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
     class MatrixKeyListener extends NumberKeyListener {
         @Override
         public int getInputType() {
-            return EditorInfo.TYPE_CLASS_NUMBER;
+            return EditorInfo.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
         }
 
         @Override

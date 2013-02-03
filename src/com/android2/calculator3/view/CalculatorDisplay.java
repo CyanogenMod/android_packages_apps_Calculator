@@ -22,6 +22,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Spanned;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
@@ -89,7 +90,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     public void setLogic(Logic logic) {
         NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
             public int getInputType() {
-                return EditorInfo.TYPE_CLASS_TEXT;
+                return EditorInfo.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
             }
 
             @Override
