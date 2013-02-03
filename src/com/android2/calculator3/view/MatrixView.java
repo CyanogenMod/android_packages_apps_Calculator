@@ -108,6 +108,37 @@ public class MatrixView extends TableLayout {
         return data;
     }
 
+    private String[][] getDataAsString() {
+        DecimalFormat formatter = new DecimalFormat(FORMAT);
+        String[][] data = new String[rows][columns];
+        for(int row = 0; row < rows; row++) {
+            TableRow tr = (TableRow) getChildAt(row);
+            for(int column = 0; column < columns; column++) {
+                String input = ((EditText) tr.getChildAt(column)).getText().toString();
+                if(input.isEmpty()) data[row][column] = "";
+                else {
+                    if(input.startsWith(getResources().getString(R.string.minus))) {
+                        if(input.length() == 1) input = "";
+                        else input = "-" + input.substring(1);
+                    }
+                    if(input.startsWith(".")) {
+                        input = "0" + input;
+                    }
+                    if(input.startsWith("-.")) {
+                        input = "-0" + input.substring(1);
+                    }
+                    try {
+                        data[row][column] = formatter.format(Double.valueOf(input));
+                    }
+                    catch(Exception e) {
+                        data[row][column] = "";
+                    }
+                }
+            }
+        }
+        return data;
+    }
+
     boolean isEmpty() {
         boolean empty = true;
         for(int row = 0; row < rows; row++) {
@@ -140,13 +171,12 @@ public class MatrixView extends TableLayout {
 
     @Override
     public String toString() {
-        DecimalFormat formatter = new DecimalFormat(FORMAT);
         String input = "[";
-        double[][] data = getData();
+        String[][] data = getDataAsString();
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += formatter.format(data[i][j]) + ",";
+                input += data[i][j] + ",";
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);
