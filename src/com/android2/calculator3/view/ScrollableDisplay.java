@@ -72,6 +72,6 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
             }
         }
         super.onLayout(changed, left, top, right, bottom);
-        if(gravityRight) scrollBy(delta, 0);
+        if(gravityRight && delta > 0) scrollBy(delta, 0);
     }
 }

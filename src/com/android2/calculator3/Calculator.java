@@ -180,9 +180,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mPager.setAdapter(new PageAdapter(mPager, mGraph, mLogic));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
             mPager.setOnPageChangeListener(this);
-            if(getBasicVisibility()) {
-                showFirstRunSimpleCling();
-            }
+            runCling(false);
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
@@ -192,9 +190,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mLargePager.setCurrentItem(state == null ? LargePanel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW_LARGE, LargePanel.BASIC.getOrder()));
             mSmallPager.setOnPageChangeListener(this);
             mLargePager.setOnPageChangeListener(this);
-            if(getBasicVisibility()) {
-                showFirstRunSimpleCling();
-            }
+            runCling(false);
         }
 
         mListener.setHandler(this, mLogic, mPager);
@@ -570,7 +566,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         if(mLargePager != null) mLargePager.setPagingEnabled(true);
     }
 
-    public void showFirstRunSimpleCling() {
+    public void showFirstRunSimpleCling(boolean animate) {
         // Enable the clings only if they have not been dismissed before
         if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.SIMPLE_CLING_DISMISSED_KEY)) {
             Display display = getWindowManager().getDefaultDisplay();
@@ -580,14 +576,14 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             location[0] = 0;
             location[1] = size.y / 2;
             location[2] = 10;
-            initCling(R.id.simple_cling, location, 0, true, false);
+            initCling(R.id.simple_cling, location, 0, true, animate);
         }
         else {
             removeCling(R.id.simple_cling);
         }
     }
 
-    public void showFirstRunMatrixCling() {
+    public void showFirstRunMatrixCling(boolean animate) {
         // Enable the clings only if they have not been dismissed before
         if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.MATRIX_CLING_DISMISSED_KEY)) {
             View v;
@@ -609,27 +605,27 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             location[0] = location[0] + v.getWidth() / 2;
             location[1] = location[1] + v.getHeight() / 2;
             location[2] = -1;
-            initCling(R.id.matrix_cling, location, v.getWidth() / 2, false, true);
+            initCling(R.id.matrix_cling, location, v.getWidth() / 2, false, animate);
         }
         else {
             removeCling(R.id.matrix_cling);
         }
     }
 
-    public void showFirstRunHexCling() {
+    public void showFirstRunHexCling(boolean animate) {
         // Enable the clings only if they have not been dismissed before
         if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.HEX_CLING_DISMISSED_KEY)) {
-            initCling(R.id.hex_cling, null, 0, false, true);
+            initCling(R.id.hex_cling, null, 0, false, animate);
         }
         else {
             removeCling(R.id.hex_cling);
         }
     }
 
-    public void showFirstRunGraphCling() {
+    public void showFirstRunGraphCling(boolean animate) {
         // Enable the clings only if they have not been dismissed before
         if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.GRAPH_CLING_DISMISSED_KEY)) {
-            initCling(R.id.graph_cling, null, 0, false, true);
+            initCling(R.id.graph_cling, null, 0, false, animate);
         }
         else {
             removeCling(R.id.graph_cling);
@@ -656,22 +652,24 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         dismissCling(cling, Cling.GRAPH_CLING_DISMISSED_KEY, Cling.DISMISS_CLING_DURATION);
     }
 
+    private void runCling(boolean animate) {
+        if(getBasicVisibility()) {
+            showFirstRunSimpleCling(animate);
+        }
+        else if(getMatrixVisibility()) {
+            showFirstRunMatrixCling(animate);
+        }
+        else if(getHexVisibility()) {
+            showFirstRunHexCling(animate);
+        }
+        else if(getGraphVisibility()) {
+            showFirstRunGraphCling(animate);
+        }
+    }
+
     @Override
     public void onPageScrollStateChanged(int state) {
-        if(state == 0) {
-            if(getBasicVisibility()) {
-                showFirstRunSimpleCling();
-            }
-            else if(getMatrixVisibility()) {
-                showFirstRunMatrixCling();
-            }
-            else if(getHexVisibility()) {
-                showFirstRunHexCling();
-            }
-            else if(getGraphVisibility()) {
-                showFirstRunGraphCling();
-            }
-        }
+        if(state == 0) runCling(true);
     }
 
     @Override
