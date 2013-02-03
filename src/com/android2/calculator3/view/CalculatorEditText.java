@@ -82,16 +82,7 @@ public class CalculatorEditText extends EditText {
 
                 updating = true;
                 int selectionHandle = getSelectionStart();
-                if(getWidth() == 0) {
-                    // Wont show exponents unless I use setText on startup
-                    setText(Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
-                }
-                else {
-                    // Use Editable.insert to avoid the Dictionary from
-                    // complaining and underlying everything in red
-                    s.clear();
-                    s.insert(0, Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
-                }
+                setText(Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
                 try {
                     setSelection(selectionHandle);
                 }
