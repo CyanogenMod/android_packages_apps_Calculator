@@ -39,7 +39,7 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
         return scrollRange;
     }
 
-    private boolean gravityRight;
+    private boolean gravityRight = false;
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
