@@ -70,6 +70,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private EquationFormatter mEquationFormatter;
 
     private boolean clingActive = false;
+    private Direction previousDirection = Direction.DOWN;
 
     public enum Panel {
         GRAPH, FUNCTION, HEX, BASIC, ADVANCED, MATRIX;
@@ -156,9 +157,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mPulldown.setOnSlideListener(new OnSlideListener() {
             @Override
             public void onSlide(Direction d) {
-                if(d.equals(Direction.UP)) {
+                if(!previousDirection.equals(d) && d.equals(Direction.UP)) {
                     setUpHistory();
                 }
+                previousDirection = d;
             }
         });
         mPulldown.setBackgroundResource(R.color.background);
