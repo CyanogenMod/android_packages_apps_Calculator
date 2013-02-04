@@ -772,6 +772,7 @@ public class Logic {
         String[] split = originalNumber.split("\\.");
         if(split.length == 0) {
             split = new String[1];
+            split[0] = "0";
         }
         if(split[0].isEmpty()) {
             split[0] = "0";
