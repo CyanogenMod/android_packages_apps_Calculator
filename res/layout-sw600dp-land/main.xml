@@ -29,60 +29,53 @@
     
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent">
+            android:minHeight="@dimen/min_display_height"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal">
+            <com.android2.calculator3.view.CalculatorDisplay
+                android:id="@+id/display"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                maxDigits="@integer/max_digits"
+                >
     
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:minHeight="@dimen/min_display_height"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <com.android2.calculator3.view.CalculatorDisplay
-                    android:id="@+id/display"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <com.android2.calculator3.view.ScrollableDisplay
+                    style="@style/display_style" />
+                <com.android2.calculator3.view.ScrollableDisplay
+                    style="@style/display_style" />
+    
+            </com.android2.calculator3.view.CalculatorDisplay>
+            <ImageButton android:id="@+id/overflow_menu"
+                android:layout_width="48dip"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_menu_overflow"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="8dip"
+                android:visibility="gone"
+                android:contentDescription="@null"/>
+            <FrameLayout
+                android:layout_width="100dip"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/clear"
+                    android:text="@string/clear"
+                    style="@style/btn_clear"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    maxDigits="@integer/max_digits"
-                    >
-        
-                    <com.android2.calculator3.view.ScrollableDisplay
-                        style="@style/display_style" />
-                    <com.android2.calculator3.view.ScrollableDisplay
-                        style="@style/display_style" />
-        
-                </com.android2.calculator3.view.CalculatorDisplay>
-                <ImageButton android:id="@+id/overflow_menu"
-                    android:layout_width="48dip"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip" />
+                <ImageButton
+                    android:id="@+id/del"
+                    android:src="@drawable/calc_clear_symbol"
+                    style="@style/btn_clear"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_menu_overflow"
-                    android:background="@android:color/transparent"
-                    android:layout_marginLeft="8dip"
-                    android:visibility="gone"
-                    android:contentDescription="@null"/>
-                <FrameLayout
-                    android:layout_width="100dip"
-                    android:layout_height="match_parent">
-                    <Button
-                        android:id="@+id/clear"
-                        android:text="@string/clear"
-                        style="@style/btn_clear"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="5dip"
-                        android:paddingRight="5dip" />
-                    <ImageButton
-                        android:id="@+id/del"
-                        android:src="@drawable/calc_clear_symbol"
-                        style="@style/btn_clear"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="5dip"
-                        android:paddingRight="5dip"
-                        android:contentDescription="@null" />
-                </FrameLayout>
-            </LinearLayout>
-            <include layout="@layout/history_panel"/>
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:contentDescription="@null" />
+            </FrameLayout>
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
