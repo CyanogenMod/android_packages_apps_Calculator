@@ -40,7 +40,7 @@ public class MatrixInverseView extends TextView {
         super(display.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        setText(Html.fromHtml("<sup>-1</sup>"));
+        setText(Html.fromHtml("<sup><small>-1</small></sup>"));
         setTextAppearance(display.getContext(), R.style.display_style);
         setPadding(0, 0, 0, 0);
     }

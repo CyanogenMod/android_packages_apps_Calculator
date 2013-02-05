@@ -39,7 +39,8 @@ public class EquationFormatter {
                 sub_open++;
                 if(i + 1 == input.length()) {
                     formattedInput.append(c);
-                    sub_open--;
+                    formattedInput.append("</sup>");
+                    sub_closed++;
                 }
                 else {
                     formattedInput.append(PLACEHOLDER);
