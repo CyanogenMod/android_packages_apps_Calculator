@@ -47,7 +47,6 @@ class ColorButton extends Button {
     EventListener mListener;
     Paint mFeedbackPaint;
     Paint mHintPaint;
-    Paint mHintExponentPaint;
     Rect bounds = new Rect();
 
     public ColorButton(Context context, AttributeSet attrs) {
@@ -70,9 +69,6 @@ class ColorButton extends Button {
         mHintPaint = new Paint();
         mHintPaint.setColor(res.getColor(R.color.grey));
         mHintPaint.setTextSize(getTextSize() * 0.8f);
-        mHintExponentPaint = new Paint();
-        mHintExponentPaint.setColor(res.getColor(R.color.grey));
-        mHintExponentPaint.setTextSize(getTextSize() * 0.64f);
 
         mAnimStart = -1;
     }
@@ -132,16 +128,24 @@ class ColorButton extends Button {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
             int offsetX = LogicalDensity.convertDpToPixel(10, getContext());
             int offsetY = (int) ((mTextY + LogicalDensity.convertDpToPixel(20, getContext()) - getTextHeight(mHintPaint, hint.toString())) / 2);
+
+            float textWidth = mHintPaint.measureText(hint.toString());
+            float width = getWidth() - getPaddingLeft() - getPaddingRight() - mTextX - offsetX;
+            float textSize = mHintPaint.getTextSize();
+            if(textWidth > width) {
+                mHintPaint.setTextSize(textSize * width / textWidth);
+            }
+
             for(String str : exponents) {
                 if(str == exponents[0]) {
                     canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
-                    offsetY += LogicalDensity.convertDpToPixel(8, getContext());
+                    offsetY += LogicalDensity.convertDpToPixel(10, getContext());
                     offsetX += mHintPaint.measureText(str);
                 }
                 else {
-                    canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintExponentPaint);
-                    offsetY += LogicalDensity.convertDpToPixel(8, getContext());
-                    offsetX += mHintExponentPaint.measureText(str);
+                    canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
+                    offsetY += LogicalDensity.convertDpToPixel(10, getContext());
+                    offsetX += mHintPaint.measureText(str);
                 }
             }
         }
@@ -155,7 +159,7 @@ class ColorButton extends Button {
         int height = bounds.height();
         String[] exponents = text.split(Pattern.quote("^"));
         for(int i = 1; i < exponents.length; i++) {
-            height += LogicalDensity.convertDpToPixel(8, getContext());
+            height += LogicalDensity.convertDpToPixel(10, getContext());
         }
         return height;
     }
