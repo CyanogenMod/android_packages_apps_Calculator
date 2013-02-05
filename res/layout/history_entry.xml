@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp" >
-    <TextView
+    <com.android2.calculator3.view.CalculatorEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/small_display_text_size"
         android:textColor="@color/history_input"
-        android:layout_marginBottom="-5dp"
+        android:enabled="false"
+        android:background="@android:color/transparent"
         android:id="@+id/base" />
     <TextView
         android:layout_width="match_parent"
@@ -16,6 +17,5 @@
         android:textSize="@dimen/display_text_size"
         android:textColor="@color/history_result"
         android:gravity="right"
-        android:layout_marginBottom="-5dp"
         android:id="@+id/edited" />
 </com.android2.calculator3.view.HistoryLine>

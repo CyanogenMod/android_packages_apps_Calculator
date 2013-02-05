@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.text.Editable.Factory;
 import android.text.TextUtils;
 import android.text.method.KeyListener;
+import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +30,11 @@ public class AdvancedDisplay extends LinearLayout {
     Factory mFactory;
 
     public AdvancedDisplay(Context context) {
-        super(context);
+        this(context, null);
+    }
+
+    public AdvancedDisplay(Context context, AttributeSet attrs) {
+        super(context, attrs);
         setOrientation(HORIZONTAL);
     }
 
@@ -164,6 +169,14 @@ public class AdvancedDisplay extends LinearLayout {
     public View getLastView() {
         if(getChildCount() == 0) return null;
         return getChildAt(getChildCount() - 1);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        for(int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).setEnabled(enabled);
+        }
     }
 
     @Override

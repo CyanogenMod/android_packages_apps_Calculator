@@ -164,6 +164,17 @@ public class MatrixView extends TableLayout {
     }
 
     @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        for(int row = 0; row < rows; row++) {
+            TableRow tr = (TableRow) getChildAt(row);
+            for(int column = 0; column < columns; column++) {
+                tr.getChildAt(column).setEnabled(enabled);
+            }
+        }
+    }
+
+    @Override
     public String toString() {
         String input = "[";
         String[][] data = getDataAsString();

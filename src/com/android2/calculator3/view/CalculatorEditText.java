@@ -24,6 +24,7 @@ import android.os.SystemClock;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,18 +51,29 @@ public class CalculatorEditText extends EditText {
     };
     private String input = "";
 
-    public CalculatorEditText(Context context) {
-        super(context);
+    public CalculatorEditText(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        setUp();
     }
 
     public CalculatorEditText(final AdvancedDisplay display) {
         super(display.getContext());
+        setUp();
+        mDisplay = display;
+        setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) display.mActiveEditText = CalculatorEditText.this;
+            }
+        });
+    }
+
+    private void setUp() {
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
 
         mEquationFormatter = new EquationFormatter();
-        mDisplay = display;
 
         addTextChangedListener(new TextWatcher() {
             boolean updating = false;
@@ -88,13 +100,6 @@ public class CalculatorEditText extends EditText {
                     setSelection(1);
                 }
                 updating = false;
-            }
-        });
-
-        setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) display.mActiveEditText = CalculatorEditText.this;
             }
         });
     }
@@ -164,11 +169,12 @@ public class CalculatorEditText extends EditText {
         final CalculatorEditText et = new CalculatorEditText(parent);
         et.setText(text);
         et.setSelection(0);
-        et.setKeyListener(parent.mKeyListener);
-        et.setEditableFactory(parent.mFactory);
+        if(parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
+        if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
         et.setBackgroundResource(android.R.color.transparent);
         et.setTextAppearance(parent.getContext(), R.style.display_style);
         et.setPadding(5, 0, 5, 0);
+        et.setEnabled(parent.isEnabled());
         parent.addView(et, pos);
         return "";
     }
