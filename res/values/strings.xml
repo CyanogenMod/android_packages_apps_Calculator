@@ -163,8 +163,8 @@
     <string name="minus_row">-Row</string>
     <string name="plus_col">+Col</string>
     <string name="minus_col">-Col</string>
-    <string name="matrix_new">[ ]</string>
-    <string name="matrix_inverse">-1</string>
+    <string name="matrix_new" translatable="false">[ ]</string>
+    <string name="matrix_inverse" translatable="false">-1</string>
     <string name="matrix_transpose">T</string>
     <string name="next">Next</string>
 
@@ -194,5 +194,4 @@
     <string name="cling_hex_msg">Change between decimal (dec), binary (bin), and hexadecimal (hex).\n\nIf the calculator starts giving wrong results, make sure decimal is selected.</string>
     <string name="cling_graph_title">Graph</string>
     <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
-    <string name="cling_dismiss">OK</string>
-    <add-resource type="string" name="default_folder_name" /></resources>
+    <string name="cling_dismiss">OK</string></resources>

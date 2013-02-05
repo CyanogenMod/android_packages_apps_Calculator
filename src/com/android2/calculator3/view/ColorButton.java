@@ -127,17 +127,27 @@ class ColorButton extends Button {
         if(hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
             int offsetX = LogicalDensity.convertDpToPixel(10, getContext());
-            int offsetY = LogicalDensity.convertDpToPixel(20, getContext());
+            int offsetY = (int) (LogicalDensity.convertDpToPixel(20, getContext()) + (mTextY - LogicalDensity.convertDpToPixel(20, getContext()) - getTextHeight(
+                    mHintPaint, hint.toString())) / 2);
             for(String str : exponents) {
                 canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
-                mHintPaint.getTextBounds(str, 0, str.length(), bounds);
                 offsetY += LogicalDensity.convertDpToPixel(6, getContext());
-                offsetX += bounds.width();
+                offsetX += mHintPaint.measureText(str);
             }
         }
 
         CharSequence text = getText();
         canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
+    }
+
+    private int getTextHeight(Paint paint, String text) {
+        mHintPaint.getTextBounds(text, 0, text.length(), bounds);
+        int height = bounds.height();
+        String[] exponents = text.split(Pattern.quote("^"));
+        for(int i = 1; i < exponents.length; i++) {
+            height += LogicalDensity.convertDpToPixel(6, getContext());
+        }
+        return height;
     }
 
     public void animateClickFeedback() {
