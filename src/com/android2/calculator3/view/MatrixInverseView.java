@@ -19,10 +19,6 @@ package com.android2.calculator3.view;
 import android.content.Context;
 import android.text.Html;
 import android.text.InputType;
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.widget.TextView;
 
 import com.android2.calculator3.MutableString;
@@ -38,41 +34,10 @@ public class MatrixInverseView extends TextView {
 
     public MatrixInverseView(final AdvancedDisplay display) {
         super(display.getContext());
-        setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         setText(Html.fromHtml("<sup><small>-1</small></sup>"));
         setTextAppearance(display.getContext(), R.style.display_style);
         setPadding(0, 0, 0, 0);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(event.getActionMasked() == MotionEvent.ACTION_UP) {
-            // Hack to prevent keyboard and insertion handle from showing.
-            cancelLongPress();
-        }
-        return super.onTouchEvent(event);
-    }
-
-    class NoTextSelectionMode implements ActionMode.Callback {
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            return false;
-        }
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            // Prevents the selection action mode on double tap.
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {}
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
     }
 
     @Override
