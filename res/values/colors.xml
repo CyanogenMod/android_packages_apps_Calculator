@@ -22,4 +22,5 @@
     <color name="history_result">#999999</color>
     <color name="background">#FF000000</color>
     <color name="grey">#474747</color>
+    <color name="graph_color">#31B6E7</color>
 </resources>

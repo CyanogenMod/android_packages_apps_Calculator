@@ -139,7 +139,7 @@ public class Graph {
         renderer.setZoomButtonsVisible(false);
         renderer.setExternalZoomEnabled(true);
         XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(Color.CYAN);
+        r.setColor(context.getResources().getColor(R.color.graph_color));
         r.setPointStyle(PointStyle.POINT);
         r.setLineWidth(4f);
         renderer.addSeriesRenderer(r);
