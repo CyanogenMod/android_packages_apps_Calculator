@@ -240,11 +240,18 @@ public class Logic {
         }
     }
 
-    public void evaluateAndShowResult(String text, Scroll scroll) {
+    private boolean displayContainsMatrices() {
         boolean containsMatrices = false;
         for(int i = 0; i < mDisplay.getAdvancedDisplay().getChildCount(); i++) {
             if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixView) containsMatrices = true;
+            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixInverseView) containsMatrices = true;
+            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixTransposeView) containsMatrices = true;
         }
+        return containsMatrices;
+    }
+
+    public void evaluateAndShowResult(String text, Scroll scroll) {
+        boolean containsMatrices = displayContainsMatrices();
         try {
             String result;
             if(containsMatrices) result = evaluateMatrices(mDisplay.getAdvancedDisplay());
@@ -483,7 +490,7 @@ public class Logic {
             return;
         }
 
-        if(isOperator(eq.charAt(eq.length() - 1))) return;
+        if(isOperator(eq.charAt(eq.length() - 1)) || displayContainsMatrices()) return;
 
         final String[] equation = eq.split("=");
 
