@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -65,6 +66,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private View mOverflowMenuButton;
     private Slider mPulldown;
     private Graph mGraph;
+
+    private EquationFormatter mEquationFormatter;
 
     private boolean clingActive = false;
     private Direction previousDirection = Direction.DOWN;
@@ -126,6 +129,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mPager = (CalculatorViewPager) findViewById(R.id.panelswitch);
         mSmallPager = (CalculatorViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (CalculatorViewPager) findViewById(R.id.largePanelswitch);
+
+        mEquationFormatter = new EquationFormatter();
 
         if(mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
@@ -481,7 +486,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 entry.setHistoryEntry(he);
                 entry.setHistory(mHistory);
                 TextView base = (TextView) entry.findViewById(R.id.base);
-                base.setText(he.getBase());
+                base.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(he.getBase())));
                 TextView edited = (TextView) entry.findViewById(R.id.edited);
                 edited.setText(he.getEdited());
                 mHistoryView.addView(entry);

@@ -18,8 +18,8 @@
     <color name="magic_flame">#00FFFFFF</color>
     <color name="button_text">#FFFFFFFF</color>
     <color name="pressed_color">#07547B</color>
-    <color name="history_input">#E6E6E6</color>
-    <color name="history_result">#999999</color>
+    <color name="history_input">#999999</color>
+    <color name="history_result">#E6E6E6</color>
     <color name="background">#FF000000</color>
     <color name="grey">#474747</color>
     <color name="graph_color">#31B6E7</color>
