@@ -32,7 +32,7 @@
     <dimen name="cling_text_block_offset_y">0dp</dimen>
 
     <style name="button_style">
-       <item name="android:textSize">40dp</item>
+       <item name="android:textSize">40sp</item>
        <item name="android:layout_width">match_parent</item>
        <item name="android:layout_height">match_parent</item>
        <item name="android:layout_weight">1</item>
@@ -46,7 +46,7 @@
     </style>
 
     <style name="button_small_style" parent="button_style">
-       <item name="android:textSize">30dp</item>
+       <item name="android:textSize">30sp</item>
     </style>
 
     <style name="display_style">
