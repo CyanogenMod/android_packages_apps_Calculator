@@ -52,8 +52,7 @@
         </LinearLayout>
         <RelativeLayout 
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="11.5" >
+            android:layout_height="match_parent" >
             <com.android2.calculator3.view.CalculatorViewPager
                  android:id="@+id/panelswitch"
                  android:layout_width="match_parent"

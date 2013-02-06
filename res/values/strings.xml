@@ -186,7 +186,7 @@
     <string name="trigUnits">Trig Units</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
-    
+
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>
     <string name="cling_simple_msg">Slide left and right to access more content. Unncessary pages can be disabled in the settings.</string>
@@ -196,4 +196,6 @@
     <string name="cling_hex_msg">Change between decimal (dec), binary (bin), and hexadecimal (hex).\n\nIf the calculator starts giving wrong results, make sure decimal is selected.</string>
     <string name="cling_graph_title">Graph</string>
     <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
-    <string name="cling_dismiss">OK</string></resources>
+    <string name="cling_dismiss">OK</string>
+
+    <string name="easter_egg">Magikarp used splash but nothing happened.</string></resources>

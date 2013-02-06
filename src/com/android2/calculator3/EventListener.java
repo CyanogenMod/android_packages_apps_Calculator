@@ -230,7 +230,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.easter:
-            Toast.makeText(mContext, "Magikarp used splash but nothing happened.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.easter_egg, Toast.LENGTH_SHORT).show();
             break;
 
         default:

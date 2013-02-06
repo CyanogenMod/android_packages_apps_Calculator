@@ -22,6 +22,6 @@
     <item type="bool" name="BASIC">true</item>
     <item type="bool" name="ADVANCED">true</item>
     <item type="bool" name="MATRIX">true</item>
-    <item type="bool" name="RETURN_TO_BASIC">true</item>
+    <item type="bool" name="RETURN_TO_BASIC">false</item>
     <item type="bool" name="USE_RADIANS">true</item>
 </resources>
