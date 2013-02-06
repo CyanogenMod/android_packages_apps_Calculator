@@ -8,10 +8,15 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.HorizontalScrollView;
 
+import com.android2.calculator3.R;
+
 public class ScrollableDisplay extends HorizontalScrollView implements OnLongClickListener {
+    private int mMaxHeight;
+
     public ScrollableDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         addView(new AdvancedDisplay(context));
+        setMaxHeight((int) getContext().getResources().getDimension(R.dimen.max_display_height));
         setOnLongClickListener(this);
     }
 
@@ -28,6 +33,20 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
     public boolean onTouchEvent(MotionEvent ev) {
         super.onTouchEvent(ev);
         return false;
+    }
+
+    public void setMaxHeight(int maxHeight) {
+        mMaxHeight = maxHeight;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int width = getMeasuredWidth();
+        int height = Math.min(getMeasuredHeight(), mMaxHeight);
+
+        setMeasuredDimension(width, height);
     }
 
     private int getScrollRange() {
