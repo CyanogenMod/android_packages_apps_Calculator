@@ -1,6 +1,7 @@
 package com.android2.calculator3.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -14,9 +15,15 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
     private int mMaxHeight;
 
     public ScrollableDisplay(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public ScrollableDisplay(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ScrollableDisplay, defStyle, 0);
+        setMaxHeight(a.getDimensionPixelSize(R.styleable.ScrollableDisplay_max_height, -1));
+        a.recycle();
         addView(new AdvancedDisplay(context));
-        setMaxHeight((int) getContext().getResources().getDimension(R.dimen.max_display_height));
         setOnLongClickListener(this);
     }
 
@@ -43,10 +50,12 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int width = getMeasuredWidth();
-        int height = Math.min(getMeasuredHeight(), mMaxHeight);
+        if(mMaxHeight != -1) {
+            int width = getMeasuredWidth();
+            int height = Math.min(getMeasuredHeight(), mMaxHeight);
 
-        setMeasuredDimension(width, height);
+            setMeasuredDimension(width, height);
+        }
     }
 
     private int getScrollRange() {
