@@ -6,6 +6,7 @@ import org.ejml.simple.SimpleMatrix;
 import org.javia.arity.SyntaxException;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -242,6 +243,9 @@ public class MatrixView extends TableLayout {
                 order++;
             }
         }
+        AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_VERTICAL;
+        mv.setLayoutParams(params);
         parent.addView(mv, pos);
 
         return true;

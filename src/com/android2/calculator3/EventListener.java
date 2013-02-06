@@ -81,6 +81,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     @Override
     public void onClick(View view) {
         View v;
+        EditText active;
         int id = view.getId();
         switch(id) {
         case R.id.del:
@@ -159,7 +160,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.next:
-            EditText active = mHandler.mDisplay.getActiveEditText();
+            active = mHandler.mDisplay.getActiveEditText();
             if(active.getSelectionStart() == active.getText().length()) {
                 v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_FORWARD);
                 if(v != null) v.requestFocus();
@@ -168,6 +169,24 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             }
             else {
                 active.setSelection(active.getSelectionStart() + 1);
+            }
+            break;
+
+        case R.id.sign:
+            active = mHandler.mDisplay.getActiveEditText();
+            int selection = active.getSelectionStart();
+            if(active.getText().toString().matches(Logic.DECIMAL_NUMBER)) {
+                if(active.getText().toString().startsWith(String.valueOf(Logic.MINUS))) {
+                    active.setText(active.getText().toString().substring(1));
+                    selection--;
+                }
+                else {
+                    active.setText(Logic.MINUS + active.getText().toString());
+                    selection++;
+                }
+                if(selection > active.length()) selection--;
+                if(selection < 0) selection = 0;
+                active.setSelection(selection);
             }
             break;
 
@@ -208,6 +227,10 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 }
             }
             returnToBasic();
+            break;
+
+        case R.id.easter:
+            Toast.makeText(mContext, "Magikarp used splash but nothing happened.", Toast.LENGTH_SHORT).show();
             break;
 
         default:

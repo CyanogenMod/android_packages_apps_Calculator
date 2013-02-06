@@ -29,7 +29,7 @@ public class PageAdapter extends PagerAdapter {
 
     private int count = 0;
 
-    public PageAdapter(CalculatorViewPager parent, Graph graph, Logic logic) {
+    public PageAdapter(CalculatorViewPager parent, Calculator calculator, Graph graph, Logic logic) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final View graphPage = inflater.inflate(R.layout.graph_pad, parent, false);
         final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
@@ -59,6 +59,12 @@ public class PageAdapter extends PagerAdapter {
         case HEXADECIMAL:
             mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
             break;
+        }
+
+        View easterEgg = mMatrixPage.findViewById(R.id.easter);
+        if(easterEgg != null) {
+            easterEgg.setOnClickListener(calculator.mListener);
+            easterEgg.setOnLongClickListener(calculator.mListener);
         }
     }
 

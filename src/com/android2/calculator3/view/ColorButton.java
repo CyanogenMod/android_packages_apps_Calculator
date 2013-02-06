@@ -127,7 +127,8 @@ class ColorButton extends Button {
         if(hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
             int offsetX = LogicalDensity.convertDpToPixel(10, getContext());
-            int offsetY = (int) ((mTextY + LogicalDensity.convertDpToPixel(20, getContext()) - getTextHeight(mHintPaint, hint.toString())) / 2);
+            int offsetY = (int) ((mTextY + LogicalDensity.convertDpToPixel(20, getContext()) - getTextHeight(mHintPaint, hint.toString())) / 2)
+                    - getPaddingTop();
 
             float textWidth = mHintPaint.measureText(hint.toString());
             float width = getWidth() - getPaddingLeft() - getPaddingRight() - mTextX - offsetX;

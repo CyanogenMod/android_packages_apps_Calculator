@@ -26,9 +26,11 @@ import android.text.Html;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.ActionMode;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -175,6 +177,9 @@ public class CalculatorEditText extends EditText {
         et.setTextAppearance(parent.getContext(), R.style.display_style);
         et.setPadding(5, 0, 5, 0);
         et.setEnabled(parent.isEnabled());
+        AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_VERTICAL;
+        et.setLayoutParams(params);
         parent.addView(et, pos);
         return "";
     }

@@ -43,6 +43,7 @@ import com.android2.calculator3.view.MatrixView;
 public class Logic {
     private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
     private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
+    public static final String DECIMAL_NUMBER = "[" + Logic.MINUS + "-]?\\d+(\\.\\d*)?";
     public static final String INFINITY_UNICODE = "\u221e";
     // Double.toString() for Infinity
     public static final String INFINITY = "Infinity";

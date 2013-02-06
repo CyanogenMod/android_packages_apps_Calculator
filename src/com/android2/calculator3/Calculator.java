@@ -181,7 +181,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mGraph = new Graph(mLogic);
 
         if(mPager != null) {
-            mPager.setAdapter(new PageAdapter(mPager, mGraph, mLogic));
+            mPager.setAdapter(new PageAdapter(mPager, this, mGraph, mLogic));
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
             mPager.setOnPageChangeListener(this);
             runCling(false);

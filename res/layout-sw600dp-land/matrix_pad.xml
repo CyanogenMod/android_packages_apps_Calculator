@@ -22,19 +22,28 @@
               android:id="@+id/simplePad"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:layout_gravity="center"
-              >
-
+              android:orientation="vertical" >
     <LinearLayout
         android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <com.android2.calculator3.view.ColorButton
-            android:id="@+id/matrix"
-            android:text="@string/matrix_new"
-            style="@style/button_style"
-            />
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@android:color/transparent"
+            style="@style/digit_button_style" >
+	        <com.android2.calculator3.view.ColorButton
+	            android:id="@+id/matrix_transpose"
+	            android:text="@string/matrix_transpose"
+                android:textSize="25sp"
+	            style="@style/button_style"
+	            />
+	        <com.android2.calculator3.view.ColorButton
+	            android:id="@+id/matrix_inverse"
+	            android:text="@string/matrix_inverse"
+                android:textSize="25sp"
+	            style="@style/button_style"
+	            />
+        </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:background="@android:color/transparent"
@@ -70,8 +79,8 @@
                 />
         </LinearLayout>
         <com.android2.calculator3.view.ColorButton
-            android:id="@+id/matrix_transpose"
-            android:text="@string/matrix_transpose"
+            android:id="@+id/matrix"
+            android:text="@string/matrix_new"
             style="@style/button_style"
             />
     </LinearLayout>
@@ -96,8 +105,8 @@
             style="@style/digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
-            android:id="@+id/matrix_inverse"
-            android:text="@string/matrix_inverse"
+            android:id="@+id/mul"
+            android:text="@string/mul"
             style="@style/button_style"
             />
     </LinearLayout>
@@ -123,8 +132,8 @@
             style="@style/digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
-            android:id="@+id/mul"
-            android:text="@string/mul"
+            android:id="@+id/plus"
+            android:text="@string/plus"
             style="@style/button_style"
             />
     </LinearLayout>
@@ -150,8 +159,9 @@
             style="@style/digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
-            android:id="@+id/plus"
-            android:text="@string/plus"
+            android:id="@+id/next"
+            android:text="@string/next"
+            android:padding="20dp"
             style="@style/button_style"
             />
     </LinearLayout>
@@ -172,14 +182,13 @@
             style="@style/digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
-            android:id="@+id/equal"
-            android:text="@string/equal"
-            style="@style/button_style"
+            android:id="@+id/sign"
+            android:text="@string/sign"
+            style="@style/digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
-            android:id="@+id/next"
-            android:text="@string/next"
-            android:padding="20dp"
+            android:id="@+id/equal"
+            android:text="@string/equal"
             style="@style/button_style"
             />
     </LinearLayout>

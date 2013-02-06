@@ -16,9 +16,6 @@
 
 package com.android2.calculator3.view;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.content.Context;
 import android.text.Editable;
 import android.text.InputType;
@@ -75,19 +72,8 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
             for(int i = start; i < end; i++) {
-                String checkMe = String.valueOf(source.charAt(i));
-
-                Pattern pattern;
-                if(getText().toString().contains(".")) {
-                    pattern = Pattern.compile("[0123456789]");
-                }
-                else {
-                    pattern = Pattern.compile("[0123456789\\.]");
-                }
-                Matcher matcher = pattern.matcher(checkMe);
-                boolean valid = matcher.matches();
-                if(i == 0 && dstart == 0 && (checkMe.charAt(0) == '\u2212' || checkMe.equals("-"))) valid = true;
-                if(!valid) {
+                String text = dest.toString().substring(0, dstart) + source.toString() + dest.toString().substring(dend);
+                if(!text.matches(Logic.DECIMAL_NUMBER)) {
                     return "";
                 }
             }
