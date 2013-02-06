@@ -95,12 +95,7 @@ public class CalculatorEditText extends EditText {
                 updating = true;
                 int selectionHandle = getSelectionStart();
                 setText(Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
-                try {
-                    setSelection(selectionHandle);
-                }
-                catch(IndexOutOfBoundsException e) {
-                    setSelection(1);
-                }
+                setSelection(Math.min(selectionHandle, getText().length()));
                 updating = false;
             }
         });
