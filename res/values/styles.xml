@@ -13,15 +13,35 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:calculator="http://schemas.android.com/apk/res/com.android.calculator2">
     <dimen name="btn_digit_text_size">40sp</dimen>
     <dimen name="btn_operation_text_size">40sp</dimen>
     <dimen name="btn_function_text_size">30sp</dimen>
     <dimen name="btn_clear_text_size">30sp</dimen>
-    <dimen name="display_text_size">30sp</dimen>
+    <dimen name="display_text_size">40sp</dimen>
+    <dimen name="small_display_text_size">20sp</dimen>
+    <dimen name="min_display_height">100dp</dimen>
+    <dimen name="max_display_height">200dp</dimen>
+    <dimen name="history_bar_height">25dp</dimen>
+    <dimen name="matrix_edit_text_padding">17dp</dimen>
+    <dimen name="button_hint_offset_x">10dp</dimen>
+    <dimen name="button_hint_offset_y">20dp</dimen>
+    <dimen name="button_hint_exponent_jump">10dp</dimen>
+    <dimen name="app_defaultsize_w">632.0dip</dimen>
+    <dimen name="app_defaultsize_h">598.0dip</dimen>
+    <dimen name="app_minimumsize_w">300dp</dimen>
+    <dimen name="app_minimumsize_h">300dp</dimen>
+
+    <!-- Cling -->
+    <dimen name="clingPunchThroughGraphicCenterRadius">94dp</dimen>
+    <dimen name="folderClingMarginTop">20dp</dimen>
+    <!-- The offset for the text in the cling -->
+    <dimen name="cling_text_block_offset_x">0dp</dimen>
+    <dimen name="cling_text_block_offset_y">0dp</dimen>
 
     <style name="button_style">
-       <item name="android:textSize">40dp</item>
+       <item name="android:textSize">40sp</item>
        <item name="android:layout_width">match_parent</item>
        <item name="android:layout_height">match_parent</item>
        <item name="android:layout_weight">1</item>
@@ -35,7 +55,11 @@
     </style>
 
     <style name="button_small_style" parent="button_style">
-       <item name="android:textSize">30dp</item>
+       <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="button_half_style" parent="button_style">
+       <item name="android:textSize">25sp</item>
     </style>
 
     <style name="display_style">
@@ -51,7 +75,8 @@
        <item name="android:paddingTop">8dp</item>
        <item name="android:paddingLeft">8dp</item>
        <item name="android:paddingRight">8dp</item>
-       <item name="android:paddingBottom">0dp</item>
+       <item name="android:paddingBottom">8dp</item>
+       <item name="max_height">@dimen/max_display_height</item>
     </style>
 
     <style name="btn_row_style">
@@ -90,5 +115,37 @@
     <style name="btn_clear">
        <item name="android:background">?android:attr/selectableItemBackground</item>
        <item name="android:textSize">@dimen/btn_clear_text_size</item>
+    </style>
+
+    <style name="ClingButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingLeft">35dp</item>
+        <item name="android:paddingRight">35dp</item>
+        <item name="android:text">@string/cling_dismiss</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/cling_button_bg</item>
+    </style>
+
+    <style name="ClingTitleText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">#49C0EC</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">2.0</item>
+    </style>
+
+    <style name="ClingText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">2.0</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
     </style>
 </resources>
