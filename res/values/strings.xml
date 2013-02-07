@@ -20,37 +20,37 @@
     <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
     <string name="error">Error</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit0">0</string>
+    <string name="digit0" translatable="false">0</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit1">1</string>
+    <string name="digit1" translatable="false">1</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit2">2</string>
+    <string name="digit2" translatable="false">2</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit3">3</string>
+    <string name="digit3" translatable="false">3</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit4">4</string>
+    <string name="digit4" translatable="false">4</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit5">5</string>
+    <string name="digit5" translatable="false">5</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit6">6</string>
+    <string name="digit6" translatable="false">6</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit7">7</string>
+    <string name="digit7" translatable="false">7</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit8">8</string>
+    <string name="digit8" translatable="false">8</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit9">9</string>
+    <string name="digit9" translatable="false">9</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="A">A</string>
+    <string name="A" translatable="false">A</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="B">B</string>
+    <string name="B" translatable="false">B</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="C">C</string>
+    <string name="C" translatable="false">C</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="D">D</string>
+    <string name="D" translatable="false">D</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="E">E</string>
+    <string name="E" translatable="false">E</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="F">F</string>
+    <string name="F" translatable="false">F</string>
     <!-- Displayed letters for the variable digit buttons -->
     <string name="X">X</string>
     <!-- Displayed letters for the variable digit buttons -->

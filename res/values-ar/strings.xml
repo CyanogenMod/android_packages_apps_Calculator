@@ -18,38 +18,6 @@
     <string name="app_name">آلة حاسبة</string>
     <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
     <string name="error">خطأ</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit0">0</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit1">1</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit2">2</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit3">3</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit4">4</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit5">5</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit6">6</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit7">7</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit8">8</string>
-    <!-- Displayed numbers for the digit buttons -->
-    <string name="digit9">9</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="A">A</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="B">B</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="C">C</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="D">D</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="E">E</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="F">F</string>
     <!-- Displayed letters for the variable digit buttons -->
     <string name="X">X</string>
     <!-- Displayed letters for the variable digit buttons -->
@@ -58,8 +26,6 @@
     <string name="del">حذف</string>
     <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6] -->
     <string name="clear">محو</string>
-    <!-- Do not translate. Decimal point; don't translate. Displayed as button on screen. -->
-    <string name="dot">.</string>
     <!-- Displayed on buttons on screen for the sin function. -->
     <string name="sin">sin</string>
     <!-- Displayed on buttons on screen for the cos function. -->

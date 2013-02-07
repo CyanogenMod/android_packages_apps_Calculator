@@ -140,6 +140,7 @@ public class AdvancedDisplay extends LinearLayout {
     public void setText(String text) {
         clear();
         CalculatorEditText.load(this);
+        getLastView().requestFocus();
         final MutableString ms = new MutableString(text);
         while(!ms.isEmpty()) {
             if(MatrixView.load(ms, this)) continue;
