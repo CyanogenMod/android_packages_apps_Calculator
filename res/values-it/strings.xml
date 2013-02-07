@@ -28,8 +28,17 @@
     <string name="digit7" msgid="658125644218958447">"7"</string>
     <string name="digit8" msgid="3134686906411558886">"8"</string>
     <string name="digit9" msgid="765379157698748031">"9"</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
     <string name="del" msgid="6248896117422989693">"ELIMINA"</string>
     <string name="clear" msgid="8103610981407459768">"CANC"</string>
+    <string name="dot">.</string>
     <string name="sin" msgid="6793866152659175277">"sin"</string>
     <string name="cos" msgid="6901841853098114414">"cos"</string>
     <string name="tan" msgid="7957459816738554960">"tan"</string>
@@ -44,6 +53,10 @@
     <string name="hexPanel">Pannello esadecimale</string>
     <string name="clear_history" msgid="8458043980601165012">"Cancella cronologia"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Testo copiato."</string>
+    <string name="copy">Copia \"%s\"</string>
+    <string name="remove_from_history">Rimuovi dalla cronologia</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
     <string name="solveForX">Risolvi in X</string>
     <string name="solveForY">Risolvi in Y</string>
     <string name="mod">mod</string>
@@ -66,4 +79,5 @@
     <string name="settings">Impostazioni</string>
     <string name="showHistory">Mostra cronologia</string>
     <string name="hideHistory">Nascondi cronologia</string>
+    <string name="returnToBasic">Ritorna al pannello base</string>
 </resources>
