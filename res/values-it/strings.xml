@@ -23,7 +23,15 @@
     <string name="sin" msgid="6793866152659175277">"sin"</string>
     <string name="cos" msgid="6901841853098114414">"cos"</string>
     <string name="tan" msgid="7957459816738554960">"tan"</string>
+    <string name="arcsin">sin^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
     <string name="e" msgid="1377847800971731483">"e"</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Risolvi in X</string>
+    <string name="solveForY">Risolvi in Y</string>
+    <string name="mod">mod</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
     <string name="basic" msgid="7691469861698059753">"Pannello base"</string>
@@ -34,26 +42,46 @@
     <string name="hexPanel">Pannello esadecimale</string>
     <string name="clear_history" msgid="8458043980601165012">"Cancella cronologia"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Testo copiato."</string>
-    <string name="solveForX">Risolvi in X</string>
-    <string name="solveForY">Risolvi in Y</string>
-    <string name="mod">mod</string>
-    <string name="defaultGraphTitle">Funzione</string>
-    <string name="graphTitle">Funzione: </string>
-    <string name="inverse">Inv</string>
+    <string name="copy">Copia \"%s\"</string>
+    <string name="remove_from_history">Rimuovi dalla cronologia</string>
+    <string name="showHistory">Mostra cronologia</string>
+    <string name="hideHistory">Nascondi cronologia</string>
+    <string name="settings">Impostazioni</string>
     <string name="determinant">Det.</string>
     <string name="eigenvalue">Autov.</string>
     <string name="solve">Risolvi</string>
     <string name="dotProduct">Scal.</string>
     <string name="crossProduct">Vett.</string>
+    <string name="determinantDesc">Determinante</string>
+    <string name="eigenvalueDesc">Autovalori</string>
+    <string name="plus_row">+Righe</string>
+    <string name="minus_row">-Righe</string>
+    <string name="plus_col">+Col.</string>
+    <string name="minus_col">-Col.</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Prossimo</string>
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
     <string name="hexDesc">Esadecimale</string>
     <string name="binDesc">Binario</string>
     <string name="decDesc">Decimale</string>
-    <string name="determinantDesc">Determinante</string>
-    <string name="eigenvalueDesc">Autovalori</string>
-    <string name="settings">Impostazioni</string>
-    <string name="showHistory">Mostra cronologia</string>
-    <string name="hideHistory">Nascondi cronologia</string>
+    <string name="pref_panels">Panneli</string>
+    <string name="pref_actions">Azioni</string>
+    <string name="pref_units">Unità</string>
+    <string name="pref_application">Applicazione</string>
+    <string name="returnToBasic">Ritorna al pannello base</string>
+    <string name="trigUnits">Unità trigonometriche</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+    <string name="cling_simple_title">Benvenuto</string>
+    <string name="cling_simple_msg">Scorrere verso sinistra e verso destra per accedere a più contenuti. Le pagine non necessarie possono essere disattivate nelle impostazioni.</string>
+    <string name="cling_matrix_title">Matrici</string>
+    <string name="cling_matrix_msg">Toccare qui per iniziare a costruire e risolvere matrici.</string>
+    <string name="cling_hex_title">Cambia basi</string>
+    <string name="cling_hex_msg">Passaggio tra decimale (dec), binario (bin), e esadecimale (hex).\n\nAttenzione:Se pensi di ottenere risultati errati, probabilmente sei nella base sbagliata. Il valore predefinito è decimale.</string>
+    <string name="cling_graph_title">Grafico</string>
+    <string name="cling_graph_msg">I grafici verranno automaticamente visualizzati qui. Andate al pannello avanzato e costruire una funzione che utilizza X e Y.</string>
+    <string name="cling_dismiss">OK</string>
+    <string name="easter_egg">Magikarp usa Splash ma non succede nulla!</string>
 </resources>
