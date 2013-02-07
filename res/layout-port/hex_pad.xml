@@ -31,17 +31,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/A"
             android:text="@string/A"
             style="@style/digit_button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/B"
             android:text="@string/B"
             style="@style/digit_button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/C"
             android:text="@string/C"
             style="@style/digit_button_style"
@@ -53,17 +53,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/D"
             android:text="@string/D"
             style="@style/digit_button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/E"
             android:text="@string/E"
             style="@style/digit_button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/F"
             android:text="@string/F"
             style="@style/digit_button_style"
@@ -75,19 +75,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/dec"
             android:text="@string/dec"
+            android:tag="@string/decDesc"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/bin"
             android:text="@string/bin"
+            android:tag="@string/binDesc"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/hex"
             android:text="@string/hex"
+            android:tag="@string/hexDesc"
             style="@style/button_style"
             />
     </LinearLayout>
