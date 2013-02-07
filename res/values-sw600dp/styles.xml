@@ -13,14 +13,25 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <dimen name="btn_digit_text_size">50sp</dimen>
     <dimen name="btn_operation_text_size">50sp</dimen>
     <dimen name="btn_function_text_size">25sp</dimen>
     <dimen name="btn_clear_text_size">40sp</dimen>
     <dimen name="display_text_size">60sp</dimen>
-
+    <dimen name="small_display_text_size">30sp</dimen>
+    <dimen name="min_display_height">130dp</dimen>
+    <dimen name="max_display_height">260dp</dimen>
     <dimen name="left_right_padding">16sp</dimen>
     <dimen name="top_bottom_padding">16sp</dimen>
     <dimen name="group_padding">16sp</dimen>
+
+    <style name="button_hint_style">
+       <item name="android:textSize">17sp</item>
+       <item name="android:layout_width">wrap_content</item>
+       <item name="android:layout_height">wrap_content</item>
+       <item name="android:paddingRight">4dp</item>
+       <item name="android:paddingTop">5dp</item>
+       <item name="android:textColor">@color/grey</item>
+    </style>
 </resources>
