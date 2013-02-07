@@ -31,17 +31,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/parentheses"
             android:text="@string/parentheses"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/mod"
             android:text="@string/mod"
             style="@style/button_small_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/coma"
             android:text="@string/coma"
             style="@style/button_style"
@@ -53,14 +53,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/solveForX"
             android:text="@string/solveForX"
             android:textSize="26dp"
             android:layout_weight="1"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"
             android:layout_weight="2"
@@ -73,14 +73,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/solveForY"
             android:text="@string/solveForY"
             android:textSize="26dp"
             android:layout_weight="1"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/Y"
             android:text="@string/Y"
             android:layout_weight="2"
@@ -93,17 +93,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/integral"
             android:text="@string/integral"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/dx"
             android:text="@string/dx"
             style="@style/button_style"
             />
-        <com.android.calculator2.ColorButton
+        <com.android.calculator2.view.ColorButton
             android:id="@+id/dy"
             android:text="@string/dy"
             style="@style/button_style"

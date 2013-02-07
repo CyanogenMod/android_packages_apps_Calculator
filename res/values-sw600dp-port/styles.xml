@@ -15,4 +15,6 @@
 -->
 <resources>
     <dimen name="group_padding">48sp</dimen>
+    <dimen name="barHeight">25dp</dimen>
+    <integer name="barHeight">25</integer>
 </resources>

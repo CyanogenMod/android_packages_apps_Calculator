@@ -10,12 +10,14 @@
             android:textColor="@color/pressed_color"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:padding="8dp" />
+            android:paddingRight="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
 
         <!--  Include preferences -->
         <fragment
             android:id="@+id/preferences"
-            android:name="com.android.calculator2.PreferencesFragment"
+            android:name="com.android.calculator2.view.PreferencesFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/version" />
