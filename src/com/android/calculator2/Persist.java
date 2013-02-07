@@ -16,18 +16,18 @@
 
 package com.android.calculator2;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-
-import com.android.calculator2.Logic.Mode;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import android.content.Context;
+
+import com.android.calculator2.Logic.Mode;
 
 class Persist {
     private static final int LAST_VERSION = 3;
@@ -49,7 +49,7 @@ class Persist {
     public int getDeleteMode() {
         return mDeleteMode;
     }
-    
+
     public void setMode(Mode mode) {
         this.mode = mode;
     }
@@ -63,12 +63,12 @@ class Persist {
             InputStream is = new BufferedInputStream(mContext.openFileInput(FILE_NAME), 8192);
             DataInputStream in = new DataInputStream(is);
             int version = in.readInt();
-            if (version > LAST_VERSION) {
+            if(version > LAST_VERSION) {
                 throw new IOException("data version " + version + "; expected " + LAST_VERSION);
             }
-            if (version > 1) {
+            if(version > 1) {
                 mDeleteMode = in.readInt();
-            } 
+            }
             if(version > 2) {
                 int quickSerializable = in.readInt();
                 for(Mode m : Mode.values()) {
@@ -77,10 +77,12 @@ class Persist {
             }
             history = new History(version, in);
             in.close();
-        } catch (FileNotFoundException e) {
-            Calculator.log("" + e);
-        } catch (IOException e) {
-            Calculator.log("" + e);
+        }
+        catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -93,8 +95,9 @@ class Persist {
             out.writeInt(mode.quickSerializable);
             history.write(out);
             out.close();
-        } catch (IOException e) {
-            Calculator.log("" + e);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
         }
     }
 }

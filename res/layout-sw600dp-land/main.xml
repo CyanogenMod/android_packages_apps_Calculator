@@ -16,25 +16,24 @@
  * limitations under the License.
  */
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    android:paddingLeft="@dimen/left_right_padding"
-    android:paddingRight="@dimen/left_right_padding" >
-
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/transparent">
-
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:paddingLeft="@dimen/left_right_padding"
+        android:paddingRight="@dimen/left_right_padding" >
+    
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.android.calculator2.CalculatorDisplay
+            android:minHeight="@dimen/min_display_height"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal">
+            <com.android.calculator2.view.CalculatorDisplay
                 android:id="@+id/display"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -42,12 +41,12 @@
                 maxDigits="@integer/max_digits"
                 >
     
-                <com.android.calculator2.CalculatorEditText
+                <com.android.calculator2.view.ScrollableDisplay
                     style="@style/display_style" />
-                <com.android.calculator2.CalculatorEditText
+                <com.android.calculator2.view.ScrollableDisplay
                     style="@style/display_style" />
     
-            </com.android.calculator2.CalculatorDisplay>
+            </com.android.calculator2.view.CalculatorDisplay>
             <ImageButton android:id="@+id/overflow_menu"
                 android:layout_width="48dip"
                 android:layout_height="match_parent"
@@ -78,42 +77,60 @@
                     android:contentDescription="@null" />
             </FrameLayout>
         </LinearLayout>
-        <include layout="@layout/history_panel"/>
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="4">
-        
-        <com.xlythe.slider.Slider
-             android:id="@+id/pulldown"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/background"
-             android:scrollbarThumbHorizontal="@drawable/btn_function" >
-            <include layout="@layout/history_panel" />
-        </com.xlythe.slider.Slider>
-    
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/barHeight">
-    
-            <com.android.calculator2.CalculatorViewPager
-                 android:id="@+id/smallPanelswitch"
-                 android:layout_width="0dip"
+            android:layout_height="match_parent">
+            
+            <com.xlythe.slider.Slider
+                 android:id="@+id/pulldown"
+                 android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 android:layout_weight="3"
-                 android:layout_marginRight="@dimen/group_padding"
-                 />
+                 android:background="@color/background"
+                 android:scrollbarThumbHorizontal="@drawable/btn_function" >
+                <include layout="@layout/history_panel" />
+            </com.xlythe.slider.Slider>
         
-            <com.android.calculator2.CalculatorViewPager
-                 android:id="@+id/largePanelswitch"
-                 android:layout_width="0dip"
-                 android:layout_height="match_parent"
-                 android:layout_weight="5"
-                 />
-        </LinearLayout>
-    </RelativeLayout>
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/history_bar_height">
+        
+                <com.android.calculator2.view.CalculatorViewPager
+                     android:id="@+id/smallPanelswitch"
+                     android:layout_width="0dip"
+                     android:layout_height="match_parent"
+                     android:layout_weight="3"
+                     android:layout_marginRight="@dimen/group_padding"
+                     />
+            
+                <com.android.calculator2.view.CalculatorViewPager
+                     android:id="@+id/largePanelswitch"
+                     android:layout_width="0dip"
+                     android:layout_height="match_parent"
+                     android:layout_weight="5"
+                     />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <include layout="@layout/simple_cling"
+        android:id="@+id/simple_cling"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+    <include layout="@layout/matrix_cling"
+        android:id="@+id/matrix_cling"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+    <include layout="@layout/hex_cling"
+        android:id="@+id/hex_cling"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+    <include layout="@layout/graph_cling"
+        android:id="@+id/graph_cling"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+</RelativeLayout>

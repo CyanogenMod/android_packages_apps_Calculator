@@ -15,4 +15,5 @@
 -->
 <resources>
     <dimen name="group_padding">48sp</dimen>
+    <dimen name="history_bar_height">25dp</dimen>
 </resources>

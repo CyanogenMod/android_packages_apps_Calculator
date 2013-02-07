@@ -19,7 +19,8 @@ public class Preferences extends Activity {
             String versionName = "v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             TextView version = (TextView) findViewById(R.id.version);
             version.setText(versionName);
-        } catch (NameNotFoundException e) {
+        }
+        catch(NameNotFoundException e) {
             e.printStackTrace();
         }
     }
