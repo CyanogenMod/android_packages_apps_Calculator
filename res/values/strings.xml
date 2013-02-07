@@ -20,37 +20,37 @@
     <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
     <string name="error">Error</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit0">0</string>
+    <string name="digit0" translatable="false">0</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit1">1</string>
+    <string name="digit1" translatable="false">1</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit2">2</string>
+    <string name="digit2" translatable="false">2</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit3">3</string>
+    <string name="digit3" translatable="false">3</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit4">4</string>
+    <string name="digit4" translatable="false">4</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit5">5</string>
+    <string name="digit5" translatable="false">5</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit6">6</string>
+    <string name="digit6" translatable="false">6</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit7">7</string>
+    <string name="digit7" translatable="false">7</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit8">8</string>
+    <string name="digit8" translatable="false">8</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit9">9</string>
+    <string name="digit9" translatable="false">9</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="A">A</string>
+    <string name="A" translatable="false">A</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="B">B</string>
+    <string name="B" translatable="false">B</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="C">C</string>
+    <string name="C" translatable="false">C</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="D">D</string>
+    <string name="D" translatable="false">D</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="E">E</string>
+    <string name="E" translatable="false">E</string>
     <!-- Displayed letters for the hex digit buttons -->
-    <string name="F">F</string>
+    <string name="F" translatable="false">F</string>
     <!-- Displayed letters for the variable digit buttons -->
     <string name="X">X</string>
     <!-- Displayed letters for the variable digit buttons -->
@@ -67,8 +67,12 @@
     <string name="plus" translatable="false">+</string>
     <!-- Do not translate. Unicode minus sign; don't translate. Displayed as button on screen. -->
     <string name="minus" translatable="false">\u2212</string>
-    <!-- Decimal seperator; displayed as button on screen. Decimal point is default. -->
-    <string name="dot">.</string>
+    <!-- Do not translate. Plus sign / unicode minus sign; don't translate. Displayed as button on screen. -->
+    <string name="sign" translatable="false">+/\u2212</string>
+    <!-- Do not translate. Decimal point; don't translate. Displayed as button on screen. -->
+    <string name="dot" translatable="false">.</string>
+    <!-- Do not translate. Coma; don't translate. Displayed as button on screen. -->
+    <string name="coma" translatable="false">,</string>
     <!-- Do not translate. Equal sign; don't translate. Displayed as button on screen. -->
     <string name="equal" translatable="false">=</string>
     <!-- Do not translate. Down arrow; don't translate. Displayed as button on screen. -->
@@ -79,15 +83,39 @@
     <string name="cos">cos</string>
     <!-- Displayed on buttons on screen for the tan function. -->
     <string name="tan">tan</string>
+    <!-- Displayed on buttons on screen for the arcsin function. -->
+    <string name="arcsin">sin^\u22121</string>
+    <!-- Displayed on buttons on screen for the arccos function. -->
+    <string name="arccos">cos^\u22121</string>
+    <!-- Displayed on buttons on screen for the arctan function. -->
+    <string name="arctan">tan^\u22121</string>
 
     <!-- Do not translate. Unicode pi sign; don't translate. Displayed as button on screen. -->
     <string name="pi" translatable="false">\u03c0</string>
-    <!-- Displayed on buttons on screen for the e function. -->
+    <!-- Displayed on buttons on screen for the value of e. -->
     <string name="e">e</string>
+    <!-- Displayed on buttons on screen for the value of i. -->
+    <string name="i" translatable="false">i</string>
+    <!-- Displayed on buttons on screen for the percent function. -->
+    <string name="percentage" translatable="false">%</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="integral" translatable="false">\u222B</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dx">dX</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dy">dY</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
+    <string name="solveForX">Solve for X</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
+    <string name="solveForY">Solve for Y</string>
+    <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
+    <string name="mod">mod</string>
     <!-- Displayed on buttons on screen for the ln function. -->
     <string name="ln">ln</string>
     <!-- Displayed on buttons on screen for the log function. -->
     <string name="lg">log</string>
+    <!-- Displayed on buttons on screen for parentheses. -->
+    <string name="parentheses" translatable="false">( )</string>
     <!-- Displayed on buttons on screen for a left parenthesis. -->
     <string name="leftParen" translatable="false">(</string>
     <!-- Displayed on buttons on screen for a right parenthesis. -->
@@ -118,41 +146,57 @@
     <string name="copy">Copy \"%s\"</string>
     <!-- History menu item for removing item from history -->
     <string name="remove_from_history">Remove from history</string>
+    <!-- History menu item for viewing history -->
+    <string name="showHistory">Show history</string>
+    <!-- History menu item for hiding history -->
+    <string name="hideHistory">Hide history</string>
+    <!-- History menu item for entering settings -->
+    <string name="settings">Settings</string>
 
-    <string name="i" translatable="false">i</string>
-    <string name="percentage" translatable="false">%</string>
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
-    <string name="solveForX">Solve for X</string>
-    <string name="solveForY">Solve for Y</string>
-    <string name="integral" translatable="false">\u222B</string>
-    <string name="parentheses" translatable="false">( )</string>
-    <string name="mod">mod</string>
-    <string name="coma" translatable="false">,</string>
-
-    <string name="defaultGraphTitle">Function</string>
-    <string name="graphTitle">Function: </string>
-
-    <string name="inverse">Inv</string>
+    <!-- Matrix page text -->
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Solve</string>
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Eigenvalues</string>
+    <string name="plus_row">+Row</string>
+    <string name="minus_row">-Row</string>
+    <string name="plus_col">+Col</string>
+    <string name="minus_col">-Col</string>
+    <string name="matrix_new" translatable="false">[ ]</string>
+    <string name="matrix_inverse" translatable="false">-1</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Next</string>
 
+    <!-- Hex page text -->
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
-
     <string name="hexDesc">Hexadecimal</string>
     <string name="binDesc">Binary</string>
     <string name="decDesc">Decimal</string>
-    <string name="determinantDesc">Determinant</string>
-    <string name="eigenvalueDesc">Eigen Values</string>
-    
-    <string name="settings">Settings</string>
-    <string name="showHistory">Show History</string>
-    <string name="hideHistory">Hide History</string>
 
+    <!-- Settings page text -->
+    <string name="pref_panels">Panels</string>
+    <string name="pref_actions">Actions</string>
+    <string name="pref_units">Units</string>
     <string name="returnToBasic">Return to the basic panel</string>
+    <string name="trigUnits">Trig units</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+
+    <!-- Clings -->
+    <string name="cling_simple_title">Welcome</string>
+    <string name="cling_simple_msg">Slide left and right to access more content. Unncessary pages can be disabled in Settings.</string>
+    <string name="cling_matrix_title">Matrices</string>
+    <string name="cling_matrix_msg">Tap here to start building and solving matrices.</string>
+    <string name="cling_hex_title">Change bases</string>
+    <string name="cling_hex_msg">Change between decimal (dec), binary (bin), and hexadecimal (hex).\n\nIf you believe Calculator is giving wrong results, make sure decimal is selected.</string>
+    <string name="cling_graph_title">Graph</string>
+    <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
+    <string name="cling_dismiss">OK</string>
+
+    <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
 </resources>

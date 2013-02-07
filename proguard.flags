@@ -1,2 +1,1 @@
--dontwarn org.apache.commons.math3.**
--keep class com.android.calculator2.MatrixFragment
+-dontwarn org.ejml.ops.**

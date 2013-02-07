@@ -1,23 +1,19 @@
-<com.android.calculator2.HistoryLine xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+<com.android.calculator2.view.HistoryLine xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp" >
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/display_text_size"
+        android:textSize="@dimen/small_display_text_size"
+        android:textColor="@color/history_input"
         android:id="@+id/base" />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/display_text_size"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:text="@string/equal" />
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/display_text_size"
         android:textColor="@color/history_result"
+        android:gravity="right"
         android:id="@+id/edited" />
-</com.android.calculator2.HistoryLine>
+</com.android.calculator2.view.HistoryLine>
