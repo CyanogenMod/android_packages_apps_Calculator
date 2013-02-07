@@ -19,8 +19,10 @@ import com.android2.calculator3.R;
 public class MatrixView extends TableLayout {
     private static String FORMAT = "#.######";
     private static DecimalFormat FORMATTER = new DecimalFormat(FORMAT);
-    int rows, columns = 0;
-    AdvancedDisplay parent;
+    private static final String VALID_MATRIX = "\\[(\\[[\u2212-]?(\\d+(\\.\\d*)?)*(,[\u2212-]?(\\d+(\\.\\d*)?)*)*\\])+\\].*";
+
+    private int rows, columns = 0;
+    private AdvancedDisplay parent;
 
     public MatrixView(Context context) {
         super(context);
@@ -252,7 +254,7 @@ public class MatrixView extends TableLayout {
     }
 
     private static boolean verify(MutableString text) {
-        return text.startsWith("[[");
+        return text.getText().matches(VALID_MATRIX);
     }
 
     private static int countOccurrences(String haystack, char needle) {
