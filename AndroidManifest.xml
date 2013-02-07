@@ -16,5 +16,11 @@
             </intent-filter>
         </activity>
         <activity android:label="@string/settings" android:name=".Preferences" />
+        <receiver android:name=".CalculatorWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/calculator_widget_info" />
+        </receiver>
     </application>
 </manifest> 

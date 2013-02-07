@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_panels" >
         <CheckBoxPreference
             android:title="@string/graph"
             android:key="GRAPH"
@@ -26,10 +27,20 @@
             android:key="MATRIX"
             android:defaultValue="@bool/MATRIX" />
     </PreferenceCategory>
-    <PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_actions" >
         <CheckBoxPreference
             android:title="@string/returnToBasic"
             android:key="RETURN_TO_BASIC"
             android:defaultValue="@bool/RETURN_TO_BASIC" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_units" >
+        <SwitchPreference
+                android:title="@string/trigUnits"
+                android:key="USE_RADIANS"
+                android:switchTextOn="@string/radians"
+                android:switchTextOff="@string/degrees"
+                android:defaultValue="@bool/USE_RADIANS" />
     </PreferenceCategory>
 </PreferenceScreen>
