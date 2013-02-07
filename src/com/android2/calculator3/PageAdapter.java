@@ -29,7 +29,7 @@ public class PageAdapter extends PagerAdapter {
 
     private int count = 0;
 
-    public PageAdapter(CalculatorViewPager parent, Calculator calculator, Graph graph, Logic logic) {
+    public PageAdapter(CalculatorViewPager parent, EventListener listener, Graph graph, Logic logic) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final View graphPage = inflater.inflate(R.layout.graph_pad, parent, false);
         final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
@@ -63,8 +63,8 @@ public class PageAdapter extends PagerAdapter {
 
         View easterEgg = mMatrixPage.findViewById(R.id.easter);
         if(easterEgg != null) {
-            easterEgg.setOnClickListener(calculator.mListener);
-            easterEgg.setOnLongClickListener(calculator.mListener);
+            easterEgg.setOnClickListener(listener);
+            easterEgg.setOnLongClickListener(listener);
         }
     }
 

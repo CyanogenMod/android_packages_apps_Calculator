@@ -491,7 +491,7 @@ public class Logic {
             return;
         }
 
-        if(isOperator(eq.charAt(eq.length() - 1)) || displayContainsMatrices()) return;
+        if(isOperator(eq.charAt(eq.length() - 1)) || displayContainsMatrices() || eq.endsWith("(")) return;
 
         final String[] equation = eq.split("=");
 
@@ -507,134 +507,139 @@ public class Logic {
 
         new Thread(new Runnable() {
             public void run() {
-                final XYSeries series = new XYSeries("");
-                double lastX = (maxX - minX) / 2 + minX;
-                double lastY = (maxY - minY) / 2 + minY;
+                try {
+                    final XYSeries series = new XYSeries("");
+                    double lastX = (maxX - minX) / 2 + minX;
+                    double lastY = (maxY - minY) / 2 + minY;
 
-                if(equation[0].equals(mY) && !equation[1].contains(mY)) {
-                    for(double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
-                        if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
-
-                        try {
-                            mSymbols.define(mX, x);
-                            double y = mSymbols.eval(equation[1]);
-
-                            if(pointIsNaN(lastY, y, maxY, minY)) {
-                                series.add(x, MathHelper.NULL_VALUE);
-                            }
-                            else {
-                                series.add(x, y);
-                            }
-                            lastY = y;
-                        }
-                        catch(SyntaxException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
-                    for(double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
-                        if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
-
-                        try {
-                            mSymbols.define(mY, y);
-                            double x = mSymbols.eval(equation[1]);
-
-                            if(pointIsNaN(lastX, x, maxX, minX)) {
-                                series.add(MathHelper.NULL_VALUE, y);
-                            }
-                            else {
-                                series.add(x, y);
-                            }
-                            lastX = x;
-                        }
-                        catch(SyntaxException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
-                    for(double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
-                        if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
-
-                        try {
-                            mSymbols.define(mX, x);
-                            double y = mSymbols.eval(equation[0]);
-
-                            if(pointIsNaN(lastY, y, maxY, minY)) {
-                                series.add(x, MathHelper.NULL_VALUE);
-                            }
-                            else {
-                                series.add(x, y);
-                            }
-                            lastY = y;
-                        }
-                        catch(SyntaxException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
-                    for(double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
-                        if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
-
-                        try {
-                            mSymbols.define(mY, y);
-                            double x = mSymbols.eval(equation[0]);
-
-                            if(pointIsNaN(lastX, x, maxX, minX)) {
-                                series.add(MathHelper.NULL_VALUE, y);
-                            }
-                            else {
-                                series.add(x, y);
-                            }
-                            lastX = x;
-                        }
-                        catch(SyntaxException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                else {
-                    for(double x = minX; x <= maxX; x += (0.01 * (maxX - minX))) {
-                        for(double y = maxY; y >= minY; y -= (0.01 * (maxY - minY))) {
+                    if(equation[0].equals(mY) && !equation[1].contains(mY)) {
+                        for(double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
                             if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
                             try {
                                 mSymbols.define(mX, x);
-                                mSymbols.define(mY, y);
-                                Double leftSide = mSymbols.eval(equation[0]);
-                                Double rightSide = mSymbols.eval(equation[1]);
-                                if(leftSide < 0 && rightSide < 0) {
-                                    if(leftSide * 0.97 >= rightSide && leftSide * 1.03 <= rightSide) {
-                                        series.add(x, y);
-                                        break;
-                                    }
+                                double y = mSymbols.eval(equation[1]);
+
+                                if(pointIsNaN(lastY, y, maxY, minY)) {
+                                    series.add(x, MathHelper.NULL_VALUE);
                                 }
                                 else {
-                                    if(leftSide * 0.97 <= rightSide && leftSide * 1.03 >= rightSide) {
-                                        series.add(x, y);
-                                        break;
-                                    }
+                                    series.add(x, y);
                                 }
+                                lastY = y;
                             }
                             catch(SyntaxException e) {
                                 e.printStackTrace();
                             }
                         }
                     }
-                }
+                    else if(equation[0].equals(mX) && !equation[1].contains(mX)) {
+                        for(double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
+                            if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
-                try {
-                    g.getDataset().removeSeries(g.getSeries());
+                            try {
+                                mSymbols.define(mY, y);
+                                double x = mSymbols.eval(equation[1]);
+
+                                if(pointIsNaN(lastX, x, maxX, minX)) {
+                                    series.add(MathHelper.NULL_VALUE, y);
+                                }
+                                else {
+                                    series.add(x, y);
+                                }
+                                lastX = x;
+                            }
+                            catch(SyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    else if(equation[1].equals(mY) && !equation[0].contains(mY)) {
+                        for(double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
+                            if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
+
+                            try {
+                                mSymbols.define(mX, x);
+                                double y = mSymbols.eval(equation[0]);
+
+                                if(pointIsNaN(lastY, y, maxY, minY)) {
+                                    series.add(x, MathHelper.NULL_VALUE);
+                                }
+                                else {
+                                    series.add(x, y);
+                                }
+                                lastY = y;
+                            }
+                            catch(SyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    else if(equation[1].equals(mX) && !equation[0].contains(mX)) {
+                        for(double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
+                            if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
+
+                            try {
+                                mSymbols.define(mY, y);
+                                double x = mSymbols.eval(equation[0]);
+
+                                if(pointIsNaN(lastX, x, maxX, minX)) {
+                                    series.add(MathHelper.NULL_VALUE, y);
+                                }
+                                else {
+                                    series.add(x, y);
+                                }
+                                lastX = x;
+                            }
+                            catch(SyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    else {
+                        for(double x = minX; x <= maxX; x += (0.01 * (maxX - minX))) {
+                            for(double y = maxY; y >= minY; y -= (0.01 * (maxY - minY))) {
+                                if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
+
+                                try {
+                                    mSymbols.define(mX, x);
+                                    mSymbols.define(mY, y);
+                                    Double leftSide = mSymbols.eval(equation[0]);
+                                    Double rightSide = mSymbols.eval(equation[1]);
+                                    if(leftSide < 0 && rightSide < 0) {
+                                        if(leftSide * 0.97 >= rightSide && leftSide * 1.03 <= rightSide) {
+                                            series.add(x, y);
+                                            break;
+                                        }
+                                    }
+                                    else {
+                                        if(leftSide * 0.97 <= rightSide && leftSide * 1.03 >= rightSide) {
+                                            series.add(x, y);
+                                            break;
+                                        }
+                                    }
+                                }
+                                catch(SyntaxException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+
+                    try {
+                        g.getDataset().removeSeries(g.getSeries());
+                    }
+                    catch(NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                    g.setSeries(series);
+                    g.getDataset().addSeries(series);
+
+                    if(mGraphDisplay != null) mGraphDisplay.repaint();
                 }
-                catch(NullPointerException e) {
+                catch(Exception e) {
                     e.printStackTrace();
                 }
-                g.setSeries(series);
-                g.getDataset().addSeries(series);
-
-                if(mGraphDisplay != null) mGraphDisplay.repaint();
             }
         }).start();
     }
