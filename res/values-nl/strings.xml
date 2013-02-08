@@ -32,8 +32,8 @@
     <string name="text_copied_toast" msgid="5801480710472541833">"Tekst gekopieerd"</string>
 
     <!-- CYANOGENMOD EDITS -->
-    <string name="X">X</string>
-    <string name="Y">Y</string>
+    <string name="X">x</string>
+    <string name="Y">y</string>
     <string name="matrix">Matrix</string>
     <string name="graph">Grafieken</string>
     <string name="function">Functies</string>
