@@ -20,13 +20,14 @@
     <dimen name="btn_clear_text_size">40sp</dimen>
     <dimen name="display_text_size">60sp</dimen>
     <dimen name="small_display_text_size">30sp</dimen>
-
+    <dimen name="min_display_height">130dp</dimen>
+    <dimen name="max_display_height">260dp</dimen>
     <dimen name="left_right_padding">16sp</dimen>
     <dimen name="top_bottom_padding">16sp</dimen>
     <dimen name="group_padding">16sp</dimen>
 
     <style name="button_hint_style">
-       <item name="android:textSize">17dp</item>
+       <item name="android:textSize">17sp</item>
        <item name="android:layout_width">wrap_content</item>
        <item name="android:layout_height">wrap_content</item>
        <item name="android:paddingRight">4dp</item>
