@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
@@ -30,4 +30,58 @@
     <string name="advanced" msgid="7122495413742976492">"Lisätoiminnot"</string>
     <string name="clear_history" msgid="8458043980601165012">"Tyhjennä historia"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Teksti kopioitu."</string>
+
+    <!-- CYANOGENMOD ADDITIONS -->
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="del">POISTA</string>
+    <string name="clear">CLR</string>
+    <string name="dot">,</string>
+    <string name="sin">sin</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
+    <string name="e">e</string>
+    <string name="ln">ln</string>
+    <string name="lg">log</string>
+    <string name="basic">Perustoiminnot</string>
+    <string name="advanced">Lisätoiminnot</string>
+    <string name="matrix">Matriisitoiminnot</string>
+    <string name="graph">Graafitoiminnot</string>
+    <string name="function">Funktiotoiminnot</string>
+    <string name="hexPanel">Heksatoiminnot</string>
+    <string name="clear_history">Tyhjennä historia</string>
+    <string name="text_copied_toast">Teksti kopioitu.</string>
+    <string name="copy">Kopioi \"%s\"</string>
+    <string name="remove_from_history">Poista historiasta</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Ratkaise X</string>
+    <string name="solveForY">Ratkaise Y</string>
+    <string name="mod">mod</string>
+    <string name="defaultGraphTitle">Funktio</string>
+    <string name="graphTitle">Funktio: </string>
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Ratkaise</string>
+    <string name="dotProduct">Piste</string>
+    <string name="crossProduct">Risti</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Heksadesimaali</string>
+    <string name="binDesc">Binääri</string>
+    <string name="decDesc">Desimaali</string>
+    <string name="determinantDesc">Määräävä</string>
+    <string name="eigenvalueDesc">Eigen-arvot</string>
+    <string name="settings">Asetukset</string>
+    <string name="showHistory">Näytä historia</string>
+    <string name="hideHistory">Piilota historia</string>
+    <string name="returnToBasic">Palaa perustoimintoihin</string>
 </resources>
