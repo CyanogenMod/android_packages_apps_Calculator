@@ -93,4 +93,5 @@
     <string name="showHistory">Показать историю</string>
     <string name="hideHistory">Спрятать историю</string>
 
-    <string name="returnToBasic">Возвращаться на основную панель</string></resources>
+    <string name="returnToBasic">Возвращаться на основную панель</string>
+</resources>
