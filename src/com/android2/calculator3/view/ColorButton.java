@@ -30,7 +30,6 @@ import android.widget.Button;
 
 import com.android2.calculator3.Calculator;
 import com.android2.calculator3.EventListener;
-import com.android2.calculator3.LogicalDensity;
 import com.android2.calculator3.R;
 
 /**
@@ -126,8 +125,9 @@ class ColorButton extends Button {
         CharSequence hint = getHint();
         if(hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
-            int offsetX = LogicalDensity.convertDpToPixel(10, getContext());
-            int offsetY = (int) ((mTextY + LogicalDensity.convertDpToPixel(20, getContext()) - getTextHeight(mHintPaint, hint.toString())) / 2)
+            int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
+            int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - getTextHeight(mHintPaint,
+                    hint.toString())) / 2)
                     - getPaddingTop();
 
             float textWidth = mHintPaint.measureText(hint.toString());
@@ -140,12 +140,12 @@ class ColorButton extends Button {
             for(String str : exponents) {
                 if(str == exponents[0]) {
                     canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
-                    offsetY += LogicalDensity.convertDpToPixel(10, getContext());
+                    offsetY += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
                     offsetX += mHintPaint.measureText(str);
                 }
                 else {
                     canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
-                    offsetY += LogicalDensity.convertDpToPixel(10, getContext());
+                    offsetY += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
                     offsetX += mHintPaint.measureText(str);
                 }
             }
@@ -160,7 +160,7 @@ class ColorButton extends Button {
         int height = bounds.height();
         String[] exponents = text.split(Pattern.quote("^"));
         for(int i = 1; i < exponents.length; i++) {
-            height += LogicalDensity.convertDpToPixel(10, getContext());
+            height += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
         }
         return height;
     }

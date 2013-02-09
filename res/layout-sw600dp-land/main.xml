@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/barHeight">
+                android:layout_marginTop="@dimen/history_bar_height">
         
                 <com.android2.calculator3.view.CalculatorViewPager
                      android:id="@+id/smallPanelswitch"

@@ -151,7 +151,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 
         mPulldown = (Slider) findViewById(R.id.pulldown);
-        mPulldown.setBarHeight(getResources().getDimensionPixelSize(R.dimen.barHeight));
+        mPulldown.setBarHeight(getResources().getDimensionPixelSize(R.dimen.history_bar_height));
         mPulldown.setSlideDirection(Direction.DOWN);
         mPulldown.setOnSlideListener(new OnSlideListener() {
             @Override

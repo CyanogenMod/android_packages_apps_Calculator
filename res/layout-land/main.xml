@@ -93,7 +93,7 @@
                 android:id="@+id/panelswitch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/barHeight" />
+                android:layout_marginTop="@dimen/history_bar_height" />
         </RelativeLayout>
     </LinearLayout>
     <include layout="@layout/simple_cling"

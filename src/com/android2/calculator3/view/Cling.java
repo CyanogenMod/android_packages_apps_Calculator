@@ -16,6 +16,7 @@
 
 package com.android2.calculator3.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,13 +24,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.android2.calculator3.Calculator;
-import com.android2.calculator3.LogicalDensity;
 import com.android2.calculator3.R;
 
 public class Cling extends FrameLayout {
@@ -149,7 +151,10 @@ public class Cling extends FrameLayout {
             int dh = (int) (scale * mPunchThroughGraphic.getIntrinsicHeight());
 
             // Determine where to draw the punch through graphic
-            int statusBarHeight = LogicalDensity.convertDpToPixel(25, getContext());
+            Rect rect = new Rect();
+            Window window = ((Activity) getContext()).getWindow();
+            window.getDecorView().getWindowVisibleDisplayFrame(rect);
+            int statusBarHeight = rect.top;
             int[] pos = getPunchThroughPosition();
             cx = pos[0];
             cy = pos[1] - statusBarHeight;

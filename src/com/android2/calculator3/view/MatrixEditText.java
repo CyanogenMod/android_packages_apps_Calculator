@@ -33,7 +33,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.android2.calculator3.Logic;
-import com.android2.calculator3.LogicalDensity;
+import com.android2.calculator3.R;
 
 public class MatrixEditText extends EditText implements OnFocusChangeListener {
     private static final char[] ACCEPTED_CHARS = "0123456789.-\u2212".toCharArray();
@@ -50,7 +50,8 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
-        setPadding(LogicalDensity.convertDpToPixel(17, getContext()), 0, LogicalDensity.convertDpToPixel(17, getContext()), 0);
+        int padding = getContext().getResources().getDimensionPixelSize(R.dimen.matrix_edit_text_padding);
+        setPadding(padding, 0, padding, 0);
         this.parent = parent;
         this.display = display;
         setKeyListener(new MatrixKeyListener());
