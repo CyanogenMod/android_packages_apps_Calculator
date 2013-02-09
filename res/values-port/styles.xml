@@ -15,5 +15,4 @@
 -->
 <resources>
     <dimen name="barHeight">60dp</dimen>
-    <integer name="barHeight">60</integer>
 </resources>

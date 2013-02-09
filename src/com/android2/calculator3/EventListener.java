@@ -33,6 +33,7 @@ import com.android2.calculator3.Logic.Mode;
 import com.android2.calculator3.view.MatrixEditText;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
+import com.android2.calculator3.view.MatrixView;
 
 public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
     Context mContext;
@@ -125,7 +126,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.matrix:
-            mHandler.insert("[[,][,]]");
+            mHandler.insert(MatrixView.PATTERN);
             returnToBasic();
             break;
 

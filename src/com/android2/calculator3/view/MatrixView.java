@@ -20,6 +20,7 @@ public class MatrixView extends TableLayout {
     private static String FORMAT = "#.######";
     private static DecimalFormat FORMATTER = new DecimalFormat(FORMAT);
     private static final String VALID_MATRIX = "\\[(\\[[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?(,[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?)*\\])+\\].*";
+    public final static String PATTERN = "[[,][,]]";
 
     private int rows, columns = 0;
     private AdvancedDisplay parent;

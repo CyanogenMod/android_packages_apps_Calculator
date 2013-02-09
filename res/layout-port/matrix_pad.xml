@@ -34,14 +34,12 @@
 	        <com.android2.calculator3.view.ColorButton
 	            android:id="@+id/matrix_transpose"
 	            android:text="@string/matrix_transpose"
-                android:textSize="25sp"
-	            style="@style/button_style"
+	            style="@style/button_half_style"
 	            />
 	        <com.android2.calculator3.view.ColorButton
 	            android:id="@+id/matrix_inverse"
 	            android:text="@string/matrix_inverse"
-                android:textSize="25sp"
-	            style="@style/button_style"
+	            style="@style/button_half_style"
 	            />
         </LinearLayout>
         <LinearLayout
@@ -51,14 +49,12 @@
             <com.android2.calculator3.view.ColorButton
                 android:id="@+id/minus_row"
                 android:text="@string/minus_row"
-                android:textSize="25sp"
-                style="@style/button_style"
+                style="@style/button_half_style"
                 />
             <com.android2.calculator3.view.ColorButton
                 android:id="@+id/plus_row"
                 android:text="@string/plus_row"
-                android:textSize="25sp"
-                style="@style/button_style"
+                style="@style/button_half_style"
                 />
         </LinearLayout>
         <LinearLayout
@@ -68,14 +64,12 @@
             <com.android2.calculator3.view.ColorButton
                 android:id="@+id/minus_col"
                 android:text="@string/minus_col"
-                android:textSize="25sp"
-                style="@style/button_style"
+                style="@style/button_half_style"
                 />
             <com.android2.calculator3.view.ColorButton
                 android:id="@+id/plus_col"
                 android:text="@string/plus_col"
-                android:textSize="25sp"
-                style="@style/button_style"
+                style="@style/button_half_style"
                 />
         </LinearLayout>
         <com.android2.calculator3.view.ColorButton
