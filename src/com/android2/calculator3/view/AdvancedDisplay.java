@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android2.calculator3.Logic;
 import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
@@ -28,6 +29,7 @@ public class AdvancedDisplay extends LinearLayout {
     EditText mActiveEditText;
     KeyListener mKeyListener;
     Factory mFactory;
+    Logic mLogic;
 
     public AdvancedDisplay(Context context) {
         this(context, null);
@@ -161,6 +163,10 @@ public class AdvancedDisplay extends LinearLayout {
 
     public void setEditableFactory(Factory factory) {
         mFactory = factory;
+    }
+
+    public void setLogic(Logic logic) {
+        mLogic = logic;
     }
 
     public EditText getActiveEditText() {

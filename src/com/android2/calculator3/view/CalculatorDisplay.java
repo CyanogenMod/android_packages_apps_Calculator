@@ -49,7 +49,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     // only these chars are accepted from keyboard
     private static final char[] ACCEPTED_CHARS = "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
 
-    private static final int ANIM_DURATION = 500;
+    private static final int ANIM_DURATION = 400;
 
     public enum Scroll {
         UP, DOWN, NONE
@@ -143,6 +143,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         Editable.Factory factory = new CalculatorEditable.Factory(logic);
         for(int i = 0; i < 2; ++i) {
             AdvancedDisplay text = ((ScrollableDisplay) getChildAt(i)).getView();
+            text.setLogic(logic);
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
             text.setLayoutParams(new ScrollableDisplay.LayoutParams(ScrollableDisplay.LayoutParams.WRAP_CONTENT, ScrollableDisplay.LayoutParams.WRAP_CONTENT,

@@ -19,10 +19,11 @@ import com.android2.calculator3.R;
 public class MatrixView extends TableLayout {
     private static String FORMAT = "#.######";
     private static DecimalFormat FORMATTER = new DecimalFormat(FORMAT);
-    private static final String VALID_MATRIX = "\\[(\\[[\u2212-]?(\\d+(\\.\\d*)?)*(,[\u2212-]?(\\d+(\\.\\d*)?)*)*\\])+\\].*";
+    private static final String VALID_MATRIX = "\\[(\\[[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?(,[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?)*\\])+\\].*";
 
     private int rows, columns = 0;
     private AdvancedDisplay parent;
+    private Logic logic;
 
     public MatrixView(Context context) {
         super(context);
@@ -37,6 +38,7 @@ public class MatrixView extends TableLayout {
     private void setup() {
         setBackgroundResource(R.drawable.matrix_background);
         setFocusable(true);
+        logic = parent.mLogic;
     }
 
     public void addRow() {
@@ -90,7 +92,6 @@ public class MatrixView extends TableLayout {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
                 input = stringify(input);
                 if(input.isEmpty()) throw new SyntaxException();
-                input = input.replaceAll(Logic.INFINITY_UNICODE, Logic.INFINITY);
                 try {
                     data[row][column] = Double.valueOf(input);
                 }
@@ -108,7 +109,7 @@ public class MatrixView extends TableLayout {
             TableRow tr = (TableRow) getChildAt(row);
             for(int column = 0; column < columns; column++) {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
-                data[row][column] = stringify(input);
+                data[row][column] = input;
             }
         }
         return data;
@@ -117,6 +118,7 @@ public class MatrixView extends TableLayout {
     private String stringify(String input) {
         if(input.isEmpty()) return "";
         else {
+            input = logic.convertToDecimal(input);
             if(input.charAt(0) == '\u2212') {
                 if(input.length() == 1) input = "";
                 else input = "-" + input.substring(1);
@@ -127,12 +129,7 @@ public class MatrixView extends TableLayout {
             else if(input.startsWith("-.")) {
                 input = "-0" + input.substring(1);
             }
-            try {
-                return FORMATTER.format(Double.valueOf(input));
-            }
-            catch(Exception e) {
-                return "";
-            }
+            return input;
         }
     }
 
@@ -195,14 +192,13 @@ public class MatrixView extends TableLayout {
     }
 
     public static String matrixToString(SimpleMatrix matrix) {
-        DecimalFormat formatter = new DecimalFormat(FORMAT);
         int rows = matrix.numRows();
         int columns = matrix.numCols();
         String input = "[";
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += formatter.format(matrix.get(i, j)) + ",";
+                input += FORMATTER.format(matrix.get(i, j)) + ",";
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);

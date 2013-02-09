@@ -175,7 +175,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         case R.id.sign:
             active = mHandler.mDisplay.getActiveEditText();
             int selection = active.getSelectionStart();
-            if(active.getText().toString().matches(Logic.DECIMAL_NUMBER)) {
+            if(active.getText().toString().matches(Logic.NUMBER)) {
                 if(active.getText().toString().startsWith(String.valueOf(Logic.MINUS))) {
                     active.setText(active.getText().toString().substring(1));
                     selection--;

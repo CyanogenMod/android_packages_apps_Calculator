@@ -41,9 +41,9 @@ import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
 
 public class Logic {
-    private static final String REGEX_NUMBER = "[A-F0-9\\.,]";
-    private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.,]";
-    public static final String DECIMAL_NUMBER = "[" + Logic.MINUS + "-]?\\d+(\\.\\d*)?";
+    private static final String REGEX_NUMBER = "[A-F0-9\\.]";
+    private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.]";
+    public static final String NUMBER = "[" + Logic.MINUS + "-]?[A-F0-9]+(\\.[A-F0-9]*)?";
     public static final String INFINITY_UNICODE = "\u221e";
     // Double.toString() for Infinity
     public static final String INFINITY = "Infinity";
@@ -306,7 +306,7 @@ public class Logic {
         input = localize(input);
 
         // Convert to decimal
-        String decimalInput = updateTextToNewMode(input, mode, Mode.DECIMAL);
+        String decimalInput = convertToDecimal(input);
 
         Complex value = mSymbols.evalComplex(decimalInput);
 
@@ -333,6 +333,10 @@ public class Logic {
         else if(value.re == 0 && value.im != 0) result = imaginary + "i";
         else if(value.re == 0 && value.im == 0) result = "0";
         return updateTextToNewMode(result, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
+    }
+
+    public String convertToDecimal(String input) {
+        return updateTextToNewMode(input, mode, Mode.DECIMAL);
     }
 
     String localize(String input) {
@@ -446,7 +450,7 @@ public class Logic {
                     else throw new SyntaxException();
                 }
             }
-            return MatrixView.matrixToString(matrix);
+            return updateTextToNewMode(MatrixView.matrixToString(matrix), Mode.DECIMAL, mode);
         }
         catch(Exception e) {
             throw new SyntaxException();
@@ -498,8 +502,8 @@ public class Logic {
         if(equation.length != 2) return;
 
         // Translate into decimal
-        equation[0] = updateTextToNewMode(localize(equation[0]), mode, Mode.DECIMAL);
-        equation[1] = updateTextToNewMode(localize(equation[1]), mode, Mode.DECIMAL);
+        equation[0] = convertToDecimal(localize(equation[0]));
+        equation[1] = convertToDecimal(localize(equation[1]));
         final double minY = g.getRenderer().getYAxisMin();
         final double maxY = g.getRenderer().getYAxisMax();
         final double minX = g.getRenderer().getXAxisMin();
@@ -655,14 +659,21 @@ public class Logic {
     }
 
     private String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2) {
-        if(mode1.equals(mode2)) return originalText;
-        String text = originalText;
-        if(!text.equals(mErrorString) && !text.isEmpty() && !mode1.equals(mode2)) {
-            String[] operations = text.split(REGEX_NUMBER);
-            String[] numbers = text.split(REGEX_NOT_NUMBER);
-            String[] translatedNumbers = new String[numbers.length];
-            for(int i = 0; i < numbers.length; i++) {
-                if(!numbers[i].isEmpty()) switch(mode1) {
+        if(mode1.equals(mode2) || originalText.equals(mErrorString) || originalText.isEmpty()) return originalText;
+
+        System.out.println(originalText);
+        String[] operations = originalText.split(REGEX_NUMBER);
+        for(String s : operations) {
+            System.out.println("Ops: " + s);
+        }
+        String[] numbers = originalText.split(REGEX_NOT_NUMBER);
+        for(String s : numbers) {
+            System.out.println("Nums: " + s);
+        }
+        String[] translatedNumbers = new String[numbers.length];
+        for(int i = 0; i < numbers.length; i++) {
+            if(!numbers[i].isEmpty()) {
+                switch(mode1) {
                 case BINARY:
                     switch(mode2) {
                     case BINARY:
@@ -751,27 +762,27 @@ public class Logic {
                     break;
                 }
             }
-            text = "";
-            Object[] o = removeWhitespace(operations);
-            Object[] n = removeWhitespace(translatedNumbers);
-            if(originalText.substring(0, 1).matches(REGEX_NUMBER)) {
-                for(int i = 0; i < o.length && i < n.length; i++) {
-                    text += n[i];
-                    text += o[i];
-                }
+        }
+        String text = "";
+        Object[] o = removeWhitespace(operations);
+        Object[] n = removeWhitespace(translatedNumbers);
+        if(originalText.substring(0, 1).matches(REGEX_NUMBER)) {
+            for(int i = 0; i < o.length && i < n.length; i++) {
+                text += n[i];
+                text += o[i];
             }
-            else {
-                for(int i = 0; i < o.length && i < n.length; i++) {
-                    text += o[i];
-                    text += n[i];
-                }
+        }
+        else {
+            for(int i = 0; i < o.length && i < n.length; i++) {
+                text += o[i];
+                text += n[i];
             }
-            if(o.length > n.length) {
-                text += o[o.length - 1];
-            }
-            else if(n.length > o.length) {
-                text += n[n.length - 1];
-            }
+        }
+        if(o.length > n.length) {
+            text += o[o.length - 1];
+        }
+        else if(n.length > o.length) {
+            text += n[n.length - 1];
         }
         return text;
     }
