@@ -45,8 +45,9 @@ class ColorButton extends Button {
     long mAnimStart;
     EventListener mListener;
     Paint mFeedbackPaint;
-    Paint mHintPaint;
+    Paint mHintPaint = new Paint();
     Rect bounds = new Rect();
+    float mTextSize = 0f;
 
     public ColorButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,36 +66,38 @@ class ColorButton extends Button {
         mFeedbackPaint.setStyle(Style.STROKE);
         mFeedbackPaint.setStrokeWidth(2);
         getPaint().setColor(res.getColor(R.color.button_text));
-        mHintPaint = new Paint();
-        mHintPaint.setColor(res.getColor(R.color.grey));
-        mHintPaint.setTextSize(getTextSize() * 0.8f);
+        mHintPaint.setColor(res.getColor(R.color.button_hint_text));
 
         mAnimStart = -1;
     }
 
-    @Override
-    public void onSizeChanged(int w, int h, int oldW, int oldH) {
-        layoutText();
-    }
-
     private void layoutText() {
         Paint paint = getPaint();
+        if(mTextSize != 0f) paint.setTextSize(mTextSize);
         float textWidth = paint.measureText(getText().toString());
         float width = getWidth() - getPaddingLeft() - getPaddingRight();
         float textSize = getTextSize();
         if(textWidth > width) {
             paint.setTextSize(textSize * width / textWidth);
             mTextX = getPaddingLeft();
+            mTextSize = textSize;
         }
         else {
             mTextX = (getWidth() - textWidth) / 2;
         }
         mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
+        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * 0.8f);
     }
 
     @Override
     protected void onTextChanged(CharSequence text, int start, int before, int after) {
         layoutText();
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if(changed) layoutText();
     }
 
     private void drawMagicFlame(int duration, Canvas canvas) {
