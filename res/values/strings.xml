@@ -17,6 +17,10 @@
 <resources>
     <!-- Application name -->
     <string name="app_name">Calculator</string>
+    <!-- Application copyright -->
+    <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
+    <!-- Application version -->
+    <string name="application_version" translatable="false">3.1</string>
     <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
     <string name="error">Error</string>
     <!-- Displayed numbers for the digit buttons -->
