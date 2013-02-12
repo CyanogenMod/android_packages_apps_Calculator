@@ -86,7 +86,7 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
                 view.setLayoutParams(p);
                 removeViewAt(0);
                 addView(view);
-                view.getActiveEditText().requestFocus();
+                if(view.getActiveEditText() != null) view.getActiveEditText().requestFocus();
                 super.onLayout(changed, left, top, right, bottom);
             }
         }
@@ -97,10 +97,10 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
                 view.setLayoutParams(p);
                 removeViewAt(0);
                 addView(view);
-                view.getActiveEditText().requestFocus();
+                if(view.getActiveEditText() != null) view.getActiveEditText().requestFocus();
                 super.onLayout(changed, left, top, right, bottom);
             }
         }
-        if(gravityRight && delta > 0) scrollBy(delta, 0);
+        // if(gravityRight && delta > 0) scrollBy(delta, 0);
     }
 }
