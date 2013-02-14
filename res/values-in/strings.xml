@@ -40,4 +40,39 @@
     <string name="advanced" msgid="7122495413742976492">"Panel lanjutan"</string>
     <string name="clear_history" msgid="8458043980601165012">"Hapus riwayat"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Teks disalin."</string>
+
+    <!-- CYANOGENMOD ADDITIONS -->
+    <string name="X">x</string>
+    <string name="Y">y</string>
+    <string name="matrix">Matriks</string>
+    <string name="graph">Grafik</string>
+    <string name="function">Fungsi</string>
+    <string name="hexPanel">Hex</string>
+    <string name="dx">dx</string>
+    <string name="dy">dy</string>
+    <string name="solveForX">Menyelesaikan x</string>
+    <string name="solveForY">Menyelesaikan y</string>
+    <string name="mod">mod</string>
+    <string name="defaultGraphTitle">Fungsi</string>
+    <string name="graphTitle">Fungsi: </string>
+    <string name="inverse">Inv</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Meny.</string>
+    <string name="dotProduct">Inpr</string>
+    <string name="crossProduct">Uitpr</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Heksadesimal</string>
+    <string name="binDesc">Biner</string>
+    <string name="decDesc">Desimal</string>
+    <string name="determinantDesc">Determinan</string>
+    <string name="eigenvalueDesc">Nilai Eigen</string>
+    <string name="settings">Setelan</string>
+    <string name="showHistory">Tampilkan riwayat</string>
+    <string name="hideHistory">Sembunyikan riwayat</string>
+    <string name="copy">Menyalin \'%s\'</string>
+    <string name="remove_from_history">Hapus dari riwayat</string>
+    <string name="returnToBasic">Kembali ke Panel dasar</string>
 </resources>
