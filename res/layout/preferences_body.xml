@@ -43,4 +43,11 @@
                 android:switchTextOff="@string/degrees"
                 android:defaultValue="@bool/USE_RADIANS" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_application" >
+        <Preference
+                android:title="@string/app_name"
+                android:summary="@string/application_copyright"
+                android:key="ABOUT" />
+    </PreferenceCategory>
 </PreferenceScreen>

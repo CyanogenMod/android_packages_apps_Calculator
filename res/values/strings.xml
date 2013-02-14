@@ -186,6 +186,7 @@
     <string name="pref_panels">Panels</string>
     <string name="pref_actions">Actions</string>
     <string name="pref_units">Units</string>
+    <string name="pref_application">Application</string>
     <string name="returnToBasic">Return to the basic panel</string>
     <string name="trigUnits">Trig units</string>
     <string name="radians">RAD</string>
@@ -205,5 +206,5 @@
     <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
 
     <string name="activity_about">About</string>
-    <string name="about">Maintainer: Will Harmon (Xlythe)\nUniversity: University of Waterloo\nContact Details: xlythe@gmail.com\nVersion Number: %s\nCountry: Canada\nLast Updated: Feb 11, 2013\nSource Code: https://github.com/Xlythe/android_packages_apps_Calculator\nOther Apps: https://play.google.com/store/apps/developer?id=Xlythe</string>
+    <string name="about">Maintainer: Will Harmon (Xlythe)\nUniversity: University of Waterloo\nContact Details: xlythe@gmail.com\nVersion Number: %s\nCountry: Canada\nLast Updated: Feb 14, 2013\nSource Code: https://github.com/Xlythe/android_packages_apps_Calculator\nOther Apps: https://play.google.com/store/apps/developer?id=Xlythe</string>
 </resources>
