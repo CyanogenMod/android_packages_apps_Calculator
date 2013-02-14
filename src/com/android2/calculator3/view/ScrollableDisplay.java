@@ -74,7 +74,6 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         // HorizontalScrollView is broken for Gravity.RIGHT. So we're fixing it.
-        autoScrolling = false;
         int childWidth = getView().getWidth();
         super.onLayout(changed, left, top, right, bottom);
         int delta = getView().getWidth() - childWidth;
@@ -99,6 +98,7 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
             }
         }
         if(gravityRight && delta > 0) {
+            autoScrolling = false;
             scrollBy(delta, 0);
             autoScrolling = true;
         }
@@ -108,5 +108,11 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
     public void computeScroll() {
         if(autoScrolling) return;
         super.computeScroll();
+    }
+
+    @Override
+    public void scrollTo(int x, int y) {
+        if(autoScrolling) return;
+        super.scrollTo(x, y);
     }
 }
