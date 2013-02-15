@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 /**
  * @author Will Harmon
- **/
+ */
 public class Preferences extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,15 +19,14 @@ public class Preferences extends Activity {
             String versionName = "v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             TextView version = (TextView) findViewById(R.id.version);
             version.setText(versionName);
-        }
-        catch(NameNotFoundException e) {
+        } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent intent = new Intent(this, Calculator.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

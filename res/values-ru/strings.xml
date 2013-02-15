@@ -69,7 +69,7 @@
     <string name="mod">mod</string>
 
     <string name="defaultGraphTitle">Функция</string>
-    <string name="graphTitle">Функция: </string>
+    <string name="graphTitle">Функция:</string>
 
     <string name="inverse">Обр</string>
     <string name="determinant">Опр</string>
@@ -77,8 +77,8 @@
     <string name="solve">Решить</string>
     <string name="dotProduct">Точка</string>
     <string name="crossProduct">Крест</string>
-    
-<!-- Left untranslated, because of soviet calculators -->
+
+    <!-- Left untranslated, because of soviet calculators -->
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
@@ -88,7 +88,7 @@
     <string name="decDesc">Десятичная</string>
     <string name="determinantDesc">Определитель</string>
     <string name="eigenvalueDesc">Собственные</string>
-    
+
     <string name="settings">Настройки</string>
     <string name="showHistory">Показать историю</string>
     <string name="hideHistory">Спрятать историю</string>

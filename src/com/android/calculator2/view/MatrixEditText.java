@@ -21,17 +21,11 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.method.NumberKeyListener;
-import android.view.ActionMode;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
 import com.android.calculator2.Logic;
 import com.android.calculator2.R;
 
@@ -72,9 +66,9 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
 
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            for(int i = start; i < end; i++) {
+            for (int i = start; i < end; i++) {
                 String text = dest.toString().substring(0, dstart) + source.toString() + dest.toString().substring(dend);
-                if(!text.matches(Logic.NUMBER)) {
+                if (!text.matches(Logic.NUMBER)) {
                     return "";
                 }
             }
@@ -83,8 +77,8 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
 
         @Override
         public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
-            if(keyCode == KeyEvent.KEYCODE_DEL) {
-                if(parent.isEmpty()) display.removeView(parent);
+            if (keyCode == KeyEvent.KEYCODE_DEL) {
+                if (parent.isEmpty()) display.removeView(parent);
             }
             return super.onKeyDown(view, content, keyCode, event);
         }
@@ -103,7 +97,8 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         }
 
         @Override
-        public void onDestroyActionMode(ActionMode mode) {}
+        public void onDestroyActionMode(ActionMode mode) {
+        }
 
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
@@ -113,9 +108,9 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if(hasFocus) {
+        if (hasFocus) {
             display.mActiveEditText = MatrixEditText.this;
-            if(getText().toString().equals(Logic.NAN)) {
+            if (getText().toString().equals(Logic.NAN)) {
                 setText("");
             }
         }
@@ -128,9 +123,9 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
 
     @Override
     public View focusSearch(int direction) {
-        switch(direction) {
-        case View.FOCUS_FORWARD:
-            return parent.nextView(this);
+        switch (direction) {
+            case View.FOCUS_FORWARD:
+                return parent.nextView(this);
         }
         return super.focusSearch(direction);
     }

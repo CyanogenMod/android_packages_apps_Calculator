@@ -16,8 +16,6 @@
 
 package com.android.calculator2.view;
 
-import java.util.regex.Pattern;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -27,10 +25,11 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.Button;
-
 import com.android.calculator2.Calculator;
 import com.android.calculator2.EventListener;
 import com.android.calculator2.R;
+
+import java.util.regex.Pattern;
 
 /**
  * Button with click-animation effect.
@@ -73,20 +72,19 @@ class ColorButton extends Button {
 
     private void layoutText() {
         Paint paint = getPaint();
-        if(mTextSize != 0f) paint.setTextSize(mTextSize);
+        if (mTextSize != 0f) paint.setTextSize(mTextSize);
         float textWidth = paint.measureText(getText().toString());
         float width = getWidth() - getPaddingLeft() - getPaddingRight();
         float textSize = getTextSize();
-        if(textWidth > width) {
+        if (textWidth > width) {
             paint.setTextSize(textSize * width / textWidth);
             mTextX = getPaddingLeft();
             mTextSize = textSize;
-        }
-        else {
+        } else {
             mTextX = (getWidth() - textWidth) / 2;
         }
         mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
-        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * 0.8f);
+        if (mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * 0.8f);
     }
 
     @Override
@@ -97,7 +95,7 @@ class ColorButton extends Button {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if(changed) layoutText();
+        if (changed) layoutText();
     }
 
     private void drawMagicFlame(int duration, Canvas canvas) {
@@ -110,23 +108,21 @@ class ColorButton extends Button {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if(mAnimStart != -1) {
+        if (mAnimStart != -1) {
             int animDuration = (int) (System.currentTimeMillis() - mAnimStart);
 
-            if(animDuration >= CLICK_FEEDBACK_DURATION) {
+            if (animDuration >= CLICK_FEEDBACK_DURATION) {
                 mAnimStart = -1;
-            }
-            else {
+            } else {
                 drawMagicFlame(animDuration, canvas);
                 postInvalidateDelayed(CLICK_FEEDBACK_INTERVAL);
             }
-        }
-        else if(isPressed()) {
+        } else if (isPressed()) {
             drawMagicFlame(0, canvas);
         }
 
         CharSequence hint = getHint();
-        if(hint != null) {
+        if (hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
             int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
             int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - getTextHeight(mHintPaint,
@@ -136,17 +132,16 @@ class ColorButton extends Button {
             float textWidth = mHintPaint.measureText(hint.toString());
             float width = getWidth() - getPaddingLeft() - getPaddingRight() - mTextX - offsetX;
             float textSize = mHintPaint.getTextSize();
-            if(textWidth > width) {
+            if (textWidth > width) {
                 mHintPaint.setTextSize(textSize * width / textWidth);
             }
 
-            for(String str : exponents) {
-                if(str == exponents[0]) {
+            for (String str : exponents) {
+                if (str == exponents[0]) {
                     canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
                     offsetY += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
                     offsetX += mHintPaint.measureText(str);
-                }
-                else {
+                } else {
                     canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
                     offsetY += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
                     offsetX += mHintPaint.measureText(str);
@@ -162,7 +157,7 @@ class ColorButton extends Button {
         mHintPaint.getTextBounds(text, 0, text.length(), bounds);
         int height = bounds.height();
         String[] exponents = text.split(Pattern.quote("^"));
-        for(int i = 1; i < exponents.length; i++) {
+        for (int i = 1; i < exponents.length; i++) {
             height += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
         }
         return height;
@@ -177,20 +172,19 @@ class ColorButton extends Button {
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = super.onTouchEvent(event);
 
-        switch(event.getAction()) {
-        case MotionEvent.ACTION_UP:
-            if(isPressed()) {
-                animateClickFeedback();
-            }
-            else {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                if (isPressed()) {
+                    animateClickFeedback();
+                } else {
+                    invalidate();
+                }
+                break;
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_CANCEL:
+                mAnimStart = -1;
                 invalidate();
-            }
-            break;
-        case MotionEvent.ACTION_DOWN:
-        case MotionEvent.ACTION_CANCEL:
-            mAnimStart = -1;
-            invalidate();
-            break;
+                break;
         }
 
         return result;

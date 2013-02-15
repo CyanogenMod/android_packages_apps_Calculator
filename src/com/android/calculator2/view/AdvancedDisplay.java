@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.android.calculator2.Logic;
 import com.android.calculator2.MutableString;
 import com.android.calculator2.R;
@@ -49,7 +48,7 @@ public class AdvancedDisplay extends LinearLayout {
     @Override
     public void removeView(View view) {
         int index = getChildIndex(view);
-        if(index == -1) return;
+        if (index == -1) return;
         super.removeViewAt(index);
         // Combine the 2 EditTexts on either side
         CalculatorEditText leftSide = (CalculatorEditText) getChildAt(index - 1);
@@ -62,15 +61,15 @@ public class AdvancedDisplay extends LinearLayout {
     }
 
     public int getChildIndex(View view) {
-        for(int i = 0; i < getChildCount(); i++) {
-            if(getChildAt(i) == view) return i;
+        for (int i = 0; i < getChildCount(); i++) {
+            if (getChildAt(i) == view) return i;
         }
         return -1;
     }
 
     public String getText() {
         String text = "";
-        for(int i = 0; i < getChildCount(); i++) {
+        for (int i = 0; i < getChildCount(); i++) {
             text += getChildAt(i).toString();
         }
         return text;
@@ -82,43 +81,39 @@ public class AdvancedDisplay extends LinearLayout {
 
     View nextView(View currentView) {
         boolean foundCurrentView = false;
-        for(int i = 0; i < getChildCount(); i++) {
-            if(foundCurrentView) return getChildAt(i);
-            else if(currentView == getChildAt(i)) foundCurrentView = true;
+        for (int i = 0; i < getChildCount(); i++) {
+            if (foundCurrentView) return getChildAt(i);
+            else if (currentView == getChildAt(i)) foundCurrentView = true;
         }
         return getChildAt(0);
     }
 
     public void insert(String delta) {
-        if(mActiveEditText == null) {
+        if (mActiveEditText == null) {
             setText(delta);
-        }
-        else {
-            if(CalculatorEditText.class.isInstance(getActiveEditText())) {
+        } else {
+            if (CalculatorEditText.class.isInstance(getActiveEditText())) {
                 // Logic to insert, split text if there's another view, etc
                 final MutableString text = new MutableString(delta);
-                while(!text.isEmpty()) {
+                while (!text.isEmpty()) {
                     int cursor = getActiveEditText().getSelectionStart();
                     final int index = getChildIndex(getActiveEditText());
 
-                    if(MatrixView.load(text, this, index + 1)) splitText(cursor, index, text);
-                    else if(MatrixTransposeView.load(text, this, index + 1)) {
+                    if (MatrixView.load(text, this, index + 1)) splitText(cursor, index, text);
+                    else if (MatrixTransposeView.load(text, this, index + 1)) {
                         splitText(cursor, index, text);
                         getChildAt(index + 2).requestFocus();
                         ((CalculatorEditText) getChildAt(index + 2)).setSelection(0);
-                    }
-                    else if(MatrixInverseView.load(text, this, index + 1)) {
+                    } else if (MatrixInverseView.load(text, this, index + 1)) {
                         splitText(cursor, index, text);
                         getChildAt(index + 2).requestFocus();
                         ((CalculatorEditText) getChildAt(index + 2)).setSelection(0);
-                    }
-                    else {
+                    } else {
                         getActiveEditText().getText().insert(cursor, text.subSequence(0, 1));
                         text.setText(text.substring(1, text.length()));
                     }
                 }
-            }
-            else {
+            } else {
                 int cursor = getActiveEditText().getSelectionStart();
                 getActiveEditText().getText().insert(cursor, delta);
             }
@@ -130,10 +125,9 @@ public class AdvancedDisplay extends LinearLayout {
         final String rightText = getActiveEditText().getText().toString().substring(cursor);
         getActiveEditText().setText(leftText);
         CalculatorEditText.load(rightText, this, index + 2);
-        if(text.isEmpty()) {
+        if (text.isEmpty()) {
             getChildAt(index + 1).requestFocus();
-        }
-        else {
+        } else {
             getChildAt(index + 2).requestFocus();
             ((CalculatorEditText) getChildAt(index + 2)).setSelection(0);
         }
@@ -144,10 +138,10 @@ public class AdvancedDisplay extends LinearLayout {
         CalculatorEditText.load(this);
         getLastView().requestFocus();
         final MutableString ms = new MutableString(text);
-        while(!ms.isEmpty()) {
-            if(MatrixView.load(ms, this)) continue;
-            if(MatrixTransposeView.load(ms, this)) continue;
-            if(MatrixInverseView.load(ms, this)) continue;
+        while (!ms.isEmpty()) {
+            if (MatrixView.load(ms, this)) continue;
+            if (MatrixTransposeView.load(ms, this)) continue;
+            if (MatrixInverseView.load(ms, this)) continue;
 
             // Append the next character to the trailing EditText
             ((CalculatorEditText) getLastView()).setText(((CalculatorEditText) getLastView()).getText() + ms.substring(0, 1));
@@ -174,14 +168,14 @@ public class AdvancedDisplay extends LinearLayout {
     }
 
     public View getLastView() {
-        if(getChildCount() == 0) return null;
+        if (getChildCount() == 0) return null;
         return getChildAt(getChildCount() - 1);
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        for(int i = 0; i < getChildCount(); i++) {
+        for (int i = 0; i < getChildCount(); i++) {
             getChildAt(i).setEnabled(enabled);
         }
     }
@@ -200,15 +194,13 @@ public class AdvancedDisplay extends LinearLayout {
 
     public boolean onTextContextMenuItem(CharSequence title) {
         boolean handled = false;
-        if(TextUtils.equals(title, mMenuItemsStrings[CUT])) {
+        if (TextUtils.equals(title, mMenuItemsStrings[CUT])) {
             cutContent();
             handled = true;
-        }
-        else if(TextUtils.equals(title, mMenuItemsStrings[COPY])) {
+        } else if (TextUtils.equals(title, mMenuItemsStrings[COPY])) {
             copyContent();
             handled = true;
-        }
-        else if(TextUtils.equals(title, mMenuItemsStrings[PASTE])) {
+        } else if (TextUtils.equals(title, mMenuItemsStrings[PASTE])) {
             pasteContent();
             handled = true;
         }
@@ -218,22 +210,22 @@ public class AdvancedDisplay extends LinearLayout {
     @Override
     public void onCreateContextMenu(ContextMenu menu) {
         MenuHandler handler = new MenuHandler();
-        if(mMenuItemsStrings == null) {
+        if (mMenuItemsStrings == null) {
             Resources resources = getResources();
             mMenuItemsStrings = new String[3];
             mMenuItemsStrings[CUT] = resources.getString(android.R.string.cut);
             mMenuItemsStrings[COPY] = resources.getString(android.R.string.copy);
             mMenuItemsStrings[PASTE] = resources.getString(android.R.string.paste);
         }
-        for(int i = 0; i < mMenuItemsStrings.length; i++) {
+        for (int i = 0; i < mMenuItemsStrings.length; i++) {
             menu.add(Menu.NONE, i, i, mMenuItemsStrings[i]).setOnMenuItemClickListener(handler);
         }
-        if(getText().length() == 0) {
+        if (getText().length() == 0) {
             menu.getItem(CUT).setVisible(false);
             menu.getItem(COPY).setVisible(false);
         }
         ClipData primaryClip = getPrimaryClip();
-        if(primaryClip == null || primaryClip.getItemCount() == 0 || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
+        if (primaryClip == null || primaryClip.getItemCount() == 0 || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
             menu.getItem(PASTE).setVisible(false);
         }
     }
@@ -263,10 +255,10 @@ public class AdvancedDisplay extends LinearLayout {
 
     private void pasteContent() {
         ClipData clip = getPrimaryClip();
-        if(clip != null) {
-            for(int i = 0; i < clip.getItemCount(); i++) {
+        if (clip != null) {
+            for (int i = 0; i < clip.getItemCount(); i++) {
                 CharSequence paste = clip.getItemAt(i).coerceToText(getContext());
-                if(canPaste(paste)) {
+                if (canPaste(paste)) {
                     insert(paste.toString());
                 }
             }

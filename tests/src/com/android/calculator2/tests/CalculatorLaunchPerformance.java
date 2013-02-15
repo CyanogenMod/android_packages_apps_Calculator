@@ -17,16 +17,14 @@
 package com.android.calculator2.tests;
 
 import android.app.Activity;
-import android.test.LaunchPerformanceBase;
 import android.os.Bundle;
-
-import java.util.Map;
+import android.test.LaunchPerformanceBase;
 
 /**
  * Instrumentation class for Calculator launch performance testing.
  */
 public class CalculatorLaunchPerformance extends LaunchPerformanceBase {
- 
+
     public static final String LOG_TAG = "CalculatorLaunchPerformance";
 
     public CalculatorLaunchPerformance() {

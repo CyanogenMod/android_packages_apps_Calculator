@@ -14,8 +14,8 @@
      limitations under the License.
  -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources
+        >
     <string name="app_name">Calculatrice</string>
     <string name="error">Erreur</string>
     <string name="X">X</string>
@@ -44,8 +44,8 @@
     <string name="solveForY">Résoudre pour Y</string>
     <string name="mod">mod</string>
     <string name="defaultGraphTitle">Fonction</string>
-    <string name="graphTitle">Fonction: </string>
-<!--  I don't found translation for Dot, Cross, Eigen and Eigen Values -->
+    <string name="graphTitle">Fonction:</string>
+    <!--  I don't found translation for Dot, Cross, Eigen and Eigen Values -->
     <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
@@ -59,7 +59,7 @@
     <string name="binDesc">Binaire</string>
     <string name="decDesc">Décimal</string>
     <string name="determinantDesc">Déterminant</string>
-    <string name="eigenvalueDesc">Eigen Values</string> 
+    <string name="eigenvalueDesc">Eigen Values</string>
     <string name="settings">Paramètres</string>
     <string name="showHistory">Afficher l\'historique</string>
     <string name="hideHistory">Cacher l\'historique</string>

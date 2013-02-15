@@ -14,8 +14,8 @@
      limitations under the License.
  -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources
+        >
     <string name="app_name" msgid="8095131950334945205">"Számológép"</string>
     <string name="error" msgid="9197457880925804499">"Hiba"</string>
     <string name="del" msgid="6248896117422989693">"TÖRLÉS"</string>
@@ -42,7 +42,7 @@
     <string name="mod">mód</string>
 
     <string name="defaultGraphTitle">Függvény</string>
-    <string name="graphTitle">Függvény: </string>
+    <string name="graphTitle">Függvény:</string>
 
     <string name="inverse">Inverz</string>
     <string name="determinant">Determináns</string>

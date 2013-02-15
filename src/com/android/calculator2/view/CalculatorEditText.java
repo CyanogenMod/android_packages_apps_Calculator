@@ -25,15 +25,10 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.ActionMode;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
 import com.android.calculator2.EquationFormatter;
 import com.android.calculator2.R;
 
@@ -65,7 +60,7 @@ public class CalculatorEditText extends EditText {
         setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) display.mActiveEditText = CalculatorEditText.this;
+                if (hasFocus) display.mActiveEditText = CalculatorEditText.this;
             }
         });
     }
@@ -81,14 +76,16 @@ public class CalculatorEditText extends EditText {
             boolean updating = false;
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(updating) return;
+                if (updating) return;
 
                 input = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER);
 
@@ -114,7 +111,8 @@ public class CalculatorEditText extends EditText {
         }
 
         @Override
-        public void onDestroyActionMode(ActionMode mode) {}
+        public void onDestroyActionMode(ActionMode mode) {
+        }
 
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
@@ -129,12 +127,12 @@ public class CalculatorEditText extends EditText {
 
     @Override
     public View focusSearch(int direction) {
-        switch(direction) {
-        case View.FOCUS_FORWARD:
-            View v = mDisplay.nextView(this);
-            while(!v.isFocusable())
-                v = mDisplay.nextView(v);
-            return v;
+        switch (direction) {
+            case View.FOCUS_FORWARD:
+                View v = mDisplay.nextView(this);
+                while (!v.isFocusable())
+                    v = mDisplay.nextView(v);
+                return v;
         }
         return super.focusSearch(direction);
     }
@@ -144,8 +142,8 @@ public class CalculatorEditText extends EditText {
         super.onDraw(canvas);
         // TextViews don't draw the cursor if textLength is 0. Because we're an
         // array of TextViews, we'd prefer that it did.
-        if(getText().length() == 0 && isEnabled() && (isFocused() || isPressed())) {
-            if((SystemClock.uptimeMillis() - mShowCursor) % (2 * BLINK) < BLINK) {
+        if (getText().length() == 0 && isEnabled() && (isFocused() || isPressed())) {
+            if ((SystemClock.uptimeMillis() - mShowCursor) % (2 * BLINK) < BLINK) {
                 mHighlightPaint.setColor(getCurrentTextColor());
                 mHighlightPaint.setStyle(Paint.Style.STROKE);
                 canvas.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight(), mHighlightPaint);
@@ -166,8 +164,8 @@ public class CalculatorEditText extends EditText {
         final CalculatorEditText et = new CalculatorEditText(parent);
         et.setText(text);
         et.setSelection(0);
-        if(parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
-        if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
+        if (parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
+        if (parent.mFactory != null) et.setEditableFactory(parent.mFactory);
         et.setBackgroundResource(android.R.color.transparent);
         et.setTextAppearance(parent.getContext(), R.style.display_style);
         et.setPadding(5, 0, 5, 0);

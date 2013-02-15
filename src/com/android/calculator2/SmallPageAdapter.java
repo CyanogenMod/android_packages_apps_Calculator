@@ -5,7 +5,6 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.android.calculator2.Calculator.SmallPanel;
 import com.android.calculator2.view.CalculatorViewPager;
 
@@ -32,16 +31,16 @@ public class SmallPageAdapter extends PagerAdapter {
         mLogic = logic;
         setOrder();
 
-        switch(mLogic.getMode()) {
-        case BINARY:
-            mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
-            break;
-        case DECIMAL:
-            mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
-            break;
-        case HEXADECIMAL:
-            mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
-            break;
+        switch (mLogic.getMode()) {
+            case BINARY:
+                mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+                break;
+            case DECIMAL:
+                mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+                break;
+            case HEXADECIMAL:
+                mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+                break;
         }
     }
 
@@ -51,19 +50,18 @@ public class SmallPageAdapter extends PagerAdapter {
     }
 
     @Override
-    public void startUpdate(View container) {}
+    public void startUpdate(View container) {
+    }
 
     @Override
     public Object instantiateItem(View container, int position) {
-        if(position == SmallPanel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(mParent.getContext())) {
+        if (position == SmallPanel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mFunctionPage);
             return mFunctionPage;
-        }
-        else if(position == SmallPanel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(mParent.getContext())) {
+        } else if (position == SmallPanel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mAdvancedPage);
             return mAdvancedPage;
-        }
-        else if(position == SmallPanel.HEX.getOrder() && CalculatorSettings.hexPanel(mParent.getContext())) {
+        } else if (position == SmallPanel.HEX.getOrder() && CalculatorSettings.hexPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mHexPage);
             return mHexPage;
         }
@@ -76,7 +74,8 @@ public class SmallPageAdapter extends PagerAdapter {
     }
 
     @Override
-    public void finishUpdate(View container) {}
+    public void finishUpdate(View container) {
+    }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
@@ -89,7 +88,8 @@ public class SmallPageAdapter extends PagerAdapter {
     }
 
     @Override
-    public void restoreState(Parcelable state, ClassLoader loader) {}
+    public void restoreState(Parcelable state, ClassLoader loader) {
+    }
 
     @Override
     public void notifyDataSetChanged() {
@@ -100,15 +100,15 @@ public class SmallPageAdapter extends PagerAdapter {
 
     private void setOrder() {
         count = 0;
-        if(CalculatorSettings.hexPanel(mParent.getContext())) {
+        if (CalculatorSettings.hexPanel(mParent.getContext())) {
             SmallPanel.HEX.setOrder(count);
             count++;
         }
-        if(CalculatorSettings.advancedPanel(mParent.getContext())) {
+        if (CalculatorSettings.advancedPanel(mParent.getContext())) {
             SmallPanel.ADVANCED.setOrder(count);
             count++;
         }
-        if(CalculatorSettings.functionPanel(mParent.getContext())) {
+        if (CalculatorSettings.functionPanel(mParent.getContext())) {
             SmallPanel.FUNCTION.setOrder(count);
             count++;
         }

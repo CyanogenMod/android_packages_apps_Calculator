@@ -14,8 +14,8 @@
      limitations under the License.
  -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources
+        >
     <string name="app_name" msgid="8095131950334945205">"계산기"</string>
     <string name="error" msgid="9197457880925804499">"오류"</string>
     <string name="del" msgid="6248896117422989693">"DEL"</string>

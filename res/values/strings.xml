@@ -189,13 +189,19 @@
 
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>
-    <string name="cling_simple_msg">Slide left and right to access more content. Unncessary pages can be disabled in Settings.</string>
+    <string name="cling_simple_msg">Slide left and right to access more content. Unncessary pages can be disabled in
+        Settings.
+    </string>
     <string name="cling_matrix_title">Matrices</string>
     <string name="cling_matrix_msg">Tap here to start building and solving matrices.</string>
     <string name="cling_hex_title">Change bases</string>
-    <string name="cling_hex_msg">Change between decimal (dec), binary (bin), and hexadecimal (hex).\n\nIf you believe Calculator is giving wrong results, make sure decimal is selected.</string>
+    <string name="cling_hex_msg">Change between decimal (dec), binary (bin), and hexadecimal (hex).\n\nIf you believe
+        Calculator is giving wrong results, make sure decimal is selected.
+    </string>
     <string name="cling_graph_title">Graph</string>
-    <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
+    <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function
+        using X and Y.
+    </string>
     <string name="cling_dismiss">OK</string>
 
     <string name="easter_egg">Magikarp used Splash but nothing happened.</string>

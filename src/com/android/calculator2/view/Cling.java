@@ -19,18 +19,12 @@ package com.android.calculator2.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
+import android.graphics.*;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.widget.FrameLayout;
-
 import com.android.calculator2.Calculator;
 import com.android.calculator2.R;
 
@@ -69,7 +63,7 @@ public class Cling extends FrameLayout {
     }
 
     public void init(Calculator c, int[] positionData, float revealRadius, boolean showHand) {
-        if(!mIsInitialized) {
+        if (!mIsInitialized) {
             mCalculator = c;
             mPositionData = positionData;
             mShowHand = showHand;
@@ -105,25 +99,27 @@ public class Cling extends FrameLayout {
     }
 
     private int[] getPunchThroughPosition() {
-        if(mPositionData != null) {
+        if (mPositionData != null) {
             return mPositionData;
         }
-        return new int[] { -1, -1, -1 };
+        return new int[]{-1, -1, -1};
     }
 
     @Override
     public boolean onTouchEvent(android.view.MotionEvent event) {
         int[] pos = getPunchThroughPosition();
         double diff = Math.sqrt(Math.pow(event.getX() - pos[0], 2) + Math.pow(event.getY() - pos[1], 2));
-        if(diff < mRevealRadius) {
+        if (diff < mRevealRadius) {
             return false;
         }
         return true;
-    };
+    }
+
+    ;
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        if(mIsInitialized) {
+        if (mIsInitialized) {
             DisplayMetrics metrics = new DisplayMetrics();
             mCalculator.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -132,14 +128,13 @@ public class Cling extends FrameLayout {
             Canvas c = new Canvas(b);
 
             // Draw the background
-            if(mBackground == null) {
+            if (mBackground == null) {
                 mBackground = getResources().getDrawable(R.drawable.bg_cling);
             }
-            if(mBackground != null) {
+            if (mBackground != null) {
                 mBackground.setBounds(0, 0, getMeasuredWidth(), getMeasuredHeight());
                 mBackground.draw(c);
-            }
-            else {
+            } else {
                 c.drawColor(0x99000000);
             }
 
@@ -159,15 +154,15 @@ public class Cling extends FrameLayout {
             cx = pos[0];
             cy = pos[1] - statusBarHeight;
             cz = pos[2];
-            if(cx > -1 && cy > -1 && scale > 0) {
+            if (cx > -1 && cy > -1 && scale > 0) {
                 c.drawCircle(cx, cy, mRevealRadius, mErasePaint);
                 mPunchThroughGraphic.setBounds(cx - dw / 2, cy - dh / 2, cx + dw / 2, cy + dh / 2);
                 mPunchThroughGraphic.draw(c);
             }
 
             // Draw the hand graphic
-            if(mShowHand) {
-                if(mHandTouchGraphic == null) {
+            if (mShowHand) {
+                if (mHandTouchGraphic == null) {
                     mHandTouchGraphic = getResources().getDrawable(R.drawable.hand);
                 }
                 int offset = cz;
@@ -183,5 +178,7 @@ public class Cling extends FrameLayout {
 
         // Draw the rest of the cling
         super.dispatchDraw(canvas);
-    };
+    }
+
+    ;
 }

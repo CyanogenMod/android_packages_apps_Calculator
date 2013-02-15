@@ -1,7 +1,5 @@
 package com.android.calculator2;
 
-import org.achartengine.GraphicalView;
-
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -10,9 +8,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
-
 import com.android.calculator2.Calculator.Panel;
 import com.android.calculator2.view.CalculatorViewPager;
+import org.achartengine.GraphicalView;
 
 public class PageAdapter extends PagerAdapter {
     private View mGraphPage;
@@ -49,20 +47,20 @@ public class PageAdapter extends PagerAdapter {
         mLogic = logic;
         setOrder();
 
-        switch(mLogic.getMode()) {
-        case BINARY:
-            mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
-            break;
-        case DECIMAL:
-            mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
-            break;
-        case HEXADECIMAL:
-            mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
-            break;
+        switch (mLogic.getMode()) {
+            case BINARY:
+                mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+                break;
+            case DECIMAL:
+                mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+                break;
+            case HEXADECIMAL:
+                mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+                break;
         }
 
         View easterEgg = mMatrixPage.findViewById(R.id.easter);
-        if(easterEgg != null) {
+        if (easterEgg != null) {
             easterEgg.setOnClickListener(listener);
             easterEgg.setOnLongClickListener(listener);
         }
@@ -74,12 +72,13 @@ public class PageAdapter extends PagerAdapter {
     }
 
     @Override
-    public void startUpdate(View container) {}
+    public void startUpdate(View container) {
+    }
 
     @Override
     public Object instantiateItem(View container, int position) {
-        if(position == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(mParent.getContext())) {
-            if(mGraphDisplay == null) {
+        if (position == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(mParent.getContext())) {
+            if (mGraphDisplay == null) {
                 mGraphDisplay = mGraph.getGraph(mParent.getContext());
                 mLogic.setGraphDisplay(mGraphDisplay);
                 LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
@@ -108,30 +107,24 @@ public class PageAdapter extends PagerAdapter {
                         mGraphDisplay.zoomReset();
                     }
                 });
-            }
-            else {
+            } else {
                 mGraphDisplay.repaint();
             }
             ((ViewGroup) container).addView(mGraphPage);
             return mGraphPage;
-        }
-        else if(position == Panel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(mParent.getContext())) {
+        } else if (position == Panel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mFunctionPage);
             return mFunctionPage;
-        }
-        else if(position == Panel.BASIC.getOrder() && CalculatorSettings.basicPanel(mParent.getContext())) {
+        } else if (position == Panel.BASIC.getOrder() && CalculatorSettings.basicPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mSimplePage);
             return mSimplePage;
-        }
-        else if(position == Panel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(mParent.getContext())) {
+        } else if (position == Panel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mAdvancedPage);
             return mAdvancedPage;
-        }
-        else if(position == Panel.HEX.getOrder() && CalculatorSettings.hexPanel(mParent.getContext())) {
+        } else if (position == Panel.HEX.getOrder() && CalculatorSettings.hexPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mHexPage);
             return mHexPage;
-        }
-        else if(position == Panel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(mParent.getContext())) {
+        } else if (position == Panel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mMatrixPage);
             return mMatrixPage;
         }
@@ -144,7 +137,8 @@ public class PageAdapter extends PagerAdapter {
     }
 
     @Override
-    public void finishUpdate(View container) {}
+    public void finishUpdate(View container) {
+    }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
@@ -157,7 +151,8 @@ public class PageAdapter extends PagerAdapter {
     }
 
     @Override
-    public void restoreState(Parcelable state, ClassLoader loader) {}
+    public void restoreState(Parcelable state, ClassLoader loader) {
+    }
 
     @Override
     public void notifyDataSetChanged() {
@@ -168,27 +163,27 @@ public class PageAdapter extends PagerAdapter {
 
     private void setOrder() {
         count = 0;
-        if(CalculatorSettings.graphPanel(mParent.getContext())) {
+        if (CalculatorSettings.graphPanel(mParent.getContext())) {
             Panel.GRAPH.setOrder(count);
             count++;
         }
-        if(CalculatorSettings.functionPanel(mParent.getContext())) {
+        if (CalculatorSettings.functionPanel(mParent.getContext())) {
             Panel.FUNCTION.setOrder(count);
             count++;
         }
-        if(CalculatorSettings.hexPanel(mParent.getContext())) {
+        if (CalculatorSettings.hexPanel(mParent.getContext())) {
             Panel.HEX.setOrder(count);
             count++;
         }
-        if(CalculatorSettings.basicPanel(mParent.getContext())) {
+        if (CalculatorSettings.basicPanel(mParent.getContext())) {
             Panel.BASIC.setOrder(count);
             count++;
         }
-        if(CalculatorSettings.advancedPanel(mParent.getContext())) {
+        if (CalculatorSettings.advancedPanel(mParent.getContext())) {
             Panel.ADVANCED.setOrder(count);
             count++;
         }
-        if(CalculatorSettings.matrixPanel(mParent.getContext())) {
+        if (CalculatorSettings.matrixPanel(mParent.getContext())) {
             Panel.MATRIX.setOrder(count);
             count++;
         }

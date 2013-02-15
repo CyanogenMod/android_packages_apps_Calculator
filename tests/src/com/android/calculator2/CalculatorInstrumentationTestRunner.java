@@ -18,21 +18,18 @@ package com.android.calculator2;
 
 import android.test.InstrumentationTestRunner;
 import android.test.InstrumentationTestSuite;
-
-import com.android.calculator2.CalculatorHitSomeButtons;
-
 import junit.framework.TestSuite;
 
 public class CalculatorInstrumentationTestRunner extends InstrumentationTestRunner {
-    
+
     @Override
     public TestSuite getAllTests() {
         TestSuite suite = new InstrumentationTestSuite(this);
         suite.addTestSuite(CalculatorHitSomeButtons.class);
-        
+
         return suite;
     }
-    
+
     @Override
     public ClassLoader getLoader() {
         return CalculatorInstrumentationTestRunner.class.getClassLoader();

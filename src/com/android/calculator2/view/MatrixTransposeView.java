@@ -20,7 +20,6 @@ import android.content.Context;
 import android.text.Html;
 import android.text.InputType;
 import android.widget.TextView;
-
 import com.android.calculator2.MutableString;
 import com.android.calculator2.R;
 
@@ -46,7 +45,7 @@ public class MatrixTransposeView extends TextView {
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent) {
         boolean changed = MatrixTransposeView.load(text, parent, parent.getChildCount());
-        if(changed) {
+        if (changed) {
             // Always append a trailing EditText
             CalculatorEditText.load(parent);
         }
@@ -54,7 +53,7 @@ public class MatrixTransposeView extends TextView {
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
-        if(!text.startsWith(PATTERN)) return false;
+        if (!text.startsWith(PATTERN)) return false;
 
         text.setText(text.substring(PATTERN.length()));
 

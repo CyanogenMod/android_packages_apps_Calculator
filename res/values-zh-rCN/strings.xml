@@ -14,8 +14,8 @@
      limitations under the License.
  -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources
+        >
     <string name="app_name" msgid="8095131950334945205">"计算器"</string>
     <string name="error" msgid="9197457880925804499">"出错"</string>
     <string name="del" msgid="6248896117422989693">"删除"</string>
@@ -51,14 +51,14 @@
     <string name="mod">取余数</string>
 
     <string name="defaultGraphTitle">函数</string>
-    <string name="graphTitle">函数: </string>
+    <string name="graphTitle">函数:</string>
 
     <string name="hexDesc">十六进制</string>
     <string name="binDesc">二进制</string>
     <string name="decDesc">十进制</string>
     <string name="determinantDesc">行列式</string>
     <string name="eigenvalueDesc">特征向量</string>
-    
+
     <string name="settings">设置</string>
     <string name="showHistory">显示历史记录</string>
     <string name="hideHistory">隐藏历史记录</string>

@@ -44,7 +44,7 @@ public class CalculatorViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(this.enabled) {
+        if (this.enabled) {
             return super.onTouchEvent(event);
         }
 
@@ -53,7 +53,7 @@ public class CalculatorViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if(this.enabled) {
+        if (this.enabled) {
             return super.onInterceptTouchEvent(event);
         }
 

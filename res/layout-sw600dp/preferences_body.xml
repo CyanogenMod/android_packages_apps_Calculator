@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="@string/pref_panels" >
+            android:title="@string/pref_panels">
         <CheckBoxPreference
-            android:title="@string/graph"
-            android:key="GRAPH"
-            android:defaultValue="@bool/GRAPH" />
-<!--   <CheckBoxPreference
-            android:title="@string/function"
-            android:key="FUNCTION"
-            android:defaultValue="@bool/FUNCTION" /> -->
+                android:title="@string/graph"
+                android:key="GRAPH"
+                android:defaultValue="@bool/GRAPH" />
+        <!--   <CheckBoxPreference
+                    android:title="@string/function"
+                    android:key="FUNCTION"
+                    android:defaultValue="@bool/FUNCTION" /> -->
         <CheckBoxPreference
-            android:title="@string/hexPanel"
-            android:key="HEX"
-            android:defaultValue="@bool/HEX" />
+                android:title="@string/hexPanel"
+                android:key="HEX"
+                android:defaultValue="@bool/HEX" />
         <CheckBoxPreference
-            android:title="@string/basic"
-            android:key="BASIC"
-            android:defaultValue="@bool/BASIC" />
+                android:title="@string/basic"
+                android:key="BASIC"
+                android:defaultValue="@bool/BASIC" />
         <CheckBoxPreference
-            android:title="@string/advanced"
-            android:key="ADVANCED"
-            android:defaultValue="@bool/ADVANCED" />
+                android:title="@string/advanced"
+                android:key="ADVANCED"
+                android:defaultValue="@bool/ADVANCED" />
         <CheckBoxPreference
-            android:title="@string/matrix"
-            android:key="MATRIX"
-            android:defaultValue="@bool/MATRIX" />
+                android:title="@string/matrix"
+                android:key="MATRIX"
+                android:defaultValue="@bool/MATRIX" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_units" >
+            android:title="@string/pref_units">
         <SwitchPreference
                 android:title="@string/trigUnits"
                 android:key="USE_RADIANS"

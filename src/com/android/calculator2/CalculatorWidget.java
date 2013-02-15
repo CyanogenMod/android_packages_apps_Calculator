@@ -1,7 +1,5 @@
 package com.android.calculator2;
 
-import org.javia.arity.SyntaxException;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -9,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
+import org.javia.arity.SyntaxException;
 
 public class CalculatorWidget extends AppWidgetProvider {
     public static final String DIGIT_0 = "0";
@@ -45,69 +44,52 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(equation.toString().equals(context.getResources().getString(R.string.error))) equation.setLength(0);
+        if (equation.toString().equals(context.getResources().getString(R.string.error))) equation.setLength(0);
 
-        if(intent.getAction().equals(DIGIT_0)) {
+        if (intent.getAction().equals(DIGIT_0)) {
             equation.append(0);
-        }
-        else if(intent.getAction().equals(DIGIT_1)) {
+        } else if (intent.getAction().equals(DIGIT_1)) {
             equation.append(1);
-        }
-        else if(intent.getAction().equals(DIGIT_2)) {
+        } else if (intent.getAction().equals(DIGIT_2)) {
             equation.append(2);
-        }
-        else if(intent.getAction().equals(DIGIT_3)) {
+        } else if (intent.getAction().equals(DIGIT_3)) {
             equation.append(3);
-        }
-        else if(intent.getAction().equals(DIGIT_4)) {
+        } else if (intent.getAction().equals(DIGIT_4)) {
             equation.append(4);
-        }
-        else if(intent.getAction().equals(DIGIT_5)) {
+        } else if (intent.getAction().equals(DIGIT_5)) {
             equation.append(5);
-        }
-        else if(intent.getAction().equals(DIGIT_6)) {
+        } else if (intent.getAction().equals(DIGIT_6)) {
             equation.append(6);
-        }
-        else if(intent.getAction().equals(DIGIT_7)) {
+        } else if (intent.getAction().equals(DIGIT_7)) {
             equation.append(7);
-        }
-        else if(intent.getAction().equals(DIGIT_8)) {
+        } else if (intent.getAction().equals(DIGIT_8)) {
             equation.append(8);
-        }
-        else if(intent.getAction().equals(DIGIT_9)) {
+        } else if (intent.getAction().equals(DIGIT_9)) {
             equation.append(9);
-        }
-        else if(intent.getAction().equals(DOT)) {
+        } else if (intent.getAction().equals(DOT)) {
             equation.append(context.getResources().getString(R.string.dot));
-        }
-        else if(intent.getAction().equals(DIV)) {
+        } else if (intent.getAction().equals(DIV)) {
             equation.append(context.getResources().getString(R.string.div));
-        }
-        else if(intent.getAction().equals(MUL)) {
+        } else if (intent.getAction().equals(MUL)) {
             equation.append(context.getResources().getString(R.string.mul));
-        }
-        else if(intent.getAction().equals(MINUS)) {
+        } else if (intent.getAction().equals(MINUS)) {
             equation.append(context.getResources().getString(R.string.minus));
-        }
-        else if(intent.getAction().equals(PLUS)) {
+        } else if (intent.getAction().equals(PLUS)) {
             equation.append(context.getResources().getString(R.string.plus));
-        }
-        else if(intent.getAction().equals(EQUALS)) {
+        } else if (intent.getAction().equals(EQUALS)) {
             final String input = equation.toString();
             final Logic mLogic = new Logic(context);
             mLogic.setLineLength(7);
 
-            if(input.isEmpty()) return;
+            if (input.isEmpty()) return;
 
             equation.setLength(0);
             try {
                 equation.append(mLogic.evaluate(input));
-            }
-            catch(SyntaxException e) {
+            } catch (SyntaxException e) {
                 equation.append(context.getResources().getString(R.string.error));
             }
-        }
-        else if(intent.getAction().equals(CLR)) {
+        } else if (intent.getAction().equals(CLR)) {
             equation.setLength(0);
         }
         ComponentName calcWidget = new ComponentName(context, CalculatorWidget.class);

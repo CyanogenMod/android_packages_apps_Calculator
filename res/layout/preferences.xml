@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <!-- Include Version Number footer -->
-        <TextView 
+    <!-- Include Version Number footer -->
+    <TextView
             android:id="@+id/version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -14,8 +14,8 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp" />
 
-        <!--  Include preferences -->
-        <fragment
+    <!--  Include preferences -->
+    <fragment
             android:id="@+id/preferences"
             android:name="com.android.calculator2.view.PreferencesFragment"
             android:layout_width="match_parent"

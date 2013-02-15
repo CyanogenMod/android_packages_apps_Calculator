@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <integer name="max_digits">14</integer>
     <item type="bool" name="GRAPH">true</item>
     <item type="bool" name="FUNCTION">false</item>

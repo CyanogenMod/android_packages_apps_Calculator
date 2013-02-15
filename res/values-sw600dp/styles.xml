@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <dimen name="btn_digit_text_size">50sp</dimen>
     <dimen name="btn_operation_text_size">50sp</dimen>
     <dimen name="btn_function_text_size">25sp</dimen>

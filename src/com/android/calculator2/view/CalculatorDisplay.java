@@ -16,9 +16,6 @@
 
 package com.android.calculator2.view;
 
-import java.util.Arrays;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
@@ -34,10 +31,12 @@ import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ViewSwitcher;
-
 import com.android.calculator2.CalculatorEditable;
 import com.android.calculator2.Logic;
 import com.android.calculator2.R;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Provides vertical scrolling for the input/result EditText.
@@ -109,23 +108,22 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
             @Override
             public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_DEL) {
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
                     int selectionHandle = getSelectionStart();
-                    if(selectionHandle == 0) {
+                    if (selectionHandle == 0) {
                         // Remove the view in front
                         AdvancedDisplay editor = getAdvancedDisplay();
                         int index = editor.getChildIndex(getActiveEditText());
-                        if(index > 0) {
+                        if (index > 0) {
                             editor.removeView(editor.getChildAt(index - 1));
                         }
-                    }
-                    else {
+                    } else {
                         // Check and remove keywords
                         String textBeforeInsertionHandle = getActiveEditText().toString().substring(0, selectionHandle);
                         String textAfterInsertionHandle = getActiveEditText().toString().substring(selectionHandle, getActiveEditText().toString().length());
 
-                        for(String s : keywords) {
-                            if(textBeforeInsertionHandle.endsWith(s)) {
+                        for (String s : keywords) {
+                            if (textBeforeInsertionHandle.endsWith(s)) {
                                 int deletionLength = s.length();
                                 String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)
                                         + textAfterInsertionHandle;
@@ -141,7 +139,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         };
 
         Editable.Factory factory = new CalculatorEditable.Factory(logic);
-        for(int i = 0; i < 2; ++i) {
+        for (int i = 0; i < 2; ++i) {
             AdvancedDisplay text = ((ScrollableDisplay) getChildAt(i)).getView();
             text.setLogic(logic);
             text.setEditableFactory(factory);
@@ -190,19 +188,17 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     }
 
     public void setText(CharSequence text, Scroll dir) {
-        if(getText().length() == 0) {
+        if (getText().length() == 0) {
             dir = Scroll.NONE;
         }
 
-        if(dir == Scroll.UP) {
+        if (dir == Scroll.UP) {
             setInAnimation(inAnimUp);
             setOutAnimation(outAnimUp);
-        }
-        else if(dir == Scroll.DOWN) {
+        } else if (dir == Scroll.DOWN) {
             setInAnimation(inAnimDown);
             setOutAnimation(outAnimDown);
-        }
-        else { // Scroll.NONE
+        } else { // Scroll.NONE
             setInAnimation(null);
             setOutAnimation(null);
         }
@@ -214,7 +210,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     }
 
     public int getSelectionStart() {
-        if(getActiveEditText() == null) return 0;
+        if (getActiveEditText() == null) return 0;
         return getActiveEditText().getSelectionStart();
     }
 
@@ -224,7 +220,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
     @Override
     protected void onFocusChanged(boolean gain, int direction, Rect prev) {
-        if(!gain) {
+        if (!gain) {
             requestFocus();
         }
     }

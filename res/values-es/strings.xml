@@ -14,8 +14,8 @@
      limitations under the License.
  -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources
+        >
     <string name="app_name" msgid="8095131950334945205">"Calculadora"</string>
     <string name="error" msgid="9197457880925804499">"Error"</string>
     <string name="X">X</string>
@@ -44,7 +44,7 @@
     <string name="solveForY">Solución para Y</string>
     <string name="mod">mod</string>
     <string name="defaultGraphTitle">Función</string>
-    <string name="graphTitle">Función: </string>
+    <string name="graphTitle">Función:</string>
     <string name="inverse">Inv</string>
     <string name="determinant">Determ</string>
     <string name="eigenvalue">Autoval</string>

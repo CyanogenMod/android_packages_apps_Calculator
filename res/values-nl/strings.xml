@@ -14,8 +14,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources
+        >
     <string name="app_name" msgid="8095131950334945205">"Rekenmachine"</string>
     <string name="error" msgid="9197457880925804499">"Fout"</string>
     <string name="del" msgid="6248896117422989693">"WISSEN"</string>
@@ -44,7 +44,7 @@
     <string name="solveForY">y oplossen</string>
     <string name="mod">mod</string>
     <string name="defaultGraphTitle">Functie</string>
-    <string name="graphTitle">Functie: </string>
+    <string name="graphTitle">Functie:</string>
     <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>

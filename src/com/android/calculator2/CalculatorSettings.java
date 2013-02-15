@@ -2,7 +2,6 @@ package com.android.calculator2;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
-
 import com.android.calculator2.Calculator.Panel;
 
 public class CalculatorSettings {

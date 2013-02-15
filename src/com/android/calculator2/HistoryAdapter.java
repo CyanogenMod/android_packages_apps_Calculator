@@ -16,16 +16,15 @@
 
 package com.android.calculator2;
 
-import java.util.Vector;
-
-import org.javia.arity.SyntaxException;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import org.javia.arity.SyntaxException;
+
+import java.util.Vector;
 
 class HistoryAdapter extends BaseAdapter {
     private Vector<HistoryEntry> mEntries;
@@ -57,10 +56,9 @@ class HistoryAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
-        if(convertView == null) {
+        if (convertView == null) {
             view = mInflater.inflate(R.layout.history_item, parent, false);
-        }
-        else {
+        } else {
             view = convertView;
         }
 
@@ -74,8 +72,7 @@ class HistoryAdapter extends BaseAdapter {
         try {
             String res = mEval.evaluate(base);
             result.setText("= " + res);
-        }
-        catch(SyntaxException e) {
+        } catch (SyntaxException e) {
             result.setText("");
         }
 

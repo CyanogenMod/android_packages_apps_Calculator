@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
- *    
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *    
+ *
  *            http://www.apache.org/licenses/LICENSE-2.0
- *    
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,9 @@
  */
 package com.android.calculator2;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint.Align;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -25,10 +28,6 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import org.achartengine.tools.PanListener;
 import org.achartengine.tools.ZoomEvent;
 import org.achartengine.tools.ZoomListener;
-
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint.Align;
 
 public class Graph {
     private GraphicalView mChartView;
@@ -104,7 +103,7 @@ public class Graph {
     private void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
         mSeries = new XYSeries(title, scale);
         int seriesLength = xValues.length;
-        for(int k = 0; k < seriesLength; k++) {
+        for (int k = 0; k < seriesLength; k++) {
             mSeries.add(xValues[k], yValues[k]);
         }
         dataset.addSeries(mSeries);
@@ -118,7 +117,7 @@ public class Graph {
         renderer.setLegendTextSize(20);
         renderer.setLegendHeight(22);
         renderer.setPointSize(5f);
-        renderer.setMargins(new int[] { 20, 30, 15, 20 });
+        renderer.setMargins(new int[]{20, 30, 15, 20});
         renderer.setChartTitle("");
         renderer.setXTitle(context.getResources().getString(R.string.X));
         renderer.setYTitle(context.getResources().getString(R.string.Y));
