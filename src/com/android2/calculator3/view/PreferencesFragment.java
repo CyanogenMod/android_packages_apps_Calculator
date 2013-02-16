@@ -1,13 +1,10 @@
 package com.android2.calculator3.view;
 
-import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 
-import com.android2.calculator3.About;
 import com.android2.calculator3.R;
 
 public class PreferencesFragment extends PreferenceFragment {
@@ -24,13 +21,6 @@ public class PreferencesFragment extends PreferenceFragment {
             catch(NameNotFoundException e) {
                 e.printStackTrace();
             }
-            about.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    startActivity(new Intent(getActivity(), About.class));
-                    return false;
-                }
-            });
             about.setTitle(about.getTitle() + " " + versionName);
         }
     }

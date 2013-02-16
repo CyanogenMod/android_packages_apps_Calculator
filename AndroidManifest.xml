@@ -27,7 +27,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Preferences" android:label="@string/settings" />
-        <activity android:name=".About" android:label="@string/activity_about" />
         <receiver android:name=".CalculatorWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
