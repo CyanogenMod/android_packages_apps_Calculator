@@ -38,6 +38,7 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        autoScrolling = false;
         super.onTouchEvent(ev);
         return false;
     }
@@ -68,10 +69,12 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
     }
 
     private boolean gravityRight = false;
+    private boolean autoScrolling = false;
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         // HorizontalScrollView is broken for Gravity.RIGHT. So we're fixing it.
+        autoScrolling = false;
         int childWidth = getView().getWidth();
         super.onLayout(changed, left, top, right, bottom);
         int delta = getView().getWidth() - childWidth;
@@ -84,9 +87,6 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
                 gravityRight = true;
                 p.gravity = Gravity.LEFT | verticalGravity;
                 view.setLayoutParams(p);
-                removeViewAt(0);
-                addView(view);
-                if(view.getActiveEditText() != null) view.getActiveEditText().requestFocus();
                 super.onLayout(changed, left, top, right, bottom);
             }
         }
@@ -95,12 +95,24 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
                 gravityRight = false;
                 p.gravity = Gravity.RIGHT | verticalGravity;
                 view.setLayoutParams(p);
-                removeViewAt(0);
-                addView(view);
-                if(view.getActiveEditText() != null) view.getActiveEditText().requestFocus();
                 super.onLayout(changed, left, top, right, bottom);
             }
         }
-        if(gravityRight && delta > 0) scrollBy(delta, 0);
+        if(gravityRight && delta > 0) {
+            scrollBy(delta, 0);
+            autoScrolling = true;
+        }
+    }
+
+    @Override
+    public void computeScroll() {
+        if(autoScrolling) return;
+        super.computeScroll();
+    }
+
+    @Override
+    public void scrollTo(int x, int y) {
+        if(autoScrolling) return;
+        super.scrollTo(x, y);
     }
 }

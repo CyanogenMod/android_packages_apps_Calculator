@@ -65,4 +65,6 @@
     <string name="showHistory">Előzmények megjelenítése</string>
     <string name="hideHistory">Előzmények elrejtése</string>
     <string name="returnToBasic">Visszatérés az alappanelre</string>
+
+    <string name="pref_application">Alkalmazás</string>
 </resources>
