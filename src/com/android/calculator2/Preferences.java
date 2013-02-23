@@ -2,10 +2,8 @@ package com.android.calculator2;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.widget.TextView;
 
 /**
  * @author Will Harmon
@@ -15,14 +13,6 @@ public class Preferences extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences);
-        try {
-            String versionName = "v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            TextView version = (TextView) findViewById(R.id.version);
-            version.setText(versionName);
-        }
-        catch(NameNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

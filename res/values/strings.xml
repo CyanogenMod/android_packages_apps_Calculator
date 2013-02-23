@@ -17,6 +17,10 @@
 <resources>
     <!-- Application name -->
     <string name="app_name">Calculator</string>
+    <!-- Application copyright -->
+    <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
+    <!-- Application version -->
+    <string name="application_version" translatable="false">3.1.2</string>
     <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
     <string name="error">Error</string>
     <!-- Displayed numbers for the digit buttons -->
@@ -182,6 +186,7 @@
     <string name="pref_panels">Panels</string>
     <string name="pref_actions">Actions</string>
     <string name="pref_units">Units</string>
+    <string name="pref_application">Application</string>
     <string name="returnToBasic">Return to the basic panel</string>
     <string name="trigUnits">Trig units</string>
     <string name="radians">RAD</string>
@@ -193,7 +198,7 @@
     <string name="cling_matrix_title">Matrices</string>
     <string name="cling_matrix_msg">Tap here to start building and solving matrices.</string>
     <string name="cling_hex_title">Change bases</string>
-    <string name="cling_hex_msg">Change between decimal (dec), binary (bin), and hexadecimal (hex).\n\nIf you believe Calculator is giving wrong results, make sure decimal is selected.</string>
+    <string name="cling_hex_msg">Switch between decimal (dec), binary (bin), and hexadecimal (hex).\n\nWarning: If you believe you\'re getting bad results, you\'re probably in the wrong base. The default is decimal.</string>
     <string name="cling_graph_title">Graph</string>
     <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
     <string name="cling_dismiss">OK</string>
