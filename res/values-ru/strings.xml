@@ -94,4 +94,6 @@
     <string name="hideHistory">Спрятать историю</string>
 
     <string name="returnToBasic">Возвращаться на основную панель</string>
+
+    <string name="pref_application">Приложение</string>
 </resources>

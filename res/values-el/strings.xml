@@ -70,4 +70,6 @@
     <string name="hideHistory">Απόκρυψη ιστορικού</string>
 
     <string name="returnToBasic">Επιστροφή στον πίνακα βασικών πράξεων</string>
+
+    <string name="pref_application">Εφαρμογη</string>
 </resources>

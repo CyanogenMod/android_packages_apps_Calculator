@@ -21,7 +21,7 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.test.ActivityInstrumentationTestCase;
+import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -34,14 +34,14 @@ import android.test.TouchUtils;
 
 import com.android.calculator2.Calculator;
 import com.android.calculator2.R;
-import com.android.calculator2.CalculatorDisplay;
+import com.android.calculator2.view.CalculatorDisplay;
 
 /**
  * Instrumentation tests for poking some buttons
  *
  */
 
-public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase <Calculator>{
+public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2 <Calculator>{
     public boolean setup = false;
     private static final String TAG = "CalculatorTests";
     Calculator mActivity = null;
@@ -131,10 +131,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase <C
         CalculatorDisplay display = (CalculatorDisplay) mActivity.findViewById(R.id.display);
         assertNotNull(display);
         
-        EditText box = (EditText) display.getCurrentView();
-        assertNotNull(box);
-        
-        return box.getText().toString();
+        return display.getText();
     }
 }
 
