@@ -20,7 +20,7 @@
     <string name="error" msgid="9197457880925804499">"Erro"</string>
     <string name="del" msgid="6248896117422989693">"EXCLUIR"</string>
     <string name="clear" msgid="8103610981407459768">"CLR"</string>
-    <string name="sin" msgid="6793866152659175277">"sin"</string>
+    <string name="sin" msgid="6793866152659175277">"sen"</string>
     <string name="cos" msgid="6901841853098114414">"cos"</string>
     <string name="tan" msgid="7957459816738554960">"tan"</string>
     <string name="e" msgid="1377847800971731483">"e"</string>
@@ -51,5 +51,39 @@
     <string name="copy">Copiar \"%s\"</string>
     <string name="remove_from_history">Remover do histórico</string>
     <string name="returnToBasic">Retornar ao painel básico</string>
-    <string name="pref_application">Aplicação</string>
+    <string name="pref_application">Aplicativo</string>
+    <string name="arcsin">sen^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="mod">mod</string>
+    <string name="determinant">Det</string>
+    <string name="plus_row">+Linha</string>
+    <string name="minus_row">-Linha</string>
+    <string name="plus_col">+Col</string>
+    <string name="minus_col">-Col</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Próx.</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="decDesc">Decimal</string>
+    <string name="pref_panels">Painéis</string>
+    <string name="pref_actions">Ações</string>
+    <string name="pref_units">Unidades</string>
+    <string name="trigUnits">Unidades trig.</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+    <string name="cling_simple_title">Bem vindo</string>
+    <string name="cling_simple_msg">Deslize para esquerda e direita para acessar mais conteúdo. Páginas desnecessárias podem ser desativadas nas Configurações.</string>
+    <string name="cling_matrix_title">Matrizes</string>
+    <string name="cling_matrix_msg">Pressione aqui para iniciar a contruir e resolver matrizes.</string>
+    <string name="cling_hex_title">Mudar bases</string>
+    <string name="cling_hex_msg">Alternar entre decimal (dec), binário (bin), e hexadecimal (hex).\n\nAviso: Se você acha que está obtendo resultados errados, você provavelmente está na base errada. O padrão é decimal.</string>
+    <string name="cling_graph_title">Gráfico</string>
+    <string name="cling_graph_msg">Gráficos irão aparecer automaticamente aqui. Vá até o painel avançado e construa uma função usando X e Y.</string>
+    <string name="cling_dismiss">OK</string>
+    <string name="easter_egg">Magikarp usou Splash mas nada aconteceu.</string>
 </resources>
