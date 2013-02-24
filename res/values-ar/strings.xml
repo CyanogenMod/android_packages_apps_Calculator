@@ -63,9 +63,6 @@
     <string name="solveForX">حل ل x</string>
     <string name="solveForY">حل ل y</string>
     <string name="mod">mod</string>
-    <string name="defaultGraphTitle">الدالة</string>
-    <string name="graphTitle">الدالة:</string>
-    <string name="inverse">"Inv"</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">حل</string>

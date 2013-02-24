@@ -44,9 +44,6 @@
     <string name="dy">dY</string>
     <string name="solveForX">Vyřešit pro X</string>
     <string name="solveForY">Vyřešit pro Y</string>
-    <string name="defaultGraphTitle">Funkce</string>
-    <string name="graphTitle">Funkce: </string>
-    <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Vyřešit</string>

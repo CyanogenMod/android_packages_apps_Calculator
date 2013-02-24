@@ -30,5 +30,5 @@
     <string name="advanced" msgid="7122495413742976492">"Painel avançado"</string>
     <string name="clear_history" msgid="8458043980601165012">"Limpar histórico"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Texto copiado."</string>
-    <string name="pref_application">Aplicação</string>
+    <string name="pref_about">Sobre</string>
 </resources>
