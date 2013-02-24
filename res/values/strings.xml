@@ -194,7 +194,7 @@
 
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>
-    <string name="cling_simple_msg">Slide left and right to access more content. Unncessary pages can be disabled in Settings.</string>
+    <string name="cling_simple_msg">Slide left and right to access more content. Unnecessary pages can be disabled in Settings.</string>
     <string name="cling_matrix_title">Matrices</string>
     <string name="cling_matrix_msg">Tap here to start building and solving matrices.</string>
     <string name="cling_hex_title">Change bases</string>
