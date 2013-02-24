@@ -65,5 +65,4 @@
     <string name="copy">\'%s\' kopiëren</string>
     <string name="remove_from_history">Verwijderen uit geschiedenis</string>
     <string name="returnToBasic">Terug naar Basispaneel</string>
-    <string name="pref_application">Applicatie</string>
 </resources>

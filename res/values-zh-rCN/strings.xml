@@ -64,6 +64,4 @@
     <string name="hideHistory">隐藏历史记录</string>
 
     <string name="returnToBasic">返回到基本面板</string>
-
-    <string name="pref_application">应用</string>
 </resources>
