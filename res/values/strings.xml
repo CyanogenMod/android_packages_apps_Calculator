@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2007 The Android Open Source Project
+     Copyright (C) 2013 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -18,9 +19,9 @@
     <!-- Application name -->
     <string name="app_name">Calculator</string>
     <!-- Application copyright -->
-    <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
+    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
     <!-- Application version -->
-    <string name="application_version" translatable="false">3.1.2</string>
+    <string name="application_version" translatable="false">v3.1.2</string>
     <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
     <string name="error">Error</string>
     <!-- Displayed numbers for the digit buttons -->
@@ -147,7 +148,7 @@
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
     <!-- History menu item for copying item -->
-    <string name="copy">Copy \"%s\"</string>
+    <string name="copy">Copy \'%s\'</string>
     <!-- History menu item for removing item from history -->
     <string name="remove_from_history">Remove from history</string>
     <!-- History menu item for viewing history -->
@@ -186,7 +187,7 @@
     <string name="pref_panels">Panels</string>
     <string name="pref_actions">Actions</string>
     <string name="pref_units">Units</string>
-    <string name="pref_application">Application</string>
+    <string name="pref_about">About</string>
     <string name="returnToBasic">Return to the basic panel</string>
     <string name="trigUnits">Trig units</string>
     <string name="radians">RAD</string>
@@ -194,7 +195,7 @@
 
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>
-    <string name="cling_simple_msg">Slide left and right to access more content. Unncessary pages can be disabled in Settings.</string>
+    <string name="cling_simple_msg">Slide left and right to access more content. Unnecessary pages can be disabled in Settings.</string>
     <string name="cling_matrix_title">Matrices</string>
     <string name="cling_matrix_msg">Tap here to start building and solving matrices.</string>
     <string name="cling_hex_title">Change bases</string>
