@@ -32,6 +32,11 @@
     <string name="text_copied_toast" msgid="5801480710472541833">"Tekst er kopieret."</string>
 
     <!-- CM10 additions start -->
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arcsin">sin^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
 
     <string name="matrix">Matrixpanel</string>
     <string name="graph">Grafpanel</string>
@@ -63,15 +68,40 @@
     <string name="decDesc">Decimal</string>
     <string name="determinantDesc">Determinant</string>
     <string name="eigenvalueDesc">Egenværdi</string>
+    <string name="plus_row">+Række</string>
+    <string name="minus_row">-Række</string>
+    <string name="plus_col">+Kolonne</string>
+    <string name="minus_col">-Kolonne</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Næste</string>
 
     <string name="settings">Indstillinger</string>
     <string name="showHistory">Vis Historik</string>
     <string name="hideHistory">Skjul Historik</string>
 
+    <string name="pref_panels">Paneler</string>
+    <string name="pref_actions">Handlinger</string>
+    <string name="pref_units">Enheder</string>
+    <string name="pref_application">Applikation</string>
     <string name="returnToBasic">Vend tilbage til det grundlæggende panel</string>
+    <string name="trigUnits">Trig. enheder</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">GRD</string>
 
     <string name="copy">Kopiér \"%s\"</string>
     <string name="remove_from_history">Fjern fra historik</string>
+
+    <string name="cling_simple_title">Velkommen</string>
+    <string name="cling_simple_msg">Glid til venstre og højre for at tilgå mere indhold. Unødvendige sider kan slås fra i Indstillinger.</string>
+    <string name="cling_matrix_title">Matricer</string>
+    <string name="cling_matrix_msg">Tryk her for at bygge og løse matricer.</string>
+    <string name="cling_hex_title">Skift grundtal</string>
+    <string name="cling_hex_msg">Skift mellem decimal (dec), binært (bin), og heksadecimalt (hex).\n\nAdvarsel: Hvis du mener, at du får forkerte resultater, er du formentlig på det forkerte grundtal. Standarden er decimal.</string>
+    <string name="cling_graph_title">Graf</string>
+    <string name="cling_graph_msg">Grafer vil automatisk vises her. Gå til det avancerede panel og byg en funktion vha. X og Y.</string>
+    <string name="cling_dismiss">OK</string>
+
+    <string name="easter_egg">Magikarp brugte Splash, men intet skete.</string>
 
     <!-- CM10 additions end -->
 </resources>
