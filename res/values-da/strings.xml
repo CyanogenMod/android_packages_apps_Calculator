@@ -44,10 +44,6 @@
     <string name="solveForY">Løs for Y</string>
     <string name="mod">mod</string>
 
-    <string name="defaultGraphTitle">Funktion</string>
-    <string name="graphTitle">Funktion: </string>
-
-    <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Egen</string>
     <string name="solve">Løs</string>
