@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="400">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true" android:drawable="@drawable/centered_pressed_menu_bg" />
     <item android:drawable="@android:color/transparent" />
 </selector>
