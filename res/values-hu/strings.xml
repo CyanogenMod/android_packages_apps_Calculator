@@ -41,10 +41,6 @@
     <string name="solveForY">Megoldás Y-ra</string>
     <string name="mod">mód</string>
 
-    <string name="defaultGraphTitle">Függvény</string>
-    <string name="graphTitle">Függvény: </string>
-
-    <string name="inverse">Inverz</string>
     <string name="determinant">Determináns</string>
     <string name="eigenvalue">Sajátérték</string>
     <string name="solve">Megoldás</string>
@@ -65,6 +61,4 @@
     <string name="showHistory">Előzmények megjelenítése</string>
     <string name="hideHistory">Előzmények elrejtése</string>
     <string name="returnToBasic">Visszatérés az alappanelre</string>
-
-    <string name="pref_application">Alkalmazás</string>
 </resources>

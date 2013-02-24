@@ -50,9 +50,6 @@
     <string name="solveForY">求解 Y</string>
     <string name="mod">取余数</string>
 
-    <string name="defaultGraphTitle">函数</string>
-    <string name="graphTitle">函数: </string>
-
     <string name="hexDesc">十六进制</string>
     <string name="binDesc">二进制</string>
     <string name="decDesc">十进制</string>
@@ -64,6 +61,4 @@
     <string name="hideHistory">隐藏历史记录</string>
 
     <string name="returnToBasic">返回到基本面板</string>
-
-    <string name="pref_application">应用</string>
 </resources>

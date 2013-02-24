@@ -43,9 +43,6 @@
     <string name="solveForX">Solución para X</string>
     <string name="solveForY">Solución para Y</string>
     <string name="mod">mod</string>
-    <string name="defaultGraphTitle">Función</string>
-    <string name="graphTitle">Función: </string>
-    <string name="inverse">Inv</string>
     <string name="determinant">Determ</string>
     <string name="eigenvalue">Autoval</string>
     <string name="solve">Resolv</string>
@@ -63,5 +60,4 @@
     <string name="showHistory">Mostrar historial</string>
     <string name="hideHistory">Ocultar historial</string>
     <string name="returnToBasic">Volver a operaciones básicas</string>
-    <string name="pref_application">Aplicación</string>
 </resources>

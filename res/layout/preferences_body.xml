@@ -37,17 +37,17 @@
     <PreferenceCategory
         android:title="@string/pref_units" >
         <SwitchPreference
-                android:title="@string/trigUnits"
-                android:key="USE_RADIANS"
-                android:switchTextOn="@string/radians"
-                android:switchTextOff="@string/degrees"
-                android:defaultValue="@bool/USE_RADIANS" />
+            android:title="@string/trigUnits"
+            android:key="USE_RADIANS"
+            android:switchTextOn="@string/radians"
+            android:switchTextOff="@string/degrees"
+            android:defaultValue="@bool/USE_RADIANS" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_application" >
+        android:title="@string/pref_about" >
         <Preference
-                android:title="@string/app_name"
-                android:summary="@string/application_copyright"
-                android:key="ABOUT" />
+            android:title="@string/app_name"
+            android:summary="@string/application_copyright"
+            android:key="ABOUT" />
     </PreferenceCategory>
 </PreferenceScreen>

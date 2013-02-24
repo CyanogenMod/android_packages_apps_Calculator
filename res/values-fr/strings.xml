@@ -43,10 +43,6 @@
     <string name="solveForX">Résoudre pour X</string>
     <string name="solveForY">Résoudre pour Y</string>
     <string name="mod">mod</string>
-    <string name="defaultGraphTitle">Fonction</string>
-    <string name="graphTitle">Fonction: </string>
-<!--  I don't found translation for Dot, Cross, Eigen and Eigen Values -->
-    <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Résoudre</string>
@@ -64,5 +60,4 @@
     <string name="showHistory">Afficher l\'historique</string>
     <string name="hideHistory">Cacher l\'historique</string>
     <string name="returnToBasic">Retourner au menu simple</string>
-    <string name="pref_application">Application</string>
 </resources>

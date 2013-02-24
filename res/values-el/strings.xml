@@ -45,10 +45,6 @@
     <string name="solveForY">Λύση ως προς Y</string>
     <string name="mod">mod</string>
 
-    <string name="defaultGraphTitle">Συνάρτηση</string>
-    <string name="graphTitle">Συνάρτηση: </string>
-
-    <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Λύση</string>
@@ -71,5 +67,4 @@
 
     <string name="returnToBasic">Επιστροφή στον πίνακα βασικών πράξεων</string>
 
-    <string name="pref_application">Εφαρμογη</string>
 </resources>

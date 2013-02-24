@@ -36,8 +36,6 @@
     <string name="hexPanel">Painel hexadecimal</string>
     <string name="solveForX">Resolver para X</string>
     <string name="solveForY">Resolver para Y</string>
-    <string name="defaultGraphTitle">Função</string>
-    <string name="graphTitle">Função:</string>
     <string name="eigenvalue">Autovalor</string>
     <string name="solve">Resolver</string>
     <string name="binDesc">Binário</string>
@@ -51,5 +49,4 @@
     <string name="copy">Copiar \"%s\"</string>
     <string name="remove_from_history">Remover do histórico</string>
     <string name="returnToBasic">Retornar ao painel básico</string>
-    <string name="pref_application">Aplicação</string>
 </resources>
