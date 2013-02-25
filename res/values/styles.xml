@@ -148,4 +148,8 @@
         <item name="android:shadowRadius">2.0</item>
         <item name="android:lineSpacingMultiplier">1.1</item>
     </style>
+
+    <style name="Theme.Calculator" parent="android:Theme.Holo.NoActionBar">
+        <item name="android:windowBackground">@color/background</item>
+    </style>
 </resources>
