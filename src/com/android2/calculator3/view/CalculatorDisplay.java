@@ -66,19 +66,19 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         mMaxDigits = attrs.getAttributeIntValue(null, ATTR_MAX_DIGITS, DEFAULT_MAX_DIGITS);
-        String sinString = context.getString(R.string.sin);
-        String cosString = context.getString(R.string.cos);
-        String tanString = context.getString(R.string.tan);
         String arcsinString = context.getString(R.string.arcsin);
         String arccosString = context.getString(R.string.arccos);
         String arctanString = context.getString(R.string.arctan);
+        String sinString = context.getString(R.string.sin);
+        String cosString = context.getString(R.string.cos);
+        String tanString = context.getString(R.string.tan);
         String logString = context.getString(R.string.lg);
         String lnString = context.getString(R.string.ln);
         String modString = context.getString(R.string.mod);
         String dx = context.getString(R.string.dx);
         String dy = context.getString(R.string.dy);
 
-        keywords = Arrays.asList(sinString + "(", cosString + "(", tanString + "(", arcsinString + "(", arccosString + "(", arctanString + "(",
+        keywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(",
                 logString + "(", modString + "(", lnString + "(", dx, dy);
         setOnLongClickListener(this);
     }

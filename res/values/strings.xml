@@ -88,11 +88,11 @@
     <!-- Displayed on buttons on screen for the tan function. -->
     <string name="tan">tan</string>
     <!-- Displayed on buttons on screen for the arcsin function. -->
-    <string name="arcsin">sin^\u22121</string>
+    <string name="arcsin">asin</string>
     <!-- Displayed on buttons on screen for the arccos function. -->
-    <string name="arccos">cos^\u22121</string>
+    <string name="arccos">acos</string>
     <!-- Displayed on buttons on screen for the arctan function. -->
-    <string name="arctan">tan^\u22121</string>
+    <string name="arctan">atan</string>
 
     <!-- Do not translate. Unicode pi sign; don't translate. Displayed as button on screen. -->
     <string name="pi" translatable="false">\u03c0</string>
