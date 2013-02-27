@@ -26,6 +26,8 @@
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
+    <string name="solveForX">Megoldás X-re</string>
+    <string name="solveForY">Megoldás Y-ra</string>
     <string name="basic" msgid="7691469861698059753">"Alappanel"</string>
     <string name="advanced" msgid="7122495413742976492">"Speciális panel"</string>
     <string name="matrix">Mátrix panel</string>
@@ -36,35 +38,53 @@
     <string name="text_copied_toast" msgid="5801480710472541833">"Szöveg átmásolva."</string>
     <string name="copy">Másolás \"%s\"</string>
     <string name="remove_from_history">Eltávolítás az előzményekből</string>
+    <string name="showHistory">Előzmények megjelenítése</string>
+    <string name="hideHistory">Előzmények elrejtése</string>
+    <string name="settings">Beállítások</string>
 
-    <string name="solveForX">Megoldás X-re</string>
-    <string name="solveForY">Megoldás Y-ra</string>
-    <string name="mod">mód</string>
-
-    <string name="defaultGraphTitle">Függvény</string>
-    <string name="graphTitle">Függvény: </string>
-
-    <string name="inverse">Inverz</string>
+    <!-- Matrix page text -->
     <string name="determinant">Determináns</string>
     <string name="eigenvalue">Sajátérték</string>
     <string name="solve">Megoldás</string>
     <string name="dotProduct">Skalárszorzat</string>
     <string name="crossProduct">Vektoriális szorzat</string>
+    <string name="determinantDesc">Determináns</string>
+    <string name="eigenvalueDesc">Sajátérték</string>
+    <string name="plus_row">+Sor</string>
+    <string name="minus_row">-Sor</string>
+    <string name="plus_col">+Oszlop</string>
+    <string name="minus_col">-Oszlop</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Következő</string>
 
+    <!-- Hex page text -->
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
-
     <string name="hexDesc">Hexadecimális</string>
     <string name="binDesc">Bináris</string>
     <string name="decDesc">Decimális</string>
-    <string name="determinantDesc">Determináns</string>
-    <string name="eigenvalueDesc">Sajátérték</string>
 
-    <string name="settings">Beállítások</string>
-    <string name="showHistory">Előzmények megjelenítése</string>
-    <string name="hideHistory">Előzmények elrejtése</string>
-    <string name="returnToBasic">Visszatérés az alappanelre</string>
-
+    <!-- Settings page text -->
+    <string name="pref_panels">Panelek</string>
+    <string name="pref_actions">Események</string>
+    <string name="pref_units">Mértékegységek</string>
     <string name="pref_application">Alkalmazás</string>
+    <string name="returnToBasic">Visszatérés az alappanelre</string>
+    <string name="trigUnits">Trig. mértékegység</string>
+    <string name="radians">Radián</string>
+    <string name="degrees">Fok</string>
+
+    <!-- Clings -->
+    <string name="cling_simple_title">Üdvözöljük</string>
+    <string name="cling_simple_msg">Csúsztasson jobbra vagy balra a további tartalmakért. A használni kivánt panelek a beállításokban megadhatóak.</string>
+    <string name="cling_matrix_title">Mátrixok</string>
+    <string name="cling_matrix_msg">Érintse meg mátrix felépítéséhez és megoldásához.</string>
+    <string name="cling_hex_title">Számrendszer módosítása</string>
+    <string name="cling_hex_msg">Válasszon a kettes (bin), tízes (dec), tizenhatos (hex) számrendszerek közül.\n\nFigyelmeztetés: Ha úgy gondolja, hogy rossz eredményényeket kap, akkor valószínűleg rossz a beállítás. Az alapértelmezett érték a decimális.</string>
+
+    <string name="cling_graph_title">Grafikon</string>
+    <string name="cling_graph_msg">A grafikon automatikusan megjelenik. Más függvény értékek a részletes beállításokban adhatóak meg.</string>
+    <string name="cling_dismiss">OK</string>
+
 </resources>
