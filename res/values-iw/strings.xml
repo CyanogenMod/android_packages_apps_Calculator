@@ -26,9 +26,6 @@
     <string name="solveForX">הפתרון עבור X</string>
     <string name="solveForY">הפתרון עבור Y</string>
     <string name="mod">mod</string>
-    <string name="defaultGraphTitle">פונקציה</string>
-    <string name="graphTitle">פונקציה:</string>
-    <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">פתרון</string>
