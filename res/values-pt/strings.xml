@@ -36,8 +36,6 @@
     <string name="hexPanel">Painel hexadecimal</string>
     <string name="solveForX">Resolver para X</string>
     <string name="solveForY">Resolver para Y</string>
-    <string name="defaultGraphTitle">Função</string>
-    <string name="graphTitle">Função:</string>
     <string name="eigenvalue">Autovalor</string>
     <string name="solve">Resolver</string>
     <string name="binDesc">Binário</string>

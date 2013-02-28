@@ -68,10 +68,6 @@
     <string name="solveForY">Решить для Y</string>
     <string name="mod">mod</string>
 
-    <string name="defaultGraphTitle">Функция</string>
-    <string name="graphTitle">Функция: </string>
-
-    <string name="inverse">Обр</string>
     <string name="determinant">Опр</string>
     <string name="eigenvalue">Собст.</string>
     <string name="solve">Решить</string>

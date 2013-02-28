@@ -43,9 +43,6 @@
     <string name="solveForX">x oplossen</string>
     <string name="solveForY">y oplossen</string>
     <string name="mod">mod</string>
-    <string name="defaultGraphTitle">Functie</string>
-    <string name="graphTitle">Functie: </string>
-    <string name="inverse">Inv</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Opl</string>
