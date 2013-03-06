@@ -28,6 +28,21 @@
     <string name="lg" msgid="873623857385418182">"log"</string>
     <string name="basic" msgid="7691469861698059753">"基本面板"</string>
     <string name="advanced" msgid="7122495413742976492">"高级面板"</string>
+    <string name="clear_history" msgid="8458043980601165012">"清除历史记录"</string>
+    <string name="text_copied_toast" msgid="5801480710472541833">"文本已复制."</string>
+
+    <!-- CYANOGENMOD ADDITIONS START-->
+
+    <!-- Application copyright -->
+    <string name="application_copyright">版权所有 \u00A9 CyanogenMod 2013</string>
+
+    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
+    <string name="solveForX">求解 X</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
+    <string name="solveForY">求解 Y</string>
+    <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
+    <string name="mod">取余数</string>
+
     <!-- Menu item text to take user to the screen with matrices. -->
     <string name="matrix">矩阵面板</string>
     <!-- Menu item text to take user to the screen with the graph. -->
@@ -36,31 +51,50 @@
     <string name="function">函数面板</string>
     <!-- Menu item text to take user to the screen with the hex digits and operators. -->
     <string name="hexPanel">十六进制面板</string>
-    <string name="clear_history" msgid="8458043980601165012">"清除历史记录"</string>
-    <string name="text_copied_toast" msgid="5801480710472541833">"文本已复制。"</string>
 
     <!-- History menu item for copying item -->
     <string name="copy">复制 \"%s\"</string>
     <!-- History menu item for removing item from history -->
     <string name="remove_from_history">从历史记录移除</string>
+    <!-- History menu item for viewing history -->
+    <string name="showHistory">显示历史记录</string>
+    <!-- History menu item for hiding history -->
+    <string name="hideHistory">隐藏历史记录</string>
+    <!-- History menu item for entering settings -->
+    <string name="settings">设置</string>
 
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
-    <string name="solveForX">求解 X</string>
-    <string name="solveForY">求解 Y</string>
-    <string name="mod">取余数</string>
+    <!-- Matrix page text -->
+    <string name="determinantDesc">行列式</string>
+    <string name="eigenvalueDesc">特征向量</string>
+    <string name="plus_row">+行</string>
+    <string name="minus_row">-行</string>
+    <string name="plus_col">+列</string>
+    <string name="minus_col">-列</string>
+    <string name="next">下一个</string>
 
+    <!-- Hex page text -->
     <string name="hexDesc">十六进制</string>
     <string name="binDesc">二进制</string>
     <string name="decDesc">十进制</string>
-    <string name="determinantDesc">行列式</string>
-    <string name="eigenvalueDesc">特征向量</string>
-    
-    <string name="settings">设置</string>
-    <string name="showHistory">显示历史记录</string>
-    <string name="hideHistory">隐藏历史记录</string>
 
-    <string name="returnToBasic">返回到基本面板</string>
-
+    <!-- Settings page text -->
+    <string name="pref_panels">面板</string>
+    <string name="pref_actions">操作</string>
+    <string name="pref_units">单位</string>
     <string name="pref_about">关于</string>
+    <string name="returnToBasic">返回到基本面板</string>
+    <string name="trigUnits">三角函数单位</string>
+
+    <!-- Clings -->
+    <string name="cling_simple_title">欢迎</string>
+    <string name="cling_simple_msg">左右滑动将显示其它的面板. 您可在设置内禁用不需要的面板.</string>
+    <string name="cling_matrix_title">矩阵</string>
+    <string name="cling_matrix_msg">点击这里来创建与解决矩阵问题.</string>
+    <string name="cling_hex_title">更改进制</string>
+    <string name="cling_hex_msg">在十进制 (Dec), 二进制 (Bin), 与十六进制 (Hex) 之间进行切换.\n\n警告: 如果您发现得到的结果是错误的, 这应该是您选择了错误的进制而导致的. 计算器的默认进制是十进制.</string>
+    <string name="cling_graph_title">图表</string>
+    <string name="cling_graph_msg">图表将会在这里自动显示. 请到高级面板并使用 X 与 Y 来创建一个函数.</string>
+    <string name="cling_dismiss">确定</string>
+
+    <string name="easter_egg">用尽了浑身力气去解数, 但依然无效.</string>
 </resources>
