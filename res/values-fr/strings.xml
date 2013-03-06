@@ -17,6 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Calculatrice</string>
+    <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
     <string name="error">Erreur</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
@@ -25,10 +26,18 @@
     <string name="sin">sin</string>
     <string name="cos">cos</string>
     <string name="tan">tan</string>
+    <string name="arcsin">sin^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
     <string name="e">e</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Résoudre pour X</string>
+    <string name="solveForY">Résoudre pour Y</string>
+    <string name="mod">mod</string>
     <string name="ln">ln</string>
     <string name="lg">log</string>
-    <string name="basic">Panneau de base</string>
+    <string name="basic">Panneau basic</string>
     <string name="advanced">Fonctions avancées</string>
     <string name="matrix">Panneau matrice</string>
     <string name="graph">Panneau graphique</string>
@@ -38,27 +47,54 @@
     <string name="text_copied_toast">Texte copié.</string>
     <string name="copy">Copier \"%s\"</string>
     <string name="remove_from_history">Supprimer de l\'historique</string>
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
-    <string name="solveForX">Résoudre pour X</string>
-    <string name="solveForY">Résoudre pour Y</string>
-    <string name="mod">mod</string>
-    <string name="determinant">Det</string>
-    <string name="eigenvalue">Eigen</string>
+    <string name="showHistory">Afficher l\'historique</string>
+    <string name="hideHistory">Cacher l\'historique</string>
+    <string name="settings">Paramètres</string>
+
+    <!-- Matrix page text -->
+    <string name="determinant">Det.</string>
+    <string name="eigenvalue">Val./string>
     <string name="solve">Résoudre</string>
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
+    <string name="determinantDesc">Déterminant</string>
+    <string name="eigenvalueDesc">Valeur propre</string>
+    <string name="plus_row">+Lig</string>
+    <string name="minus_row">-Lig</string>
+    <string name="plus_col">+Col</string>
+    <string name="minus_col">-Col</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Suiv.</string>
+
+    <!-- Hex page text -->
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
     <string name="hexDesc">Hexadécimal</string>
     <string name="binDesc">Binaire</string>
     <string name="decDesc">Décimal</string>
-    <string name="determinantDesc">Déterminant</string>
-    <string name="eigenvalueDesc">Eigen Values</string> 
-    <string name="settings">Paramètres</string>
-    <string name="showHistory">Afficher l\'historique</string>
-    <string name="hideHistory">Cacher l\'historique</string>
+
+    <!-- Settings page text -->
+    <string name="pref_panels">Panneaux</string>
+    <string name="pref_actions">Actions</string>
+    <string name="pref_units">Unités</string>
+    <string name="pref_application">Application</string>
     <string name="returnToBasic">Retourner au menu simple</string>
-    <string name="pref_about">À propos</string>
+    <string name="trigUnits">Unité trigo.</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+
+    <!-- Clings -->
+    <string name="cling_simple_title">Bienvenue</string>
+    <string name="cling_simple_msg">Glisser à gauche et à droite pour obtenir plus de fonctionnalité. Les panneaux non nécessaires peuvent être désactivés dans les paramètres.</string>
+    <string name="cling_matrix_title">Matrices</string>
+    <string name="cling_matrix_msg">Appuyer ici pour commencer à construire et résoudre des matrices.</string>
+    <string name="cling_hex_title">Changement de base</string>
+    <string name="cling_hex_msg">Basculer entre décimal (dec), binaire (bin), et hexadécimal (hex).\n\nAttention: si vous obtenez un résultat érroné, vous êtes probablement dans une mauvaise base. Par défaut la base est en décimal.</string>
+    <string name="cling_graph_title">Graphique</string>
+    <string name="cling_graph_msg">Les graphiques seront automatiquement affichés ici. Allez dans le panneau avancé et rentrez une fonction en utilisant X et Y.</string>
+    <string name="cling_dismiss">Ok</string>
+
+    <string name="easter_egg">Magikarp utilise Splash, mais rien ne s\'est passé.</string>
+
 </resources>
