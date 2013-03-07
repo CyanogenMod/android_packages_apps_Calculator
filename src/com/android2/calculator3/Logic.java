@@ -18,6 +18,7 @@ package com.android2.calculator3;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
@@ -341,9 +342,9 @@ public class Logic {
     String localize(String input) {
         // Delocalize functions (e.g. Spanish localizes "sin" as "sen"). Order
         // matters for arc functions
-        input = input.replaceAll(mArcsinString, "asin");
-        input = input.replaceAll(mArccosString, "acos");
-        input = input.replaceAll(mArctanString, "atan");
+        input = input.replaceAll(Pattern.quote(mArcsinString), "asin");
+        input = input.replaceAll(Pattern.quote(mArccosString), "acos");
+        input = input.replaceAll(Pattern.quote(mArctanString), "atan");
         input = input.replaceAll(mSinString, "sin");
         input = input.replaceAll(mCosString, "cos");
         input = input.replaceAll(mTanString, "tan");
