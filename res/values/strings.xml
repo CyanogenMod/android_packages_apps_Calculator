@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
+<!-- Copyright (C) 2013 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
     <!-- Application name -->
     <string name="app_name">Calculator</string>
     <!-- Application copyright -->
-    <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
+    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
     <!-- Application version -->
     <string name="application_version" translatable="false">3.1.2</string>
     <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
