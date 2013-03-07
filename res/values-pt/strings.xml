@@ -49,7 +49,7 @@
     <string name="copy">Copiar \"%s\"</string>
     <string name="remove_from_history">Remover do histórico</string>
     <string name="returnToBasic">Retornar ao painel básico</string>
-    <string name="pref_application">Aplicativo</string>
+    <string name="pref_about">Sobre</string>
     <string name="arcsin">sen^\u22121</string>
     <string name="arccos">cos^\u22121</string>
     <string name="arctan">tan^\u22121</string>

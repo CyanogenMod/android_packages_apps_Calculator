@@ -65,6 +65,4 @@
     <string name="showHistory">Verlauf anzeigen</string>
     <string name="hideHistory">Verlauf verbergen</string>
 
-    <string name="pref_application">Launcher-Version</string>
-
 </resources>

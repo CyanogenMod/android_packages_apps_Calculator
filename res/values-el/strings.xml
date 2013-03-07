@@ -67,5 +67,5 @@
 
     <string name="returnToBasic">Επιστροφή στον πίνακα βασικών πράξεων</string>
 
-    <string name="pref_application">Εφαρμογη</string>
+    <string name="pref_about">Σχετικά</string>
 </resources>

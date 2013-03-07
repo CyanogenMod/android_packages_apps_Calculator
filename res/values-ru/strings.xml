@@ -80,7 +80,7 @@ Left in English, because Google made it the same way - DoktorAkcel -->
     <string name="pref_panels">Панели</string>
     <string name="pref_actions">Действия</string>
     <string name="pref_units">Единицы</string>
-    <string name="pref_application">Приложение</string>
+    <string name="pref_about">О приложении</string>
     <string name="returnToBasic">На основную панель</string>
     <string name="trigUnits">Тригоном. единицы</string>
 

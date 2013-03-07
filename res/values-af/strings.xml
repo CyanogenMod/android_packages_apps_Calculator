@@ -74,7 +74,7 @@
     <string name="pref_panels">Panele</string>
     <string name="pref_actions">Aksies</string>
     <string name="pref_units">Eenhede</string>
-    <string name="pref_application">Program</string>
+    <string name="pref_about">Aangaande</string>
     <string name="returnToBasic">Terug na die basiese paneel</string>
     <string name="trigUnits">Trigonomie eenhede</string>
     <string name="radians">RAD</string>
