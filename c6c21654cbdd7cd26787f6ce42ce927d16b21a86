@@ -1,0 +1,11 @@
+Change-Id: I27bba9fd55218016e74ce1835815c0dfd95bf6f6
+Code-Review+2: Marco Brohet <therbom@gmail.com>
+Verified+1: Marco Brohet <therbom@gmail.com>
+Code-Review+1: Julien Gainza <gainza.julien@gmail.com>
+Code-Review+1: Delphin PETER <delphinpeter@gmail.com>
+Code-Review+1: Thibault LEMOINE <thibaultblizz@gmail.com>
+Submitted-by: Marco Brohet <therbom@gmail.com>
+Submitted-at: Fri, 08 Mar 2013 12:44:11 -0800
+Reviewed-on: http://review.cyanogenmod.org/33228
+Project: CyanogenMod/android_packages_apps_Calculator
+Branch: refs/heads/gingerbread
