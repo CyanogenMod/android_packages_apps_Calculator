@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
-     Copyright (C) 2013 The CyanogenMod Project
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,20 +12,22 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
+ -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="8095131950334945205">"Calculadora"</string>
     <string name="error" msgid="9197457880925804499">"Error"</string>
     <string name="del" msgid="6248896117422989693">"BORRAR"</string>
-    <string name="clear" msgid="8103610981407459768">"CE"</string>
+    <string name="clear" msgid="8103610981407459768">"CE"</string> <!-- CYANOGENMOD EDITS -->
     <string name="sin" msgid="6793866152659175277">"sen"</string>
     <string name="cos" msgid="6901841853098114414">"cos"</string>
     <string name="tan" msgid="7957459816738554960">"tan"</string>
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
+    <string name="basic" msgid="7691469861698059753">"Operaciones básicas"</string> <!-- CYANOGENMOD EDITS -->
+    <string name="advanced" msgid="7122495413742976492">"Operaciones avanzadas"</string> <!-- CYANOGENMOD EDITS -->
     <string name="clear_history" msgid="8458043980601165012">"Borrar historial"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Texto copiado"</string>
 
@@ -40,8 +41,6 @@
     <string name="showHistory">Mostrar historial</string>
     <string name="hideHistory">Ocultar historial</string>
     <string name="settings">Ajustes</string>
-    <string name="basic">Operaciones básicas</string>
-    <string name="advanced">Operaciones avanzadas</string>
     <string name="matrix">Operaciones matriciales</string>
     <string name="graph">Operaciones gráficas</string>
     <string name="function">Operaciones con funciones</string>
