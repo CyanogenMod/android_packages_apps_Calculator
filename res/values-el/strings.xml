@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+     Copyright (C) 2013 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,7 +13,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
@@ -25,7 +26,13 @@
     <string name="sin" msgid="6793866152659175277">"sin"</string>
     <string name="cos" msgid="6901841853098114414">"cos"</string>
     <string name="tan" msgid="7957459816738554960">"tan"</string>
+
     <string name="e" msgid="1377847800971731483">"e"</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Λύση ως προς X</string>
+    <string name="solveForY">Λύση ως προς Y</string>
+    <string name="mod">mod</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
     <string name="basic">Βασικές πράξεις</string>
@@ -38,34 +45,47 @@
     <string name="text_copied_toast" msgid="5801480710472541833">"Το κείμενο αντιγράφηκε."</string>
     <string name="copy">Αντιγραφή \"%s\"</string>
     <string name="remove_from_history">Αφαίρεση από το ιστορικό</string>
-
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
-    <string name="solveForX">Λύση ως προς X</string>
-    <string name="solveForY">Λύση ως προς Y</string>
-    <string name="mod">mod</string>
+    <string name="showHistory">Εμφάνιση ιστορικού</string>
+    <string name="hideHistory">Απόκρυψη ιστορικού</string>
+    <string name="settings">Ρυθμίσεις</string>
 
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Λύση</string>
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
+    <string name="determinantDesc">Ορίζουσα</string>
+    <string name="eigenvalueDesc">Ιδιοτιμές</string>
+    <string name="plus_row">+Γραμ</string>
+    <string name="minus_row">-Γραμ</string>
+    <string name="plus_col">+Στηλ</string>
+    <string name="minus_col">-Στηλ</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Επόμενο</string>
 
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
     <string name="dec">Dec</string>
-
     <string name="hexDesc">Δεκαεξαδικό</string>
     <string name="binDesc">Δυαδικό</string>
     <string name="decDesc">Δεκαδικό</string>
-    <string name="determinantDesc">Ορίζουσα</string>
-    <string name="eigenvalueDesc">Ιδιοτιμές</string>
-    
-    <string name="settings">Ρυθμίσεις</string>
-    <string name="showHistory">Εμφάνιση ιστορικού</string>
-    <string name="hideHistory">Απόκρυψη ιστορικού</string>
 
-    <string name="returnToBasic">Επιστροφή στον πίνακα βασικών πράξεων</string>
-
+    <string name="pref_panels">Πάνελ</string>
+    <string name="pref_actions">Ενέργειες</string>
+    <string name="pref_units">Μονάδες</string>
     <string name="pref_about">Σχετικά</string>
+    <string name="returnToBasic">Επιστροφή στον πίνακα βασικών πράξεων</string>
+    <string name="trigUnits">Τριγ. μονάδες</string>
+    <string name="radians">ΑΚΤΙΝΙΑ</string>
+    <string name="degrees">ΜΟΙΡΕΣ</string>
+
+    <string name="cling_simple_title">Καλως ήλθατε</string>
+    <string name="cling_simple_msg">Σύρετε προς τα αριστερά και δεξιά για να αποκτήσετε πρόσβαση σε περισσότερο περιεχόμενο. Οι περιττές σελίδες μπορούν να απενεργοποιηθούν από τις Ρυθμίσεις.</string>
+    <string name="cling_matrix_title">Πίνακες</string>
+    <string name="cling_matrix_msg">Πατήστε εδώ για να αρχίσετε δημιουργία και λύση πινάκων</string>
+    <string name="cling_hex_title">Αλλαγή βάσεων</string>
+    <string name="cling_hex_msg">Εναλλαγή μεταξύ δεκαδικού (dec), δυαδικού (bin), και δεκαεξαδικού (hex).\n\nΠροσοχή: Αν πιστεύετε ότι τα αποτελέσματα είναι λάθος, πιθανότατα είστε σε λάθος βάση. Η προεπιλογή είναι δεκαδικό.</string>
+    <string name="cling_graph_title">Γραφικές παραστάσεις</string>
+    <string name="cling_graph_msg">Οι γραφικές παραστάσεις θα προβάλλονται αυτόματα εδώ. Πηγαίνετε στο πάνελ σύνθετων συναρτήσεων και φτιάξτε μια συνάρτηση χρησιμοποιώντας Χ και Υ.</string>
+    <string name="cling_dismiss">OK</string>
 </resources>
