@@ -76,7 +76,7 @@
     <string name="degrees">GRAD</string>
 
     <!-- Clings -->
-    <string name="cling_simple_title">Wilkommen</string>
+    <string name="cling_simple_title">Willkommen</string>
     <string name="cling_simple_msg">Nach rechts oder links wischen, um weitere Funktionen aufzurufen. Unnötige Funktionen können in den Einstellungen deaktiviert werden.</string>
     <string name="cling_matrix_title">Matrizen</string>
     <string name="cling_matrix_msg">Hier drücken, um Matrizen zu erstellen oder sie zu lösen.</string>
