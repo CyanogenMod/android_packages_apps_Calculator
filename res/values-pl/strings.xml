@@ -30,4 +30,79 @@
     <string name="advanced" msgid="7122495413742976492">"Panel zaawansowany"</string>
     <string name="clear_history" msgid="8458043980601165012">"Wyczyść historię"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Tekst został skopiowany."</string>
+
+    <!-- CYANOGENMOD ADDITIONS -->
+
+    <string name="matrix">Panel macierzy</string>
+    <!-- Menu item text to take user to the screen with the graph. -->
+    <string name="graph">Panel wykresu</string>
+    <!-- Menu item text to take user to the screen with the function operators. -->
+    <string name="function">Panel funkcji</string>
+    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
+    <string name="hexPanel">Panel heksów</string>
+    <!-- Menu item text to clear the calculation history. -->
+    <string name="clear_history">Wyczyść historię</string>
+    <!-- Toast shown when text is copied to the clipboard. -->
+    <string name="text_copied_toast">Tekst skopiowany</string>
+    <!-- History menu item for copying item -->
+    <string name="copy">Kopiuj \'%s\'</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Usuń z historii</string>
+    <!-- History menu item for viewing history -->
+    <string name="showHistory">Pokaż historię</string>
+    <!-- History menu item for hiding history -->
+    <string name="hideHistory">Ukryj historię</string>
+    <!-- History menu item for entering settings -->
+    <string name="settings">Ustawienia</string>
+
+    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
+    <string name="solveForX">Rozwiąż dla X</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
+    <string name="solveForY">Rozwiąż dla Y</string>
+
+    <!-- Matrix page text -->
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Rozwiąż</string>
+    <string name="dotProduct">Kropka</string>
+    <string name="crossProduct">Krzyżyk</string>
+    <string name="determinantDesc">Wyznacznik</string>
+    <string name="eigenvalueDesc">Wartość własna</string>
+    <string name="plus_row">+Row</string>
+    <string name="minus_row">-Row</string>
+    <string name="plus_col">+Col</string>
+    <string name="minus_col">-Col</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Dalej</string>
+
+    <!-- Hex page text -->
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Heksadecymalny</string>
+    <string name="binDesc">Binarny</string>
+    <string name="decDesc">Dziesiętny</string>
+
+    <!-- Settings page text -->
+    <string name="pref_panels">Panele</string>
+    <string name="pref_actions">Akcje</string>
+    <string name="pref_units">Jednostki</string>
+    <string name="pref_about">O kalkulatorze</string>
+    <string name="returnToBasic">Wróć do podstawowego panelu</string>
+    <string name="trigUnits">Jednostki trygonometryczne</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+
+    <!-- Clings -->
+    <string name="cling_simple_title">Witaj</string>
+    <string name="cling_simple_msg">Przeciągnij w prawo lub w lewo by zobaczyć więcej. Zbędne panele mogą zostać wyłączone w Ustawieniach.</string>
+    <string name="cling_matrix_title">Macierze</string>
+    <string name="cling_matrix_msg">Naciśnij tutaj by rozpocząć budowę i rozwiązywanie macierzy.</string>
+    <string name="cling_hex_title">Zmień system</string>
+    <string name="cling_hex_msg">Przełączaj między systemem dziesiętnym (dec), binarnym (bin) i heksadecymalnym (hex).\n\nUwaga: Jeżeli uważasz, że otrzymujesz złe wyniki, prawdopodobnie używasz złego systemu. Systemem domyślnym jest dziesiętny.</string>
+    <string name="cling_graph_title">Wykres</string>
+    <string name="cling_graph_msg">Wykres zostanie wyświetlony tutaj automatycznie. W panelu zaawansowanym możesz zbudować funkcje, używając X i Y.</string>
+    <string name="cling_dismiss">OK</string>
+
+    <string name="easter_egg">Magikarp użył Chlupania, ale nic się nie stało.</string>
 </resources>
