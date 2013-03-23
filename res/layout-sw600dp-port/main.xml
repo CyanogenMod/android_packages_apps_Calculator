@@ -30,8 +30,7 @@
             android:minHeight="@dimen/min_display_height"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@android:color/transparent"
-            android:clipChildren="false">
+            android:background="@android:color/transparent">
             <com.android2.calculator3.view.CalculatorDisplay
                 android:id="@+id/display"
                 android:layout_width="0dp"

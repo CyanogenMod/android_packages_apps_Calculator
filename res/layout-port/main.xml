@@ -28,8 +28,7 @@
             android:layout_width="match_parent"
             android:minHeight="@dimen/min_display_height"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:clipChildren="false">
+            android:orientation="horizontal">
             <com.android2.calculator3.view.CalculatorDisplay
                  android:id="@+id/display"
                  android:layout_width="0dip"

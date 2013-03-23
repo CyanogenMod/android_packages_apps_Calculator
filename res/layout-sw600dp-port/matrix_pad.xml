@@ -31,18 +31,18 @@
             android:orientation="vertical"
             android:background="@android:color/transparent"
             style="@style/digit_button_style" >
-            <com.android2.calculator3.view.ColorButton
-                android:id="@+id/matrix_transpose"
-                android:text="@string/matrix_transpose"
+	        <com.android2.calculator3.view.ColorButton
+	            android:id="@+id/matrix_transpose"
+	            android:text="@string/matrix_transpose"
                 android:textSize="25sp"
-                style="@style/button_style"
-                />
-            <com.android2.calculator3.view.ColorButton
-                android:id="@+id/matrix_inverse"
-                android:text="@string/matrix_inverse"
+	            style="@style/button_style"
+	            />
+	        <com.android2.calculator3.view.ColorButton
+	            android:id="@+id/matrix_inverse"
+	            android:text="@string/matrix_inverse"
                 android:textSize="25sp"
-                style="@style/button_style"
-                />
+	            style="@style/button_style"
+	            />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"

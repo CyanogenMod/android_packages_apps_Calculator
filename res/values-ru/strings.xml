@@ -17,7 +17,7 @@
 <resources>
     <!-- Application name -->
     <string name="app_name">Калькулятор</string>
-    <!-- If there is a syntax error in the user entered calculation, an error dialog will appear. This is the title. -->
+    <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
     <string name="error">Ошибка</string>
     <!-- Displayed letters for the variable digit buttons -->
     <string name="X">X</string>
@@ -26,7 +26,7 @@
     <!-- Button name on screen to delete the last entered digit or operator -->
     <string name="del">УДАЛИТЬ</string>
     <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6]
-Left in English, because Google made it the same way - DoktorAkcel -->
+    Left in English, because Google made it the same way - DoktorAkcel    -->
     <string name="clear">CLR</string>
     <!-- Displayed on buttons on screen for the sin function. -->
     <string name="sin">sin</string>
@@ -92,5 +92,4 @@ Left in English, because Google made it the same way - DoktorAkcel -->
     <string name="cling_hex_msg">Переключение между десятичной (dec), двоичной (bin) и шестнадцетиричной (hex).\n\nВнимание: если Вы считаете, что получаете не правильный результат, вероятно, Вы используете не ту систему счисления. По умолчанию используется десятичная.</string>
     <string name="cling_graph_title">График</string>
     <string name="cling_graph_msg">Графики будут автоматически показываться здесь. Перейдите к расширенной панели и постройте функцию, используя X и Y.</string>
-
 </resources>

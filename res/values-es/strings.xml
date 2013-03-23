@@ -19,13 +19,15 @@
     <string name="app_name" msgid="8095131950334945205">"Calculadora"</string>
     <string name="error" msgid="9197457880925804499">"Error"</string>
     <string name="del" msgid="6248896117422989693">"BORRAR"</string>
-    <string name="clear" msgid="8103610981407459768">"CE"</string>
+    <string name="clear" msgid="8103610981407459768">"BORRAR"</string>
     <string name="sin" msgid="6793866152659175277">"sen"</string>
     <string name="cos" msgid="6901841853098114414">"cos"</string>
     <string name="tan" msgid="7957459816738554960">"tan"</string>
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
+    <string name="basic" msgid="7691469861698059753">"Funciones básicas"</string>
+    <string name="advanced" msgid="7122495413742976492">"Funciones avanzadas"</string>
     <string name="clear_history" msgid="8458043980601165012">"Borrar historial"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Texto copiado"</string>
 
@@ -39,13 +41,11 @@
     <string name="showHistory">Mostrar historial</string>
     <string name="hideHistory">Ocultar historial</string>
     <string name="settings">Ajustes</string>
-    <string name="basic">Operaciones básicas</string>
-    <string name="advanced">Operaciones avanzadas</string>
-    <string name="matrix">Operaciones matriciales</string>
-    <string name="graph">Operaciones gráficas</string>
-    <string name="function">Operaciones con funciones</string>
-    <string name="hexPanel">Operaciones hexadecimales</string>
-    <string name="copy">\'%s\' copiado</string>
+    <string name="matrix">Matrices</string>
+    <string name="graph">Gráficas</string>
+    <string name="function">Funciones</string>
+    <string name="hexPanel">Dec/Bin/Hex</string>
+    <string name="copy">\u00AB%s\u00BB copiado</string>
     <string name="remove_from_history">Borrar del historial</string>
     <string name="dx">dX</string>
     <string name="dy">dY</string>
@@ -75,8 +75,8 @@
     <string name="pref_actions">Acciones</string>
     <string name="pref_units">Unidades</string>
     <string name="pref_about">Acerca de</string>
-    <string name="returnToBasic">Volver a operaciones básicas</string>
-    <string name="trigUnits">Unidades trig.</string>
+    <string name="returnToBasic">Volver a funciones básicas</string>
+    <string name="trigUnits">Uds. trigonométricas</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
     <string name="cling_simple_title">Bienvenido</string>
@@ -85,7 +85,7 @@
     <string name="cling_matrix_msg">Tocar aquí para comenzar a construir y resolver matrices.</string>
     <string name="cling_hex_title">Cambiar base</string>
     <string name="cling_hex_msg">Cambiar entre decimal (dec), binario (bin) y hexadecimal (hex).\n\nAviso: Si usted cree que el resultado de alguna operación es incorrecto, seguramente se encuentre en una base distinta. Por defecto es decimal.</string>
-    <string name="cling_graph_title">Gráfica</string>
+    <string name="cling_graph_title">Gráficas</string>
     <string name="cling_graph_msg">Las gráficas aparecerán aquí automáticamente. Vaya a operaciones avanzadas y construya una función utilizando X e Y.</string>
     <string name="cling_dismiss">Aceptar</string>
     <string name="easter_egg">Magikarp salpicó, pero no ocurrió nada.</string>
