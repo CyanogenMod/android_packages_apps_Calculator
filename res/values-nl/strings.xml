@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
-     Copyright (C) 2012 The CyanogenMod Project
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,9 +13,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="8095131950334945205">"Rekenmachine"</string>
+    <string name="app_name" msgid="8095131950334945205">"Calculator"</string>
     <string name="error" msgid="9197457880925804499">"Fout"</string>
     <string name="del" msgid="6248896117422989693">"WISSEN"</string>
     <string name="clear" msgid="8103610981407459768">"WISSEN"</string>
@@ -29,38 +29,5 @@
     <string name="basic" msgid="7691469861698059753">"Basis"</string>
     <string name="advanced" msgid="7122495413742976492">"Geavanceerd"</string>
     <string name="clear_history" msgid="8458043980601165012">"Geschiedenis wissen"</string>
-    <string name="text_copied_toast" msgid="5801480710472541833">"Tekst gekopieerd"</string>
-
-    <!-- CYANOGENMOD EDITS -->
-    <string name="X">x</string>
-    <string name="Y">y</string>
-    <string name="matrix">Matrix</string>
-    <string name="graph">Grafieken</string>
-    <string name="function">Functies</string>
-    <string name="hexPanel">Hex</string>
-    <string name="dx">dx</string>
-    <string name="dy">dy</string>
-    <string name="solveForX">x oplossen</string>
-    <string name="solveForY">y oplossen</string>
-    <string name="mod">mod</string>
-    <string name="determinant">Det</string>
-    <string name="eigenvalue">Eigen</string>
-    <string name="solve">Opl</string>
-    <string name="dotProduct">Inpr</string>
-    <string name="crossProduct">Uitpr</string>
-    <string name="hex">Hex</string>
-    <string name="bin">Bin</string>
-    <string name="dec">Dec</string>
-    <string name="hexDesc">Hexadecimaal</string>
-    <string name="binDesc">Binair</string>
-    <string name="decDesc">Decimaal</string>
-    <string name="determinantDesc">Determinant</string>
-    <string name="eigenvalueDesc">Eigenwaarde</string>
-    <string name="settings">Instellingen</string>
-    <string name="showHistory">Geschiedenis tonen</string>
-    <string name="hideHistory">Geschiedenis verbergen</string>
-    <string name="copy">\'%s\' kopiëren</string>
-    <string name="remove_from_history">Verwijderen uit geschiedenis</string>
-    <string name="returnToBasic">Terug naar Basispaneel</string>
-    <string name="pref_about">Over</string>
+    <string name="text_copied_toast" msgid="5801480710472541833">"Tekst is gekopieerd."</string>
 </resources>
