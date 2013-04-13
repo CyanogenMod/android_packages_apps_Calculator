@@ -77,7 +77,7 @@
     <string name="cling_simple_title">Bem vindo</string>
     <string name="cling_simple_msg">Deslize para esquerda e direita para acessar mais conteúdo. Páginas desnecessárias podem ser desativadas nas Configurações.</string>
     <string name="cling_matrix_title">Matrizes</string>
-    <string name="cling_matrix_msg">Pressione aqui para iniciar a contruir e resolver matrizes.</string>
+    <string name="cling_matrix_msg">Pressione aqui para iniciar a construir e resolver matrizes.</string>
     <string name="cling_hex_title">Mudar bases</string>
     <string name="cling_hex_msg">Alternar entre decimal (dec), binário (bin), e hexadecimal (hex).\n\nAviso: Se você acha que está obtendo resultados errados, você provavelmente está na base errada. O padrão é decimal.</string>
     <string name="cling_graph_title">Gráfico</string>
