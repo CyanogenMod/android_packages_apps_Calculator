@@ -1,7 +1,5 @@
 package com.android2.calculator3.view;
 
-import java.text.DecimalFormat;
-
 import org.ejml.simple.SimpleMatrix;
 import org.javia.arity.SyntaxException;
 
@@ -17,8 +15,6 @@ import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
 
 public class MatrixView extends TableLayout {
-    private static String FORMAT = "#.######";
-    private static DecimalFormat FORMATTER = new DecimalFormat(FORMAT);
     private static final String VALID_MATRIX = "\\[(\\[[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?(,[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?)*\\])+\\].*";
     public final static String PATTERN = "[[,][,]]";
 
@@ -199,7 +195,7 @@ public class MatrixView extends TableLayout {
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += FORMATTER.format(matrix.get(i, j)) + ",";
+                input += matrix.get(i, j) + ",";
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);
