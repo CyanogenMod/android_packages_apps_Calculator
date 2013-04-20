@@ -32,7 +32,7 @@
     <string name="clear_history" msgid="8458043980601165012">"Vymazat historii"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Text zkopírován."</string>
 
-    <!-- CYANOGENMOD STRINGS BEGIN -->
+    <!-- CYANOGENMOD ADDITIONS -->
     <string name="X">X</string>
     <string name="Y">Y</string>
 
@@ -79,5 +79,16 @@
     <string name="pref_about">O aplikaci</string>
     <string name="returnToBasic">Zpět na základní panel</string>
     <string name="trigUnits">Trig. jednotky</string>
-    <!-- CYANOGENMOD STRINGS END -->
+
+    <string name="cling_simple_title">Vítejte</string>
+    <string name="cling_simple_msg">Pro zobrazení dalších panelů použijte posunutí vlevo nebo vpravo. Nepoužívané panely je možné zakázat v nastavení.</string>
+    <string name="cling_matrix_title">Matice</string>
+    <string name="cling_matrix_msg">Dotykem zde můžete vytvořit a vyřešit matici.</string>
+    <string name="cling_hex_title">Změna soustavy</string>
+    <string name="cling_hex_msg">Přepínání bezi desítkovou (dec), binární (bin) a šestnáctkovou (hex) soustavou.\n\nUpozornění: Pokud si myslíte, že výsledky jsou špatně, nejpravděpodobněji máte zvolenou špatnou soustavu. Výchozí je desítková.</string>
+    <string name="cling_graph_title">Graf</string>
+    <string name="cling_graph_msg">Zde se automaticky zobrazí grafy. V panelu Pokročilé funkce vytvořte funkci používající proměnné X a Y.</string>
+    <string name="cling_dismiss">OK</string>
+
+    <string name="easter_egg">Magikarpa použil šplouchnutí, ale nic se nestalo.</string>
 </resources>
