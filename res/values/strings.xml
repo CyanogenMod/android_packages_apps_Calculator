@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2007 The Android Open Source Project
-     Copyright (C) 2013 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,195 +14,91 @@
      limitations under the License.
 -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
     <!-- Application name -->
     <string name="app_name">Calculator</string>
-    <!-- Application copyright -->
-    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
-    <!-- Application version -->
-    <string name="application_version" translatable="false">v3.1.2</string>
     <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
     <string name="error">Error</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit0" translatable="false">0</string>
+    <string name="digit0">0</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit1" translatable="false">1</string>
+    <string name="digit1">1</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit2" translatable="false">2</string>
+    <string name="digit2">2</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit3" translatable="false">3</string>
+    <string name="digit3">3</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit4" translatable="false">4</string>
+    <string name="digit4">4</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit5" translatable="false">5</string>
+    <string name="digit5">5</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit6" translatable="false">6</string>
+    <string name="digit6">6</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit7" translatable="false">7</string>
+    <string name="digit7">7</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit8" translatable="false">8</string>
+    <string name="digit8">8</string>
     <!-- Displayed numbers for the digit buttons -->
-    <string name="digit9" translatable="false">9</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="A" translatable="false">A</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="B" translatable="false">B</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="C" translatable="false">C</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="D" translatable="false">D</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="E" translatable="false">E</string>
-    <!-- Displayed letters for the hex digit buttons -->
-    <string name="F" translatable="false">F</string>
-    <!-- Displayed letters for the variable digit buttons -->
-    <string name="X">X</string>
-    <!-- Displayed letters for the variable digit buttons -->
-    <string name="Y">Y</string>
+    <string name="digit9">9</string>
     <!-- Button name on screen to delete the last entered digit or operator -->
     <string name="del">DELETE</string>
     <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6] -->
     <string name="clear">CLR</string>
     <!-- Do not translate. Unicode division sign; don't translate. Displayed as button on screen. -->
-    <string name="div" translatable="false">\u00f7</string>
+    <string name="div">\u00f7</string>
     <!-- Do not translate. Unicode multiplication sign; don't translate. Displayed as button on screen. -->
-    <string name="mul" translatable="false">\u00d7</string>
+    <string name="mul">\u00d7</string>
     <!-- Do not translate. Plus sign, displayed as button on screen -->
-    <string name="plus" translatable="false">+</string>
+    <string name="plus">+</string>
     <!-- Do not translate. Unicode minus sign; don't translate. Displayed as button on screen. -->
-    <string name="minus" translatable="false">\u2212</string>
-    <!-- Do not translate. Plus sign / unicode minus sign; don't translate. Displayed as button on screen. -->
-    <string name="sign" translatable="false">+/\u2212</string>
+    <string name="minus">\u2212</string>
     <!-- Do not translate. Decimal point; don't translate. Displayed as button on screen. -->
-    <string name="dot" translatable="false">.</string>
-    <!-- Do not translate. Coma; don't translate. Displayed as button on screen. -->
-    <string name="coma" translatable="false">,</string>
+    <string name="dot">.</string>
     <!-- Do not translate. Equal sign; don't translate. Displayed as button on screen. -->
-    <string name="equal" translatable="false">=</string>
+    <string name="equal">=</string>
     <!-- Do not translate. Down arrow; don't translate. Displayed as button on screen. -->
-    <string name="enter" translatable="false">\u2193</string>
+    <string name="enter">\u2193</string>
     <!-- Displayed on buttons on screen for the sin function. -->
     <string name="sin">sin</string>
+    <!-- Do not translate. What we replace translated SIN with for calculating sin.-->
+
     <!-- Displayed on buttons on screen for the cos function. -->
     <string name="cos">cos</string>
+    <!-- Do not translate. What we replace translated COS with for calculating cos. -->
+
     <!-- Displayed on buttons on screen for the tan function. -->
     <string name="tan">tan</string>
-    <!-- Displayed on buttons on screen for the arcsin function. -->
-    <string name="arcsin">sin^\u22121</string>
-    <!-- Displayed on buttons on screen for the arccos function. -->
-    <string name="arccos">cos^\u22121</string>
-    <!-- Displayed on buttons on screen for the arctan function. -->
-    <string name="arctan">tan^\u22121</string>
+    <!-- Do not translate. What we replace translated TAN with for calculating tan. -->
 
     <!-- Do not translate. Unicode pi sign; don't translate. Displayed as button on screen. -->
-    <string name="pi" translatable="false">\u03c0</string>
-    <!-- Displayed on buttons on screen for the value of e. -->
+    <string name="pi">\u03c0</string>
+    <!-- Displayed on buttons on screen for the e function. -->
     <string name="e">e</string>
-    <!-- Displayed on buttons on screen for the value of i. -->
-    <string name="i" translatable="false">i</string>
-    <!-- Displayed on buttons on screen for the percent function. -->
-    <string name="percentage" translatable="false">%</string>
-    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
-    <string name="integral" translatable="false">\u222B</string>
-    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
-    <string name="dx">dX</string>
-    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
-    <string name="dy">dY</string>
-    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
-    <string name="solveForX">Solve for X</string>
-    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
-    <string name="solveForY">Solve for Y</string>
-    <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
-    <string name="mod">mod</string>
+    <!-- Do not translate. What we replace translated e with for calculating e. -->
+
     <!-- Displayed on buttons on screen for the ln function. -->
     <string name="ln">ln</string>
+    <!-- Do not translate. What we replace translated ln with for calculating ln. -->
+
     <!-- Displayed on buttons on screen for the log function. -->
     <string name="lg">log</string>
-    <!-- Displayed on buttons on screen for parentheses. -->
-    <string name="parentheses" translatable="false">( )</string>
+    <!-- Do not translate. What we replace translated lg with for calculating lg. -->
+
     <!-- Displayed on buttons on screen for a left parenthesis. -->
-    <string name="leftParen" translatable="false">(</string>
+    <string name="leftParen">(</string>
     <!-- Displayed on buttons on screen for a right parenthesis. -->
-    <string name="rightParen" translatable="false">)</string>
+    <string name="rightParen">)</string>
     <!-- Do not translate. Unicode square root sign; don't translate. Displayed on button on screen. -->
-    <string name="sqrt" translatable="false">\u221a</string>
+    <string name="sqrt">\u221a</string>
     <!-- Do not translate. Displayed on buttons on screen. -->
-    <string name="power" translatable="false">^</string>
+    <string name="power">^</string>
     <!-- Do not translate. -->
-    <string name="factorial" translatable="false">!</string>
+    <string name="factorial">!</string>
     <!-- Menu item text to take user to the screen with the basic digits and operators. -->
     <string name="basic">Basic panel</string>
     <!-- Menu item text to take user to the screen with the advanced functions, such as sin, cos, ln, log, etc. -->
     <string name="advanced">Advanced panel</string>
-    <!-- Menu item text to take user to the screen with matrices. -->
-    <string name="matrix">Matrix panel</string>
-    <!-- Menu item text to take user to the screen with the graph. -->
-    <string name="graph">Graph panel</string>
-    <!-- Menu item text to take user to the screen with the function operators. -->
-    <string name="function">Function panel</string>
-    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
-    <string name="hexPanel">Hex panel</string>
     <!-- Menu item text to clear the calculation history. -->
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
-    <!-- History menu item for copying item -->
-    <string name="copy">Copy \'%s\'</string>
-    <!-- History menu item for removing item from history -->
-    <string name="remove_from_history">Remove from history</string>
-    <!-- History menu item for viewing history -->
-    <string name="showHistory">Show history</string>
-    <!-- History menu item for hiding history -->
-    <string name="hideHistory">Hide history</string>
-    <!-- History menu item for entering settings -->
-    <string name="settings">Settings</string>
-
-    <!-- Matrix page text -->
-    <string name="determinant">Det</string>
-    <string name="eigenvalue">Eigen</string>
-    <string name="solve">Solve</string>
-    <string name="dotProduct">Dot</string>
-    <string name="crossProduct">Cross</string>
-    <string name="determinantDesc">Determinant</string>
-    <string name="eigenvalueDesc">Eigenvalues</string>
-    <string name="plus_row">+Row</string>
-    <string name="minus_row">-Row</string>
-    <string name="plus_col">+Col</string>
-    <string name="minus_col">-Col</string>
-    <string name="matrix_new" translatable="false">[ ]</string>
-    <string name="matrix_inverse" translatable="false">-1</string>
-    <string name="matrix_transpose">T</string>
-    <string name="next">Next</string>
-
-    <!-- Hex page text -->
-    <string name="hex">Hex</string>
-    <string name="bin">Bin</string>
-    <string name="dec">Dec</string>
-    <string name="hexDesc">Hexadecimal</string>
-    <string name="binDesc">Binary</string>
-    <string name="decDesc">Decimal</string>
-
-    <!-- Settings page text -->
-    <string name="pref_panels">Panels</string>
-    <string name="pref_actions">Actions</string>
-    <string name="pref_units">Units</string>
-    <string name="pref_about">About</string>
-    <string name="returnToBasic">Return to the basic panel</string>
-    <string name="trigUnits">Trig units</string>
-    <string name="radians">RAD</string>
-    <string name="degrees">DEG</string>
-
-    <!-- Clings -->
-    <string name="cling_simple_title">Welcome</string>
-    <string name="cling_simple_msg">Slide left and right to access more content. Unnecessary pages can be disabled in Settings.</string>
-    <string name="cling_matrix_title">Matrices</string>
-    <string name="cling_matrix_msg">Tap here to start building and solving matrices.</string>
-    <string name="cling_hex_title">Change bases</string>
-    <string name="cling_hex_msg">Switch between decimal (dec), binary (bin), and hexadecimal (hex).\n\nWarning: If you believe you\'re getting bad results, you\'re probably in the wrong base. The default is decimal.</string>
-    <string name="cling_graph_title">Graph</string>
-    <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
-    <string name="cling_dismiss">OK</string>
-
-    <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
 </resources>
