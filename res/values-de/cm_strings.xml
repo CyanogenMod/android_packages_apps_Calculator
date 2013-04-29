@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="matrix">Matrixberechnung</string>
+    <string name="graph">Diagramm</string>
+    <string name="function">Funktionen</string>
+    <string name="hexPanel">Dez/Bin/Hex</string>
+    <string name="copy">\"%s\" kopieren</string>
+    <string name="remove_from_history">Aus Verlauf entfernen</string>
+    <string name="showHistory">Verlauf anzeigen</string>
+    <string name="hideHistory">Verlauf verbergen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="solveForX">Nach X auflösen</string>
+    <string name="solveForY">Nach Y auflösen</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Lösen</string>
+    <string name="dotProduct">Skalar</string>
+    <string name="crossProduct">Kreuz</string>
+    <string name="determinantDesc">Determinante</string>
+    <string name="eigenvalueDesc">Eigenwert</string>
+    <string name="plus_row">+Zl.</string>
+    <string name="minus_row">-Zl.</string>
+    <string name="plus_col">+Sp.</string>
+    <string name="minus_col">-Sp.</string>
+    <string name="next">Weiter</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dez</string>
+    <string name="hexDesc">Hexadezimal</string>
+    <string name="binDesc">Binär</string>
+    <string name="decDesc">Dezimal</string>
+    <string name="pref_panels">Funktionen</string>
+    <string name="pref_actions">Aktionen</string>
+    <string name="pref_units">Einheiten</string>
+    <string name="pref_about">Über</string>
+    <string name="returnToBasic">Zu Grundfunktionen zurückkehren</string>
+    <string name="trigUnits">Winkeleinheit</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">GRAD</string>
+    <string name="cling_simple_title">Willkommen</string>
+    <string name="cling_simple_msg">Nach rechts oder links wischen, um weitere Funktionen aufzurufen. Nicht benötigte Funktionen können in den Einstellungen deaktiviert werden.</string>
+    <string name="cling_matrix_title">Matrizen</string>
+    <string name="cling_matrix_msg">Hier drücken, um Matrizen zu erstellen oder sie zu lösen.</string>
+    <string name="cling_hex_title">Zahlensystem wechseln</string>
+    <string name="cling_hex_msg">Zwischen dezimal (Dez), binär (Bin) und hexadezimal (Hex) wechseln.\n\nHinweis: Bei unerwarteten Ergebnissen sollte das eingestellte Zahlensystem überprüft werden. Standardmäßig wird das dezimale Zahlensystem verwendet.</string>
+    <string name="cling_graph_title">Graphen</string>
+    <string name="cling_graph_msg">Hier wird automatisch der Graph einer Funktion mit X und Y angezeigt.</string>
+    <string name="cling_dismiss">OK</string>
+    <string name="easter_egg">Karpador setzt Platscher ein\u2026 Nichts geschieht!</string>
+</resources>

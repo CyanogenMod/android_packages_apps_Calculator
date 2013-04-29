@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  Copyright (C) 2007 The Android Open Source Project
-      Copyright (C) 2013 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -19,6 +18,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="8095131950334945205">"计算器"</string>
     <string name="error" msgid="9197457880925804499">"出错"</string>
+    <string name="digit0" msgid="8069590963464434135">"0"</string>
+    <string name="digit1" msgid="8535041374797804029">"1"</string>
+    <string name="digit2" msgid="8977354203154316247">"2"</string>
+    <string name="digit3" msgid="148544090755132760">"3"</string>
+    <string name="digit4" msgid="2199490603838247678">"4"</string>
+    <string name="digit5" msgid="7568514524384173087">"5"</string>
+    <string name="digit6" msgid="6705952561049362551">"6"</string>
+    <string name="digit7" msgid="658125644218958447">"7"</string>
+    <string name="digit8" msgid="3134686906411558886">"8"</string>
+    <string name="digit9" msgid="765379157698748031">"9"</string>
     <string name="del" msgid="6248896117422989693">"删除"</string>
     <string name="clear" msgid="8103610981407459768">"清除"</string>
     <string name="sin" msgid="6793866152659175277">"sin"</string>
@@ -27,75 +36,10 @@
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
+    <string name="leftParen" msgid="4850643713953092099">"("</string>
+    <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"基本面板"</string>
     <string name="advanced" msgid="7122495413742976492">"高级面板"</string>
     <string name="clear_history" msgid="8458043980601165012">"清除历史记录"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"文本已复制."</string>
-
-    <!-- CYANOGENMOD ADDITIONS START-->
-
-    <!-- Application copyright -->
-    <string name="application_copyright">版权所有 \u00A9 2013 CyanogenMod 项目</string>
-
-    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
-    <string name="solveForX">求解 X</string>
-    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
-    <string name="solveForY">求解 Y</string>
-    <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
-    <string name="mod">取余数</string>
-
-    <!-- Menu item text to take user to the screen with matrices. -->
-    <string name="matrix">矩阵面板</string>
-    <!-- Menu item text to take user to the screen with the graph. -->
-    <string name="graph">图表面板</string>
-    <!-- Menu item text to take user to the screen with the function operators. -->
-    <string name="function">函数面板</string>
-    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
-    <string name="hexPanel">十六进制面板</string>
-
-    <!-- History menu item for copying item -->
-    <string name="copy">复制 \'%s\'</string>
-    <!-- History menu item for removing item from history -->
-    <string name="remove_from_history">从历史记录移除</string>
-    <!-- History menu item for viewing history -->
-    <string name="showHistory">显示历史记录</string>
-    <!-- History menu item for hiding history -->
-    <string name="hideHistory">隐藏历史记录</string>
-    <!-- History menu item for entering settings -->
-    <string name="settings">设置</string>
-
-    <!-- Matrix page text -->
-    <string name="determinantDesc">行列式</string>
-    <string name="eigenvalueDesc">特征向量</string>
-    <string name="plus_row">+行</string>
-    <string name="minus_row">-行</string>
-    <string name="plus_col">+列</string>
-    <string name="minus_col">-列</string>
-    <string name="next">下一个</string>
-
-    <!-- Hex page text -->
-    <string name="hexDesc">十六进制</string>
-    <string name="binDesc">二进制</string>
-    <string name="decDesc">十进制</string>
-
-    <!-- Settings page text -->
-    <string name="pref_panels">面板</string>
-    <string name="pref_actions">操作</string>
-    <string name="pref_units">单位</string>
-    <string name="pref_about">关于</string>
-    <string name="returnToBasic">返回到基本面板</string>
-    <string name="trigUnits">三角函数单位</string>
-
-    <!-- Clings -->
-    <string name="cling_simple_title">欢迎</string>
-    <string name="cling_simple_msg">左右滑动将显示其它的面板. 您可在设置内禁用不需要的面板.</string>
-    <string name="cling_matrix_title">矩阵</string>
-    <string name="cling_matrix_msg">点击这里来创建与解决矩阵问题.</string>
-    <string name="cling_hex_title">更改进制</string>
-    <string name="cling_hex_msg">在十进制 (Dec), 二进制 (Bin), 与十六进制 (Hex) 之间进行切换.\n\n警告: 如果您发现得到的结果是错误的, 这应该是您选择了错误的进制而导致的. 计算器的默认进制是十进制.</string>
-    <string name="cling_graph_title">图表</string>
-    <string name="cling_graph_msg">图表将会在这里自动显示. 请到高级面板并使用 X 与 Y 来创建一个函数.</string>
-    <string name="cling_dismiss">确定</string>
-
-    <string name="easter_egg">用尽了浑身力气去解数, 但依然无效.</string>
 </resources>

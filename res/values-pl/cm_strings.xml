@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arcsin">sin^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Rozwiąż dla X</string>
+    <string name="solveForY">Rozwiąż dla Y</string>
+    <string name="matrix">Panel macierzy</string>
+    <string name="graph">Panel wykresu</string>
+    <string name="function">Panel funkcji</string>
+    <string name="hexPanel">Panel heksów</string>
+    <string name="copy">Kopiuj \'%s\'</string>
+    <string name="remove_from_history">Usuń z historii</string>
+    <string name="showHistory">Pokaż historię</string>
+    <string name="hideHistory">Ukryj historię</string>
+    <string name="settings">Ustawienia</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Rozwiąż</string>
+    <string name="dotProduct">Kropka</string>
+    <string name="crossProduct">Krzyżyk</string>
+    <string name="determinantDesc">Wyznacznik</string>
+    <string name="eigenvalueDesc">Wartość własna</string>
+    <string name="plus_row">+Row</string>
+    <string name="minus_row">-Row</string>
+    <string name="plus_col">+Col</string>
+    <string name="minus_col">-Col</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Dalej</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Heksadecymalny</string>
+    <string name="binDesc">Binarny</string>
+    <string name="decDesc">Dziesiętny</string>
+    <string name="pref_panels">Panele</string>
+    <string name="pref_actions">Akcje</string>
+    <string name="pref_units">Jednostki</string>
+    <string name="pref_about">O kalkulatorze</string>
+    <string name="returnToBasic">Wróć do podstawowego panelu</string>
+    <string name="trigUnits">Jednostki trygonometryczne</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+    <string name="cling_simple_title">Witaj</string>
+    <string name="cling_simple_msg">Przeciągnij w prawo lub w lewo by zobaczyć więcej. Zbędne panele mogą zostać wyłączone w Ustawieniach.</string>
+    <string name="cling_matrix_title">Macierze</string>
+    <string name="cling_matrix_msg">Naciśnij tutaj by rozpocząć budowę i rozwiązywanie macierzy.</string>
+    <string name="cling_hex_title">Zmień system</string>
+    <string name="cling_hex_msg">Przełączaj między systemem dziesiętnym (dec), binarnym (bin) i heksadecymalnym (hex).\n\nUwaga: Jeżeli uważasz, że otrzymujesz złe wyniki, prawdopodobnie używasz złego systemu. Systemem domyślnym jest dziesiętny.</string>
+    <string name="cling_graph_title">Wykres</string>
+    <string name="cling_graph_msg">Wykres zostanie wyświetlony tutaj automatycznie. W panelu zaawansowanym możesz zbudować funkcje, używając X i Y.</string>
+    <string name="cling_dismiss">OK</string>
+    <string name="easter_egg">Magikarp użył Chlupania, ale nic się nie stało.</string>
+</resources>

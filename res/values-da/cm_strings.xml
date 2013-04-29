@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arcsin">sin^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Løs for X</string>
+    <string name="solveForY">Løs for Y</string>
+    <string name="mod">mod</string>
+    <string name="matrix">Matrixpanel</string>
+    <string name="graph">Grafpanel</string>
+    <string name="function">Funktionspanel</string>
+    <string name="hexPanel">Hexpanel</string>
+    <string name="copy">Kopiér \"%s\"</string>
+    <string name="remove_from_history">Fjern fra historik</string>
+    <string name="showHistory">Vis Historik</string>
+    <string name="hideHistory">Skjul Historik</string>
+    <string name="settings">Indstillinger</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Egen</string>
+    <string name="solve">Løs</string>
+    <string name="dotProduct">Prik</string>
+    <string name="crossProduct">Kryds</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Egenværdi</string>
+    <string name="plus_row">+Række</string>
+    <string name="minus_row">-Række</string>
+    <string name="plus_col">+Kolonne</string>
+    <string name="minus_col">-Kolonne</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Næste</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binær</string>
+    <string name="decDesc">Decimal</string>
+    <string name="pref_panels">Paneler</string>
+    <string name="pref_actions">Handlinger</string>
+    <string name="pref_units">Enheder</string>
+    <string name="pref_about">Om</string>
+    <string name="returnToBasic">Vend tilbage til det grundlæggende panel</string>
+    <string name="trigUnits">Trig. enheder</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">GRD</string>
+    <string name="cling_simple_title">Velkommen</string>
+    <string name="cling_simple_msg">Glid til venstre og højre for at tilgå mere indhold. Unødvendige sider kan slås fra i Indstillinger.</string>
+    <string name="cling_matrix_title">Matricer</string>
+    <string name="cling_matrix_msg">Tryk her for at bygge og løse matricer.</string>
+    <string name="cling_hex_title">Skift grundtal</string>
+    <string name="cling_hex_msg">Skift mellem decimal (dec), binært (bin), og heksadecimalt (hex).\n\nAdvarsel: Hvis du mener, at du får forkerte resultater, er du formentlig på det forkerte grundtal. Standarden er decimal.</string>
+    <string name="cling_graph_title">Graf</string>
+    <string name="cling_graph_msg">Grafer vil automatisk vises her. Gå til det avancerede panel og byg en funktion vha. X og Y.</string>
+    <string name="cling_dismiss">OK</string>
+    <string name="easter_egg">Magikarp brugte Splash, men intet skete.</string>
+</resources>
