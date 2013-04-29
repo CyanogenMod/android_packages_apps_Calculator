@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Vyřešit pro X</string>
+    <string name="solveForY">Vyřešit pro Y</string>
+    <string name="matrix">Panel matice</string>
+    <string name="graph">Panel grafu</string>
+    <string name="function">Panel funkce</string>
+    <string name="hexPanel">Binární panel</string>
+    <string name="copy">Kopírovat \"%s\"</string>
+    <string name="remove_from_history">Odebrat z historie</string>
+    <string name="showHistory">Zobrazit historii</string>
+    <string name="hideHistory">Skrýt historii</string>
+    <string name="settings">Nastavení</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Vlastní</string>
+    <string name="solve">Vyřešit</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Vlastní hodnota</string>
+    <string name="plus_row">+Řádek</string>
+    <string name="minus_row">-Řádek</string>
+    <string name="plus_col">+Sloup</string>
+    <string name="minus_col">-Sloup</string>
+    <string name="next">Další</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Šestnáctkové</string>
+    <string name="binDesc">Binární</string>
+    <string name="decDesc">Desítkové</string>
+    <string name="pref_panels">Panely</string>
+    <string name="pref_actions">Akce</string>
+    <string name="pref_units">Jednotky</string>
+    <string name="pref_about">O aplikaci</string>
+    <string name="returnToBasic">Zpět na základní panel</string>
+    <string name="trigUnits">Trig. jednotky</string>
+    <string name="cling_simple_title">Vítejte</string>
+    <string name="cling_simple_msg">Pro zobrazení dalších panelů použijte posunutí vlevo nebo vpravo. Nepoužívané panely je možné zakázat v nastavení.</string>
+    <string name="cling_matrix_title">Matice</string>
+    <string name="cling_matrix_msg">Dotykem zde můžete vytvořit a vyřešit matici.</string>
+    <string name="cling_hex_title">Změna soustavy</string>
+    <string name="cling_hex_msg">Přepínání bezi desítkovou (dec), binární (bin) a šestnáctkovou (hex) soustavou.\n\nUpozornění: Pokud si myslíte, že výsledky jsou špatně, nejpravděpodobněji máte zvolenou špatnou soustavu. Výchozí je desítková.</string>
+    <string name="cling_graph_title">Graf</string>
+    <string name="cling_graph_msg">Zde se automaticky zobrazí grafy. V panelu Pokročilé funkce vytvořte funkci používající proměnné X a Y.</string>
+    <string name="cling_dismiss">OK</string>
+    <string name="easter_egg">Magikarpa použil šplouchnutí, ale nic se nestalo.</string>
+</resources>

@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,72 +12,34 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
-<resources>
-    <!-- Application name -->
-    <string name="app_name">آلة حاسبة</string>
-    <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
-    <string name="error">خطأ</string>
-    <!-- Displayed letters for the variable digit buttons -->
-    <string name="X">X</string>
-    <!-- Displayed letters for the variable digit buttons -->
-    <string name="Y">Y</string>
-    <!-- Button name on screen to delete the last entered digit or operator -->
-    <string name="del">حذف</string>
-    <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6] -->
-    <string name="clear">محو</string>
-    <!-- Displayed on buttons on screen for the sin function. -->
-    <string name="sin">sin</string>
-    <!-- Displayed on buttons on screen for the cos function. -->
-    <string name="cos">cos</string>
-    <!-- Displayed on buttons on screen for the tan function. -->
-    <string name="tan">tan</string>
-    <!-- Displayed on buttons on screen for the e function. -->
-    <string name="e">e</string>
-    <!-- Displayed on buttons on screen for the ln function. -->
-    <string name="ln">ln</string>
-    <!-- Displayed on buttons on screen for the log function. -->
-    <string name="lg">log</string>
-    <!-- Menu item text to take user to the screen with the basic digits and operators. -->
-    <string name="basic">اللوحة الأساسية</string>
-    <!-- Menu item text to take user to the screen with the advanced functions, such as sin, cos, ln, log, etc. -->
-    <string name="advanced">اللوحة المتقدمة</string>
-    <!-- Menu item text to take user to the screen with matrices. -->
-    <string name="matrix">لوحة المصفوفة</string>
-    <!-- Menu item text to take user to the screen with the graph. -->
-    <string name="graph">لوحة الرسم البياني</string>
-    <!-- Menu item text to take user to the screen with the function operators. -->
-    <string name="function">لوحة الدالة</string>
-    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
-    <string name="hexPanel">لوحة التعريف</string>
-    <!-- Menu item text to clear the calculation history. -->
-    <string name="clear_history">مسح المحفوظات</string>
-    <!-- Toast shown when text is copied to the clipboard. -->
-    <string name="text_copied_toast">نسخ النص.</string>
-    <!-- History menu item for copying item -->
-    <string name="copy">نسخ\"%s\"</string>
-    <!-- History menu item for removing item from history -->
-    <string name="remove_from_history">إزالة من التاريخ</string>
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
-    <string name="solveForX">حل ل x</string>
-    <string name="solveForY">حل ل y</string>
-    <string name="mod">mod</string>
-    <string name="determinant">Det</string>
-    <string name="eigenvalue">Eigen</string>
-    <string name="solve">حل</string>
-    <string name="dotProduct">Dot</string>
-    <string name="crossProduct">Cross</string>
-    <string name="hex">Hex</string>
-    <string name="bin">Bin</string>
-    <string name="dec">Dec</string>
-    <string name="hexDesc">Hexadecimal</string>
-    <string name="binDesc">Binary</string>
-    <string name="decDesc">عشري</string>
-    <string name="determinantDesc">المحددات</string>
-    <string name="eigenvalueDesc">قيم Eigen</string>
-    <string name="settings">إعدادات</string>
-    <string name="showHistory">إظهار الحسابات</string>
-    <string name="hideHistory">إخفاء الحسابات</string>
-    <string name="returnToBasic">العودة إلى اللوحة الأساسية</string>
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="8095131950334945205">"الآلة الحاسبة"</string>
+    <string name="error" msgid="9197457880925804499">"خطأ"</string>
+    <string name="digit0" msgid="8069590963464434135">"0"</string>
+    <string name="digit1" msgid="8535041374797804029">"1"</string>
+    <string name="digit2" msgid="8977354203154316247">"2"</string>
+    <string name="digit3" msgid="148544090755132760">"3"</string>
+    <string name="digit4" msgid="2199490603838247678">"4"</string>
+    <string name="digit5" msgid="7568514524384173087">"5"</string>
+    <string name="digit6" msgid="6705952561049362551">"6"</string>
+    <string name="digit7" msgid="658125644218958447">"7"</string>
+    <string name="digit8" msgid="3134686906411558886">"8"</string>
+    <string name="digit9" msgid="765379157698748031">"9"</string>
+    <string name="del" msgid="6248896117422989693">"حذف"</string>
+    <string name="clear" msgid="8103610981407459768">"محو"</string>
+    <string name="sin" msgid="6793866152659175277">"sin"</string>
+    <string name="cos" msgid="6901841853098114414">"cos"</string>
+    <string name="tan" msgid="7957459816738554960">"tan"</string>
+    <string name="e" msgid="1377847800971731483">"e"</string>
+    <string name="ln" msgid="6888500680285403344">"ln"</string>
+    <string name="lg" msgid="873623857385418182">"log"</string>
+    <string name="leftParen" msgid="4850643713953092099">"("</string>
+    <string name="rightParen" msgid="3177971166159324016">")"</string>
+    <string name="basic" msgid="7691469861698059753">"اللوحة الأساسية"</string>
+    <string name="advanced" msgid="7122495413742976492">"اللوحة المتقدمة"</string>
+    <string name="clear_history" msgid="8458043980601165012">"محو السجل"</string>
+    <string name="text_copied_toast" msgid="5801480710472541833">"تم نسخ النص."</string>
 </resources>
