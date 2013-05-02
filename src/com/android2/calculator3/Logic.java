@@ -106,10 +106,6 @@ public class Logic {
 
     private Listener mListener;
 
-    Logic(Context context) {
-        this(context, null, null);
-    }
-
     Logic(Context context, History history, CalculatorDisplay display) {
         final Resources r = context.getResources();
         mErrorString = r.getString(R.string.error);

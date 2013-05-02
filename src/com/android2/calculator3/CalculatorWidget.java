@@ -91,13 +91,20 @@ public class CalculatorWidget extends AppWidgetProvider {
         }
         else if(intent.getAction().equals(EQUALS)) {
             final String input = value;
-            final Logic mLogic = new Logic(context);
+            final Persist persist = new Persist(context);
+            persist.load();
+
+            final History history = persist.history;
+            final Logic mLogic = new Logic(context, history, null);
             mLogic.setLineLength(7);
 
             if(input.isEmpty()) return;
 
             try {
+                String text = input;
                 value = mLogic.evaluate(input);
+                history.enter(text, value);
+                persist.save();
             }
             catch(SyntaxException e) {
                 value = context.getResources().getString(R.string.error);
