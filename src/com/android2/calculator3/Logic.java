@@ -69,6 +69,7 @@ public class Logic {
     EquationFormatter mEquationFormatter;
 
     private boolean useRadians;
+    private boolean digitGrouping;
 
     final String mErrorString;
     private final String mSinString;
@@ -123,6 +124,7 @@ public class Logic {
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
         useRadians = CalculatorSettings.useRadians(context);
+        digitGrouping = CalculatorSettings.digitGrouping(context);
 
         mEquationFormatter = new EquationFormatter();
         mHistory = history;
@@ -254,9 +256,7 @@ public class Logic {
     public void evaluateAndShowResult(String text, Scroll scroll) {
         boolean containsMatrices = displayContainsMatrices();
         try {
-            String result;
-            if(containsMatrices) result = evaluateMatrices(mDisplay.getAdvancedDisplay());
-            else result = evaluate(text);
+            String result = containsMatrices ? evaluateMatrices(mDisplay.getAdvancedDisplay()) : evaluate(text);
             if(!text.equals(result)) {
                 mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
                 mResult = result;
@@ -325,6 +325,16 @@ public class Logic {
                 break;
             }
         }
+
+        real = updateTextToNewMode(real, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
+        imaginary = updateTextToNewMode(imaginary, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
+
+        // Digit grouping
+        if(digitGrouping) {
+            real = groupDigits(real, mode);
+            imaginary = groupDigits(imaginary, mode);
+        }
+
         String result = "";
         if(value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
         else if(value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit
@@ -332,7 +342,7 @@ public class Logic {
         else if(value.re != 0 && value.im == 0) result = real;
         else if(value.re == 0 && value.im != 0) result = imaginary + "i";
         else if(value.re == 0 && value.im == 0) result = "0";
-        return updateTextToNewMode(result, Mode.DECIMAL, mode).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
+        return result;
     }
 
     public String convertToDecimal(String input) {
@@ -355,6 +365,8 @@ public class Logic {
         }
         input = input.replaceAll(mLogString, "log");
         input = input.replaceAll(mLnString, "ln");
+        input = input.replaceAll(",", "");
+        input = input.replaceAll(" ", "");
         return input;
     }
 
@@ -661,15 +673,8 @@ public class Logic {
     private String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2) {
         if(mode1.equals(mode2) || originalText.equals(mErrorString) || originalText.isEmpty()) return originalText;
 
-        System.out.println(originalText);
         String[] operations = originalText.split(REGEX_NUMBER);
-        for(String s : operations) {
-            System.out.println("Ops: " + s);
-        }
         String[] numbers = originalText.split(REGEX_NOT_NUMBER);
-        for(String s : numbers) {
-            System.out.println("Nums: " + s);
-        }
         String[] translatedNumbers = new String[numbers.length];
         for(int i = 0; i < numbers.length; i++) {
             if(!numbers[i].isEmpty()) {
@@ -842,5 +847,60 @@ public class Logic {
             decimalNumber += Integer.toHexString(id);
         }
         return (wholeNumber + "." + decimalNumber).toUpperCase(Locale.US);
+    }
+
+    private String groupDigits(String number, Mode mode) {
+        String wholeNumber = number;
+        String remainder = "";
+        // We only group the whole number
+        if(number.contains(".")) {
+            if(!number.startsWith(".")) {
+                String[] temp = number.split("\\.");
+                wholeNumber = temp[0];
+                remainder = "." + ((temp.length == 1) ? "" : temp[1]);
+            }
+            else {
+                wholeNumber = "";
+                remainder = number;
+            }
+        }
+
+        String modifiedNumber = wholeNumber;
+        switch(mode) {
+        case DECIMAL:
+            modifiedNumber = "";
+            // Add a coma every 3 chars, starting from the end.
+            for(int i = 1; i <= wholeNumber.length(); i++) {
+                char charFromEnd = wholeNumber.charAt(wholeNumber.length() - i);
+                modifiedNumber = charFromEnd + modifiedNumber;
+                if(i % 3 == 0 && i != wholeNumber.length()) {
+                    modifiedNumber = "," + modifiedNumber;
+                }
+            }
+            break;
+        case BINARY:
+            modifiedNumber = "";
+            // Add a space every 4 chars, starting from the end.
+            for(int i = 1; i <= wholeNumber.length(); i++) {
+                char charFromEnd = wholeNumber.charAt(wholeNumber.length() - i);
+                modifiedNumber = charFromEnd + modifiedNumber;
+                if(i % 4 == 0 && i != wholeNumber.length()) {
+                    modifiedNumber = " " + modifiedNumber;
+                }
+            }
+            break;
+        case HEXADECIMAL:
+            modifiedNumber = "";
+            // Add a space every 2 chars, starting from the end.
+            for(int i = 1; i <= wholeNumber.length(); i++) {
+                char charFromEnd = wholeNumber.charAt(wholeNumber.length() - i);
+                modifiedNumber = charFromEnd + modifiedNumber;
+                if(i % 2 == 0 && i != wholeNumber.length()) {
+                    modifiedNumber = " " + modifiedNumber;
+                }
+            }
+            break;
+        }
+        return modifiedNumber + remainder;
     }
 }
