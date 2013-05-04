@@ -1,0 +1,12 @@
+Change-Id: I8273104214db81f68f0def115bf6232b13d6a340
+Code-Review+1: Pavel Volkov <marshmollow@gmail.com>
+Code-Review+2: Marco Brohet <therbom@gmail.com>
+Verified+1: Cid
+Code-Review+1: Vladislav Koldobskiy <nevergone.ru@gmail.com>
+Code-Review+1: Vladimir Belkov <belladimir@gmail.com>
+Code-Review+1: Eric Cochran <smartandmellow@gmail.com>
+Submitted-by: Marco Brohet <therbom@gmail.com>
+Submitted-at: Sat, 04 May 2013 01:19:02 -0700
+Reviewed-on: http://review.cyanogenmod.org/36648
+Project: CyanogenMod/android_packages_apps_Calculator
+Branch: refs/heads/cm-10.1
