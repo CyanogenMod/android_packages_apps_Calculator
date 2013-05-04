@@ -169,7 +169,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
-        if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
+        if(mPersist.getMode() != null) mLogic.mBaseModule.setMode(mPersist.getMode());
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
         mLogic.setLineLength(mDisplay.getMaxDigits());
@@ -449,7 +449,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         super.onPause();
         mLogic.updateHistory();
         mPersist.setDeleteMode(mLogic.getDeleteMode());
-        mPersist.setMode(mLogic.getMode());
+        mPersist.setMode(mLogic.mBaseModule.getMode());
         mPersist.save();
     }
 

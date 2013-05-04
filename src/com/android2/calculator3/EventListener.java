@@ -28,8 +28,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android2.calculator3.BaseModule.Mode;
 import com.android2.calculator3.Calculator.Panel;
-import com.android2.calculator3.Logic.Mode;
 import com.android2.calculator3.view.MatrixEditText;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
@@ -105,21 +105,21 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.hex:
-            mHandler.setText(mHandler.setMode(Mode.HEXADECIMAL));
+            mHandler.setText(mHandler.mBaseModule.setMode(Mode.HEXADECIMAL));
             view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
             break;
 
         case R.id.bin:
-            mHandler.setText(mHandler.setMode(Mode.BINARY));
+            mHandler.setText(mHandler.mBaseModule.setMode(Mode.BINARY));
             view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
             break;
 
         case R.id.dec:
-            mHandler.setText(mHandler.setMode(Mode.DECIMAL));
+            mHandler.setText(mHandler.mBaseModule.setMode(Mode.DECIMAL));
             view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
@@ -335,12 +335,12 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     private boolean acceptableKey(String text) {
         if(text.length() == 1) {
             // Disable ABCDEF in DEC/BIN and 23456789 in BIN
-            if(mHandler.getMode().equals(Mode.DECIMAL)) {
+            if(mHandler.mBaseModule.getMode().equals(Mode.DECIMAL)) {
                 for(String s : bannedInDecimal) {
                     if(s.equals(text)) return false;
                 }
             }
-            if(mHandler.getMode().equals(Mode.BINARY)) {
+            if(mHandler.mBaseModule.getMode().equals(Mode.BINARY)) {
                 for(String s : bannedInBinary) {
                     if(s.equals(text)) return false;
                 }

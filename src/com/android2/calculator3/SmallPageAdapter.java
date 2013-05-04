@@ -32,7 +32,7 @@ public class SmallPageAdapter extends PagerAdapter {
         mLogic = logic;
         setOrder();
 
-        switch(mLogic.getMode()) {
+        switch(mLogic.mBaseModule.getMode()) {
         case BINARY:
             mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
             break;
