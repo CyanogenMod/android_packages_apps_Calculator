@@ -1,6 +1,8 @@
 package com.android2.calculator3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import org.javia.arity.SyntaxException;
@@ -12,8 +14,15 @@ public class BaseModule {
     Logic logic;
     private Mode mode = Mode.DECIMAL;
 
+    List<Integer> bannedResourceInDecimal;
+    List<Integer> bannedResourceInBinary;
+
     BaseModule(Logic logic) {
         this.logic = logic;
+
+        bannedResourceInDecimal = Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F);
+        bannedResourceInBinary = Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F, R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5, R.id.digit6,
+                R.id.digit7, R.id.digit8, R.id.digit9);
     }
 
     public enum Mode {

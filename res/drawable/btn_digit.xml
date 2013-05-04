@@ -14,12 +14,8 @@
      limitations under the License.
 -->
 
-<selector
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:state_pressed="true"
-        android:drawable="@drawable/btn_keyboard_key_light_pressed_holo" />
-    <item
-        android:drawable="@drawable/btn_keyboard_key_light_normal_holo" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@drawable/btn_keyboard_key_light_pressed_holo" />
+    <item android:state_enabled="false" android:drawable="@color/history_result" />
+    <item android:drawable="@drawable/btn_keyboard_key_light_normal_holo" />
 </selector>

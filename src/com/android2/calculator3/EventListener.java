@@ -16,9 +16,6 @@
 
 package com.android2.calculator3;
 
-import java.util.Arrays;
-import java.util.List;
-
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
@@ -46,8 +43,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     private String mY;
     private String mDX;
     private String mDY;
-    private List<String> bannedInDecimal;
-    private List<String> bannedInBinary;
 
     void setHandler(Context context, Logic handler, ViewPager pager) {
         mContext = context;
@@ -60,23 +55,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         mY = mContext.getString(R.string.Y);
         mDX = mContext.getString(R.string.dx);
         mDY = mContext.getString(R.string.dy);
-
-        String digit2 = mContext.getString(R.string.digit2);
-        String digit3 = mContext.getString(R.string.digit3);
-        String digit4 = mContext.getString(R.string.digit4);
-        String digit5 = mContext.getString(R.string.digit5);
-        String digit6 = mContext.getString(R.string.digit6);
-        String digit7 = mContext.getString(R.string.digit7);
-        String digit8 = mContext.getString(R.string.digit8);
-        String digit9 = mContext.getString(R.string.digit9);
-        String A = mContext.getString(R.string.A);
-        String B = mContext.getString(R.string.B);
-        String C = mContext.getString(R.string.C);
-        String D = mContext.getString(R.string.D);
-        String E = mContext.getString(R.string.E);
-        String F = mContext.getString(R.string.F);
-        bannedInDecimal = Arrays.asList(A, B, C, D, E, F);
-        bannedInBinary = Arrays.asList(A, B, C, D, E, F, digit2, digit3, digit4, digit5, digit6, digit7, digit8, digit9);
     }
 
     @Override
@@ -109,6 +87,9 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
+            for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
+                mPager.findViewById(i).setEnabled(true);
+            }
             break;
 
         case R.id.bin:
@@ -116,6 +97,9 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
+            for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
+                mPager.findViewById(i).setEnabled(false);
+            }
             break;
 
         case R.id.dec:
@@ -123,6 +107,12 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             view.setBackgroundResource(R.color.pressed_color);
             ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
+            for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
+                mPager.findViewById(i).setEnabled(true);
+            }
+            for(int i : mHandler.mBaseModule.bannedResourceInDecimal) {
+                mPager.findViewById(i).setEnabled(false);
+            }
             break;
 
         case R.id.matrix:
@@ -238,9 +228,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             if(view instanceof Button) {
                 if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
                 String text = ((Button) view).getText().toString();
-                if(!acceptableKey(text)) {
-                    break;
-                }
                 if(text.equals(mDX) || text.equals(mDY)) {
                     // Do nothing
                 }
@@ -269,15 +256,13 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         }
         if(view instanceof TextView && ((TextView) view).getHint() != null) {
             String text = ((TextView) view).getHint().toString();
-            if(acceptableKey(text)) {
-                if(text.length() >= 2) {
-                    // Add paren after sin, cos, ln, etc. from buttons
-                    text += "(";
-                }
-                mHandler.insert(text);
-                returnToBasic();
-                return true;
+            if(text.length() >= 2) {
+                // Add paren after sin, cos, ln, etc. from buttons
+                text += "(";
             }
+            mHandler.insert(text);
+            returnToBasic();
+            return true;
         }
         return false;
     }
@@ -327,23 +312,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 mHandler.onDown();
                 break;
-            }
-        }
-        return true;
-    }
-
-    private boolean acceptableKey(String text) {
-        if(text.length() == 1) {
-            // Disable ABCDEF in DEC/BIN and 23456789 in BIN
-            if(mHandler.mBaseModule.getMode().equals(Mode.DECIMAL)) {
-                for(String s : bannedInDecimal) {
-                    if(s.equals(text)) return false;
-                }
-            }
-            if(mHandler.mBaseModule.getMode().equals(Mode.BINARY)) {
-                for(String s : bannedInBinary) {
-                    if(s.equals(text)) return false;
-                }
             }
         }
         return true;
