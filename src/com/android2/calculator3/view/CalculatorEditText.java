@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.ActionMode;
@@ -34,6 +35,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.android2.calculator3.BaseModule;
+import com.android2.calculator3.CalculatorSettings;
 import com.android2.calculator3.EquationFormatter;
 import com.android2.calculator3.R;
 
@@ -52,6 +55,7 @@ public class CalculatorEditText extends EditText {
         }
     };
     private String input = "";
+    private int selectionHandle = 0;
 
     public CalculatorEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -88,13 +92,22 @@ public class CalculatorEditText extends EditText {
 
             @Override
             public void afterTextChanged(Editable s) {
+                System.out.println(s);
                 if(updating) return;
-
-                input = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER);
-
+                input = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER).replaceAll(",", "").replaceAll(" ", "");
+                System.out.println(input);
                 updating = true;
-                int selectionHandle = getSelectionStart();
-                setText(Html.fromHtml(mEquationFormatter.insertSupscripts(input)));
+
+                // Get the selection handle, since we're setting text and
+                // that'll overwrite it
+                selectionHandle = getSelectionStart();
+                // Adjust the handle by removing any comas or spacing to the
+                // left
+                String cs = s.subSequence(0, selectionHandle).toString();
+                selectionHandle -= countOccurrences(cs, ',');
+                selectionHandle -= countOccurrences(cs, ' ');
+
+                setText(formatText(input));
                 setSelection(Math.min(selectionHandle, getText().length()));
                 updating = false;
             }
@@ -152,6 +165,38 @@ public class CalculatorEditText extends EditText {
                 mHandler.postAtTime(mRefresher, SystemClock.uptimeMillis() + BLINK);
             }
         }
+    }
+
+    private Spanned formatText(String input) {
+        BaseModule bm = mDisplay.mLogic.mBaseModule;
+        if(CalculatorSettings.digitGrouping(getContext())) {
+            // Add grouping, and then split on the selection handle
+            // which is saved as a unique char
+            String grouped = bm.groupSentence(input, selectionHandle);
+            if(grouped.contains(String.valueOf(BaseModule.SELECTION_HANDLE))) {
+                String[] temp = grouped.split(String.valueOf(BaseModule.SELECTION_HANDLE));
+                selectionHandle = temp[0].length();
+                input = "";
+                for(String s : temp) {
+                    input += s;
+                }
+            }
+            else {
+                input = grouped;
+                selectionHandle = input.length();
+            }
+        }
+        return Html.fromHtml(mEquationFormatter.insertSupscripts(input));
+    }
+
+    private int countOccurrences(String haystack, char needle) {
+        int count = 0;
+        for(int i = 0; i < haystack.length(); i++) {
+            if(haystack.charAt(i) == needle) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public static String load(final AdvancedDisplay parent) {

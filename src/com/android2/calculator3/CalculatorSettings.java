@@ -38,7 +38,7 @@ public class CalculatorSettings {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC", context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
     }
 
-    static boolean digitGrouping(Context context) {
+    public static boolean digitGrouping(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("DIGIT_GROUPING", context.getResources().getBoolean(R.bool.DIGIT_GROUPING));
     }
 

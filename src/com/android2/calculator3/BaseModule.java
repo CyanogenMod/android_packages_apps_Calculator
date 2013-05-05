@@ -8,8 +8,9 @@ import java.util.Locale;
 import org.javia.arity.SyntaxException;
 
 public class BaseModule {
-    private static final String REGEX_NUMBER = "[A-F0-9\\.]";
-    private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\.]";
+    public static final char SELECTION_HANDLE = '\u2620';
+    private static final String REGEX_NUMBER = "[A-F0-9\\." + SELECTION_HANDLE + "]";
+    private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\." + SELECTION_HANDLE + "]";
 
     Logic logic;
     private Mode mode = Mode.DECIMAL;
@@ -228,7 +229,48 @@ public class BaseModule {
         return (wholeNumber + "." + decimalNumber).toUpperCase(Locale.US);
     }
 
-    String groupDigits(String number, Mode mode) {
+    public String groupSentence(String originalText, int selectionHandle) {
+        if(originalText.equals(logic.mErrorString) || originalText.isEmpty()) return originalText;
+
+        originalText = originalText.substring(0, selectionHandle) + SELECTION_HANDLE + originalText.substring(selectionHandle);
+        String[] operations = originalText.split(REGEX_NUMBER);
+        String[] numbers = originalText.split(REGEX_NOT_NUMBER);
+        String[] translatedNumbers = new String[numbers.length];
+        for(int i = 0; i < numbers.length; i++) {
+            if(!numbers[i].isEmpty()) {
+                translatedNumbers[i] = groupDigits(numbers[i], mode);
+            }
+        }
+        String text = "";
+        Object[] o = removeWhitespace(operations);
+        Object[] n = removeWhitespace(translatedNumbers);
+        if(originalText.substring(0, 1).matches(REGEX_NUMBER)) {
+            for(int i = 0; i < o.length && i < n.length; i++) {
+                text += n[i];
+                text += o[i];
+            }
+        }
+        else {
+            for(int i = 0; i < o.length && i < n.length; i++) {
+                text += o[i];
+                text += n[i];
+            }
+        }
+        if(o.length > n.length) {
+            text += o[o.length - 1];
+        }
+        else if(n.length > o.length) {
+            text += n[n.length - 1];
+        }
+
+        return text;
+    }
+
+    public String groupDigits(String number, Mode mode) {
+        return groupDigits(number, mode, -1);
+    }
+
+    public String groupDigits(String number, Mode mode, int selectionHandle) {
         String sign = "";
         if(number.startsWith(String.valueOf(Logic.MINUS)) || number.startsWith("-")) {
             sign = String.valueOf(Logic.MINUS);
@@ -252,39 +294,39 @@ public class BaseModule {
         String modifiedNumber = wholeNumber;
         switch(mode) {
         case DECIMAL:
-            modifiedNumber = "";
-            // Add a coma every 3 chars, starting from the end.
-            for(int i = 1; i <= wholeNumber.length(); i++) {
-                char charFromEnd = wholeNumber.charAt(wholeNumber.length() - i);
-                modifiedNumber = charFromEnd + modifiedNumber;
-                if(i % 3 == 0 && i != wholeNumber.length()) {
-                    modifiedNumber = "," + modifiedNumber;
-                }
-            }
+            modifiedNumber = group(wholeNumber, 3, ",");
             break;
         case BINARY:
-            modifiedNumber = "";
-            // Add a space every 4 chars, starting from the end.
-            for(int i = 1; i <= wholeNumber.length(); i++) {
-                char charFromEnd = wholeNumber.charAt(wholeNumber.length() - i);
-                modifiedNumber = charFromEnd + modifiedNumber;
-                if(i % 4 == 0 && i != wholeNumber.length()) {
-                    modifiedNumber = " " + modifiedNumber;
-                }
-            }
+            modifiedNumber = group(wholeNumber, 4, " ");
             break;
         case HEXADECIMAL:
-            modifiedNumber = "";
-            // Add a space every 2 chars, starting from the end.
-            for(int i = 1; i <= wholeNumber.length(); i++) {
-                char charFromEnd = wholeNumber.charAt(wholeNumber.length() - i);
-                modifiedNumber = charFromEnd + modifiedNumber;
-                if(i % 2 == 0 && i != wholeNumber.length()) {
-                    modifiedNumber = " " + modifiedNumber;
-                }
-            }
+            modifiedNumber = group(wholeNumber, 2, " ");
             break;
         }
         return sign + modifiedNumber + remainder;
+    }
+
+    private String group(String wholeNumber, int spacing, String separator) {
+        String modifiedNumber = "";
+        int offset = 0;
+        for(int i = 1; i <= wholeNumber.length(); i++) {
+            char charFromEnd = wholeNumber.charAt(wholeNumber.length() - i);
+            modifiedNumber = charFromEnd + modifiedNumber;
+            if(charFromEnd == SELECTION_HANDLE) {
+                offset++;
+                if(i == wholeNumber.length()) {
+                    // Remove coma if we accidentally caused an extra one
+                    if(modifiedNumber.startsWith(SELECTION_HANDLE + ",")) {
+                        modifiedNumber = SELECTION_HANDLE + modifiedNumber.substring(2);
+                    }
+                }
+            }
+            else {
+                if((i - offset) % spacing == 0 && i != wholeNumber.length() && (i - offset) != 0) {
+                    modifiedNumber = separator + modifiedNumber;
+                }
+            }
+        }
+        return modifiedNumber;
     }
 }

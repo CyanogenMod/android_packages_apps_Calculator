@@ -121,8 +121,9 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                     }
                     else {
                         // Check and remove keywords
-                        String textBeforeInsertionHandle = getActiveEditText().toString().substring(0, selectionHandle);
-                        String textAfterInsertionHandle = getActiveEditText().toString().substring(selectionHandle, getActiveEditText().toString().length());
+                        String textBeforeInsertionHandle = getActiveEditText().getText().toString().substring(0, selectionHandle);
+                        String textAfterInsertionHandle = getActiveEditText().getText().toString()
+                                .substring(selectionHandle, getActiveEditText().getText().toString().length());
 
                         for(String s : keywords) {
                             if(textBeforeInsertionHandle.endsWith(s)) {

@@ -60,12 +60,11 @@ public class Logic {
     int mLineLength = 0;
     private Graph mGraph;
     EquationFormatter mEquationFormatter;
-    GraphModule mGraphModule;
-    BaseModule mBaseModule;
-    MatrixModule mMatrixModule;
+    public GraphModule mGraphModule;
+    public BaseModule mBaseModule;
+    public MatrixModule mMatrixModule;
 
     private boolean useRadians;
-    private boolean digitGrouping;
 
     final String mErrorString;
     private final String mSinString;
@@ -101,7 +100,6 @@ public class Logic {
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
         useRadians = CalculatorSettings.useRadians(context);
-        digitGrouping = CalculatorSettings.digitGrouping(context);
 
         mEquationFormatter = new EquationFormatter();
         mHistory = history;
@@ -308,12 +306,6 @@ public class Logic {
 
         real = mBaseModule.updateTextToNewMode(real, Mode.DECIMAL, mBaseModule.getMode()).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
         imaginary = mBaseModule.updateTextToNewMode(imaginary, Mode.DECIMAL, mBaseModule.getMode()).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
-
-        // Digit grouping
-        if(digitGrouping) {
-            real = mBaseModule.groupDigits(real, mBaseModule.getMode());
-            imaginary = mBaseModule.groupDigits(imaginary, mBaseModule.getMode());
-        }
 
         String result = "";
         if(value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
