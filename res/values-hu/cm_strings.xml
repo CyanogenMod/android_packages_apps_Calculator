@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arcsin">sin^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Megoldás X-re</string>
+    <string name="solveForY">Megoldás Y-ra</string>
+    <string name="mod">mod</string>
+    <string name="matrix">Mátrix panel</string>
+    <string name="graph">Grafikon panel</string>
+    <string name="function">Függvény panel</string>
+    <string name="hexPanel">Hexadecimális panel</string>
+    <string name="copy">Másolás \'%s\'</string>
+    <string name="remove_from_history">Eltávolítás az előzményekből</string>
+    <string name="showHistory">Előzmények megjelenítése</string>
+    <string name="hideHistory">Előzmények elrejtése</string>
+    <string name="settings">Beállítások</string>
+    <string name="determinant">Determináns</string>
+    <string name="eigenvalue">Sajátérték</string>
+    <string name="solve">Megoldás</string>
+    <string name="dotProduct">Skalárszorzat</string>
+    <string name="crossProduct">Vektoriális szorzat</string>
+    <string name="determinantDesc">Determináns</string>
+    <string name="eigenvalueDesc">Sajátérték</string>
+    <string name="plus_row">+Sor</string>
+    <string name="minus_row">-Sor</string>
+    <string name="plus_col">+Oszlop</string>
+    <string name="minus_col">-Oszlop</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Következő</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimális</string>
+    <string name="binDesc">Bináris</string>
+    <string name="decDesc">Decimális</string>
+    <string name="pref_panels">Panelek</string>
+    <string name="pref_actions">Események</string>
+    <string name="pref_units">Mértékegységek</string>
+    <string name="pref_about">Névjegy</string>
+    <string name="returnToBasic">Visszatérés az alappanelre</string>
+    <string name="trigUnits">Trig. mértékegység</string>
+    <string name="radians">Radián</string>
+    <string name="degrees">Fok</string>
+    <string name="cling_simple_title">Üdvözöljük</string>
+    <string name="cling_simple_msg">Csúsztasson jobbra vagy balra a további tartalmakért. A használni kivánt panelek a beállításokban megadhatóak.</string>
+    <string name="cling_matrix_title">Mátrixok</string>
+    <string name="cling_matrix_msg">Érintse meg mátrix felépítéséhez és megoldásához.</string>
+    <string name="cling_hex_title">Számrendszer módosítása</string>
+    <string name="cling_hex_msg">Válasszon a kettes (bin), tízes (dec), tizenhatos (hex) számrendszerek közül.\n\nFigyelmeztetés: Ha úgy gondolja, hogy rossz eredményényeket kap, akkor valószínűleg rossz a beállítás. Az alapértelmezett érték a decimális.</string>
+    <string name="cling_graph_title">Grafikon</string>
+    <string name="cling_graph_msg">A grafikon automatikusan megjelenik. Más függvény értékek a részletes beállításokban adhatóak meg.</string>
+    <string name="cling_dismiss">OK</string>
+    <string name="easter_egg">Magikarp Splash-t használt, de nem történt semmi.</string>
+</resources>

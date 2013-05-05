@@ -18,6 +18,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="8095131950334945205">"Sakrekenaar"</string>
     <string name="error" msgid="9197457880925804499">"Fout"</string>
+    <string name="digit0" msgid="8069590963464434135">"0"</string>
+    <string name="digit1" msgid="8535041374797804029">"1"</string>
+    <string name="digit2" msgid="8977354203154316247">"2"</string>
+    <string name="digit3" msgid="148544090755132760">"3"</string>
+    <string name="digit4" msgid="2199490603838247678">"4"</string>
+    <string name="digit5" msgid="7568514524384173087">"5"</string>
+    <string name="digit6" msgid="6705952561049362551">"6"</string>
+    <string name="digit7" msgid="658125644218958447">"7"</string>
+    <string name="digit8" msgid="3134686906411558886">"8"</string>
+    <string name="digit9" msgid="765379157698748031">"9"</string>
     <string name="del" msgid="6248896117422989693">"VEE UIT"</string>
     <string name="clear" msgid="8103610981407459768">"CLR"</string>
     <string name="sin" msgid="6793866152659175277">"sin"</string>
@@ -26,67 +36,10 @@
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
+    <string name="leftParen" msgid="4850643713953092099">"("</string>
+    <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"Basiese paneel"</string>
     <string name="advanced" msgid="7122495413742976492">"Gevorderde paneel"</string>
     <string name="clear_history" msgid="8458043980601165012">"Vee geskiedenis uit"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Teks gekopieer."</string>
-
-    <!-- CYANOGENMOD ADDITIONS -->
-    <string name="application_copyright">Kopiereg \u00A9 CyanogenMod 2013</string>
-    <string name="X">X</string>
-    <string name="Y">Y</string>
-    <string name="arcsin">sin^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
-    <string name="solveForX">Los op vir X</string>
-    <string name="solveForY">Los op vir Y</string>
-    <string name="mod">mod</string>
-    <string name="matrix">Matriks paneel</string>
-    <string name="graph">Grafiese paneel</string>
-    <string name="function">Funksie paneel</string>
-    <string name="hexPanel">Hex paneel</string>
-    <string name="copy">Kopie \"%s\"</string>
-    <string name="remove_from_history">Verwyder van geskiedenis</string>
-    <string name="showHistory">Wys geskiedenis</string>
-    <string name="hideHistory">Versteek geskiedenis</string>
-    <string name="settings">Instellings</string>
-    <string name="determinant">Det</string>
-    <string name="eigenvalue">Eigen</string>
-    <string name="solve">Los op</string>
-    <string name="dotProduct">Dot</string>
-    <string name="crossProduct">Cross</string>
-    <string name="determinantDesc">Bepaler</string>
-    <string name="eigenvalueDesc">Eiewaardes</string>
-    <string name="plus_row">+Ry</string>
-    <string name="minus_row">-Ry</string>
-    <string name="plus_col">+Kol</string>
-    <string name="minus_col">-Kol</string>
-    <string name="matrix_transpose">T</string>
-    <string name="next">Volgende</string>
-    <string name="hex">Hex</string>
-    <string name="bin">Bin</string>
-    <string name="dec">Des</string>
-    <string name="hexDesc">Heksadesimaal</string>
-    <string name="binDesc">Binêr</string>
-    <string name="decDesc">Desimaal</string>
-    <string name="pref_panels">Panele</string>
-    <string name="pref_actions">Aksies</string>
-    <string name="pref_units">Eenhede</string>
-    <string name="pref_about">Aangaande</string>
-    <string name="returnToBasic">Terug na die basiese paneel</string>
-    <string name="trigUnits">Trigonomie eenhede</string>
-    <string name="radians">RAD</string>
-    <string name="degrees">DEG</string>
-    <string name="cling_simple_title">Welkom</string>
-    <string name="cling_simple_msg">Skuif links en regs om meer inhoud te bekom. Onnodige bladsye kan afgeskakel word in Instellings.</string>
-    <string name="cling_matrix_title">Matrikse</string>
-    <string name="cling_matrix_msg">Raak hier om \'n matriks oplossing te begin bou.</string>
-    <string name="cling_hex_title">Verander basisse</string>
-    <string name="cling_hex_msg">Skakel tussen desimaal (des), binêre (bin), en heksadesimaal (hex)\n\nWaarskuwing: as jy glo dat jy verkeerde resultate kry, is jy waarskynlik in die verkeerde basis. Die standaard is desimaal.</string>
-    <string name="cling_graph_title">Grafiek</string>
-    <string name="cling_graph_msg">Grafieke sal outomaties hier verskyn. Gaan na die gevorderde paneel en bou \'n ​​funksie met behulp van X en Y.</string>
-    <string name="cling_dismiss">OK</string>
-    <string name="easter_egg">\"Magikarp\" gebruik \"Splash\" maar niks het gebeur nie.</string>
 </resources>

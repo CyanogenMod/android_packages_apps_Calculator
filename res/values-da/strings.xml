@@ -18,6 +18,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="8095131950334945205">"Lommeregner"</string>
     <string name="error" msgid="9197457880925804499">"Fejl"</string>
+    <string name="digit0" msgid="8069590963464434135">"0"</string>
+    <string name="digit1" msgid="8535041374797804029">"1"</string>
+    <string name="digit2" msgid="8977354203154316247">"2"</string>
+    <string name="digit3" msgid="148544090755132760">"3"</string>
+    <string name="digit4" msgid="2199490603838247678">"4"</string>
+    <string name="digit5" msgid="7568514524384173087">"5"</string>
+    <string name="digit6" msgid="6705952561049362551">"6"</string>
+    <string name="digit7" msgid="658125644218958447">"7"</string>
+    <string name="digit8" msgid="3134686906411558886">"8"</string>
+    <string name="digit9" msgid="765379157698748031">"9"</string>
     <string name="del" msgid="6248896117422989693">"SLET"</string>
     <string name="clear" msgid="8103610981407459768">"RYD"</string>
     <string name="sin" msgid="6793866152659175277">"sin"</string>
@@ -26,78 +36,10 @@
     <string name="e" msgid="1377847800971731483">"e"</string>
     <string name="ln" msgid="6888500680285403344">"ln"</string>
     <string name="lg" msgid="873623857385418182">"log"</string>
+    <string name="leftParen" msgid="4850643713953092099">"("</string>
+    <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"Grundlæggende panel"</string>
     <string name="advanced" msgid="7122495413742976492">"Avanceret panel"</string>
     <string name="clear_history" msgid="8458043980601165012">"Ryd historik"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Tekst er kopieret."</string>
-
-    <!-- CM10 additions start -->
-    <string name="X">X</string>
-    <string name="Y">Y</string>
-    <string name="arcsin">sin^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
-
-    <string name="matrix">Matrixpanel</string>
-    <string name="graph">Grafpanel</string>
-    <string name="function">Funktionspanel</string>
-    <string name="hexPanel">Hexpanel</string>
-
-    <string name="dx">dX</string>
-    <string name="dy">dY</string>
-    <string name="solveForX">Løs for X</string>
-    <string name="solveForY">Løs for Y</string>
-    <string name="mod">mod</string>
-
-    <string name="determinant">Det</string>
-    <string name="eigenvalue">Egen</string>
-    <string name="solve">Løs</string>
-    <string name="dotProduct">Prik</string>
-    <string name="crossProduct">Kryds</string>
-
-    <string name="hex">Hex</string>
-    <string name="bin">Bin</string>
-    <string name="dec">Dec</string>
-
-    <string name="hexDesc">Hexadecimal</string>
-    <string name="binDesc">Binær</string>
-    <string name="decDesc">Decimal</string>
-    <string name="determinantDesc">Determinant</string>
-    <string name="eigenvalueDesc">Egenværdi</string>
-    <string name="plus_row">+Række</string>
-    <string name="minus_row">-Række</string>
-    <string name="plus_col">+Kolonne</string>
-    <string name="minus_col">-Kolonne</string>
-    <string name="matrix_transpose">T</string>
-    <string name="next">Næste</string>
-
-    <string name="settings">Indstillinger</string>
-    <string name="showHistory">Vis Historik</string>
-    <string name="hideHistory">Skjul Historik</string>
-
-    <string name="pref_panels">Paneler</string>
-    <string name="pref_actions">Handlinger</string>
-    <string name="pref_units">Enheder</string>
-    <string name="pref_about">Om</string>
-    <string name="returnToBasic">Vend tilbage til det grundlæggende panel</string>
-    <string name="trigUnits">Trig. enheder</string>
-    <string name="radians">RAD</string>
-    <string name="degrees">GRD</string>
-
-    <string name="copy">Kopiér \"%s\"</string>
-    <string name="remove_from_history">Fjern fra historik</string>
-
-    <string name="cling_simple_title">Velkommen</string>
-    <string name="cling_simple_msg">Glid til venstre og højre for at tilgå mere indhold. Unødvendige sider kan slås fra i Indstillinger.</string>
-    <string name="cling_matrix_title">Matricer</string>
-    <string name="cling_matrix_msg">Tryk her for at bygge og løse matricer.</string>
-    <string name="cling_hex_title">Skift grundtal</string>
-    <string name="cling_hex_msg">Skift mellem decimal (dec), binært (bin), og heksadecimalt (hex).\n\nAdvarsel: Hvis du mener, at du får forkerte resultater, er du formentlig på det forkerte grundtal. Standarden er decimal.</string>
-    <string name="cling_graph_title">Graf</string>
-    <string name="cling_graph_msg">Grafer vil automatisk vises her. Gå til det avancerede panel og byg en funktion vha. X og Y.</string>
-    <string name="cling_dismiss">OK</string>
-
-    <string name="easter_egg">Magikarp brugte Splash, men intet skete.</string>
-
-    <!-- CM10 additions end -->
 </resources>

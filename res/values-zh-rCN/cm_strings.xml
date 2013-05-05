@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_copyright">版权所有 \u00A9 2013 CyanogenMod 项目</string>
+    <string name="solveForX">求解 X</string>
+    <string name="solveForY">求解 Y</string>
+    <string name="mod">取余数</string>
+    <string name="matrix">矩阵面板</string>
+    <string name="graph">图表面板</string>
+    <string name="function">函数面板</string>
+    <string name="hexPanel">十六进制面板</string>
+    <string name="copy">复制 \'%s\'</string>
+    <string name="remove_from_history">从历史记录移除</string>
+    <string name="showHistory">显示历史记录</string>
+    <string name="hideHistory">隐藏历史记录</string>
+    <string name="settings">设置</string>
+    <string name="determinantDesc">行列式</string>
+    <string name="eigenvalueDesc">特征向量</string>
+    <string name="plus_row">+行</string>
+    <string name="minus_row">-行</string>
+    <string name="plus_col">+列</string>
+    <string name="minus_col">-列</string>
+    <string name="next">下一个</string>
+    <string name="hexDesc">十六进制</string>
+    <string name="binDesc">二进制</string>
+    <string name="decDesc">十进制</string>
+    <string name="pref_panels">面板</string>
+    <string name="pref_actions">操作</string>
+    <string name="pref_units">单位</string>
+    <string name="pref_about">关于</string>
+    <string name="returnToBasic">返回到基本面板</string>
+    <string name="trigUnits">三角函数单位</string>
+    <string name="cling_simple_title">欢迎</string>
+    <string name="cling_simple_msg">左右滑动将显示其它的面板. 您可在设置内禁用不需要的面板.</string>
+    <string name="cling_matrix_title">矩阵</string>
+    <string name="cling_matrix_msg">点击这里来创建与解决矩阵问题.</string>
+    <string name="cling_hex_title">更改进制</string>
+    <string name="cling_hex_msg">在十进制 (Dec), 二进制 (Bin), 与十六进制 (Hex) 之间进行切换.\n\n警告: 如果您发现得到的结果是错误的, 这应该是您选择了错误的进制而导致的. 计算器的默认进制是十进制.</string>
+    <string name="cling_graph_title">图表</string>
+    <string name="cling_graph_msg">图表将会在这里自动显示. 请到高级面板并使用 X 与 Y 来创建一个函数.</string>
+    <string name="cling_dismiss">确定</string>
+    <string name="easter_egg">用尽了浑身力气去解数, 但依然无效.</string>
+</resources>
