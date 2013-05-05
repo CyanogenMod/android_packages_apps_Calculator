@@ -39,6 +39,23 @@ public class LargePageAdapter extends PagerAdapter {
         mGraph = graph;
         mLogic = logic;
         setOrder();
+
+        switch(mLogic.mBaseModule.getMode()) {
+        case BINARY:
+            for(int i : mLogic.mBaseModule.bannedResourceInBinary) {
+                View v = mSimplePage.findViewById(i);
+                if(v != null) v.setEnabled(false);
+            }
+            break;
+        case DECIMAL:
+            for(int i : mLogic.mBaseModule.bannedResourceInDecimal) {
+                View v = mSimplePage.findViewById(i);
+                if(v != null) v.setEnabled(false);
+            }
+            break;
+        case HEXADECIMAL:
+            break;
+        }
     }
 
     @Override

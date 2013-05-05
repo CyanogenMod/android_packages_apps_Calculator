@@ -35,9 +35,17 @@ public class SmallPageAdapter extends PagerAdapter {
         switch(mLogic.mBaseModule.getMode()) {
         case BINARY:
             mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+            for(int i : mLogic.mBaseModule.bannedResourceInBinary) {
+                View v = mHexPage.findViewById(i);
+                if(v != null) v.setEnabled(false);
+            }
             break;
         case DECIMAL:
             mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+            for(int i : mLogic.mBaseModule.bannedResourceInDecimal) {
+                View v = mHexPage.findViewById(i);
+                if(v != null) v.setEnabled(false);
+            }
             break;
         case HEXADECIMAL:
             mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
