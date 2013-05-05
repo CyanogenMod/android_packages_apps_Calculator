@@ -269,7 +269,7 @@ public class Logic {
 
     public static final int ROUND_DIGITS = 1;
 
-    String evaluate(String input) throws SyntaxException {
+    public String evaluate(String input) throws SyntaxException {
         if(input.trim().isEmpty()) {
             return "";
         }

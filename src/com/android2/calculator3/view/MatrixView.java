@@ -90,7 +90,7 @@ public class MatrixView extends TableLayout {
                 input = stringify(input);
                 if(input.isEmpty()) throw new SyntaxException();
                 try {
-                    data[row][column] = Double.valueOf(input);
+                    data[row][column] = Double.valueOf(logic.evaluate(input));
                 }
                 catch(Exception e) {
                     data[row][column] = Double.NaN;
@@ -188,14 +188,14 @@ public class MatrixView extends TableLayout {
         return input;
     }
 
-    public static String matrixToString(SimpleMatrix matrix) {
+    public static String matrixToString(SimpleMatrix matrix, Logic logic) throws SyntaxException {
         int rows = matrix.numRows();
         int columns = matrix.numCols();
         String input = "[";
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += matrix.get(i, j) + ",";
+                input += logic.evaluate(Double.toString(matrix.get(i, j))) + ",";
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);

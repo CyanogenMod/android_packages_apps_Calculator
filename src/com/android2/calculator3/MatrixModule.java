@@ -57,7 +57,7 @@ public class MatrixModule {
                     else throw new SyntaxException();
                 }
             }
-            return logic.mBaseModule.updateTextToNewMode(MatrixView.matrixToString(matrix), Mode.DECIMAL, logic.mBaseModule.getMode());
+            return logic.mBaseModule.updateTextToNewMode(MatrixView.matrixToString(matrix, logic), Mode.DECIMAL, logic.mBaseModule.getMode());
         }
         catch(Exception e) {
             throw new SyntaxException();

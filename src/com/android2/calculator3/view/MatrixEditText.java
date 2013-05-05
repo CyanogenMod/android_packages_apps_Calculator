@@ -72,12 +72,6 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
 
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            for(int i = start; i < end; i++) {
-                String text = dest.toString().substring(0, dstart) + source.toString() + dest.toString().substring(dend);
-                if(!text.matches(Logic.NUMBER)) {
-                    return "";
-                }
-            }
             return null;
         }
 
