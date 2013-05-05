@@ -184,6 +184,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
             mPager.setOnPageChangeListener(this);
             runCling(false);
+            mListener.setHandler(this, mLogic, mPager);
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
@@ -194,9 +195,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mSmallPager.setOnPageChangeListener(this);
             mLargePager.setOnPageChangeListener(this);
             runCling(false);
+            mListener.setHandler(this, mLogic, mSmallPager, mLargePager);
         }
 
-        mListener.setHandler(this, mLogic, mPager);
         mDisplay.setOnKeyListener(mListener);
 
         if(!ViewConfiguration.get(this).hasPermanentMenuKey()) {

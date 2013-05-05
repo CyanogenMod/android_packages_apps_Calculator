@@ -36,6 +36,8 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     Context mContext;
     Logic mHandler;
     ViewPager mPager;
+    ViewPager mSmallPager;
+    ViewPager mLargePager;
 
     private String mErrorString;
     private String mModString;
@@ -45,9 +47,19 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     private String mDY;
 
     void setHandler(Context context, Logic handler, ViewPager pager) {
+        setHandler(context, handler, pager, null, null);
+    }
+
+    void setHandler(Context context, Logic handler, ViewPager smallPager, ViewPager largePager) {
+        setHandler(context, handler, null, smallPager, largePager);
+    }
+
+    private void setHandler(Context context, Logic handler, ViewPager pager, ViewPager smallPager, ViewPager largePager) {
         mContext = context;
         mHandler = handler;
         mPager = pager;
+        mSmallPager = smallPager;
+        mLargePager = largePager;
 
         mErrorString = mContext.getString(R.string.error);
         mModString = mContext.getString(R.string.mod);
@@ -88,7 +100,14 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
             for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
-                mPager.findViewById(i).setEnabled(true);
+                if(mPager != null) {
+                    v = mPager.findViewById(i);
+                }
+                else {
+                    v = mSmallPager.findViewById(i);
+                    if(v == null) v = mLargePager.findViewById(i);
+                }
+                v.setEnabled(true);
             }
             break;
 
@@ -98,7 +117,14 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
             for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
-                mPager.findViewById(i).setEnabled(false);
+                if(mPager != null) {
+                    v = mPager.findViewById(i);
+                }
+                else {
+                    v = mSmallPager.findViewById(i);
+                    if(v == null) v = mLargePager.findViewById(i);
+                }
+                v.setEnabled(false);
             }
             break;
 
@@ -108,10 +134,24 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
             ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
             for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
-                mPager.findViewById(i).setEnabled(true);
+                if(mPager != null) {
+                    v = mPager.findViewById(i);
+                }
+                else {
+                    v = mSmallPager.findViewById(i);
+                    if(v == null) v = mLargePager.findViewById(i);
+                }
+                v.setEnabled(true);
             }
             for(int i : mHandler.mBaseModule.bannedResourceInDecimal) {
-                mPager.findViewById(i).setEnabled(false);
+                if(mPager != null) {
+                    v = mPager.findViewById(i);
+                }
+                else {
+                    v = mSmallPager.findViewById(i);
+                    if(v == null) v = mLargePager.findViewById(i);
+                }
+                v.setEnabled(false);
             }
             break;
 
