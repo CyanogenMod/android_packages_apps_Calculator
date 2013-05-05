@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.RemoteViews;
 
 public class CalculatorWidget extends AppWidgetProvider {
@@ -30,6 +31,9 @@ public class CalculatorWidget extends AppWidgetProvider {
     public static final String DIV = "com.android2.calculator3.div";
     public static final String EQUALS = "com.android2.calculator3.equals";
     public static final String CLR = "com.android2.calculator3.clear";
+    public static final String DEL = "com.android2.calculator3.delete";
+
+    private boolean showClear = false;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -109,9 +113,13 @@ public class CalculatorWidget extends AppWidgetProvider {
             catch(SyntaxException e) {
                 value = context.getResources().getString(R.string.error);
             }
+            showClear = true;
         }
         else if(intent.getAction().equals(CLR)) {
             value = "";
+        }
+        else if(intent.getAction().equals(DEL)) {
+            if(value.length() > 0) value = value.substring(0, value.length() - 1);
         }
         setValue(context, appWidgetId, value);
 
@@ -123,11 +131,13 @@ public class CalculatorWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
     }
 
-    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+    private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
         String value = getValue(context, appWidgetId);
 
         remoteViews.setTextViewText(R.id.display, value);
+        remoteViews.setViewVisibility(R.id.clear, showClear ? View.VISIBLE : View.GONE);
+        remoteViews.setViewVisibility(R.id.delete, showClear ? View.GONE : View.VISIBLE);
         setOnClickListeners(context, appWidgetId, remoteViews);
 
         try {
@@ -198,6 +208,9 @@ public class CalculatorWidget extends AppWidgetProvider {
 
         intent.setAction(CLR);
         remoteViews.setOnClickPendingIntent(R.id.clear, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 16, intent, 0));
+
+        intent.setAction(DEL);
+        remoteViews.setOnClickPendingIntent(R.id.delete, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 17, intent, 0));
     }
 
     private static String getValue(Context context, int appWidgetId) {
