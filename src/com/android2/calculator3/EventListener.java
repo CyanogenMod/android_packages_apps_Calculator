@@ -17,6 +17,7 @@
 package com.android2.calculator3;
 
 import android.content.Context;
+import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -286,6 +287,8 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         switch(view.getId()) {
         case R.id.del:
             mHandler.onClear();
+            Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(100);
         }
         if(view.getTag() != null) {
             String text = (String) view.getTag();
