@@ -288,7 +288,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         case R.id.del:
             mHandler.onClear();
             Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(100);
+            v.vibrate(50);
         }
         if(view.getTag() != null) {
             String text = (String) view.getTag();
