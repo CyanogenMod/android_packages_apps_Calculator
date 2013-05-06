@@ -92,10 +92,9 @@ public class CalculatorEditText extends EditText {
 
             @Override
             public void afterTextChanged(Editable s) {
-                System.out.println(s);
                 if(updating) return;
+
                 input = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER).replaceAll(",", "").replaceAll(" ", "");
-                System.out.println(input);
                 updating = true;
 
                 // Get the selection handle, since we're setting text and

@@ -9,8 +9,8 @@ import org.javia.arity.SyntaxException;
 
 public class BaseModule {
     public static final char SELECTION_HANDLE = '\u2620';
-    private static final String REGEX_NUMBER = "[A-F0-9\\." + SELECTION_HANDLE + "]";
-    private static final String REGEX_NOT_NUMBER = "[^A-F0-9\\." + SELECTION_HANDLE + "]";
+    public static final String REGEX_NUMBER = "[A-F0-9\\." + SELECTION_HANDLE + "]";
+    public static final String REGEX_NOT_NUMBER = "[^A-F0-9\\." + SELECTION_HANDLE + "]";
 
     Logic logic;
     private Mode mode = Mode.DECIMAL;
