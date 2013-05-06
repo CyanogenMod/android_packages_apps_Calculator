@@ -12,6 +12,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.android2.calculator3.BaseModule.Mode;
+
 public class CalculatorWidget extends AppWidgetProvider {
     public final static String PREFERENCE_WIDGET_PREAMBLE = "com.android2.calculator3.CALC_WIDGET_VALUE_";
     public static final String DIGIT_0 = "com.android2.calculator3.0";
@@ -95,24 +97,28 @@ public class CalculatorWidget extends AppWidgetProvider {
         }
         else if(intent.getAction().equals(EQUALS)) {
             final String input = value;
-            final Persist persist = new Persist(context);
-            persist.load();
-
-            final History history = persist.history;
-            final Logic mLogic = new Logic(context, history, null);
-            mLogic.setLineLength(7);
-
             if(input.isEmpty()) return;
 
+            final Logic mLogic = new Logic(context, null, null);
+            mLogic.setLineLength(7);
+
             try {
-                String text = input;
                 value = mLogic.evaluate(input);
-                history.enter(text, value);
-                persist.save();
             }
             catch(SyntaxException e) {
                 value = context.getResources().getString(R.string.error);
             }
+
+            // Try to save it to history
+            if(!value.equals(context.getResources().getString(R.string.error))) {
+                final Persist persist = new Persist(context);
+                persist.load();
+                if(persist.getMode() == null) persist.setMode(Mode.DECIMAL);
+                final History history = persist.history;
+                history.enter(input, value);
+                persist.save();
+            }
+
             showClear = true;
         }
         else if(intent.getAction().equals(CLR)) {
