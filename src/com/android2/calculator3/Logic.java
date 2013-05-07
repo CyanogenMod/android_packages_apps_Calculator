@@ -192,8 +192,9 @@ public class Logic {
     }
 
     boolean acceptInsert(String delta) {
-        String text = getText();
-        return !mIsError && (!mResult.equals(text) || isOperator(delta) || mDisplay.getSelectionStart() != text.length());
+        return !mIsError
+                && (getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || mDisplay.getSelectionStart() != mDisplay.getActiveEditText().getText()
+                        .length());
     }
 
     void onDelete() {

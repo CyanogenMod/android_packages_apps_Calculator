@@ -35,7 +35,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ViewSwitcher;
 
-import com.android2.calculator3.BaseModule;
 import com.android2.calculator3.CalculatorEditable;
 import com.android2.calculator3.Logic;
 import com.android2.calculator3.R;
@@ -183,9 +182,6 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
     public void insert(String delta) {
         AdvancedDisplay editor = getAdvancedDisplay();
-        if(editor.mLogic.getDeleteMode() == Logic.DELETE_MODE_CLEAR && delta.matches(BaseModule.REGEX_NUMBER)) {
-            editor.clear();
-        }
         editor.insert(delta);
     }
 
