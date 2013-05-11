@@ -393,6 +393,6 @@ public class Logic {
 
     static boolean isOperator(char c) {
         // plus minus times div
-        return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
+        return "+\u2212\u00d7\u00f7/*^!%".indexOf(c) != -1;
     }
 }

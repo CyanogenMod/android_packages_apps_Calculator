@@ -286,6 +286,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         switch(view.getId()) {
         case R.id.del:
             mHandler.onClear();
+            return true;
         }
         if(view.getTag() != null) {
             String text = (String) view.getTag();
