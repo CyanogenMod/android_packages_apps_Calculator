@@ -28,6 +28,13 @@
             android:defaultValue="@bool/MATRIX" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="@string/pref_actions" >
+        <CheckBoxPreference
+            android:title="@string/digitGrouping"
+            android:key="DIGIT_GROUPING"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/pref_units" >
         <SwitchPreference
                 android:title="@string/trigUnits"

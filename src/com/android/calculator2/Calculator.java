@@ -169,7 +169,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
-        if(mPersist.getMode() != null) mLogic.setMode(mPersist.getMode());
+        if(mPersist.getMode() != null) mLogic.mBaseModule.setMode(mPersist.getMode());
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
         mLogic.setLineLength(mDisplay.getMaxDigits());
@@ -184,6 +184,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
             mPager.setOnPageChangeListener(this);
             runCling(false);
+            mListener.setHandler(this, mLogic, mPager);
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
@@ -194,9 +195,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mSmallPager.setOnPageChangeListener(this);
             mLargePager.setOnPageChangeListener(this);
             runCling(false);
+            mListener.setHandler(this, mLogic, mSmallPager, mLargePager);
         }
 
-        mListener.setHandler(this, mLogic, mPager);
         mDisplay.setOnKeyListener(mListener);
 
         if(!ViewConfiguration.get(this).hasPermanentMenuKey()) {
@@ -259,6 +260,12 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         MenuItem mHexPanel = menu.findItem(R.id.hex);
         if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()) && !mPulldown.isSliderOpen());
+
+        MenuItem mLock = menu.findItem(R.id.lock);
+        if(mLock != null) mLock.setVisible(getGraphVisibility() && getPagingEnabled());
+
+        MenuItem mUnlock = menu.findItem(R.id.unlock);
+        if(mUnlock != null) mUnlock.setVisible(getGraphVisibility() && !getPagingEnabled());
 
         return true;
     }
@@ -418,6 +425,14 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             }
             break;
 
+        case R.id.lock:
+            setPagingEnabled(false);
+            break;
+
+        case R.id.unlock:
+            setPagingEnabled(true);
+            break;
+
         case R.id.settings:
             Intent intent = new Intent(this, Preferences.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -449,7 +464,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         super.onPause();
         mLogic.updateHistory();
         mPersist.setDeleteMode(mLogic.getDeleteMode());
-        mPersist.setMode(mLogic.getMode());
+        mPersist.setMode(mLogic.mBaseModule.getMode());
         mPersist.save();
     }
 
@@ -511,9 +526,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private Cling initCling(int clingId, int[] positionData, float revealRadius, boolean showHand, boolean animate) {
-        if(mPager != null) mPager.setPagingEnabled(false);
-        if(mSmallPager != null) mSmallPager.setPagingEnabled(false);
-        if(mLargePager != null) mLargePager.setPagingEnabled(false);
+        setPagingEnabled(false);
         clingActive = true;
 
         Cling cling = (Cling) findViewById(clingId);
@@ -534,9 +547,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private void dismissCling(final Cling cling, final String flag, int duration) {
-        if(mPager != null) mPager.setPagingEnabled(true);
-        if(mSmallPager != null) mSmallPager.setPagingEnabled(true);
-        if(mLargePager != null) mLargePager.setPagingEnabled(true);
+        setPagingEnabled(true);
         clingActive = false;
 
         if(cling != null) {
@@ -555,9 +566,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private void removeCling(int id) {
-        if(mPager != null) mPager.setPagingEnabled(true);
-        if(mSmallPager != null) mSmallPager.setPagingEnabled(true);
-        if(mLargePager != null) mLargePager.setPagingEnabled(true);
+        setPagingEnabled(true);
         clingActive = false;
 
         final View cling = findViewById(id);
@@ -673,9 +682,25 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         }
     }
 
+    private void setPagingEnabled(boolean enabled) {
+        if(mPager != null) mPager.setPagingEnabled(enabled);
+        if(mSmallPager != null) mSmallPager.setPagingEnabled(enabled);
+        if(mLargePager != null) mLargePager.setPagingEnabled(enabled);
+    }
+
+    private boolean getPagingEnabled() {
+        if(mPager != null) return mPager.getPagingEnabled();
+        if(mSmallPager != null) return mSmallPager.getPagingEnabled();
+        if(mLargePager != null) return mLargePager.getPagingEnabled();
+        return true;
+    }
+
     @Override
     public void onPageScrollStateChanged(int state) {
-        if(state == 0) runCling(true);
+        if(state == 0) {
+            setPagingEnabled(true);
+            runCling(true);
+        }
     }
 
     @Override
