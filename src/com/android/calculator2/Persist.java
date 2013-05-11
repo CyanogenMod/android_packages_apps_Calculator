@@ -27,7 +27,7 @@ import java.io.OutputStream;
 
 import android.content.Context;
 
-import com.android.calculator2.Logic.Mode;
+import com.android.calculator2.BaseModule.Mode;
 
 class Persist {
     private static final int LAST_VERSION = 3;

@@ -1,7 +1,5 @@
 package com.android.calculator2.view;
 
-import java.text.DecimalFormat;
-
 import org.ejml.simple.SimpleMatrix;
 import org.javia.arity.SyntaxException;
 
@@ -17,8 +15,6 @@ import com.android.calculator2.MutableString;
 import com.android.calculator2.R;
 
 public class MatrixView extends TableLayout {
-    private static String FORMAT = "#.######";
-    private static DecimalFormat FORMATTER = new DecimalFormat(FORMAT);
     private static final String VALID_MATRIX = "\\[(\\[[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?(,[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?)*\\])+\\].*";
     public final static String PATTERN = "[[,][,]]";
 
@@ -94,7 +90,7 @@ public class MatrixView extends TableLayout {
                 input = stringify(input);
                 if(input.isEmpty()) throw new SyntaxException();
                 try {
-                    data[row][column] = Double.valueOf(input);
+                    data[row][column] = Double.valueOf(logic.evaluate(input));
                 }
                 catch(Exception e) {
                     data[row][column] = Double.NaN;
@@ -192,14 +188,14 @@ public class MatrixView extends TableLayout {
         return input;
     }
 
-    public static String matrixToString(SimpleMatrix matrix) {
+    public static String matrixToString(SimpleMatrix matrix, Logic logic) throws SyntaxException {
         int rows = matrix.numRows();
         int columns = matrix.numCols();
         String input = "[";
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += FORMATTER.format(matrix.get(i, j)) + ",";
+                input += logic.evaluate(Double.toString(matrix.get(i, j))) + ",";
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);
