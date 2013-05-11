@@ -63,6 +63,16 @@
         android:showAsAction="ifRoom|withText"
         android:icon="@drawable/graph"
         android:title="@string/graph"/>
+    
+    <item android:id="@+id/lock"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/lock"
+        android:title="@string/lock"/>
+    
+    <item android:id="@+id/unlock"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/unlock"
+        android:title="@string/unlock"/>
 
     <item android:id="@+id/settings"
         android:showAsAction="ifRoom|withText"
