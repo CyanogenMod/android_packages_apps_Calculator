@@ -63,4 +63,8 @@ public class CalculatorViewPager extends ViewPager {
     public void setPagingEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public boolean getPagingEnabled() {
+        return enabled;
+    }
 }

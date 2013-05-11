@@ -76,6 +76,10 @@
     <string name="function">Function panel</string>
     <!-- Menu item text to take user to the screen with the hex digits and operators. -->
     <string name="hexPanel">Hex panel</string>
+    <!-- Menu item text to lock view pager. -->
+    <string name="lock">Lock Page</string>
+    <!-- Menu item text to unlock view pager. -->
+    <string name="unlock">Unlock Page</string>
 
     <string name="copy">Copy \'%s\'</string>
     <!-- History menu item for removing item from history -->
