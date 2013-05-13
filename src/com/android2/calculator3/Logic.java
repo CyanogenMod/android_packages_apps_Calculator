@@ -193,8 +193,8 @@ public class Logic {
 
     boolean acceptInsert(String delta) {
         return !mIsError
-                && (getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || mDisplay.getSelectionStart() != mDisplay.getActiveEditText().getText()
-                        .length());
+                && (getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || isPostFunction(delta) || mDisplay.getSelectionStart() != mDisplay
+                        .getActiveEditText().getText().length());
     }
 
     void onDelete() {
@@ -393,6 +393,15 @@ public class Logic {
 
     static boolean isOperator(char c) {
         // plus minus times div
-        return "+\u2212\u00d7\u00f7/*^!%".indexOf(c) != -1;
+        return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
+    }
+
+    static boolean isPostFunction(String text) {
+        return text.length() == 1 && isPostFunction(text.charAt(0));
+    }
+
+    static boolean isPostFunction(char c) {
+        // plus minus times div
+        return "^!%".indexOf(c) != -1;
     }
 }
