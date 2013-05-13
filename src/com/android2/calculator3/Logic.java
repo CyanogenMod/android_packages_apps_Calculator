@@ -401,7 +401,7 @@ public class Logic {
     }
 
     static boolean isPostFunction(char c) {
-        // plus minus times div
+        // exponent, factorial, percent
         return "^!%".indexOf(c) != -1;
     }
 }
