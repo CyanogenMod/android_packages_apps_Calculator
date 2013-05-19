@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -36,16 +35,14 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.LinearLayout;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
 import com.android2.calculator3.view.Cling;
-import com.android2.calculator3.view.HistoryLine;
 import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
 import com.xlythe.slider.Slider.OnSlideListener;
@@ -55,8 +52,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private CalculatorDisplay mDisplay;
     private Persist mPersist;
     private History mHistory;
-    private LinearLayout mHistoryView;
-    private ScrollView mHistoryViewParent;
+    private ListView mHistoryView;
+    private BaseAdapter mHistoryAdapter;
     private Logic mLogic;
     private CalculatorViewPager mPager;
     private CalculatorViewPager mSmallPager;
@@ -66,8 +63,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private View mOverflowMenuButton;
     private Slider mPulldown;
     private Graph mGraph;
-
-    private EquationFormatter mEquationFormatter;
 
     private boolean clingActive = false;
     private Direction previousDirection = Direction.DOWN;
@@ -130,8 +125,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mSmallPager = (CalculatorViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (CalculatorViewPager) findViewById(R.id.largePanelswitch);
 
-        mEquationFormatter = new EquationFormatter();
-
         if(mClearButton == null) {
             mClearButton = findViewById(R.id.clear);
             mClearButton.setOnClickListener(mListener);
@@ -150,23 +143,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 
-        mPulldown = (Slider) findViewById(R.id.pulldown);
-        mPulldown.setBarHeight(getResources().getDimensionPixelSize(R.dimen.history_bar_height));
-        mPulldown.setSlideDirection(Direction.DOWN);
-        mPulldown.setOnSlideListener(new OnSlideListener() {
-            @Override
-            public void onSlide(Direction d) {
-                if(!previousDirection.equals(d) && d.equals(Direction.UP)) {
-                    setUpHistory();
-                }
-                previousDirection = d;
-            }
-        });
-        mPulldown.setBackgroundResource(R.color.background);
-        mHistoryView = (LinearLayout) mPulldown.findViewById(R.id.history);
-        mHistoryViewParent = (ScrollView) mHistoryView.getParent();
-        setUpHistory();
-
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
         if(mPersist.getMode() != null) mLogic.mBaseModule.setMode(mPersist.getMode());
@@ -174,8 +150,24 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mLogic.setDeleteMode(mPersist.getDeleteMode());
         mLogic.setLineLength(mDisplay.getMaxDigits());
 
-        HistoryAdapter historyAdapter = new HistoryAdapter(this, mHistory, mLogic);
-        mHistory.setObserver(historyAdapter);
+        mHistoryAdapter = new HistoryAdapter(this, mHistory);
+        mHistory.setObserver(mHistoryAdapter);
+
+        mPulldown = (Slider) findViewById(R.id.pulldown);
+        mPulldown.setBarHeight(getResources().getDimensionPixelSize(R.dimen.history_bar_height));
+        mPulldown.setSlideDirection(Direction.DOWN);
+        mPulldown.setOnSlideListener(new OnSlideListener() {
+            @Override
+            public void onSlide(Direction d) {
+                if(!previousDirection.equals(d) && d.equals(Direction.UP)) {
+                    // Do nothing atm
+                }
+                previousDirection = d;
+            }
+        });
+        mPulldown.setBackgroundResource(R.color.background);
+        mHistoryView = (ListView) mPulldown.findViewById(R.id.history);
+        setUpHistory();
 
         mGraph = new Graph(mLogic);
 
@@ -493,25 +485,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private void setUpHistory() {
+        mHistoryView.setAdapter(mHistoryAdapter);
+        mHistoryView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        mHistoryView.setStackFromBottom(true);
         mHistoryView.removeAllViews();
-        for(HistoryEntry he : mHistory.mEntries) {
-            if(!he.getBase().isEmpty()) {
-                HistoryLine entry = (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
-                entry.setHistoryEntry(he);
-                entry.setHistory(mHistory);
-                TextView base = (TextView) entry.findViewById(R.id.base);
-                base.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(he.getBase())));
-                TextView edited = (TextView) entry.findViewById(R.id.edited);
-                edited.setText(he.getEdited());
-                mHistoryView.addView(entry);
-            }
-        }
-        mHistoryViewParent.post(new Runnable() {
-            @Override
-            public void run() {
-                mHistoryViewParent.fullScroll(View.FOCUS_DOWN);
-            }
-        });
     }
 
     private Context getContext() {

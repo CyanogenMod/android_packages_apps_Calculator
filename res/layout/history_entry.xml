@@ -8,12 +8,12 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/small_display_text_size"
         android:textColor="@color/history_input"
-        android:id="@+id/base" />
+        android:id="@+id/historyExpr" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/display_text_size"
         android:textColor="@color/history_result"
         android:gravity="right"
-        android:id="@+id/edited" />
+        android:id="@+id/historyResult" />
 </com.android2.calculator3.view.HistoryLine>

@@ -18,9 +18,8 @@ package com.android2.calculator3;
 
 import java.util.Vector;
 
-import org.javia.arity.SyntaxException;
-
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +29,12 @@ import android.widget.TextView;
 class HistoryAdapter extends BaseAdapter {
     private Vector<HistoryEntry> mEntries;
     private LayoutInflater mInflater;
-    private Logic mEval;
+    private EquationFormatter mEquationFormatter;
 
-    HistoryAdapter(Context context, History history, Logic evaluator) {
+    HistoryAdapter(Context context, History history) {
         mEntries = history.mEntries;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mEval = evaluator;
+        mEquationFormatter = new EquationFormatter();
     }
 
     public int getCount() {
@@ -58,7 +57,7 @@ class HistoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         if(convertView == null) {
-            view = mInflater.inflate(R.layout.history_item, parent, false);
+            view = mInflater.inflate(R.layout.history_entry, parent, false);
         }
         else {
             view = convertView;
@@ -68,16 +67,8 @@ class HistoryAdapter extends BaseAdapter {
         TextView result = (TextView) view.findViewById(R.id.historyResult);
 
         HistoryEntry entry = mEntries.elementAt(position);
-        String base = entry.getBase();
-        expr.setText(entry.getBase());
-
-        try {
-            String res = mEval.evaluate(base);
-            result.setText("= " + res);
-        }
-        catch(SyntaxException e) {
-            result.setText("");
-        }
+        expr.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(entry.getBase())));
+        result.setText(entry.getEdited());
 
         return view;
     }
