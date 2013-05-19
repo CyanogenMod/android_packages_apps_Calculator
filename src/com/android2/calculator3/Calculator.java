@@ -364,7 +364,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         case R.id.clear_history:
             mHistory.clear();
             mLogic.onClear();
-            mHistoryView.removeAllViews();
+            mHistoryAdapter.notifyDataSetInvalidated();
             break;
 
         case R.id.show_history:
@@ -488,7 +488,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mHistoryView.setAdapter(mHistoryAdapter);
         mHistoryView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         mHistoryView.setStackFromBottom(true);
-        mHistoryView.removeAllViews();
     }
 
     private Context getContext() {
@@ -532,6 +531,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             ObjectAnimator anim = ObjectAnimator.ofFloat(cling, "alpha", 0f);
             anim.setDuration(duration);
             anim.addListener(new AnimatorListenerAdapter() {
+                @Override
                 public void onAnimationEnd(Animator animation) {
                     cling.setVisibility(View.GONE);
                     cling.cleanup();
