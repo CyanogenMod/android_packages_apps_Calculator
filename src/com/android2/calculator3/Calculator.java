@@ -491,23 +491,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mHistoryView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((HistoryLine) view).copyContent(((HistoryLine) view).getHistoryEntry().getEdited());
+                mDisplay.insert(((HistoryLine) view).getHistoryEntry().getEdited());
             }
         });
-
-        SwipeDismissListViewTouchListener touchListener = new SwipeDismissListViewTouchListener(mHistoryView,
-                new SwipeDismissListViewTouchListener.OnDismissCallback() {
-                    @Override
-                    public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                        for(int position : reverseSortedPositions) {
-                            mHistory.remove((HistoryEntry) mHistoryAdapter.getItem(position));
-                        }
-                        mHistoryAdapter.notifyDataSetChanged();
-                    }
-                });
-        mHistoryView.setOnTouchListener(touchListener);
-        mHistoryView.setOnScrollListener(touchListener.makeScrollListener());
-
     }
 
     @Override
