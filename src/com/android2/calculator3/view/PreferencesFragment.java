@@ -11,7 +11,7 @@ public class PreferencesFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.layout.preferences_body);
+        addPreferencesFromResource(R.layout.preferences);
         Preference about = findPreference("ABOUT");
         if(about != null) {
             String versionName = "";

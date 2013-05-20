@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
+import com.android2.calculator3.view.PreferencesFragment;
+
 /**
  * @author Will Harmon
  **/
@@ -12,7 +14,10 @@ public class Preferences extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preferences);
+        if(savedInstanceState == null) {
+            PreferencesFragment preferences = new PreferencesFragment();
+            getFragmentManager().beginTransaction().add(android.R.id.content, preferences).commit();
+        }
     }
 
     @Override
