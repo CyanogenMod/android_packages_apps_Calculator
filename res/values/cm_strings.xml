@@ -17,7 +17,7 @@
     <!-- App copyright -->
     <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
     <!-- App version -->
-    <string name="application_version" translatable="false">v3.3.2</string>
+    <string name="application_version" translatable="false">v3.4</string>
 
     <!-- Displayed letters for the hex digit buttons -->
     <string name="A" translatable="false">A</string>
