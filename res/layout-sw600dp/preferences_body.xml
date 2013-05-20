@@ -30,6 +30,10 @@
     <PreferenceCategory
         android:title="@string/pref_actions" >
         <CheckBoxPreference
+            android:title="@string/clickToOpenHistory"
+            android:key="CLICK_TO_OPEN_HISTORY"
+            android:defaultValue="@bool/CLICK_TO_OPEN_HISTORY" />
+        <CheckBoxPreference
             android:title="@string/digitGrouping"
             android:key="DIGIT_GROUPING"
             android:defaultValue="false" />

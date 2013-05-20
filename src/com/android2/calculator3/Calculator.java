@@ -156,6 +156,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mPulldown = (Slider) findViewById(R.id.pulldown);
         mPulldown.setBarHeight(getResources().getDimensionPixelSize(R.dimen.history_bar_height));
         mPulldown.setSlideDirection(Direction.DOWN);
+        if(CalculatorSettings.clickToOpenHistory(this)) {
+            mPulldown.enableClick(true);
+            mPulldown.enableTouch(false);
+        }
         mPulldown.setOnSlideListener(new OnSlideListener() {
             @Override
             public void onSlide(Direction d) {

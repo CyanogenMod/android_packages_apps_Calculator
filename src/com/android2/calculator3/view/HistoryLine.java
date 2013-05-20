@@ -10,7 +10,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -26,6 +26,7 @@ public class HistoryLine extends LinearLayout {
     private String[] mMenuItemsStrings;
     private HistoryEntry mHistoryEntry;
     private History mHistory;
+    private BaseAdapter mAdapter;
 
     public HistoryLine(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -90,7 +91,7 @@ public class HistoryLine extends LinearLayout {
 
     private void removeContent() {
         mHistory.remove(mHistoryEntry);
-        ((ViewGroup) getParent()).removeView(this);
+        mAdapter.notifyDataSetChanged();
     }
 
     public HistoryEntry getHistoryEntry() {
@@ -107,5 +108,13 @@ public class HistoryLine extends LinearLayout {
 
     public void setHistory(History history) {
         this.mHistory = history;
+    }
+
+    public BaseAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    public void setAdapter(BaseAdapter adapter) {
+        this.mAdapter = adapter;
     }
 }
