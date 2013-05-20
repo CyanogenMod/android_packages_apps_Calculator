@@ -25,6 +25,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -35,6 +37,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -43,9 +47,9 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
 import com.android2.calculator3.view.Cling;
+import com.android2.calculator3.view.HistoryLine;
 import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
-import com.xlythe.slider.Slider.OnSlideListener;
 
 public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener, CalculatorViewPager.OnPageChangeListener {
     public EventListener mListener = new EventListener();
@@ -65,7 +69,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private Graph mGraph;
 
     private boolean clingActive = false;
-    private Direction previousDirection = Direction.DOWN;
 
     public enum Panel {
         GRAPH, FUNCTION, HEX, BASIC, ADVANCED, MATRIX;
@@ -156,15 +159,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mPulldown = (Slider) findViewById(R.id.pulldown);
         mPulldown.setBarHeight(getResources().getDimensionPixelSize(R.dimen.history_bar_height));
         mPulldown.setSlideDirection(Direction.DOWN);
-        mPulldown.setOnSlideListener(new OnSlideListener() {
-            @Override
-            public void onSlide(Direction d) {
-                if(!previousDirection.equals(d) && d.equals(Direction.UP)) {
-                    // Do nothing atm
-                }
-                previousDirection = d;
-            }
-        });
+        if(CalculatorSettings.clickToOpenHistory(this)) {
+            mPulldown.enableClick(true);
+            mPulldown.enableTouch(false);
+        }
         mPulldown.setBackgroundResource(R.color.background);
         mHistoryView = (ListView) mPulldown.findViewById(R.id.history);
         setUpHistory();
@@ -485,9 +483,38 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private void setUpHistory() {
+        registerForContextMenu(mHistoryView);
         mHistoryView.setAdapter(mHistoryAdapter);
         mHistoryView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         mHistoryView.setStackFromBottom(true);
+        mHistoryView.setFocusable(false);
+        mHistoryView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ((HistoryLine) view).copyContent(((HistoryLine) view).getHistoryEntry().getEdited());
+            }
+        });
+
+        SwipeDismissListViewTouchListener touchListener = new SwipeDismissListViewTouchListener(mHistoryView,
+                new SwipeDismissListViewTouchListener.OnDismissCallback() {
+                    @Override
+                    public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                        for(int position : reverseSortedPositions) {
+                            mHistory.remove((HistoryEntry) mHistoryAdapter.getItem(position));
+                        }
+                        mHistoryAdapter.notifyDataSetChanged();
+                    }
+                });
+        mHistoryView.setOnTouchListener(touchListener);
+        mHistoryView.setOnScrollListener(touchListener.makeScrollListener());
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        View history = mHistoryAdapter.getView(info.position, null, null);
+        if(history instanceof HistoryLine) ((HistoryLine) history).onCreateContextMenu(menu);
     }
 
     private Context getContext() {

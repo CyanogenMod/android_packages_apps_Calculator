@@ -97,7 +97,7 @@ public class History {
         if(mEntries.size() >= MAX_ENTRIES) {
             mEntries.remove(0);
         }
-        if(mEntries.size() < 2 || !base.equals(mEntries.elementAt(mEntries.size() - 2).getBase())) {
+        if((mEntries.size() < 2 || !base.equals(mEntries.elementAt(mEntries.size() - 2).getBase())) && !base.isEmpty() && !edited.isEmpty()) {
             mEntries.insertElementAt(new HistoryEntry(base, edited), mEntries.size() - 1);
         }
         mPos = mEntries.size() - 1;

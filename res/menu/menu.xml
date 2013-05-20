@@ -18,11 +18,6 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:id="@+id/clear_history"
-        android:showAsAction="ifRoom|withText"
-        android:icon="@drawable/clear_history"
-        android:title="@string/clear_history"/>
     
     <item android:id="@+id/show_history"
         android:showAsAction="ifRoom|withText"
@@ -33,6 +28,11 @@
         android:showAsAction="ifRoom|withText"
         android:icon="@drawable/clear_history"
         android:title="@string/hideHistory"/>
+
+    <item android:id="@+id/clear_history"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/clear_history"
+        android:title="@string/clear_history"/>
     
     <item android:id="@+id/matrix"
         android:showAsAction="ifRoom|withText"

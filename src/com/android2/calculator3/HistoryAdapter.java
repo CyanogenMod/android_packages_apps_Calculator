@@ -79,6 +79,7 @@ class HistoryAdapter extends BaseAdapter {
         result.setText(entry.getEdited());
         view.setHistoryEntry(entry);
         view.setHistory(mHistory);
+        view.setAdapter(this);
 
         return view;
     }
