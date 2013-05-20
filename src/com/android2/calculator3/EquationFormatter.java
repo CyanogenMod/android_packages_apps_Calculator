@@ -40,7 +40,7 @@ public class EquationFormatter {
                 sub_open++;
                 if(i + 1 == input.length()) {
                     formattedInput.append(c);
-                    if(sub_open == sub_closed - 1) formattedInput.append("</small>");
+                    if(sub_closed == 0) formattedInput.append("</small>");
                     formattedInput.append("</sup>");
                     sub_closed++;
                 }
@@ -62,12 +62,14 @@ public class EquationFormatter {
                                                                                                                                    // or
                                                                                                                                    // 2^(3-1)(0)
                             || (Character.isDigit(c) && input.charAt(i - 1) == RIGHT_PAREN) // 2^(3)1
-                            || (!Character.isDigit(c) && Character.isDigit(input.charAt(i - 1)))) { // 2^3log(1)
+                            || (!Character.isDigit(c) && Character.isDigit(input.charAt(i - 1))) && c != '.') { // 2^3log(1)
                         while(sub_open > sub_closed) {
-                            if(sub_open == sub_closed - 1) formattedInput.append("</small>");
+                            if(sub_closed == 0) formattedInput.append("</small>");
                             formattedInput.append("</sup>");
                             sub_closed++;
                         }
+                        sub_open = 0;
+                        sub_closed = 0;
                         paren_open = 0;
                         paren_closed = 0;
                         if(c == LEFT_PAREN) {
@@ -88,10 +90,11 @@ public class EquationFormatter {
             formattedInput.append(c);
         }
         while(sub_open > sub_closed) {
-            if(sub_open == sub_closed - 1) formattedInput.append("</small>");
+            if(sub_closed == 0) formattedInput.append("</small>");
             formattedInput.append("</sup>");
             sub_closed++;
         }
+        System.out.println(formattedInput);
         return formattedInput.toString();
     }
 }
