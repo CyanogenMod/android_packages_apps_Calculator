@@ -66,9 +66,9 @@
     <string name="cling_matrix_title">Matrices</string>
     <string name="cling_matrix_msg">Tocar aquí para comenzar a construir y resolver matrices.</string>
     <string name="cling_hex_title">Cambiar base</string>
-    <string name="cling_hex_msg">Cambiar entre decimal (dec), binario (bin) y hexadecimal (hex).\n\nAviso: Si usted cree que el resultado de alguna operación es incorrecto, seguramente se encuentre en una base distinta. Por defecto es decimal.</string>
+    <string name="cling_hex_msg">Cambiar entre decimal (dec), binario (bin) y hexadecimal (hex).\n\nAviso: Si consideras que el resultado de alguna operación es incorrecto, seguramente te encuentras en una base distinta. Por defecto es decimal.</string>
     <string name="cling_graph_title">Gráficas</string>
-    <string name="cling_graph_msg">Las gráficas aparecerán aquí automáticamente. Vaya a operaciones avanzadas y construya una función utilizando X e Y.</string>
+    <string name="cling_graph_msg">Las gráficas aparecerán aquí automáticamente. Construye una función utilizando X e Y dentro del panel de funciones avanzadas.</string>
     <string name="cling_dismiss">Aceptar</string>
     <string name="easter_egg">Magikarp salpicó, pero no ocurrió nada.</string>
 </resources>
