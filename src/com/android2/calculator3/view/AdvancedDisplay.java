@@ -247,7 +247,8 @@ public class AdvancedDisplay extends LinearLayout {
         final String text = getText();
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
-        Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
+        String toastText = String.format(getResources().getString(R.string.text_copied_toast), text);
+        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
     }
 
     private void cutContent() {

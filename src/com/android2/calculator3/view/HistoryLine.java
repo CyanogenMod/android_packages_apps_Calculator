@@ -9,7 +9,6 @@ import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -30,14 +29,6 @@ public class HistoryLine extends LinearLayout {
 
     public HistoryLine(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                showContextMenu();
-                return true;
-            }
-        });
     }
 
     @Override
@@ -83,10 +74,11 @@ public class HistoryLine extends LinearLayout {
         return handled;
     }
 
-    private void copyContent(String content) {
+    public void copyContent(String content) {
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, content));
-        Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
+        String toastText = String.format(getResources().getString(R.string.text_copied_toast), content);
+        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
     }
 
     private void removeContent() {
@@ -116,5 +108,9 @@ public class HistoryLine extends LinearLayout {
 
     public void setAdapter(BaseAdapter adapter) {
         this.mAdapter = adapter;
+    }
+
+    public void showMenu() {
+        showContextMenu();
     }
 }
