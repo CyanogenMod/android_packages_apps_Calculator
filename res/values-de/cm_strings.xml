@@ -14,6 +14,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arcsin">sin^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
     <string name="matrix">Matrixberechnung</string>
     <string name="graph">Diagramm</string>
     <string name="function">Funktionen</string>
@@ -23,8 +29,11 @@
     <string name="showHistory">Verlauf anzeigen</string>
     <string name="hideHistory">Verlauf verbergen</string>
     <string name="settings">Einstellungen</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
     <string name="solveForX">Nach X auflösen</string>
     <string name="solveForY">Nach Y auflösen</string>
+    <string name="mod">mod</string>
     <string name="determinant">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Lösen</string>
@@ -36,6 +45,7 @@
     <string name="minus_row">-Zl.</string>
     <string name="plus_col">+Sp.</string>
     <string name="minus_col">-Sp.</string>
+    <string name="matrix_transpose">T</string>
     <string name="next">Weiter</string>
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
