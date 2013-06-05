@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.ViewSwitcher;
 
 import com.android2.calculator3.CalculatorEditable;
+import com.android2.calculator3.EquationFormatter;
 import com.android2.calculator3.Logic;
 import com.android2.calculator3.R;
 
@@ -61,7 +62,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     TranslateAnimation outAnimDown;
 
     private int mMaxDigits = DEFAULT_MAX_DIGITS;
-    private List<String> keywords;
+    private final List<String> keywords;
 
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -78,8 +79,10 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         String dx = context.getString(R.string.dx);
         String dy = context.getString(R.string.dy);
 
-        keywords = Arrays.asList(sinString + "(", cosString + "(", tanString + "(", arcsinString + "(", arccosString + "(", arctanString + "(",
-                logString + "(", modString + "(", lnString + "(", dx, dy);
+        keywords = Arrays.asList(sinString + "(", cosString + "(", tanString + "(",
+                arcsinString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(",
+                arccosString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(",
+                arctanString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(", logString + "(", modString + "(", lnString + "(", dx, dy);
         setOnLongClickListener(this);
     }
 
@@ -89,6 +92,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
     public void setLogic(Logic logic) {
         NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
+            @Override
             public int getInputType() {
                 return EditorInfo.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
             }
