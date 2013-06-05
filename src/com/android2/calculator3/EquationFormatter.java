@@ -94,7 +94,6 @@ public class EquationFormatter {
             formattedInput.append("</sup>");
             sub_closed++;
         }
-        System.out.println(formattedInput);
         return formattedInput.toString();
     }
 }
