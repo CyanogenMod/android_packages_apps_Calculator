@@ -491,7 +491,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mHistoryView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int deleteMode = mLogic.getDeleteMode();
+                if(mDisplay.getText().isEmpty()) deleteMode = Logic.DELETE_MODE_CLEAR;
                 mDisplay.insert(((HistoryLine) view).getHistoryEntry().getEdited());
+                mLogic.setDeleteMode(deleteMode);
             }
         });
     }
