@@ -77,9 +77,9 @@
     <!-- Menu item text to take user to the screen with the hex digits and operators. -->
     <string name="hexPanel">Hex panel</string>
     <!-- Menu item text to lock view pager. -->
-    <string name="lock">Lock Page</string>
+    <string name="lock">Lock page</string>
     <!-- Menu item text to unlock view pager. -->
-    <string name="unlock">Unlock Page</string>
+    <string name="unlock">Unlock page</string>
 
     <string name="copy">Copy \'%s\'</string>
     <!-- History menu item for removing item from history -->
@@ -122,7 +122,7 @@
     <string name="pref_units">Units</string>
     <string name="pref_about">About</string>
     <string name="returnToBasic">Return to the basic panel</string>
-    <string name="digitGrouping">Digit Grouping</string>
+    <string name="digitGrouping">Digit grouping</string>
     <string name="trigUnits">Trig units</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
