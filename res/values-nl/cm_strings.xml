@@ -20,6 +20,8 @@
     <string name="graph">Grafieken</string>
     <string name="function">Functies</string>
     <string name="hexPanel">Hex</string>
+    <string name="lock">Pagina vergrendelen</string>
+    <string name="unlock">Pagina ontgrendelen</string>
     <string name="dx">dx</string>
     <string name="dy">dy</string>
     <string name="solveForX">x oplossen</string>
@@ -58,7 +60,8 @@
     <string name="pref_panels">Panelen</string>
     <string name="pref_actions">Acties</string>
     <string name="pref_units">Eenheden</string>
-    <string name="trigUnits">Goniometrische eenheid</string>
+    <string name="digitGrouping">Getalgroepering</string>
+    <string name="trigUnits">Goniometrisch</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
     <string name="cling_simple_title">Welkom</string>
