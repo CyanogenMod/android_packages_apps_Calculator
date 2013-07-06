@@ -36,13 +36,16 @@
     <string name="matrix">Панель матрицы</string>
     <string name="graph">Панель графиков</string>
     <string name="function">Панель функций</string>
-    <string name="hexPanel">Шест. панель</string>
+    <string name="hexPanel">Шестн. панель</string>
+    <string name="lock">Заблокировать</string>
+    <string name="unlock">Разблокировать</string>
 
     <string name="pref_panels">Панели</string>
     <string name="pref_actions">Действия</string>
     <string name="pref_units">Единицы</string>
     <string name="pref_about">О приложении</string>
     <string name="returnToBasic">На основную панель</string>
+    <string name="digitGrouping">Группировка</string>
     <string name="trigUnits">Тригоном. единицы</string>
 
     <string name="cling_simple_title">Добро пожаловать!</string>
