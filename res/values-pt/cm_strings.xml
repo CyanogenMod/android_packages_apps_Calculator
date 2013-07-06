@@ -68,4 +68,10 @@
     <string name="cling_graph_msg">Gráficos irão aparecer automaticamente aqui. Vá até o painel avançado e construa uma função usando X e Y.</string>
     <string name="cling_dismiss">OK</string>
     <string name="easter_egg">Magikarp usou Splash mas nada aconteceu.</string>
+    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="lock">Bloquear página</string>
+    <string name="unlock">Desbloquear página</string>
+    <string name="digitGrouping">Agrupamento de dígitos</string>
 </resources>
