@@ -29,6 +29,8 @@
     <string name="graph">Grafikon panel</string>
     <string name="function">Függvény panel</string>
     <string name="hexPanel">Hexadecimális panel</string>
+    <string name="lock">Lap zárolása</string>
+    <string name="unlock">Lap feloldása</string>
     <string name="copy">Másolás \'%s\'</string>
     <string name="remove_from_history">Eltávolítás az előzményekből</string>
     <string name="showHistory">Előzmények megjelenítése</string>
@@ -58,7 +60,8 @@
     <string name="pref_units">Mértékegységek</string>
     <string name="pref_about">Névjegy</string>
     <string name="returnToBasic">Visszatérés az alappanelre</string>
-    <string name="trigUnits">Trig. mértékegység</string>
+    <string name="digitGrouping">Számjegyek csoportosítása</string>
+    <string name="trigUnits">Trig. mértékegység</stBBring>
     <string name="radians">Radián</string>
     <string name="degrees">Fok</string>
     <string name="cling_simple_title">Üdvözöljük</string>
