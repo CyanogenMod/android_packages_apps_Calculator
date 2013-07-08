@@ -24,6 +24,8 @@
     <string name="graph">Diagramm</string>
     <string name="function">Funktionen</string>
     <string name="hexPanel">Dez/Bin/Hex</string>
+    <string name="lock">Seite sperren</string>
+    <string name="unlock">Seite entsperren</string>
     <string name="copy">\"%s\" kopieren</string>
     <string name="remove_from_history">Aus Verlauf entfernen</string>
     <string name="showHistory">Verlauf anzeigen</string>
@@ -58,6 +60,7 @@
     <string name="pref_units">Einheiten</string>
     <string name="pref_about">Über</string>
     <string name="returnToBasic">Zu Grundfunktionen zurückkehren</string>
+    <string name="digitGrouping">Zifferngruppierung</string>
     <string name="trigUnits">Winkeleinheit</string>
     <string name="radians">RAD</string>
     <string name="degrees">GRAD</string>
