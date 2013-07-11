@@ -27,6 +27,8 @@
     <string name="graph">Pannello grafici</string>
     <string name="function">Pannello funzioni</string>
     <string name="hexPanel">Pannello esadecimale</string>
+    <string name="lock">Blocca la pagina</string>
+    <string name="unlock">Sblocca la pagina</string>
     <string name="copy">Copia \"%s\"</string>
     <string name="remove_from_history">Rimuovi dalla cronologia</string>
     <string name="dx">dX</string>
@@ -58,6 +60,7 @@
     <string name="pref_units">Unità</string>
     <string name="pref_about">Info</string>
     <string name="returnToBasic">Ritorna al pannello base</string>
+    <string name="digitGrouping">Raggruppamento cifre</string>
     <string name="trigUnits">Unità trigonometriche</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
