@@ -22,6 +22,8 @@
     <string name="graph">图表面板</string>
     <string name="function">函数面板</string>
     <string name="hexPanel">十六进制面板</string>
+    <string name="lock">锁定页面</string>
+    <string name="unlock">解锁页面 page</string>
     <string name="copy">复制 \'%s\'</string>
     <string name="remove_from_history">从历史记录移除</string>
     <string name="showHistory">显示历史记录</string>
@@ -42,6 +44,7 @@
     <string name="pref_units">单位</string>
     <string name="pref_about">关于</string>
     <string name="returnToBasic">返回到基本面板</string>
+    <string name="digitGrouping">数字分组</string>
     <string name="trigUnits">三角函数单位</string>
     <string name="cling_simple_title">欢迎</string>
     <string name="cling_simple_msg">左右滑动将显示其它的面板. 您可在设置内禁用不需要的面板.</string>
