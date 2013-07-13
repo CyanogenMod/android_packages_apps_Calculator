@@ -87,12 +87,12 @@ public class MatrixView extends TableLayout {
             TableRow tr = (TableRow) getChildAt(row);
             for(int column = 0; column < columns; column++) {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
-                input = stringify(input);
                 if(input.isEmpty()) throw new SyntaxException();
                 try {
-                    data[row][column] = Double.valueOf(logic.evaluate(input));
+                    data[row][column] = Double.valueOf(stringify(logic.evaluate(input)));
                 }
                 catch(Exception e) {
+                    e.printStackTrace();
                     data[row][column] = Double.NaN;
                 }
             }
