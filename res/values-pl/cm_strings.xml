@@ -70,4 +70,8 @@
     <string name="cling_graph_msg">Wykres zostanie wyświetlony tutaj automatycznie. W panelu zaawansowanym możesz zbudować funkcje, używając X i Y.</string>
     <string name="cling_dismiss">OK</string>
     <string name="easter_egg">Magikarp użył Chlupania, ale nic się nie stało.</string>
+    <string name="mod">mod</string>
+    <string name="lock">Zablokuj stronę</string>
+    <string name="unlock">Odblokuj stronę</string>
+    <string name="digitGrouping">Grupowanie cyfr</string>
 </resources>
