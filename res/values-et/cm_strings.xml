@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_copyright">Autoriõigus \u00A9 2013 CyanogenMod projekt</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arcsin">sin^\u22121</string>
+    <string name="arccos">cos^\u22121</string>
+    <string name="arctan">tan^\u22121</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">Lahenda X suhtes</string>
+    <string name="solveForY">Lahenda Y suhtes</string>
+    <string name="mod">mod</string>
+    <string name="matrix">Maatriksarvutuse paneel</string>
+    <string name="graph">Graafikute paneel</string>
+    <string name="function">Funktsiooni paneel</string>
+    <string name="hexPanel">Kuueteistkümnendsüsteemi paneel</string>
+    <string name="lock">Lukusta lehekülg</string>
+    <string name="unlock">Eemalda lehekülje lukustus</string>
+    <string name="copy">Kopeeri \'%s\'</string>
+    <string name="remove_from_history">Eemalda ajaloost</string>
+    <string name="showHistory">Näita ajalugu</string>
+    <string name="hideHistory">Peida ajalugu</string>
+    <string name="settings">Seaded</string>
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Omav.</string>
+    <string name="solve">Lahenda</string>
+    <string name="dotProduct">Skalaarkorrutis</string>
+    <string name="crossProduct">Ristkorrutis</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Omaväärtused</string>
+    <string name="plus_row">+Rida</string>
+    <string name="minus_row">-Rida</string>
+    <string name="plus_col">+Veerg</string>
+    <string name="minus_col">-Veerg</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Järgmine</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Kuueteistkümnendsüsteem</string>
+    <string name="binDesc">Kahendsüsteem</string>
+    <string name="decDesc">Kümnendsüsteem</string>
+    <string name="pref_panels">Paneelid</string>
+    <string name="pref_actions">Tegevused</string>
+    <string name="pref_units">Ühikud</string>
+    <string name="pref_about">Info</string>
+    <string name="returnToBasic">Põhipaneelile tagasi liikumine</string>
+    <string name="digitGrouping">Numbrite grupeerimine</string>
+    <string name="trigUnits">Trigonomeetrilised ühikud</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+    <string name="cling_simple_title">Tere tulemast</string>
+    <string name="cling_simple_msg">Erinevate võimalustega nupupaneelide vahetamiseks lükka paneele vasakule ja paremale. Mittevajalikud paneelid võid seadetes keelata.</string>
+    <string name="cling_matrix_title">Maatriksid</string>
+    <string name="cling_matrix_msg">Seda märki puudutades saad alustada maatriksite sisestamist ning lahendamist.</string>
+    <string name="cling_hex_title">Aluse muutmine</string>
+    <string name="cling_hex_msg">Sa või valida kümnendsüsteemi (dec), kahendsüsteemi (bin) ja kuueteistkümnendsüsteemi (hex) vahel.\n\nHoiatus: kui arvad, et kalkulaator arvutab valesti, kasutad sa ilmselt valet arvusüsteemi. Vaikimisi kasutatakse kümnendsüsteemi.</string>
+    <string name="cling_graph_title">Graafik</string>
+    <string name="cling_graph_msg">Graafikud ilmuvad siia automaatselt. Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
+    <string name="cling_dismiss">OK</string>
+    <string name="easter_egg">Magikarp kasutas Plartsatust, kuid midagi ei juhtunud.</string>
+</resources>
