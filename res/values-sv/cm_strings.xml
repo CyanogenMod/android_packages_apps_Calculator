@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- App copyright -->
+    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
+    <!-- App version -->
+    <string name="application_version" translatable="false">v3.3.2</string>
+
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="A" translatable="false">A</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="B" translatable="false">B</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="C" translatable="false">C</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="D" translatable="false">D</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="E" translatable="false">E</string>
+    <!-- Displayed letters for the hex digit buttons -->
+    <string name="F" translatable="false">F</string>
+    <!-- Displayed letters for the variable digit buttons -->
+    <string name="X">X</string>
+    <!-- Displayed letters for the variable digit buttons -->
+    <string name="Y">Y</string>
+
+    <!-- Do not translate. Plus sign / unicode minus sign; don't translate. Displayed as button on screen. -->
+    <string name="sign" translatable="false">+/\u2212</string>
+    <!-- Do not translate. Coma; don't translate. Displayed as button on screen. -->
+    <string name="coma" translatable="false">,</string>
+
+    <!-- Displayed on buttons on screen for the arcsin function. -->
+    <string name="arcsin">sin^\u22121</string>
+    <!-- Displayed on buttons on screen for the arccos function. -->
+    <string name="arccos">cos^\u22121</string>
+    <!-- Displayed on buttons on screen for the arctan function. -->
+    <string name="arctan">tan^\u22121</string>
+
+    <!-- Displayed on buttons on screen for the value of i. -->
+    <string name="i" translatable="false">i</string>
+    <!-- Displayed on buttons on screen for the percent function. -->
+    <string name="percentage" translatable="false">%</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="integral" translatable="false">\u222B</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dx">dX</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dy">dY</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
+    <string name="solveForX">Bestäm X</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
+    <string name="solveForY">Bestäm Y</string>
+    <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
+    <string name="mod">mod</string>
+
+    <!-- Displayed on buttons on screen for parentheses. -->
+    <string name="parentheses" translatable="false">( )</string>
+
+    <!-- Menu item text to take user to the screen with matrices. -->
+    <string name="matrix">Matrispanel</string>
+    <!-- Menu item text to take user to the screen with the graph. -->
+    <string name="graph">Grafpanel</string>
+    <!-- Menu item text to take user to the screen with the function operators. -->
+    <string name="function">Funktionspanel</string>
+    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
+    <string name="hexPanel">Hexpanel</string>
+    <!-- Menu item text to lock view pager. -->
+    <string name="lock">Lås sida</string>
+    <!-- Menu item text to unlock view pager. -->
+    <string name="unlock">Lås upp sida</string>
+
+    <string name="copy">Kopiera \'%s\'</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Ta bort från historik</string>
+    <!-- History menu item for viewing history -->
+    <string name="showHistory">Visa historik</string>
+    <!-- History menu item for hiding history -->
+    <string name="hideHistory">Göm historik</string>
+    <!-- History menu item for entering settings -->
+    <string name="settings">Inställningar</string>
+
+    <!-- Matrix page text -->
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">Egenvärde</string>
+    <string name="solve">Lös</string>
+    <string name="dotProduct">Skalär</string>
+    <string name="crossProduct">Kryss</string>
+    <string name="determinantDesc">Determinant</string>
+    <string name="eigenvalueDesc">Egenvärden</string>
+    <string name="plus_row">+Rad</string>
+    <string name="minus_row">-Rad</string>
+    <string name="plus_col">+Kol</string>
+    <string name="minus_col">-Kol</string>
+    <string name="matrix_new" translatable="false">[ ]</string>
+    <string name="matrix_inverse" translatable="false">-1</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Nästa</string>
+
+    <!-- Hex page text -->
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binär</string>
+    <string name="decDesc">Decimal</string>
+
+    <!-- Settings page text -->
+    <string name="pref_panels">Paneler</string>
+    <string name="pref_actions">Åtgärder</string>
+    <string name="pref_units">Enheter</string>
+    <string name="pref_about">Om</string>
+    <string name="returnToBasic">Återvänd till grundpanel</string>
+    <string name="digitGrouping">Siffergruppering</string>
+    <string name="trigUnits">Trigenheter</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+
+    <!-- Clings -->
+    <string name="cling_simple_title">Välkommen</string>
+    <string name="cling_simple_msg">Dra åt vänster och höger för att komma åt fler funktioner. Oönskade paneler kan inaktiveras i Inställningar.</string>
+    <string name="cling_matrix_title">Matriser</string>
+    <string name="cling_matrix_msg">Tryck här för att börja bygga och lösa matriser.</string>
+    <string name="cling_hex_title">Ändra baser</string>
+    <string name="cling_hex_msg">Växla mellan decimalt (dec), binärt (bin), och hexadecimalt (hex).\n\Varning: Om du tycker att du får felaktiga resultat, är sannolikt i fel bas. Standard är decimalt.</string>
+    <string name="cling_graph_title">Graf</string>
+    <string name="cling_graph_msg">Grafer kommer automatiskt att synas här. Gå till den avancerade panelen och bygg en funktion med X och Y.</string>
+    <string name="cling_dismiss">OK</string>
+
+    <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
+</resources>
