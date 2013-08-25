@@ -14,5 +14,105 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+     <!-- App copyright -->
+    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
+
+    <!-- Displayed letters for the variable digit buttons -->
+    <string name="X">X</string>
+    <!-- Displayed letters for the variable digit buttons -->
+    <string name="Y">Y</string>
+
+    <!-- Displayed on buttons on screen for the arcsin function. -->
+    <string name="arcsin">sin^\u22121</string>
+    <!-- Displayed on buttons on screen for the arccos function. -->
+    <string name="arccos">cos^\u22121</string>
+    <!-- Displayed on buttons on screen for the arctan function. -->
+    <string name="arctan">tan^\u22121</string>
+
+    <!-- Displayed on buttons on screen for the value of i. -->
+    <string name="i" translatable="false">i</string>
+    <!-- Displayed on buttons on screen for the percent function. -->
+    <string name="percentage" translatable="false">%</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="integral" translatable="false">\u222B</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dx">dX</string>
+    <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
+    <string name="dy">dY</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for X. -->
+    <string name="solveForX">Resolver em X</string>
+    <!-- (Hidden) Displayed on buttons on screen to solve for Y. -->
+    <string name="solveForY">Resolver em Y</string>
+    <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
+    <string name="mod">mod</string>
+
+    <!-- Menu item text to take user to the screen with matrices. -->
+    <string name="matrix">Painel de matriz</string>
+    <!-- Menu item text to take user to the screen with the graph. -->
+    <string name="graph">Painel de gráfico</string>
+    <!-- Menu item text to take user to the screen with the function operators. -->
+    <string name="function">Painel de função</string>
+    <!-- Menu item text to take user to the screen with the hex digits and operators. -->
+    <string name="hexPanel">Painel hexadecimal</string>
+    <!-- Menu item text to lock view pager. -->
+    <string name="lock">Bloquear página</string>
+    <!-- Menu item text to unlock view pager. -->
+    <string name="unlock">Desbloquear página</string>
+
+    <string name="copy">Copiar \'%s\'</string>
+    <!-- History menu item for removing item from history -->
+    <string name="remove_from_history">Remover do histórico</string>
+    <!-- History menu item for viewing history -->
+    <string name="showHistory">Mostrar histórico</string>
+    <!-- History menu item for hiding history -->
+    <string name="hideHistory">Esconder histórico</string>
+    <!-- History menu item for entering settings -->
+    <string name="settings">Definições</string>
+
+    <!-- Matrix page text -->
+    <string name="determinant">Det</string>
+    <string name="eigenvalue">VP</string>
+    <string name="solve">Resolver</string>
+    <string name="dotProduct">Pr.Int.</string>
+    <string name="crossProduct">Pr.Ext.</string>
+    <string name="determinantDesc">Determinante</string>
+    <string name="eigenvalueDesc">Valores Próprios</string>
+    <string name="plus_row">+Linha</string>
+    <string name="minus_row">-Linha</string>
+    <string name="plus_col">+Col</string>
+    <string name="minus_col">-Col</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Próx.</string>
+
+    <!-- Hex page text -->
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binário</string>
+    <string name="decDesc">Decimal</string>
+
+    <!-- Settings page text -->
+    <string name="pref_panels">Painéis</string>
+    <string name="pref_actions">Ações</string>
+    <string name="pref_units">Unidades</string>
     <string name="pref_about">Sobre</string>
+    <string name="returnToBasic">Voltar ao painel básico</string>
+    <string name="digitGrouping">Digit grouping</string>
+    <string name="trigUnits">Trig units</string>
+    <string name="radians">RAD</string>
+    <string name="degrees">DEG</string>
+
+    <!-- Clings -->
+    <string name="cling_simple_title">Bem-vindo</string>
+    <string name="cling_simple_msg">Deslize para a esquerda e para a direita para aceder a mais conteúdo. Páginas desnecessárias podem ser desativadas nas definições.</string>
+    <string name="cling_matrix_title">Matrizes</string>
+    <string name="cling_matrix_msg">Toque aqui para começar a construir e resolver matrizes.</string>
+    <string name="cling_hex_title">Mudar bases</string>
+    <string name="cling_hex_msg">Troque entre decimal (dec), binário (bin), e hexadecimal (hex).\n\nAviso: Se acha que está a obter resultados errados, está provavelmente na base errada. A base padrão é decimal.</string>
+    <string name="cling_graph_title">Gráfico</string>
+    <string name="cling_graph_msg">OS gráficos vão ser mostrados automaticamente aqui. Vá ao painel avançado e construa uma função usando X e Y.</string>
+    <string name="cling_dismiss">OK</string>
+
+    <string name="easter_egg">A Magikarp usou o Splash mas nada aconteceu.</string>
 </resources>
