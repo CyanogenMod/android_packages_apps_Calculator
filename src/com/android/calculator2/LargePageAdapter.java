@@ -2,6 +2,8 @@ package com.android.calculator2;
 
 import org.achartengine.GraphicalView;
 
+import java.util.List;
+
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -11,30 +13,28 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
+import com.android.calculator2.BaseModule.Mode;
 import com.android.calculator2.Calculator.LargePanel;
 import com.android.calculator2.view.CalculatorViewPager;
 
 public class LargePageAdapter extends PagerAdapter {
-    private View mGraphPage;
-    private View mSimplePage;
-    View mMatrixPage;
-    private CalculatorViewPager mParent;
+    private final ViewGroup mGraphPage;
+    private final ViewGroup mSimplePage;
+    final ViewGroup mMatrixPage;
+    private final CalculatorViewPager mParent;
     private GraphicalView mGraphDisplay;
 
-    private Graph mGraph;
-    private Logic mLogic;
+    private final Graph mGraph;
+    private final Logic mLogic;
 
     private int count = 0;
 
     public LargePageAdapter(CalculatorViewPager parent, Graph graph, Logic logic) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        final View graphPage = inflater.inflate(R.layout.graph_pad, parent, false);
-        final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
-        final View matrixPage = inflater.inflate(R.layout.matrix_pad, parent, false);
+        mGraphPage = (ViewGroup)inflater.inflate(R.layout.graph_pad, parent, false);
+        mSimplePage = (ViewGroup)inflater.inflate(R.layout.simple_pad, parent, false);
+        mMatrixPage = (ViewGroup)inflater.inflate(R.layout.matrix_pad, parent, false);
 
-        mGraphPage = graphPage;
-        mSimplePage = simplePage;
-        mMatrixPage = matrixPage;
         mParent = parent;
         mGraph = graph;
         mLogic = logic;
@@ -42,18 +42,13 @@ public class LargePageAdapter extends PagerAdapter {
 
         switch(mLogic.mBaseModule.getMode()) {
         case BINARY:
-            for(int i : mLogic.mBaseModule.bannedResourceInBinary) {
-                View v = mSimplePage.findViewById(i);
-                if(v != null) v.setEnabled(false);
-            }
+            applyBannedResources(Mode.BINARY);
             break;
         case DECIMAL:
-            for(int i : mLogic.mBaseModule.bannedResourceInDecimal) {
-                View v = mSimplePage.findViewById(i);
-                if(v != null) v.setEnabled(false);
-            }
+            applyBannedResources(Mode.DECIMAL);
             break;
         case HEXADECIMAL:
+            applyBannedResources(Mode.HEXADECIMAL);
             break;
         }
     }
@@ -103,14 +98,17 @@ public class LargePageAdapter extends PagerAdapter {
                 mGraphDisplay.repaint();
             }
             ((ViewGroup) container).addView(mGraphPage);
+            applyBannedResourcesByPage(mGraphPage, mLogic.mBaseModule.getMode());
             return mGraphPage;
         }
         else if(position == LargePanel.BASIC.getOrder() && CalculatorSettings.basicPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mSimplePage);
+            applyBannedResourcesByPage(mSimplePage, mLogic.mBaseModule.getMode());
             return mSimplePage;
         }
         else if(position == LargePanel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mMatrixPage);
+            applyBannedResourcesByPage(mMatrixPage, mLogic.mBaseModule.getMode());
             return mMatrixPage;
         }
         return null;
@@ -158,5 +156,39 @@ public class LargePageAdapter extends PagerAdapter {
             LargePanel.MATRIX.setOrder(count);
             count++;
         }
+    }
+
+    private void applyBannedResources(Mode baseMode) {
+        applyBannedResourcesByPage(mGraphPage, baseMode);
+        applyBannedResourcesByPage(mSimplePage, baseMode);
+        applyBannedResourcesByPage(mMatrixPage, baseMode);
+    }
+
+    private void applyBannedResourcesByPage(ViewGroup page, Mode baseMode) {
+        final String mode = getBaseMode(baseMode);
+        // Enable
+        for (String key : mLogic.mBaseModule.mBannedResources.keySet()) {
+            if (mode.compareTo(key) != 0) {
+                List<Integer> resources = mLogic.mBaseModule.mBannedResources.get(key);
+                for (Integer resource : resources) {
+                    final int resId = resource.intValue();
+                    View v = page.findViewById(resId);
+                    if (v != null) v.setEnabled(true);
+                }
+            }
+        }
+        // Disable
+        List<Integer> resources = mLogic.mBaseModule.mBannedResources.get(mode);
+        for (Integer resource : resources) {
+            final int resId = resource.intValue();
+            View v = page.findViewById(resId);
+            if (v != null) v.setEnabled(false);
+        }
+    }
+
+    private String getBaseMode(Mode baseMode) {
+        if (baseMode.compareTo(Mode.BINARY) == 0) return "bin";
+        if (baseMode.compareTo(Mode.HEXADECIMAL) == 0) return "hex";
+        return "dec";
     }
 }
