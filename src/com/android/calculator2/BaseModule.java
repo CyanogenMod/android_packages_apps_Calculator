@@ -2,8 +2,10 @@ package com.android.calculator2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.javia.arity.SyntaxException;
 
@@ -15,15 +17,23 @@ public class BaseModule {
     Logic logic;
     private Mode mode = Mode.DECIMAL;
 
-    List<Integer> bannedResourceInDecimal;
-    List<Integer> bannedResourceInBinary;
+    Map<String, List<Integer>> mBannedResources;
 
     BaseModule(Logic logic) {
         this.logic = logic;
 
-        bannedResourceInDecimal = Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F);
-        bannedResourceInBinary = Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F, R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5, R.id.digit6,
-                R.id.digit7, R.id.digit8, R.id.digit9);
+        mBannedResources = new HashMap<String, List<Integer>>(3);
+        mBannedResources.put("dec", Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F));
+        mBannedResources.put("bin", Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F,
+                                     R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5,
+                                     R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9,
+                                     R.id.dot, R.id.matrix_transpose, R.id.matrix_transpose,
+                                     R.id.minus_row, R.id.plus_row, R.id.minus_col,
+                                     R.id.plus_col, R.id.matrix, R.id.next));
+        mBannedResources.put("hex", Arrays.asList(
+                                     R.id.dot, R.id.matrix_transpose, R.id.matrix_transpose,
+                                     R.id.minus_row, R.id.plus_row, R.id.minus_col,
+                                     R.id.plus_col, R.id.matrix, R.id.next));
     }
 
     public enum Mode {
@@ -45,7 +55,15 @@ public class BaseModule {
     }
 
     public String setMode(Mode mode) {
-        String text = updateTextToNewMode(logic.getText(), this.mode, mode);
+        String originalText = logic.getText();
+        if (mode.compareTo(Mode.BINARY) == 0 || mode.compareTo(Mode.HEXADECIMAL) == 0) {
+            // Check for unsupported punctuation characters
+            if (originalText.indexOf('.') != -1 ||
+                originalText.indexOf(',') != -1) {
+                return "";
+            }
+        }
+        String text = updateTextToNewMode(originalText, this.mode, mode);
         this.mode = mode;
         return text;
     }
