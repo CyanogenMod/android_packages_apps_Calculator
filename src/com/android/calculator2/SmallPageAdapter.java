@@ -6,28 +6,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.calculator2.BaseModule.Mode;
 import com.android.calculator2.Calculator.SmallPanel;
 import com.android.calculator2.view.CalculatorViewPager;
 
-public class SmallPageAdapter extends PagerAdapter {
-    private View mHexPage;
-    private View mFunctionPage;
-    private View mAdvancedPage;
-    private CalculatorViewPager mParent;
+import java.util.List;
 
-    private Logic mLogic;
+public class SmallPageAdapter extends PagerAdapter {
+    private final ViewGroup mHexPage;
+    private final ViewGroup mFunctionPage;
+    private final ViewGroup mAdvancedPage;
+
+    private final CalculatorViewPager mParent;
+    private final Logic mLogic;
 
     private int count = 0;
 
     public SmallPageAdapter(CalculatorViewPager parent, Logic logic) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        final View hexPage = inflater.inflate(R.layout.hex_pad, parent, false);
-        final View functionPage = inflater.inflate(R.layout.function_pad, parent, false);
-        final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
+        mHexPage = (ViewGroup)inflater.inflate(R.layout.hex_pad, parent, false);
+        mFunctionPage = (ViewGroup)inflater.inflate(R.layout.function_pad, parent, false);
+        mAdvancedPage = (ViewGroup)inflater.inflate(R.layout.advanced_pad, parent, false);
 
-        mHexPage = hexPage;
-        mFunctionPage = functionPage;
-        mAdvancedPage = advancedPage;
         mParent = parent;
         mLogic = logic;
         setOrder();
@@ -35,20 +35,15 @@ public class SmallPageAdapter extends PagerAdapter {
         switch(mLogic.mBaseModule.getMode()) {
         case BINARY:
             mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
-            for(int i : mLogic.mBaseModule.bannedResourceInBinary) {
-                View v = mHexPage.findViewById(i);
-                if(v != null) v.setEnabled(false);
-            }
+            applyBannedResources(Mode.BINARY);
             break;
         case DECIMAL:
             mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
-            for(int i : mLogic.mBaseModule.bannedResourceInDecimal) {
-                View v = mHexPage.findViewById(i);
-                if(v != null) v.setEnabled(false);
-            }
+            applyBannedResources(Mode.DECIMAL);
             break;
         case HEXADECIMAL:
             mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+            applyBannedResources(Mode.HEXADECIMAL);
             break;
         }
     }
@@ -65,14 +60,17 @@ public class SmallPageAdapter extends PagerAdapter {
     public Object instantiateItem(View container, int position) {
         if(position == SmallPanel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mFunctionPage);
+            applyBannedResourcesByPage(mFunctionPage, mLogic.mBaseModule.getMode());
             return mFunctionPage;
         }
         else if(position == SmallPanel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mAdvancedPage);
+            applyBannedResourcesByPage(mAdvancedPage, mLogic.mBaseModule.getMode());
             return mAdvancedPage;
         }
         else if(position == SmallPanel.HEX.getOrder() && CalculatorSettings.hexPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mHexPage);
+            applyBannedResourcesByPage(mHexPage, mLogic.mBaseModule.getMode());
             return mHexPage;
         }
         return null;
@@ -120,5 +118,39 @@ public class SmallPageAdapter extends PagerAdapter {
             SmallPanel.FUNCTION.setOrder(count);
             count++;
         }
+    }
+
+    private void applyBannedResources(Mode baseMode) {
+        applyBannedResourcesByPage(mFunctionPage, baseMode);
+        applyBannedResourcesByPage(mAdvancedPage, baseMode);
+        applyBannedResourcesByPage(mHexPage, baseMode);
+    }
+
+    private void applyBannedResourcesByPage(ViewGroup page, Mode baseMode) {
+        final String mode = getBaseMode(baseMode);
+        // Enable
+        for (String key : mLogic.mBaseModule.mBannedResources.keySet()) {
+            if (mode.compareTo(key) != 0) {
+                List<Integer> resources = mLogic.mBaseModule.mBannedResources.get(key);
+                for (Integer resource : resources) {
+                    final int resId = resource.intValue();
+                    View v = page.findViewById(resId);
+                    if (v != null) v.setEnabled(true);
+                }
+            }
+        }
+        // Disable
+        List<Integer> resources = mLogic.mBaseModule.mBannedResources.get(mode);
+        for (Integer resource : resources) {
+            final int resId = resource.intValue();
+            View v = page.findViewById(resId);
+            if (v != null) v.setEnabled(false);
+        }
+    }
+
+    private String getBaseMode(Mode baseMode) {
+        if (baseMode.compareTo(Mode.BINARY) == 0) return "bin";
+        if (baseMode.compareTo(Mode.HEXADECIMAL) == 0) return "hex";
+        return "dec";
     }
 }
