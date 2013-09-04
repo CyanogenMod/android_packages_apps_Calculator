@@ -14,7 +14,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:longClickable="false"
             android:gravity="right|center_vertical"
+            android:visibility="gone"
+            style="@style/display_style" />
+        <TextView
+            android:id="@+id/display_long_clickable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:visibility="gone"
             style="@style/display_style" />
         <Button
             android:id="@+id/delete"
