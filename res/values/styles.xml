@@ -204,7 +204,7 @@
     </style>
 
     <style name="Theme.Calculator.ButtonStyle.Del" >
-       <item name="android:background">@drawable/btn_digit</item>
+       <item name="android:background">@drawable/btn_function</item>
     </style>
 
     <style name="Theme.Calculator.ButtonStyle.Light.Del" >
@@ -228,6 +228,8 @@
        <item name="android:layout_height">match_parent</item>
        <item name="android:background">@drawable/btn_function</item>
        <item name="android:textSize">@dimen/btn_function_text_size</item>
+       <item name="android:textColor">@color/text_color</item>
+       <item name="android:textColorHint">@color/button_hint_text</item>
     </style>
 
     <style name="Theme.Calculator.ButtonFunctionCellStyle.Light">
@@ -236,6 +238,8 @@
        <item name="android:layout_height">match_parent</item>
        <item name="android:background">@drawable/btn_function_light</item>
        <item name="android:textSize">@dimen/btn_function_text_size</item>
+       <item name="android:textColor">@color/text_color_light</item>
+       <item name="android:textColorHint">@color/button_hint_text</item>
     </style>
 
     <style name="Theme.Calculator.ButtonDigitCellStyle">
@@ -256,7 +260,7 @@
        <item name="android:gravity">center</item>
        <item name="android:background">@drawable/btn_digit_light</item>
        <item name="android:textSize">@dimen/btn_digit_text_size</item>
-       <item name="android:textColor">@color/text_color</item>
+       <item name="android:textColor">@color/text_color_light</item>
        <item name="android:textColorHint">@color/button_hint_text</item>
     </style>
 </resources>
