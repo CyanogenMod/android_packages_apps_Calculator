@@ -10,12 +10,12 @@ import com.android2.calculator3.Calculator.SmallPanel;
 import com.android2.calculator3.view.CalculatorViewPager;
 
 public class SmallPageAdapter extends PagerAdapter {
-    private View mHexPage;
-    private View mFunctionPage;
-    private View mAdvancedPage;
-    private CalculatorViewPager mParent;
+    private final View mHexPage;
+    private final View mFunctionPage;
+    private final View mAdvancedPage;
+    private final CalculatorViewPager mParent;
 
-    private Logic mLogic;
+    private final Logic mLogic;
 
     private int count = 0;
 
@@ -34,21 +34,21 @@ public class SmallPageAdapter extends PagerAdapter {
 
         switch(mLogic.mBaseModule.getMode()) {
         case BINARY:
-            mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+            mHexPage.findViewById(R.id.bin).setSelected(true);
             for(int i : mLogic.mBaseModule.bannedResourceInBinary) {
                 View v = mHexPage.findViewById(i);
                 if(v != null) v.setEnabled(false);
             }
             break;
         case DECIMAL:
-            mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+            mHexPage.findViewById(R.id.dec).setSelected(true);
             for(int i : mLogic.mBaseModule.bannedResourceInDecimal) {
                 View v = mHexPage.findViewById(i);
                 if(v != null) v.setEnabled(false);
             }
             break;
         case HEXADECIMAL:
-            mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+            mHexPage.findViewById(R.id.hex).setSelected(true);
             break;
         }
     }

@@ -102,25 +102,25 @@
             android:id="@+id/sqrt"
             android:text="@string/sqrt"
             android:layout_weight="2"
-            style="@style/btn_function_cell_style"
+            style="?btn_function_cell_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/factorial"
             android:text="@string/factorial"
             android:layout_weight="2"
-            style="@style/btn_function_cell_style"
+            style="?btn_function_cell_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"
             android:layout_weight="3"
-            style="@style/btn_digit_cell_style"
+            style="?btn_digit_cell_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/Y"
             android:text="@string/Y"
             android:layout_weight="3"
-            style="@style/btn_digit_cell_style"
+            style="?btn_digit_cell_style"
             />
     </LinearLayout>
 </LinearLayout>

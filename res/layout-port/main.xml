@@ -19,9 +19,10 @@
 -->
 
 <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent">
-    <LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -40,10 +41,11 @@
                 <com.android2.calculator3.view.ScrollableDisplay
                     style="@style/display_style" />
             </com.android2.calculator3.view.CalculatorDisplay>
-            <ImageButton android:id="@+id/overflow_menu"
+            <ImageButton
+                android:id="@+id/overflow_menu"
                 android:layout_width="48dip"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_menu_overflow"
+                android:src="?ic_menu_overflow"
                 android:background="@drawable/menu_bg"
                 android:layout_marginLeft="8dip"
                 android:visibility="gone"
@@ -70,8 +72,7 @@
                         android:id="@+id/pulldown"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/background"
-                        android:scrollbarThumbHorizontal="@drawable/btn_function" >
+                        style="?slider_style" >
                         <include layout="@layout/history_panel" />
                     </com.xlythe.slider.Slider>
                 </RelativeLayout>
@@ -87,7 +88,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="0dp"
                         android:textSize="15sp"
-                        style="?button_style" />
+                        style="?button_del_style" />
                     <!-- marginRight has to be 0 to catch border-touch -->
                     <com.android2.calculator3.view.ColorButton
                         android:id="@+id/del"
@@ -96,27 +97,31 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="0dp"
                         android:textSize="15sp"
-                        style="?button_style" />
+                        style="?button_del_style" />
                 </FrameLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-    <include layout="@layout/simple_cling"
+    <include
+        layout="@layout/simple_cling"
         android:id="@+id/simple_cling"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-    <include layout="@layout/matrix_cling"
+    <include
+        layout="@layout/matrix_cling"
         android:id="@+id/matrix_cling"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-    <include layout="@layout/hex_cling"
+    <include
+        layout="@layout/hex_cling"
         android:id="@+id/hex_cling"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-    <include layout="@layout/graph_cling"
+    <include
+        layout="@layout/graph_cling"
         android:id="@+id/graph_cling"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

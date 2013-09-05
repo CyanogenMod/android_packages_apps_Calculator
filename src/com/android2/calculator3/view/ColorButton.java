@@ -20,9 +20,7 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
@@ -67,14 +65,15 @@ class ColorButton extends Button {
         mFeedbackPaint = new Paint();
         mFeedbackPaint.setStyle(Style.STROKE);
         mFeedbackPaint.setStrokeWidth(2);
-        mHintPaint.setColor(res.getColor(R.color.button_hint_text));
 
-        int[] attrsArray = new int[] { android.R.attr.textColor };
-        TypedArray ta = calc.obtainStyledAttributes(attrs, attrsArray);
-        int id = ta.getColor(0, Color.BLACK);
-        ta.recycle();
-
-        getPaint().setColor(id);
+        // int[] attrsArray = new int[] { android.R.attr.textColor };
+        // TypedArray ta = calc.obtainStyledAttributes(attrs, attrsArray);
+        // int id = ta.getResourceId(0, 0);
+        // ta.recycle();;
+        //
+        // // getPaint().setColor(id);
+        // setTextColor(calc.getResources().getColorStateList(id));
+        // getTextColors().
 
         mAnimStart = -1;
     }
@@ -118,7 +117,7 @@ class ColorButton extends Button {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         if(mAnimStart != -1) {
             int animDuration = (int) (System.currentTimeMillis() - mAnimStart);
 
@@ -134,6 +133,7 @@ class ColorButton extends Button {
             drawMagicFlame(0, canvas);
         }
 
+        mHintPaint.setColor(getCurrentHintTextColor());
         CharSequence hint = getHint();
         if(hint != null) {
             String[] exponents = hint.toString().split(Pattern.quote("^"));
@@ -163,6 +163,7 @@ class ColorButton extends Button {
             }
         }
 
+        getPaint().setColor(getCurrentTextColor());
         CharSequence text = getText();
         canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
     }

@@ -67,28 +67,28 @@
             android:id="@+id/F"
             android:text="@string/F"
             android:layout_weight="3"
-            style="@style/btn_digit_cell_style"
+            style="?btn_digit_cell_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/dec"
             android:text="@string/dec"
             android:tag="@string/decDesc"
             android:layout_weight="4"
-            style="@style/btn_function_cell_style"
+            style="?btn_function_cell_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/bin"
             android:text="@string/bin"
             android:tag="@string/binDesc"
             android:layout_weight="4"
-            style="@style/btn_function_cell_style"
+            style="?btn_function_cell_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/hex"
             android:text="@string/hex"
             android:tag="@string/hexDesc"
             android:layout_weight="4"
-            style="@style/btn_function_cell_style"
+            style="?btn_function_cell_style"
             />
     </LinearLayout>
 </LinearLayout>

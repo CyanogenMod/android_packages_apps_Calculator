@@ -15,17 +15,17 @@ import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.view.CalculatorViewPager;
 
 public class PageAdapter extends PagerAdapter {
-    private View mGraphPage;
-    private View mFunctionPage;
-    private View mSimplePage;
-    private View mAdvancedPage;
-    private View mHexPage;
+    private final View mGraphPage;
+    private final View mFunctionPage;
+    private final View mSimplePage;
+    private final View mAdvancedPage;
+    private final View mHexPage;
     View mMatrixPage;
-    private CalculatorViewPager mParent;
+    private final CalculatorViewPager mParent;
     private GraphicalView mGraphDisplay;
 
-    private Graph mGraph;
-    private Logic mLogic;
+    private final Graph mGraph;
+    private final Logic mLogic;
 
     private int count = 0;
 
@@ -51,7 +51,7 @@ public class PageAdapter extends PagerAdapter {
 
         switch(mLogic.mBaseModule.getMode()) {
         case BINARY:
-            mHexPage.findViewById(R.id.bin).setBackgroundResource(R.color.pressed_color);
+            mHexPage.findViewById(R.id.bin).setSelected(true);
             for(int i : mLogic.mBaseModule.bannedResourceInBinary) {
                 View v = mSimplePage.findViewById(i);
                 if(v == null) v = mHexPage.findViewById(i);
@@ -59,7 +59,7 @@ public class PageAdapter extends PagerAdapter {
             }
             break;
         case DECIMAL:
-            mHexPage.findViewById(R.id.dec).setBackgroundResource(R.color.pressed_color);
+            mHexPage.findViewById(R.id.dec).setSelected(true);
             for(int i : mLogic.mBaseModule.bannedResourceInDecimal) {
                 View v = mSimplePage.findViewById(i);
                 if(v == null) v = mHexPage.findViewById(i);
@@ -67,7 +67,7 @@ public class PageAdapter extends PagerAdapter {
             }
             break;
         case HEXADECIMAL:
-            mHexPage.findViewById(R.id.hex).setBackgroundResource(R.color.pressed_color);
+            mHexPage.findViewById(R.id.hex).setSelected(true);
             break;
         }
 

@@ -26,5 +26,4 @@
     <dimen name="top_bottom_padding">16sp</dimen>
     <dimen name="group_padding">16sp</dimen>
     <dimen name="button_hint_offset_x">20dp</dimen>
-    <item type="integer" name="button_hint_text_size_percent">60</item>
 </resources>

@@ -96,9 +96,9 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
         case R.id.hex:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.HEXADECIMAL));
-            view.setBackgroundResource(R.color.pressed_color);
-            ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
-            ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
+            view.setSelected(true);
+            ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
+            ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
             for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
                 if(mPager != null) {
                     v = mPager.findViewById(i);
@@ -113,9 +113,9 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
         case R.id.bin:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.BINARY));
-            view.setBackgroundResource(R.color.pressed_color);
-            ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
-            ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
+            view.setSelected(true);
+            ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
+            ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
             for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
                 if(mPager != null) {
                     v = mPager.findViewById(i);
@@ -130,9 +130,9 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
         case R.id.dec:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.DECIMAL));
-            view.setBackgroundResource(R.color.pressed_color);
-            ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
-            ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
+            view.setSelected(true);
+            ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
+            ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
             for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
                 if(mPager != null) {
                     v = mPager.findViewById(i);
