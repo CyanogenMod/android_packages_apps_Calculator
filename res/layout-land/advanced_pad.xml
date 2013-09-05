@@ -35,29 +35,29 @@
             android:id="@+id/sin"
             android:text="@string/sin"
             android:hint="@string/arcsin"
-            style="@style/button_small_style"
+            style="?button_small_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/cos"
             android:text="@string/cos"
             android:hint="@string/arccos"
-            style="@style/button_small_style"
+            style="?button_small_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/tan"
             android:text="@string/tan"
             android:hint="@string/arctan"
-            style="@style/button_small_style"
+            style="?button_small_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/power"
             android:text="@string/power"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/percentage"
             android:text="@string/percentage"
-            style="@style/button_style"
+            style="?button_style"
             />
     </LinearLayout>
 
@@ -69,27 +69,27 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/ln"
             android:text="@string/ln"
-            style="@style/button_small_style"
+            style="?button_small_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/lg"
             android:text="@string/lg"
-            style="@style/button_small_style"
+            style="?button_small_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/e"
             android:text="@string/e"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/pi"
             android:text="@string/pi"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/i"
             android:text="@string/i"
-            style="@style/button_style"
+            style="?button_style"
             />
     </LinearLayout>
 

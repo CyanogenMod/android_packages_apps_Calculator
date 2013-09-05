@@ -1,10 +1,14 @@
 package com.android2.calculator3.view;
 
+import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
+import android.preference.SwitchPreference;
 
+import com.android2.calculator3.Preferences;
 import com.android2.calculator3.R;
 
 public class PreferencesFragment extends PreferenceFragment {
@@ -12,6 +16,20 @@ public class PreferencesFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.layout.preferences);
+
+        SwitchPreference holo = (SwitchPreference) findPreference("THEME_STYLE");
+        if(holo != null) {
+            holo.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Intent intent = new Intent(getActivity(), Preferences.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    return true;
+                }
+            });
+        }
+
         Preference about = findPreference("ABOUT");
         if(about != null) {
             String versionName = "";

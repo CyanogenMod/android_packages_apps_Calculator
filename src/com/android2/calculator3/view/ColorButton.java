@@ -20,7 +20,9 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
@@ -46,27 +48,33 @@ class ColorButton extends Button {
     EventListener mListener;
     Paint mFeedbackPaint;
     Paint mHintPaint = new Paint();
-    Rect bounds = new Rect();
+    Rect mBounds = new Rect();
     float mTextSize = 0f;
 
     public ColorButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         Calculator calc = (Calculator) context;
-        init(calc);
+        init(calc, attrs);
         mListener = calc.mListener;
         setOnClickListener(mListener);
         setOnLongClickListener(mListener);
     }
 
-    private void init(Calculator calc) {
+    private void init(Calculator calc, AttributeSet attrs) {
         Resources res = getResources();
 
         CLICK_FEEDBACK_COLOR = res.getColor(R.color.magic_flame);
         mFeedbackPaint = new Paint();
         mFeedbackPaint.setStyle(Style.STROKE);
         mFeedbackPaint.setStrokeWidth(2);
-        getPaint().setColor(res.getColor(R.color.button_text));
         mHintPaint.setColor(res.getColor(R.color.button_hint_text));
+
+        int[] attrsArray = new int[] { android.R.attr.textColor };
+        TypedArray ta = calc.obtainStyledAttributes(attrs, attrsArray);
+        int id = ta.getColor(0, Color.BLACK);
+        ta.recycle();
+
+        getPaint().setColor(id);
 
         mAnimStart = -1;
     }
@@ -86,7 +94,8 @@ class ColorButton extends Button {
             mTextX = (getWidth() - textWidth) / 2;
         }
         mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
-        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * 0.8f);
+        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent)
+                / 100f);
     }
 
     @Override
@@ -159,8 +168,8 @@ class ColorButton extends Button {
     }
 
     private int getTextHeight(Paint paint, String text) {
-        mHintPaint.getTextBounds(text, 0, text.length(), bounds);
-        int height = bounds.height();
+        mHintPaint.getTextBounds(text, 0, text.length(), mBounds);
+        int height = mBounds.height();
         String[] exponents = text.split(Pattern.quote("^"));
         for(int i = 1; i < exponents.length; i++) {
             height += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);

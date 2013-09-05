@@ -14,9 +14,13 @@ public class Preferences extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(CalculatorSettings.useLightTheme(this)) {
+            super.setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
+        }
+
         if(savedInstanceState == null) {
-            PreferencesFragment preferences = new PreferencesFragment();
-            getFragmentManager().beginTransaction().add(android.R.id.content, preferences).commit();
+            getFragmentManager().beginTransaction().add(android.R.id.content, new PreferencesFragment()).commit();
         }
     }
 

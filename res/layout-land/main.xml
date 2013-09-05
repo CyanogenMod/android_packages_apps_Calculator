@@ -62,7 +62,7 @@
                      android:layout_height="match_parent"
                      android:layout_marginRight="0dp"
                      android:textSize="15sp"
-                     style="@style/button_style"
+                     style="?button_style"
                      />
                 <!-- marginRight has to be 0 to catch border-touch -->
                 <com.android2.calculator3.view.ColorButton
@@ -73,7 +73,7 @@
                      android:layout_marginRight="0dp"
                      android:textSize="15sp"
                      android:padding="10dp"
-                     style="@style/button_style"
+                     style="?button_style"
                      />
             </FrameLayout>
         </LinearLayout>

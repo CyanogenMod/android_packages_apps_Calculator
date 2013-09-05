@@ -123,7 +123,12 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
+        if(CalculatorSettings.useLightTheme(getContext())) {
+            super.setTheme(R.style.Theme_Calculator_Light);
+        }
+
         setContentView(R.layout.main);
+
         mPager = (CalculatorViewPager) findViewById(R.id.panelswitch);
         mSmallPager = (CalculatorViewPager) findViewById(R.id.smallPanelswitch);
         mLargePager = (CalculatorViewPager) findViewById(R.id.largePanelswitch);
@@ -701,4 +706,32 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
     @Override
     public void onPageSelected(int position) {}
+
+    private void setLightTheme(View v) {
+        if(ViewGroup.class.isAssignableFrom(v.getClass())) {
+            // Recursively go through the view
+            ViewGroup vg = (ViewGroup) v;
+            for(int i = 0; i < vg.getChildCount(); i++) {
+                setLightTheme(vg.getChildAt(i));
+            }
+        }
+        else {
+            // Apply correct theme (as needed)
+            if(v.getId() == R.id.equal) {
+                v.setBackgroundResource(R.drawable.btn_equal_light);
+            }
+            else if(v.getBackground() != null) {
+                if(backgroundEqualsRes(v, R.drawable.btn_digit)) {
+                    v.setBackgroundResource(R.drawable.btn_digit_light);
+                }
+                else if(backgroundEqualsRes(v, R.drawable.btn_function)) {
+                    v.setBackgroundResource(R.drawable.btn_function_light);
+                }
+            }
+        }
+    }
+
+    private boolean backgroundEqualsRes(View v, int resId) {
+        return v.getBackground().getConstantState().equals(v.getContext().getResources().getDrawable(resId).getConstantState());
+    }
 }

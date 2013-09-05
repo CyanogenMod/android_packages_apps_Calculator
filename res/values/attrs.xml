@@ -20,5 +20,11 @@
     <declare-styleable name="ScrollableDisplay">
         <!-- Used to limit the height of Scrollable Display -->
         <attr name="max_height" format="dimension"  />
+        <attr name="button_style" format="reference" />
+        <attr name="digit_button_style" format="reference" />
+        <attr name="button_small_style" format="reference" />
+        <attr name="button_half_style" format="reference" />
+        <attr name="equal_button_style" format="reference" />
+        <attr name="slider_style" format="reference" />
     </declare-styleable>
 </resources>

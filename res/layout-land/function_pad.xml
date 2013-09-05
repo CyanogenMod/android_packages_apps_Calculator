@@ -37,21 +37,21 @@
             android:textSize="34dp"
             android:layout_width="0dp"
             android:layout_weight="2"
-            style="@style/button_small_style"
+            style="?button_small_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"
             android:layout_width="0dp"
             android:layout_weight="1"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/Y"
             android:text="@string/Y"
             android:layout_width="0dp"
             android:layout_weight="1"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
     </LinearLayout>
 
@@ -66,21 +66,21 @@
             android:textSize="34dp"
             android:layout_width="0dp"
             android:layout_weight="2"
-            style="@style/button_small_style"
+            style="?button_small_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/integral"
             android:text="@string/integral"
             android:layout_width="0dp"
             android:layout_weight="1"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/dx"
             android:text="@string/dx"
             android:layout_width="0dp"
             android:layout_weight="1"
-            style="@style/button_style"
+            style="?button_style"
             />
     </LinearLayout>
 </LinearLayout>

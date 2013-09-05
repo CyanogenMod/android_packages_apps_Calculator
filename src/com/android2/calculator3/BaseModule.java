@@ -209,6 +209,11 @@ public class BaseModule {
         }
         if(split.length == 1) return wholeNumber.toUpperCase(Locale.US);
 
+        // Catch overflow (it's a decimal, it can be (slightly) rounded
+        if(split[1].length() > 13) {
+            split[1] = split[1].substring(0, 13);
+        }
+
         double decimal = 0;
         if(originalBase != 10) {
             String decimalFraction = Long.toString(Long.parseLong(split[1], originalBase)) + "/" + originalBase + "^" + split[1].length();

@@ -34,27 +34,27 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/A"
             android:text="@string/A"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/B"
             android:text="@string/B"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/C"
             android:text="@string/C"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/D"
             android:text="@string/D"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/E"
             android:text="@string/E"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
     </LinearLayout>
 

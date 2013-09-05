@@ -88,6 +88,7 @@ public class PageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(View container, int position) {
+        View v = null;
         if(position == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(mParent.getContext())) {
             if(mGraphDisplay == null) {
                 mGraphDisplay = mGraph.getGraph(mParent.getContext());
@@ -123,29 +124,30 @@ public class PageAdapter extends PagerAdapter {
                 mGraphDisplay.repaint();
             }
             ((ViewGroup) container).addView(mGraphPage);
-            return mGraphPage;
+            v = mGraphPage;
         }
         else if(position == Panel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mFunctionPage);
-            return mFunctionPage;
+            v = mFunctionPage;
         }
         else if(position == Panel.BASIC.getOrder() && CalculatorSettings.basicPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mSimplePage);
-            return mSimplePage;
+            v = mSimplePage;
         }
         else if(position == Panel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mAdvancedPage);
-            return mAdvancedPage;
+            v = mAdvancedPage;
         }
         else if(position == Panel.HEX.getOrder() && CalculatorSettings.hexPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mHexPage);
-            return mHexPage;
+            v = mHexPage;
         }
         else if(position == Panel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(mParent.getContext())) {
             ((ViewGroup) container).addView(mMatrixPage);
             return mMatrixPage;
         }
-        return null;
+
+        return v;
     }
 
     @Override

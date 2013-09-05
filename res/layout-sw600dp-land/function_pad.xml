@@ -34,17 +34,17 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/parentheses"
             android:text="@string/parentheses"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/mod"
             android:text="@string/mod"
-            style="@style/button_small_style"
+            style="?button_small_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/coma"
             android:text="@string/coma"
-            style="@style/button_style"
+            style="?button_style"
             />
     </LinearLayout>
 
@@ -58,13 +58,13 @@
             android:text="@string/solveForX"
             android:textSize="26dp"
             android:layout_weight="1"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"
             android:layout_weight="2"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
     </LinearLayout>
 
@@ -78,13 +78,13 @@
             android:text="@string/solveForY"
             android:textSize="26dp"
             android:layout_weight="1"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/Y"
             android:text="@string/Y"
             android:layout_weight="2"
-            style="@style/digit_button_style"
+            style="?digit_button_style"
             />
     </LinearLayout>
 
@@ -96,17 +96,17 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/integral"
             android:text="@string/integral"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/dx"
             android:text="@string/dx"
-            style="@style/button_style"
+            style="?button_style"
             />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/dy"
             android:text="@string/dy"
-            style="@style/button_style"
+            style="?button_style"
             />
     </LinearLayout>
 </LinearLayout>

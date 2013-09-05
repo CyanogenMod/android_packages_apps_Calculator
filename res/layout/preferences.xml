@@ -52,6 +52,15 @@
             android:defaultValue="@bool/USE_RADIANS" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="Theme" >
+        <SwitchPreference
+            android:title="Holo"
+            android:key="THEME_STYLE"
+            android:switchTextOn="Light"
+            android:switchTextOff="Dark"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/pref_about" >
         <Preference
             android:title="@string/app_name"
