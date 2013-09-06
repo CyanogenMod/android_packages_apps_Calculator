@@ -26,7 +26,7 @@
     android:layout_marginBottom="@dimen/group_padding">
 
         <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/A"
             android:text="@string/A"
@@ -54,7 +54,7 @@
             />
     </LinearLayout>
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/F"
             android:text="@string/F"

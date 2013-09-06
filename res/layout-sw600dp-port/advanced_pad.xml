@@ -26,7 +26,7 @@
     android:layout_marginBottom="@dimen/group_padding">
 
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/sin"
             android:text="@string/sin"
@@ -55,7 +55,7 @@
             style="?btn_function_cell_style" />
     </LinearLayout>
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/ln"
             android:text="@string/ln"
@@ -78,7 +78,7 @@
             style="?btn_function_cell_style" />
     </LinearLayout>
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"

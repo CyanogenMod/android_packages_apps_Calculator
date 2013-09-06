@@ -52,12 +52,12 @@
             android:defaultValue="@bool/USE_RADIANS" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Theme" >
+        android:title="@string/pref_theme" >
         <SwitchPreference
-            android:title="Holo"
+            android:title="@string/holo"
             android:key="THEME_STYLE"
-            android:switchTextOn="Light"
-            android:switchTextOff="Dark"
+            android:switchTextOn="@string/holo_light"
+            android:switchTextOff="@string/holo_dark"
             android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory

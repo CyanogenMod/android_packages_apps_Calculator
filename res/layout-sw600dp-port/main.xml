@@ -48,7 +48,7 @@
             <ImageButton android:id="@+id/overflow_menu"
                 android:layout_width="48dip"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_menu_overflow"
+                android:src="?ic_menu_overflow"
                 android:background="@drawable/menu_bg"
                 android:layout_marginLeft="8dip"
                 android:visibility="gone"
@@ -82,8 +82,7 @@
                  android:id="@+id/pulldown"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 android:background="@color/background"
-                 android:scrollbarThumbHorizontal="@drawable/btn_function" >
+                 style="?slider_style" >
                 <include layout="@layout/history_panel" />
             </com.xlythe.slider.Slider>
             <LinearLayout

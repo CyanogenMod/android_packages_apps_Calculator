@@ -189,7 +189,7 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/equal"
             android:text="@string/equal"
-            style="?button_style"
+            style="?equal_button_style"
             />
     </LinearLayout>
 </LinearLayout>

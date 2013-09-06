@@ -16,7 +16,7 @@ public class Preferences extends Activity {
         super.onCreate(savedInstanceState);
 
         if(CalculatorSettings.useLightTheme(this)) {
-            super.setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
+            super.setTheme(R.style.Theme_Calculator_Settings_Light);
         }
 
         if(savedInstanceState == null) {

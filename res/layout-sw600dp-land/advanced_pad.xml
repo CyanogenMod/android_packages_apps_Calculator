@@ -24,7 +24,7 @@
     android:orientation="vertical"
     android:layout_marginRight="@dimen/group_padding">
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/sin"
             android:text="@string/sin"
@@ -45,7 +45,7 @@
             />
     </LinearLayout>
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/lg"
             android:text="@string/lg"
@@ -60,7 +60,7 @@
             style="?button_small_style" />
     </LinearLayout>
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/pi"
             android:text="@string/pi"
@@ -75,7 +75,7 @@
             style="?button_small_style" />
     </LinearLayout>
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/factorial"
             android:text="@string/factorial"
@@ -90,7 +90,7 @@
             style="?button_small_style" />
     </LinearLayout>
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style">
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"
