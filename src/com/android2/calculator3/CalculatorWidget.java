@@ -141,6 +141,10 @@ public class CalculatorWidget extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
         String value = getValue(context, appWidgetId);
 
+        int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable : R.id.display;
+
+        remoteViews.setViewVisibility(displayId, View.VISIBLE);
+        remoteViews.setTextViewText(displayId, value);
         remoteViews.setTextViewText(R.id.display, value);
         remoteViews.setViewVisibility(R.id.clear, showClear ? View.VISIBLE : View.GONE);
         remoteViews.setViewVisibility(R.id.delete, showClear ? View.GONE : View.VISIBLE);
