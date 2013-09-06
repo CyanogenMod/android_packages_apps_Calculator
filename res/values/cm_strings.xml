@@ -143,5 +143,10 @@
     <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
     <string name="cling_dismiss">OK</string>
 
+    <!-- Separators for dec, bin, and hex. Must be 1 charater! -->
+    <string name="dec_separator">,</string>
+    <string name="bin_separator">\s</string>
+    <string name="hex_separator">\s</string>
+
     <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
 </resources>

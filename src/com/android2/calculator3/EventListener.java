@@ -16,10 +16,13 @@
 
 package com.android2.calculator3;
 
+import java.util.List;
+
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -99,16 +102,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             view.setSelected(true);
             ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
             ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
-            for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
-                if(mPager != null) {
-                    v = mPager.findViewById(i);
-                }
-                else {
-                    v = mSmallPager.findViewById(i);
-                    if(v == null) v = mLargePager.findViewById(i);
-                }
-                v.setEnabled(true);
-            }
+            applyAllBannedResources(mHandler.mBaseModule, Mode.HEXADECIMAL);
             break;
 
         case R.id.bin:
@@ -116,16 +110,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             view.setSelected(true);
             ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
             ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
-            for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
-                if(mPager != null) {
-                    v = mPager.findViewById(i);
-                }
-                else {
-                    v = mSmallPager.findViewById(i);
-                    if(v == null) v = mLargePager.findViewById(i);
-                }
-                v.setEnabled(false);
-            }
+            applyAllBannedResources(mHandler.mBaseModule, Mode.BINARY);
             break;
 
         case R.id.dec:
@@ -133,26 +118,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             view.setSelected(true);
             ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
             ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
-            for(int i : mHandler.mBaseModule.bannedResourceInBinary) {
-                if(mPager != null) {
-                    v = mPager.findViewById(i);
-                }
-                else {
-                    v = mSmallPager.findViewById(i);
-                    if(v == null) v = mLargePager.findViewById(i);
-                }
-                v.setEnabled(true);
-            }
-            for(int i : mHandler.mBaseModule.bannedResourceInDecimal) {
-                if(mPager != null) {
-                    v = mPager.findViewById(i);
-                }
-                else {
-                    v = mSmallPager.findViewById(i);
-                    if(v == null) v = mLargePager.findViewById(i);
-                }
-                v.setEnabled(false);
-            }
+            applyAllBannedResources(mHandler.mBaseModule, Mode.DECIMAL);
             break;
 
         case R.id.matrix:
@@ -277,6 +243,51 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 }
                 mHandler.insert(text);
                 returnToBasic();
+            }
+        }
+    }
+
+    private void applyAllBannedResources(BaseModule base, Mode baseMode) {
+        for(Mode key : base.mBannedResources.keySet()) {
+            if(baseMode.compareTo(key) != 0) {
+                applyBannedResources(base, key, true);
+            }
+        }
+        applyBannedResources(base, baseMode, false);
+    }
+
+    private void applyBannedResources(BaseModule base, Mode baseMode, boolean enabled) {
+        List<Integer> resources = base.mBannedResources.get(baseMode);
+        ViewPager pager = mPager != null ? mPager : mSmallPager;
+        for(Integer resource : resources) {
+            final int resId = resource.intValue();
+            // There are multiple views with the same id,
+            // but the id is unique per page
+            // Find ids on every page
+            int count = pager.getChildCount();
+            boolean found = false;
+            for(int i = 0; i <= count; i++) {
+                View child = pager.getChildAt(i);
+                if(child instanceof ViewGroup) {
+                    View v = ((ViewGroup) child).findViewById(resId);
+                    if(v != null) {
+                        v.setEnabled(enabled);
+                        found = true;
+                    }
+                }
+            }
+            // An especial check when current pager is mLargePager
+            if(!found && mPager == null && mLargePager != null) {
+                for(int i = 0; i <= count; i++) {
+                    View child = mLargePager.getChildAt(i);
+                    if(child instanceof ViewGroup) {
+                        View v = ((ViewGroup) child).findViewById(resId);
+                        if(v != null) {
+                            v.setEnabled(enabled);
+                            found = true;
+                        }
+                    }
+                }
             }
         }
     }

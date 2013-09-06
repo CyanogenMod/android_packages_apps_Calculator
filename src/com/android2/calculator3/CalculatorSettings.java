@@ -51,7 +51,7 @@ public class CalculatorSettings {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
     }
 
-    static boolean useLightTheme(Context context) {
+    public static boolean useLightTheme(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("THEME_STYLE", false);
     }
 

@@ -2,8 +2,10 @@ package com.android2.calculator3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.javia.arity.SyntaxException;
 
@@ -15,15 +17,16 @@ public class BaseModule {
     Logic logic;
     private Mode mode = Mode.DECIMAL;
 
-    List<Integer> bannedResourceInDecimal;
-    List<Integer> bannedResourceInBinary;
+    Map<Mode, List<Integer>> mBannedResources;
 
     BaseModule(Logic logic) {
         this.logic = logic;
 
-        bannedResourceInDecimal = Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F);
-        bannedResourceInBinary = Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F, R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5, R.id.digit6,
-                R.id.digit7, R.id.digit8, R.id.digit9);
+        mBannedResources = new HashMap<Mode, List<Integer>>(3);
+        mBannedResources.put(Mode.DECIMAL, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F));
+        mBannedResources.put(Mode.BINARY, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F, R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5,
+                R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9));
+        mBannedResources.put(Mode.HEXADECIMAL, new ArrayList<Integer>());
     }
 
     public enum Mode {
