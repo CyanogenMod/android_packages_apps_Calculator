@@ -35,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="5"
                 android:layout_height="match_parent"
-                maxDigits="@integer/max_digits">
+                maxDigits="@integer/max_digits" >
                 <com.android2.calculator3.view.ScrollableDisplay
                     style="@style/display_style" />
                 <com.android2.calculator3.view.ScrollableDisplay
