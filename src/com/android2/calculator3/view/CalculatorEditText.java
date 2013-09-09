@@ -31,6 +31,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -141,11 +142,21 @@ public class CalculatorEditText extends EditText {
 
     @Override
     public View focusSearch(int direction) {
+        View v;
         switch(direction) {
         case View.FOCUS_FORWARD:
-            View v = mDisplay.nextView(this);
+            v = mDisplay.nextView(this);
             while(!v.isFocusable())
                 v = mDisplay.nextView(v);
+            return v;
+        case View.FOCUS_BACKWARD:
+            v = mDisplay.previousView(this);
+            while(!v.isFocusable())
+                v = mDisplay.previousView(v);
+            if(MatrixView.class.isAssignableFrom(v.getClass())) {
+                v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
+                v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
+            }
             return v;
         }
         return super.focusSearch(direction);

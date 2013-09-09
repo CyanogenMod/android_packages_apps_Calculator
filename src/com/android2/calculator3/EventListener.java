@@ -298,6 +298,20 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         case R.id.del:
             mHandler.onClear();
             return true;
+
+        case R.id.next:
+            // Handle back
+            EditText active = mHandler.mDisplay.getActiveEditText();
+            if(active.getSelectionStart() == 0) {
+                View v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_BACKWARD);
+                if(v != null) v.requestFocus();
+                active = mHandler.mDisplay.getActiveEditText();
+                active.setSelection(active.getText().length());
+            }
+            else {
+                active.setSelection(active.getSelectionStart() - 1);
+            }
+            return true;
         }
         if(view.getTag() != null) {
             String text = (String) view.getTag();

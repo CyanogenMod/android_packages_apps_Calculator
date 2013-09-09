@@ -125,6 +125,8 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         switch(direction) {
         case View.FOCUS_FORWARD:
             return parent.nextView(this);
+        case View.FOCUS_BACKWARD:
+            return parent.previousView(this);
         }
         return super.focusSearch(direction);
     }

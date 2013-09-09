@@ -43,9 +43,10 @@ public class Logic {
     // Double.toString() for NaN
     public static final String NAN = "NaN";
 
-    static final char MINUS = '\u2212';
+    public static final char MINUS = '\u2212';
     static final char MUL = '\u00d7';
     static final char PLUS = '+';
+    static final char DIV = '\u00f7';
 
     public static final String MARKER_EVALUATE_ON_RESUME = "?";
     public static final int DELETE_MODE_BACKSPACE = 0;
@@ -387,7 +388,7 @@ public class Logic {
         return result;
     }
 
-    static boolean isOperator(String text) {
+    public static boolean isOperator(String text) {
         return text.length() == 1 && isOperator(text.charAt(0));
     }
 

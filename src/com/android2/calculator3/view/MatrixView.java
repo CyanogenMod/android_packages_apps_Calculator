@@ -160,6 +160,18 @@ public class MatrixView extends TableLayout {
         return parent.getChildAt(parent.getChildIndex(this) + 1);
     }
 
+    View previousView(View currentView) {
+        boolean foundCurrentView = false;
+        for(int row = rows - 1; row >= 0; row--) {
+            TableRow tr = (TableRow) getChildAt(row);
+            for(int column = columns - 1; column >= 0; column--) {
+                if(foundCurrentView) return tr.getChildAt(column);
+                else if(currentView == tr.getChildAt(column)) foundCurrentView = true;
+            }
+        }
+        return parent.getChildAt(parent.getChildIndex(this) - 1);
+    }
+
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
