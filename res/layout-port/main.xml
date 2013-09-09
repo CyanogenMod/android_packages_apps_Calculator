@@ -20,22 +20,22 @@
 
 <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
         <LinearLayout
             android:layout_width="match_parent"
             android:minHeight="@dimen/min_display_height"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
             <com.android2.calculator3.view.CalculatorDisplay
                  android:id="@+id/display"
                  android:layout_width="0dip"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 maxDigits="@integer/max_digits">
+                 maxDigits="@integer/max_digits" >
                 <com.android2.calculator3.view.ScrollableDisplay
                     style="@style/display_style" />
                 <com.android2.calculator3.view.ScrollableDisplay
@@ -49,7 +49,7 @@
                 android:background="@drawable/menu_bg"
                 android:layout_marginLeft="8dip"
                 android:visibility="gone"
-                android:contentDescription="@null"/>
+                android:contentDescription="@null" />
         </LinearLayout>
         <RelativeLayout 
             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="@dimen/history_bar_height">
+                    android:layout_height="@dimen/history_bar_height" >
                     <!-- marginRight has to be 0 to catch border-touch -->
                     <com.android2.calculator3.view.ColorButton
                         android:id="@+id/clear"

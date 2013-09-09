@@ -23,28 +23,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginBottom="@dimen/group_padding">
-
+    android:layout_marginBottom="@dimen/group_padding" >
     <LinearLayout
-        style="?btn_row_style">
+        style="?btn_row_style" >
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/sin"
             android:text="@string/sin"
             android:hint="@string/arcsin"
-            style="?btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/cos"
             android:text="@string/cos"
             android:hint="@string/arccos"
-            style="?btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/tan"
             android:text="@string/tan"
             android:hint="@string/arctan"
-            style="?btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/pi"
             android:text="@string/pi"
@@ -55,7 +51,7 @@
             style="?btn_function_cell_style" />
     </LinearLayout>
     <LinearLayout
-        style="?btn_row_style">
+        style="?btn_row_style" >
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/ln"
             android:text="@string/ln"
@@ -78,7 +74,7 @@
             style="?btn_function_cell_style" />
     </LinearLayout>
     <LinearLayout
-        style="?btn_row_style">
+        style="?btn_row_style" >
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"
@@ -100,5 +96,4 @@
             android:text="@string/parentheses"
             style="?btn_function_cell_style" />
     </LinearLayout>
-
 </LinearLayout>

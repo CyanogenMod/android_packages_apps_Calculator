@@ -21,9 +21,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" >
     <LinearLayout
-        style="?btn_row_style">
+        style="?btn_row_style" >
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/digit7"
             android:text="@string/digit7"
@@ -46,7 +46,7 @@
             style="?btn_operation_cell_style" />
     </LinearLayout>
     <LinearLayout
-        style="?btn_row_style">
+        style="?btn_row_style" >
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/digit4"
             android:text="@string/digit4"
@@ -72,14 +72,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="2"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:orientation="vertical">
+            android:orientation="vertical" >
             <LinearLayout
-                style="?btn_row_style">
+                style="?btn_row_style" >
                 <com.android2.calculator3.view.ColorButton
                     android:id="@+id/digit1"
                     android:text="@string/digit1"
@@ -98,7 +98,7 @@
                     style="?btn_operation_cell_style" />
             </LinearLayout>
             <LinearLayout
-                style="?btn_row_style">
+                style="?btn_row_style" >
                 <com.android2.calculator3.view.ColorButton
                     android:id="@+id/digit0"
                     android:text="@string/digit0"
