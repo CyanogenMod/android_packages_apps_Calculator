@@ -52,7 +52,7 @@
                 android:contentDescription="@null" />
             <FrameLayout
                 android:layout_width="100dip"
-                android:layout_height="match_parent ">
+                android:layout_height="match_parent">
                 <Button
                     android:id="@+id/clear"
                     android:text="@string/clear"

@@ -83,15 +83,27 @@ public class MatrixModule {
                     else if(text.startsWith(String.valueOf(Logic.PLUS))) add = true;
                     else if(text.startsWith(String.valueOf(Logic.MINUS))) subtract = true;
                     else if(text.startsWith(String.valueOf(Logic.DIV))) divide = true;
-                    if(Character.isDigit(text.charAt(1))) {
+                    if((text.length() > 1) && Character.isDigit(text.charAt(1))) {
                         double scal = gatherScalar(text);
-                        if(add) matrix = addScalar(matrix, scal);
-                        else if(subtract) addScalar(matrix, -1.0 * scal);
-                        else if(multiply) matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(scal, matrix);
-                        else if(divide) matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(1.0 / scal, matrix);
+                        if(add) {
+                        	matrix = addScalar(matrix, scal);
+                        	add = false;
+                        }
+                        else if(subtract) {
+                        	matrix = addScalar(matrix, -1.0 * scal);
+                        	subtract = false;
+                        }
+                        else if(multiply) {
+                        	matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(scal, matrix);
+                        	multiply = false;
+                        }
+                        else if(divide) {
+                        	matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(1.0 / scal, matrix);
+                        	divide = false;
+                        }
                         else throw new SyntaxException();
                     }
-                    else throw new SyntaxException();
+                    else if((text.length() > 1) && !Character.isDigit(text.charAt(1))) throw new SyntaxException();
                 }
             }
             return logic.mBaseModule.updateTextToNewMode(MatrixView.matrixToString(matrix, logic), Mode.DECIMAL, logic.mBaseModule.getMode());
