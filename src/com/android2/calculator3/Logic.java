@@ -47,6 +47,7 @@ public class Logic {
     static final char MUL = '\u00d7';
     static final char PLUS = '+';
     static final char DIV = '\u00f7';
+    static final char POW = '^';
 
     public static final String MARKER_EVALUATE_ON_RESUME = "?";
     public static final int DELETE_MODE_BACKSPACE = 0;

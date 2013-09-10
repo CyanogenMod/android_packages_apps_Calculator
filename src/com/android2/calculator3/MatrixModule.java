@@ -1,6 +1,7 @@
 package com.android2.calculator3;
 
 import org.ejml.simple.SimpleMatrix;
+import org.ejml.simple.SimpleSVD;
 import org.javia.arity.SyntaxException;
 
 import android.view.View;
@@ -41,6 +42,7 @@ public class MatrixModule {
             boolean multiply = false;
             boolean subtract = false;
             boolean divide = false;
+            boolean power = false;
             for(int i = 0; i < display.getChildCount(); i++) {
                 View child = display.getChildAt(i);
                 if(child instanceof MatrixView) {
@@ -83,6 +85,7 @@ public class MatrixModule {
                     else if(text.startsWith(String.valueOf(Logic.PLUS))) add = true;
                     else if(text.startsWith(String.valueOf(Logic.MINUS))) subtract = true;
                     else if(text.startsWith(String.valueOf(Logic.DIV))) divide = true;
+                    else if(text.startsWith(String.valueOf(Logic.POW))) power = true;
                     if((text.length() > 1) && Character.isDigit(text.charAt(1))) {
                         double scal = gatherScalar(text);
                         if(add) {
@@ -94,15 +97,43 @@ public class MatrixModule {
                         	subtract = false;
                         }
                         else if(multiply) {
-                        	matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(scal, matrix);
+                        	matrix = matrix.scale(scal);
                         	multiply = false;
                         }
                         else if(divide) {
-                        	matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(1.0 / scal, matrix);
+                        	matrix = matrix.scale(1.0/scal);
                         	divide = false;
                         }
+                        else if(power) {
+                        	int m = matrix.numRows();
+                        	int n = matrix.numCols();
+                        	if(m != n) throw new SyntaxException();
+                        	else if(scal == 0.0) matrix = SimpleMatrix.identity(m);
+                        	else if(scal == 1.0) continue;
+                        	else {
+	                        	//Two methods
+	                        	//If power is real, use SVD with questionable accuracy
+	                        	if(scal > Math.floor(scal)) {
+		                        	SimpleSVD decomp = new SimpleSVD(matrix.getMatrix(), false);
+		                        	SimpleMatrix S = decomp.getW();
+		                        	for(int i1 = 0; i1 < m; i1++) {
+		                        		for(int j = 0; j < n; j++) {
+		                        			double arg = S.get(i1, j);
+		                        			S.set(i1, j, Math.pow(arg, scal));
+		                        		}
+		                        	}
+		                        	matrix = decomp.getU().mult(S);
+		                        	matrix = matrix.mult(decomp.getV().transpose());
+		                        }
+	                        	else { //Integer power: multiply by itself
+	                        		long equiv = Math.round(scal);
+	                        		for(long e = 1; e < equiv; e++)
+	                        			matrix = matrix.mult(matrix);
+		                        }
+                        	}//close else (113)
+                        }//close else if (107)
                         else throw new SyntaxException();
-                    }
+                    }//close if (88)
                     else if((text.length() > 1) && !Character.isDigit(text.charAt(1))) throw new SyntaxException();
                 }
             }
