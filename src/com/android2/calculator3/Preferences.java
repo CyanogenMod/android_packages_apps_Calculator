@@ -27,11 +27,16 @@ public class Preferences extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(this, Calculator.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivity(new Intent(this, Calculator.class));
+            finish();
             return true;
         }
         return super.onKeyDown(keyCode, keyEvent);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_close_exit);
     }
 }
