@@ -33,8 +33,6 @@
     <dimen name="app_minimumsize_w">300dp</dimen>
     <dimen name="app_minimumsize_h">300dp</dimen>
     <item type="integer" name="button_hint_text_size_percent">50</item>
-    <color name="btn_disabled_text_color">#3a3a3a</color>
-    <color name="button_text_light">#2e2e2e</color>
 
     <!-- Cling -->
     <dimen name="clingPunchThroughGraphicCenterRadius">94dp</dimen>
