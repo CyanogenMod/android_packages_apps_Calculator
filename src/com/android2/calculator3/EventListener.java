@@ -22,7 +22,6 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -122,7 +121,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.matrix:
-            mHandler.insert(MatrixView.PATTERN);
+            mHandler.insert(MatrixView.getPattern(mContext));
             returnToBasic();
             break;
 
@@ -264,28 +263,22 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             // There are multiple views with the same id,
             // but the id is unique per page
             // Find ids on every page
-            int count = pager.getChildCount();
-            boolean found = false;
-            for(int i = 0; i <= count; i++) {
-                View child = pager.getChildAt(i);
-                if(child instanceof ViewGroup) {
-                    View v = ((ViewGroup) child).findViewById(resId);
-                    if(v != null) {
-                        v.setEnabled(enabled);
-                        found = true;
-                    }
+            int count = pager.getAdapter().getCount();
+            for(int i = 0; i < count; i++) {
+                View child = ((CalculatorPageAdapter) pager.getAdapter()).getViewAt(i);
+                View v = child.findViewById(resId);
+                if(v != null) {
+                    v.setEnabled(enabled);
                 }
             }
             // An especial check when current pager is mLargePager
-            if(!found && mPager == null && mLargePager != null) {
-                for(int i = 0; i <= count; i++) {
-                    View child = mLargePager.getChildAt(i);
-                    if(child instanceof ViewGroup) {
-                        View v = ((ViewGroup) child).findViewById(resId);
-                        if(v != null) {
-                            v.setEnabled(enabled);
-                            found = true;
-                        }
+            if(mPager == null && mLargePager != null) {
+                count = mLargePager.getAdapter().getCount();
+                for(int i = 0; i < count; i++) {
+                    View child = ((CalculatorPageAdapter) mLargePager.getAdapter()).getViewAt(i);
+                    View v = child.findViewById(resId);
+                    if(v != null) {
+                        v.setEnabled(enabled);
                     }
                 }
             }

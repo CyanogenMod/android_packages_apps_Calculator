@@ -12,10 +12,10 @@ import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
 
 public class MatrixModule {
-    Logic logic;
+    Logic mLogic;
 
     MatrixModule(Logic logic) {
-        this.logic = logic;
+        this.mLogic = logic;
     }
 
     SimpleMatrix addScalar(SimpleMatrix mat, double scalar) {
@@ -86,27 +86,28 @@ public class MatrixModule {
                     if((text.length() > 1) && Character.isDigit(text.charAt(1))) {
                         double scal = gatherScalar(text);
                         if(add) {
-                        	matrix = addScalar(matrix, scal);
-                        	add = false;
+                            matrix = addScalar(matrix, scal);
+                            add = false;
                         }
                         else if(subtract) {
-                        	matrix = addScalar(matrix, -1.0 * scal);
-                        	subtract = false;
+                            matrix = addScalar(matrix, -1.0 * scal);
+                            subtract = false;
                         }
                         else if(multiply) {
-                        	matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(scal, matrix);
-                        	multiply = false;
+                            matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(scal, matrix);
+                            multiply = false;
                         }
                         else if(divide) {
-                        	matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(1.0 / scal, matrix);
-                        	divide = false;
+                            matrix = (new SimpleMatrix(matrix.numRows(), matrix.numCols())).plus(1.0 / scal, matrix);
+                            divide = false;
                         }
                         else throw new SyntaxException();
                     }
                     else if((text.length() > 1) && !Character.isDigit(text.charAt(1))) throw new SyntaxException();
                 }
             }
-            return logic.mBaseModule.updateTextToNewMode(MatrixView.matrixToString(matrix, logic), Mode.DECIMAL, logic.mBaseModule.getMode());
+            return mLogic.mBaseModule.updateTextToNewMode(MatrixView.matrixToString(display.getContext(), matrix, mLogic), Mode.DECIMAL,
+                    mLogic.mBaseModule.getMode());
         }
         catch(Exception e) {
             throw new SyntaxException();
