@@ -37,9 +37,9 @@
                  android:layout_weight="1"
                  maxDigits="@integer/max_digits" >
                 <com.android2.calculator3.view.ScrollableDisplay
-                    style="@style/display_style" />
+                    style="?display_style" />
                 <com.android2.calculator3.view.ScrollableDisplay
-                    style="@style/display_style" />
+                    style="?display_style" />
             </com.android2.calculator3.view.CalculatorDisplay>
             <ImageButton
                 android:id="@+id/overflow_menu"

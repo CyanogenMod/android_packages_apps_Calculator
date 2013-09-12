@@ -239,7 +239,8 @@ public class CalculatorEditText extends EditText {
         if(parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
         if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
         et.setBackgroundResource(android.R.color.transparent);
-        et.setTextAppearance(parent.getContext(), R.style.display_style);
+        et.setTextAppearance(parent.getContext(), CalculatorSettings.useLightTheme(parent.getContext()) ? R.style.Theme_Calculator_Display_Light
+                : R.style.Theme_Calculator_Display);
         et.setPadding(5, 0, 5, 0);
         et.setEnabled(parent.isEnabled());
         AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
