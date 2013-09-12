@@ -50,9 +50,7 @@ public class CalculatorWidget extends AppWidgetProvider {
         int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         String value = getValue(context, appWidgetId);
         if(value.equals(context.getResources().getString(R.string.error))) value = "";
-        if(intent.hasExtra(SHOW_CLEAR)) {
-            mClearText = intent.getBooleanExtra(SHOW_CLEAR, false);
-        }
+        mClearText = intent.getBooleanExtra(SHOW_CLEAR, false);
 
         if(intent.getAction().equals(DIGIT_0)) {
             if(mClearText) {
