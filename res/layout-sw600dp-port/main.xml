@@ -46,7 +46,7 @@
                 android:layout_width="48dip"
                 android:layout_height="match_parent"
                 android:src="?ic_menu_overflow"
-                android:background="@drawable/menu_bg"
+                android:background="?menu_bg"
                 android:layout_marginLeft="8dip"
                 android:visibility="gone"
                 android:contentDescription="@null" />
