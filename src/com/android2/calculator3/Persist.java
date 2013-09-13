@@ -32,11 +32,10 @@ import com.android2.calculator3.BaseModule.Mode;
 class Persist {
     private static final int LAST_VERSION = 3;
     private static final String FILE_NAME = "calculator.data";
-    private Context mContext;
-
-    History history = new History();
+    private final Context mContext;
+    History mHistory = new History();
     private int mDeleteMode;
-    private Mode mode;
+    private Mode mMode;
 
     Persist(Context context) {
         this.mContext = context;
@@ -51,11 +50,11 @@ class Persist {
     }
 
     public void setMode(Mode mode) {
-        this.mode = mode;
+        this.mMode = mode;
     }
 
     public Mode getMode() {
-        return mode;
+        return mMode;
     }
 
     public void load() {
@@ -72,10 +71,10 @@ class Persist {
             if(version > 2) {
                 int quickSerializable = in.readInt();
                 for(Mode m : Mode.values()) {
-                    if(m.getQuickSerializable() == quickSerializable) this.mode = m;
+                    if(m.getQuickSerializable() == quickSerializable) this.mMode = m;
                 }
             }
-            history = new History(version, in);
+            mHistory = new History(version, in);
             in.close();
         }
         catch(FileNotFoundException e) {
@@ -92,8 +91,8 @@ class Persist {
             DataOutputStream out = new DataOutputStream(os);
             out.writeInt(LAST_VERSION);
             out.writeInt(mDeleteMode);
-            out.writeInt(mode.quickSerializable);
-            history.write(out);
+            out.writeInt(mMode.quickSerializable);
+            mHistory.write(out);
             out.close();
         }
         catch(IOException e) {

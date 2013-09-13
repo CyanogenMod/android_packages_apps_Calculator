@@ -17,7 +17,6 @@ public class BaseModule {
 
     Logic mLogic;
     private Mode mMode = Mode.DECIMAL;
-
     Map<Mode, List<Integer>> mBannedResources;
 
     BaseModule(Logic logic) {

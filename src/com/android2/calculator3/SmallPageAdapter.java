@@ -13,9 +13,7 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
     private final ViewGroup mFunctionPage;
     private final ViewGroup mAdvancedPage;
     private final CalculatorViewPager mParent;
-
     private final Logic mLogic;
-
     private int mCount = 0;
 
     public SmallPageAdapter(CalculatorViewPager parent, Logic logic) {

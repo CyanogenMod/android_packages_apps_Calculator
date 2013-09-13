@@ -19,10 +19,8 @@ public class LargePageAdapter extends CalculatorPageAdapter {
     final ViewGroup mMatrixPage;
     private final CalculatorViewPager mParent;
     private GraphicalView mGraphDisplay;
-
     private final Graph mGraph;
     private final Logic mLogic;
-
     private int mCount = 0;
 
     public LargePageAdapter(CalculatorViewPager parent, Graph graph, Logic logic) {

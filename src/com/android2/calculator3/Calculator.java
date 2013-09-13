@@ -149,7 +149,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mPersist = new Persist(this);
         mPersist.load();
 
-        mHistory = mPersist.history;
+        mHistory = mPersist.mHistory;
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 

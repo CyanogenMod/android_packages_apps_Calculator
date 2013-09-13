@@ -22,10 +22,8 @@ public class PageAdapter extends CalculatorPageAdapter {
     ViewGroup mMatrixPage;
     private final CalculatorViewPager mParent;
     private GraphicalView mGraphDisplay;
-
     private final Graph mGraph;
     private final Logic mLogic;
-
     private int mCount = 0;
 
     public PageAdapter(CalculatorViewPager parent, EventListener listener, Graph graph, Logic logic) {

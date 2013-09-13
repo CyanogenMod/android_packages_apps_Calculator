@@ -167,7 +167,7 @@ public class CalculatorWidget extends AppWidgetProvider {
                 final Persist persist = new Persist(context);
                 persist.load();
                 if(persist.getMode() == null) persist.setMode(Mode.DECIMAL);
-                final History history = persist.history;
+                final History history = persist.mHistory;
                 history.enter(input, value);
                 persist.save();
             }
