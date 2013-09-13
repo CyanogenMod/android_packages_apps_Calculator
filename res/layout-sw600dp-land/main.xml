@@ -63,7 +63,7 @@
                     android:paddingRight="5dip" />
                 <ImageButton
                     android:id="@+id/del"
-                    android:src="@drawable/calc_clear_symbol"
+                    android:src="?calc_clear_symbol"
                     style="@style/btn_clear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

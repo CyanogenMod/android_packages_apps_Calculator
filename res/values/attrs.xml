@@ -41,5 +41,6 @@
         <attr name="graph_plus" format="reference" />
         <attr name="graph_standard" format="reference" />
         <attr name="menu_bg" format="reference" />
+        <attr name="calc_clear_symbol" format="reference" />
     </declare-styleable>
 </resources>
