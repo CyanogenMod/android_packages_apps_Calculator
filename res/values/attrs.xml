@@ -40,5 +40,6 @@
         <attr name="graph_minus" format="reference" />
         <attr name="graph_plus" format="reference" />
         <attr name="graph_standard" format="reference" />
+        <attr name="menu_bg" format="reference" />
     </declare-styleable>
 </resources>

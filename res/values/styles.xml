@@ -100,6 +100,7 @@
         <item name="btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle</item>
         <item name="equal_btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle</item>
         <item name="display_style">@style/Theme.Calculator.Display</item>
+        <item name="menu_bg">@drawable/menu_bg</item>
     </style>
     
     <style name="Theme.Calculator.Light" parent="android:Theme.Holo.Light.NoActionBar">
@@ -123,6 +124,7 @@
         <item name="btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle.Light</item>
         <item name="equal_btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle.Light.Equal</item>
         <item name="display_style">@style/Theme.Calculator.Display.Light</item>
+        <item name="menu_bg">@drawable/menu_bg_light</item>
     </style>
     
     <style name="Theme.Calculator.Settings" parent="android:Theme.Holo">
