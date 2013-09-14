@@ -281,8 +281,10 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                     View child = mLargePager.getChildAt(i);
                     if (child instanceof ViewGroup) {
                         View v = ((ViewGroup)child).findViewById(resId);
-                        v.setEnabled(enabled);
-                        found = true;
+                    	if (v != null) {
+		                    v.setEnabled(enabled);
+		                    found = true;
+                        }
                     }
                 }
             }
