@@ -12,8 +12,8 @@ import org.javia.arity.SyntaxException;
 
 public class BaseModule {
     public static final char SELECTION_HANDLE = '\u2620';
-    public static final String REGEX_NUMBER = "[A-F0-9\\." + SELECTION_HANDLE + "]";
-    public static final String REGEX_NOT_NUMBER = "[^A-F0-9\\." + SELECTION_HANDLE + "]";
+    public final String REGEX_NUMBER;
+    public final String REGEX_NOT_NUMBER;
 
     Logic mLogic;
     private Mode mMode = Mode.DECIMAL;
@@ -21,6 +21,9 @@ public class BaseModule {
 
     BaseModule(Logic logic) {
         this.mLogic = logic;
+
+        REGEX_NUMBER = "[A-F0-9" + Pattern.quote(mLogic.mDecimalPoint) + SELECTION_HANDLE + "]";
+        REGEX_NOT_NUMBER = "[^A-F0-9" + Pattern.quote(mLogic.mDecimalPoint) + SELECTION_HANDLE + "]";
 
         mBannedResources = new HashMap<Mode, List<Integer>>(3);
         mBannedResources.put(Mode.DECIMAL, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F));
@@ -186,7 +189,7 @@ public class BaseModule {
     private final static int PRECISION = 8;
 
     private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException {
-        String[] split = originalNumber.split("\\.");
+        String[] split = originalNumber.split(Pattern.quote(mLogic.mDecimalPoint));
         if(split.length == 0) {
             split = new String[1];
             split[0] = "0";
@@ -234,7 +237,7 @@ public class BaseModule {
             decimal -= id;
             decimalNumber += Integer.toHexString(id);
         }
-        return (wholeNumber + "." + decimalNumber).toUpperCase(Locale.US);
+        return (wholeNumber + mLogic.mDecimalPoint + decimalNumber).toUpperCase(Locale.US);
     }
 
     public String groupSentence(String originalText, int selectionHandle) {
