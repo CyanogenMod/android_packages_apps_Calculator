@@ -3,6 +3,7 @@ package com.android2.calculator3;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.ejml.simple.SimpleEVD;
 import org.ejml.simple.SimpleMatrix;
 import org.ejml.simple.SimpleSVD;
 import org.javia.arity.SyntaxException;
@@ -37,7 +38,7 @@ public class MatrixModule {
     private String calculate(String input) throws SyntaxException
     {
     	//I never realized negative numbers could be so difficult.
-    	input = input.replaceAll("(\\d+(?:\\.\\d+)?)\u2212(\\d+(?:\\.\\d+)?)", "$1-$2");
+    	input = input.replaceAll("(\\d+(?:\\.\\d+)?|\\[.+\\])\u2212(\\d+(?:\\.\\d+)?)", "$1-$2");
     	//All remaining instances of U+2212 will be on negative numbers.
     	//They will be counted as whole tokens.
     	
@@ -69,7 +70,7 @@ public class MatrixModule {
     	}
     	
     	//Handle functions.
-    	Matcher match = Pattern.compile("(log|ln|sin\\^-1|cos\\^-1|tan\\^-1|sin|cos|tan)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
+    	Matcher match = Pattern.compile("(\u221a|log|ln|sin\\^-1|cos\\^-1|tan\\^-1|sin|cos|tan)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
     			.matcher(input);
     	while(match.find())
     	{
@@ -84,7 +85,7 @@ public class MatrixModule {
 
     	//Split into seperate arrays of operators and operands.
     	//Operator 0 applies to operands 0 and 1, and so on
-    	String[] parts = input.split("\u00d7|\\+|(?<=\\d)-|\u00f7|\\^");
+    	String[] parts = input.split("\u00d7|\\+|(?<=\\d|\\])-|\u00f7|\\^");
     	char[] ops = opSplit(input);
     	
     	//Fill in the pieces.
@@ -212,7 +213,7 @@ public class MatrixModule {
 			char c = str.charAt(i);
 			if(c == '^' || c == '\u00d7' || c == '\u00f7' || c == '+')
 				buffer.append(c);
-			else if(c == '-' && Character.isDigit(str.charAt(i-1)))
+			else if(c == '-' && (Character.isDigit(str.charAt(i-1)) || str.charAt(i-1) == ']'))
 				buffer.append(c);
 		}
 		
@@ -248,6 +249,33 @@ public class MatrixModule {
 	private String applyFunc(String func, String arg) throws SyntaxException
 	{
 		arg = arg.replace('\u2212', '-');
+		if(func.equals("\u221a"))//sqrt
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix matrix = parseMatrix(arg);
+				int m = matrix.numRows();
+				int n = matrix.numCols();
+				if(m != n) throw new SyntaxException();
+				SimpleEVD decomp = new SimpleEVD(matrix.getMatrix());
+				double[] evals = new double[m];
+				for(int i1 = 0; i1 < m; i1++) {
+					evals[i1] = Math.sqrt(decomp.getEigenvalue(i1).getMagnitude());
+				}
+				SimpleMatrix D = SimpleMatrix.diag(evals);
+				SimpleMatrix V = new SimpleMatrix(m,n);
+				for(int k = 0; k < m; k++) {
+					SimpleMatrix col = decomp.getEigenVector(k);
+					for(int l = 0; l < n; l++) {
+						V.set(k, l, col.get(l,0));
+					}
+				}
+				SimpleMatrix temp = V.mult(D);
+				temp = temp.mult(V.invert());
+				return MatrixView.matrixToString(temp, logic);
+			}
+			else return String.format("%f", Math.sqrt(Double.parseDouble(arg)));
+		}
 		if(func.equals("sin"))
 		{
 			if(arg.startsWith("[["))
@@ -458,7 +486,7 @@ public class MatrixModule {
         {
             SimpleMatrix a = (SimpleMatrix)l;
             double b = (Double)r;
-            return MatrixView.matrixToString(a.scale(1.0/b), logic);
+            return a.scale(1.0/b);
         }
         else if(r instanceof SimpleMatrix)
         {
