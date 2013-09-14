@@ -58,7 +58,7 @@ public class MatrixModule {
     		{
     			if(open == 0) throw new SyntaxException();
     			close++;
-    			if((open == close) && open != 0)
+    			if((close == open) && open != 0)
     			{
     				//Balanced means one whole set
     				StringBuffer temp = new StringBuffer(input);
@@ -66,11 +66,31 @@ public class MatrixModule {
     				temp.replace(lastOpen, i+1, res);
     				input = temp.toString();
     			}
+    			else if(close >= open) throw new SyntaxException();
     		}
+    		if((i == input.length()-1) && (open != close))
+    			input = input.concat(")");//Auto-close if at the end of the string
+    	}
+    	if(open != close) throw new SyntaxException();
+    	
+    	//Process transpositions.
+    	Matcher match = Pattern.compile("(\\[.+\\])\\^T").matcher(input);
+    	while(match.find())
+    	{
+    		SimpleMatrix temp = parseMatrix(match.group(1)).transpose();
+    		input = input.replace(match.group(), MatrixView.matrixToString(temp, logic));
+    	}
+    	
+    	//Process inverses
+    	match = Pattern.compile("(\\[.+\\])\uFEFF\\^-1").matcher(input);
+    	while(match.find())
+    	{
+    		SimpleMatrix temp = parseMatrix(match.group(1)).pseudoInverse();
+    		input = input.replace(match.group(), MatrixView.matrixToString(temp, logic));
     	}
     	
     	//Handle functions.
-    	Matcher match = Pattern.compile("(\u221a|log|ln|sin\\^-1|cos\\^-1|tan\\^-1|sin|cos|tan)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
+    	match = Pattern.compile("(\u221a|log|ln|sin\\^-1|cos\\^-1|tan\\^-1|sin|cos|tan)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
     			.matcher(input);
     	while(match.find())
     	{
@@ -492,7 +512,7 @@ public class MatrixModule {
         {
             SimpleMatrix a = (SimpleMatrix)r;
             double b = (Double)l;
-            return a.scale(1.0/b);
+            return a.pseudoInverse().scale(b);
         }
         else
         {
@@ -558,7 +578,7 @@ public class MatrixModule {
         }
 	}
 	
-	private static SimpleMatrix parseMatrix(String text)
+	private static SimpleMatrix parseMatrix(String text) throws SyntaxException
 	{
 		//Count rows & cols
 		String interior = text.substring(2, text.length()-2);
@@ -569,8 +589,12 @@ public class MatrixModule {
 		for(int i = 0; i < rows.length; i++)
 		{
 			String[] cols = rows[i].split(",");
+			if(cols.length == 0) throw new SyntaxException();
 			for(int j = 0; j < cols.length; j++)
+			{
+				if(cols[j].isEmpty()) throw new SyntaxException();
 				temp.set(i, j, Double.parseDouble(cols[j].replace('\u2212', '-')));
+			}
 		}
 		
 		return temp;
