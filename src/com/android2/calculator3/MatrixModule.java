@@ -1,5 +1,8 @@
 package com.android2.calculator3;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.ejml.simple.SimpleMatrix;
 import org.ejml.simple.SimpleSVD;
 import org.javia.arity.SyntaxException;
@@ -33,6 +36,11 @@ public class MatrixModule {
     
     private String calculate(String input) throws SyntaxException
     {
+    	//I never realized negative numbers could be so difficult.
+    	input = input.replaceAll("(\\d+(?:\\.\\d+)?)\u2212(\\d+(?:\\.\\d+)?)", "$1-$2");
+    	//All remaining instances of U+2212 will be on negative numbers.
+    	//They will be counted as whole tokens.
+    	
     	//How to handle parens? Recursion.
     	int open = 0;
     	int close = 0;
@@ -59,30 +67,60 @@ public class MatrixModule {
     			}
     		}
     	}
+    	
+    	//Handle functions.
+    	Matcher match = Pattern.compile("(log|ln|sin\\^-1|cos\\^-1|tan\\^-1|sin|cos|tan)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
+    			.matcher(input);
+    	while(match.find())
+    	{
+    		String res = applyFunc(match.group(1), match.group(2));
+    		input = input.replace(match.group(), res);
+    	}
+    	
+    	//Substitute e
+    	input = input.replaceAll("(?<!\\d)e", "2.7182818284590452353");
+    	//Sub pi
+    	input = input.replace("\u03c0", "3.141592653589");
 
-    	//String TEST_INPUT = "8.7^2.3+3.4*5.7";
-
-    	String[] pieces = input.split("\u00d7|\\+|-|\u00f7|\\^");
+    	//Split into seperate arrays of operators and operands.
+    	//Operator 0 applies to operands 0 and 1, and so on
+    	String[] parts = input.split("\u00d7|\\+|(?<=\\d)-|\u00f7|\\^");
     	char[] ops = opSplit(input);
+    	
+    	//Fill in the pieces.
+    	//Store everything a Object, and cast out later
+    	Object[] pieces = new Object[parts.length];
+    	for(int i = 0; i < parts.length; i++)
+    	{
+    		if(parts[i].startsWith("[["))
+    			pieces[i] = (Object) parseMatrix(parts[i]);
+    		else
+    			pieces[i] = (Object) Double.parseDouble(parts[i].replace('\u2212', '-'));
+    	}
 
-    	//If there's no ops, there's nothing to do
+    	//If there are no ops, there's nothing to do
     	if(ops.length == 0) return input;
 
+    	//Work on the operators in order of their precedence.
     	for(int i = 0; i < ops.length; i++)
     	{
     		int[] landr  = null;
     		if(ops[i] == '^')
     		{
     			landr = lookAfield(pieces, i);
-    			int l = landr[0];
+    			int l = landr[0]; 
     			int r = landr[1];
-    			String res = applyPow(pieces[l], pieces[r]);
+    			Object res = applyPow(pieces[l], pieces[r]);
 
-    			pieces[l] = res;
-    			pieces[r] = "NAN";
+    			pieces[l] = res;//This is arbitrary (I think)
+    			pieces[r] = null;//I could also have put the result in right
+    			//and null in left
     		}
     	}
 
+    	//Yes, I'm doing a complete loop over all operators several times.
+    	//Realistically, there will only be a few of them. 
+    	//For the purposes of this app, it's no big deal.
     	for(int i = 0; i < ops.length; i++)
     	{
     		int[] landr  = null;
@@ -91,10 +129,10 @@ public class MatrixModule {
     			landr = lookAfield(pieces, i);
     			int l = landr[0];
     			int r = landr[1];
-    			String res = applyMult(pieces[l], pieces[r]);
+    			Object res = applyMult(pieces[l], pieces[r]);
 
     			pieces[i] = res;
-    			pieces[i+1] = "NAN";
+    			pieces[i+1] = null;
     		}
     	}
 
@@ -106,10 +144,10 @@ public class MatrixModule {
     			landr = lookAfield(pieces, i);
     			int l = landr[0];
     			int r = landr[1];
-    			String res = applyDiv(pieces[l], pieces[r]);
+    			Object res = applyDiv(pieces[l], pieces[r]);
 
     			pieces[l] = res;
-    			pieces[r] = "NAN";
+    			pieces[r] = null;
     		}
     	}
 
@@ -121,10 +159,10 @@ public class MatrixModule {
     			landr = lookAfield(pieces, i);
     			int l = landr[0];
     			int r = landr[1];
-    			String res = applyPlus(pieces[l], pieces[r]);
+    			Object res = applyPlus(pieces[l], pieces[r]);
 
     			pieces[l] = res;
-    			pieces[r] = "NAN";
+    			pieces[r] = null;
     		}
     	}
 
@@ -136,21 +174,32 @@ public class MatrixModule {
     			landr = lookAfield(pieces, i);
     			int l = landr[0];
     			int r = landr[1];
-    			String res = applySub(pieces[l], pieces[r]);
+    			Object res = applySub(pieces[l], pieces[r]);
 
     			pieces[l] = res;
-    			pieces[r] = "NAN";
+    			pieces[r] = null;
     		}
     	}
 
-    	for(String piece: pieces)
-    		if(piece.compareTo("NAN") != 0) return piece;
-    	return "BROKEN";
+    	for(Object piece: pieces)
+    		if(piece != null) {
+    			if(piece instanceof Double)
+    				return String.format("%f", (Double)piece);
+    			else if(piece instanceof SimpleMatrix)
+    				return MatrixView.matrixToString((SimpleMatrix) piece, logic);
+    			else throw new SyntaxException(); //Neither matrix nor double should never happen
+    		}
+    	throw new RuntimeException(); //Getting here should be impossible
     }//end main
 
     String evaluateMatrices(AdvancedDisplay display) throws SyntaxException {
     	String text = display.getText();
-    	String result = calculate(text);
+    	String result = "";
+    	//try{
+    		result = calculate(text).replace('-', '\u2212');//Back to fancy minus
+    	//}catch(Exception e){
+    		//result = "Error";
+    	//}
     	
     	return logic.mBaseModule.updateTextToNewMode(result, Mode.DECIMAL, logic.mBaseModule.getMode());
     }
@@ -158,40 +207,156 @@ public class MatrixModule {
     private static char[] opSplit(String str)
 	{
 		StringBuilder buffer = new StringBuilder();
-		for(char c: str.toCharArray())
-			if(c == '^' || c == '\u00d7' || c == '\u00f7' || c == '+' || c=='-')
+		for(int i = 0; i < str.length(); i++)
+		{
+			char c = str.charAt(i);
+			if(c == '^' || c == '\u00d7' || c == '\u00f7' || c == '+')
 				buffer.append(c);
+			else if(c == '-' && Character.isDigit(str.charAt(i-1)))
+				buffer.append(c);
+		}
 		
 		return buffer.toString().toCharArray();
 	}
 	
-	private static int[] lookAfield(String[] field, int orig)
+	//Look for the nearest valid operand
+    private static int[] lookAfield(Object[] field, int orig)
 	{
 		int left, right;
 		
+		//Start with the original position (of the operator)
+		//Left operand is at the same index as its operator
+		//But if it's null, look farther left
 		int pos = orig;
-		while(field[pos]=="NAN")
+		while(field[pos]==null) //
 			pos--;
 		left = pos;
-		//Look right
+		//Right operand is one greater than the operator index
 		pos = orig+1;
-		while(field[pos] == "NAN")
+		while(field[pos] == null)//Look to the right if null
 			pos++;
-		right = pos;
+		right = pos;//Found it
 		
-		return new int[] {left, right};
+		return new int[] {left, right};//Return the indices to allow later sub-in of null
 	}
 	
-	private  String applyPow(String l, String r) throws SyntaxException
+    //The following have a lot of repeated boilerplate code.
+    //Condensing it down would require language features/properties
+    //that Java does not have.
+    //In short, Java is not F#. 
+    
+	private String applyFunc(String func, String arg) throws SyntaxException
 	{
-		if(l.startsWith("[[") && r.startsWith("[[")) throw new SyntaxException();
-        else if(l.startsWith("[["))
+		arg = arg.replace('\u2212', '-');
+		if(func.equals("sin"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				for(int i = 0; i < m.numRows(); i++)
+					for(int j = 0; j < m.numCols(); j++)
+						m.set(i, j, Math.sin(m.get(i,j)));
+				return MatrixView.matrixToString(m, logic);
+			}
+			else return String.format("%f", Math.sin(Double.parseDouble(arg)));
+		}
+		else if(func.equals("cos"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				for(int i = 0; i < m.numRows(); i++)
+					for(int j = 0; j < m.numCols(); j++)
+						m.set(i, j, Math.cos(m.get(i,j)));
+				return MatrixView.matrixToString(m, logic);
+			}
+			else return String.format("%f", Math.cos(Double.parseDouble(arg)));
+		}
+		else if(func.equals("tan"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				for(int i = 0; i < m.numRows(); i++)
+					for(int j = 0; j < m.numCols(); j++)
+						m.set(i, j, Math.tan(m.get(i,j)));
+				return MatrixView.matrixToString(m, logic);
+			}
+			else return String.format("%f", Math.tan(Double.parseDouble(arg)));
+		}
+		else if(func.equals("log"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				for(int i = 0; i < m.numRows(); i++)
+					for(int j = 0; j < m.numCols(); j++)
+						m.set(i, j, Math.log10(m.get(i,j)));
+				return MatrixView.matrixToString(m, logic);
+			}
+			else return String.format("%f", Math.log10(Double.parseDouble(arg)));
+		}
+		else if(func.equals("ln"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				for(int i = 0; i < m.numRows(); i++)
+					for(int j = 0; j < m.numCols(); j++)
+						m.set(i, j, Math.log(m.get(i,j)));
+				return MatrixView.matrixToString(m, logic);
+			}
+			else return String.format("%f", Math.log(Double.parseDouble(arg)));
+		}
+		else if(func.equals("sin^-1"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				for(int i = 0; i < m.numRows(); i++)
+					for(int j = 0; j < m.numCols(); j++)
+						m.set(i, j, Math.asin(m.get(i,j)));
+				return MatrixView.matrixToString(m, logic);
+			}
+			else return String.format("%f", Math.asin(Double.parseDouble(arg)));
+		}
+		else if(func.equals("cos^-1"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				for(int i = 0; i < m.numRows(); i++)
+					for(int j = 0; j < m.numCols(); j++)
+						m.set(i, j, Math.acos(m.get(i,j)));
+				return MatrixView.matrixToString(m, logic);
+			}
+			else return String.format("%f", Math.acos(Double.parseDouble(arg)));
+		}
+		else if(func.equals("tan^-1"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				for(int i = 0; i < m.numRows(); i++)
+					for(int j = 0; j < m.numCols(); j++)
+						m.set(i, j, Math.atan(m.get(i,j)));
+				return MatrixView.matrixToString(m, logic);
+			}
+			else return String.format("%f", Math.atan(Double.parseDouble(arg)));
+		}
+		else throw new SyntaxException();
+	}
+	
+	private  Object applyPow(Object l, Object r) throws SyntaxException
+	{
+		if(l instanceof SimpleMatrix && r instanceof SimpleMatrix) throw new SyntaxException();
+        else if(l instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(l);
+            SimpleMatrix a = (SimpleMatrix)l;
             int m = a.numRows();
             int n = a.numCols();
             if(m != n) throw new SyntaxException();
-            double b = Double.parseDouble(r);
+            double b = (Double)r;
             if(b > Math.floor(b))
             {
             	SimpleSVD decomp = new SimpleSVD(a.getMatrix(), false);
@@ -204,7 +369,7 @@ public class MatrixModule {
                 }
                 SimpleMatrix matrix = decomp.getU().mult(S);
                 matrix = matrix.mult(decomp.getV().transpose());
-                return MatrixView.matrixToString(matrix, logic);
+                return matrix;
             }
             else
             {
@@ -212,16 +377,16 @@ public class MatrixModule {
                 for(long e = 1; e < equiv; e++)
                     a = a.mult(a);
                 
-                return MatrixView.matrixToString(a, logic);
+                return a;
             }
         }
-        else if(r.startsWith("[["))
+        else if(r instanceof SimpleMatrix)
         {
-        	SimpleMatrix a = parseMatrix(l);
+        	SimpleMatrix a = (SimpleMatrix)r;
             int m = a.numRows();
             int n = a.numCols();
             if(m != n) throw new SyntaxException();
-            double b = Double.parseDouble(r);
+            double b = (Double)l;
             if(b > Math.floor(b))
             {
             	SimpleSVD decomp = new SimpleSVD(a.getMatrix(), false);
@@ -234,7 +399,7 @@ public class MatrixModule {
                 }
                 SimpleMatrix matrix = decomp.getU().mult(S);
                 matrix = matrix.mult(decomp.getV().transpose());
-                return MatrixView.matrixToString(matrix, logic);
+                return (Object)matrix;
             }
             else
             {
@@ -242,126 +407,126 @@ public class MatrixModule {
                 for(long e = 1; e < equiv; e++)
                     a = a.mult(a);
                 
-                return MatrixView.matrixToString(a, logic);
+                return a;
             }
         }
         else
         {
-            double a = Double.parseDouble(l);
-            double b = Double.parseDouble(r);
-            return String.format("%f", Math.pow(a, b));
+            double a = (Double)l;
+            double b = (Double)r;
+            return Math.pow(a, b);
         }
 	}
 
-	private String applyMult(String l, String r) throws SyntaxException
+	private Object applyMult(Object l, Object r) throws SyntaxException
 	{
-		if(l.startsWith("[[") && r.startsWith("[["))
+		if(l instanceof SimpleMatrix && r instanceof SimpleMatrix)
 		{
-			SimpleMatrix a = parseMatrix(l);
-			SimpleMatrix b = parseMatrix(r);
-			return MatrixView.matrixToString(a.mult(b), logic);
+			SimpleMatrix a = (SimpleMatrix)l;
+			SimpleMatrix b = (SimpleMatrix)r;
+			return a.mult(b);
 		}
-		else if(l.startsWith("[["))
+		else if(l instanceof SimpleMatrix)
 		{
-			SimpleMatrix a = parseMatrix(l);
-			double b = Double.parseDouble(r);
-			return MatrixView.matrixToString(a.scale(b), logic);
+			SimpleMatrix a = (SimpleMatrix)l;
+			double b = (Double)r;
+			return a.scale(b);
 		}
-		else if(r.startsWith("[["))
+		else if(r instanceof SimpleMatrix)
 		{
-			SimpleMatrix a = parseMatrix(r);
-			double b = Double.parseDouble(l);
-			return MatrixView.matrixToString(a.scale(b), logic);
+			SimpleMatrix a = (SimpleMatrix)r;
+			double b = (Double)l;
+			return a.scale(b);
 		}
 		else
 		{
-			double a = Double.parseDouble(l);
-			double b = Double.parseDouble(r);
-			return String.format("%f", a*b);
+			double a = (Double)l;
+			double b = (Double)r;
+			return a*b;
 		}
 	}
 	
-	private String applyDiv(String l, String r) throws SyntaxException 
+	private Object applyDiv(Object l, Object r) throws SyntaxException 
 	{
-		if(l.startsWith("[[") && r.startsWith("[["))
+		if(l instanceof SimpleMatrix && r instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(l);
-            SimpleMatrix b = parseMatrix(r);
-            return MatrixView.matrixToString(a.mult(b.pseudoInverse()), logic);
+            SimpleMatrix a = (SimpleMatrix)l;
+            SimpleMatrix b = (SimpleMatrix)r;
+            return a.mult(b.pseudoInverse());
         }
-        else if(l.startsWith("[["))
+        else if(l instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(l);
-            double b = Double.parseDouble(r);
+            SimpleMatrix a = (SimpleMatrix)l;
+            double b = (Double)r;
             return MatrixView.matrixToString(a.scale(1.0/b), logic);
         }
-        else if(r.startsWith("[["))
+        else if(r instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(r);
-            double b = Double.parseDouble(l);
-            return MatrixView.matrixToString(a.scale(1.0/b), logic);
+            SimpleMatrix a = (SimpleMatrix)r;
+            double b = (Double)l;
+            return a.scale(1.0/b);
         }
         else
         {
-            double a = Double.parseDouble(l);
-            double b = Double.parseDouble(r);
-            return String.format("%f", a/b);
+            double a = (Double)l;
+            double b = (Double)r;
+            return a/b;
         }
 	}
 	
-	private String applyPlus(String l, String r) throws SyntaxException 
+	private Object applyPlus(Object l, Object r) throws SyntaxException 
 	{
-		if(l.startsWith("[[") && r.startsWith("[["))
+		if(l instanceof SimpleMatrix && r instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(l);
-            SimpleMatrix b = parseMatrix(r);
-            return MatrixView.matrixToString(a.plus(b), logic);
+            SimpleMatrix a = (SimpleMatrix)l;
+            SimpleMatrix b = (SimpleMatrix)r;
+            return a.plus(b);
         }
-        else if(l.startsWith("[["))
+        else if(l instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(l);
-            double b = Double.parseDouble(r);
-            return MatrixView.matrixToString(addScalar(a,b), logic);
+            SimpleMatrix a = (SimpleMatrix)l;
+            double b = (Double)r;
+            return addScalar(a,b);
         }
-        else if(r.startsWith("[["))
+        else if(r instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(r);
-            double b = Double.parseDouble(l);
-            return MatrixView.matrixToString(addScalar(a,b), logic);
+            SimpleMatrix a = (SimpleMatrix)r;
+            double b = (Double)l;
+            return addScalar(a,b);
         }
         else
         {
-            double a = Double.parseDouble(l);
-            double b = Double.parseDouble(r);
-            return String.format("%f", a+b);
+            double a = (Double)l;
+            double b = (Double)r;
+            return a+b;
         }
 	}
 
-	private  String applySub(String l, String r) throws SyntaxException
+	private  Object applySub(Object l, Object r) throws SyntaxException
 	{
-		if(l.startsWith("[[") && r.startsWith("[["))
+		if(l instanceof SimpleMatrix && r instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(l);
-            SimpleMatrix b = parseMatrix(r);
-            return MatrixView.matrixToString(a.minus(b), logic);
+            SimpleMatrix a = (SimpleMatrix)l;
+            SimpleMatrix b = (SimpleMatrix)r;
+            return a.minus(b);
         }
-        else if(l.startsWith("[["))
+        else if(l instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(l);
-            double b = Double.parseDouble(r);
-            return MatrixView.matrixToString(addScalar(a, -1.0*b), logic);
+            SimpleMatrix a = (SimpleMatrix)l;
+            double b = (Double)r;
+            return addScalar(a,-b);
         }
-        else if(r.startsWith("[["))
+        else if(r instanceof SimpleMatrix)
         {
-            SimpleMatrix a = parseMatrix(r);
-            double b = Double.parseDouble(l);
-            return MatrixView.matrixToString(addScalar(a, -1.0*b), logic);
+            SimpleMatrix a = (SimpleMatrix)r;
+            double b = (Double)l;
+            return addScalar(a,-b);
         }
         else
         {
-            double a = Double.parseDouble(l);
-            double b = Double.parseDouble(r);
-            return String.format("%f", a-b);
+            double a = (Double)l;
+            double b = (Double)r;
+            return a-b;
         }
 	}
 	
@@ -377,7 +542,7 @@ public class MatrixModule {
 		{
 			String[] cols = rows[i].split(",");
 			for(int j = 0; j < cols.length; j++)
-				temp.set(i, j, Double.parseDouble(cols[j]));
+				temp.set(i, j, Double.parseDouble(cols[j].replace('\u2212', '-')));
 		}
 		
 		return temp;
