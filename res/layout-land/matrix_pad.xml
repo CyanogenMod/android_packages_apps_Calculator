@@ -47,6 +47,8 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/plus"
             android:text="@string/plus"
+            android:hint="@string/minus"
+            android:textColorHint="@android:color/transparent"
             style="?button_style" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/matrix"
@@ -77,6 +79,8 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/mul"
             android:text="@string/mul"
+            android:hint="@string/div"
+            android:textColorHint="@android:color/transparent"
             style="?button_style" />
         <ImageButton
             android:id="@+id/easter"
