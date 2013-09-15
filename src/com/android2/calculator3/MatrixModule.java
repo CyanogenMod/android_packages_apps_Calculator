@@ -1,5 +1,6 @@
 package com.android2.calculator3;
 
+import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,10 +38,29 @@ public class MatrixModule {
     
     private String calculate(String input) throws SyntaxException
     {
+    	//Make sure we're happy in decimal-land.
+    	input = logic.convertToDecimal(input);
+    	
     	//I never realized negative numbers could be so difficult.
-    	input = input.replaceAll("(\\d+(?:\\.\\d+)?|\\[.+\\])\u2212(\\d+(?:\\.\\d+)?)", "$1-$2");
+    	input = input.replaceAll("(\\d+(?:\\.\\d+)?|\\[.+\\]|\\^)\u2212(\\d+(?:\\.\\d+)?)", "$1-$2");
     	//All remaining instances of U+2212 will be on negative numbers.
     	//They will be counted as whole tokens.
+    	
+    	//Instantiate matrices first.
+    	Matcher m = Pattern.compile("\\[\\[.+\\]\\]").matcher(input);
+    	while(m.find())
+    	{
+    		SimpleMatrix temp = parseMatrix(m.group());
+    		input = input.replace(m.group(), MatrixView.matrixToString(temp, logic));
+    	}
+    	
+    	//Might as well get factorial too.
+    	m = Pattern.compile("([0-9]+)\\!").matcher(input);
+    	while(m.find())
+    	{
+    		int temp = Integer.parseInt(m.group(1));
+    		input = input.replace(m.group(), fact(temp));
+    	}
     	
     	//How to handle parens? Recursion.
     	int open = 0;
@@ -260,6 +280,15 @@ public class MatrixModule {
 		
 		return new int[] {left, right};//Return the indices to allow later sub-in of null
 	}
+    
+    private static String fact(int n)
+    {
+    	long m = n;
+    	for(int i = n-1; i > 1; i--)
+    		m *= i;
+    	
+    	return String.format("%d", m);
+    }
 	
     //The following have a lot of repeated boilerplate code.
     //Condensing it down would require language features/properties
@@ -578,7 +607,7 @@ public class MatrixModule {
         }
 	}
 	
-	private static SimpleMatrix parseMatrix(String text) throws SyntaxException
+	private SimpleMatrix parseMatrix(String text) throws SyntaxException
 	{
 		//Count rows & cols
 		String interior = text.substring(2, text.length()-2);
@@ -593,7 +622,7 @@ public class MatrixModule {
 			for(int j = 0; j < cols.length; j++)
 			{
 				if(cols[j].isEmpty()) throw new SyntaxException();
-				temp.set(i, j, Double.parseDouble(cols[j].replace('\u2212', '-')));
+				temp.set(i, j, Double.parseDouble(calculate(cols[j].replace('\u2212', '-'))));
 			}
 		}
 		
