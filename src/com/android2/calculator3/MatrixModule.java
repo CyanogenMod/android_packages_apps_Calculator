@@ -165,62 +165,73 @@ public class MatrixModule {
     	for(int i = 0; i < ops.length; i++)
     	{
     		int[] landr  = null;
-    		if(ops[i] == '\u00d7')
+    		if(ops[i] == '\u00d7' || ops[i] == '\u00f7' || ops[i] == '%')
     		{
     			landr = lookAfield(pieces, i);
     			int l = landr[0];
     			int r = landr[1];
-    			Object res = applyMult(pieces[l], pieces[r]);
+    			Object res = null;
+    			if(ops[i] == '\u00d7')
+    				res = applyMult(pieces[l], pieces[r]);
+    			else if(ops[i] == '\u00f7')
+    				res = applyDiv(pieces[l], pieces[r]);
+    			else
+    				res = applyMod(pieces[l], pieces[r]);
+    			
 
     			pieces[i] = res;
     			pieces[i+1] = null;
     		}
     	}
 
+//    	for(int i = 0; i < ops.length; i++)
+//    	{
+//    		int[] landr  = null;
+//    		if(ops[i] == '\u00f7')
+//    		{
+//    			landr = lookAfield(pieces, i);
+//    			int l = landr[0];
+//    			int r = landr[1];
+//    			Object res = applyDiv(pieces[l], pieces[r]);
+//
+//    			pieces[l] = res;
+//    			pieces[r] = null;
+//    		}
+//    	}
+
     	for(int i = 0; i < ops.length; i++)
     	{
     		int[] landr  = null;
-    		if(ops[i] == '\u00f7')
+    		if(ops[i] == '+' || ops[i] == '-')
     		{
     			landr = lookAfield(pieces, i);
     			int l = landr[0];
     			int r = landr[1];
-    			Object res = applyDiv(pieces[l], pieces[r]);
+    			Object res = null;
+    			if(ops[i] == '+')
+    				res = applyPlus(pieces[l], pieces[r]);
+    			else
+    				res = applySub(pieces[l], pieces[r]);
 
     			pieces[l] = res;
     			pieces[r] = null;
     		}
     	}
 
-    	for(int i = 0; i < ops.length; i++)
-    	{
-    		int[] landr  = null;
-    		if(ops[i] == '+')
-    		{
-    			landr = lookAfield(pieces, i);
-    			int l = landr[0];
-    			int r = landr[1];
-    			Object res = applyPlus(pieces[l], pieces[r]);
-
-    			pieces[l] = res;
-    			pieces[r] = null;
-    		}
-    	}
-
-    	for(int i = 0; i < ops.length; i++)
-    	{
-    		int[] landr  = null;
-    		if(ops[i] == '-')
-    		{
-    			landr = lookAfield(pieces, i);
-    			int l = landr[0];
-    			int r = landr[1];
-    			Object res = applySub(pieces[l], pieces[r]);
-
-    			pieces[l] = res;
-    			pieces[r] = null;
-    		}
-    	}
+//    	for(int i = 0; i < ops.length; i++)
+//    	{
+//    		int[] landr  = null;
+//    		if(ops[i] == '-')
+//    		{
+//    			landr = lookAfield(pieces, i);
+//    			int l = landr[0];
+//    			int r = landr[1];
+//    			Object res = applySub(pieces[l], pieces[r]);
+//
+//    			pieces[l] = res;
+//    			pieces[r] = null;
+//    		}
+//    	}
 
     	for(Object piece: pieces)
     		if(piece != null) {
@@ -251,7 +262,7 @@ public class MatrixModule {
 		for(int i = 0; i < str.length(); i++)
 		{
 			char c = str.charAt(i);
-			if(c == '^' || c == '\u00d7' || c == '\u00f7' || c == '+')
+			if(c == '^' || c == '\u00d7' || c == '\u00f7' || c == '+' || c == '%')
 				buffer.append(c);
 			else if(c == '-' && (Character.isDigit(str.charAt(i-1)) || str.charAt(i-1) == ']'))
 				buffer.append(c);
@@ -607,6 +618,16 @@ public class MatrixModule {
         }
 	}
 	
+	private Object applyMod(Object object, Object object2) throws SyntaxException {
+		if(object instanceof Double && object2 instanceof Double)
+		{
+			double arg1 = (Double)object;
+			double arg2 = (Double)object2;
+			return arg1 % arg2;
+		}
+		else throw new SyntaxException();
+	}
+
 	private SimpleMatrix parseMatrix(String text) throws SyntaxException
 	{
 		//Count rows & cols
