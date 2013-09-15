@@ -1,6 +1,5 @@
 package com.android2.calculator3;
 
-import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,6 +39,8 @@ public class MatrixModule {
     {
     	//Make sure we're happy in decimal-land.
     	input = logic.convertToDecimal(input);
+    	//input = logic.localize(input);
+    	//TODO: Make sure this localize is right
     	
     	//I never realized negative numbers could be so difficult.
     	input = input.replaceAll("(\\d+(?:\\.\\d+)?|\\[.+\\]|\\^)\u2212(\\d+(?:\\.\\d+)?)", "$1-$2");
@@ -247,12 +248,12 @@ public class MatrixModule {
     String evaluateMatrices(AdvancedDisplay display) throws SyntaxException {
     	String text = display.getText();
     	String result = "";
-    	//try{
+    	try{
     		result = calculate(text).replace('-', '\u2212');//Back to fancy minus
-    	//}catch(Exception e){
-    		//result = "Error";
-    	//}
-    	
+    	}catch(Exception e){
+    		result = "Error";
+    	}
+    	//TODO: call logic.relocalize() when available
     	return logic.mBaseModule.updateTextToNewMode(result, Mode.DECIMAL, logic.mBaseModule.getMode());
     }
     
