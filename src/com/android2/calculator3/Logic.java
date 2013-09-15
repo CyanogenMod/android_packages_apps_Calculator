@@ -79,6 +79,7 @@ public class Logic {
     final String mBinSeparator;
     final String mHexSeparator;
     final String mDecimalPoint;
+    final String mMatrixSeparator;
     final int mDecSeparatorDistance;
     final int mBinSeparatorDistance;
     final int mHexSeparatorDistance;
@@ -111,6 +112,7 @@ public class Logic {
         mBinSeparatorDistance = r.getInteger(R.integer.bin_separator_distance);
         mHexSeparatorDistance = r.getInteger(R.integer.hex_separator_distance);
         mDecimalPoint = r.getString(R.string.dot);
+        mMatrixSeparator = r.getString(R.string.matrix_separator);
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
         mUseRadians = CalculatorSettings.useRadians(context);
@@ -355,6 +357,7 @@ public class Logic {
         input = input.replace(mLogString, "log");
         input = input.replace(mLnString, "ln");
         input = input.replace(mDecimalPoint, ".");
+        input = input.replace(mMatrixSeparator, ",");
         return input;
     }
 
