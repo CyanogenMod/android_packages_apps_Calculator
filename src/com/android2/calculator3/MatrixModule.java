@@ -126,11 +126,18 @@ public class MatrixModule {
 
     	//Split into seperate arrays of operators and operands.
     	//Operator 0 applies to operands 0 and 1, and so on
-    	String[] parts = input.split("\u00d7|\\+|(?<=\\d|\\])-|\u00f7|\\^");
+    	String[] parts = input.split("\u00d7|\\+|(?<=\\d|\\])-|\u00f7|\\^|%");
     	char[] ops = opSplit(input);
     	
+    	//This never changes, so no need to keep calling it
+    	int N = ops.length;
+
+    	//If there are no ops, there's nothing to do
+    	//Since we've already made substitutions and parsed parentheses
+    	if(N == 0) return input;
+    	
     	//Fill in the pieces.
-    	//Store everything a Object, and cast out later
+    	//Store everything as Object, and cast out later
     	Object[] pieces = new Object[parts.length];
     	for(int i = 0; i < parts.length; i++)
     	{
@@ -139,12 +146,9 @@ public class MatrixModule {
     		else
     			pieces[i] = (Object) Double.parseDouble(parts[i].replace('\u2212', '-'));
     	}
-
-    	//If there are no ops, there's nothing to do
-    	if(ops.length == 0) return input;
-
+    	
     	//Work on the operators in order of their precedence.
-    	for(int i = 0; i < ops.length; i++)
+    	for(int i = 0; i < N; i++)
     	{
     		int[] landr  = null;
     		if(ops[i] == '^')
@@ -163,7 +167,7 @@ public class MatrixModule {
     	//Yes, I'm doing a complete loop over all operators several times.
     	//Realistically, there will only be a few of them. 
     	//For the purposes of this app, it's no big deal.
-    	for(int i = 0; i < ops.length; i++)
+    	for(int i = 0; i < N; i++)
     	{
     		int[] landr  = null;
     		if(ops[i] == '\u00d7' || ops[i] == '\u00f7' || ops[i] == '%')
@@ -180,27 +184,12 @@ public class MatrixModule {
     				res = applyMod(pieces[l], pieces[r]);
     			
 
-    			pieces[i] = res;
-    			pieces[i+1] = null;
+    			pieces[l] = res;
+    			pieces[r] = null;
     		}
     	}
 
-//    	for(int i = 0; i < ops.length; i++)
-//    	{
-//    		int[] landr  = null;
-//    		if(ops[i] == '\u00f7')
-//    		{
-//    			landr = lookAfield(pieces, i);
-//    			int l = landr[0];
-//    			int r = landr[1];
-//    			Object res = applyDiv(pieces[l], pieces[r]);
-//
-//    			pieces[l] = res;
-//    			pieces[r] = null;
-//    		}
-//    	}
-
-    	for(int i = 0; i < ops.length; i++)
+    	for(int i = 0; i < N; i++)
     	{
     		int[] landr  = null;
     		if(ops[i] == '+' || ops[i] == '-')
@@ -219,21 +208,6 @@ public class MatrixModule {
     		}
     	}
 
-//    	for(int i = 0; i < ops.length; i++)
-//    	{
-//    		int[] landr  = null;
-//    		if(ops[i] == '-')
-//    		{
-//    			landr = lookAfield(pieces, i);
-//    			int l = landr[0];
-//    			int r = landr[1];
-//    			Object res = applySub(pieces[l], pieces[r]);
-//
-//    			pieces[l] = res;
-//    			pieces[r] = null;
-//    		}
-//    	}
-
     	for(Object piece: pieces)
     		if(piece != null) {
     			if(piece instanceof Double)
@@ -248,11 +222,11 @@ public class MatrixModule {
     String evaluateMatrices(AdvancedDisplay display) throws SyntaxException {
     	String text = display.getText();
     	String result = "";
-    	try{
+    	//try{
     		result = calculate(text).replace('-', '\u2212');//Back to fancy minus
-    	}catch(Exception e){
-    		result = "Error";
-    	}
+    	//}catch(Exception e){
+    		//result = "Error";
+    	//}
     	//TODO: call logic.relocalize() when available
     	return logic.mBaseModule.updateTextToNewMode(result, Mode.DECIMAL, logic.mBaseModule.getMode());
     }
