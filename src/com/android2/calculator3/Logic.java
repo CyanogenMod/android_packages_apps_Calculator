@@ -126,7 +126,7 @@ public class Logic {
         if(mDisplay != null) mDisplay.setLogic(this);
         mGraphModule = new GraphModule(this);
         mBaseModule = new BaseModule(this);
-        mMatrixModule = new MatrixModule(this, context);
+        mMatrixModule = new MatrixModule(this);
     }
 
     public void setGraphDisplay(GraphicalView graphDisplay) {
@@ -367,6 +367,7 @@ public class Logic {
 
     String relocalize(String input) {
         input = input.replace(".", mDecimalPoint);
+        input = input.replace(",", mMatrixSeparator);
         return input;
     }
 
