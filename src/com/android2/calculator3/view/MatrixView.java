@@ -221,13 +221,18 @@ public class MatrixView extends TableLayout {
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += logic.evaluate(Double.toString(matrix.get(i, j))) + getSeparator(context);
+                input += strip(Double.toString(matrix.get(i, j))) + getSeparator(context);
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);
             input += "]";
         }
         input += "]";
+        return input;
+    }
+
+    private static String strip(String input) {
+        if(input.endsWith(".0")) return input.substring(0, input.length() - 2);
         return input;
     }
 
@@ -275,7 +280,7 @@ public class MatrixView extends TableLayout {
     private static boolean verify(Context context, MutableString text) {
         String separator = getSeparator(context);
         String decimal = getDecimal(context);
-        String validMatrix = "\\[(\\[[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal) + "[A-F0-9]*)?(" + separator + "[\u2212-]?[A-F0-9]*("
+        String validMatrix = "\\[(\\[[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal) + "[A-F0-9]*)?(" + Pattern.quote(separator) + "[\u2212-]?[A-F0-9]*("
                 + Pattern.quote(decimal) + "[A-F0-9]*)?)*\\])+\\].*";
         return text.getText().matches(validMatrix);
     }

@@ -121,16 +121,19 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.matrix:
+            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             mHandler.insert(MatrixView.getPattern(mContext));
             returnToBasic();
             break;
 
         case R.id.matrix_inverse:
+            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             mHandler.insert(MatrixInverseView.PATTERN);
             returnToBasic();
             break;
 
         case R.id.matrix_transpose:
+            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             mHandler.insert(MatrixTransposeView.PATTERN);
             returnToBasic();
             break;
@@ -156,6 +159,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.next:
+            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             active = mHandler.mDisplay.getActiveEditText();
             if(active.getSelectionStart() == active.getText().length()) {
                 v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_FORWARD);
@@ -169,6 +173,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.sign:
+            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             active = mHandler.mDisplay.getActiveEditText();
             int selection = active.getSelectionStart();
             if(active.getText().toString().matches(Logic.NUMBER)) {
