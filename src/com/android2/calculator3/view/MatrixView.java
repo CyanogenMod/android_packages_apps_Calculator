@@ -48,6 +48,10 @@ public class MatrixView extends TableLayout {
         return context.getString(R.string.matrix_separator);
     }
 
+    private static String getDecimal(Context context) {
+        return context.getString(R.string.dot);
+    }
+
     public void addRow() {
         mRows++;
         TableRow tr = new TableRow(getContext());
@@ -256,7 +260,7 @@ public class MatrixView extends TableLayout {
             TableRow tr = (TableRow) mv.getChildAt(row);
             for(int column = 0; column < columns; column++) {
                 EditText input = (EditText) tr.getChildAt(column);
-                input.setText(data[order].replace("[[]]", ""));
+                input.setText(data[order].replaceAll("[\\[\\]]", ""));
                 order++;
             }
         }
@@ -270,8 +274,9 @@ public class MatrixView extends TableLayout {
 
     private static boolean verify(Context context, MutableString text) {
         String separator = getSeparator(context);
-        String validMatrix = "\\[(\\[[\u2212-]?[A-F0-9]*(" + Pattern.quote(".") + "[A-F0-9]*)?(" + separator + "[\u2212-]?[A-F0-9]*(" + Pattern.quote(".")
-                + "[A-F0-9]*)?)*\\])+\\].*";
+        String decimal = getDecimal(context);
+        String validMatrix = "\\[(\\[[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal) + "[A-F0-9]*)?(" + separator + "[\u2212-]?[A-F0-9]*("
+                + Pattern.quote(decimal) + "[A-F0-9]*)?)*\\])+\\].*";
         return text.getText().matches(validMatrix);
     }
 
