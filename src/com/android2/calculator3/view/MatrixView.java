@@ -214,14 +214,14 @@ public class MatrixView extends TableLayout {
         return input;
     }
 
-    public static String matrixToString(Context context, SimpleMatrix matrix, Logic logic) throws SyntaxException {
+    public static String matrixToString(SimpleMatrix matrix, Logic logic) throws SyntaxException {
         int rows = matrix.numRows();
         int columns = matrix.numCols();
         String input = "[";
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += strip(Double.toString(matrix.get(i, j))) + getSeparator(context);
+                input += strip(Double.toString(matrix.get(i, j))) + ",";
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);

@@ -8,19 +8,15 @@ import org.ejml.simple.SimpleMatrix;
 import org.ejml.simple.SimpleSVD;
 import org.javia.arity.SyntaxException;
 
-import android.content.Context;
-
 import com.android2.calculator3.BaseModule.Mode;
 import com.android2.calculator3.view.AdvancedDisplay;
 import com.android2.calculator3.view.MatrixView;
 
 public class MatrixModule {
     Logic mLogic;
-    Context mContext;
 
-    MatrixModule(Logic logic, Context context) {
+    MatrixModule(Logic logic) {
         mLogic = logic;
-        mContext = context.getApplicationContext();
     }
 
     static SimpleMatrix addScalar(SimpleMatrix mat, double scalar) {
@@ -51,7 +47,7 @@ public class MatrixModule {
         Matcher m = Pattern.compile("\\[\\[.+\\]\\]").matcher(input);
         while(m.find()) {
             SimpleMatrix temp = parseMatrix(m.group());
-            input = input.replace(m.group(), MatrixView.matrixToString(mContext, temp, mLogic));
+            input = input.replace(m.group(), MatrixView.matrixToString(temp, mLogic));
         }
 
         // Get percentage.
@@ -86,14 +82,8 @@ public class MatrixModule {
                 }
                 else if(close >= open) throw new SyntaxException();
             }
-            if((i == input.length() - 1) && (open != close)) input = input.concat(")");// Auto-close
-                                                                                       // if
-                                                                                       // at
-                                                                                       // the
-                                                                                       // end
-                                                                                       // of
-                                                                                       // the
-                                                                                       // string
+            // Auto-close if at the end of the string
+            if((i == input.length() - 1) && (open != close)) input = input.concat(")");
         }
         if(open != close) throw new SyntaxException();
 
@@ -101,14 +91,14 @@ public class MatrixModule {
         Matcher match = Pattern.compile("(\\[.+\\])\\^T").matcher(input);
         while(match.find()) {
             SimpleMatrix temp = parseMatrix(match.group(1)).transpose();
-            input = input.replace(match.group(), MatrixView.matrixToString(mContext, temp, mLogic));
+            input = input.replace(match.group(), MatrixView.matrixToString(temp, mLogic));
         }
 
         // Process inverses
         match = Pattern.compile("(\\[.+\\])\uFEFF\\^-1").matcher(input);
         while(match.find()) {
             SimpleMatrix temp = parseMatrix(match.group(1)).pseudoInverse();
-            input = input.replace(match.group(), MatrixView.matrixToString(mContext, temp, mLogic));
+            input = input.replace(match.group(), MatrixView.matrixToString(temp, mLogic));
         }
 
         // Handle functions.
@@ -199,7 +189,7 @@ public class MatrixModule {
         for(Object piece : pieces)
             if(piece != null) {
                 if(piece instanceof Double) return numToString((Double) piece);
-                else if(piece instanceof SimpleMatrix) return MatrixView.matrixToString(mContext, (SimpleMatrix) piece, mLogic);
+                else if(piece instanceof SimpleMatrix) return MatrixView.matrixToString((SimpleMatrix) piece, mLogic);
                 else throw new SyntaxException(); // Neither matrix nor double
                                                   // should never happen
             }
@@ -296,7 +286,7 @@ public class MatrixModule {
                 }
                 SimpleMatrix temp = V.mult(D);
                 temp = temp.mult(V.invert());
-                return MatrixView.matrixToString(mContext, temp, mLogic);
+                return MatrixView.matrixToString(temp, mLogic);
             }
             else return numToString(Math.sqrt(Double.parseDouble(arg)));
         }
@@ -306,7 +296,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.sin(m.get(i, j)));
-                return MatrixView.matrixToString(mContext, m, mLogic);
+                return MatrixView.matrixToString(m, mLogic);
             }
             else return numToString(Math.sin(Double.parseDouble(arg)));
         }
@@ -316,7 +306,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.cos(m.get(i, j)));
-                return MatrixView.matrixToString(mContext, m, mLogic);
+                return MatrixView.matrixToString(m, mLogic);
             }
             else return numToString(Math.cos(Double.parseDouble(arg)));
         }
@@ -326,7 +316,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.tan(m.get(i, j)));
-                return MatrixView.matrixToString(mContext, m, mLogic);
+                return MatrixView.matrixToString(m, mLogic);
             }
             else return numToString(Math.tan(Double.parseDouble(arg)));
         }
@@ -336,7 +326,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.log10(m.get(i, j)));
-                return MatrixView.matrixToString(mContext, m, mLogic);
+                return MatrixView.matrixToString(m, mLogic);
             }
             else return numToString(Math.log10(Double.parseDouble(arg)));
         }
@@ -346,7 +336,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.log(m.get(i, j)));
-                return MatrixView.matrixToString(mContext, m, mLogic);
+                return MatrixView.matrixToString(m, mLogic);
             }
             else return numToString(Math.log(Double.parseDouble(arg)));
         }
@@ -356,7 +346,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.asin(m.get(i, j)));
-                return MatrixView.matrixToString(mContext, m, mLogic);
+                return MatrixView.matrixToString(m, mLogic);
             }
             else return numToString(Math.asin(Double.parseDouble(arg)));
         }
@@ -366,7 +356,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.acos(m.get(i, j)));
-                return MatrixView.matrixToString(mContext, m, mLogic);
+                return MatrixView.matrixToString(m, mLogic);
             }
             else return numToString(Math.acos(Double.parseDouble(arg)));
         }
@@ -376,7 +366,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.atan(m.get(i, j)));
-                return MatrixView.matrixToString(mContext, m, mLogic);
+                return MatrixView.matrixToString(m, mLogic);
             }
             else return numToString(Math.atan(Double.parseDouble(arg)));
         }
