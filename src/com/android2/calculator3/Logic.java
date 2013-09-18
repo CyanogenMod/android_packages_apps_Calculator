@@ -367,6 +367,7 @@ public class Logic {
 
     String relocalize(String input) {
         input = input.replace(".", mDecimalPoint);
+        input = input.replace(",", mMatrixSeparator);
         return input;
     }
 
