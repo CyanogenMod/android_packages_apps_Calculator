@@ -55,8 +55,11 @@ public class MatrixModule {
     		input = input.replace(m.group(), MatrixView.matrixToString(temp, logic));
     	}
     	
+    	//Get percentage.
+    	input = input.replaceAll("(?<=\\d)%(?!\\d)", "\u00d70.01");
+    	
     	//Might as well get factorial too.
-    	m = Pattern.compile("([0-9]+)\\!").matcher(input);
+    	m = Pattern.compile("(?<!\\.)([0-9]+)\\!").matcher(input);
     	while(m.find())
     	{
     		int temp = Integer.parseInt(m.group(1));
@@ -111,7 +114,7 @@ public class MatrixModule {
     	}
     	
     	//Handle functions.
-    	match = Pattern.compile("(\u221a|log|ln|sin\\^-1|cos\\^-1|tan\\^-1|sin|cos|tan)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
+    	match = Pattern.compile("(\u221a|log|ln|sin\\^-1|cos\\^-1|tan\\^-1|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
     			.matcher(input);
     	while(match.find())
     	{
@@ -121,12 +124,13 @@ public class MatrixModule {
     	
     	//Substitute e
     	input = input.replaceAll("(?<!\\d)e", "2.7182818284590452353");
+    	input = input.replaceAll("\\d?(e)(?!\\d|\\+|-)", "\u00d72.7182818284590452353");
     	//Sub pi
     	input = input.replace("\u03c0", "3.141592653589");
 
     	//Split into seperate arrays of operators and operands.
     	//Operator 0 applies to operands 0 and 1, and so on
-    	String[] parts = input.split("\u00d7|\\+|(?<=\\d|\\])-|\u00f7|\\^|%");
+    	String[] parts = input.split("\u00d7|\\+|(?<=\\d|\\])(?<!e)-|\u00f7|\\^");
     	char[] ops = opSplit(input);
     	
     	//This never changes, so no need to keep calling it
@@ -211,7 +215,7 @@ public class MatrixModule {
     	for(Object piece: pieces)
     		if(piece != null) {
     			if(piece instanceof Double)
-    				return String.format("%f", (Double)piece);
+    				return Double.toString((Double)piece);
     			else if(piece instanceof SimpleMatrix)
     				return MatrixView.matrixToString((SimpleMatrix) piece, logic);
     			else throw new SyntaxException(); //Neither matrix nor double should never happen
@@ -234,13 +238,16 @@ public class MatrixModule {
     private static char[] opSplit(String str)
 	{
 		StringBuilder buffer = new StringBuilder();
+		char c, prev;
+		prev = str.charAt(0);
 		for(int i = 0; i < str.length(); i++)
 		{
-			char c = str.charAt(i);
-			if(c == '^' || c == '\u00d7' || c == '\u00f7' || c == '+' || c == '%')
+			c = str.charAt(i);
+			if(c == '^' || c == '\u00d7' || c == '\u00f7' || c == '+')
 				buffer.append(c);
-			else if(c == '-' && (Character.isDigit(str.charAt(i-1)) || str.charAt(i-1) == ']'))
+			else if(c == '-' && (Character.isDigit(prev) || prev == ']') && (prev != 'e'))
 				buffer.append(c);
+			prev = c;
 		}
 		
 		return buffer.toString().toCharArray();
@@ -273,7 +280,7 @@ public class MatrixModule {
     	for(int i = n-1; i > 1; i--)
     		m *= i;
     	
-    	return String.format("%d", m);
+    	return Long.toString(m);
     }
 	
     //The following have a lot of repeated boilerplate code.
@@ -309,9 +316,9 @@ public class MatrixModule {
 				temp = temp.mult(V.invert());
 				return MatrixView.matrixToString(temp, logic);
 			}
-			else return String.format("%f", Math.sqrt(Double.parseDouble(arg)));
+			else return Double.toString(Math.sqrt(Double.parseDouble(arg)));
 		}
-		if(func.equals("sin"))
+		else if(func.equals("sin"))
 		{
 			if(arg.startsWith("[["))
 			{
@@ -321,7 +328,7 @@ public class MatrixModule {
 						m.set(i, j, Math.sin(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return String.format("%f", Math.sin(Double.parseDouble(arg)));
+			else return Double.toString(Math.sin(Double.parseDouble(arg)));
 		}
 		else if(func.equals("cos"))
 		{
@@ -333,7 +340,7 @@ public class MatrixModule {
 						m.set(i, j, Math.cos(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return String.format("%f", Math.cos(Double.parseDouble(arg)));
+			else return Double.toString(Math.cos(Double.parseDouble(arg)));
 		}
 		else if(func.equals("tan"))
 		{
@@ -345,7 +352,7 @@ public class MatrixModule {
 						m.set(i, j, Math.tan(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return String.format("%f", Math.tan(Double.parseDouble(arg)));
+			else return Double.toString(Math.tan(Double.parseDouble(arg)));
 		}
 		else if(func.equals("log"))
 		{
@@ -357,7 +364,7 @@ public class MatrixModule {
 						m.set(i, j, Math.log10(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return String.format("%f", Math.log10(Double.parseDouble(arg)));
+			else return Double.toString(Math.log10(Double.parseDouble(arg)));
 		}
 		else if(func.equals("ln"))
 		{
@@ -369,7 +376,7 @@ public class MatrixModule {
 						m.set(i, j, Math.log(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return String.format("%f", Math.log(Double.parseDouble(arg)));
+			else return Double.toString(Math.log(Double.parseDouble(arg)));
 		}
 		else if(func.equals("sin^-1"))
 		{
@@ -381,7 +388,7 @@ public class MatrixModule {
 						m.set(i, j, Math.asin(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return String.format("%f", Math.asin(Double.parseDouble(arg)));
+			else return Double.toString(Math.asin(Double.parseDouble(arg)));
 		}
 		else if(func.equals("cos^-1"))
 		{
@@ -393,7 +400,7 @@ public class MatrixModule {
 						m.set(i, j, Math.acos(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return String.format("%f", Math.acos(Double.parseDouble(arg)));
+			else return Double.toString(Math.acos(Double.parseDouble(arg)));
 		}
 		else if(func.equals("tan^-1"))
 		{
@@ -405,7 +412,19 @@ public class MatrixModule {
 						m.set(i, j, Math.atan(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return String.format("%f", Math.atan(Double.parseDouble(arg)));
+			else return Double.toString(Math.atan(Double.parseDouble(arg)));
+		}
+		else if(func.equals("det"))
+		{
+			if(arg.startsWith("[["))
+			{
+				SimpleMatrix m = parseMatrix(arg);
+				if(m.numCols() != m.numRows()) throw new SyntaxException();
+				double d = m.determinant();
+				return Double.toString(d);
+			}
+			else return arg; //Determinant of a scalar is equivalent to det. of
+							 //1x1 matrix, which is the matrix' one element
 		}
 		else throw new SyntaxException();
 	}
