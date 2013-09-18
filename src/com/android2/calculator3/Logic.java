@@ -76,6 +76,7 @@ public class Logic {
     private final String mArctanString;
     private final String mLogString;
     private final String mLnString;
+    private final String mDetString;
     final String mDecSeparator;
     final String mBinSeparator;
     final String mHexSeparator;
@@ -106,6 +107,7 @@ public class Logic {
         mArctanString = r.getString(R.string.arctan);
         mLogString = r.getString(R.string.lg);
         mLnString = r.getString(R.string.ln);
+        mDetString = r.getString(R.string.det);
         mDecSeparator = r.getString(R.string.dec_separator);
         mBinSeparator = r.getString(R.string.bin_separator);
         mHexSeparator = r.getString(R.string.hex_separator);
@@ -124,7 +126,7 @@ public class Logic {
         if(mDisplay != null) mDisplay.setLogic(this);
         mGraphModule = new GraphModule(this);
         mBaseModule = new BaseModule(this);
-        mMatrixModule = new MatrixModule(this);
+        mMatrixModule = new MatrixModule(this, context);
     }
 
     public void setGraphDisplay(GraphicalView graphDisplay) {
@@ -357,6 +359,7 @@ public class Logic {
         }
         input = input.replace(mLogString, "log");
         input = input.replace(mLnString, "ln");
+        input = input.replace(mDetString, "det");
         input = input.replace(mDecimalPoint, ".");
         input = input.replace(mMatrixSeparator, ",");
         return input;
