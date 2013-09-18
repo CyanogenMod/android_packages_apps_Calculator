@@ -96,6 +96,7 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/mul"
             android:text="@string/mul"
+            android:hint="@string/div"
             style="?button_style" />
     </LinearLayout>
     <LinearLayout
@@ -117,6 +118,7 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/plus"
             android:text="@string/plus"
+            android:hint="@string/minus"
             style="?button_style" />
     </LinearLayout>
     <LinearLayout

@@ -38,15 +38,15 @@
                 android:layout_height="match_parent"
                 maxDigits="@integer/max_digits" >
                 <com.android2.calculator3.view.ScrollableDisplay
-                    style="@style/display_style" />
+                    style="?display_style" />
                 <com.android2.calculator3.view.ScrollableDisplay
-                    style="@style/display_style" />
+                    style="?display_style" />
             </com.android2.calculator3.view.CalculatorDisplay>
             <ImageButton android:id="@+id/overflow_menu"
                 android:layout_width="48dip"
                 android:layout_height="match_parent"
                 android:src="?ic_menu_overflow"
-                android:background="@drawable/menu_bg"
+                android:background="?menu_bg"
                 android:layout_marginLeft="8dip"
                 android:visibility="gone"
                 android:contentDescription="@null" />
@@ -63,7 +63,7 @@
                     android:paddingRight="5dip" />
                 <ImageButton
                     android:id="@+id/del"
-                    android:src="@drawable/calc_clear_symbol"
+                    android:src="?calc_clear_symbol"
                     style="@style/btn_clear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

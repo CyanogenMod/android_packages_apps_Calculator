@@ -62,7 +62,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     TranslateAnimation outAnimDown;
 
     private int mMaxDigits = DEFAULT_MAX_DIGITS;
-    private final List<String> keywords;
+    private final List<String> mKeywords;
 
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -79,7 +79,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         String dx = context.getString(R.string.dx);
         String dy = context.getString(R.string.dy);
 
-        keywords = Arrays.asList(sinString + "(", cosString + "(", tanString + "(",
+        mKeywords = Arrays.asList(sinString + "(", cosString + "(", tanString + "(",
                 arcsinString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(",
                 arccosString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(",
                 arctanString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(", logString + "(", modString + "(", lnString + "(", dx, dy);
@@ -129,7 +129,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                         String textAfterInsertionHandle = getActiveEditText().getText().toString()
                                 .substring(selectionHandle, getActiveEditText().getText().toString().length());
 
-                        for(String s : keywords) {
+                        for(String s : mKeywords) {
                             if(textBeforeInsertionHandle.endsWith(s)) {
                                 int deletionLength = s.length();
                                 String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)

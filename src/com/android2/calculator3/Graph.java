@@ -31,16 +31,16 @@ import android.graphics.Color;
 import android.graphics.Paint.Align;
 
 public class Graph {
+    private static final double MAX_HEIGHT_X = 10;
+    private static final double MAX_HEIGHT_Y = 10;
+    private static final double MIN_HEIGHT_X = -10;
+    private static final double MIN_HEIGHT_Y = -10;
+
     private GraphicalView mChartView;
     private XYMultipleSeriesDataset mDataset;
     private XYMultipleSeriesRenderer mRenderer;
     private XYSeries mSeries;
     private final Logic mLogic;
-
-    private static final double MAX_HEIGHT_X = 10;
-    private static final double MAX_HEIGHT_Y = 10;
-    private static final double MIN_HEIGHT_X = -10;
-    private static final double MIN_HEIGHT_Y = -10;
 
     public Graph(Logic l) {
         mLogic = l;

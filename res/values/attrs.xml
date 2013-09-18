@@ -33,12 +33,14 @@
         <attr name="slider_style" format="reference" />
         <attr name="button_del_style" format="reference" />
         <attr name="ic_menu_overflow" format="reference" />
-        <attr name="display_style_text_color" format="reference" />
+        <attr name="display_style" format="reference" />
         <attr name="history_input" format="reference" />
         <attr name="history_result" format="reference" />
         <attr name="egg" format="reference" />
         <attr name="graph_minus" format="reference" />
         <attr name="graph_plus" format="reference" />
         <attr name="graph_standard" format="reference" />
+        <attr name="menu_bg" format="reference" />
+        <attr name="calc_clear_symbol" format="reference" />
     </declare-styleable>
 </resources>

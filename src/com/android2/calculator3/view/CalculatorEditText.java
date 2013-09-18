@@ -17,6 +17,7 @@
 package com.android2.calculator3.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
@@ -46,7 +47,7 @@ public class CalculatorEditText extends EditText {
 
     private EquationFormatter mEquationFormatter;
     private AdvancedDisplay mDisplay;
-    private long mShowCursor = SystemClock.uptimeMillis();
+    private final long mShowCursor = SystemClock.uptimeMillis();
     Paint mHighlightPaint = new Paint();
     Handler mHandler = new Handler();
     Runnable mRefresher = new Runnable() {
@@ -55,8 +56,11 @@ public class CalculatorEditText extends EditText {
             CalculatorEditText.this.invalidate();
         }
     };
-    private String input = "";
-    private int selectionHandle = 0;
+    private String mInput = "";
+    private int mSelectionHandle = 0;
+    String mDecSeparator;
+    String mBinSeparator;
+    String mHexSeparator;
 
     public CalculatorEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -76,6 +80,11 @@ public class CalculatorEditText extends EditText {
     }
 
     private void setUp() {
+        final Resources r = getContext().getResources();
+        mDecSeparator = r.getString(R.string.dec_separator);
+        mBinSeparator = r.getString(R.string.bin_separator);
+        mHexSeparator = r.getString(R.string.hex_separator);
+
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
@@ -95,20 +104,26 @@ public class CalculatorEditText extends EditText {
             public void afterTextChanged(Editable s) {
                 if(updating) return;
 
-                input = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER).replaceAll(",", "").replaceAll(" ", "");
+                mInput = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER).replace(mDecSeparator, "").replace(mBinSeparator, "")
+                        .replace(mHexSeparator, "");
                 updating = true;
 
                 // Get the selection handle, since we're setting text and
                 // that'll overwrite it
-                selectionHandle = getSelectionStart();
+                mSelectionHandle = getSelectionStart();
                 // Adjust the handle by removing any comas or spacing to the
                 // left
-                String cs = s.subSequence(0, selectionHandle).toString();
-                selectionHandle -= countOccurrences(cs, ',');
-                selectionHandle -= countOccurrences(cs, ' ');
+                String cs = s.subSequence(0, mSelectionHandle).toString();
+                mSelectionHandle -= countOccurrences(cs, mDecSeparator.charAt(0));
+                if(!mBinSeparator.equals(mDecSeparator)) {
+                    mSelectionHandle -= countOccurrences(cs, mBinSeparator.charAt(0));
+                }
+                if(!mHexSeparator.equals(mBinSeparator) && !mHexSeparator.equals(mDecSeparator)) {
+                    mSelectionHandle -= countOccurrences(cs, mHexSeparator.charAt(0));
+                }
 
-                setText(formatText(input));
-                setSelection(Math.min(selectionHandle, getText().length()));
+                setText(formatText(mInput));
+                setSelection(Math.min(mSelectionHandle, getText().length()));
                 updating = false;
             }
         });
@@ -137,7 +152,7 @@ public class CalculatorEditText extends EditText {
 
     @Override
     public String toString() {
-        return input;
+        return mInput;
     }
 
     @Override
@@ -182,10 +197,10 @@ public class CalculatorEditText extends EditText {
         if(CalculatorSettings.digitGrouping(getContext())) {
             // Add grouping, and then split on the selection handle
             // which is saved as a unique char
-            String grouped = bm.groupSentence(input, selectionHandle);
+            String grouped = bm.groupSentence(input, mSelectionHandle);
             if(grouped.contains(String.valueOf(BaseModule.SELECTION_HANDLE))) {
                 String[] temp = grouped.split(String.valueOf(BaseModule.SELECTION_HANDLE));
-                selectionHandle = temp[0].length();
+                mSelectionHandle = temp[0].length();
                 input = "";
                 for(String s : temp) {
                     input += s;
@@ -193,7 +208,7 @@ public class CalculatorEditText extends EditText {
             }
             else {
                 input = grouped;
-                selectionHandle = input.length();
+                mSelectionHandle = input.length();
             }
         }
         return Html.fromHtml(mEquationFormatter.insertSupscripts(input));
@@ -224,7 +239,8 @@ public class CalculatorEditText extends EditText {
         if(parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
         if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
         et.setBackgroundResource(android.R.color.transparent);
-        et.setTextAppearance(parent.getContext(), R.style.display_style);
+        et.setTextAppearance(parent.getContext(), CalculatorSettings.useLightTheme(parent.getContext()) ? R.style.Theme_Calculator_Display_Light
+                : R.style.Theme_Calculator_Display);
         et.setPadding(5, 0, 5, 0);
         et.setEnabled(parent.isEnabled());
         AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

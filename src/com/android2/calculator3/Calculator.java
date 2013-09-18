@@ -149,7 +149,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mPersist = new Persist(this);
         mPersist.load();
 
-        mHistory = mPersist.history;
+        mHistory = mPersist.mHistory;
 
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 
@@ -431,9 +431,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             break;
 
         case R.id.settings:
-            Intent intent = new Intent(this, Preferences.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivity(new Intent(this, Preferences.class));
+            finish();
             break;
         }
         return super.onOptionsItemSelected(item);
@@ -480,6 +479,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
             mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
             return true;
+        }
+        else if(keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
         }
         return super.onKeyDown(keyCode, keyEvent);
     }

@@ -230,7 +230,7 @@ public class MatrixModule {
     	text = logic.convertToDecimal(text);
     	String result = "";
     	try{
-    		result = calculate(text).replace('-', '\u2212');//Back to fancy minus
+    		result = calculate(text).replace('-', Logic.MINUS);//Back to fancy minus
     	}catch(Exception e){
     		result = "Error";
     	}
@@ -246,7 +246,7 @@ public class MatrixModule {
 		for(int i = 0; i < str.length(); i++)
 		{
 			c = str.charAt(i);
-			if(c == '^' || c == '\u00d7' || c == '\u00f7' || c == '+')
+			if(c == '^' || c == Logic.MUL || c == Logic.DIV || c == '+')
 				buffer.append(c);
 			else if(c == '-' && (Character.isDigit(prev) || prev == ']') && (prev != 'e'))
 				buffer.append(c);
