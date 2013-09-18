@@ -48,7 +48,7 @@ public class MatrixModule {
         // They will be counted as whole tokens.
 
         // Instantiate matrices first.
-        Matcher m = Pattern.compile("\\[\\[.+\\]\\]").matcher(input);
+        Matcher m = Pattern.compile("\\[\\[.+?\\]\\]").matcher(input);
         while(m.find()) {
             SimpleMatrix temp = parseMatrix(m.group());
             input = input.replace(m.group(), MatrixView.matrixToString(mContext, temp, mLogic));
