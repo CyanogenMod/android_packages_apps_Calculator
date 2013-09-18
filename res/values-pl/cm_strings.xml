@@ -33,7 +33,7 @@
     <string name="showHistory">Pokaż historię</string>
     <string name="hideHistory">Ukryj historię</string>
     <string name="settings">Ustawienia</string>
-    <string name="determinant">Det</string>
+    <string name="det">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Rozwiąż</string>
     <string name="dotProduct">Kropka</string>

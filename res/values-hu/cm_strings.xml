@@ -36,7 +36,7 @@
     <string name="showHistory">Előzmények megjelenítése</string>
     <string name="hideHistory">Előzmények elrejtése</string>
     <string name="settings">Beállítások</string>
-    <string name="determinant">Determináns</string>
+    <string name="det">Determináns</string>
     <string name="eigenvalue">Sajátérték</string>
     <string name="solve">Megoldás</string>
     <string name="dotProduct">Skalárszorzat</string>

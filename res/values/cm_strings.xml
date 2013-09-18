@@ -92,12 +92,12 @@
     <string name="settings">Settings</string>
 
     <!-- Matrix page text -->
-    <string name="determinant">Det</string>
+    <string name="det">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Solve</string>
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
-    <string name="determinantDesc">Determinant</string>
+    <string name="determinantDesc">det</string>
     <string name="eigenvalueDesc">Eigenvalues</string>
     <string name="plus_row">+Row</string>
     <string name="minus_row">-Row</string>

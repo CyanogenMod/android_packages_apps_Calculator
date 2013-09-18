@@ -158,7 +158,7 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/det"
             android:text="@string/det"
-            style="?digit_button_style" />
+            style="?button_style" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/equal"
             android:text="@string/equal"

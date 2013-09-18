@@ -34,7 +34,7 @@
     <string name="solveForX">Risolvi in X</string>
     <string name="solveForY">Risolvi in Y</string>
     <string name="mod">mod</string>
-    <string name="determinant">Det.</string>
+    <string name="det">Det.</string>
     <string name="eigenvalue">Autov.</string>
     <string name="solve">Risolvi</string>
     <string name="dotProduct">Scal.</string>

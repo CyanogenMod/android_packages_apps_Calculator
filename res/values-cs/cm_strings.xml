@@ -29,12 +29,12 @@
     <string name="showHistory">Zobrazit historii</string>
     <string name="hideHistory">Skrýt historii</string>
     <string name="settings">Nastavení</string>
-    <string name="determinant">Det</string>
+    <string name="det">Det</string>
     <string name="eigenvalue">Vlastní</string>
     <string name="solve">Vyřešit</string>
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
-    <string name="determinantDesc">Determinant</string>
+    <string name="determinantDesc">det</string>
     <string name="eigenvalueDesc">Vlastní hodnota</string>
     <string name="plus_row">+Řádek</string>
     <string name="minus_row">-Řádek</string>

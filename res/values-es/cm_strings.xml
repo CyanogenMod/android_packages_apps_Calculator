@@ -36,7 +36,7 @@
     <string name="solveForX">Solución para X</string>
     <string name="solveForY">Solución para Y</string>
     <string name="mod">mod</string>
-    <string name="determinant">Determ</string>
+    <string name="det">Determ</string>
     <string name="eigenvalue">Autoval</string>
     <string name="solve">Resolv</string>
     <string name="dotProduct">\nProd. Escalar\n</string>

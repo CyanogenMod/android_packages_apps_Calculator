@@ -25,7 +25,7 @@
     <string name="solveForX">Λύση ως προς x</string>
     <string name="solveForY">Λύση ως προς y</string>
     <string name="mod">mod</string>
-    <string name="determinant">Det</string>
+    <string name="det">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Λύση</string>
     <string name="dotProduct">Dot</string>

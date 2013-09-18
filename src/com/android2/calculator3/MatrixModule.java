@@ -37,8 +37,7 @@ public class MatrixModule {
     
     private String calculate(String input) throws SyntaxException
     {
-    	//Make sure we're happy in decimal-land.
-    	input = logic.convertToDecimal(input);
+
     	//input = logic.localize(input);
     	//TODO: Make sure this localize is right
     	
@@ -121,6 +120,9 @@ public class MatrixModule {
     		String res = applyFunc(match.group(1), match.group(2));
     		input = input.replace(match.group(), res);
     	}
+    	
+    	//Functions might generate NaN. Return error if so.
+    	if(input.contains("NaN")) return "Error";
     	
     	//Substitute e
     	input = input.replaceAll("(?<!\\d)e", "2.7182818284590452353");
@@ -215,7 +217,7 @@ public class MatrixModule {
     	for(Object piece: pieces)
     		if(piece != null) {
     			if(piece instanceof Double)
-    				return Double.toString((Double)piece);
+    				return numToString((Double)piece);
     			else if(piece instanceof SimpleMatrix)
     				return MatrixView.matrixToString((SimpleMatrix) piece, logic);
     			else throw new SyntaxException(); //Neither matrix nor double should never happen
@@ -225,12 +227,13 @@ public class MatrixModule {
 
     String evaluateMatrices(AdvancedDisplay display) throws SyntaxException {
     	String text = display.getText();
+    	text = logic.convertToDecimal(text);
     	String result = "";
-    	//try{
+    	try{
     		result = calculate(text).replace('-', '\u2212');//Back to fancy minus
-    	//}catch(Exception e){
-    		//result = "Error";
-    	//}
+    	}catch(Exception e){
+    		result = "Error";
+    	}
     	//TODO: call logic.relocalize() when available
     	return logic.mBaseModule.updateTextToNewMode(result, Mode.DECIMAL, logic.mBaseModule.getMode());
     }
@@ -316,7 +319,7 @@ public class MatrixModule {
 				temp = temp.mult(V.invert());
 				return MatrixView.matrixToString(temp, logic);
 			}
-			else return Double.toString(Math.sqrt(Double.parseDouble(arg)));
+			else return numToString(Math.sqrt(Double.parseDouble(arg)));
 		}
 		else if(func.equals("sin"))
 		{
@@ -328,7 +331,7 @@ public class MatrixModule {
 						m.set(i, j, Math.sin(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return Double.toString(Math.sin(Double.parseDouble(arg)));
+			else return numToString(Math.sin(Double.parseDouble(arg)));
 		}
 		else if(func.equals("cos"))
 		{
@@ -340,7 +343,7 @@ public class MatrixModule {
 						m.set(i, j, Math.cos(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return Double.toString(Math.cos(Double.parseDouble(arg)));
+			else return numToString(Math.cos(Double.parseDouble(arg)));
 		}
 		else if(func.equals("tan"))
 		{
@@ -352,7 +355,7 @@ public class MatrixModule {
 						m.set(i, j, Math.tan(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return Double.toString(Math.tan(Double.parseDouble(arg)));
+			else return numToString(Math.tan(Double.parseDouble(arg)));
 		}
 		else if(func.equals("log"))
 		{
@@ -364,7 +367,7 @@ public class MatrixModule {
 						m.set(i, j, Math.log10(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return Double.toString(Math.log10(Double.parseDouble(arg)));
+			else return numToString(Math.log10(Double.parseDouble(arg)));
 		}
 		else if(func.equals("ln"))
 		{
@@ -376,7 +379,7 @@ public class MatrixModule {
 						m.set(i, j, Math.log(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return Double.toString(Math.log(Double.parseDouble(arg)));
+			else return numToString(Math.log(Double.parseDouble(arg)));
 		}
 		else if(func.equals("sin^-1"))
 		{
@@ -388,7 +391,7 @@ public class MatrixModule {
 						m.set(i, j, Math.asin(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return Double.toString(Math.asin(Double.parseDouble(arg)));
+			else return numToString(Math.asin(Double.parseDouble(arg)));
 		}
 		else if(func.equals("cos^-1"))
 		{
@@ -400,7 +403,7 @@ public class MatrixModule {
 						m.set(i, j, Math.acos(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return Double.toString(Math.acos(Double.parseDouble(arg)));
+			else return numToString(Math.acos(Double.parseDouble(arg)));
 		}
 		else if(func.equals("tan^-1"))
 		{
@@ -412,7 +415,7 @@ public class MatrixModule {
 						m.set(i, j, Math.atan(m.get(i,j)));
 				return MatrixView.matrixToString(m, logic);
 			}
-			else return Double.toString(Math.atan(Double.parseDouble(arg)));
+			else return numToString(Math.atan(Double.parseDouble(arg)));
 		}
 		else if(func.equals("det"))
 		{
@@ -421,7 +424,7 @@ public class MatrixModule {
 				SimpleMatrix m = parseMatrix(arg);
 				if(m.numCols() != m.numRows()) throw new SyntaxException();
 				double d = m.determinant();
-				return Double.toString(d);
+				return numToString(d);
 			}
 			else return arg; //Determinant of a scalar is equivalent to det. of
 							 //1x1 matrix, which is the matrix' one element
@@ -637,10 +640,17 @@ public class MatrixModule {
 			for(int j = 0; j < cols.length; j++)
 			{
 				if(cols[j].isEmpty()) throw new SyntaxException();
-				temp.set(i, j, Double.parseDouble(calculate(cols[j].replace('\u2212', '-'))));
+				temp.set(i, j, Double.parseDouble(calculate(cols[j])));
 			}
 		}
 		
 		return temp;
+	}
+	
+	private static String numToString(double arg)
+	{
+		if(Math.floor(arg) < arg) //Thus arg has non-zero fractional part
+			return Double.toString(arg);
+		else return Long.toString(Math.round(arg));
 	}
 }

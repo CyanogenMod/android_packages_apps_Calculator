@@ -32,7 +32,7 @@
     <string name="showHistory">Näytä historia</string>
     <string name="hideHistory">Piilota historia</string>
     <string name="settings">Asetukset</string>
-    <string name="determinant">Det</string>
+    <string name="det">Det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Ratkaise</string>
     <string name="dotProduct">Piste</string>

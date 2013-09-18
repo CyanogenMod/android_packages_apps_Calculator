@@ -36,7 +36,7 @@
     <string name="showHistory">Afficher l\'historique</string>
     <string name="hideHistory">Cacher l\'historique</string>
     <string name="settings">Paramètres</string>
-    <string name="determinant">Det.</string>
+    <string name="det">Det.</string>
     <string name="eigenvalue">Val.</string>
     <string name="solve">Résoudre</string>
     <string name="dotProduct">Dot</string>

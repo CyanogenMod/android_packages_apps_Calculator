@@ -34,12 +34,12 @@
     <string name="showHistory">Vis Historik</string>
     <string name="hideHistory">Skjul Historik</string>
     <string name="settings">Indstillinger</string>
-    <string name="determinant">Det</string>
+    <string name="det">Det</string>
     <string name="eigenvalue">Egen</string>
     <string name="solve">Løs</string>
     <string name="dotProduct">Prik</string>
     <string name="crossProduct">Kryds</string>
-    <string name="determinantDesc">Determinant</string>
+    <string name="determinantDesc">det</string>
     <string name="eigenvalueDesc">Egenværdi</string>
     <string name="plus_row">+Række</string>
     <string name="minus_row">-Række</string>
