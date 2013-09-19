@@ -36,7 +36,7 @@
     <string name="showHistory">Afficher l\'historique</string>
     <string name="hideHistory">Cacher l\'historique</string>
     <string name="settings">Paramètres</string>
-    <string name="det">Det.</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Val.</string>
     <string name="solve">Résoudre</string>
     <string name="dotProduct">Dot</string>
@@ -74,11 +74,4 @@
     <string name="cling_graph_msg">Les graphiques seront automatiquement affichés ici. Allez dans le panneau avancé et rentrez une fonction en utilisant X et Y.</string>
     <string name="cling_dismiss">Ok</string>
     <string name="easter_egg">Magikarp utilise Splash, mais rien ne s\'est passé.</string>
-
-    <!-- Separators for dec, bin, and hex. Must be 1 charater! -->
-    <string name="dec_separator">\u0020</string>
-    <string name="bin_separator">\u0020</string>
-    <string name="hex_separator">\u0020</string>
-    <string name="dot">,</string>
-    <string name="matrix_separator">.</string>
 </resources>

@@ -30,7 +30,7 @@
     <string name="showHistory">إظهار الحسابات</string>
     <string name="hideHistory">إخفاء الحسابات</string>
     <string name="settings">إعدادات</string>
-    <string name="det">Det</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">حل</string>
     <string name="dotProduct">Dot</string>

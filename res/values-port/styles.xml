@@ -15,5 +15,4 @@
 -->
 <resources>
     <dimen name="history_bar_height">60dp</dimen>
-    <item type="integer" name="button_hint_text_size_percent">70</item>
 </resources>

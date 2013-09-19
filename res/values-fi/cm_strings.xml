@@ -15,6 +15,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
     <string name="arcsin">sin^\u22121</string>
     <string name="arccos">cos^\u22121</string>
     <string name="arctan">tan^\u22121</string>
@@ -27,12 +29,14 @@
     <string name="graph">Graafitoiminnot</string>
     <string name="function">Funktiotoiminnot</string>
     <string name="hexPanel">Heksatoiminnot</string>
+    <string name="lock">Lukitse sivu</string>
+    <string name="unlock">Vapauta sivu</string>
     <string name="copy">Kopioi \"%s\"</string>
     <string name="remove_from_history">Poista historiasta</string>
     <string name="showHistory">Näytä historia</string>
     <string name="hideHistory">Piilota historia</string>
     <string name="settings">Asetukset</string>
-    <string name="det">Det</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Ratkaise</string>
     <string name="dotProduct">Piste</string>
@@ -56,6 +60,7 @@
     <string name="pref_units">Yksiköt</string>
     <string name="pref_about">Tietoja</string>
     <string name="returnToBasic">Palaa perustoimintoihin</string>
+    <string name="digitGrouping">Ryhmittäminen</string>
     <string name="trigUnits">Trigonometriset yksiköt</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>

@@ -36,7 +36,7 @@
     <string name="solveForX">Nach X auflösen</string>
     <string name="solveForY">Nach Y auflösen</string>
     <string name="mod">mod</string>
-    <string name="det">Det</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Lösen</string>
     <string name="dotProduct">Skalar</string>
