@@ -82,8 +82,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         Log.v(TAG, "Tapping some buttons!");
 
         // Make sure that we clear the output
-        tap(R.id.equal);
-        tap(R.id.del);
+        longClick(R.id.del);
 
         // 567 / 3 => 189
         tap(R.id.digit5);
@@ -116,8 +115,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         swipe(LargePanel.MATRIX);
 
         // Make sure that we clear the output
-        tap(R.id.equal);
-        tap(R.id.del);
+        longClick(R.id.del);
 
         // 567 + 3 => 570
         tap(R.id.digit5);
@@ -168,6 +166,44 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         View view = mActivity.findViewById(id);
         if(view != null) {
             TouchUtils.clickView(this, view);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean longClick(int id) {
+        CalculatorViewPager pager = (CalculatorViewPager) mActivity.findViewById(R.id.panelswitch);
+        CalculatorViewPager smallPager = (CalculatorViewPager) mActivity.findViewById(R.id.smallPanelswitch);
+        CalculatorViewPager largePager = (CalculatorViewPager) mActivity.findViewById(R.id.largePanelswitch);
+
+        // Phone
+        if(pager != null) {
+            // Find the view on the current page
+            View v = ((CalculatorPageAdapter) pager.getAdapter()).getViewAt(pager.getCurrentItem()).findViewById(id);
+            if(v != null) {
+                TouchUtils.longClickView(this, v);
+                return true;
+            }
+        }
+        // Tablet
+        else {
+            // Find the view on the current pages
+            View v = ((CalculatorPageAdapter) smallPager.getAdapter()).getViewAt(smallPager.getCurrentItem()).findViewById(id);
+            if(v != null) {
+                TouchUtils.longClickView(this, v);
+                return true;
+            }
+            v = ((CalculatorPageAdapter) largePager.getAdapter()).getViewAt(largePager.getCurrentItem()).findViewById(id);
+            if(v != null) {
+                TouchUtils.longClickView(this, v);
+                return true;
+            }
+        }
+
+        // Find the view in the entire app (if it wasn't on the pager)
+        View view = mActivity.findViewById(id);
+        if(view != null) {
+            TouchUtils.longClickView(this, view);
             return true;
         }
         return false;
