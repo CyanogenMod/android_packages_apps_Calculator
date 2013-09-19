@@ -31,6 +31,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android2.calculator3.Logic;
 import com.android2.calculator3.R;
@@ -57,6 +58,15 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         setKeyListener(new MatrixKeyListener());
         setOnFocusChangeListener(this);
         setGravity(Gravity.CENTER);
+
+        // Listen for the enter button on physical keyboards
+        setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                mDisplay.mLogic.onEnter();
+                return true;
+            }
+        });
     }
 
     class MatrixKeyListener extends NumberKeyListener {

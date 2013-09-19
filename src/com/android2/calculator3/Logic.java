@@ -232,7 +232,7 @@ public class Logic {
         mGraphModule.updateGraphCatchErrors(mGraph);
     }
 
-    void onEnter() {
+    public void onEnter() {
         if(mDeleteMode == DELETE_MODE_CLEAR) {
             clearWithHistory(false); // clear after an Enter on result
         }

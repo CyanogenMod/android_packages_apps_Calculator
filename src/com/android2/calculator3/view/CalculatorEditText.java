@@ -29,6 +29,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android2.calculator3.BaseModule;
 import com.android2.calculator3.CalculatorSettings;
@@ -85,12 +87,13 @@ public class CalculatorEditText extends EditText {
         mBinSeparator = r.getString(R.string.bin_separator);
         mHexSeparator = r.getString(R.string.hex_separator);
 
+        // Hide the keyboard
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
 
+        // Display ^ , and other visual cues
         mEquationFormatter = new EquationFormatter();
-
         addTextChangedListener(new TextWatcher() {
             boolean updating = false;
 
@@ -125,6 +128,15 @@ public class CalculatorEditText extends EditText {
                 setText(formatText(mInput));
                 setSelection(Math.min(mSelectionHandle, getText().length()));
                 updating = false;
+            }
+        });
+
+        // Listen for the enter button on physical keyboards
+        setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                mDisplay.mLogic.onEnter();
+                return true;
             }
         });
     }
