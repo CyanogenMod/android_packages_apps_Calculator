@@ -134,7 +134,7 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/next"
             android:text="@string/next"
-            android:padding="20dp"
+            android:textSize="@dimen/btn_function_text_size"
             style="?button_style" />
     </LinearLayout>
     <LinearLayout
@@ -152,6 +152,7 @@
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/det"
             android:text="@string/det"
+            android:textSize="@dimen/btn_function_text_size"
             style="?button_style" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/equal"

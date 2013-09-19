@@ -172,24 +172,27 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             }
             break;
 
-        case R.id.sign:
-            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
-            active = mHandler.mDisplay.getActiveEditText();
-            int selection = active.getSelectionStart();
-            if(active.getText().toString().matches(Logic.NUMBER)) {
-                if(active.getText().toString().startsWith(String.valueOf(Logic.MINUS))) {
-                    active.setText(active.getText().toString().substring(1));
-                    selection--;
-                }
-                else {
-                    active.setText(Logic.MINUS + active.getText().toString());
-                    selection++;
-                }
-                if(selection > active.length()) selection--;
-                if(selection < 0) selection = 0;
-                active.setSelection(selection);
-            }
-            break;
+        // +/-, changes the sign of the current number. Might be useful later
+        // (but removed for now)
+        // case R.id.sign:
+        // if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
+        // active = mHandler.mDisplay.getActiveEditText();
+        // int selection = active.getSelectionStart();
+        // if(active.getText().toString().matches(Logic.NUMBER)) {
+        // if(active.getText().toString().startsWith(String.valueOf(Logic.MINUS)))
+        // {
+        // active.setText(active.getText().toString().substring(1));
+        // selection--;
+        // }
+        // else {
+        // active.setText(Logic.MINUS + active.getText().toString());
+        // selection++;
+        // }
+        // if(selection > active.length()) selection--;
+        // if(selection < 0) selection = 0;
+        // active.setSelection(selection);
+        // }
+        // break;
 
         case R.id.parentheses:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
