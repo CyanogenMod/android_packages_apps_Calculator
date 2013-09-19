@@ -63,8 +63,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         Log.v(TAG, "Pressing some keys!");
 
         // Make sure that we clear the output
-        press(KeyEvent.KEYCODE_ENTER);
-        press(KeyEvent.KEYCODE_CLEAR);
+        longClick(R.id.del);
 
         // 3 + 4 * 5 => 23
         press(KeyEvent.KEYCODE_3);
@@ -127,43 +126,42 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
 
         assertEquals("570", displayVal());
     }
-    
+
     @LargeTest
-    public void testMatrixMult()
-    {
-    	//Clear the input
-    	longClick(R.id.del);
-    	
-    	Log.v(TAG, "Testing correctness of matrix multiplication.");
-    	
-    	swipe(Panel.MATRIX);
-    	swipe(LargePanel.MATRIX);
-    	
-    	//Test square matrix times identity.
-    	tap(R.id.matrix);
-    	tap(R.id.digit5);
-    	tap(R.id.next);
-    	tap(R.id.digit3);
-    	tap(R.id.next);
-    	tap(R.id.digit7);
-    	tap(R.id.next);
-    	tap(R.id.digit9);
-    	tap(R.id.next);
-    	
-    	tap(R.id.mul);
-    	tap(R.id.matrix);
-    	
-    	tap(R.id.digit1);
-    	tap(R.id.next);
-    	tap(R.id.digit0);
-    	tap(R.id.next);
-    	tap(R.id.digit0);
-    	tap(R.id.next);
-    	tap(R.id.digit1);
-    	
-    	tap(R.id.equal);
-    	
-    	assertEquals(displayVal(), "[[1,0][0,1]]");
+    public void testMatrixMult() {
+        Log.v(TAG, "Testing correctness of matrix multiplication.");
+
+        swipe(Panel.MATRIX);
+        swipe(LargePanel.MATRIX);
+
+        // Clear the input
+        longClick(R.id.del);
+
+        // Test square matrix times identity.
+        tap(R.id.matrix);
+        tap(R.id.digit5);
+        tap(R.id.next);
+        tap(R.id.digit3);
+        tap(R.id.next);
+        tap(R.id.digit7);
+        tap(R.id.next);
+        tap(R.id.digit9);
+        tap(R.id.next);
+
+        tap(R.id.mul);
+        tap(R.id.matrix);
+
+        tap(R.id.digit1);
+        tap(R.id.next);
+        tap(R.id.digit0);
+        tap(R.id.next);
+        tap(R.id.digit0);
+        tap(R.id.next);
+        tap(R.id.digit1);
+
+        tap(R.id.equal);
+
+        assertEquals(displayVal(), "[[5,3][7,9]]");
     }
 
     // helper functions
