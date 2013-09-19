@@ -133,7 +133,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         mInst.sendKeyDownUpSync(keycode);
     }
 
-    private boolean tap(int id) {
+    private View getView(int id) {
         CalculatorViewPager pager = (CalculatorViewPager) mActivity.findViewById(R.id.panelswitch);
         CalculatorViewPager smallPager = (CalculatorViewPager) mActivity.findViewById(R.id.smallPanelswitch);
         CalculatorViewPager largePager = (CalculatorViewPager) mActivity.findViewById(R.id.largePanelswitch);
@@ -143,8 +143,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
             // Find the view on the current page
             View v = ((CalculatorPageAdapter) pager.getAdapter()).getViewAt(pager.getCurrentItem()).findViewById(id);
             if(v != null) {
-                TouchUtils.clickView(this, v);
-                return true;
+                return v;
             }
         }
         // Tablet
@@ -152,18 +151,25 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
             // Find the view on the current pages
             View v = ((CalculatorPageAdapter) smallPager.getAdapter()).getViewAt(smallPager.getCurrentItem()).findViewById(id);
             if(v != null) {
-                TouchUtils.clickView(this, v);
-                return true;
+                return v;
             }
             v = ((CalculatorPageAdapter) largePager.getAdapter()).getViewAt(largePager.getCurrentItem()).findViewById(id);
             if(v != null) {
-                TouchUtils.clickView(this, v);
-                return true;
+                return v;
             }
         }
 
         // Find the view in the entire app (if it wasn't on the pager)
         View view = mActivity.findViewById(id);
+        if(view != null) {
+            return view;
+        }
+
+        return null;
+    }
+
+    private boolean tap(int id) {
+        View view = getView(id);
         if(view != null) {
             TouchUtils.clickView(this, view);
             return true;
@@ -172,36 +178,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     }
 
     private boolean longClick(int id) {
-        CalculatorViewPager pager = (CalculatorViewPager) mActivity.findViewById(R.id.panelswitch);
-        CalculatorViewPager smallPager = (CalculatorViewPager) mActivity.findViewById(R.id.smallPanelswitch);
-        CalculatorViewPager largePager = (CalculatorViewPager) mActivity.findViewById(R.id.largePanelswitch);
-
-        // Phone
-        if(pager != null) {
-            // Find the view on the current page
-            View v = ((CalculatorPageAdapter) pager.getAdapter()).getViewAt(pager.getCurrentItem()).findViewById(id);
-            if(v != null) {
-                TouchUtils.longClickView(this, v);
-                return true;
-            }
-        }
-        // Tablet
-        else {
-            // Find the view on the current pages
-            View v = ((CalculatorPageAdapter) smallPager.getAdapter()).getViewAt(smallPager.getCurrentItem()).findViewById(id);
-            if(v != null) {
-                TouchUtils.longClickView(this, v);
-                return true;
-            }
-            v = ((CalculatorPageAdapter) largePager.getAdapter()).getViewAt(largePager.getCurrentItem()).findViewById(id);
-            if(v != null) {
-                TouchUtils.longClickView(this, v);
-                return true;
-            }
-        }
-
-        // Find the view in the entire app (if it wasn't on the pager)
-        View view = mActivity.findViewById(id);
+        View view = getView(id);
         if(view != null) {
             TouchUtils.longClickView(this, view);
             return true;
