@@ -74,4 +74,5 @@
     <string name="cling_graph_msg">Hier wird automatisch der Graph einer Funktion mit X und Y angezeigt.</string>
     <string name="cling_dismiss">OK</string>
     <string name="easter_egg">Karpador setzt Platscher ein\u2026 Nichts geschieht!</string>
+    <string name="dot">,</string>
 </resources>

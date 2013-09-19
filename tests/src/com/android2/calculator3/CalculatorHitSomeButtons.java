@@ -112,6 +112,38 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2 <
         // Careful: the first digit in the expected value is \u2212, not "-" (a hyphen)
         assertEquals(displayVal(), mActivity.getString(R.string.minus) + "600");
     }
+    
+    public void testMatrixMult()
+    {
+    	Log.v(TAG, "Testing correctness of matrix multiplication.");
+    	
+    	//Test square matrix times identity.
+    	tap(R.id.matrix);
+    	tap(R.id.digit5);
+    	tap(R.id.next);
+    	tap(R.id.digit3);
+    	tap(R.id.next);
+    	tap(R.id.digit7);
+    	tap(R.id.next);
+    	tap(R.id.digit9);
+    	tap(R.id.next);
+    	
+    	tap(R.id.mul);
+    	tap(R.id.matrix);
+    	
+    	tap(R.id.digit1);
+    	tap(R.id.next);
+    	tap(R.id.digit0);
+    	tap(R.id.next);
+    	tap(R.id.digit0);
+    	tap(R.id.next);
+    	tap(R.id.digit1);
+    	
+    	tap(R.id.equal);
+    	
+    	assertEquals(displayVal(), "[[1,0][0,1]]");
+
+    }
   
     // helper functions
     private void press(int keycode) {
@@ -132,6 +164,12 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2 <
         assertNotNull(display);
         
         return display.getText();
+    }
+    
+    //Calculate error in a result, relative to the truth
+    private double absError(double res, double truth)
+    {
+    	return 100.0*Math.abs(truth-res)/Math.abs(truth);
     }
 }
 
