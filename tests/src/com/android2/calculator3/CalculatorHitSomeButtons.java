@@ -16,62 +16,56 @@
 
 package com.android2.calculator3;
 
-import android.app.Activity;
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.graphics.Rect;
-import android.test.TouchUtils;
 
-import com.android2.calculator3.Calculator;
-import com.android2.calculator3.R;
+import com.android2.calculator3.Calculator.LargePanel;
+import com.android2.calculator3.Calculator.Panel;
+import com.android2.calculator3.Calculator.SmallPanel;
 import com.android2.calculator3.view.CalculatorDisplay;
+import com.android2.calculator3.view.CalculatorViewPager;
 
 /**
  * Instrumentation tests for poking some buttons
- *
+ * 
  */
 
-public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2 <Calculator>{
+public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<Calculator> {
     public boolean setup = false;
     private static final String TAG = "CalculatorTests";
     Calculator mActivity = null;
     Instrumentation mInst = null;
-    
+
     public CalculatorHitSomeButtons() {
-        super("com.android2.calculator3", Calculator.class);
+        super(Calculator.class);
     }
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         mActivity = getActivity();
         mInst = getInstrumentation();
     }
-    
+
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-    
+
     @LargeTest
     public void testPressSomeKeys() {
         Log.v(TAG, "Pressing some keys!");
-        
+
         // Make sure that we clear the output
         press(KeyEvent.KEYCODE_ENTER);
         press(KeyEvent.KEYCODE_CLEAR);
-        
+
         // 3 + 4 * 5 => 23
         press(KeyEvent.KEYCODE_3);
         press(KeyEvent.KEYCODE_PLUS);
@@ -79,18 +73,17 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2 <
         press(KeyEvent.KEYCODE_9 | KeyEvent.META_SHIFT_ON);
         press(KeyEvent.KEYCODE_5);
         press(KeyEvent.KEYCODE_ENTER);
-        
-        assertEquals(displayVal(), "23");
+
+        assertEquals("23", displayVal());
     }
-    
+
     @LargeTest
     public void testTapSomeButtons() {
         Log.v(TAG, "Tapping some buttons!");
-        
+
         // Make sure that we clear the output
-        tap(R.id.equal);
-        tap(R.id.del);
-        
+        longClick(R.id.del);
+
         // 567 / 3 => 189
         tap(R.id.digit5);
         tap(R.id.digit6);
@@ -98,9 +91,9 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2 <
         tap(R.id.div);
         tap(R.id.digit3);
         tap(R.id.equal);
-        
-        assertEquals(displayVal(), "189");
-        
+
+        assertEquals("189", displayVal());
+
         // make sure we can continue calculations also
         // 189 - 789 => -600
         tap(R.id.minus);
@@ -108,68 +101,138 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2 <
         tap(R.id.digit8);
         tap(R.id.digit9);
         tap(R.id.equal);
-        
-        // Careful: the first digit in the expected value is \u2212, not "-" (a hyphen)
-        assertEquals(displayVal(), mActivity.getString(R.string.minus) + "600");
-    }
-    
-    public void testMatrixMult()
-    {
-    	Log.v(TAG, "Testing correctness of matrix multiplication.");
-    	
-    	//Test square matrix times identity.
-    	tap(R.id.matrix);
-    	tap(R.id.digit5);
-    	tap(R.id.next);
-    	tap(R.id.digit3);
-    	tap(R.id.next);
-    	tap(R.id.digit7);
-    	tap(R.id.next);
-    	tap(R.id.digit9);
-    	tap(R.id.next);
-    	
-    	tap(R.id.mul);
-    	tap(R.id.matrix);
-    	
-    	tap(R.id.digit1);
-    	tap(R.id.next);
-    	tap(R.id.digit0);
-    	tap(R.id.next);
-    	tap(R.id.digit0);
-    	tap(R.id.next);
-    	tap(R.id.digit1);
-    	
-    	tap(R.id.equal);
-    	
-    	assertEquals(displayVal(), "[[1,0][0,1]]");
 
+        // Careful: the first digit in the expected value is \u2212, not "-" (a
+        // hyphen)
+        assertEquals(mActivity.getString(R.string.minus) + "600", displayVal());
     }
-  
+
+    @LargeTest
+    public void testTapSomeMatrixButtons() {
+        Log.v(TAG, "Making some matrices!");
+
+        swipe(Panel.MATRIX);
+        swipe(LargePanel.MATRIX);
+
+        // Make sure that we clear the output
+        longClick(R.id.del);
+
+        // 567 + 3 => 570
+        tap(R.id.digit5);
+        tap(R.id.digit6);
+        tap(R.id.digit7);
+        tap(R.id.plus);
+        tap(R.id.digit3);
+        tap(R.id.equal);
+
+        assertEquals("570", displayVal());
+    }
+
     // helper functions
     private void press(int keycode) {
         mInst.sendKeyDownUpSync(keycode);
     }
-    
-    private boolean tap(int id) {
+
+    private View getView(int id) {
+        CalculatorViewPager pager = (CalculatorViewPager) mActivity.findViewById(R.id.panelswitch);
+        CalculatorViewPager smallPager = (CalculatorViewPager) mActivity.findViewById(R.id.smallPanelswitch);
+        CalculatorViewPager largePager = (CalculatorViewPager) mActivity.findViewById(R.id.largePanelswitch);
+
+        // Phone
+        if(pager != null) {
+            // Find the view on the current page
+            View v = ((CalculatorPageAdapter) pager.getAdapter()).getViewAt(pager.getCurrentItem()).findViewById(id);
+            if(v != null) {
+                return v;
+            }
+        }
+        // Tablet
+        else {
+            // Find the view on the current pages
+            View v = ((CalculatorPageAdapter) smallPager.getAdapter()).getViewAt(smallPager.getCurrentItem()).findViewById(id);
+            if(v != null) {
+                return v;
+            }
+            v = ((CalculatorPageAdapter) largePager.getAdapter()).getViewAt(largePager.getCurrentItem()).findViewById(id);
+            if(v != null) {
+                return v;
+            }
+        }
+
+        // Find the view in the entire app (if it wasn't on the pager)
         View view = mActivity.findViewById(id);
+        if(view != null) {
+            return view;
+        }
+
+        return null;
+    }
+
+    private boolean tap(int id) {
+        View view = getView(id);
         if(view != null) {
             TouchUtils.clickView(this, view);
             return true;
         }
         return false;
     }
-  
+
+    private boolean longClick(int id) {
+        View view = getView(id);
+        if(view != null) {
+            TouchUtils.longClickView(this, view);
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean swipe(final Panel page) {
+        final CalculatorViewPager pager = (CalculatorViewPager) mActivity.findViewById(R.id.panelswitch);
+
+        // On a phone
+        if(pager != null) {
+            pager.post(new Runnable() {
+                @Override
+                public void run() {
+                    pager.setCurrentItem(page.getOrder());
+                }
+            });
+        }
+        return false;
+    }
+
+    protected boolean swipe(final SmallPanel page) {
+        final CalculatorViewPager smallPager = (CalculatorViewPager) mActivity.findViewById(R.id.smallPanelswitch);
+
+        if(smallPager != null) {
+            smallPager.post(new Runnable() {
+                @Override
+                public void run() {
+                    smallPager.setCurrentItem(page.getOrder());
+                }
+            });
+        }
+        return false;
+    }
+
+    protected boolean swipe(final LargePanel page) {
+        final CalculatorViewPager largePager = (CalculatorViewPager) mActivity.findViewById(R.id.largePanelswitch);
+
+        if(largePager != null) {
+            largePager.post(new Runnable() {
+                @Override
+                public void run() {
+                    largePager.setCurrentItem(page.getOrder());
+                }
+            });
+        }
+        return false;
+    }
+
     private String displayVal() {
         CalculatorDisplay display = (CalculatorDisplay) mActivity.findViewById(R.id.display);
         assertNotNull(display);
-        
+
         return display.getText();
     }
-    
-    //Calculate error in a result, relative to the truth
-    private double absError(double res, double truth)
-    {
-    	return 100.0*Math.abs(truth-res)/Math.abs(truth);
-    }
 }
-
