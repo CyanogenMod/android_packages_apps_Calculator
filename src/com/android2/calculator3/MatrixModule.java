@@ -138,7 +138,9 @@ public class MatrixModule {
         }
 
         // Work on the operators in order of their precedence.
-        for(int i = 0; i < N; i++) {
+        
+        //Go from right to left to make ^ chains right-associative.
+        for(int i = N-1; i >= 0; i--) {
             int[] landr = null;
             if(ops[i] == '^') {
                 landr = lookAfield(pieces, i);
@@ -157,14 +159,14 @@ public class MatrixModule {
         // For the purposes of this app, it's no big deal.
         for(int i = 0; i < N; i++) {
             int[] landr = null;
-            if(ops[i] == '\u00d7' || ops[i] == '\u00f7' || ops[i] == '%') {
+            if(ops[i] == Logic.MUL || ops[i] == Logic.DIV) {
                 landr = lookAfield(pieces, i);
                 int l = landr[0];
                 int r = landr[1];
                 Object res = null;
-                if(ops[i] == '\u00d7') res = applyMult(pieces[l], pieces[r]);
-                else if(ops[i] == '\u00f7') res = applyDiv(pieces[l], pieces[r]);
-                else res = applyMod(pieces[l], pieces[r]);
+                if(ops[i] == Logic.MUL) res = applyMult(pieces[l], pieces[r]);
+                else res = applyDiv(pieces[l], pieces[r]);
+                //else res = applyMod(pieces[l], pieces[r]);
 
                 pieces[l] = res;
                 pieces[r] = null;
@@ -263,7 +265,7 @@ public class MatrixModule {
     // In short, Java is not F#.
 
     private String applyFunc(String func, String arg) throws SyntaxException {
-        arg = arg.replace('\u2212', '-');
+        arg = arg.replace(Logic.MINUS, '-');
         if(func.equals("\u221a"))// sqrt
         {
             if(arg.startsWith("[[")) {
