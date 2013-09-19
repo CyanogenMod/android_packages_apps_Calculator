@@ -92,7 +92,7 @@
     <string name="settings">Settings</string>
 
     <!-- Matrix page text -->
-    <string name="det">Det</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Solve</string>
     <string name="dotProduct">Dot</string>

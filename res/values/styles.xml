@@ -41,11 +41,6 @@
     <dimen name="cling_text_block_offset_x">0dp</dimen>
     <dimen name="cling_text_block_offset_y">0dp</dimen>
 
-    <style name="btn_clear">
-       <item name="android:background">?android:attr/selectableItemBackground</item>
-       <item name="android:textSize">@dimen/btn_clear_text_size</item>
-    </style>
-
     <style name="ClingButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -285,5 +280,10 @@
 
     <style name="Theme.Calculator.Display.Light">
         <item name="android:textColor">@color/text_color_light</item>
+    </style>
+
+    <style name="Theme.Calculator.Clear">
+       <item name="android:background">?android:attr/selectableItemBackground</item>
+       <item name="android:textSize">@dimen/btn_clear_text_size</item>
     </style>
 </resources>

@@ -56,7 +56,7 @@
                 <Button
                     android:id="@+id/clear"
                     android:text="@string/clear"
-                    style="@style/btn_clear"
+                    style="@style/Theme.Calculator.Clear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="5dip"
@@ -64,7 +64,7 @@
                 <ImageButton
                     android:id="@+id/del"
                     android:src="?calc_clear_symbol"
-                    style="@style/btn_clear"
+                    style="@style/Theme.Calculator.Clear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="5dip"
