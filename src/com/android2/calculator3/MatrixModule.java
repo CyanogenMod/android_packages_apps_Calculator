@@ -569,8 +569,9 @@ public class MatrixModule {
     }
 
     private static String numToString(double arg) {
-        if(Math.floor(arg) < arg) // Thus arg has non-zero fractional part
-        return Double.toString(arg);
-        else return Long.toString(Math.round(arg));
+        String temp = Double.toString(arg);
+        if(temp.endsWith(".0"))
+        	temp = temp.substring(0, temp.length()-2);
+        return temp;
     }
 }

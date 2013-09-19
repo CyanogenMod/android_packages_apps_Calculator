@@ -163,6 +163,42 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
 
         assertEquals(displayVal(), "[[5,3][7,9]]");
     }
+    
+    @LargeTest
+    public void testDeterminant()
+    {
+    	Log.v(TAG, "Testing correctness of determinant.");
+    	
+    	swipe(Panel.MATRIX);
+    	swipe(LargePanel.MATRIX);
+    	
+    	longClick(R.id.del);
+    	
+    	//Type det
+    	tap(R.id.det);
+    	//Make test matrix
+    	tap(R.id.matrix);
+    	tap(R.id.digit5);
+    	tap(R.id.next);
+    	tap(R.id.digit3);
+    	tap(R.id.digit7);
+    	tap(R.id.next);
+    	tap(R.id.digit2);
+    	tap(R.id.next);
+    	tap(R.id.digit1);
+    	tap(R.id.digit9);
+    	tap(R.id.next);
+    	
+    	//End here, and we also test the parens auto-closing
+    	
+    	tap(R.id.equal);
+    	
+    	String result = displayVal();
+    	
+    	double equivalent = Double.parseDouble(result);
+    	
+    	assert(absError(equivalent, 21.0) < 0.1);
+    }
 
     // helper functions
     private void press(int keycode) {
@@ -270,5 +306,11 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         assertNotNull(display);
 
         return display.getText();
+    }
+    
+    //Calculate error in a result, relative to the truth
+    private double absError(double res, double truth)
+    {
+    	return 100.0*Math.abs(truth-res)/Math.abs(truth);
     }
 }
