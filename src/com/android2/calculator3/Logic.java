@@ -167,6 +167,9 @@ public class Logic {
     }
 
     void insert(String delta) {
+        if(!acceptInsert(delta)) {
+            clear(true);
+        }
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
         mGraphModule.updateGraphCatchErrors(mGraph);
@@ -212,6 +215,7 @@ public class Logic {
 
     boolean acceptInsert(String delta) {
         return !mIsError
+                && !getText().equals(mErrorString)
                 && (getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || isPostFunction(delta) || mDisplay.getSelectionStart() != mDisplay
                         .getActiveEditText().getText().length());
     }

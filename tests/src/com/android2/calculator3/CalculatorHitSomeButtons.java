@@ -29,6 +29,7 @@ import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.Calculator.SmallPanel;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
+import com.android2.calculator3.view.Cling;
 
 /**
  * Instrumentation tests for poking some buttons
@@ -51,6 +52,20 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
 
         mActivity = getActivity();
         mInst = getInstrumentation();
+
+        final View cling = mActivity.findViewById(R.id.cling_dismiss);
+        if(cling != null) {
+            cling.post(new Runnable() {
+                @Override
+                public void run() {
+                    mActivity.dismissSimpleCling(cling);
+                }
+            });
+        }
+        CalculatorSettings.saveKey(mActivity, Cling.SIMPLE_CLING_DISMISSED_KEY, true);
+        CalculatorSettings.saveKey(mActivity, Cling.MATRIX_CLING_DISMISSED_KEY, true);
+        CalculatorSettings.saveKey(mActivity, Cling.GRAPH_CLING_DISMISSED_KEY, true);
+        CalculatorSettings.saveKey(mActivity, Cling.HEX_CLING_DISMISSED_KEY, true);
     }
 
     @Override
@@ -62,7 +77,11 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     public void testPressSomeKeys() {
         Log.v(TAG, "Pressing some keys!");
 
+        swipe(Panel.BASIC);
+        swipe(LargePanel.BASIC);
+
         // Make sure that we clear the output
+        tap(R.id.clear);
         longClick(R.id.del);
 
         // 3 + 4 * 5 => 23
@@ -80,7 +99,11 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     public void testTapSomeButtons() {
         Log.v(TAG, "Tapping some buttons!");
 
+        swipe(Panel.BASIC);
+        swipe(LargePanel.BASIC);
+
         // Make sure that we clear the output
+        tap(R.id.clear);
         longClick(R.id.del);
 
         // 567 / 3 => 189
@@ -114,6 +137,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         swipe(LargePanel.MATRIX);
 
         // Make sure that we clear the output
+        tap(R.id.clear);
         longClick(R.id.del);
 
         // 567 + 3 => 570
@@ -135,6 +159,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         swipe(LargePanel.MATRIX);
 
         // Clear the input
+        tap(R.id.clear);
         longClick(R.id.del);
 
         // Test square matrix times identity.
@@ -163,41 +188,37 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
 
         assertEquals(displayVal(), "[[5,3][7,9]]");
     }
-    
+
     @LargeTest
-    public void testDeterminant()
-    {
-    	Log.v(TAG, "Testing correctness of determinant.");
-    	
-    	swipe(Panel.MATRIX);
-    	swipe(LargePanel.MATRIX);
-    	
-    	longClick(R.id.del);
-    	
-    	//Type det
-    	tap(R.id.det);
-    	//Make test matrix
-    	tap(R.id.matrix);
-    	tap(R.id.digit5);
-    	tap(R.id.next);
-    	tap(R.id.digit3);
-    	tap(R.id.digit7);
-    	tap(R.id.next);
-    	tap(R.id.digit2);
-    	tap(R.id.next);
-    	tap(R.id.digit1);
-    	tap(R.id.digit9);
-    	tap(R.id.next);
-    	
-    	//End here, and we also test the parens auto-closing
-    	
-    	tap(R.id.equal);
-    	
-    	String result = displayVal();
-    	
-    	double equivalent = Double.parseDouble(result);
-    	
-    	assert(absError(equivalent, 21.0) < 0.1);
+    public void testDeterminant() {
+        Log.v(TAG, "Testing correctness of determinant.");
+
+        swipe(Panel.MATRIX);
+        swipe(LargePanel.MATRIX);
+
+        tap(R.id.clear);
+        longClick(R.id.del);
+
+        // Type det
+        tap(R.id.det);
+        // Make test matrix
+        tap(R.id.matrix);
+        tap(R.id.digit5);
+        tap(R.id.next);
+        tap(R.id.digit3);
+        tap(R.id.digit7);
+        tap(R.id.next);
+        tap(R.id.digit2);
+        tap(R.id.next);
+        tap(R.id.digit1);
+        tap(R.id.digit9);
+        tap(R.id.next);
+
+        // End here, and we also test the parens auto-closing
+
+        tap(R.id.equal);
+
+        assertTrue(withinTolerance(Double.parseDouble(displayVal()), 21.0));
     }
 
     // helper functions
@@ -307,10 +328,9 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
 
         return display.getText();
     }
-    
-    //Calculate error in a result, relative to the truth
-    private double absError(double res, double truth)
-    {
-    	return 100.0*Math.abs(truth-res)/Math.abs(truth);
+
+    // Calculate error in a result, relative to the truth
+    private boolean withinTolerance(double result, double truth) {
+        return 100.0 * Math.abs(truth - result) / Math.abs(truth) < 0.001;
     }
 }
