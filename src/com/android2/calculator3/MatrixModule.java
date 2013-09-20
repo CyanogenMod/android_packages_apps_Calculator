@@ -39,7 +39,7 @@ public class MatrixModule {
         input = mLogic.localize(input);
 
         // I never realized negative numbers could be so difficult.
-        input = input.replaceAll("(\\d+(?:\\.\\d+)?|\\[.+\\]|\\^)\u2212(\\d+(?:\\.\\d+)?)", "$1-$2");
+        input = input.replace(Logic.MINUS, '-');
         // All remaining instances of U+2212 will be on negative numbers.
         // They will be counted as whole tokens.
 
@@ -47,7 +47,7 @@ public class MatrixModule {
         Matcher m = Pattern.compile("\\[\\[.+?\\]\\]").matcher(input);
         while(m.find()) {
             SimpleMatrix temp = parseMatrix(m.group());
-            input = input.replace(m.group(), MatrixView.matrixToString(temp, mLogic));
+            input = input.replace(m.group(), printMatrix(temp));
         }
 
         // Get percentage.
@@ -59,46 +59,38 @@ public class MatrixModule {
             int temp = Integer.parseInt(m.group(1));
             input = input.replace(m.group(), fact(temp));
         }
-
-        // How to handle parens? Recursion.
+        
         int open = 0;
-        int close = 0;
-        int lastOpen = 0;
-        for(int i = 0; i < input.length(); i++) {
-            if(input.charAt(i) == '(') {
-                // if(close != 0) throw new Exception();
-                open++;
-                if(lastOpen == 0) lastOpen = i;
-            }
-            else if(input.charAt(i) == ')') {
-                if(open == 0) throw new SyntaxException();
-                close++;
-                if((close == open) && open != 0) {
-                    // Balanced means one whole set
-                    StringBuffer temp = new StringBuffer(input);
-                    String res = calculate(temp.substring(lastOpen + 1, i).toString());
-                    temp.replace(lastOpen, i + 1, res);
-                    input = temp.toString();
-                }
-                else if(close >= open) throw new SyntaxException();
-            }
-            // Auto-close if at the end of the string
-            if((i == input.length() - 1) && (open != close)) input = input.concat(")");
+        for(int i = 0; i < input.length(); i++)
+        {
+        	if(input.charAt(i) == '(') open++;
+        	else if(input.charAt(i) == ')') open--;
         }
-        if(open != close) throw new SyntaxException();
+        if(open != 0) throw new SyntaxException(); //Unbalanced
+     
+        Pattern pat = Pattern.compile("\\(([^\\(\\)]+?)\\)");
+        while(input.contains("("))
+        {
+        	Matcher mch = pat.matcher(input);
+        	while(mch.find())
+        	{
+        		input = input.replace(mch.group(), calculate(mch.group(1)));
+        	}
+        }
+        
 
         // Process transpositions.
         Matcher match = Pattern.compile("(\\[.+\\])\\^T").matcher(input);
         while(match.find()) {
             SimpleMatrix temp = parseMatrix(match.group(1)).transpose();
-            input = input.replace(match.group(), MatrixView.matrixToString(temp, mLogic));
+            input = input.replace(match.group(), printMatrix(temp));
         }
 
         // Process inverses
         match = Pattern.compile("(\\[.+\\])\uFEFF\\^-1").matcher(input);
         while(match.find()) {
             SimpleMatrix temp = parseMatrix(match.group(1)).pseudoInverse();
-            input = input.replace(match.group(), MatrixView.matrixToString(temp, mLogic));
+            input = input.replace(match.group(), printMatrix(temp));
         }
 
         // Handle functions.
@@ -112,14 +104,14 @@ public class MatrixModule {
         if(input.contains("NaN")) return mLogic.mErrorString;
 
         // Substitute e
-        input = input.replaceAll("(?<!\\d)e", "2.7182818284590452353");
-        input = input.replaceAll("\\d?(e)(?!\\d|\\+|-)", "\u00d72.7182818284590452353");
+        //input = input.replaceAll("(?<!\\d)e", "2.7182818284590452353");
+        input = input.replaceAll("(?<!\\d)(e)(?!\\d)", "2.7182818284590452353");
         // Sub pi
         input = input.replace("\u03c0", "3.141592653589");
 
         // Split into seperate arrays of operators and operands.
         // Operator 0 applies to operands 0 and 1, and so on
-        String[] parts = input.split("\u00d7|\\+|(?<=\\d|\\])(?<!e)-|\u00f7|\\^");
+        String[] parts = input.split("\u00d7|\\+|(?<=\\d|\\])(?<=\\d|\\])-|\u00f7|\\^");
         char[] ops = opSplit(input);
 
         // This never changes, so no need to keep calling it
@@ -191,7 +183,7 @@ public class MatrixModule {
         for(Object piece : pieces)
             if(piece != null) {
                 if(piece instanceof Double) return numToString((Double) piece);
-                else if(piece instanceof SimpleMatrix) return MatrixView.matrixToString((SimpleMatrix) piece, mLogic);
+                else if(piece instanceof SimpleMatrix) return printMatrix((SimpleMatrix) piece);
                 else throw new SyntaxException(); // Neither matrix nor double
                                                   // should never happen
             }
@@ -273,7 +265,7 @@ public class MatrixModule {
                 int m = matrix.numRows();
                 int n = matrix.numCols();
                 if(m != n) throw new SyntaxException();
-                SimpleEVD decomp = new SimpleEVD(matrix.getMatrix());
+                SimpleEVD<SimpleMatrix> decomp = new SimpleEVD<SimpleMatrix>(matrix.getMatrix());
                 double[] evals = new double[m];
                 for(int i1 = 0; i1 < m; i1++) {
                     evals[i1] = Math.sqrt(decomp.getEigenvalue(i1).getMagnitude());
@@ -288,7 +280,7 @@ public class MatrixModule {
                 }
                 SimpleMatrix temp = V.mult(D);
                 temp = temp.mult(V.invert());
-                return MatrixView.matrixToString(temp, mLogic);
+                return printMatrix(temp);
             }
             else return numToString(Math.sqrt(Double.parseDouble(arg)));
         }
@@ -298,7 +290,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.sin(m.get(i, j)));
-                return MatrixView.matrixToString(m, mLogic);
+                return printMatrix(m);
             }
             else return numToString(Math.sin(Double.parseDouble(arg)));
         }
@@ -308,7 +300,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.cos(m.get(i, j)));
-                return MatrixView.matrixToString(m, mLogic);
+                return printMatrix(m);
             }
             else return numToString(Math.cos(Double.parseDouble(arg)));
         }
@@ -318,7 +310,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.tan(m.get(i, j)));
-                return MatrixView.matrixToString(m, mLogic);
+                return printMatrix(m);
             }
             else return numToString(Math.tan(Double.parseDouble(arg)));
         }
@@ -328,7 +320,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.log10(m.get(i, j)));
-                return MatrixView.matrixToString(m, mLogic);
+                return printMatrix(m);
             }
             else return numToString(Math.log10(Double.parseDouble(arg)));
         }
@@ -338,7 +330,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.log(m.get(i, j)));
-                return MatrixView.matrixToString(m, mLogic);
+                return printMatrix(m);
             }
             else return numToString(Math.log(Double.parseDouble(arg)));
         }
@@ -348,7 +340,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.asin(m.get(i, j)));
-                return MatrixView.matrixToString(m, mLogic);
+                return printMatrix(m);
             }
             else return numToString(Math.asin(Double.parseDouble(arg)));
         }
@@ -358,7 +350,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.acos(m.get(i, j)));
-                return MatrixView.matrixToString(m, mLogic);
+                return printMatrix(m);
             }
             else return numToString(Math.acos(Double.parseDouble(arg)));
         }
@@ -368,7 +360,7 @@ public class MatrixModule {
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
                         m.set(i, j, Math.atan(m.get(i, j)));
-                return MatrixView.matrixToString(m, mLogic);
+                return printMatrix(m);
             }
             else return numToString(Math.atan(Double.parseDouble(arg)));
         }
@@ -394,7 +386,7 @@ public class MatrixModule {
             if(m != n) throw new SyntaxException();
             double b = (Double) r;
             if(b > Math.floor(b)) {
-                SimpleSVD decomp = new SimpleSVD(a.getMatrix(), false);
+                SimpleSVD<SimpleMatrix> decomp = new SimpleSVD<SimpleMatrix>(a.getMatrix(), false);
                 SimpleMatrix S = decomp.getW();
                 for(int i1 = 0; i1 < m; i1++) {
                     for(int j = 0; j < n; j++) {
@@ -540,14 +532,14 @@ public class MatrixModule {
         }
     }
 
-    private Object applyMod(Object object, Object object2) throws SyntaxException {
-        if(object instanceof Double && object2 instanceof Double) {
-            double arg1 = (Double) object;
-            double arg2 = (Double) object2;
-            return arg1 % arg2;
-        }
-        else throw new SyntaxException();
-    }
+//    private Object applyMod(Object object, Object object2) throws SyntaxException {
+//        if(object instanceof Double && object2 instanceof Double) {
+//            double arg1 = (Double) object;
+//            double arg2 = (Double) object2;
+//            return arg1 % arg2;
+//        }
+//        else throw new SyntaxException();
+//    }
 
     private SimpleMatrix parseMatrix(String text) throws SyntaxException {
         // Count rows & cols
@@ -569,9 +561,32 @@ public class MatrixModule {
     }
 
     private static String numToString(double arg) {
-        String temp = Double.toString(arg);
+        //Cut off very small arguments
+    	if(Math.abs(arg) < 1.0E-10) return "0";
+    	
+    	String temp = Double.toString(arg).replace('E', 'e');
         if(temp.endsWith(".0"))
         	temp = temp.substring(0, temp.length()-2);
         return temp;
+    }
+    
+    private static String printMatrix(SimpleMatrix mat)
+    {
+    	StringBuilder buffer = new StringBuilder("[");
+    	int m = mat.numRows();
+    	int n = mat.numCols();
+    	for(int i = 0; i < m; i++)
+    	{
+    		buffer.append('[');
+    		for(int j = 0; j < n; j++)
+    		{
+    			buffer.append(numToString(mat.get(i, j)));
+    			if(j != n-1) buffer.append(',');
+    		}
+    		buffer.append(']');
+    	}
+    	buffer.append(']');
+    	
+    	return buffer.toString();
     }
 }
