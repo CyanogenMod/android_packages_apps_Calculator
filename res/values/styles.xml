@@ -184,7 +184,7 @@
     </style>
 
     <style name="Theme.Calculator.ButtonStyle.Light.Del" >
-        <item name="android:background">@drawable/btn_slider_holo_light</item>
+        <item name="android:background">@drawable/btn_slider_light</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
 
