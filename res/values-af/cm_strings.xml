@@ -29,6 +29,8 @@
     <string name="graph">Grafiese paneel</string>
     <string name="function">Funksie paneel</string>
     <string name="hexPanel">Hex paneel</string>
+    <string name="lock">Sluit bladsy</string>
+    <string name="unlock">Ontsluit bladsy</string>
     <string name="copy">Kopie \"%s\"</string>
     <string name="remove_from_history">Verwyder van geskiedenis</string>
     <string name="showHistory">Wys geskiedenis</string>
@@ -56,11 +58,17 @@
     <string name="pref_panels">Panele</string>
     <string name="pref_actions">Aksies</string>
     <string name="pref_units">Eenhede</string>
+    <string name="pref_theme">Tema</string>
     <string name="pref_about">Aangaande</string>
     <string name="returnToBasic">Terug na die basiese paneel</string>
+    <string name="clickToOpenHistory">Raak om geskiedenis oop te maak.</string>
+    <string name="digitGrouping">Getal groepering</string>
     <string name="trigUnits">Trigonomie eenhede</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
+    <string name="holo">Holo</string>
+    <string name="holo_light">Lig</string>
+    <string name="holo_dark">Donker</string>
     <string name="cling_simple_title">Welkom</string>
     <string name="cling_simple_msg">Skuif links en regs om meer inhoud te bekom. Onnodige bladsye kan afgeskakel word in Instellings.</string>
     <string name="cling_matrix_title">Matrikse</string>
@@ -70,5 +78,9 @@
     <string name="cling_graph_title">Grafiek</string>
     <string name="cling_graph_msg">Grafieke sal outomaties hier verskyn. Gaan na die gevorderde paneel en bou \'n ​​funksie met behulp van X en Y.</string>
     <string name="cling_dismiss">OK</string>
+    <string name="dec_separator">,</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <string name="matrix_separator">,</string>
     <string name="easter_egg">\"Magikarp\" gebruik \"Splash\" maar niks het gebeur nie.</string>
 </resources>
