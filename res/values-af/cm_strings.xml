@@ -29,6 +29,8 @@
     <string name="graph">Grafiese paneel</string>
     <string name="function">Funksie paneel</string>
     <string name="hexPanel">Hex paneel</string>
+    <string name="lock">Sluit bladsy</string>
+    <string name="unlock">Ontsluit bladsy</string>
     <string name="copy">Kopie \"%s\"</string>
     <string name="remove_from_history">Verwyder van geskiedenis</string>
     <string name="showHistory">Wys geskiedenis</string>
@@ -58,6 +60,7 @@
     <string name="pref_units">Eenhede</string>
     <string name="pref_about">Aangaande</string>
     <string name="returnToBasic">Terug na die basiese paneel</string>
+    <string name="digitGrouping">Syfer groepering</string>
     <string name="trigUnits">Trigonomie eenhede</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
