@@ -10,7 +10,6 @@ import org.javia.arity.SyntaxException;
 
 import com.android2.calculator3.BaseModule.Mode;
 import com.android2.calculator3.view.AdvancedDisplay;
-import com.android2.calculator3.view.MatrixView;
 
 public class MatrixModule {
     Logic mLogic;
@@ -59,26 +58,22 @@ public class MatrixModule {
             int temp = Integer.parseInt(m.group(1));
             input = input.replace(m.group(), fact(temp));
         }
-        
+
         int open = 0;
-        for(int i = 0; i < input.length(); i++)
-        {
-        	if(input.charAt(i) == '(') open++;
-        	else if(input.charAt(i) == ')') open--;
+        for(int i = 0; i < input.length(); i++) {
+            if(input.charAt(i) == '(') open++;
+            else if(input.charAt(i) == ')') open--;
         }
-        if(open == 1) input = input.concat(")"); //Auto-balance if possible
-        else if(open != 0) throw new SyntaxException(); //Unbalanced
-     
+        if(open == 1) input = input.concat(")"); // Auto-balance if possible
+        else if(open != 0) throw new SyntaxException(); // Unbalanced
+
         Pattern pat = Pattern.compile("\\(([^\\(\\)]+?)\\)");
-        while(input.contains("("))
-        {
-        	Matcher mch = pat.matcher(input);
-        	while(mch.find())
-        	{
-        		input = input.replace(mch.group(), calculate(mch.group(1)));
-        	}
+        while(input.contains("(")) {
+            Matcher mch = pat.matcher(input);
+            while(mch.find()) {
+                input = input.replace(mch.group(), calculate(mch.group(1)));
+            }
         }
-        
 
         // Process transpositions.
         Matcher match = Pattern.compile("(\\[.+\\])\\^T").matcher(input);
@@ -95,7 +90,8 @@ public class MatrixModule {
         }
 
         // Handle functions.
-        match = Pattern.compile("(\u221a|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])").matcher(input);
+        match = Pattern.compile("(\u221a|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
+                .matcher(input);
         while(match.find()) {
             String res = applyFunc(match.group(1), match.group(2));
             input = input.replace(match.group(), res);
@@ -105,7 +101,7 @@ public class MatrixModule {
         if(input.contains("NaN")) return mLogic.mErrorString;
 
         // Substitute e
-        //input = input.replaceAll("(?<!\\d)e", "2.7182818284590452353");
+        // input = input.replaceAll("(?<!\\d)e", "2.7182818284590452353");
         input = input.replaceAll("(?<!\\d)(e)(?!\\d)", "2.7182818284590452353");
         // Sub pi
         input = input.replace("\u03c0", "3.1415926535897932384626");
@@ -131,9 +127,9 @@ public class MatrixModule {
         }
 
         // Work on the operators in order of their precedence.
-        
-        //Go from right to left to make ^ chains right-associative.
-        for(int i = N-1; i >= 0; i--) {
+
+        // Go from right to left to make ^ chains right-associative.
+        for(int i = N - 1; i >= 0; i--) {
             int[] landr = null;
             if(ops[i] == '^') {
                 landr = lookAfield(pieces, i);
@@ -159,7 +155,7 @@ public class MatrixModule {
                 Object res = null;
                 if(ops[i] == Logic.MUL) res = applyMult(pieces[l], pieces[r]);
                 else res = applyDiv(pieces[l], pieces[r]);
-                //else res = applyMod(pieces[l], pieces[r]);
+                // else res = applyMod(pieces[l], pieces[r]);
 
                 pieces[l] = res;
                 pieces[r] = null;
@@ -259,7 +255,7 @@ public class MatrixModule {
 
     private String applyFunc(String func, String arg) throws SyntaxException {
         arg = arg.replace(Logic.MINUS, '-');
-        double DEG = Math.PI/180.0;
+        double DEG = Math.PI / 180.0;
         if(func.equals("\u221a"))// sqrt
         {
             if(arg.startsWith("[[")) {
@@ -317,64 +313,64 @@ public class MatrixModule {
             else return numToString(Math.tan(Double.parseDouble(arg)));
         }
         else if(func.equals("sind")) {
-        	if(arg.startsWith("[[")) {
+            if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
-                        m.set(i, j, Math.sin(m.get(i, j)*DEG));
+                        m.set(i, j, Math.sin(m.get(i, j) * DEG));
                 return printMatrix(m);
             }
-            else return numToString(Math.sin(Double.parseDouble(arg)*DEG));
+            else return numToString(Math.sin(Double.parseDouble(arg) * DEG));
         }
         else if(func.equals("cosd")) {
-        	if(arg.startsWith("[[")) {
+            if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
-                        m.set(i, j, Math.cos(m.get(i, j)*DEG));
+                        m.set(i, j, Math.cos(m.get(i, j) * DEG));
                 return printMatrix(m);
             }
-            else return numToString(Math.cos(Double.parseDouble(arg)*DEG));
+            else return numToString(Math.cos(Double.parseDouble(arg) * DEG));
         }
         else if(func.equals("tand")) {
-        	if(arg.startsWith("[[")) {
+            if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
-                        m.set(i, j, Math.tan(m.get(i, j)*DEG));
+                        m.set(i, j, Math.tan(m.get(i, j) * DEG));
                 return printMatrix(m);
             }
-            else return numToString(Math.tan(Double.parseDouble(arg)*DEG));
+            else return numToString(Math.tan(Double.parseDouble(arg) * DEG));
         }
         else if(func.equals("asind")) {
-        	if(arg.startsWith("[[")) {
+            if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
-                        m.set(i, j, Math.asin(m.get(i, j)/DEG));
+                        m.set(i, j, Math.asin(m.get(i, j) / DEG));
                 return printMatrix(m);
             }
-            else return numToString(Math.asin(Double.parseDouble(arg))/DEG);
+            else return numToString(Math.asin(Double.parseDouble(arg)) / DEG);
         }
         else if(func.equals("acosd")) {
-        	if(arg.startsWith("[[")) {
+            if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
-                        m.set(i, j, Math.acos(m.get(i, j))/DEG);
+                        m.set(i, j, Math.acos(m.get(i, j)) / DEG);
                 return printMatrix(m);
             }
-            else return numToString(Math.acos(Double.parseDouble(arg))/DEG);
+            else return numToString(Math.acos(Double.parseDouble(arg)) / DEG);
         }
         else if(func.equals("atand")) {
-        	if(arg.startsWith("[[")) {
+            if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
                     for(int j = 0; j < m.numCols(); j++)
-                        m.set(i, j, Math.atan(m.get(i, j))/DEG);
+                        m.set(i, j, Math.atan(m.get(i, j)) / DEG);
                 return printMatrix(m);
             }
-            else return numToString(Math.atan(Double.parseDouble(arg))/DEG);
+            else return numToString(Math.atan(Double.parseDouble(arg)) / DEG);
         }
         else if(func.equals("log")) {
             if(arg.startsWith("[[")) {
@@ -475,7 +471,7 @@ public class MatrixModule {
             if(m != n) throw new SyntaxException();
             double b = (Double) l;
             if(b > Math.floor(b)) {
-                SimpleSVD decomp = new SimpleSVD(a.getMatrix(), false);
+                SimpleSVD<SimpleMatrix> decomp = new SimpleSVD<SimpleMatrix>(a.getMatrix(), false);
                 SimpleMatrix S = decomp.getW();
                 for(int i1 = 0; i1 < m; i1++) {
                     for(int j = 0; j < n; j++) {
@@ -594,14 +590,15 @@ public class MatrixModule {
         }
     }
 
-//    private Object applyMod(Object object, Object object2) throws SyntaxException {
-//        if(object instanceof Double && object2 instanceof Double) {
-//            double arg1 = (Double) object;
-//            double arg2 = (Double) object2;
-//            return arg1 % arg2;
-//        }
-//        else throw new SyntaxException();
-//    }
+    // private Object applyMod(Object object, Object object2) throws
+    // SyntaxException {
+    // if(object instanceof Double && object2 instanceof Double) {
+    // double arg1 = (Double) object;
+    // double arg2 = (Double) object2;
+    // return arg1 % arg2;
+    // }
+    // else throw new SyntaxException();
+    // }
 
     private SimpleMatrix parseMatrix(String text) throws SyntaxException {
         // Count rows & cols
@@ -623,32 +620,28 @@ public class MatrixModule {
     }
 
     private static String numToString(double arg) {
-        //Cut off very small arguments
-    	if(Math.abs(arg) < 1.0E-10) return "0";
-    	
-    	String temp = Double.toString(arg).replace('E', 'e');
-        if(temp.endsWith(".0"))
-        	temp = temp.substring(0, temp.length()-2);
+        // Cut off very small arguments
+        if(Math.abs(arg) < 1.0E-10) return "0";
+
+        String temp = Double.toString(arg).replace('E', 'e');
+        if(temp.endsWith(".0")) temp = temp.substring(0, temp.length() - 2);
         return temp;
     }
-    
-    private static String printMatrix(SimpleMatrix mat)
-    {
-    	StringBuilder buffer = new StringBuilder("[");
-    	int m = mat.numRows();
-    	int n = mat.numCols();
-    	for(int i = 0; i < m; i++)
-    	{
-    		buffer.append('[');
-    		for(int j = 0; j < n; j++)
-    		{
-    			buffer.append(numToString(mat.get(i, j)));
-    			if(j != n-1) buffer.append(',');
-    		}
-    		buffer.append(']');
-    	}
-    	buffer.append(']');
-    	
-    	return buffer.toString();
+
+    private static String printMatrix(SimpleMatrix mat) {
+        StringBuilder buffer = new StringBuilder("[");
+        int m = mat.numRows();
+        int n = mat.numCols();
+        for(int i = 0; i < m; i++) {
+            buffer.append('[');
+            for(int j = 0; j < n; j++) {
+                buffer.append(numToString(mat.get(i, j)));
+                if(j != n - 1) buffer.append(',');
+            }
+            buffer.append(']');
+        }
+        buffer.append(']');
+
+        return buffer.toString();
     }
 }
