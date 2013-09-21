@@ -95,7 +95,7 @@ public class MatrixModule {
         }
 
         // Handle functions.
-        match = Pattern.compile("(\u221a|log|ln|sin\\^-1|cos\\^-1|tan\\^-1|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])").matcher(input);
+        match = Pattern.compile("(\u221a|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])").matcher(input);
         while(match.find()) {
             String res = applyFunc(match.group(1), match.group(2));
             input = input.replace(match.group(), res);
@@ -108,7 +108,7 @@ public class MatrixModule {
         //input = input.replaceAll("(?<!\\d)e", "2.7182818284590452353");
         input = input.replaceAll("(?<!\\d)(e)(?!\\d)", "2.7182818284590452353");
         // Sub pi
-        input = input.replace("\u03c0", "3.141592653589");
+        input = input.replace("\u03c0", "3.1415926535897932384626");
 
         // Split into seperate arrays of operators and operands.
         // Operator 0 applies to operands 0 and 1, and so on
@@ -259,6 +259,7 @@ public class MatrixModule {
 
     private String applyFunc(String func, String arg) throws SyntaxException {
         arg = arg.replace(Logic.MINUS, '-');
+        double DEG = Math.PI/180.0;
         if(func.equals("\u221a"))// sqrt
         {
             if(arg.startsWith("[[")) {
@@ -315,6 +316,66 @@ public class MatrixModule {
             }
             else return numToString(Math.tan(Double.parseDouble(arg)));
         }
+        else if(func.equals("sind")) {
+        	if(arg.startsWith("[[")) {
+                SimpleMatrix m = parseMatrix(arg);
+                for(int i = 0; i < m.numRows(); i++)
+                    for(int j = 0; j < m.numCols(); j++)
+                        m.set(i, j, Math.sin(m.get(i, j)*DEG));
+                return printMatrix(m);
+            }
+            else return numToString(Math.sin(Double.parseDouble(arg)*DEG));
+        }
+        else if(func.equals("cosd")) {
+        	if(arg.startsWith("[[")) {
+                SimpleMatrix m = parseMatrix(arg);
+                for(int i = 0; i < m.numRows(); i++)
+                    for(int j = 0; j < m.numCols(); j++)
+                        m.set(i, j, Math.cos(m.get(i, j)*DEG));
+                return printMatrix(m);
+            }
+            else return numToString(Math.cos(Double.parseDouble(arg)*DEG));
+        }
+        else if(func.equals("tand")) {
+        	if(arg.startsWith("[[")) {
+                SimpleMatrix m = parseMatrix(arg);
+                for(int i = 0; i < m.numRows(); i++)
+                    for(int j = 0; j < m.numCols(); j++)
+                        m.set(i, j, Math.tan(m.get(i, j)*DEG));
+                return printMatrix(m);
+            }
+            else return numToString(Math.tan(Double.parseDouble(arg)*DEG));
+        }
+        else if(func.equals("asind")) {
+        	if(arg.startsWith("[[")) {
+                SimpleMatrix m = parseMatrix(arg);
+                for(int i = 0; i < m.numRows(); i++)
+                    for(int j = 0; j < m.numCols(); j++)
+                        m.set(i, j, Math.asin(m.get(i, j)/DEG));
+                return printMatrix(m);
+            }
+            else return numToString(Math.asin(Double.parseDouble(arg))/DEG);
+        }
+        else if(func.equals("acosd")) {
+        	if(arg.startsWith("[[")) {
+                SimpleMatrix m = parseMatrix(arg);
+                for(int i = 0; i < m.numRows(); i++)
+                    for(int j = 0; j < m.numCols(); j++)
+                        m.set(i, j, Math.acos(m.get(i, j))/DEG);
+                return printMatrix(m);
+            }
+            else return numToString(Math.acos(Double.parseDouble(arg))/DEG);
+        }
+        else if(func.equals("atand")) {
+        	if(arg.startsWith("[[")) {
+                SimpleMatrix m = parseMatrix(arg);
+                for(int i = 0; i < m.numRows(); i++)
+                    for(int j = 0; j < m.numCols(); j++)
+                        m.set(i, j, Math.atan(m.get(i, j))/DEG);
+                return printMatrix(m);
+            }
+            else return numToString(Math.atan(Double.parseDouble(arg))/DEG);
+        }
         else if(func.equals("log")) {
             if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
@@ -335,7 +396,7 @@ public class MatrixModule {
             }
             else return numToString(Math.log(Double.parseDouble(arg)));
         }
-        else if(func.equals("sin^-1")) {
+        else if(func.equals("asin")) {
             if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
@@ -345,7 +406,7 @@ public class MatrixModule {
             }
             else return numToString(Math.asin(Double.parseDouble(arg)));
         }
-        else if(func.equals("cos^-1")) {
+        else if(func.equals("acos")) {
             if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
@@ -355,7 +416,7 @@ public class MatrixModule {
             }
             else return numToString(Math.acos(Double.parseDouble(arg)));
         }
-        else if(func.equals("tan^-1")) {
+        else if(func.equals("atan")) {
             if(arg.startsWith("[[")) {
                 SimpleMatrix m = parseMatrix(arg);
                 for(int i = 0; i < m.numRows(); i++)
