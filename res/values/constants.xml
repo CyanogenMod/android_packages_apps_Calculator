@@ -14,6 +14,16 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <integer name="max_digits">14</integer>
+    <item type="bool" name="GRAPH">true</item>
+    <item type="bool" name="FUNCTION">false</item>
+    <item type="bool" name="HEX">true</item>
+    <item type="bool" name="BASIC">true</item>
+    <item type="bool" name="ADVANCED">true</item>
+    <item type="bool" name="MATRIX">true</item>
+    <item type="bool" name="RETURN_TO_BASIC">false</item>
+    <item type="bool" name="CLICK_TO_OPEN_HISTORY">false</item>
+    <item type="bool" name="DIGIT_GROUPING">false</item>
+    <item type="bool" name="USE_RADIANS">true</item>
 </resources>

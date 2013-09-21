@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/graphPad"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:baselineAligned="false" >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <ImageButton
+            android:id="@+id/zoomIn"
+            android:src="?graph_plus"
+            android:contentDescription="@null"
+            android:padding="10dp"
+            style="?button_style" />
+        <ImageButton
+            android:id="@+id/zoomOut"
+            android:src="?graph_minus"
+            android:contentDescription="@null"
+            android:padding="10dp"
+            style="?button_style" />
+        <ImageButton
+            android:id="@+id/zoomReset"
+            android:src="?graph_standard"
+            android:contentDescription="@null"
+            android:padding="10dp"
+            style="?button_style" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" />
+</LinearLayout>

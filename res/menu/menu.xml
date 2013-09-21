@@ -18,20 +18,52 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/show_history"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/showHistory"/>
+    
+    <item android:id="@+id/hide_history"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/hideHistory"/>
 
     <item android:id="@+id/clear_history"
         android:showAsAction="ifRoom|withText"
-        android:icon="@drawable/clear_history"
         android:title="@string/clear_history"/>
-
+    
+    <item android:id="@+id/matrix"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/matrix"/>
+    
     <item android:id="@+id/advanced"
         android:showAsAction="ifRoom|withText"
-        android:icon="@drawable/advanced"
         android:title="@string/advanced"/>
 
     <item android:id="@+id/basic"
         android:showAsAction="ifRoom|withText"
-        android:icon="@drawable/simple"
         android:title="@string/basic"/>
+    
+    <item android:id="@+id/hex"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/hexPanel"/>
+    
+    <item android:id="@+id/function"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/function"/>
+    
+    <item android:id="@+id/graph"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/graph"/>
+    
+    <item android:id="@+id/lock"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/lock"/>
+    
+    <item android:id="@+id/unlock"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/unlock"/>
 
+    <item android:id="@+id/settings"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/settings"/>
 </menu>

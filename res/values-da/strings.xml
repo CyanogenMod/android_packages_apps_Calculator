@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="8095131950334945205">"Lommereg."</string>
+    <string name="app_name" msgid="8095131950334945205">"Lommeregner"</string>
     <string name="error" msgid="9197457880925804499">"Fejl"</string>
     <string name="digit0" msgid="8069590963464434135">"0"</string>
     <string name="digit1" msgid="8535041374797804029">"1"</string>
@@ -40,6 +40,6 @@
     <string name="rightParen" msgid="3177971166159324016">")"</string>
     <string name="basic" msgid="7691469861698059753">"Grundlæggende panel"</string>
     <string name="advanced" msgid="7122495413742976492">"Avanceret panel"</string>
-    <string name="clear_history" msgid="8458043980601165012">"Ryd oversigt"</string>
+    <string name="clear_history" msgid="8458043980601165012">"Ryd historik"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"Tekst er kopieret."</string>
 </resources>

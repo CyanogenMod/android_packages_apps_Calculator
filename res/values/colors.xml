@@ -15,6 +15,19 @@
 -->
 
 <resources>
-    <color name="magic_flame">#00ffffff</color>
-    <color name="button_text">#ffffffff</color>
+    <color name="magic_flame">#00FFFFFF</color>
+    <color name="button_text">#FFFFFFFF</color>
+    <color name="button_hint_text">#474747</color>
+    <color name="button_disabled_text_color">#3a3a3a</color>
+    <color name="button_text_light">#2e2e2e</color>
+    <color name="button_disabled_text_color_light">#883a3a3a</color>
+    <color name="pressed_color">#07547B</color>
+    <color name="pressed_color_light">#42A8DB</color>
+    <color name="history_input">#E6E6E6</color>
+    <color name="history_input_light">#0B0B0B</color>
+    <color name="history_result">#999999</color>
+    <color name="history_result_light">#4ba5e2</color>
+    <color name="background">#FF000000</color>
+    <color name="background_light">#FFE6E6E6</color>
+    <color name="graph_color">#31B6E7</color>
 </resources>
