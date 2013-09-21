@@ -216,30 +216,39 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
 
         swipe(Panel.BASIC);
         swipe(LargePanel.BASIC);
-        
-        longClick(R.id.pulldown);
-        
+
+        sleep();
+
         tap(R.id.rightParen);
 
         tap(R.id.equal);
 
         assertTrue(withinTolerance(Double.parseDouble(displayVal()), 21.0));
     }
-    
+
     @LargeTest
-    public void testMatrixScalarOps()
-    {
-    	Log.v(TAG, "Testing matrix-scalar multiplication, functions, and order of operations.");
-    	
-    	swipe(Panel.MATRIX);
+    public void testMatrixScalarOps() {
+        Log.v(TAG, "Testing matrix-scalar multiplication, functions, and order of operations.");
+
+        swipe(Panel.MATRIX);
         swipe(LargePanel.MATRIX);
 
         tap(R.id.clear);
         longClick(R.id.del);
-        
-        //Testing det(cos([[1,2][3,4]])*log(1+2^3))
+
+        // Testing det(cos([[1,2][3,4]])*log(1+2^3))
         tap(R.id.det);
+
+        swipe(Panel.ADVANCED);
+        swipe(SmallPanel.ADVANCED);
+        sleep();
+
         tap(R.id.cos);
+
+        swipe(Panel.MATRIX);
+        swipe(LargePanel.MATRIX);
+        sleep();
+
         tap(R.id.matrix);
         tap(R.id.digit1);
         tap(R.id.next);
@@ -249,42 +258,64 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         tap(R.id.next);
         tap(R.id.digit4);
         tap(R.id.next);
-        
-        //Swipe to basic panel for )
-        swipe(Panel.BASIC);
-        swipe(LargePanel.BASIC);
-        
-        longClick(R.id.pulldown);//Poor man's sleep
-        
+
+        swipe(Panel.ADVANCED);
+        swipe(SmallPanel.ADVANCED);
+        sleep();
+
         tap(R.id.rightParen);
-        
+
         swipe(Panel.MATRIX);
         swipe(LargePanel.MATRIX);
-        
-        longClick(R.id.pulldown);
-        
+        sleep();
+
         tap(R.id.mul);
-        
+
+        swipe(Panel.ADVANCED);
+        swipe(SmallPanel.ADVANCED);
+        sleep();
+
         tap(R.id.lg);
-        
+
+        swipe(Panel.MATRIX);
+        swipe(LargePanel.MATRIX);
+        sleep();
+
         tap(R.id.digit1);
         tap(R.id.plus);
         tap(R.id.digit2);
+
+        swipe(Panel.ADVANCED);
+        swipe(SmallPanel.ADVANCED);
+        sleep();
+
         tap(R.id.power);
-        tap(R.id.digit3);
-        
+
         swipe(Panel.BASIC);
         swipe(LargePanel.BASIC);
-        
-        longClick(R.id.pulldown);
-        
+        sleep();
+
+        tap(R.id.digit3);
+
+        swipe(Panel.ADVANCED);
+        swipe(SmallPanel.ADVANCED);
+        sleep();
+
         tap(R.id.rightParen);
         tap(R.id.rightParen);
 
-        
+        swipe(Panel.BASIC);
+        swipe(LargePanel.BASIC);
+        sleep();
+
         tap(R.id.equal);
-        
+
         assertTrue(withinTolerance(Double.parseDouble(displayVal().replace(Logic.MINUS, '-')), -0.6967269770522611));
+    }
+
+    private void sleep() {
+        // Poor man's sleep
+        longClick(R.id.pulldown);
     }
 
     // helper functions
