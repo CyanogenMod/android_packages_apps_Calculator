@@ -66,7 +66,8 @@ public class MatrixModule {
         	if(input.charAt(i) == '(') open++;
         	else if(input.charAt(i) == ')') open--;
         }
-        if(open != 0) throw new SyntaxException(); //Unbalanced
+        if(open == 1) input = input.concat(")"); //Auto-balance if possible
+        else if(open != 0) throw new SyntaxException(); //Unbalanced
      
         Pattern pat = Pattern.compile("\\(([^\\(\\)]+?)\\)");
         while(input.contains("("))

@@ -284,7 +284,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         
         tap(R.id.equal);
         
-        assertTrue(withinTolerance(Double.parseDouble(displayVal()), -0.6967270));
+        assertTrue(withinTolerance(Double.parseDouble(displayVal().replace(Logic.MINUS, '-')), -0.6967269770522611));
     }
 
     // helper functions
