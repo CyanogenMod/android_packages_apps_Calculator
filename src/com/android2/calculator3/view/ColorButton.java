@@ -16,8 +16,6 @@
 
 package com.android2.calculator3.view;
 
-import java.util.regex.Pattern;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -65,15 +63,6 @@ class ColorButton extends Button {
         mFeedbackPaint = new Paint();
         mFeedbackPaint.setStyle(Style.STROKE);
         mFeedbackPaint.setStrokeWidth(2);
-
-        // int[] attrsArray = new int[] { android.R.attr.textColor };
-        // TypedArray ta = calc.obtainStyledAttributes(attrs, attrsArray);
-        // int id = ta.getResourceId(0, 0);
-        // ta.recycle();;
-        //
-        // // getPaint().setColor(id);
-        // setTextColor(calc.getResources().getColorStateList(id));
-        // getTextColors().
 
         mAnimStart = -1;
     }
@@ -136,10 +125,8 @@ class ColorButton extends Button {
         mHintPaint.setColor(getCurrentHintTextColor());
         CharSequence hint = getHint();
         if(hint != null) {
-            String[] exponents = hint.toString().split(Pattern.quote("^"));
             int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
-            int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - getTextHeight(mHintPaint,
-                    hint.toString())) / 2)
+            int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2)
                     - getPaddingTop();
 
             float textWidth = mHintPaint.measureText(hint.toString());
@@ -149,33 +136,12 @@ class ColorButton extends Button {
                 mHintPaint.setTextSize(textSize * width / textWidth);
             }
 
-            for(String str : exponents) {
-                if(str == exponents[0]) {
-                    canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
-                    offsetY += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
-                    offsetX += mHintPaint.measureText(str);
-                }
-                else {
-                    canvas.drawText(str, 0, str.length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
-                    offsetY += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
-                    offsetX += mHintPaint.measureText(str);
-                }
-            }
+            canvas.drawText(getHint(), 0, getHint().length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
         }
 
         getPaint().setColor(getCurrentTextColor());
         CharSequence text = getText();
         canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
-    }
-
-    private int getTextHeight(Paint paint, String text) {
-        mHintPaint.getTextBounds(text, 0, text.length(), mBounds);
-        int height = mBounds.height();
-        String[] exponents = text.split(Pattern.quote("^"));
-        for(int i = 1; i < exponents.length; i++) {
-            height += getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_exponent_jump);
-        }
-        return height;
     }
 
     public void animateClickFeedback() {

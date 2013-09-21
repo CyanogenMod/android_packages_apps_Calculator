@@ -17,9 +17,9 @@
     <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
-    <string name="arcsin">sen^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
+    <string name="arcsin">asen</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
     <string name="showHistory">Mostrar historial</string>
     <string name="hideHistory">Ocultar historial</string>
     <string name="settings">Ajustes</string>

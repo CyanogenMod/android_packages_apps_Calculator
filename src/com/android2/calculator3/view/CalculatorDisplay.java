@@ -36,7 +36,6 @@ import android.widget.EditText;
 import android.widget.ViewSwitcher;
 
 import com.android2.calculator3.CalculatorEditable;
-import com.android2.calculator3.EquationFormatter;
 import com.android2.calculator3.Logic;
 import com.android2.calculator3.R;
 
@@ -80,11 +79,8 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         String dx = context.getString(R.string.dx);
         String dy = context.getString(R.string.dy);
 
-        mKeywords = Arrays.asList(sinString + "(", cosString + "(", tanString + "(",
-                arcsinString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(",
-                arccosString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(",
-                arctanString.replace(EquationFormatter.POWER, EquationFormatter.PLACEHOLDER) + "(", logString + "(", modString + "(", lnString + "(", detString
-                        + "(", dx, dy);
+        mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString
+                + "(", modString + "(", lnString + "(", detString + "(", dx, dy);
         setOnLongClickListener(this);
     }
 

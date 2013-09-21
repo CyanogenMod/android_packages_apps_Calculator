@@ -49,9 +49,9 @@
     <string name="digitGrouping">Ομαδοποίηση ψηφίων</string>
     <string name="pref_about">Σχετικά</string>
     <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
-    <string name="arcsin">sin^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
+    <string name="arcsin">asin</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
     <string name="plus_row">+Γραμ</string>
     <string name="minus_row">-Γραμ</string>
     <string name="plus_col">+Στηλ</string>

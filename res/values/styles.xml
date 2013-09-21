@@ -25,14 +25,13 @@
     <dimen name="max_display_height">200dp</dimen>
     <dimen name="history_bar_height">25dp</dimen>
     <dimen name="matrix_edit_text_padding">17dp</dimen>
-    <dimen name="button_hint_offset_x">10dp</dimen>
+    <dimen name="button_hint_offset_x">20dp</dimen>
     <dimen name="button_hint_offset_y">20dp</dimen>
-    <dimen name="button_hint_exponent_jump">10dp</dimen>
     <dimen name="app_defaultsize_w">632.0dip</dimen>
     <dimen name="app_defaultsize_h">598.0dip</dimen>
     <dimen name="app_minimumsize_w">300dp</dimen>
     <dimen name="app_minimumsize_h">300dp</dimen>
-    <item type="integer" name="button_hint_text_size_percent">50</item>
+    <item type="integer" name="button_hint_text_size_percent">70</item>
 
     <!-- Cling -->
     <dimen name="clingPunchThroughGraphicCenterRadius">94dp</dimen>

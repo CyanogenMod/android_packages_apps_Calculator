@@ -17,9 +17,9 @@
     <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
-    <string name="arcsin">sin^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
+    <string name="arcsin">asin</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
     <string name="dx">dX</string>
     <string name="dy">dY</string>
     <string name="solveForX">Résoudre pour X</string>
