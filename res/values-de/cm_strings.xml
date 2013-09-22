@@ -17,9 +17,9 @@
     <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
-    <string name="arcsin">sin^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
+    <string name="arcsin">asin</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
     <string name="matrix">Matrixberechnung</string>
     <string name="graph">Diagramm</string>
     <string name="function">Funktionen</string>
@@ -36,7 +36,7 @@
     <string name="solveForX">Nach X auflösen</string>
     <string name="solveForY">Nach Y auflösen</string>
     <string name="mod">mod</string>
-    <string name="determinant">Det</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Lösen</string>
     <string name="dotProduct">Skalar</string>
@@ -74,4 +74,7 @@
     <string name="cling_graph_msg">Hier wird automatisch der Graph einer Funktion mit X und Y angezeigt.</string>
     <string name="cling_dismiss">OK</string>
     <string name="easter_egg">Karpador setzt Platscher ein\u2026 Nichts geschieht!</string>
+    <string name="dec_separator">\u0020</string>
+    <string name="dot">,</string>
+    <string name="matrix_separator">\u0020</string>
 </resources>

@@ -17,9 +17,9 @@
     <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
-    <string name="arcsin">sin^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
+    <string name="arcsin">asin</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
     <string name="dx">dX</string>
     <string name="dy">dY</string>
     <string name="solveForX">Ratkaise X</string>
@@ -36,7 +36,7 @@
     <string name="showHistory">Näytä historia</string>
     <string name="hideHistory">Piilota historia</string>
     <string name="settings">Asetukset</string>
-    <string name="determinant">Det</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Ratkaise</string>
     <string name="dotProduct">Piste</string>

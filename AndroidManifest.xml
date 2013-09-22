@@ -12,11 +12,32 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.APP_CALCULATOR" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/settings" android:name=".Preferences" />
+        <activity-alias
+            android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher_calculator"
+            android:name=".Calculator-Dark"
+            android:enabled="true"
+            android:targetActivity=".Calculator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher_calculator_light"
+            android:name=".Calculator-Light"
+            android:enabled="false"
+            android:targetActivity=".Calculator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity android:name=".Preferences" android:theme="@style/Theme.Settings.Calculator" android:label="@string/settings" />
         <receiver android:name=".CalculatorWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

@@ -17,9 +17,9 @@
     <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
-    <string name="arcsin">sin^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
+    <string name="arcsin">asin</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
     <string name="dx">dX</string>
     <string name="dy">dY</string>
     <string name="solveForX">Résoudre pour X</string>
@@ -36,7 +36,7 @@
     <string name="showHistory">Afficher l\'historique</string>
     <string name="hideHistory">Cacher l\'historique</string>
     <string name="settings">Paramètres</string>
-    <string name="determinant">Det.</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Val.</string>
     <string name="solve">Résoudre</string>
     <string name="dotProduct">Dot</string>
@@ -74,4 +74,7 @@
     <string name="cling_graph_msg">Les graphiques seront automatiquement affichés ici. Allez dans le panneau avancé et rentrez une fonction en utilisant X et Y.</string>
     <string name="cling_dismiss">Ok</string>
     <string name="easter_egg">Magikarp utilise Splash, mais rien ne s\'est passé.</string>
+    <string name="dec_separator">\u0020</string>
+    <string name="dot">,</string>
+    <string name="matrix_separator">\u0020</string>
 </resources>

@@ -34,13 +34,13 @@
     <string name="remove_from_history">Remover do histórico</string>
     <string name="returnToBasic">Retornar ao painel básico</string>
     <string name="pref_about">Sobre</string>
-    <string name="arcsin">sen^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
+    <string name="arcsin">asen</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
     <string name="dx">dX</string>
     <string name="dy">dY</string>
     <string name="mod">mod</string>
-    <string name="determinant">Det</string>
+    <string name="det">det</string>
     <string name="plus_row">+Linha</string>
     <string name="minus_row">-Linha</string>
     <string name="plus_col">+Col</string>

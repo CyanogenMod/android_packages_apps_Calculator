@@ -53,7 +53,6 @@ public class Cling extends FrameLayout {
     private int[] mPositionData;
     private boolean mShowHand;
     private boolean mDismissed;
-
     private Paint mErasePaint;
 
     public Cling(Context context) {

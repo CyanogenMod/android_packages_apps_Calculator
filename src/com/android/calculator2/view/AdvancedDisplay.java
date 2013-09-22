@@ -89,8 +89,21 @@ public class AdvancedDisplay extends LinearLayout {
         return getChildAt(0);
     }
 
+    View previousView(View currentView) {
+        boolean foundCurrentView = false;
+        for(int i = getChildCount() - 1; i >= 0; i--) {
+            if(foundCurrentView) return getChildAt(i);
+            else if(currentView == getChildAt(i)) foundCurrentView = true;
+        }
+        return getChildAt(getChildCount() - 1);
+    }
+
     public void insert(String delta) {
         if(mActiveEditText == null) {
+            // don't allow leading operators
+            if(Logic.isOperator(delta) && !delta.equals(String.valueOf(Logic.MINUS))) {
+                return;
+            }
             setText(delta);
         }
         else {
@@ -113,6 +126,10 @@ public class AdvancedDisplay extends LinearLayout {
                         ((CalculatorEditText) getChildAt(index + 2)).setSelection(0);
                     }
                     else {
+                        // don't allow leading operators
+                        if(cursor == 0 && getActiveEditText() == getChildAt(0) && Logic.isOperator(delta) && !delta.equals(String.valueOf(Logic.MINUS))) {
+                            return;
+                        }
                         getActiveEditText().getText().insert(cursor, text.subSequence(0, 1));
                         text.setText(text.substring(1, text.length()));
                     }
@@ -247,7 +264,8 @@ public class AdvancedDisplay extends LinearLayout {
         final String text = getText();
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
-        Toast.makeText(getContext(), R.string.text_copied_toast, Toast.LENGTH_SHORT).show();
+        String toastText = String.format(getResources().getString(R.string.text_copied_toast), text);
+        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
     }
 
     private void cutContent() {

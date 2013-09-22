@@ -28,7 +28,7 @@
     <string name="showHistory">Zobraziť históriu</string>
     <string name="hideHistory">Skryť históriu</string>
     <string name="settings">Nastavenia</string>
-    <string name="determinant">Det</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Vlastné</string>
     <string name="solve">Vyriešiť</string>
     <string name="dotProduct">Bodka</string>

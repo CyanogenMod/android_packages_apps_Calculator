@@ -1,5 +1,7 @@
 package com.android.calculator2.view;
 
+import java.util.regex.Pattern;
+
 import org.ejml.simple.SimpleMatrix;
 import org.javia.arity.SyntaxException;
 
@@ -15,12 +17,10 @@ import com.android.calculator2.MutableString;
 import com.android.calculator2.R;
 
 public class MatrixView extends TableLayout {
-    private static final String VALID_MATRIX = "\\[(\\[[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?(,[\u2212-]?[A-F0-9]*(\\.[A-F0-9]*)?)*\\])+\\].*";
-    public final static String PATTERN = "[[,][,]]";
-
-    private int rows, columns = 0;
-    private AdvancedDisplay parent;
-    private Logic logic;
+    private int mRows, mColumns = 0;
+    private AdvancedDisplay mParent;
+    private Logic mLogic;
+    private String mSeparator;
 
     public MatrixView(Context context) {
         super(context);
@@ -28,52 +28,66 @@ public class MatrixView extends TableLayout {
 
     public MatrixView(AdvancedDisplay parent) {
         super(parent.getContext());
-        this.parent = parent;
+        this.mParent = parent;
         setup();
     }
 
     private void setup() {
+        mSeparator = getSeparator(getContext());
         setBackgroundResource(R.drawable.matrix_background);
         setFocusable(true);
-        logic = parent.mLogic;
+        mLogic = mParent.mLogic;
+    }
+
+    public static String getPattern(Context context) {
+        String separator = getSeparator(context);
+        return "[[" + separator + "][" + separator + "]]";
+    }
+
+    private static String getSeparator(Context context) {
+        return context.getString(R.string.matrix_separator);
+    }
+
+    private static String getDecimal(Context context) {
+        return context.getString(R.string.dot);
     }
 
     public void addRow() {
-        rows++;
+        mRows++;
         TableRow tr = new TableRow(getContext());
         tr.setLayoutParams(new MatrixView.LayoutParams(MatrixView.LayoutParams.WRAP_CONTENT, MatrixView.LayoutParams.WRAP_CONTENT, 1));
         addView(tr);
 
-        for(int i = 0; i < columns; i++) {
+        for(int i = 0; i < mColumns; i++) {
             tr.addView(createEditText());
         }
     }
 
     public void removeRow() {
-        rows--;
+        mRows--;
         removeViewAt(getChildCount() - 1);
 
-        if(rows == 0 || columns == 0) parent.removeView(this);
+        if(mRows == 0 || mColumns == 0) mParent.removeView(this);
     }
 
     public void addColumn() {
-        columns++;
+        mColumns++;
 
-        for(int i = 0; i < rows; i++) {
+        for(int i = 0; i < mRows; i++) {
             TableRow tr = (TableRow) getChildAt(i);
             tr.addView(createEditText());
         }
     }
 
     public void removeColumn() {
-        columns--;
+        mColumns--;
 
-        for(int i = 0; i < rows; i++) {
+        for(int i = 0; i < mRows; i++) {
             TableRow tr = (TableRow) getChildAt(i);
             tr.removeViewAt(tr.getChildCount() - 1);
         }
 
-        if(rows == 0 || columns == 0) parent.removeView(this);
+        if(mRows == 0 || mColumns == 0) mParent.removeView(this);
     }
 
     public SimpleMatrix getSimpleMatrix() throws SyntaxException {
@@ -82,17 +96,17 @@ public class MatrixView extends TableLayout {
     }
 
     private double[][] getData() throws SyntaxException {
-        double[][] data = new double[rows][columns];
-        for(int row = 0; row < rows; row++) {
+        double[][] data = new double[mRows][mColumns];
+        for(int row = 0; row < mRows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
-            for(int column = 0; column < columns; column++) {
+            for(int column = 0; column < mColumns; column++) {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
-                input = stringify(input);
                 if(input.isEmpty()) throw new SyntaxException();
                 try {
-                    data[row][column] = Double.valueOf(logic.evaluate(input));
+                    data[row][column] = Double.valueOf(stringify(mLogic.evaluate(input)));
                 }
                 catch(Exception e) {
+                    e.printStackTrace();
                     data[row][column] = Double.NaN;
                 }
             }
@@ -101,10 +115,10 @@ public class MatrixView extends TableLayout {
     }
 
     private String[][] getDataAsString() {
-        String[][] data = new String[rows][columns];
-        for(int row = 0; row < rows; row++) {
+        String[][] data = new String[mRows][mColumns];
+        for(int row = 0; row < mRows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
-            for(int column = 0; column < columns; column++) {
+            for(int column = 0; column < mColumns; column++) {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
                 data[row][column] = input;
             }
@@ -115,7 +129,7 @@ public class MatrixView extends TableLayout {
     private String stringify(String input) {
         if(input.isEmpty()) return "";
         else {
-            input = logic.convertToDecimal(input);
+            input = mLogic.convertToDecimal(input);
             if(input.charAt(0) == '\u2212') {
                 if(input.length() == 1) input = "";
                 else input = "-" + input.substring(1);
@@ -132,9 +146,9 @@ public class MatrixView extends TableLayout {
 
     boolean isEmpty() {
         boolean empty = true;
-        for(int row = 0; row < rows; row++) {
+        for(int row = 0; row < mRows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
-            for(int column = 0; column < columns; column++) {
+            for(int column = 0; column < mColumns; column++) {
                 String input = ((EditText) tr.getChildAt(column)).getText().toString();
                 if(!input.isEmpty()) empty = false;
             }
@@ -143,29 +157,41 @@ public class MatrixView extends TableLayout {
     }
 
     private EditText createEditText() {
-        final EditText et = new MatrixEditText(parent, this);
+        final EditText et = new MatrixEditText(mParent, this);
         et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
         return et;
     }
 
     View nextView(View currentView) {
         boolean foundCurrentView = false;
-        for(int row = 0; row < rows; row++) {
+        for(int row = 0; row < mRows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
-            for(int column = 0; column < columns; column++) {
+            for(int column = 0; column < mColumns; column++) {
                 if(foundCurrentView) return tr.getChildAt(column);
                 else if(currentView == tr.getChildAt(column)) foundCurrentView = true;
             }
         }
-        return parent.getChildAt(parent.getChildIndex(this) + 1);
+        return mParent.getChildAt(mParent.getChildIndex(this) + 1);
+    }
+
+    View previousView(View currentView) {
+        boolean foundCurrentView = false;
+        for(int row = mRows - 1; row >= 0; row--) {
+            TableRow tr = (TableRow) getChildAt(row);
+            for(int column = mColumns - 1; column >= 0; column--) {
+                if(foundCurrentView) return tr.getChildAt(column);
+                else if(currentView == tr.getChildAt(column)) foundCurrentView = true;
+            }
+        }
+        return mParent.getChildAt(mParent.getChildIndex(this) - 1);
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        for(int row = 0; row < rows; row++) {
+        for(int row = 0; row < mRows; row++) {
             TableRow tr = (TableRow) getChildAt(row);
-            for(int column = 0; column < columns; column++) {
+            for(int column = 0; column < mColumns; column++) {
                 tr.getChildAt(column).setEnabled(enabled);
             }
         }
@@ -175,10 +201,10 @@ public class MatrixView extends TableLayout {
     public String toString() {
         String input = "[";
         String[][] data = getDataAsString();
-        for(int i = 0; i < rows; i++) {
+        for(int i = 0; i < mRows; i++) {
             input += "[";
-            for(int j = 0; j < columns; j++) {
-                input += data[i][j] + ",";
+            for(int j = 0; j < mColumns; j++) {
+                input += data[i][j] + mSeparator;
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);
@@ -195,13 +221,18 @@ public class MatrixView extends TableLayout {
         for(int i = 0; i < rows; i++) {
             input += "[";
             for(int j = 0; j < columns; j++) {
-                input += logic.evaluate(Double.toString(matrix.get(i, j))) + ",";
+                input += strip(Double.toString(matrix.get(i, j))) + ",";
             }
             // Remove trailing ,
             input = input.substring(0, input.length() - 1);
             input += "]";
         }
         input += "]";
+        return input;
+    }
+
+    private static String strip(String input) {
+        if(input.endsWith(".0")) return input.substring(0, input.length() - 2);
         return input;
     }
 
@@ -215,12 +246,12 @@ public class MatrixView extends TableLayout {
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
-        if(!MatrixView.verify(text)) return false;
+        if(!MatrixView.verify(parent.getContext(), text)) return false;
 
         String matrix = MatrixView.parseMatrix(text.getText());
         text.setText(text.substring(matrix.length()));
         int rows = MatrixView.countOccurrences(matrix, '[') - 1;
-        int columns = MatrixView.countOccurrences(matrix, ',') / rows + 1;
+        int columns = MatrixView.countOccurrences(matrix, getSeparator(parent.getContext()).charAt(0)) / rows + 1;
 
         MatrixView mv = new MatrixView(parent);
         for(int i = 0; i < rows; i++) {
@@ -229,7 +260,7 @@ public class MatrixView extends TableLayout {
         for(int i = 0; i < columns; i++) {
             mv.addColumn();
         }
-        String[] data = matrix.split(",|\\]\\[");
+        String[] data = matrix.split(Pattern.quote(getSeparator(parent.getContext())) + "|\\]\\[");
         for(int order = 0, row = 0; row < rows; row++) {
             TableRow tr = (TableRow) mv.getChildAt(row);
             for(int column = 0; column < columns; column++) {
@@ -246,8 +277,12 @@ public class MatrixView extends TableLayout {
         return true;
     }
 
-    private static boolean verify(MutableString text) {
-        return text.getText().matches(VALID_MATRIX);
+    private static boolean verify(Context context, MutableString text) {
+        String separator = getSeparator(context);
+        String decimal = getDecimal(context);
+        String validMatrix = "\\[(\\[[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal) + "[A-F0-9]*)?(" + Pattern.quote(separator) + "[\u2212-]?[A-F0-9]*("
+                + Pattern.quote(decimal) + "[A-F0-9]*)?)*\\])+\\].*";
+        return text.getText().matches(validMatrix);
     }
 
     private static int countOccurrences(String haystack, char needle) {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/pref_panels" >
+        <CheckBoxPreference
+            android:title="@string/graph"
+            android:key="GRAPH"
+            android:defaultValue="@bool/GRAPH" />
+<!--   <CheckBoxPreference
+            android:title="@string/function"
+            android:key="FUNCTION"
+            android:defaultValue="@bool/FUNCTION" /> -->
+        <CheckBoxPreference
+            android:title="@string/hexPanel"
+            android:key="HEX"
+            android:defaultValue="@bool/HEX" />
+        <CheckBoxPreference
+            android:title="@string/basic"
+            android:key="BASIC"
+            android:defaultValue="@bool/BASIC" />
+        <CheckBoxPreference
+            android:title="@string/advanced"
+            android:key="ADVANCED"
+            android:defaultValue="@bool/ADVANCED" />
+        <CheckBoxPreference
+            android:title="@string/matrix"
+            android:key="MATRIX"
+            android:defaultValue="@bool/MATRIX" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_actions" >
+        <CheckBoxPreference
+            android:title="@string/clickToOpenHistory"
+            android:key="CLICK_TO_OPEN_HISTORY"
+            android:defaultValue="@bool/CLICK_TO_OPEN_HISTORY" />
+        <CheckBoxPreference
+            android:title="@string/digitGrouping"
+            android:key="DIGIT_GROUPING"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_units" >
+        <SwitchPreference
+            android:title="@string/trigUnits"
+            android:key="USE_RADIANS"
+            android:switchTextOn="@string/radians"
+            android:switchTextOff="@string/degrees"
+            android:defaultValue="@bool/USE_RADIANS" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_theme" >
+        <SwitchPreference
+            android:title="@string/holo"
+            android:key="THEME_STYLE"
+            android:switchTextOn="@string/holo_light"
+            android:switchTextOff="@string/holo_dark"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_about" >
+        <Preference
+            android:title="@string/app_name"
+            android:summary="@string/application_copyright"
+            android:key="ABOUT" />
+    </PreferenceCategory>
+</PreferenceScreen>

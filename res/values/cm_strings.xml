@@ -17,7 +17,7 @@
     <!-- App copyright -->
     <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
     <!-- App version -->
-    <string name="application_version" translatable="false">v3.3.2</string>
+    <string name="application_version" translatable="false">v3.5.1</string>
 
     <!-- Displayed letters for the hex digit buttons -->
     <string name="A" translatable="false">A</string>
@@ -42,11 +42,11 @@
     <string name="coma" translatable="false">,</string>
 
     <!-- Displayed on buttons on screen for the arcsin function. -->
-    <string name="arcsin">sin^\u22121</string>
+    <string name="arcsin">asin</string>
     <!-- Displayed on buttons on screen for the arccos function. -->
-    <string name="arccos">cos^\u22121</string>
+    <string name="arccos">acos</string>
     <!-- Displayed on buttons on screen for the arctan function. -->
-    <string name="arctan">tan^\u22121</string>
+    <string name="arctan">atan</string>
 
     <!-- Displayed on buttons on screen for the value of i. -->
     <string name="i" translatable="false">i</string>
@@ -92,12 +92,12 @@
     <string name="settings">Settings</string>
 
     <!-- Matrix page text -->
-    <string name="determinant">Det</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Eigen</string>
     <string name="solve">Solve</string>
     <string name="dotProduct">Dot</string>
     <string name="crossProduct">Cross</string>
-    <string name="determinantDesc">Determinant</string>
+    <string name="determinantDesc">det</string>
     <string name="eigenvalueDesc">Eigenvalues</string>
     <string name="plus_row">+Row</string>
     <string name="minus_row">-Row</string>
@@ -120,12 +120,17 @@
     <string name="pref_panels">Panels</string>
     <string name="pref_actions">Actions</string>
     <string name="pref_units">Units</string>
+    <string name="pref_theme">Theme</string>
     <string name="pref_about">About</string>
     <string name="returnToBasic">Return to the basic panel</string>
+    <string name="clickToOpenHistory">Click to open history</string>
     <string name="digitGrouping">Digit grouping</string>
     <string name="trigUnits">Trig units</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
+    <string name="holo">Holo</string>
+    <string name="holo_light">Light</string>
+    <string name="holo_dark">Dark</string>
 
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>
@@ -137,6 +142,18 @@
     <string name="cling_graph_title">Graph</string>
     <string name="cling_graph_msg">Graphs will automatically show up here. Go to the advanced panel and build a function using X and Y.</string>
     <string name="cling_dismiss">OK</string>
+
+    <!-- Separators for dec, bin, and hex. Must be 1 charater! -->
+    <string name="dec_separator">,</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <item name="dec_separator_distance" type="integer">3</item>
+    <item name="bin_separator_distance" type="integer">4</item>
+    <item name="hex_separator_distance" type="integer">2</item>
+
+    <!-- Decimal point. Make sure Matrix separator is unique from decimal. Make sure dot is unique from the above separators. -->
+    <string name="dot">.</string>
+    <string name="matrix_separator">,</string>
 
     <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
 </resources>
