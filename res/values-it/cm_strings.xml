@@ -17,9 +17,9 @@
     <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
-    <string name="arcsin">sin^\u22121</string>
-    <string name="arccos">cos^\u22121</string>
-    <string name="arctan">tan^\u22121</string>
+    <string name="arcsin">asin</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
     <string name="showHistory">Mostra cronologia</string>
     <string name="hideHistory">Nascondi cronologia</string>
     <string name="settings">Impostazioni</string>
@@ -36,7 +36,7 @@
     <string name="solveForX">Risolvi in X</string>
     <string name="solveForY">Risolvi in Y</string>
     <string name="mod">mod</string>
-    <string name="determinant">Det.</string>
+    <string name="det">det</string>
     <string name="eigenvalue">Autov.</string>
     <string name="solve">Risolvi</string>
     <string name="dotProduct">Scal.</string>

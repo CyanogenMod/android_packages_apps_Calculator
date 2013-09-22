@@ -6,28 +6,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.javia.arity.SyntaxException;
 
 public class BaseModule {
     public static final char SELECTION_HANDLE = '\u2620';
-    public static final String REGEX_NUMBER = "[A-F0-9\\." + SELECTION_HANDLE + "]";
-    public static final String REGEX_NOT_NUMBER = "[^A-F0-9\\." + SELECTION_HANDLE + "]";
+    public final String REGEX_NUMBER;
+    public final String REGEX_NOT_NUMBER;
 
-    Logic logic;
-    private Mode mode = Mode.DECIMAL;
-
-    Map<String, List<Integer>> mBannedResources;
+    Logic mLogic;
+    private Mode mMode = Mode.DECIMAL;
+    Map<Mode, List<Integer>> mBannedResources;
 
     BaseModule(Logic logic) {
-        this.logic = logic;
+        this.mLogic = logic;
 
-        mBannedResources = new HashMap<String, List<Integer>>(3);
-        mBannedResources.put("dec", Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F));
-        mBannedResources.put("bin", Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F,
-                                     R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5,
-                                     R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9));
-        mBannedResources.put("hex", new ArrayList<Integer>());
+        REGEX_NUMBER = "[A-F0-9" + Pattern.quote(mLogic.mDecimalPoint) + SELECTION_HANDLE + "]";
+        REGEX_NOT_NUMBER = "[^A-F0-9" + Pattern.quote(mLogic.mDecimalPoint) + SELECTION_HANDLE + "]";
+
+        mBannedResources = new HashMap<Mode, List<Integer>>(3);
+        mBannedResources.put(Mode.DECIMAL, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F));
+        mBannedResources.put(Mode.BINARY, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F, R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5,
+                R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9));
+        mBannedResources.put(Mode.HEXADECIMAL, new ArrayList<Integer>());
     }
 
     public enum Mode {
@@ -45,17 +47,17 @@ public class BaseModule {
     }
 
     public Mode getMode() {
-        return mode;
+        return mMode;
     }
 
     public String setMode(Mode mode) {
-        String text = updateTextToNewMode(logic.getText(), this.mode, mode);
-        this.mode = mode;
+        String text = updateTextToNewMode(mLogic.getText(), this.mMode, mode);
+        this.mMode = mode;
         return text;
     }
 
     String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2) {
-        if(mode1.equals(mode2) || originalText.equals(logic.mErrorString) || originalText.isEmpty()) return originalText;
+        if(mode1.equals(mode2) || originalText.equals(mLogic.mErrorString) || originalText.isEmpty()) return originalText;
 
         String[] operations = originalText.split(REGEX_NUMBER);
         String[] numbers = originalText.split(REGEX_NOT_NUMBER);
@@ -72,10 +74,10 @@ public class BaseModule {
                             translatedNumbers[i] = newBase(numbers[i], 2, 10);
                         }
                         catch(NumberFormatException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         catch(SyntaxException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         break;
                     case HEXADECIMAL:
@@ -83,10 +85,10 @@ public class BaseModule {
                             translatedNumbers[i] = newBase(numbers[i], 2, 16);
                         }
                         catch(NumberFormatException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         catch(SyntaxException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         break;
                     }
@@ -98,10 +100,10 @@ public class BaseModule {
                             translatedNumbers[i] = newBase(numbers[i], 10, 2);
                         }
                         catch(NumberFormatException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         catch(SyntaxException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         break;
                     case DECIMAL:
@@ -111,10 +113,10 @@ public class BaseModule {
                             translatedNumbers[i] = newBase(numbers[i], 10, 16);
                         }
                         catch(NumberFormatException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         catch(SyntaxException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         break;
                     }
@@ -126,10 +128,10 @@ public class BaseModule {
                             translatedNumbers[i] = newBase(numbers[i], 16, 2);
                         }
                         catch(NumberFormatException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         catch(SyntaxException e) {
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         break;
                     case DECIMAL:
@@ -138,11 +140,11 @@ public class BaseModule {
                         }
                         catch(NumberFormatException e) {
                             e.printStackTrace();
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         catch(SyntaxException e) {
                             e.printStackTrace();
-                            return logic.mErrorString;
+                            return mLogic.mErrorString;
                         }
                         break;
                     case HEXADECIMAL:
@@ -187,7 +189,7 @@ public class BaseModule {
     private final static int PRECISION = 8;
 
     private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException {
-        String[] split = originalNumber.split("\\.");
+        String[] split = originalNumber.split(Pattern.quote(mLogic.mDecimalPoint));
         if(split.length == 0) {
             split = new String[1];
             split[0] = "0";
@@ -197,9 +199,6 @@ public class BaseModule {
         }
         if(originalBase != 10) {
             split[0] = Long.toString(Long.parseLong(split[0], originalBase));
-        }
-        if(split.length > 1 && split[1].length() > 13) {
-            split[1] = split[1].substring(0, 13);
         }
 
         String wholeNumber = "";
@@ -216,10 +215,15 @@ public class BaseModule {
         }
         if(split.length == 1) return wholeNumber.toUpperCase(Locale.US);
 
+        // Catch overflow (it's a decimal, it can be (slightly) rounded
+        if(split[1].length() > 13) {
+            split[1] = split[1].substring(0, 13);
+        }
+
         double decimal = 0;
         if(originalBase != 10) {
             String decimalFraction = Long.toString(Long.parseLong(split[1], originalBase)) + "/" + originalBase + "^" + split[1].length();
-            decimal = logic.mSymbols.eval(decimalFraction);
+            decimal = mLogic.mSymbols.eval(decimalFraction);
         }
         else {
             decimal = Double.parseDouble("0." + split[1]);
@@ -233,11 +237,11 @@ public class BaseModule {
             decimal -= id;
             decimalNumber += Integer.toHexString(id);
         }
-        return (wholeNumber + "." + decimalNumber).toUpperCase(Locale.US);
+        return (wholeNumber + mLogic.mDecimalPoint + decimalNumber).toUpperCase(Locale.US);
     }
 
     public String groupSentence(String originalText, int selectionHandle) {
-        if(originalText.equals(logic.mErrorString) || originalText.isEmpty()) return originalText;
+        if(originalText.equals(mLogic.mErrorString) || originalText.isEmpty()) return originalText;
 
         originalText = originalText.substring(0, selectionHandle) + SELECTION_HANDLE + originalText.substring(selectionHandle);
         String[] operations = originalText.split(REGEX_NUMBER);
@@ -245,7 +249,7 @@ public class BaseModule {
         String[] translatedNumbers = new String[numbers.length];
         for(int i = 0; i < numbers.length; i++) {
             if(!numbers[i].isEmpty()) {
-                translatedNumbers[i] = groupDigits(numbers[i], mode);
+                translatedNumbers[i] = groupDigits(numbers[i], mMode);
             }
         }
         String text = "";
@@ -286,11 +290,11 @@ public class BaseModule {
         String wholeNumber = number;
         String remainder = "";
         // We only group the whole number
-        if(number.contains(".")) {
-            if(!number.startsWith(".")) {
-                String[] temp = number.split("\\.");
+        if(number.contains(mLogic.mDecimalPoint)) {
+            if(!number.startsWith(mLogic.mDecimalPoint)) {
+                String[] temp = number.split(Pattern.quote(mLogic.mDecimalPoint));
                 wholeNumber = temp[0];
-                remainder = "." + ((temp.length == 1) ? "" : temp[1]);
+                remainder = mLogic.mDecimalPoint + ((temp.length == 1) ? "" : temp[1]);
             }
             else {
                 wholeNumber = "";
@@ -301,13 +305,13 @@ public class BaseModule {
         String modifiedNumber = wholeNumber;
         switch(mode) {
         case DECIMAL:
-            modifiedNumber = group(wholeNumber, 3, ",");
+            modifiedNumber = group(wholeNumber, mLogic.mDecSeparatorDistance, mLogic.mDecSeparator);
             break;
         case BINARY:
-            modifiedNumber = group(wholeNumber, 4, " ");
+            modifiedNumber = group(wholeNumber, mLogic.mBinSeparatorDistance, mLogic.mBinSeparator);
             break;
         case HEXADECIMAL:
-            modifiedNumber = group(wholeNumber, 2, " ");
+            modifiedNumber = group(wholeNumber, mLogic.mHexSeparatorDistance, mLogic.mHexSeparator);
             break;
         }
         return sign + modifiedNumber + remainder;
@@ -322,8 +326,8 @@ public class BaseModule {
             if(charFromEnd == SELECTION_HANDLE) {
                 offset++;
                 if(i == wholeNumber.length()) {
-                    // Remove coma if we accidentally caused an extra one
-                    if(modifiedNumber.startsWith(SELECTION_HANDLE + ",")) {
+                    // Remove separator if we accidentally caused an extra one
+                    if(modifiedNumber.startsWith(SELECTION_HANDLE + separator)) {
                         modifiedNumber = SELECTION_HANDLE + modifiedNumber.substring(2);
                     }
                 }

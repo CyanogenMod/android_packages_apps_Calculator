@@ -17,58 +17,54 @@
  */
 -->
 <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/left_right_padding"
         android:paddingRight="@dimen/left_right_padding" >
-    
         <LinearLayout
             android:layout_width="match_parent"
             android:minHeight="@dimen/min_display_height"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
             <com.android.calculator2.view.CalculatorDisplay
                 android:id="@+id/display"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                maxDigits="@integer/max_digits"
-                >
-    
+                maxDigits="@integer/max_digits" >
                 <com.android.calculator2.view.ScrollableDisplay
-                    style="@style/display_style" />
+                    style="?display_style" />
                 <com.android.calculator2.view.ScrollableDisplay
-                    style="@style/display_style" />
-    
+                    style="?display_style" />
             </com.android.calculator2.view.CalculatorDisplay>
             <ImageButton android:id="@+id/overflow_menu"
                 android:layout_width="48dip"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_menu_overflow"
-                android:background="@drawable/menu_bg"
+                android:src="?ic_menu_overflow"
+                android:background="?menu_bg"
                 android:layout_marginLeft="8dip"
                 android:visibility="gone"
-                android:contentDescription="@null"/>
+                android:contentDescription="@null" />
             <FrameLayout
                 android:layout_width="100dip"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" >
                 <Button
                     android:id="@+id/clear"
                     android:text="@string/clear"
-                    style="@style/btn_clear"
+                    style="@style/Theme.Calculator.Clear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="5dip"
                     android:paddingRight="5dip" />
                 <ImageButton
                     android:id="@+id/del"
-                    android:src="@drawable/calc_clear_symbol"
-                    style="@style/btn_clear"
+                    android:src="?calc_clear_symbol"
+                    style="@style/Theme.Calculator.Clear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="5dip"
@@ -78,37 +74,30 @@
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            
+            android:layout_height="match_parent" >
             <com.xlythe.slider.Slider
                  android:id="@+id/pulldown"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 android:background="@color/background"
-                 android:scrollbarThumbHorizontal="@drawable/btn_function" >
+                 style="?slider_style" >
                 <include layout="@layout/history_panel" />
             </com.xlythe.slider.Slider>
-        
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/history_bar_height">
-        
+                android:layout_marginTop="@dimen/history_bar_height" >
                 <com.android.calculator2.view.CalculatorViewPager
                      android:id="@+id/smallPanelswitch"
                      android:layout_width="0dip"
                      android:layout_height="match_parent"
                      android:layout_weight="3"
-                     android:layout_marginRight="@dimen/group_padding"
-                     />
-            
+                     android:layout_marginRight="@dimen/group_padding" />
                 <com.android.calculator2.view.CalculatorViewPager
                      android:id="@+id/largePanelswitch"
                      android:layout_width="0dip"
                      android:layout_height="match_parent"
-                     android:layout_weight="5"
-                     />
+                     android:layout_weight="5" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

@@ -80,17 +80,13 @@ public class CalculatorEditable extends SpannableStringBuilder {
                 return super.replace(start, end, "");
             }
 
+            // TODO move to advanced display
             // don't allow multiple successive operators
             if(Logic.isOperator(text)) {
                 while(Logic.isOperator(prevChar) && (text != Logic.MINUS || prevChar == '+')) {
                     --start;
                     prevChar = start > 0 ? charAt(start - 1) : '\0';
                 }
-            }
-
-            // don't allow leading operator /
-            if(start == 0 && Logic.isOperator(text) && text != Logic.PLUS && text != Logic.MINUS && text != Logic.MUL) {
-                return super.replace(start, end, "");
             }
         }
         return super.replace(start, end, delta);

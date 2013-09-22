@@ -61,7 +61,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     TranslateAnimation outAnimDown;
 
     private int mMaxDigits = DEFAULT_MAX_DIGITS;
-    private List<String> keywords;
+    private final List<String> mKeywords;
 
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -75,11 +75,12 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         String logString = context.getString(R.string.lg);
         String lnString = context.getString(R.string.ln);
         String modString = context.getString(R.string.mod);
+        String detString = context.getString(R.string.det);
         String dx = context.getString(R.string.dx);
         String dy = context.getString(R.string.dy);
 
-        keywords = Arrays.asList(sinString + "(", cosString + "(", tanString + "(", arcsinString + "(", arccosString + "(", arctanString + "(",
-                logString + "(", modString + "(", lnString + "(", dx, dy);
+        mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString
+                + "(", modString + "(", lnString + "(", detString + "(", dx, dy);
         setOnLongClickListener(this);
     }
 
@@ -89,6 +90,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
 
     public void setLogic(Logic logic) {
         NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
+            @Override
             public int getInputType() {
                 return EditorInfo.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
             }
@@ -125,7 +127,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                         String textAfterInsertionHandle = getActiveEditText().getText().toString()
                                 .substring(selectionHandle, getActiveEditText().getText().toString().length());
 
-                        for(String s : keywords) {
+                        for(String s : mKeywords) {
                             if(textBeforeInsertionHandle.endsWith(s)) {
                                 int deletionLength = s.length();
                                 String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)

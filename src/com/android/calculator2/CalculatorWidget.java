@@ -34,8 +34,9 @@ public class CalculatorWidget extends AppWidgetProvider {
     public static final String EQUALS = "com.android.calculator2.equals";
     public static final String CLR = "com.android.calculator2.clear";
     public static final String DEL = "com.android.calculator2.delete";
+    public static final String SHOW_CLEAR = "com.android.calculator2.show_clear";
 
-    private boolean showClear = false;
+    private boolean mClearText = false;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -49,38 +50,83 @@ public class CalculatorWidget extends AppWidgetProvider {
         int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         String value = getValue(context, appWidgetId);
         if(value.equals(context.getResources().getString(R.string.error))) value = "";
+        mClearText = intent.getBooleanExtra(SHOW_CLEAR, false);
 
         if(intent.getAction().equals(DIGIT_0)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "0";
         }
         else if(intent.getAction().equals(DIGIT_1)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "1";
         }
         else if(intent.getAction().equals(DIGIT_2)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "2";
         }
         else if(intent.getAction().equals(DIGIT_3)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "3";
         }
         else if(intent.getAction().equals(DIGIT_4)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "4";
         }
         else if(intent.getAction().equals(DIGIT_5)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "5";
         }
         else if(intent.getAction().equals(DIGIT_6)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "6";
         }
         else if(intent.getAction().equals(DIGIT_7)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "7";
         }
         else if(intent.getAction().equals(DIGIT_8)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "8";
         }
         else if(intent.getAction().equals(DIGIT_9)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += "9";
         }
         else if(intent.getAction().equals(DOT)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
             value += context.getResources().getString(R.string.dot);
         }
         else if(intent.getAction().equals(DIV)) {
@@ -96,6 +142,13 @@ public class CalculatorWidget extends AppWidgetProvider {
             value += context.getResources().getString(R.string.plus);
         }
         else if(intent.getAction().equals(EQUALS)) {
+            if(mClearText) {
+                value = "";
+                mClearText = false;
+            }
+            else {
+                mClearText = true;
+            }
             final String input = value;
             if(input.isEmpty()) return;
 
@@ -114,12 +167,10 @@ public class CalculatorWidget extends AppWidgetProvider {
                 final Persist persist = new Persist(context);
                 persist.load();
                 if(persist.getMode() == null) persist.setMode(Mode.DECIMAL);
-                final History history = persist.history;
+                final History history = persist.mHistory;
                 history.enter(input, value);
                 persist.save();
             }
-
-            showClear = true;
         }
         else if(intent.getAction().equals(CLR)) {
             value = "";
@@ -138,18 +189,16 @@ public class CalculatorWidget extends AppWidgetProvider {
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), CalculatorSettings.useLightTheme(context) ? R.layout.widget_light : R.layout.widget);
         String value = getValue(context, appWidgetId);
 
-        int displayId =
-                android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
-                    ? R.id.display_long_clickable
-                    : R.id.display;
+        int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable : R.id.display;
 
         remoteViews.setViewVisibility(displayId, View.VISIBLE);
         remoteViews.setTextViewText(displayId, value);
-        remoteViews.setViewVisibility(R.id.clear, showClear ? View.VISIBLE : View.GONE);
-        remoteViews.setViewVisibility(R.id.delete, showClear ? View.GONE : View.VISIBLE);
+        remoteViews.setTextViewText(R.id.display, value);
+        remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
+        remoteViews.setViewVisibility(R.id.delete, mClearText ? View.GONE : View.VISIBLE);
         setOnClickListeners(context, appWidgetId, remoteViews);
 
         try {
@@ -158,9 +207,10 @@ public class CalculatorWidget extends AppWidgetProvider {
         catch(Exception e) {}
     }
 
-    private static void setOnClickListeners(Context context, int appWidgetId, RemoteViews remoteViews) {
+    private void setOnClickListeners(Context context, int appWidgetId, RemoteViews remoteViews) {
         final Intent intent = new Intent(context, CalculatorWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        intent.putExtra(SHOW_CLEAR, mClearText);
 
         // The pending intent request code must be unique
         // Not just for these 17 buttons, but for each widget as well
