@@ -23,62 +23,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginBottom="@dimen/group_padding">
-
-        <LinearLayout
-        style="@style/btn_row_style">
+    android:layout_marginBottom="@dimen/group_padding" >
+    <LinearLayout
+        style="?btn_row_style" >
         <com.android.calculator2.view.ColorButton
             android:id="@+id/solveForX"
             android:text="@string/solveForX"
             android:textSize="26dp"
             android:layout_weight="2"
-            style="@style/btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/X"
             android:text="@string/X"
             android:layout_weight="1"
-            style="@style/btn_digit_cell_style"
-            />
+            style="?btn_digit_cell_style" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/dx"
             android:text="@string/dx"
             android:layout_weight="1"
-            style="@style/btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/parentheses"
             android:text="@string/parentheses"
             android:layout_weight="1"
-            style="@style/btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
     </LinearLayout>
     <LinearLayout
-        style="@style/btn_row_style">
+        style="?btn_row_style" >
         <com.android.calculator2.view.ColorButton
             android:id="@+id/solveForY"
             android:text="@string/solveForY"
             android:textSize="26dp"
             android:layout_weight="2"
-            style="@style/btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/Y"
             android:text="@string/Y"
             android:layout_weight="1"
-            style="@style/btn_digit_cell_style"
-            />
+            style="?btn_digit_cell_style" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/dy"
             android:text="@string/dy"
             android:layout_weight="1"
-            style="@style/btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/integral"
             android:text="@string/integral"
             android:layout_weight="1"
-            style="@style/btn_function_cell_style"
-            />
+            style="?btn_function_cell_style" />
     </LinearLayout>
 </LinearLayout>

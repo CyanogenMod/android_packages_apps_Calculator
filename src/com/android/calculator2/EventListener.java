@@ -16,11 +16,12 @@
 
 package com.android.calculator2;
 
+import java.util.List;
+
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,8 +33,6 @@ import com.android.calculator2.view.MatrixEditText;
 import com.android.calculator2.view.MatrixInverseView;
 import com.android.calculator2.view.MatrixTransposeView;
 import com.android.calculator2.view.MatrixView;
-
-import java.util.List;
 
 public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
     Context mContext;
@@ -99,30 +98,30 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
         case R.id.hex:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.HEXADECIMAL));
-            view.setBackgroundResource(R.color.pressed_color);
-            ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
-            ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
-            applyAllBannedResources(mHandler.mBaseModule, "hex");
+            view.setSelected(true);
+            ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
+            ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
+            applyAllBannedResources(mHandler.mBaseModule, Mode.HEXADECIMAL);
             break;
 
         case R.id.bin:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.BINARY));
-            view.setBackgroundResource(R.color.pressed_color);
-            ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
-            ((View) view.getParent()).findViewById(R.id.dec).setBackgroundResource(R.drawable.btn_function);
-            applyAllBannedResources(mHandler.mBaseModule, "bin");
+            view.setSelected(true);
+            ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
+            ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
+            applyAllBannedResources(mHandler.mBaseModule, Mode.BINARY);
             break;
 
         case R.id.dec:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.DECIMAL));
-            view.setBackgroundResource(R.color.pressed_color);
-            ((View) view.getParent()).findViewById(R.id.bin).setBackgroundResource(R.drawable.btn_function);
-            ((View) view.getParent()).findViewById(R.id.hex).setBackgroundResource(R.drawable.btn_function);
-            applyAllBannedResources(mHandler.mBaseModule, "dec");
+            view.setSelected(true);
+            ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
+            ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
+            applyAllBannedResources(mHandler.mBaseModule, Mode.DECIMAL);
             break;
 
         case R.id.matrix:
-            mHandler.insert(MatrixView.PATTERN);
+            mHandler.insert(MatrixView.getPattern(mContext));
             returnToBasic();
             break;
 
@@ -157,6 +156,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.next:
+            if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             active = mHandler.mDisplay.getActiveEditText();
             if(active.getSelectionStart() == active.getText().length()) {
                 v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_FORWARD);
@@ -169,23 +169,27 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             }
             break;
 
-        case R.id.sign:
-            active = mHandler.mDisplay.getActiveEditText();
-            int selection = active.getSelectionStart();
-            if(active.getText().toString().matches(Logic.NUMBER)) {
-                if(active.getText().toString().startsWith(String.valueOf(Logic.MINUS))) {
-                    active.setText(active.getText().toString().substring(1));
-                    selection--;
-                }
-                else {
-                    active.setText(Logic.MINUS + active.getText().toString());
-                    selection++;
-                }
-                if(selection > active.length()) selection--;
-                if(selection < 0) selection = 0;
-                active.setSelection(selection);
-            }
-            break;
+        // +/-, changes the sign of the current number. Might be useful later
+        // (but removed for now)
+        // case R.id.sign:
+        // if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
+        // active = mHandler.mDisplay.getActiveEditText();
+        // int selection = active.getSelectionStart();
+        // if(active.getText().toString().matches(Logic.NUMBER)) {
+        // if(active.getText().toString().startsWith(String.valueOf(Logic.MINUS)))
+        // {
+        // active.setText(active.getText().toString().substring(1));
+        // selection--;
+        // }
+        // else {
+        // active.setText(Logic.MINUS + active.getText().toString());
+        // selection++;
+        // }
+        // if(selection > active.length()) selection--;
+        // if(selection < 0) selection = 0;
+        // active.setSelection(selection);
+        // }
+        // break;
 
         case R.id.parentheses:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
@@ -232,7 +236,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
         default:
             if(view instanceof Button) {
-                if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
                 String text = ((Button) view).getText().toString();
                 if(text.equals(mDX) || text.equals(mDY)) {
                     // Do nothing
@@ -247,44 +250,39 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         }
     }
 
-    private void applyAllBannedResources(BaseModule base, String baseMode) {
-        for (String key : base.mBannedResources.keySet()) {
-            if (baseMode.compareTo(key) != 0) {
+    private void applyAllBannedResources(BaseModule base, Mode baseMode) {
+        for(Mode key : base.mBannedResources.keySet()) {
+            if(baseMode.compareTo(key) != 0) {
                 applyBannedResources(base, key, true);
             }
         }
         applyBannedResources(base, baseMode, false);
     }
 
-    private void applyBannedResources(BaseModule base, String baseMode, boolean enabled) {
+    private void applyBannedResources(BaseModule base, Mode baseMode, boolean enabled) {
         List<Integer> resources = base.mBannedResources.get(baseMode);
         ViewPager pager = mPager != null ? mPager : mSmallPager;
-        for (Integer resource : resources) {
+        for(Integer resource : resources) {
             final int resId = resource.intValue();
-            // There are multiple views with the same id, but the is unique per page
+            // There are multiple views with the same id,
+            // but the id is unique per page
             // Find ids on every page
-            int count = pager.getChildCount();
-            boolean found = false;
-            for (int i = 0; i <= count; i++) {
-                View child = pager.getChildAt(i);
-                if (child instanceof ViewGroup) {
-                    View v = ((ViewGroup)child).findViewById(resId);
-                    if (v != null) {
-                        v.setEnabled(enabled);
-                        found = true;
-                    }
+            int count = pager.getAdapter().getCount();
+            for(int i = 0; i < count; i++) {
+                View child = ((CalculatorPageAdapter) pager.getAdapter()).getViewAt(i);
+                View v = child.findViewById(resId);
+                if(v != null) {
+                    v.setEnabled(enabled);
                 }
             }
             // An especial check when current pager is mLargePager
-            if (!found && mPager == null && mLargePager != null) {
-                for (int i = 0; i <= count; i++) {
-                    View child = mLargePager.getChildAt(i);
-                    if (child instanceof ViewGroup) {
-                        View v = ((ViewGroup)child).findViewById(resId);
-                        if (v != null) {
-                            v.setEnabled(enabled);
-                            found = true;
-                        }
+            if(mPager == null && mLargePager != null) {
+                count = mLargePager.getAdapter().getCount();
+                for(int i = 0; i < count; i++) {
+                    View child = ((CalculatorPageAdapter) mLargePager.getAdapter()).getViewAt(i);
+                    View v = child.findViewById(resId);
+                    if(v != null) {
+                        v.setEnabled(enabled);
                     }
                 }
             }
@@ -296,6 +294,20 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         switch(view.getId()) {
         case R.id.del:
             mHandler.onClear();
+            return true;
+
+        case R.id.next:
+            // Handle back
+            EditText active = mHandler.mDisplay.getActiveEditText();
+            if(active.getSelectionStart() == 0) {
+                View v = mHandler.mDisplay.getActiveEditText().focusSearch(View.FOCUS_BACKWARD);
+                if(v != null) v.requestFocus();
+                active = mHandler.mDisplay.getActiveEditText();
+                active.setSelection(active.getText().length());
+            }
+            else {
+                active.setSelection(active.getSelectionStart() - 1);
+            }
             return true;
         }
         if(view.getTag() != null) {

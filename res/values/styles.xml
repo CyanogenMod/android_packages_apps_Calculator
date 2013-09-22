@@ -25,13 +25,13 @@
     <dimen name="max_display_height">200dp</dimen>
     <dimen name="history_bar_height">25dp</dimen>
     <dimen name="matrix_edit_text_padding">17dp</dimen>
-    <dimen name="button_hint_offset_x">10dp</dimen>
+    <dimen name="button_hint_offset_x">20dp</dimen>
     <dimen name="button_hint_offset_y">20dp</dimen>
-    <dimen name="button_hint_exponent_jump">10dp</dimen>
     <dimen name="app_defaultsize_w">632.0dip</dimen>
     <dimen name="app_defaultsize_h">598.0dip</dimen>
     <dimen name="app_minimumsize_w">300dp</dimen>
     <dimen name="app_minimumsize_h">300dp</dimen>
+    <item type="integer" name="button_hint_text_size_percent">70</item>
 
     <!-- Cling -->
     <dimen name="clingPunchThroughGraphicCenterRadius">94dp</dimen>
@@ -39,83 +39,6 @@
     <!-- The offset for the text in the cling -->
     <dimen name="cling_text_block_offset_x">0dp</dimen>
     <dimen name="cling_text_block_offset_y">0dp</dimen>
-
-    <style name="button_style">
-       <item name="android:textSize">40sp</item>
-       <item name="android:layout_width">match_parent</item>
-       <item name="android:layout_height">match_parent</item>
-       <item name="android:layout_weight">1</item>
-       <item name="android:focusable">true</item>
-       <item name="android:background">@drawable/btn_function</item>
-       <item name="android:layout_marginLeft">1dp</item>
-    </style>
-
-    <style name="digit_button_style" parent="button_style">
-       <item name="android:background">@drawable/btn_digit</item>
-    </style>
-
-    <style name="button_small_style" parent="button_style">
-       <item name="android:textSize">30sp</item>
-    </style>
-
-    <style name="button_half_style" parent="button_style">
-       <item name="android:textSize">25sp</item>
-    </style>
-
-    <style name="display_style">
-       <item name="android:textSize">@dimen/display_text_size</item>
-       <item name="android:inputType">text|textNoSuggestions</item>
-       <item name="android:gravity">right|center_vertical</item>
-       <item name="android:textColor">#ffffff</item>
-       <item name="android:maxLines">1</item>
-       <item name="android:scrollbars">none</item>
-       <item name="android:scrollHorizontally">true</item>
-       <item name="android:layout_width">match_parent</item>
-       <item name="android:layout_height">match_parent</item>
-       <item name="android:paddingTop">8dp</item>
-       <item name="android:paddingLeft">8dp</item>
-       <item name="android:paddingRight">8dp</item>
-       <item name="android:paddingBottom">8dp</item>
-       <item name="max_height">@dimen/max_display_height</item>
-    </style>
-
-    <style name="btn_row_style">
-       <item name="android:layout_width">match_parent</item>
-       <item name="android:layout_height">0dip</item>
-       <item name="android:layout_weight">1</item>
-       <item name="android:orientation">horizontal</item>
-    </style>
-
-    <style name="btn_function_cell_style">
-       <item name="android:layout_width">0dip</item>
-       <item name="android:layout_weight">1</item>
-       <item name="android:layout_height">match_parent</item>
-       <item name="android:background">@drawable/btn_function</item>
-       <item name="android:textSize">@dimen/btn_function_text_size</item>
-    </style>
-
-    <style name="btn_operation_cell_style">
-       <item name="android:layout_width">0dip</item>
-       <item name="android:layout_weight">1</item>
-       <item name="android:layout_height">match_parent</item>
-       <item name="android:gravity">center</item>
-       <item name="android:background">@drawable/btn_function</item>
-       <item name="android:textSize">@dimen/btn_operation_text_size</item>
-    </style>
-
-    <style name="btn_digit_cell_style">
-       <item name="android:layout_width">0dip</item>
-       <item name="android:layout_weight">1</item>
-       <item name="android:layout_height">match_parent</item>
-       <item name="android:gravity">center</item>
-       <item name="android:background">@drawable/btn_digit</item>
-       <item name="android:textSize">@dimen/btn_digit_text_size</item>
-    </style>
-
-    <style name="btn_clear">
-       <item name="android:background">?android:attr/selectableItemBackground</item>
-       <item name="android:textSize">@dimen/btn_clear_text_size</item>
-    </style>
 
     <style name="ClingButton">
         <item name="android:layout_width">wrap_content</item>
@@ -151,5 +74,215 @@
 
     <style name="Theme.Calculator" parent="android:Theme.Holo.NoActionBar">
         <item name="android:windowBackground">@color/background</item>
+        <item name="button_style">@style/Theme.Calculator.ButtonStyle</item>
+        <item name="digit_button_style">@style/Theme.Calculator.ButtonStyle.Digit</item>
+        <item name="button_small_style">@style/Theme.Calculator.ButtonStyle.Small</item>
+        <item name="button_half_style">@style/Theme.Calculator.ButtonStyle.Half</item>
+        <item name="equal_button_style">@style/Theme.Calculator.ButtonStyle</item>
+        <item name="button_del_style">@style/Theme.Calculator.ButtonStyle.Del</item>
+        <item name="slider_style">@style/Theme.Calculator.Slider</item>
+        <item name="ic_menu_overflow">@drawable/ic_menu_overflow</item>
+        <item name="history_input">@color/history_input</item>
+        <item name="history_result">@color/history_result</item>
+        <item name="egg">@drawable/egg</item>
+        <item name="graph_minus">@drawable/graph_minus</item>
+        <item name="graph_plus">@drawable/graph_plus</item>
+        <item name="graph_standard">@drawable/graph_standard</item>
+        <item name="btn_digit_cell_style">@style/Theme.Calculator.ButtonDigitCellStyle</item>
+        <item name="btn_function_cell_style">@style/Theme.Calculator.ButtonFunctionCellStyle</item>
+        <item name="btn_row_style">@style/Theme.Calculator.ButtonRowStyle</item>
+        <item name="btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle</item>
+        <item name="equal_btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle</item>
+        <item name="display_style">@style/Theme.Calculator.Display</item>
+        <item name="menu_bg">@drawable/menu_bg</item>
+        <item name="calc_clear_symbol">@drawable/calc_clear_symbol</item>
+    </style>
+    
+    <style name="Theme.Calculator.Light" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowBackground">@color/background_light</item>
+        <item name="button_style">@style/Theme.Calculator.ButtonStyle.Light</item>
+        <item name="digit_button_style">@style/Theme.Calculator.ButtonStyle.Light.Digit</item>
+        <item name="button_small_style">@style/Theme.Calculator.ButtonStyle.Light.Small</item>
+        <item name="button_half_style">@style/Theme.Calculator.ButtonStyle.Light.Half</item>
+        <item name="equal_button_style">@style/Theme.Calculator.ButtonStyle.Light.Equal</item>
+        <item name="button_del_style">@style/Theme.Calculator.ButtonStyle.Light.Del</item>
+        <item name="slider_style">@style/Theme.Calculator.Slider.Light</item>
+        <item name="ic_menu_overflow">@drawable/ic_menu_overflow_light</item>
+        <item name="history_input">@color/history_input_light</item>
+        <item name="history_result">@color/history_result_light</item>
+        <item name="egg">@drawable/egg_light</item>
+        <item name="graph_minus">@drawable/graph_minus_light</item>
+        <item name="graph_plus">@drawable/graph_plus_light</item>
+        <item name="graph_standard">@drawable/graph_standard_light</item>
+        <item name="btn_digit_cell_style">@style/Theme.Calculator.ButtonDigitCellStyle.Light</item>
+        <item name="btn_function_cell_style">@style/Theme.Calculator.ButtonFunctionCellStyle.Light</item>
+        <item name="btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle.Light</item>
+        <item name="equal_btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle.Light.Equal</item>
+        <item name="display_style">@style/Theme.Calculator.Display.Light</item>
+        <item name="menu_bg">@drawable/menu_bg_light</item>
+        <item name="calc_clear_symbol">@drawable/calc_clear_symbol_light</item>
+    </style>
+    
+    <style name="Theme.Calculator.Settings" parent="android:Theme.Holo">
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+    
+    <style name="Theme.Calculator.Settings.Light" parent="android:Theme.Holo.Light">
+        <item name="android:windowBackground">@color/background_light</item>
+    </style>
+    
+    <style name="Theme.Calculator.ButtonStyle" >
+       <item name="android:textSize">40sp</item>
+       <item name="android:layout_width">match_parent</item>
+       <item name="android:layout_height">match_parent</item>
+       <item name="android:layout_weight">1</item>
+       <item name="android:focusable">true</item>
+       <item name="android:background">@drawable/btn_function</item>
+       <item name="android:layout_marginLeft">1dp</item>
+       <item name="android:textColor">@color/text_color</item>
+       <item name="android:textColorHint">@color/button_hint_text</item>
+       <item name="android:gravity">center</item>
+    </style>
+    
+    <style name="Theme.Calculator.ButtonStyle.Light" >
+       <item name="android:background">@drawable/btn_function_light</item>
+       <item name="android:textColor">@color/text_color_light</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.Digit" >
+       <item name="android:background">@drawable/btn_digit</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.Light.Digit" >
+        <item name="android:background">@drawable/btn_digit_light</item>
+    </style>
+    
+    <style name="Theme.Calculator.ButtonStyle.Small" >
+       <item name="android:textSize">30sp</item>
+    </style>
+    
+    <style name="Theme.Calculator.ButtonStyle.Light.Small" >
+       <item name="android:textSize">30sp</item>
+    </style>
+    
+    <style name="Theme.Calculator.ButtonStyle.Half" >
+       <item name="android:textSize">25sp</item>
+    </style>
+    
+    <style name="Theme.Calculator.ButtonStyle.Light.Half" >
+       <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.Light.Equal" >
+        <item name="android:background">@drawable/btn_equal_light</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.Del" >
+       <item name="android:background">@drawable/btn_function</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.Light.Del" >
+        <item name="android:background">@drawable/btn_slider_light</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="Theme.Calculator.Slider" >
+       <item name="android:scrollbarThumbHorizontal">@drawable/btn_function</item>
+       <item name="android:background">@color/background</item>
+    </style>
+
+    <style name="Theme.Calculator.Slider.Light" >
+       <item name="android:scrollbarThumbHorizontal">@drawable/btn_slider_light</item>
+       <item name="android:background">@color/background_light</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonFunctionCellStyle">
+       <item name="android:layout_width">0dip</item>
+       <item name="android:layout_weight">1</item>
+       <item name="android:layout_height">match_parent</item>
+       <item name="android:background">@drawable/btn_function</item>
+       <item name="android:textSize">@dimen/btn_function_text_size</item>
+       <item name="android:textColor">@color/text_color</item>
+       <item name="android:textColorHint">@color/button_hint_text</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonFunctionCellStyle.Light">
+       <item name="android:layout_width">0dip</item>
+       <item name="android:layout_weight">1</item>
+       <item name="android:layout_height">match_parent</item>
+       <item name="android:background">@drawable/btn_function_light</item>
+       <item name="android:textSize">@dimen/btn_function_text_size</item>
+       <item name="android:textColor">@color/text_color_light</item>
+       <item name="android:textColorHint">@color/button_hint_text</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonDigitCellStyle">
+       <item name="android:layout_width">0dip</item>
+       <item name="android:layout_weight">1</item>
+       <item name="android:layout_height">match_parent</item>
+       <item name="android:gravity">center</item>
+       <item name="android:background">@drawable/btn_digit</item>
+       <item name="android:textSize">@dimen/btn_digit_text_size</item>
+       <item name="android:textColor">@color/text_color</item>
+       <item name="android:textColorHint">@color/button_hint_text</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonDigitCellStyle.Light">
+       <item name="android:background">@drawable/btn_digit_light</item>
+       <item name="android:textColor">@color/text_color_light</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonRowStyle">
+       <item name="android:layout_width">match_parent</item>
+       <item name="android:layout_height">0dip</item>
+       <item name="android:layout_weight">1</item>
+       <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonOperationCellStyle">
+       <item name="android:layout_width">0dip</item>
+       <item name="android:layout_weight">1</item>
+       <item name="android:layout_height">match_parent</item>
+       <item name="android:gravity">center</item>
+       <item name="android:background">@drawable/btn_function</item>
+       <item name="android:textSize">@dimen/btn_operation_text_size</item>
+       <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonOperationCellStyle.Light">
+       <item name="android:background">@drawable/btn_function_light</item>
+       <item name="android:textColor">@color/text_color_light</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonOperationCellStyle.Light.Equal" >
+        <item name="android:background">@drawable/btn_equal_light</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="Theme.Calculator.Display">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/display_text_size</item>
+        <item name="android:inputType">text|textNoSuggestions</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="max_height">@dimen/max_display_height</item>
+    </style>
+
+    <style name="Theme.Calculator.Display.Light">
+        <item name="android:textColor">@color/text_color_light</item>
+    </style>
+
+    <style name="Theme.Calculator.Clear">
+       <item name="android:background">?android:attr/selectableItemBackground</item>
+       <item name="android:textSize">@dimen/btn_clear_text_size</item>
     </style>
 </resources>

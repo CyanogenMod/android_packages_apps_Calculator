@@ -17,14 +17,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.calculator2.tests">
 
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="18"/>
+
     <application>
         <uses-library android:name="android.test.runner" />
     </application>
-
-    <instrumentation android:name="CalculatorLaunchPerformance"
-        android:targetPackage="com.android.calculator2"
-        android:label="Calculator Launch Performance">
-    </instrumentation>
     
     <instrumentation android:name="android.test.InstrumentationTestRunner"
         android:targetPackage="com.android.calculator2"

@@ -18,34 +18,40 @@ package com.android.calculator2;
 
 import java.util.Vector;
 
-import org.javia.arity.SyntaxException;
-
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-class HistoryAdapter extends BaseAdapter {
-    private Vector<HistoryEntry> mEntries;
-    private LayoutInflater mInflater;
-    private Logic mEval;
+import com.android.calculator2.view.HistoryLine;
 
-    HistoryAdapter(Context context, History history, Logic evaluator) {
+class HistoryAdapter extends BaseAdapter {
+    private final Vector<HistoryEntry> mEntries;
+    private final LayoutInflater mInflater;
+    private final EquationFormatter mEquationFormatter;
+    private final History mHistory;
+
+    HistoryAdapter(Context context, History history) {
         mEntries = history.mEntries;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mEval = evaluator;
+        mEquationFormatter = new EquationFormatter();
+        mHistory = history;
     }
 
+    @Override
     public int getCount() {
         return mEntries.size() - 1;
     }
 
+    @Override
     public Object getItem(int position) {
         return mEntries.elementAt(position);
     }
 
+    @Override
     public long getItemId(int position) {
         return position;
     }
@@ -55,29 +61,25 @@ class HistoryAdapter extends BaseAdapter {
         return true;
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view;
+        HistoryLine view;
         if(convertView == null) {
-            view = mInflater.inflate(R.layout.history_item, parent, false);
+            view = (HistoryLine) mInflater.inflate(R.layout.history_entry, parent, false);
         }
         else {
-            view = convertView;
+            view = (HistoryLine) convertView;
         }
 
         TextView expr = (TextView) view.findViewById(R.id.historyExpr);
         TextView result = (TextView) view.findViewById(R.id.historyResult);
 
         HistoryEntry entry = mEntries.elementAt(position);
-        String base = entry.getBase();
-        expr.setText(entry.getBase());
-
-        try {
-            String res = mEval.evaluate(base);
-            result.setText("= " + res);
-        }
-        catch(SyntaxException e) {
-            result.setText("");
-        }
+        expr.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(entry.getBase())));
+        result.setText(entry.getEdited());
+        view.setHistoryEntry(entry);
+        view.setHistory(mHistory);
+        view.setAdapter(this);
 
         return view;
     }
