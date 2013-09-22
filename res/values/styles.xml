@@ -123,12 +123,10 @@
         <item name="calc_clear_symbol">@drawable/calc_clear_symbol_light</item>
     </style>
     
-    <style name="Theme.Calculator.Settings" parent="android:Theme.Holo">
-        <item name="android:windowBackground">@color/background</item>
+    <style name="Theme.Settings.Calculator" parent="android:Theme.Holo">
     </style>
     
-    <style name="Theme.Calculator.Settings.Light" parent="android:Theme.Holo.Light">
-        <item name="android:windowBackground">@color/background_light</item>
+    <style name="Theme.Settings.Calculator.Light" parent="android:Theme.Holo.Light">
     </style>
     
     <style name="Theme.Calculator.ButtonStyle" >

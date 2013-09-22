@@ -16,7 +16,7 @@ public class Preferences extends Activity {
         super.onCreate(savedInstanceState);
 
         if(CalculatorSettings.useLightTheme(this)) {
-            super.setTheme(R.style.Theme_Calculator_Settings_Light);
+            super.setTheme(R.style.Theme_Settings_Calculator_Light);
         }
 
         if(savedInstanceState == null) {

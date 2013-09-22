@@ -23,7 +23,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.APP_CALCULATOR" />
-                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
             </intent-filter>
         </activity>
         <activity-alias
@@ -35,6 +34,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
             </intent-filter>
         </activity-alias>
         <activity-alias
@@ -46,9 +46,10 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
             </intent-filter>
         </activity-alias>
-        <activity android:name=".Preferences" android:theme="@style/Theme.Calculator.Settings" android:label="@string/settings" />
+        <activity android:name=".Preferences" android:theme="@style/Theme.Settings.Calculator" android:label="@string/settings" />
         <receiver android:name=".CalculatorWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
