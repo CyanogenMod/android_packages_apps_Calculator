@@ -1,5 +1,8 @@
 package com.android2.calculator3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.achartengine.model.XYSeries;
 import org.achartengine.util.MathHelper;
 import org.javia.arity.SyntaxException;
@@ -58,7 +61,8 @@ public class GraphModule {
             @Override
             public void run() {
                 try {
-                    final XYSeries series = new XYSeries("");
+                    final List<XYSeries> series = new ArrayList<XYSeries>();
+                    series.add(new XYSeries(""));
                     double lastX = (maxX - minX) / 2 + minX;
                     double lastY = (maxY - minY) / 2 + minY;
 
@@ -71,10 +75,10 @@ public class GraphModule {
                                 double y = mLogic.mSymbols.eval(equation[1]);
 
                                 if(pointIsNaN(lastY, y, maxY, minY)) {
-                                    series.add(x, MathHelper.NULL_VALUE);
+                                    series.get(0).add(x, MathHelper.NULL_VALUE);
                                 }
                                 else {
-                                    series.add(x, y);
+                                    series.get(0).add(x, y);
                                 }
                                 lastY = y;
                             }
@@ -92,10 +96,10 @@ public class GraphModule {
                                 double x = mLogic.mSymbols.eval(equation[1]);
 
                                 if(pointIsNaN(lastX, x, maxX, minX)) {
-                                    series.add(MathHelper.NULL_VALUE, y);
+                                    series.get(0).add(MathHelper.NULL_VALUE, y);
                                 }
                                 else {
-                                    series.add(x, y);
+                                    series.get(0).add(x, y);
                                 }
                                 lastX = x;
                             }
@@ -113,10 +117,10 @@ public class GraphModule {
                                 double y = mLogic.mSymbols.eval(equation[0]);
 
                                 if(pointIsNaN(lastY, y, maxY, minY)) {
-                                    series.add(x, MathHelper.NULL_VALUE);
+                                    series.get(0).add(x, MathHelper.NULL_VALUE);
                                 }
                                 else {
-                                    series.add(x, y);
+                                    series.get(0).add(x, y);
                                 }
                                 lastY = y;
                             }
@@ -134,10 +138,10 @@ public class GraphModule {
                                 double x = mLogic.mSymbols.eval(equation[0]);
 
                                 if(pointIsNaN(lastX, x, maxX, minX)) {
-                                    series.add(MathHelper.NULL_VALUE, y);
+                                    series.get(0).add(MathHelper.NULL_VALUE, y);
                                 }
                                 else {
-                                    series.add(x, y);
+                                    series.get(0).add(x, y);
                                 }
                                 lastX = x;
                             }
@@ -148,6 +152,7 @@ public class GraphModule {
                     }
                     else {
                         for(double x = minX; x <= maxX; x += (0.01 * (maxX - minX))) {
+                            List<Double> values = new ArrayList<Double>();
                             for(double y = maxY; y >= minY; y -= (0.01 * (maxY - minY))) {
                                 if(graphChanged(g, eq, minX, maxX, minY, maxY)) return;
 
@@ -156,16 +161,16 @@ public class GraphModule {
                                     mLogic.mSymbols.define(mLogic.mY, y);
                                     Double leftSide = mLogic.mSymbols.eval(equation[0]);
                                     Double rightSide = mLogic.mSymbols.eval(equation[1]);
+                                    // TODO increase scale of graph as zooming
+                                    // out
                                     if(leftSide < 0 && rightSide < 0) {
                                         if(leftSide * 0.97 >= rightSide && leftSide * 1.03 <= rightSide) {
-                                            series.add(x, y);
-                                            break;
+                                            values.add(y);
                                         }
                                     }
                                     else {
                                         if(leftSide * 0.97 <= rightSide && leftSide * 1.03 >= rightSide) {
-                                            series.add(x, y);
-                                            break;
+                                            values.add(y);
                                         }
                                     }
                                 }
@@ -173,17 +178,23 @@ public class GraphModule {
                                     e.printStackTrace();
                                 }
                             }
+                            while(values.size() > series.size()) {
+                                series.add(new XYSeries(""));
+                                Graph.addSeriesRenderer(g.getRenderer().getSeriesRendererAt(0).getColor(), g.getRenderer());
+                            }
+                            for(int i = 0; i < values.size(); i++) {
+                                // TODO find closest value to previous one
+                                series.get(i).add(x, values.get(i));
+                            }
                         }
                     }
 
-                    try {
-                        g.getDataset().removeSeries(g.getSeries());
+                    for(int i = 0; i < g.getDataset().getSeriesCount(); i++) {
+                        g.getDataset().removeSeries(i);
                     }
-                    catch(NullPointerException e) {
-                        e.printStackTrace();
+                    for(XYSeries s : series) {
+                        g.getDataset().addSeries(s);
                     }
-                    g.setSeries(series);
-                    g.getDataset().addSeries(series);
 
                     if(mLogic.mGraphDisplay != null) mLogic.mGraphDisplay.repaint();
                 }

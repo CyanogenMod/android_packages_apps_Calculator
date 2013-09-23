@@ -143,11 +143,15 @@ public class Graph {
         renderer.setYAxisBold(true);
         renderer.setZoomButtonsVisible(false);
         renderer.setExternalZoomEnabled(true);
+        addSeriesRenderer(context.getResources().getColor(R.color.graph_color), renderer);
+        return renderer;
+    }
+
+    public static void addSeriesRenderer(int color, XYMultipleSeriesRenderer renderer) {
         XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(context.getResources().getColor(R.color.graph_color));
+        r.setColor(color);
         r.setPointStyle(PointStyle.POINT);
         r.setLineWidth(4f);
         renderer.addSeriesRenderer(r);
-        return renderer;
     }
 }
