@@ -178,14 +178,32 @@ public class GraphModule {
                                     e.printStackTrace();
                                 }
                             }
+
+                            int color = g.getRenderer().getSeriesRendererAt(0).getColor();
                             while(values.size() > series.size()) {
                                 series.add(new XYSeries(""));
-                                Graph.addSeriesRenderer(g.getRenderer().getSeriesRendererAt(0).getColor(), g.getRenderer());
+                                Graph.addSeriesRenderer(color, g.getRenderer());
                             }
+
                             for(int i = 0; i < values.size(); i++) {
                                 // TODO find closest value to previous one
                                 series.get(i).add(x, values.get(i));
                             }
+
+                            // // TODO needs a lot of work. very broken
+                            // for(Double d : values) {
+                            // // find closest value to previous one per
+                            // // series
+                            // XYSeries closestSeries = series.get(0);
+                            // for(XYSeries s : series) {
+                            // if(tolerance(closestSeries.getY(closestSeries.getItemCount()
+                            // - 1), d) > tolerance(s.getY(s.getItemCount() -
+                            // 1), d)) {
+                            // closestSeries = s;
+                            // }
+                            // }
+                            // closestSeries.add(x, d);
+                            // }
                         }
                     }
 
@@ -203,6 +221,10 @@ public class GraphModule {
                 }
             }
         }).start();
+    }
+
+    private static double tolerance(double result, double truth) {
+        return (100.0 * Math.abs(truth - result) / Math.abs(truth));
     }
 
     boolean graphChanged(Graph graph, String equation, double minX, double maxX, double minY, double maxY) {
