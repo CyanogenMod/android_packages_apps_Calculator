@@ -52,10 +52,14 @@
     <string name="pref_panels">Panely</string>
     <string name="pref_actions">Akce</string>
     <string name="pref_units">Jednotky</string>
+    <string name="pref_theme">Vzhled</string>
     <string name="pref_about">O aplikaci</string>
     <string name="returnToBasic">Zpět na základní panel</string>
+    <string name="clickToOpenHistory">Otevřít historii</string>
     <string name="digitGrouping">Oddělovač řádů</string>
     <string name="trigUnits">Trig. jednotky</string>
+    <string name="holo_light">Světlé</string>
+    <string name="holo_dark">Tmavé</string>
     <string name="cling_simple_title">Vítejte</string>
     <string name="cling_simple_msg">Pro zobrazení dalších panelů použijte posunutí vlevo nebo vpravo. Nepoužívané panely je možné zakázat v nastavení.</string>
     <string name="cling_matrix_title">Matice</string>
