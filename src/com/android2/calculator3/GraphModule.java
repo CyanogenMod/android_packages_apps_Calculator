@@ -31,9 +31,7 @@ public class GraphModule {
             XYSeries series = new XYSeries("");
 
             try {
-                for(int i = 0; i < g.getDataset().getSeriesCount(); i++) {
-                    g.getDataset().removeSeries(i);
-                }
+                clearGraph(g);
                 g.getDataset().addSeries(series);
             }
             catch(NullPointerException e) {
@@ -208,9 +206,7 @@ public class GraphModule {
                         }
                     }
 
-                    for(int i = 0; i < g.getDataset().getSeriesCount(); i++) {
-                        g.getDataset().removeSeries(0);
-                    }
+                    clearGraph(g);
                     for(XYSeries s : series) {
                         g.getDataset().addSeries(s);
                     }
@@ -222,6 +218,13 @@ public class GraphModule {
                 }
             }
         }).start();
+    }
+
+    private static void clearGraph(Graph g) {
+        int seriesCount = g.getDataset().getSeriesCount();
+        for(int i = 0; i < seriesCount; i++) {
+            g.getDataset().removeSeries(0);
+        }
     }
 
     private static double tolerance(double result, double truth) {
