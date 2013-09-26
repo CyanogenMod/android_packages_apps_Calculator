@@ -11,6 +11,7 @@ import com.android.calculator2.view.PreferencesFragment;
  * @author Will Harmon
  **/
 public class Preferences extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +21,9 @@ public class Preferences extends Activity {
         }
 
         if(savedInstanceState == null) {
-            getFragmentManager().beginTransaction().add(android.R.id.content, new PreferencesFragment()).commit();
+            PreferencesFragment fragment = new PreferencesFragment();
+            fragment.setArguments(getIntent().getExtras());
+            getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
         }
     }
 
