@@ -31,8 +31,9 @@ public class GraphModule {
             XYSeries series = new XYSeries("");
 
             try {
-                g.getDataset().removeSeries(g.getSeries());
-                g.setSeries(series);
+                for(int i = 0; i < g.getDataset().getSeriesCount(); i++) {
+                    g.getDataset().removeSeries(i);
+                }
                 g.getDataset().addSeries(series);
             }
             catch(NullPointerException e) {
@@ -208,7 +209,7 @@ public class GraphModule {
                     }
 
                     for(int i = 0; i < g.getDataset().getSeriesCount(); i++) {
-                        g.getDataset().removeSeries(i);
+                        g.getDataset().removeSeries(0);
                     }
                     for(XYSeries s : series) {
                         g.getDataset().addSeries(s);
@@ -224,7 +225,7 @@ public class GraphModule {
     }
 
     private static double tolerance(double result, double truth) {
-        return (100.0 * Math.abs(truth - result) / Math.abs(truth));
+        return(100.0 * Math.abs(truth - result) / Math.abs(truth));
     }
 
     boolean graphChanged(Graph graph, String equation, double minX, double maxX, double minY, double maxY) {
