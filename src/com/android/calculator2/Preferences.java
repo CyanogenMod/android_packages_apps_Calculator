@@ -1,9 +1,11 @@
 package com.android.calculator2;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 
 import com.android.calculator2.view.PreferencesFragment;
 
@@ -25,6 +27,21 @@ public class Preferences extends Activity {
             fragment.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
         }
+
+        ActionBar mActionBar = getActionBar();
+        if (mActionBar != null) {
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, Calculator.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
