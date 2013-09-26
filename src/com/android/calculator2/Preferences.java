@@ -11,6 +11,10 @@ import com.android.calculator2.view.PreferencesFragment;
  * @author Will Harmon
  **/
 public class Preferences extends Activity {
+
+    public static final String EXTRA_LIST_POSITION = "list_position";
+    public static final String EXTRA_LIST_VIEW_OFFSET = "list_view_top";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +24,9 @@ public class Preferences extends Activity {
         }
 
         if(savedInstanceState == null) {
-            getFragmentManager().beginTransaction().add(android.R.id.content, new PreferencesFragment()).commit();
+            PreferencesFragment fragment = new PreferencesFragment();
+            fragment.setArguments(getIntent().getExtras());
+            getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
         }
     }
 
