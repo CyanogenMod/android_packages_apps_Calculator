@@ -39,7 +39,6 @@ public class Graph {
     private GraphicalView mChartView;
     private XYMultipleSeriesDataset mDataset;
     private XYMultipleSeriesRenderer mRenderer;
-    private XYSeries mSeries;
     private final Logic mLogic;
 
     public Graph(Logic l) {
@@ -50,16 +49,8 @@ public class Graph {
         return mDataset;
     }
 
-    public XYSeries getSeries() {
-        return mSeries;
-    }
-
     public XYMultipleSeriesRenderer getRenderer() {
         return mRenderer;
-    }
-
-    public void setSeries(XYSeries series) {
-        mSeries = series;
     }
 
     public GraphicalView getGraph(Context context) {
@@ -102,12 +93,12 @@ public class Graph {
     }
 
     private void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
-        mSeries = new XYSeries(title, scale);
+        XYSeries series = new XYSeries(title, scale);
         int seriesLength = xValues.length;
         for(int k = 0; k < seriesLength; k++) {
-            mSeries.add(xValues[k], yValues[k]);
+            series.add(xValues[k], yValues[k]);
         }
-        dataset.addSeries(mSeries);
+        dataset.addSeries(series);
     }
 
     private XYMultipleSeriesRenderer buildRenderer(Context context) {
@@ -143,11 +134,15 @@ public class Graph {
         renderer.setYAxisBold(true);
         renderer.setZoomButtonsVisible(false);
         renderer.setExternalZoomEnabled(true);
+        addSeriesRenderer(context.getResources().getColor(R.color.graph_color), renderer);
+        return renderer;
+    }
+
+    public static void addSeriesRenderer(int color, XYMultipleSeriesRenderer renderer) {
         XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(context.getResources().getColor(R.color.graph_color));
+        r.setColor(color);
         r.setPointStyle(PointStyle.POINT);
         r.setLineWidth(4f);
         renderer.addSeriesRenderer(r);
-        return renderer;
     }
 }
