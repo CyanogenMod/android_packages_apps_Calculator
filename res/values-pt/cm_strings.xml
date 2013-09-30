@@ -74,4 +74,14 @@
     <string name="lock">Bloquear página</string>
     <string name="unlock">Desbloquear página</string>
     <string name="digitGrouping">Agrupamento de dígitos</string>
+    <string name="pref_theme">Tema</string>
+    <string name="clickToOpenHistory">Clique para abrir o histórico</string>
+    <string name="holo">Holo</string>
+    <string name="holo_light">Claro</string>
+    <string name="holo_dark">Escuro</string>
+    <string name="dec_separator">,</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <string name="dot">.</string>
+    <string name="matrix_separator">,</string>
 </resources>
