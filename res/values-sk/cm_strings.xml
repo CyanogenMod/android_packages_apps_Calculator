@@ -14,9 +14,17 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_copyright">Autorské právo \u00A9 2013 The CyanogenMod Project</string>
+    <string name="application_copyright">Autorské práva \u00A9 2013 The CyanogenMod Project</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arcsin">asin</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
     <string name="solveForX">Vyriešiť pre X</string>
     <string name="solveForY">Vyriešiť pre Y</string>
+    <string name="mod">mod</string>
     <string name="matrix">Panel matice</string>
     <string name="graph">Panel grafu</string>
     <string name="function">Panel funkcie</string>
@@ -39,6 +47,7 @@
     <string name="minus_row">-Riadok</string>
     <string name="plus_col">+Stĺpec</string>
     <string name="minus_col">-Stĺpec</string>
+    <string name="matrix_transpose">T</string>
     <string name="next">Ďalšie</string>
     <string name="hex">Hex</string>
     <string name="bin">Bin</string>
@@ -49,18 +58,23 @@
     <string name="pref_panels">Panely</string>
     <string name="pref_actions">Akcie</string>
     <string name="pref_units">Jednotky</string>
+    <string name="pref_theme">Téma</string>
     <string name="pref_about">O aplikácii</string>
     <string name="returnToBasic">Návrat do základného panela</string>
+    <string name="clickToOpenHistory">Kliknite pre otvorenie histórie</string>
     <string name="digitGrouping">Zoskupenie číslic</string>
     <string name="trigUnits">Trigon. jednotky</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
+    <string name="holo">Holo</string>
+    <string name="holo_light">Svetlá</string>
+    <string name="holo_dark">Tmavá</string>
     <string name="cling_simple_title">Vitajte</string>
     <string name="cling_simple_msg">Pre zobrazenie ďalších panelov použite posunutie vľavo alebo vpravo. Nepoužívané panely je možné zakázať v nastaveniach.</string>
     <string name="cling_matrix_title">Matice</string>
     <string name="cling_matrix_msg">Dotykom sem môžete vytvoriť a vyriešiť maticu.</string>
     <string name="cling_hex_title">Zmena sústav</string>
-    <string name="cling_hex_msg">Prepínanie medzi desiatkovou (dec), binárnou (bin) a šestnástkovou (hex) sústavou.\n\nUpozornenie: Ak si myslíte, že výsledky sú nesprávne, najpravdepodobnejšie máte zvolenú zlú sústavu. Predvolená je desiatková.</string>
+    <string name="cling_hex_msg">Prepínanie medzi desiatkovou (dec), binárnou (bin) a šestnástkovou (hex) sústavou.\n\nUpozornenie: Ak si myslíte, že výsledky nie sú správne, najpravdepodobnejšie máte zvolenú zlú sústavu. Predvolená je desiatková.</string>
     <string name="cling_graph_title">Graf</string>
     <string name="cling_graph_msg">Tu sa automaticky zobrazia grafy. V paneli pokročilé funkcie vytvorte funkciu používajúce premenné X a Y.</string>
     <string name="cling_dismiss">OK</string>
