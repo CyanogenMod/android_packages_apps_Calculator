@@ -58,12 +58,17 @@
     <string name="pref_panels">Panelen</string>
     <string name="pref_actions">Acties</string>
     <string name="pref_units">Eenheden</string>
+    <string name="pref_theme">Thema</string>
     <string name="returnToBasic">Terug naar Basis</string>
+    <string name="clickToOpenHistory">Tik voor geschiedenis</string>
     <string name="digitGrouping">Groepering</string>
     <string name="pref_about">Over</string>
     <string name="trigUnits">Goniometrisch</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
+    <string name="holo">Holo</string>
+    <string name="holo_light">Licht</string>
+    <string name="holo_dark">Donker</string>
     <string name="cling_simple_title">Welkom</string>
     <string name="cling_simple_msg">Sleep naar links en rechts om meer functies te gebruiken. Functies die u niet gebruikt, kunt u uitschalen in Instellingen.</string>
     <string name="cling_matrix_title">Matrices</string>
@@ -74,4 +79,9 @@
     <string name="cling_graph_msg">Grafieken kunt u hier zien. Ga naar Geavanceerd en creeër een functie met \'x\' en \'y\'.</string>
     <string name="cling_dismiss">OK</string>
     <string name="easter_egg">Magikarp heeft \'Splash\' gebruikt, maar het had geen effect.</string>
+    <string name="dec_separator">\u0020</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <string name="dot">,</string>
+    <string name="matrix_separator">\u0020</string>
 </resources>
