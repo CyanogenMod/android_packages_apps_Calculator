@@ -55,7 +55,7 @@
     <string name="hexDesc">Esadecimale</string>
     <string name="binDesc">Binario</string>
     <string name="decDesc">Decimale</string>
-    <string name="pref_panels">Panneli</string>
+    <string name="pref_panels">Pannelli</string>
     <string name="pref_actions">Azioni</string>
     <string name="pref_units">Unità</string>
     <string name="pref_theme">Tema</string>
@@ -74,7 +74,7 @@
     <string name="cling_matrix_title">Matrici</string>
     <string name="cling_matrix_msg">Toccare qui per iniziare a costruire e risolvere matrici.</string>
     <string name="cling_hex_title">Cambia basi</string>
-    <string name="cling_hex_msg">Passaggio tra decimale (dec), binario (bin), e esadecimale (hex).\n\nAttenzione:Se pensi di ottenere risultati errati, probabilmente sei nella base sbagliata. Il valore predefinito è decimale.</string>
+    <string name="cling_hex_msg">Passaggio tra decimale (dec), binario (bin), e esadecimale (hex).\n\nAttenzione: Se pensi di ottenere risultati errati, probabilmente sei nella base sbagliata. Il valore predefinito è decimale.</string>
     <string name="cling_graph_title">Grafico</string>
     <string name="cling_graph_msg">I grafici verranno automaticamente visualizzati qui. Andate al pannello avanzato e costruire una funzione che utilizza X e Y.</string>
     <string name="cling_dismiss">OK</string>
