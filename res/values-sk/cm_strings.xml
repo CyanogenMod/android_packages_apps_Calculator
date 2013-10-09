@@ -61,7 +61,7 @@
     <string name="pref_theme">Téma</string>
     <string name="pref_about">O aplikácii</string>
     <string name="returnToBasic">Návrat do základného panela</string>
-    <string name="clickToOpenHistory">Kliknite pre otvorenie histórie</string>
+    <string name="clickToOpenHistory">Kliknutím otvoriť históriu</string>
     <string name="digitGrouping">Zoskupenie číslic</string>
     <string name="trigUnits">Trigon. jednotky</string>
     <string name="radians">RAD</string>
@@ -76,7 +76,12 @@
     <string name="cling_hex_title">Zmena sústav</string>
     <string name="cling_hex_msg">Prepínanie medzi desiatkovou (dec), binárnou (bin) a šestnástkovou (hex) sústavou.\n\nUpozornenie: Ak si myslíte, že výsledky nie sú správne, najpravdepodobnejšie máte zvolenú zlú sústavu. Predvolená je desiatková.</string>
     <string name="cling_graph_title">Graf</string>
-    <string name="cling_graph_msg">Tu sa automaticky zobrazia grafy. V paneli pokročilé funkcie vytvorte funkciu používajúce premenné X a Y.</string>
+    <string name="cling_graph_msg">Tu sa automaticky zobrazia grafy. V paneli rozšírené funkcie vytvorte funkciu používajúce premenné X a Y.</string>
     <string name="cling_dismiss">OK</string>
+    <string name="dec_separator">\u0020</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <string name="dot">,</string>
+    <string name="matrix_separator">\u0020</string>
     <string name="easter_egg">Magikarpa použil šplechnutie, ale nič sa nestalo.</string>
 </resources>
