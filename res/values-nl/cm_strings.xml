@@ -78,5 +78,10 @@
     <string name="cling_graph_title">Grafieken</string>
     <string name="cling_graph_msg">Grafieken kunt u hier zien. Ga naar Geavanceerd en creeër een functie met \'x\' en \'y\'.</string>
     <string name="cling_dismiss">OK</string>
+    <string name="dec_separator">.</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <string name="dot">,</string>
+    <string name="matrix_separator">\u0020</string>
     <string name="easter_egg">Magikarp heeft \'Splash\' gebruikt, maar het had geen effect.</string>
 </resources>
