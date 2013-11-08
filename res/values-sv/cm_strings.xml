@@ -74,4 +74,8 @@
     <string name="cling_graph_msg">Grafer kommer automatiskt att synas här. Gå till den avancerade panelen och bygg en funktion med X och Y.</string>
     <string name="cling_dismiss">OK</string>
     <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
+    <string name="clickToOpenHistory">Tryck för att öppna historik</string>
+    <string name="pref_theme">Tema</string>
+    <string name="holo_light">Ljus</string>
+    <string name="holo_dark">Mörk</string>
 </resources>
