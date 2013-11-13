@@ -62,12 +62,12 @@
     <string name="trigUnits">Trigonometriniai vienetai</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
-    <string name="holo_light">Šviesus</string>
-    <string name="holo_dark">Tamsus</string>
+    <string name="holo_light">Šviesi</string>
+    <string name="holo_dark">Tamsi</string>
     <string name="cling_simple_title">Sveiki</string>
     <string name="cling_simple_msg">Pastumkite į kairę ir į dešinę norėdami gauti daugiau turinio. Nereikalingi puslapiai gali būti išjungti Nustatymuose.</string>
     <string name="cling_matrix_title">Matricos</string>
-    <string name="cling_matrix_msg">Bakstelėkite čia norėdami pradėti statyti ir spręsti matricas.</string>
+    <string name="cling_matrix_msg">Bakstelėkite čia norėdami pradėti kurti ir spręsti matricas.</string>
     <string name="cling_hex_title">Pakeisti bazes</string>
     <string name="cling_hex_msg">Perjunkite tarp dešimtainių (dec), dvejetainių (bin) ir šešioliktainių (hex).\n\nĮspėjimas: Jei manote kad jūs gaunate blogus rezultatus, jūs tikriausiai esate neteisingoje bazėje. Pagal nutylėjimą yra dešimtainiai.</string>
     <string name="cling_graph_title">Grafikas</string>
