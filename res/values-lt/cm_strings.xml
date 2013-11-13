@@ -62,8 +62,8 @@
     <string name="trigUnits">Trigonometriniai vienetai</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
-    <string name="holo_light">Šviesus</string>
-    <string name="holo_dark">Tamsus</string>
+    <string name="holo_light">Šviesi</string>
+    <string name="holo_dark">Tamsi</string>
     <string name="cling_simple_title">Sveiki</string>
     <string name="cling_simple_msg">Pastumkite į kairę ir į dešinę norėdami gauti daugiau turinio. Nereikalingi puslapiai gali būti išjungti Nustatymuose.</string>
     <string name="cling_matrix_title">Matricos</string>
