@@ -62,6 +62,7 @@
     <string name="trigUnits">Trigonometriniai vienetai</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
+    <string name="holo">Holo</string>
     <string name="holo_light">Šviesi</string>
     <string name="holo_dark">Tamsi</string>
     <string name="cling_simple_title">Sveiki</string>
@@ -73,6 +74,10 @@
     <string name="cling_graph_title">Grafikas</string>
     <string name="cling_graph_msg">Grafikai automatiškai bus rodomi čia. Eikite į įšplėstinį skydelį ir sukurkite funkciją, naudodami X ir Y.</string>
     <string name="cling_dismiss">Gerai</string>
+    <string name="dec_separator">,</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <string name="matrix_separator">,</string>
     <string name="easter_egg">:)</string>
     <string name="mod">mod</string>
     <string name="lock">Užrakinti puslapį</string>
