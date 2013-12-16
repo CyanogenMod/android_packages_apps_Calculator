@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
+    <string name="application_version" translatable="false">v3.5.1</string>
+    <string name="A" translatable="false">A</string>
+    <string name="B" translatable="false">B</string>
+    <string name="C" translatable="false">C</string>
+    <string name="D" translatable="false">D</string>
+    <string name="E" translatable="false">E</string>
+    <string name="F" translatable="false">F</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="sign" translatable="false">+/\u2212</string>
+    <string name="coma" translatable="false">,</string>
+    <string name="arcsin">asin</string>
+    <string name="arccos">acos</string>
+    <string name="arctan">atan</string>
+    <string name="i" translatable="false">i</string>
+    <string name="percentage" translatable="false">%</string>
+    <string name="integral" translatable="false">\u222B</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">สำหรับหา X</string>
+    <string name="solveForY">สำหรับหา Y</string>
+    <string name="mod">mod</string>
+    <string name="parentheses" translatable="false">( )</string>
+    <string name="matrix">แผงเมทริกซ์</string>
+    <string name="graph">แผงกราฟ</string>
+    <string name="function">แผงฟังก์ชัน</string>
+    <string name="hexPanel">แผงเลขฐาน</string>
+    <string name="lock">ล็อคหน้า</string>
+    <string name="unlock">ปลดล็อคหน้า</string>
+    <string name="copy">คัดลอก \'%s\'</string>
+    <string name="remove_from_history">นำออกจากประวัติ</string>
+    <string name="showHistory">แสดงประวัติ</string>
+    <string name="hideHistory">ซ่อนประวัติ</string>
+    <string name="settings">ตั้งค่า</string>
+    <string name="det">det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">Solve</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+    <string name="determinantDesc">det</string>
+    <string name="eigenvalueDesc">Eigenvalues</string>
+    <string name="plus_row">+Row</string>
+    <string name="minus_row">-Row</string>
+    <string name="plus_col">+Col</string>
+    <string name="minus_col">-Col</string>
+    <string name="matrix_new" translatable="false">[ ]</string>
+    <string name="matrix_inverse" translatable="false">-1</string>
+    <string name="matrix_transpose">T</string>
+    <string name="next">Next</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binary</string>
+    <string name="decDesc">Decimal</string>
+    <string name="pref_panels">แผงควบคุม</string>
+    <string name="pref_actions">การกระทำ</string>
+    <string name="pref_units">หน่วย</string>
+    <string name="pref_theme">ธีม</string>
+    <string name="pref_about">เกี่ยวกับ</string>
+    <string name="returnToBasic">กลับสู่แผงหลัก</string>
+    <string name="clickToOpenHistory">กดเพื่อเปิดประวัติ</string>
+    <string name="digitGrouping">จัดกลุ่มตัวเลข</string>
+    <string name="trigUnits">หน่วยเชิงขั้ว</string>
+    <string name="radians">เรเดียน</string>
+    <string name="degrees">องศา</string>
+    <string name="holo">Holo</string>
+    <string name="holo_light">Light</string>
+    <string name="holo_dark">Dark</string>
+    <string name="cling_simple_title">ยินดีต้อนรับ</string>
+    <string name="cling_simple_msg">ปัดซ้ายและขวาเพื่อดูเนื้อหาเพิ่มเติม หน้าที่ไม่ต้องการสามารถปิดได้จากการตั้งค่า</string>
+    <string name="cling_matrix_title">เมทริกซ์</string>
+    <string name="cling_matrix_msg">แตะที่นี่เพื่อเริ่มสร้างและแก้ปัญหาเมทริกซ์</string>
+    <string name="cling_hex_title">เปลี่ยนฐาน</string>
+    <string name="cling_hex_msg">เปลี่ยนฐานเลขระหว่าง ฐานสิบ(dec),ฐานสอง(bin)และฐานสิบหก(hex).\n\nคำเตือน: ถ้าคุณเชื่อว่าคุณได้ผลการคำนวณที่ผิดพลาดอาจเป็นเพราะคุณใช้เลขฐานผิด เลขฐานเริ่มต้นคือฐานสิบ</string>
+    <string name="cling_graph_title">กราฟ</string>
+    <string name="cling_graph_msg">กราฟจะถูกแสดงอัตโนมัติที่นี่ เลือกแผงขั้นสูงแล้วใช้ X และ Y ในการสร้างกราฟ</string>
+    <string name="cling_dismiss">ตกลง</string>
+    <string name="dec_separator">,</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <item name="dec_separator_distance" type="integer">3</item>
+    <item name="bin_separator_distance" type="integer">4</item>
+    <item name="hex_separator_distance" type="integer">2</item>
+    <string name="dot">.</string>
+    <string name="matrix_separator">,</string>
+    <string name="easter_egg">ไข่แตกแล้ว! แต่ไม่เกิดอะไรขึ้น</string>
+</resources>
