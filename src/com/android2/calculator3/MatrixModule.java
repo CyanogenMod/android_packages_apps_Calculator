@@ -35,8 +35,6 @@ public class MatrixModule {
     }
 
     private String calculate(String input) throws SyntaxException {
-        input = mLogic.localize(input);
-
         // I never realized negative numbers could be so difficult.
         input = input.replace(Logic.MINUS, '-');
         // All remaining instances of U+2212 will be on negative numbers.
@@ -192,8 +190,8 @@ public class MatrixModule {
         text = mLogic.convertToDecimal(text);
         String result = "";
         try {
-            result = calculate(text).replace('-', Logic.MINUS);// Back to fancy
-                                                               // minus
+            result = calculate(mLogic.localize(text));
+            result = result.replace('-', Logic.MINUS);// Back to fancy minus
         }
         catch(Exception e) {
             result = mLogic.mErrorString;
