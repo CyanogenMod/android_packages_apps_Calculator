@@ -26,6 +26,7 @@ import org.javia.arity.SyntaxException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.KeyEvent;
+import android.widget.EditText;
 
 import com.android2.calculator3.BaseModule.Mode;
 import com.android2.calculator3.view.CalculatorDisplay;
@@ -214,10 +215,17 @@ public class Logic {
     }
 
     boolean acceptInsert(String delta) {
-        return !mIsError
-                && !getText().equals(mErrorString)
-                && (getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || isPostFunction(delta) || mDisplay.getSelectionStart() != mDisplay
-                        .getActiveEditText().getText().length());
+        if(mIsError || getText().equals(mErrorString)) {
+            return false;
+        }
+        if(getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || isPostFunction(delta)) {
+            return true;
+        }
+
+        EditText editText = mDisplay.getActiveEditText();
+        int editLength = editText == null ? 0 : editText.getText().length();
+
+        return mDisplay.getSelectionStart() != editLength;
     }
 
     void onDelete() {
