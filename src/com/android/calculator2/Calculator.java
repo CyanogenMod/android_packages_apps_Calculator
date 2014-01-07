@@ -197,9 +197,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         mDisplay.setOnKeyListener(mListener);
 
-        if(!ViewConfiguration.get(this).hasPermanentMenuKey()) {
-            createFakeMenu();
-        }
+        createFakeMenu();
 
         mLogic.resumeWithHistory();
         updateDeleteMode();
