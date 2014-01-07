@@ -94,7 +94,6 @@
         <item name="btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle</item>
         <item name="equal_btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle</item>
         <item name="display_style">@style/Theme.Calculator.Display</item>
-        <item name="menu_bg">@drawable/menu_bg</item>
         <item name="calc_clear_symbol">@drawable/calc_clear_symbol</item>
     </style>
     
@@ -119,7 +118,6 @@
         <item name="btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle.Light</item>
         <item name="equal_btn_operation_cell_style">@style/Theme.Calculator.ButtonOperationCellStyle.Light.Equal</item>
         <item name="display_style">@style/Theme.Calculator.Display.Light</item>
-        <item name="menu_bg">@drawable/menu_bg_light</item>
         <item name="calc_clear_symbol">@drawable/calc_clear_symbol_light</item>
     </style>
     
