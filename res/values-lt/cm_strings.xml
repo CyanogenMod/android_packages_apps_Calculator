@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_copyright">Autorinės teisės \u00A9 CyanogenMod 2013</string>
+    <string name="application_copyright">"Autorinės teisės \u00A9 „CyanogenMod“ 2013"</string>
     <string name="X">X</string>
     <string name="Y">Y</string>
     <string name="arcsin">asin</string>
@@ -28,7 +28,7 @@
     <string name="graph">Grafinis skydelis</string>
     <string name="function">Funkcijų skydelis</string>
     <string name="hexPanel">Hex skydelis</string>
-    <string name="copy">Kopijuoti \„%s\“</string>
+    <string name="copy">"Kopijuoti „%s“"</string>
     <string name="remove_from_history">Pašalinti iš istorijos</string>
     <string name="showHistory">Rodyti istoriją</string>
     <string name="hideHistory">Slėpti istoriją</string>
@@ -70,7 +70,7 @@
     <string name="cling_matrix_title">Matricos</string>
     <string name="cling_matrix_msg">Bakstelėkite čia norėdami pradėti kurti ir spręsti matricas.</string>
     <string name="cling_hex_title">Pakeisti bazes</string>
-    <string name="cling_hex_msg">Perjunkite tarp dešimtainių (dec), dvejetainių (bin) ir šešioliktainių (hex).\n\nĮspėjimas: Jei manote kad jūs gaunate blogus rezultatus, jūs tikriausiai esate neteisingoje bazėje. Pagal nutylėjimą yra dešimtainiai.</string>
+    <string name="cling_hex_msg">Perjunkite tarp dešimtainių (dec), dvejetainių (bin) ir šešioliktainių (hex).\n\nĮspėjimas: Jei manote kad gaunate blogus rezultatus, jūs tikriausiai esate neteisingoje bazėje. Pagal nutylėjimą yra dešimtainiai.</string>
     <string name="cling_graph_title">Grafikas</string>
     <string name="cling_graph_msg">Grafikai automatiškai bus rodomi čia. Eikite į įšplėstinį skydelį ir sukurkite funkciją, naudodami X ir Y.</string>
     <string name="cling_dismiss">Gerai</string>
