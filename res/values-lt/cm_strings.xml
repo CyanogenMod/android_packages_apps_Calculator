@@ -28,7 +28,7 @@
     <string name="graph">Grafinis skydelis</string>
     <string name="function">Funkcijų skydelis</string>
     <string name="hexPanel">Hex skydelis</string>
-    <string name="copy">Kopijuoti \„%s\“</string>
+    <string name="copy">"Kopijuoti „%s“"</string>
     <string name="remove_from_history">Pašalinti iš istorijos</string>
     <string name="showHistory">Rodyti istoriją</string>
     <string name="hideHistory">Slėpti istoriją</string>
