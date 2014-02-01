@@ -88,7 +88,7 @@ public class MatrixModule {
         }
 
         // Handle functions.
-        match = Pattern.compile("(\u221a|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
+        match = Pattern.compile("(\u221a|cbrt|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
                 .matcher(input);
         while(match.find()) {
             String res = applyFunc(match.group(1), match.group(2));
@@ -279,6 +279,31 @@ public class MatrixModule {
                 return printMatrix(temp);
             }
             else return numToString(Math.sqrt(Double.parseDouble(arg)));
+        }
+        else if(func.equals("cbrt")) {
+            if(arg.startsWith("[[")) {
+                SimpleMatrix matrix = parseMatrix(arg);
+                int m = matrix.numRows();
+                int n = matrix.numCols();
+                if(m != n) throw new SyntaxException();
+                SimpleEVD<SimpleMatrix> decomp = new SimpleEVD<SimpleMatrix>(matrix.getMatrix());
+                double[] evals = new double[m];
+                for(int i1 = 0; i1 < m; i1++) {
+                    evals[i1] = Math.cbrt(decomp.getEigenvalue(i1).getMagnitude());
+                }
+                SimpleMatrix D = SimpleMatrix.diag(evals);
+                SimpleMatrix V = new SimpleMatrix(m, n);
+                for(int k = 0; k < m; k++) {
+                    SimpleMatrix col = decomp.getEigenVector(k);
+                    for(int l = 0; l < n; l++) {
+                        V.set(k, l, col.get(l, 0));
+                    }
+                }
+                SimpleMatrix temp = V.mult(D);
+                temp = temp.mult(V.invert());
+                return printMatrix(temp);
+            }
+            else return numToString(Math.cbrt(Double.parseDouble(arg)));
         }
         else if(func.equals("sin")) {
             if(arg.startsWith("[[")) {

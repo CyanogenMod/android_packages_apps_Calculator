@@ -78,6 +78,7 @@ public class Logic {
     private final String mLogString;
     private final String mLnString;
     private final String mDetString;
+    private final String mCbrtString;
     final String mDecSeparator;
     final String mBinSeparator;
     final String mHexSeparator;
@@ -109,6 +110,7 @@ public class Logic {
         mLogString = r.getString(R.string.lg);
         mLnString = r.getString(R.string.ln);
         mDetString = r.getString(R.string.det);
+        mCbrtString = r.getString(R.string.cbrt);
         mDecSeparator = r.getString(R.string.dec_separator);
         mBinSeparator = r.getString(R.string.bin_separator);
         mHexSeparator = r.getString(R.string.hex_separator);
@@ -374,6 +376,7 @@ public class Logic {
         input = input.replace(mDetString, "det");
         input = input.replace(mDecimalPoint, ".");
         input = input.replace(mMatrixSeparator, ",");
+        input = input.replace(mCbrtString, "cbrt");
         return input;
     }
 

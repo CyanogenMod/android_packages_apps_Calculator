@@ -78,9 +78,10 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         String detString = context.getString(R.string.det);
         String dx = context.getString(R.string.dx);
         String dy = context.getString(R.string.dy);
+        String cbrtString = context.getString(R.string.cbrt);
 
         mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString
-                + "(", modString + "(", lnString + "(", detString + "(", dx, dy);
+                + "(", modString + "(", lnString + "(", detString + "(", dx, dy, cbrtString + "(");
         setOnLongClickListener(this);
     }
 

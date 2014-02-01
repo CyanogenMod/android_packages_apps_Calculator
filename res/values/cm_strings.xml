@@ -65,6 +65,8 @@
     <string name="solveForY">Solve for Y</string>
     <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
     <string name="mod">mod</string>
+    <!-- Displayed on button on screen for the cube root function. -->
+    <string name="cbrt">\u00b3\u221a</string>
 
     <!-- Displayed on buttons on screen for parentheses. -->
     <string name="parentheses" translatable="false">( )</string>

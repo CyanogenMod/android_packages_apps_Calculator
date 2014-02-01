@@ -84,6 +84,7 @@
         <com.android.calculator2.view.ColorButton
             android:id="@+id/sqrt"
             android:text="@string/sqrt"
+            android:hint="@string/cbrt"
             style="?button_style" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/power"
