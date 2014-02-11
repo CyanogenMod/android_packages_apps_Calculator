@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!-- Copyright (C) 2012-2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@
     <string name="solveForX">Løs for X</string>
     <string name="solveForY">Løs for Y</string>
     <string name="mod">mod</string>
+    <string name="cbrt">\u00b3\u221a</string>
     <string name="matrix">Matrixpanel</string>
     <string name="graph">Grafpanel</string>
     <string name="function">Funktionspanel</string>
