@@ -25,7 +25,6 @@
     <string name="solveForX">Løs for X</string>
     <string name="solveForY">Løs for Y</string>
     <string name="mod">mod</string>
-    <string name="cbrt">\u00b3\u221a</string>
     <string name="matrix">Matrixpanel</string>
     <string name="graph">Grafpanel</string>
     <string name="function">Funktionspanel</string>
