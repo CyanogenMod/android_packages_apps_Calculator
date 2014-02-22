@@ -31,7 +31,9 @@ LOCAL_SDK_VERSION := current
 LOCAL_PACKAGE_NAME := Calculator
 
 include $(BUILD_PACKAGE)
+
 ##################################################
+
 include $(CLEAR_VARS)
 
 LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := libarity:libs/arity-2.1.6.jar chartengine:libs/achartengine.jar ejml:libs/ejml-0.21.jar slider:libs/slider.jar
