@@ -35,9 +35,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ViewSwitcher;
 
+import com.android2.calculator3.R;
 import com.android2.calculator3.CalculatorEditable;
 import com.android2.calculator3.Logic;
-import com.android2.calculator3.R;
 
 /**
  * Provides vertical scrolling for the input/result EditText.
@@ -52,7 +52,9 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     private static final int ANIM_DURATION = 400;
 
     public enum Scroll {
-        UP, DOWN, NONE
+        UP,
+        DOWN,
+        NONE
     }
 
     TranslateAnimation inAnimUp;

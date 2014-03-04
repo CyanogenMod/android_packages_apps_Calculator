@@ -21,9 +21,8 @@ import android.text.Html;
 import android.text.InputType;
 import android.widget.TextView;
 
-import com.android2.calculator3.CalculatorSettings;
-import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
+import com.android2.calculator3.MutableString;
 
 public class MatrixInverseView extends TextView {
     private final static char PLACEHOLDER = '\uFEFF';
@@ -37,8 +36,7 @@ public class MatrixInverseView extends TextView {
         super(display.getContext());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         setText(Html.fromHtml("<sup><small>-1</small></sup>"));
-        setTextAppearance(display.getContext(), CalculatorSettings.useLightTheme(getContext()) ? R.style.Theme_Calculator_Display_Light
-                : R.style.Theme_Calculator_Display);
+        setTextAppearance(display.getContext(), R.style.Theme_Calculator_Display);
         setPadding(0, 0, 0, 0);
     }
 

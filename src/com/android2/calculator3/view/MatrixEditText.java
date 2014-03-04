@@ -33,8 +33,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android2.calculator3.Logic;
 import com.android2.calculator3.R;
+import com.android2.calculator3.Logic;
 
 public class MatrixEditText extends EditText implements OnFocusChangeListener {
     private static final char[] ACCEPTED_CHARS = "0123456789,.-\u2212".toCharArray();

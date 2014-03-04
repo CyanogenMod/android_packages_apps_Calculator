@@ -53,12 +53,9 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_theme" >
-        <SwitchPreference
-            android:title="@string/holo"
-            android:key="THEME_STYLE"
-            android:switchTextOn="@string/holo_light"
-            android:switchTextOff="@string/holo_dark"
-            android:defaultValue="false" />
+        <com.xlythe.engine.theme.ThemeListPreference
+            android:title="@string/theme"
+            android:key="THEME_STYLE" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_about" >

@@ -128,9 +128,7 @@
     <string name="trigUnits">Trig units</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
-    <string name="holo">Holo</string>
-    <string name="holo_light">Light</string>
-    <string name="holo_dark">Dark</string>
+    <string name="theme">Theme</string>
 
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>

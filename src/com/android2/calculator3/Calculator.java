@@ -48,6 +48,7 @@ import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
 import com.android2.calculator3.view.Cling;
 import com.android2.calculator3.view.HistoryLine;
+import com.xlythe.engine.theme.Theme;
 import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
 
@@ -71,7 +72,12 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private boolean clingActive = false;
 
     public enum Panel {
-        GRAPH, FUNCTION, HEX, BASIC, ADVANCED, MATRIX;
+        GRAPH,
+        FUNCTION,
+        HEX,
+        BASIC,
+        ADVANCED,
+        MATRIX;
 
         int order;
 
@@ -85,7 +91,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     public enum SmallPanel {
-        HEX, ADVANCED, FUNCTION;
+        HEX,
+        ADVANCED,
+        FUNCTION;
 
         int order;
 
@@ -99,7 +107,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     public enum LargePanel {
-        GRAPH, BASIC, MATRIX;
+        GRAPH,
+        BASIC,
+        MATRIX;
 
         int order;
 
@@ -123,10 +133,11 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-        int sliderBackground = R.color.background;
-        if(CalculatorSettings.useLightTheme(getContext())) {
-            super.setTheme(R.style.Theme_Calculator_Light);
-            sliderBackground = R.color.background_light;
+        Theme.buildResourceMap(R.color.class, R.drawable.class, R.raw.class);
+        Theme.setPackageName(CalculatorSettings.getTheme(getContext()));
+        int customTheme = Theme.getTheme(getContext());
+        if(customTheme != 0) {
+            super.setTheme(customTheme);
         }
 
         setContentView(R.layout.main);
@@ -170,7 +181,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mPulldown.enableClick(true);
             mPulldown.enableTouch(false);
         }
-        mPulldown.setBackgroundResource(sliderBackground);
+        mPulldown.setBackgroundColor(Theme.getColor(getContext(), R.color.background));
         mHistoryView = (ListView) mPulldown.findViewById(R.id.history);
         setUpHistory();
 
@@ -245,15 +256,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mFunctionPanel = menu.findItem(R.id.function);
-        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext())
-                && !mPulldown.isSliderOpen());
+        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mBasicPanel = menu.findItem(R.id.basic);
         if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
-        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext())
-                && !mPulldown.isSliderOpen());
+        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()) && !mPulldown.isSliderOpen());
 
         MenuItem mHexPanel = menu.findItem(R.id.hex);
         if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()) && !mPulldown.isSliderOpen());
@@ -474,8 +483,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mPager.setCurrentItem(Panel.BASIC.getOrder());
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !(getAdvancedVisibility() && getBasicVisibility())
-                && CalculatorSettings.basicPanel(getContext()) && CalculatorSettings.advancedPanel(getContext()) && !clingActive) {
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !(getAdvancedVisibility() && getBasicVisibility()) && CalculatorSettings.basicPanel(getContext()) && CalculatorSettings.advancedPanel(getContext()) && !clingActive) {
             mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
             mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
             return true;

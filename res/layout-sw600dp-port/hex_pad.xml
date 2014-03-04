@@ -25,52 +25,52 @@
     android:orientation="vertical"
     android:layout_marginBottom="@dimen/group_padding" >
     <LinearLayout
-        style="?btn_row_style" >
+        style="@style/Theme.Calculator.ButtonRowStyle" >
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/A"
             android:text="@string/A"
-            style="?btn_digit_cell_style" />
+            style="@style/Theme.Calculator.ButtonDigitCellStyle" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/B"
             android:text="@string/B"
-            style="?btn_digit_cell_style" />
+            style="@style/Theme.Calculator.ButtonDigitCellStyle" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/C"
             android:text="@string/C"
-            style="?btn_digit_cell_style" />
+            style="@style/Theme.Calculator.ButtonDigitCellStyle" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/D"
             android:text="@string/D"
-            style="?btn_digit_cell_style" />
+            style="@style/Theme.Calculator.ButtonDigitCellStyle" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/E"
             android:text="@string/E"
-            style="?btn_digit_cell_style" />
+            style="@style/Theme.Calculator.ButtonDigitCellStyle" />
     </LinearLayout>
     <LinearLayout
-        style="?btn_row_style" >
+        style="@style/Theme.Calculator.ButtonRowStyle" >
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/F"
             android:text="@string/F"
             android:layout_weight="3"
-            style="?btn_digit_cell_style" />
+            style="@style/Theme.Calculator.ButtonDigitCellStyle" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/dec"
             android:text="@string/dec"
             android:tag="@string/decDesc"
             android:layout_weight="4"
-            style="?btn_function_cell_style" />
+            style="@style/Theme.Calculator.ButtonFunctionCellStyle" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/bin"
             android:text="@string/bin"
             android:tag="@string/binDesc"
             android:layout_weight="4"
-            style="?btn_function_cell_style" />
+            style="@style/Theme.Calculator.ButtonFunctionCellStyle" />
         <com.android2.calculator3.view.ColorButton
             android:id="@+id/hex"
             android:text="@string/hex"
             android:tag="@string/hexDesc"
             android:layout_weight="4"
-            style="?btn_function_cell_style" />
+            style="@style/Theme.Calculator.ButtonFunctionCellStyle" />
     </LinearLayout>
 </LinearLayout>

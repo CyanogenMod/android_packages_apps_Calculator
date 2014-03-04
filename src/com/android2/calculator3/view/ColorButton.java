@@ -24,16 +24,16 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.Button;
 
 import com.android2.calculator3.Calculator;
 import com.android2.calculator3.EventListener;
 import com.android2.calculator3.R;
+import com.xlythe.engine.theme.ThemedButton;
 
 /**
  * Button with click-animation effect.
  */
-class ColorButton extends Button {
+class ColorButton extends ThemedButton {
     int CLICK_FEEDBACK_COLOR;
     static final int CLICK_FEEDBACK_INTERVAL = 10;
     static final int CLICK_FEEDBACK_DURATION = 350;
@@ -82,8 +82,7 @@ class ColorButton extends Button {
             mTextX = (getWidth() - textWidth) / 2;
         }
         mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
-        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent)
-                / 100f);
+        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent) / 100f);
     }
 
     @Override
@@ -126,8 +125,7 @@ class ColorButton extends Button {
         CharSequence hint = getHint();
         if(hint != null) {
             int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
-            int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2)
-                    - getPaddingTop();
+            int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2) - getPaddingTop();
 
             float textWidth = mHintPaint.measureText(hint.toString());
             float width = getWidth() - getPaddingLeft() - getPaddingRight() - mTextX - offsetX;

@@ -189,7 +189,7 @@ public class CalculatorWidget extends AppWidgetProvider {
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), CalculatorSettings.useLightTheme(context) ? R.layout.widget_light : R.layout.widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
         String value = getValue(context, appWidgetId);
 
         int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable : R.id.display;

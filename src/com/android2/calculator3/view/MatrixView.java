@@ -12,9 +12,9 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.android2.calculator3.R;
 import com.android2.calculator3.Logic;
 import com.android2.calculator3.MutableString;
-import com.android2.calculator3.R;
 
 public class MatrixView extends TableLayout {
     private int mRows, mColumns = 0;

@@ -346,8 +346,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             return true;
         }
 
-        if(keyCode != KeyEvent.KEYCODE_DPAD_CENTER && keyCode != KeyEvent.KEYCODE_DPAD_UP && keyCode != KeyEvent.KEYCODE_DPAD_DOWN
-                && keyCode != KeyEvent.KEYCODE_ENTER) {
+        if(keyCode != KeyEvent.KEYCODE_DPAD_CENTER && keyCode != KeyEvent.KEYCODE_DPAD_UP && keyCode != KeyEvent.KEYCODE_DPAD_DOWN && keyCode != KeyEvent.KEYCODE_ENTER) {
             if(keyEvent.isPrintingKey() && action == KeyEvent.ACTION_UP) {
                 // Tell the handler that text was updated.
                 mHandler.onTextChanged();
@@ -356,9 +355,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         }
 
         /*
-         * We should act on KeyEvent.ACTION_DOWN, but strangely sometimes the
-         * DOWN event isn't received, only the UP. So the workaround is to act
-         * on UP... http://b/issue?id=1022478
+         * We should act on KeyEvent.ACTION_DOWN, but strangely sometimes the DOWN event isn't received, only the UP. So the workaround is to act on UP... http://b/issue?id=1022478
          */
 
         if(action == KeyEvent.ACTION_UP) {

@@ -39,10 +39,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android2.calculator3.R;
 import com.android2.calculator3.BaseModule;
 import com.android2.calculator3.CalculatorSettings;
 import com.android2.calculator3.EquationFormatter;
-import com.android2.calculator3.R;
 
 public class CalculatorEditText extends EditText {
     private static final int BLINK = 500;
@@ -107,8 +107,7 @@ public class CalculatorEditText extends EditText {
             public void afterTextChanged(Editable s) {
                 if(updating) return;
 
-                mInput = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER).replace(mDecSeparator, "").replace(mBinSeparator, "")
-                        .replace(mHexSeparator, "");
+                mInput = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER).replace(mDecSeparator, "").replace(mBinSeparator, "").replace(mHexSeparator, "");
                 updating = true;
 
                 // Get the selection handle, since we're setting text and
@@ -251,8 +250,7 @@ public class CalculatorEditText extends EditText {
         if(parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
         if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
         et.setBackgroundResource(android.R.color.transparent);
-        et.setTextAppearance(parent.getContext(), CalculatorSettings.useLightTheme(parent.getContext()) ? R.style.Theme_Calculator_Display_Light
-                : R.style.Theme_Calculator_Display);
+        et.setTextAppearance(parent.getContext(), R.style.Theme_Calculator_Display);
         et.setPadding(5, 0, 5, 0);
         et.setEnabled(parent.isEnabled());
         AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

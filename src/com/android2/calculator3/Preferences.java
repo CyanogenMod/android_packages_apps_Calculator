@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.android2.calculator3.view.PreferencesFragment;
+import com.xlythe.engine.theme.Theme;
 
 /**
  * @author Will Harmon
@@ -18,8 +19,9 @@ public class Preferences extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(CalculatorSettings.useLightTheme(this)) {
-            super.setTheme(R.style.Theme_Settings_Calculator_Light);
+        int customTheme = Theme.getSettingsTheme(this);
+        if(customTheme != 0) {
+            super.setTheme(customTheme);
         }
 
         if(savedInstanceState == null) {
@@ -29,14 +31,14 @@ public class Preferences extends Activity {
         }
 
         ActionBar mActionBar = getActionBar();
-        if (mActionBar != null) {
+        if(mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if(item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, Calculator.class));
             finish();
             return true;

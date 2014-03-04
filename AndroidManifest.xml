@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android2.calculator3"
     android:versionCode="53"
-    android:versionName="@string/application_version"
+    android:versionName="3.5.3"
     android:installLocation="auto">
 
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
@@ -30,7 +30,7 @@
             android:icon="@mipmap/ic_launcher_calculator"
             android:name=".Calculator-Dark"
             android:enabled="true"
-            android:targetActivity=".Calculator">
+            android:targetActivity="com.android2.calculator3.Calculator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -42,7 +42,7 @@
             android:icon="@mipmap/ic_launcher_calculator_light"
             android:name=".Calculator-Light"
             android:enabled="false"
-            android:targetActivity=".Calculator">
+            android:targetActivity="com.android2.calculator3.Calculator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

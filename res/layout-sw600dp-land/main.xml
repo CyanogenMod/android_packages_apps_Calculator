@@ -17,6 +17,7 @@
  */
 -->
 <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:theme="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <LinearLayout
@@ -38,15 +39,15 @@
                 android:layout_height="match_parent"
                 maxDigits="@integer/max_digits" >
                 <com.android2.calculator3.view.ScrollableDisplay
-                    style="?display_style" />
+                    style="@style/Theme.Calculator.Display" />
                 <com.android2.calculator3.view.ScrollableDisplay
-                    style="?display_style" />
+                    style="@style/Theme.Calculator.Display" />
             </com.android2.calculator3.view.CalculatorDisplay>
-            <ImageButton android:id="@+id/overflow_menu"
+            <com.xlythe.engine.theme.ThemedImageButton android:id="@+id/overflow_menu"
                 android:layout_width="48dip"
                 android:layout_height="match_parent"
-                android:src="?ic_menu_overflow"
-                android:background="?menu_bg"
+                theme:src="@drawable/ic_menu_overflow"
+                theme:themeBackground="@drawable/menu_bg"
                 android:layout_marginLeft="8dip"
                 android:visibility="gone"
                 android:contentDescription="@null" />
@@ -61,9 +62,9 @@
                     android:layout_height="match_parent"
                     android:paddingLeft="5dip"
                     android:paddingRight="5dip" />
-                <ImageButton
+                <com.xlythe.engine.theme.ThemedImageButton
                     android:id="@+id/del"
-                    android:src="?calc_clear_symbol"
+                    theme:src="@drawable/calc_clear_symbol"
                     style="@style/Theme.Calculator.Clear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -79,7 +80,7 @@
                  android:id="@+id/pulldown"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 style="?slider_style" >
+                 style="@style/Theme.Calculator.Slider" >
                 <include layout="@layout/history_panel" />
             </com.xlythe.slider.Slider>
             <LinearLayout

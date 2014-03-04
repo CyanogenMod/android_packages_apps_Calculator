@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:theme="http://schemas.android.com/apk/res-auto"
     android:id="@+id/graphPad"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,24 +9,24 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical" >
-        <ImageButton
+        <com.xlythe.engine.theme.ThemedImageButton
             android:id="@+id/zoomIn"
-            android:src="?graph_plus"
+            theme:src="@drawable/graph_plus"
             android:contentDescription="@null"
             android:padding="10dp"
-            style="?button_style" />
-        <ImageButton
+            style="@style/Theme.Calculator.ButtonStyle" />
+        <com.xlythe.engine.theme.ThemedImageButton
             android:id="@+id/zoomOut"
-            android:src="?graph_minus"
+            theme:src="@drawable/graph_minus"
             android:contentDescription="@null"
             android:padding="10dp"
-            style="?button_style" />
-        <ImageButton
+            style="@style/Theme.Calculator.ButtonStyle" />
+        <com.xlythe.engine.theme.ThemedImageButton
             android:id="@+id/zoomReset"
-            android:src="?graph_standard"
+            theme:src="@drawable/graph_standard"
             android:contentDescription="@null"
             android:padding="10dp"
-            style="?button_style" />
+            style="@style/Theme.Calculator.ButtonStyle" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/graph"

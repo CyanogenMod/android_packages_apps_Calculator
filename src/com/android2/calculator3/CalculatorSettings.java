@@ -39,8 +39,7 @@ public class CalculatorSettings {
     }
 
     static boolean clickToOpenHistory(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CLICK_TO_OPEN_HISTORY",
-                context.getResources().getBoolean(R.bool.CLICK_TO_OPEN_HISTORY));
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CLICK_TO_OPEN_HISTORY", context.getResources().getBoolean(R.bool.CLICK_TO_OPEN_HISTORY));
     }
 
     public static boolean digitGrouping(Context context) {
@@ -51,8 +50,8 @@ public class CalculatorSettings {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
     }
 
-    public static boolean useLightTheme(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("THEME_STYLE", false);
+    public static String getTheme(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString("THEME_STYLE", context.getPackageName());
     }
 
     static void saveKey(Context context, String key, boolean value) {

@@ -31,8 +31,8 @@ import android.util.DisplayMetrics;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-import com.android2.calculator3.Calculator;
 import com.android2.calculator3.R;
+import com.android2.calculator3.Calculator;
 
 public class Cling extends FrameLayout {
     public static final int SHOW_CLING_DURATION = 550;

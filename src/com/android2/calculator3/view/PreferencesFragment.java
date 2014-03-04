@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
-import android.preference.SwitchPreference;
 import android.view.View;
 import android.widget.ListView;
 
-import com.android2.calculator3.CalculatorSettings;
-import com.android2.calculator3.Preferences;
 import com.android2.calculator3.R;
+import com.android2.calculator3.Preferences;
+import com.xlythe.engine.theme.Theme;
+import com.xlythe.engine.theme.ThemeListPreference;
 
 public class PreferencesFragment extends PreferenceFragment {
 
@@ -26,41 +26,35 @@ public class PreferencesFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.layout.preferences);
 
-        SwitchPreference holo = (SwitchPreference) findPreference("THEME_STYLE");
-        if(holo != null) {
-            holo.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+        ThemeListPreference theme = (ThemeListPreference) findPreference("THEME_STYLE");
+        if(theme != null) {
+            theme.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if((Boolean) newValue != CalculatorSettings.useLightTheme(getActivity())) {
-                        // Update app icon
-                        int lightState = (Boolean) newValue ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-                        int darkState = (Boolean) newValue ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
-                        getActivity().getPackageManager().setComponentEnabledSetting(
-                                new ComponentName("com.android2.calculator3", "com.android2.calculator3.Calculator-Light"), lightState,
-                                PackageManager.DONT_KILL_APP);
-                        getActivity().getPackageManager().setComponentEnabledSetting(
-                                new ComponentName("com.android2.calculator3", "com.android2.calculator3.Calculator-Dark"), darkState,
-                                PackageManager.DONT_KILL_APP);
+                    // Update app icon
+                    Theme.setPackageName(newValue.toString());
+                    int lightState = Theme.isLightTheme(getActivity()) ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+                    int darkState = Theme.isLightTheme(getActivity()) ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
+                    getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getActivity().getPackageName(), getActivity().getPackageName() + ".Calculator-Light"), lightState, PackageManager.DONT_KILL_APP);
+                    getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getActivity().getPackageName(), getActivity().getPackageName() + ".Calculator-Dark"), darkState, PackageManager.DONT_KILL_APP);
 
-                        // Create a new intent to relaunch the settings
-                        Intent intent = new Intent(getActivity(), Preferences.class);
+                    // Create a new intent to relaunch the settings
+                    Intent intent = new Intent(getActivity(), Preferences.class);
 
-                        // Preserve the list offsets
-                        int itemPosition = getListView().getFirstVisiblePosition();
-                        View child = getListView().getChildAt(0);
-                        int itemOffset = child != null ? child.getTop() : 0;
+                    // Preserve the list offsets
+                    int itemPosition = getListView().getFirstVisiblePosition();
+                    View child = getListView().getChildAt(0);
+                    int itemOffset = child != null ? child.getTop() : 0;
 
-                        intent.putExtra(EXTRA_LIST_POSITION, itemPosition);
-                        intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);
+                    intent.putExtra(EXTRA_LIST_POSITION, itemPosition);
+                    intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);
 
-                        // Go
-                        startActivity(intent);
-                        getActivity().finish();
+                    // Go
+                    startActivity(intent);
+                    getActivity().finish();
 
-                        // Set a smooth fade transition
-                        getActivity().overridePendingTransition(android.R.anim.fade_in,
-                                android.R.anim.fade_out);
-                    }
+                    // Set a smooth fade transition
+                    getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     return true;
                 }
             });
@@ -85,11 +79,8 @@ public class PreferencesFragment extends PreferenceFragment {
 
         // Restore the scroll position, if any
         final Bundle args = getArguments();
-        if (args != null) {
-            getListView().setSelectionFromTop(
-                    args.getInt(EXTRA_LIST_POSITION, 0),
-                    args.getInt(EXTRA_LIST_VIEW_OFFSET, 0)
-            );
+        if(args != null) {
+            getListView().setSelectionFromTop(args.getInt(EXTRA_LIST_POSITION, 0), args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
         }
     }
 
