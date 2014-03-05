@@ -26,5 +26,5 @@
     <color name="graph_color">#31B6E7</color>
     <color name="graph_axes_color">#000000</color>
     <color name="graph_grid_color">#333333</color>
-    <color name="graph_labels_color">#000000</color>
+    <color name="graph_labels_color">#ffffff</color>
 </resources>

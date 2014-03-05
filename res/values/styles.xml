@@ -76,8 +76,7 @@
         <item name="android:windowBackground">@color/background</item>
     </style>
     
-    <style name="Theme.Settings.Calculator" parent="android:Theme.Holo">
-    </style>
+    <style name="Theme.Settings.Calculator" parent="android:Theme.Holo" />
     
     <style name="Theme.Calculator.ButtonStyle" >
        <item name="android:textSize">40sp</item>
@@ -87,17 +86,22 @@
        <item name="android:focusable">true</item>
        <item name="themeBackground">@drawable/btn_function</item>
        <item name="android:layout_marginLeft">1dp</item>
-       <item name="themeBackground">@color/text_color</item>
+       <item name="textColor">@color/text_color</item>
        <item name="textColorHint">@color/button_hint_text</item>
        <item name="android:gravity">center</item>
     </style>
     
     <style name="Theme.Calculator.ButtonStyle.Equal" >
-       <item name="themeBackground">@drawable/btn_function</item>
+       <item name="themeBackground">@drawable/btn_equal</item>
+       <item name="textColor">@color/equal_text_color</item>
     </style>
 
     <style name="Theme.Calculator.ButtonStyle.Digit" >
        <item name="themeBackground">@drawable/btn_digit</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.Widget" >
+       <item name="android:background">@drawable/circle_bg</item>
     </style>
     
     <style name="Theme.Calculator.ButtonStyle.Small" >
@@ -109,11 +113,11 @@
     </style>
 
     <style name="Theme.Calculator.ButtonStyle.Del" >
-       <item name="themeBackground">@drawable/btn_function</item>
+       <item name="themeBackground">@drawable/btn_del</item>
+       <item name="textColor">@color/del_text_color</item>
     </style>
 
     <style name="Theme.Calculator.Slider" >
-       <item name="android:scrollbarThumbHorizontal">@drawable/btn_function</item>
        <item name="themeBackground">@color/background</item>
     </style>
 
@@ -156,7 +160,8 @@
     </style>
 
     <style name="Theme.Calculator.ButtonOperationCellStyle.Equal">
-       <item name="themeBackground">@drawable/btn_function</item>
+       <item name="themeBackground">@drawable/btn_equal</item>
+       <item name="textColor">@color/equal_text_color</item>
     </style>
 
     <style name="Theme.Calculator.Display">
@@ -177,7 +182,7 @@
     </style>
 
     <style name="Theme.Calculator.Clear">
-       <item name="themeBackground">?android:attr/selectableItemBackground</item>
+       <item name="themeBackground">@drawable/menu_bg</item>
        <item name="android:textSize">@dimen/btn_clear_text_size</item>
     </style>
 </resources>

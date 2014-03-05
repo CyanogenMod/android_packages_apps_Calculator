@@ -181,6 +181,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mPulldown.enableClick(true);
             mPulldown.enableTouch(false);
         }
+        mPulldown.setBarBackground(Theme.getDrawable(getContext(), R.drawable.btn_slider));
         mPulldown.setBackgroundColor(Theme.getColor(getContext(), R.color.background));
         mHistoryView = (ListView) mPulldown.findViewById(R.id.history);
         setUpHistory();
