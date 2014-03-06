@@ -20,10 +20,6 @@
        <item name="android:fontFamily">sans-serif-light</item>
     </style>
     <style name="Theme.Calculator.Display.Widget">
-        <item name="android:shadowColor">#66000000</item>
-        <item name="android:shadowRadius">3</item>
-        <item name="android:shadowDx">1.6</item>
-        <item name="android:shadowDy">1.1</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 </resources>

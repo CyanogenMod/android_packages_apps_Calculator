@@ -182,12 +182,7 @@
         <item name="max_height">@dimen/max_display_height</item>
     </style>
 
-    <style name="Theme.Calculator.Display.Widget">
-        <item name="android:shadowColor">#66000000</item>
-        <item name="android:shadowRadius">3</item>
-        <item name="android:shadowDx">1.6</item>
-        <item name="android:shadowDy">1.1</item>
-    </style>
+    <style name="Theme.Calculator.Display.Widget"/>
 
     <style name="Theme.Calculator.Clear">
        <item name="themeBackground">@drawable/menu_bg</item>

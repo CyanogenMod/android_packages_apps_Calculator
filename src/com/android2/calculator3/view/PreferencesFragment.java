@@ -1,8 +1,6 @@
 package com.android2.calculator3.view;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -11,8 +9,8 @@ import android.preference.PreferenceFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.android2.calculator3.R;
 import com.android2.calculator3.Preferences;
+import com.android2.calculator3.R;
 import com.xlythe.engine.theme.Theme;
 import com.xlythe.engine.theme.ThemeListPreference;
 
@@ -31,12 +29,8 @@ public class PreferencesFragment extends PreferenceFragment {
             theme.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    // Update app icon
+                    // Update theme
                     Theme.setPackageName(newValue.toString());
-                    int lightState = Theme.isLightTheme(getActivity()) ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-                    int darkState = Theme.isLightTheme(getActivity()) ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
-                    getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getActivity().getPackageName(), getActivity().getPackageName() + ".Calculator-Light"), lightState, PackageManager.DONT_KILL_APP);
-                    getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getActivity().getPackageName(), getActivity().getPackageName() + ".Calculator-Dark"), darkState, PackageManager.DONT_KILL_APP);
 
                     // Create a new intent to relaunch the settings
                     Intent intent = new Intent(getActivity(), Preferences.class);
