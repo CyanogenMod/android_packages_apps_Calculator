@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
@@ -253,7 +254,9 @@ public class CalculatorEditText extends ThemedEditText {
         if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
         et.setBackgroundResource(android.R.color.transparent);
         et.setTextAppearance(parent.getContext(), R.style.Theme_Calculator_Display);
-        et.setTextColor(Theme.get(R.color.text_color));
+        et.setTextColor(Theme.get(R.color.display_text_color));
+        Typeface tf = Theme.getFont(parent.getContext());
+        if(tf != null) et.setTypeface(tf);
         et.setPadding(5, 0, 5, 0);
         et.setEnabled(parent.isEnabled());
         AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

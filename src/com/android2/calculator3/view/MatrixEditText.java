@@ -33,10 +33,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android2.calculator3.R;
 import com.android2.calculator3.Logic;
+import com.android2.calculator3.R;
+import com.xlythe.engine.theme.Theme;
+import com.xlythe.engine.theme.ThemedEditText;
 
-public class MatrixEditText extends EditText implements OnFocusChangeListener {
+public class MatrixEditText extends ThemedEditText implements OnFocusChangeListener {
     private static final char[] ACCEPTED_CHARS = "0123456789,.-\u2212".toCharArray();
 
     private MatrixView mParent;
@@ -58,6 +60,7 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         setKeyListener(new MatrixKeyListener());
         setOnFocusChangeListener(this);
         setGravity(Gravity.CENTER);
+        setTextColor(Theme.get(R.color.display_text_color));
 
         // Listen for the enter button on physical keyboards
         setOnEditorActionListener(new EditText.OnEditorActionListener() {

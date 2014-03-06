@@ -17,14 +17,16 @@
 package com.android2.calculator3.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.text.InputType;
-import android.widget.TextView;
 
-import com.android2.calculator3.R;
 import com.android2.calculator3.MutableString;
+import com.android2.calculator3.R;
+import com.xlythe.engine.theme.Theme;
+import com.xlythe.engine.theme.ThemedTextView;
 
-public class MatrixTransposeView extends TextView {
+public class MatrixTransposeView extends ThemedTextView {
     public final static String PATTERN = "^T";
 
     public MatrixTransposeView(Context context) {
@@ -36,6 +38,9 @@ public class MatrixTransposeView extends TextView {
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         setText(Html.fromHtml("<sup><small>T</small></sup>"));
         setTextAppearance(display.getContext(), R.style.Theme_Calculator_Display);
+        setTextColor(Theme.get(R.color.display_text_color));
+        Typeface tf = Theme.getFont(getContext());
+        if(tf != null) setTypeface(tf);
         setPadding(0, 0, 0, 0);
     }
 

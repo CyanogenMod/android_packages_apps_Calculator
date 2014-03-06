@@ -17,14 +17,16 @@
 package com.android2.calculator3.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.text.InputType;
-import android.widget.TextView;
 
-import com.android2.calculator3.R;
 import com.android2.calculator3.MutableString;
+import com.android2.calculator3.R;
+import com.xlythe.engine.theme.Theme;
+import com.xlythe.engine.theme.ThemedTextView;
 
-public class MatrixInverseView extends TextView {
+public class MatrixInverseView extends ThemedTextView {
     private final static char PLACEHOLDER = '\uFEFF';
     public final static String PATTERN = PLACEHOLDER + "^-1";
 
@@ -38,6 +40,9 @@ public class MatrixInverseView extends TextView {
         setText(Html.fromHtml("<sup><small>-1</small></sup>"));
         setTextAppearance(display.getContext(), R.style.Theme_Calculator_Display);
         setPadding(0, 0, 0, 0);
+        setTextColor(Theme.get(R.color.display_text_color));
+        Typeface tf = Theme.getFont(getContext());
+        if(tf != null) setTypeface(tf);
     }
 
     @Override

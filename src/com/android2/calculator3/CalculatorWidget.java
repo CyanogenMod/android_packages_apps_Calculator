@@ -152,11 +152,11 @@ public class CalculatorWidget extends AppWidgetProvider {
             final String input = value;
             if(input.isEmpty()) return;
 
-            final Logic mLogic = new Logic(context, null, null);
-            mLogic.setLineLength(7);
+            final Logic logic = new Logic(context, null, null);
+            logic.setLineLength(7);
 
             try {
-                value = mLogic.evaluate(input);
+                value = logic.evaluate(input);
             }
             catch(SyntaxException e) {
                 value = context.getResources().getString(R.string.error);
@@ -190,15 +190,20 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+
         String value = getValue(context, appWidgetId);
+
+        if(CalculatorSettings.digitGrouping(context)) {
+            final Logic logic = new Logic(context, null, null);
+            BaseModule bm = logic.mBaseModule;
+            value = bm.groupSentence(value, value.length());
+        }
 
         int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable : R.id.display;
 
         remoteViews.setViewVisibility(displayId, View.VISIBLE);
         remoteViews.setTextViewText(displayId, value);
         remoteViews.setTextViewText(R.id.display, value);
-        remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
-        remoteViews.setViewVisibility(R.id.delete, mClearText ? View.GONE : View.VISIBLE);
         setOnClickListeners(context, appWidgetId, remoteViews);
 
         try {
@@ -268,10 +273,7 @@ public class CalculatorWidget extends AppWidgetProvider {
         intent.setAction(EQUALS);
         remoteViews.setOnClickPendingIntent(R.id.equal, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 15, intent, 0));
 
-        intent.setAction(CLR);
-        remoteViews.setOnClickPendingIntent(R.id.clear, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 16, intent, 0));
-
-        intent.setAction(DEL);
+        intent.setAction(mClearText ? CLR : DEL);
         remoteViews.setOnClickPendingIntent(R.id.delete, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 17, intent, 0));
     }
 

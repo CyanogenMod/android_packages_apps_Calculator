@@ -66,7 +66,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
-    private Slider mPulldown;
+    private Slider mHistorySlider;
     private Graph mGraph;
 
     private boolean clingActive = false;
@@ -174,16 +174,16 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mHistoryAdapter = new HistoryAdapter(this, mHistory);
         mHistory.setObserver(mHistoryAdapter);
 
-        mPulldown = (Slider) findViewById(R.id.pulldown);
-        mPulldown.setBarHeight(getResources().getDimensionPixelSize(R.dimen.history_bar_height));
-        mPulldown.setSlideDirection(Direction.DOWN);
+        mHistorySlider = (Slider) findViewById(R.id.pulldown);
+        mHistorySlider.setBarHeight(getResources().getDimensionPixelSize(R.dimen.history_bar_height));
+        mHistorySlider.setSlideDirection(Direction.DOWN);
         if(CalculatorSettings.clickToOpenHistory(this)) {
-            mPulldown.enableClick(true);
-            mPulldown.enableTouch(false);
+            mHistorySlider.enableClick(true);
+            mHistorySlider.enableTouch(false);
         }
-        mPulldown.setBarBackground(Theme.getDrawable(getContext(), R.drawable.btn_slider));
-        mPulldown.setBackgroundColor(Theme.getColor(getContext(), R.color.background));
-        mHistoryView = (ListView) mPulldown.findViewById(R.id.history);
+        mHistorySlider.setBarBackground(Theme.getDrawable(getContext(), R.drawable.btn_slider));
+        mHistorySlider.setBackgroundColor(Theme.getColor(getContext(), R.color.slider_bg));
+        mHistoryView = (ListView) mHistorySlider.findViewById(R.id.history);
         setUpHistory();
 
         mGraph = new Graph(mLogic);
@@ -216,7 +216,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mLogic.resumeWithHistory();
         updateDeleteMode();
 
-        mPulldown.bringToFront();
+        mHistorySlider.bringToFront();
     }
 
     private void updateDeleteMode() {
@@ -242,31 +242,31 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         super.onPrepareOptionsMenu(menu);
 
         MenuItem mClearHistory = menu.findItem(R.id.clear_history);
-        mClearHistory.setVisible(mPulldown.isSliderOpen());
+        mClearHistory.setVisible(mHistorySlider.isSliderOpen());
 
         MenuItem mShowHistory = menu.findItem(R.id.show_history);
-        mShowHistory.setVisible(!mPulldown.isSliderOpen());
+        mShowHistory.setVisible(!mHistorySlider.isSliderOpen());
 
         MenuItem mHideHistory = menu.findItem(R.id.hide_history);
-        mHideHistory.setVisible(mPulldown.isSliderOpen());
+        mHideHistory.setVisible(mHistorySlider.isSliderOpen());
 
         MenuItem mMatrixPanel = menu.findItem(R.id.matrix);
-        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && CalculatorSettings.matrixPanel(getContext()) && !mPulldown.isSliderOpen());
+        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && CalculatorSettings.matrixPanel(getContext()) && !mHistorySlider.isSliderOpen());
 
         MenuItem mGraphPanel = menu.findItem(R.id.graph);
-        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()) && !mPulldown.isSliderOpen());
+        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()) && !mHistorySlider.isSliderOpen());
 
         MenuItem mFunctionPanel = menu.findItem(R.id.function);
-        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()) && !mPulldown.isSliderOpen());
+        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()) && !mHistorySlider.isSliderOpen());
 
         MenuItem mBasicPanel = menu.findItem(R.id.basic);
-        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !mPulldown.isSliderOpen());
+        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !mHistorySlider.isSliderOpen());
 
         MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
-        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()) && !mPulldown.isSliderOpen());
+        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()) && !mHistorySlider.isSliderOpen());
 
         MenuItem mHexPanel = menu.findItem(R.id.hex);
-        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()) && !mPulldown.isSliderOpen());
+        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()) && !mHistorySlider.isSliderOpen());
 
         MenuItem mLock = menu.findItem(R.id.lock);
         if(mLock != null) mLock.setVisible(getGraphVisibility() && getPagingEnabled());
@@ -383,11 +383,11 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             break;
 
         case R.id.show_history:
-            mPulldown.animateSliderOpen();
+            mHistorySlider.animateSliderOpen();
             break;
 
         case R.id.hide_history:
-            mPulldown.animateSliderClosed();
+            mHistorySlider.animateSliderClosed();
             break;
 
         case R.id.basic:
@@ -476,8 +476,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && mPulldown.isSliderOpen() && !clingActive) {
-            mPulldown.animateSliderClosed();
+        if(keyCode == KeyEvent.KEYCODE_BACK && mHistorySlider.isSliderOpen() && !clingActive) {
+            mHistorySlider.animateSliderClosed();
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && !getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !clingActive) {

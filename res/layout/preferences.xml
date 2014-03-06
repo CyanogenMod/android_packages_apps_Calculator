@@ -40,7 +40,7 @@
         <CheckBoxPreference
             android:title="@string/digitGrouping"
             android:key="DIGIT_GROUPING"
-            android:defaultValue="false" />
+            android:defaultValue="@bool/DIGIT_GROUPING" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_units" >

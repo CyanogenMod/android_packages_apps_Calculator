@@ -150,13 +150,13 @@
             android:text="@string/digit0"
             style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android2.calculator3.view.ColorButton
+            android:id="@+id/equal"
+            android:text="@string/equal"
+            style="@style/Theme.Calculator.ButtonStyle.Equal" />
+        <com.android2.calculator3.view.ColorButton
             android:id="@+id/det"
             android:text="@string/det"
             android:textSize="@dimen/btn_function_text_size"
             style="@style/Theme.Calculator.ButtonStyle" />
-        <com.android2.calculator3.view.ColorButton
-            android:id="@+id/equal"
-            android:text="@string/equal"
-            style="@style/Theme.Calculator.ButtonStyle.Equal" />
     </LinearLayout>
 </LinearLayout>
