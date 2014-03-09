@@ -35,6 +35,7 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
         if(v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v);
         }
+        System.out.println("Rawr for page " + pages.get(position).getName());
         applyBannedResourcesByPage(mLogic, v, mLogic.mBaseModule.getMode());
         return v;
     }

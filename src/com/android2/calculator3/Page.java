@@ -24,8 +24,9 @@ public class Page {
     private final boolean mHasTutorial;
     private final Panel mPanel;
     private final boolean mIsSmall;
+    private View mView;
 
-    private interface Panel {
+    public interface Panel {
         public String name();
 
         public int getName();
@@ -37,6 +38,8 @@ public class Page {
         public View getView(Context context, EventListener listener, Graph graph, Logic logic);
 
         public void showTutorial(Calculator calc, boolean animate);
+
+        public void refresh(Context context, View view, Graph graph, Logic logic);
     }
 
     public enum NormalPanel implements Panel {
@@ -56,7 +59,6 @@ public class Page {
         final int mDefaultValue;
         final boolean mHasTutorial;
         private GraphicalView mGraphDisplay;
-        private View mView;
 
         public int getName() {
             return mName;
@@ -71,75 +73,41 @@ public class Page {
         }
 
         public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
-            if(mView == null) {
-                switch(this) {
-                case BASIC:
-                    mView = View.inflate(context, R.layout.simple_pad, null);
+            View v = null;
+            switch(this) {
+            case BASIC:
+                v = View.inflate(context, R.layout.simple_pad, null);
+                break;
+            case GRAPH:
+                v = View.inflate(context, R.layout.graph_pad, null);
+                break;
+            case MATRIX:
+                v = View.inflate(context, R.layout.matrix_pad, null);
+                View easterEgg = v.findViewById(R.id.easter);
+                if(easterEgg != null) {
+                    easterEgg.setOnClickListener(listener);
+                    easterEgg.setOnLongClickListener(listener);
+                }
+                break;
+            case ADVANCED:
+                v = View.inflate(context, R.layout.advanced_pad, null);
+                break;
+            case HEX:
+                v = View.inflate(context, R.layout.hex_pad, null);
+                switch(logic.mBaseModule.getMode()) {
+                case BINARY:
+                    v.findViewById(R.id.bin).setSelected(true);
                     break;
-                case GRAPH:
-                    mView = View.inflate(context, R.layout.graph_pad, null);
-                    if(mGraphDisplay == null) {
-                        mGraphDisplay = graph.getGraph(context);
-                        logic.setGraphDisplay(mGraphDisplay);
-                        LinearLayout l = (LinearLayout) mView.findViewById(R.id.graph);
-                        l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-                        View zoomIn = mView.findViewById(R.id.zoomIn);
-                        zoomIn.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mGraphDisplay.zoomIn();
-                            }
-                        });
-
-                        View zoomOut = mView.findViewById(R.id.zoomOut);
-                        zoomOut.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mGraphDisplay.zoomOut();
-                            }
-                        });
-
-                        View zoomReset = mView.findViewById(R.id.zoomReset);
-                        zoomReset.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mGraphDisplay.zoomReset();
-                            }
-                        });
-                    }
-                    else {
-                        mGraphDisplay.repaint();
-                    }
+                case DECIMAL:
+                    v.findViewById(R.id.dec).setSelected(true);
                     break;
-                case MATRIX:
-                    mView = View.inflate(context, R.layout.matrix_pad, null);
-                    View easterEgg = mView.findViewById(R.id.easter);
-                    if(easterEgg != null) {
-                        easterEgg.setOnClickListener(listener);
-                        easterEgg.setOnLongClickListener(listener);
-                    }
-                    break;
-                case ADVANCED:
-                    mView = View.inflate(context, R.layout.advanced_pad, null);
-                    break;
-                case HEX:
-                    mView = View.inflate(context, R.layout.hex_pad, null);
-                    switch(logic.mBaseModule.getMode()) {
-                    case BINARY:
-                        mView.findViewById(R.id.bin).setSelected(true);
-                        break;
-                    case DECIMAL:
-                        mView.findViewById(R.id.dec).setSelected(true);
-                        break;
-                    case HEXADECIMAL:
-                        mView.findViewById(R.id.hex).setSelected(true);
-                        break;
-                    }
+                case HEXADECIMAL:
+                    v.findViewById(R.id.hex).setSelected(true);
                     break;
                 }
+                break;
             }
-            return mView;
+            return v;
         }
 
         public void showTutorial(Calculator calc, boolean animate) {
@@ -158,6 +126,45 @@ public class Page {
             case HEX:
                 calc.showFirstRunHexCling(animate);
                 break;
+            }
+        }
+
+        @Override
+        public void refresh(Context context, View view, Graph graph, Logic logic) {
+            if(NormalPanel.GRAPH.equals(this)) {
+                if(mGraphDisplay == null) {
+                    mGraphDisplay = graph.getGraph(context);
+                    logic.setGraphDisplay(mGraphDisplay);
+                    LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
+                    l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+
+                    View zoomIn = view.findViewById(R.id.zoomIn);
+                    zoomIn.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mGraphDisplay.zoomIn();
+                        }
+                    });
+
+                    View zoomOut = view.findViewById(R.id.zoomOut);
+                    zoomOut.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mGraphDisplay.zoomOut();
+                        }
+                    });
+
+                    View zoomReset = view.findViewById(R.id.zoomReset);
+                    zoomReset.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mGraphDisplay.zoomReset();
+                        }
+                    });
+                }
+                else {
+                    mGraphDisplay.repaint();
+                }
             }
         }
     }
@@ -175,7 +182,6 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
-        private View mView;
 
         public int getName() {
             return mName;
@@ -190,28 +196,29 @@ public class Page {
         }
 
         public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
-            if(mView == null) {
-                switch(this) {
-                case ADVANCED:
-                    mView = View.inflate(context, R.layout.advanced_pad, null);
-                    break;
-                case HEX:
-                    mView = View.inflate(context, R.layout.hex_pad, null);
+            View v = null;
+            switch(this) {
+            case ADVANCED:
+                v = View.inflate(context, R.layout.advanced_pad, null);
+                break;
+            case HEX:
+                v = View.inflate(context, R.layout.hex_pad, null);
+                if(logic != null) {
                     switch(logic.mBaseModule.getMode()) {
                     case BINARY:
-                        mView.findViewById(R.id.bin).setSelected(true);
+                        v.findViewById(R.id.bin).setSelected(true);
                         break;
                     case DECIMAL:
-                        mView.findViewById(R.id.dec).setSelected(true);
+                        v.findViewById(R.id.dec).setSelected(true);
                         break;
                     case HEXADECIMAL:
-                        mView.findViewById(R.id.hex).setSelected(true);
+                        v.findViewById(R.id.hex).setSelected(true);
                         break;
                     }
-                    break;
                 }
+                break;
             }
-            return mView;
+            return v;
         }
 
         public void showTutorial(Calculator calc, boolean animate) {
@@ -223,6 +230,9 @@ public class Page {
                 break;
             }
         }
+
+        @Override
+        public void refresh(Context context, View view, Graph graph, Logic logic) {}
     }
 
     public enum LargePanel implements Panel {
@@ -240,7 +250,6 @@ public class Page {
         final int mDefaultValue;
         final boolean mHasTutorial;
         private GraphicalView mGraphDisplay;
-        private View mView;
 
         public int getName() {
             return mName;
@@ -255,58 +264,24 @@ public class Page {
         }
 
         public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
-            if(mView == null) {
-                switch(this) {
-                case BASIC:
-                    mView = View.inflate(context, R.layout.simple_pad, null);
-                    break;
-                case GRAPH:
-                    mView = View.inflate(context, R.layout.graph_pad, null);
-                    if(mGraphDisplay == null) {
-                        mGraphDisplay = graph.getGraph(context);
-                        logic.setGraphDisplay(mGraphDisplay);
-                        LinearLayout l = (LinearLayout) mView.findViewById(R.id.graph);
-                        l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-                        View zoomIn = mView.findViewById(R.id.zoomIn);
-                        zoomIn.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mGraphDisplay.zoomIn();
-                            }
-                        });
-
-                        View zoomOut = mView.findViewById(R.id.zoomOut);
-                        zoomOut.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mGraphDisplay.zoomOut();
-                            }
-                        });
-
-                        View zoomReset = mView.findViewById(R.id.zoomReset);
-                        zoomReset.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mGraphDisplay.zoomReset();
-                            }
-                        });
-                    }
-                    else {
-                        mGraphDisplay.repaint();
-                    }
-                    break;
-                case MATRIX:
-                    mView = View.inflate(context, R.layout.matrix_pad, null);
-                    View easterEgg = mView.findViewById(R.id.easter);
-                    if(easterEgg != null) {
-                        easterEgg.setOnClickListener(listener);
-                        easterEgg.setOnLongClickListener(listener);
-                    }
-                    break;
+            View v = null;
+            switch(this) {
+            case BASIC:
+                v = View.inflate(context, R.layout.simple_pad, null);
+                break;
+            case GRAPH:
+                v = View.inflate(context, R.layout.graph_pad, null);
+                break;
+            case MATRIX:
+                v = View.inflate(context, R.layout.matrix_pad, null);
+                View easterEgg = v.findViewById(R.id.easter);
+                if(easterEgg != null) {
+                    easterEgg.setOnClickListener(listener);
+                    easterEgg.setOnLongClickListener(listener);
                 }
+                break;
             }
-            return mView;
+            return v;
         }
 
         public void showTutorial(Calculator calc, boolean animate) {
@@ -320,6 +295,45 @@ public class Page {
             case MATRIX:
                 calc.showFirstRunMatrixCling(animate, getView(calc, null, null, null));
                 break;
+            }
+        }
+
+        @Override
+        public void refresh(Context context, View view, Graph graph, Logic logic) {
+            if(LargePanel.GRAPH.equals(this)) {
+                if(mGraphDisplay == null) {
+                    mGraphDisplay = graph.getGraph(context);
+                    logic.setGraphDisplay(mGraphDisplay);
+                    LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
+                    l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+
+                    View zoomIn = view.findViewById(R.id.zoomIn);
+                    zoomIn.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mGraphDisplay.zoomIn();
+                        }
+                    });
+
+                    View zoomOut = view.findViewById(R.id.zoomOut);
+                    zoomOut.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mGraphDisplay.zoomOut();
+                        }
+                    });
+
+                    View zoomReset = view.findViewById(R.id.zoomReset);
+                    zoomReset.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mGraphDisplay.zoomReset();
+                        }
+                    });
+                }
+                else {
+                    mGraphDisplay.repaint();
+                }
             }
         }
     }
@@ -340,6 +354,15 @@ public class Page {
         mHasTutorial = false;
         mPanel = null;
         mIsSmall = false;
+    }
+
+    Page(Page page) {
+        mName = page.getName();
+        mKey = page.getKey();
+        mDefaultValue = page.getDefaultValue();
+        mHasTutorial = page.hasTutorial();
+        mPanel = page.mPanel;
+        mIsSmall = page.isSmall();
     }
 
     public static List<Page> getAllPages(Context context) {
@@ -373,6 +396,13 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
+        if(list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+            // Double the records to avoid using the same view twice
+            int size = list.size();
+            for(int i = 0; i < size; i++) {
+                list.add(new Page(list.get(i)));
+            }
+        }
         return list;
     }
 
@@ -385,6 +415,13 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
+        if(list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+            // Double the records to avoid using the same view twice
+            int size = list.size();
+            for(int i = 0; i < size; i++) {
+                list.add(new Page(list.get(i)));
+            }
+        }
         return list;
     }
 
@@ -404,6 +441,13 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
+        if(list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+            // Double the records to avoid using the same view twice
+            int size = list.size();
+            for(int i = 0; i < size; i++) {
+                list.add(new Page(list.get(i)));
+            }
+        }
         return list;
     }
 
@@ -469,8 +513,14 @@ public class Page {
     }
 
     public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
-        if(mPanel != null) return mPanel.getView(context, listener, graph, logic);
-        else return null;
+        if(mView == null) {
+            if(mPanel != null) {
+                mView = mPanel.getView(context, listener, graph, logic);
+                mPanel.refresh(context, mView, graph, logic);
+            }
+            else mView = null;
+        }
+        return mView;
     }
 
     public static Page getCurrentPage(CalculatorViewPager pager) {

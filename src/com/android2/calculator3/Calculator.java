@@ -390,13 +390,26 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             scrollToPage(new Page(getContext(), NormalPanel.BASIC));
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !(Page.getCurrentPage(mSmallPager).isAdvanced() && Page.getCurrentPage(mLargePager).isBasic()) && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), LargePanel.BASIC)) && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), SmallPanel.ADVANCED)) && !clingActive) {
-            mSmallPager.setCurrentItem(Page.getSmallOrder(getContext(), new Page(getContext(), SmallPanel.ADVANCED)));
-            mLargePager.setCurrentItem(Page.getLargeOrder(getContext(), new Page(getContext(), LargePanel.BASIC)));
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !clingActive) {
+            boolean scrolled = false;
+            if(CalculatorSettings.isPageEnabled(getContext(), SmallPanel.ADVANCED)) {
+                if(!Page.getCurrentSmallPage(mSmallPager).isAdvanced()) {
+                    scrollToPage(new Page(getContext(), SmallPanel.ADVANCED));
+                    scrolled = true;
+                }
+            }
+            if(CalculatorSettings.isPageEnabled(getContext(), LargePanel.BASIC)) {
+                if(!Page.getCurrentLargePage(mLargePager).isBasic()) {
+                    scrollToPage(new Page(getContext(), LargePanel.BASIC));
+                    scrolled = true;
+                }
+            }
+            if(!scrolled) finish();
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
+            return true;
         }
         return super.onKeyDown(keyCode, keyEvent);
     }
