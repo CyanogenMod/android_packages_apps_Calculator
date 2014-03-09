@@ -480,12 +480,12 @@ public class Page {
 
     public static Page getCurrentSmallPage(CalculatorViewPager pager) {
         List<Page> pages = Page.getSmallPages(pager.getContext());
-        return pages.get(pager.getCurrentItem());
+        return pages.get(pager.getCurrentItem() % pages.size());
     }
 
     public static Page getCurrentLargePage(CalculatorViewPager pager) {
         List<Page> pages = Page.getLargePages(pager.getContext());
-        return pages.get(pager.getCurrentItem());
+        return pages.get(pager.getCurrentItem() % pages.size());
     }
 
     public static Page getPage(Context context, String name) {

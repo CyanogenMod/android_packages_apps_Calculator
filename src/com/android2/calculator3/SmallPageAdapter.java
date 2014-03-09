@@ -1,5 +1,6 @@
 package com.android2.calculator3;
 
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
@@ -23,11 +24,12 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
 
     @Override
     public int getCount() {
-        return mCount;
+        return CalculatorSettings.useInfiniteScrolling(mContext) ? Integer.MAX_VALUE : mCount;
     }
 
     @Override
     public View getViewAt(int position) {
+        position = position % mCount;
         List<Page> pages = Page.getSmallPages(mContext);
         View v = pages.get(position).getView(mContext, mListener, mGraph, mLogic);
         if(v.getParent() != null) {
@@ -35,5 +37,42 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
         }
         applyBannedResourcesByPage(mLogic, v, mLogic.mBaseModule.getMode());
         return v;
+    }
+
+    @Override
+    public Iterable<View> getViewIterator(Context context) {
+        return new CalculatorIterator(context);
+    }
+
+    private static class CalculatorIterator implements Iterator<View>, Iterable<View> {
+        int mCurrentPosition = 0;
+        List<Page> mPages;
+        Context mContext;
+
+        CalculatorIterator(Context context) {
+            super();
+            mPages = Page.getSmallPages(context);
+            mContext = context;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return mCurrentPosition < mPages.size();
+        }
+
+        @Override
+        public View next() {
+            View v = mPages.get(mCurrentPosition).getView(mContext, null, null, null);
+            mCurrentPosition++;
+            return v;
+        }
+
+        @Override
+        public void remove() {}
+
+        @Override
+        public Iterator<View> iterator() {
+            return this;
+        }
     }
 }
