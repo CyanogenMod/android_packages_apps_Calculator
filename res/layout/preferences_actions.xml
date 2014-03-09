@@ -5,6 +5,10 @@
         android:key="RETURN_TO_BASIC"
         android:defaultValue="@bool/RETURN_TO_BASIC" />
     <CheckBoxPreference
+        android:title="@string/infiniteScrolling"
+        android:key="INFINITE_SCROLLING"
+        android:defaultValue="@bool/INFINITE_SCROLLING" />
+    <CheckBoxPreference
         android:title="@string/clickToOpenHistory"
         android:key="CLICK_TO_OPEN_HISTORY"
         android:defaultValue="@bool/CLICK_TO_OPEN_HISTORY" />

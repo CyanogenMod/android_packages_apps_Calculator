@@ -21,13 +21,18 @@ public class PageAdapter extends CalculatorPageAdapter {
         mCount = Page.getPages(mContext).size();
     }
 
+    protected Context getContext() {
+        return mContext;
+    }
+
     @Override
     public int getCount() {
-        return mCount;
+        return CalculatorSettings.useInfiniteScrolling(mContext) ? Integer.MAX_VALUE : mCount;
     }
 
     @Override
     public View getViewAt(int position) {
+        position = position % mCount;
         List<Page> pages = Page.getPages(mContext);
         View v = pages.get(position).getView(mContext, mListener, mGraph, mLogic);
         if(v.getParent() != null) {

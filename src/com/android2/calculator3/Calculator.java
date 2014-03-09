@@ -142,7 +142,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         if(mPager != null) {
             mPager.setAdapter(new PageAdapter(getContext(), mListener, mGraph, mLogic));
-            mPager.setCurrentItem(state == null ? Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC)) : state.getInt(STATE_CURRENT_VIEW, Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC))));
+            mPager.scrollToMiddle();
+            if(state != null) {
+                mPager.setCurrentItem(state.getInt(STATE_CURRENT_VIEW, mPager.getCurrentItem()));
+            }
+            else {
+                scrollToBasicPage();
+            }
             mPager.setOnPageChangeListener(this);
             runCling(false);
             mListener.setHandler(this, mLogic, mPager);
@@ -356,7 +362,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && !Page.getCurrentPage(mPager).isBasic() && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), NormalPanel.BASIC)) && !clingActive) {
-            mPager.setCurrentItem(Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC)));
+            // Infinite scrolling makes this tricky
+            scrollToBasicPage();
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !(Page.getCurrentPage(mSmallPager).isAdvanced() && Page.getCurrentPage(mLargePager).isBasic()) && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), LargePanel.BASIC)) && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), SmallPanel.ADVANCED)) && !clingActive) {
@@ -583,4 +590,33 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
     @Override
     public void onPageSelected(int position) {}
+
+    private void scrollToBasicPage() {
+        int order = Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC));
+        if(CalculatorSettings.useInfiniteScrolling(getContext())) {
+            int pagesSize = Page.getPages(getContext()).size();
+            int currentItem = mPager.getCurrentItem();
+            int currentItemUp = mPager.getCurrentItem();
+            int currentItemDown = mPager.getCurrentItem();
+            while(currentItemUp % pagesSize != order && currentItemDown % pagesSize != order) {
+                currentItemUp++;
+                currentItemDown--;
+            }
+            if(currentItemUp % pagesSize == order) {
+                while(currentItemUp != currentItem) {
+                    currentItem++;
+                    mPager.setCurrentItem(currentItem);
+                }
+            }
+            else {
+                while(currentItemDown != currentItem) {
+                    currentItem--;
+                    mPager.setCurrentItem(currentItem);
+                }
+            }
+        }
+        else {
+            mPager.setCurrentItem(order);
+        }
+    }
 }

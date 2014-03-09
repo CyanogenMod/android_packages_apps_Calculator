@@ -28,6 +28,10 @@ public class CalculatorSettings {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("RETURN_TO_BASIC", context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
     }
 
+    public static boolean useInfiniteScrolling(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("INFINITE_SCROLLING", context.getResources().getBoolean(R.bool.RETURN_TO_BASIC));
+    }
+
     static boolean clickToOpenHistory(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CLICK_TO_OPEN_HISTORY", context.getResources().getBoolean(R.bool.CLICK_TO_OPEN_HISTORY));
     }

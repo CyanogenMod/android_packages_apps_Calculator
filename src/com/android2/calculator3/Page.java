@@ -262,7 +262,7 @@ public class Page {
         }
     }
 
-    Page(Context context, Panel panel) {
+    public Page(Context context, Panel panel) {
         mName = context.getString(panel.getName());
         mKey = panel.name();
         mDefaultValue = context.getResources().getBoolean(panel.getDefaultValue());
@@ -421,7 +421,7 @@ public class Page {
 
     public static Page getCurrentPage(CalculatorViewPager pager) {
         List<Page> pages = Page.getPages(pager.getContext());
-        return pages.get(pager.getCurrentItem());
+        return pages.get(pager.getCurrentItem() % pages.size());
     }
 
     public static Page getCurrentSmallPage(CalculatorViewPager pager) {

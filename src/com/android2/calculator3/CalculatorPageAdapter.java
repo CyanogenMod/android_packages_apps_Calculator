@@ -1,7 +1,9 @@
 package com.android2.calculator3;
 
+import java.util.Iterator;
 import java.util.List;
 
+import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
@@ -62,6 +64,42 @@ public abstract class CalculatorPageAdapter extends PagerAdapter {
             final int resId = resource.intValue();
             View v = page.findViewById(resId);
             if(v != null) v.setEnabled(false);
+        }
+    }
+
+    public Iterable<View> getViewIterator(Context context) {
+        return new CalculatorIterator(context);
+    }
+
+    private static class CalculatorIterator implements Iterator<View>, Iterable<View> {
+        int mCurrentPosition = 0;
+        List<Page> mPages;
+        Context mContext;
+
+        CalculatorIterator(Context context) {
+            super();
+            mPages = Page.getPages(context);
+            mContext = context;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return mCurrentPosition < mPages.size();
+        }
+
+        @Override
+        public View next() {
+            View v = mPages.get(mCurrentPosition).getView(mContext, null, null, null);
+            mCurrentPosition++;
+            return v;
+        }
+
+        @Override
+        public void remove() {}
+
+        @Override
+        public Iterator<View> iterator() {
+            return this;
         }
     }
 }

@@ -21,6 +21,10 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.android2.calculator3.CalculatorSettings;
+import com.android2.calculator3.Page;
+import com.android2.calculator3.Page.NormalPanel;
+
 public class CalculatorViewPager extends ViewPager {
     private boolean mIsEnabled;
 
@@ -30,13 +34,11 @@ public class CalculatorViewPager extends ViewPager {
 
     public CalculatorViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mIsEnabled = true;
+        mIsEnabled = true;
     }
 
     /**
-     * ViewPager inherits ViewGroup's default behavior of delayed clicks on its
-     * children, but in order to make the calc buttons more responsive we
-     * disable that here.
+     * ViewPager inherits ViewGroup's default behavior of delayed clicks on its children, but in order to make the calc buttons more responsive we disable that here.
      */
     @Override
     public boolean shouldDelayChildPressedState() {
@@ -45,7 +47,7 @@ public class CalculatorViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(this.mIsEnabled) {
+        if(mIsEnabled) {
             return super.onTouchEvent(event);
         }
 
@@ -54,7 +56,7 @@ public class CalculatorViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if(this.mIsEnabled) {
+        if(mIsEnabled) {
             return super.onInterceptTouchEvent(event);
         }
 
@@ -62,10 +64,19 @@ public class CalculatorViewPager extends ViewPager {
     }
 
     public void setPagingEnabled(boolean enabled) {
-        this.mIsEnabled = enabled;
+        mIsEnabled = enabled;
     }
 
     public boolean getPagingEnabled() {
         return mIsEnabled;
+    }
+
+    public void scrollToMiddle() {
+        if(CalculatorSettings.useInfiniteScrolling(getContext())) {
+            int pagesSize = Page.getPages(getContext()).size();
+            int halfwayDownTheInfiniteList = (Integer.MAX_VALUE / pagesSize) / 2 * pagesSize + Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC));
+            System.out.println("Halfway down is: " + halfwayDownTheInfiniteList);
+            setCurrentItem(halfwayDownTheInfiniteList);
+        }
     }
 }
