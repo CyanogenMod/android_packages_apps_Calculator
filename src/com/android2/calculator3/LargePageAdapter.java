@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 
 public class LargePageAdapter extends CalculatorPageAdapter {
     private final Graph mGraph;
@@ -29,6 +30,9 @@ public class LargePageAdapter extends CalculatorPageAdapter {
     public View getViewAt(int position) {
         List<Page> pages = Page.getPages(mContext);
         View v = pages.get(position).getView(mContext, mListener, mGraph, mLogic);
+        if(v.getParent() != null) {
+            ((ViewGroup) v.getParent()).removeView(v);
+        }
         applyBannedResourcesByPage(mLogic, v, mLogic.mBaseModule.getMode());
 
         return v;

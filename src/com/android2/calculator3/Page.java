@@ -10,7 +10,6 @@ import org.achartengine.GraphicalView;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
@@ -138,9 +137,6 @@ public class Page {
                     }
                     break;
                 }
-            }
-            if(mView.getParent() != null) {
-                ((ViewGroup) mView.getParent()).removeView(mView);
             }
             return mView;
         }
