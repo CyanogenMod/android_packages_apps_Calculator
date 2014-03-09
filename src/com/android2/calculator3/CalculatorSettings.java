@@ -3,31 +3,21 @@ package com.android2.calculator3;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
-import com.android2.calculator3.Calculator.Panel;
-
 public class CalculatorSettings {
-    static boolean graphPanel(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.GRAPH.toString(), context.getResources().getBoolean(R.bool.GRAPH));
+    public static boolean isPageEnabled(Context context, Page page) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(page.getKey(), page.getDefaultValue());
     }
 
-    static boolean hexPanel(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.HEX.toString(), context.getResources().getBoolean(R.bool.HEX));
+    public static void setPageEnabled(Context context, Page page, boolean enabled) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(page.getKey(), enabled).commit();
     }
 
-    static boolean functionPanel(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.FUNCTION.toString(), context.getResources().getBoolean(R.bool.FUNCTION));
+    public static void setPageOrder(Context context, Page page, int order) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(page.getKey() + "_order", order).commit();
     }
 
-    static boolean basicPanel(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.BASIC.toString(), context.getResources().getBoolean(R.bool.BASIC));
-    }
-
-    static boolean advancedPanel(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.ADVANCED.toString(), context.getResources().getBoolean(R.bool.ADVANCED));
-    }
-
-    static boolean matrixPanel(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Panel.MATRIX.toString(), context.getResources().getBoolean(R.bool.MATRIX));
+    public static int getPageOrder(Context context, Page page) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(page.getKey() + "_order", Integer.MAX_VALUE);
     }
 
     static boolean useRadians(Context context) {
@@ -57,4 +47,5 @@ public class CalculatorSettings {
     static void saveKey(Context context, String key, boolean value) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).commit();
     }
+
 }

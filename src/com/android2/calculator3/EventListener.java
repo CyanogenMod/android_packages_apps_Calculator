@@ -28,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android2.calculator3.BaseModule.Mode;
-import com.android2.calculator3.Calculator.Panel;
 import com.android2.calculator3.view.MatrixEditText;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
@@ -378,10 +377,10 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     }
 
     private boolean returnToBasic() {
-        if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
-            mPager.setCurrentItem(Panel.BASIC.getOrder());
-            return true;
-        }
+        // if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
+        // mPager.setCurrentItem(Panel.BASIC.getOrder());
+        // return true;
+        // }
         return false;
     }
 }

@@ -2,6 +2,7 @@ package com.android2.calculator3;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import com.xlythe.engine.theme.Theme;
  * @author Will Harmon
  **/
 public class Preferences extends Activity {
+    Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +27,9 @@ public class Preferences extends Activity {
         }
 
         if(savedInstanceState == null) {
-            PreferencesFragment fragment = new PreferencesFragment();
-            fragment.setArguments(getIntent().getExtras());
-            getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
+            mFragment = new PreferencesFragment();
+            mFragment.setArguments(getIntent().getExtras());
+            getFragmentManager().beginTransaction().add(android.R.id.content, mFragment).commit();
         }
 
         ActionBar mActionBar = getActionBar();
@@ -49,8 +51,20 @@ public class Preferences extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(this, Calculator.class));
-            finish();
+            if(getFragmentManager().findFragmentById(android.R.id.content) != mFragment) {
+                try {
+                    getFragmentManager().popBackStack();
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                    startActivity(new Intent(this, Calculator.class));
+                    finish();
+                }
+            }
+            else {
+                startActivity(new Intent(this, Calculator.class));
+                finish();
+            }
             return true;
         }
         return super.onKeyDown(keyCode, keyEvent);

@@ -44,7 +44,7 @@ public abstract class CalculatorPageAdapter extends PagerAdapter {
     @Override
     public void restoreState(Parcelable state, ClassLoader loader) {}
 
-    protected void applyBannedResourcesByPage(Logic logic, ViewGroup page, Mode baseMode) {
+    protected void applyBannedResourcesByPage(Logic logic, View page, Mode baseMode) {
         // Enable
         for(Mode key : logic.mBaseModule.mBannedResources.keySet()) {
             if(baseMode.compareTo(key) != 0) {

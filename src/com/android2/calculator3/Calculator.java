@@ -44,6 +44,9 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
+import com.android2.calculator3.Page.LargePanel;
+import com.android2.calculator3.Page.NormalPanel;
+import com.android2.calculator3.Page.SmallPanel;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
 import com.android2.calculator3.view.Cling;
@@ -70,57 +73,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private Graph mGraph;
 
     private boolean clingActive = false;
-
-    public enum Panel {
-        GRAPH,
-        FUNCTION,
-        HEX,
-        BASIC,
-        ADVANCED,
-        MATRIX;
-
-        int order;
-
-        public void setOrder(int order) {
-            this.order = order;
-        }
-
-        public int getOrder() {
-            return order;
-        }
-    }
-
-    public enum SmallPanel {
-        HEX,
-        ADVANCED,
-        FUNCTION;
-
-        int order;
-
-        public void setOrder(int order) {
-            this.order = order;
-        }
-
-        public int getOrder() {
-            return order;
-        }
-    }
-
-    public enum LargePanel {
-        GRAPH,
-        BASIC,
-        MATRIX;
-
-        int order;
-
-        public void setOrder(int order) {
-            this.order = order;
-        }
-
-        public int getOrder() {
-            return order;
-        }
-    }
 
     private static final String STATE_CURRENT_VIEW = "state-current-view";
     private static final String STATE_CURRENT_VIEW_SMALL = "state-current-view-small";
@@ -189,18 +141,18 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mGraph = new Graph(mLogic);
 
         if(mPager != null) {
-            mPager.setAdapter(new PageAdapter(mPager, mListener, mGraph, mLogic));
-            mPager.setCurrentItem(state == null ? Panel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW, Panel.BASIC.getOrder()));
+            mPager.setAdapter(new PageAdapter(getContext(), mListener, mGraph, mLogic));
+            mPager.setCurrentItem(state == null ? Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC)) : state.getInt(STATE_CURRENT_VIEW, Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC))));
             mPager.setOnPageChangeListener(this);
             runCling(false);
             mListener.setHandler(this, mLogic, mPager);
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
-            mSmallPager.setAdapter(new SmallPageAdapter(mSmallPager, mLogic));
-            mLargePager.setAdapter(new LargePageAdapter(mLargePager, mGraph, mLogic));
-            mSmallPager.setCurrentItem(state == null ? SmallPanel.ADVANCED.getOrder() : state.getInt(STATE_CURRENT_VIEW_SMALL, SmallPanel.ADVANCED.getOrder()));
-            mLargePager.setCurrentItem(state == null ? LargePanel.BASIC.getOrder() : state.getInt(STATE_CURRENT_VIEW_LARGE, LargePanel.BASIC.getOrder()));
+            mSmallPager.setAdapter(new SmallPageAdapter(getContext(), mLogic));
+            mLargePager.setAdapter(new LargePageAdapter(getContext(), mGraph, mLogic));
+            mSmallPager.setCurrentItem(state == null ? Page.getSmallOrder(getContext(), new Page(getContext(), SmallPanel.ADVANCED)) : state.getInt(STATE_CURRENT_VIEW_SMALL, Page.getSmallOrder(getContext(), new Page(getContext(), SmallPanel.ADVANCED))));
+            mLargePager.setCurrentItem(state == null ? Page.getLargeOrder(getContext(), new Page(getContext(), LargePanel.BASIC)) : state.getInt(STATE_CURRENT_VIEW_LARGE, Page.getLargeOrder(getContext(), new Page(getContext(), LargePanel.BASIC))));
             mSmallPager.setOnPageChangeListener(this);
             mLargePager.setOnPageChangeListener(this);
             runCling(false);
@@ -233,13 +185,20 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_top, menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
+
+        Page page = mPager == null ? Page.getCurrentLargePage(mLargePager) : Page.getCurrentPage(mPager);
+
+        for(int i = 0; i < menu.size(); i++) {
+            MenuItem m = menu.getItem(i);
+            m.setVisible(!m.getTitle().toString().equals(page.getName()));
+        }
 
         MenuItem mClearHistory = menu.findItem(R.id.clear_history);
         mClearHistory.setVisible(mHistorySlider.isSliderOpen());
@@ -250,29 +209,15 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         MenuItem mHideHistory = menu.findItem(R.id.hide_history);
         mHideHistory.setVisible(mHistorySlider.isSliderOpen());
 
-        MenuItem mMatrixPanel = menu.findItem(R.id.matrix);
-        if(mMatrixPanel != null) mMatrixPanel.setVisible(!getMatrixVisibility() && CalculatorSettings.matrixPanel(getContext()) && !mHistorySlider.isSliderOpen());
-
-        MenuItem mGraphPanel = menu.findItem(R.id.graph);
-        if(mGraphPanel != null) mGraphPanel.setVisible(!getGraphVisibility() && CalculatorSettings.graphPanel(getContext()) && !mHistorySlider.isSliderOpen());
-
-        MenuItem mFunctionPanel = menu.findItem(R.id.function);
-        if(mFunctionPanel != null) mFunctionPanel.setVisible(!getFunctionVisibility() && CalculatorSettings.functionPanel(getContext()) && !mHistorySlider.isSliderOpen());
-
-        MenuItem mBasicPanel = menu.findItem(R.id.basic);
-        if(mBasicPanel != null) mBasicPanel.setVisible(!getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !mHistorySlider.isSliderOpen());
-
-        MenuItem mAdvancedPanel = menu.findItem(R.id.advanced);
-        if(mAdvancedPanel != null) mAdvancedPanel.setVisible(!getAdvancedVisibility() && CalculatorSettings.advancedPanel(getContext()) && !mHistorySlider.isSliderOpen());
-
-        MenuItem mHexPanel = menu.findItem(R.id.hex);
-        if(mHexPanel != null) mHexPanel.setVisible(!getHexVisibility() && CalculatorSettings.hexPanel(getContext()) && !mHistorySlider.isSliderOpen());
-
         MenuItem mLock = menu.findItem(R.id.lock);
-        if(mLock != null) mLock.setVisible(getGraphVisibility() && getPagingEnabled());
+        if(mLock != null) {
+            mLock.setVisible(page.isGraph() && getPagingEnabled());
+        }
 
         MenuItem mUnlock = menu.findItem(R.id.unlock);
-        if(mUnlock != null) mUnlock.setVisible(getGraphVisibility() && !getPagingEnabled());
+        if(mUnlock != null) {
+            mUnlock.setVisible(page.isGraph() && !getPagingEnabled());
+        }
 
         return true;
     }
@@ -300,7 +245,25 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private PopupMenu constructPopupMenu() {
         final PopupMenu popupMenu = new PopupMenu(this, mOverflowMenuButton);
         final Menu menu = popupMenu.getMenu();
-        popupMenu.inflate(R.menu.menu);
+
+        popupMenu.inflate(R.menu.menu_top);
+
+        if(mPager != null) {
+            for(Page p : Page.getPages(getContext())) {
+                menu.add(p.getName());
+            }
+        }
+        else {
+            for(Page p : Page.getSmallPages(getContext())) {
+                menu.add(p.getName());
+            }
+            for(Page p : Page.getLargePages(getContext())) {
+                menu.add(p.getName());
+            }
+        }
+
+        popupMenu.inflate(R.menu.menu_bottom);
+
         popupMenu.setOnMenuItemClickListener(this);
         onPrepareOptionsMenu(menu);
         return popupMenu;
@@ -309,68 +272,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         return onOptionsItemSelected(item);
-    }
-
-    private boolean getGraphVisibility() {
-        if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext());
-        }
-        else if(mLargePager != null) {
-            return mLargePager.getCurrentItem() == LargePanel.GRAPH.getOrder() && CalculatorSettings.graphPanel(getContext());
-        }
-        return false;
-    }
-
-    private boolean getFunctionVisibility() {
-        // if(mPager != null) {
-        // return mPager.getCurrentItem() == Panel.FUNCTION.getOrder() &&
-        // CalculatorSettings.functionPanel(getContext());
-        // }
-        // else if(mSmallPager != null) {
-        // return mSmallPager.getCurrentItem() == SmallPanel.FUNCTION.getOrder()
-        // && CalculatorSettings.functionPanel(getContext());
-        // }
-        return false;
-    }
-
-    private boolean getBasicVisibility() {
-        if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.BASIC.getOrder() && CalculatorSettings.basicPanel(getContext());
-        }
-        else if(mLargePager != null) {
-            return mLargePager.getCurrentItem() == LargePanel.BASIC.getOrder() && CalculatorSettings.basicPanel(getContext());
-        }
-        return false;
-    }
-
-    private boolean getAdvancedVisibility() {
-        if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(getContext());
-        }
-        else if(mSmallPager != null) {
-            return mSmallPager.getCurrentItem() == SmallPanel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(getContext());
-        }
-        return false;
-    }
-
-    private boolean getHexVisibility() {
-        if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.HEX.getOrder() && CalculatorSettings.hexPanel(getContext());
-        }
-        else if(mSmallPager != null) {
-            return mSmallPager.getCurrentItem() == SmallPanel.HEX.getOrder() && CalculatorSettings.hexPanel(getContext());
-        }
-        return false;
-    }
-
-    private boolean getMatrixVisibility() {
-        if(mPager != null) {
-            return mPager.getCurrentItem() == Panel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(getContext());
-        }
-        else if(mLargePager != null) {
-            return mLargePager.getCurrentItem() == LargePanel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(getContext());
-        }
-        return false;
     }
 
     @Override
@@ -390,48 +291,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mHistorySlider.animateSliderClosed();
             break;
 
-        case R.id.basic:
-            if(!getBasicVisibility()) {
-                if(mPager != null) mPager.setCurrentItem(Panel.BASIC.getOrder());
-                else if(mLargePager != null) mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
-            }
-            break;
-
-        case R.id.advanced:
-            if(!getAdvancedVisibility()) {
-                if(mPager != null) mPager.setCurrentItem(Panel.ADVANCED.getOrder());
-                else if(mSmallPager != null) mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
-            }
-            break;
-
-        case R.id.function:
-            if(!getFunctionVisibility()) {
-                if(mPager != null) mPager.setCurrentItem(Panel.FUNCTION.getOrder());
-                else if(mSmallPager != null) mSmallPager.setCurrentItem(SmallPanel.FUNCTION.getOrder());
-            }
-            break;
-
-        case R.id.graph:
-            if(!getGraphVisibility()) {
-                if(mPager != null) mPager.setCurrentItem(Panel.GRAPH.getOrder());
-                else if(mLargePager != null) mLargePager.setCurrentItem(LargePanel.GRAPH.getOrder());
-            }
-            break;
-
-        case R.id.matrix:
-            if(!getMatrixVisibility()) {
-                if(mPager != null) mPager.setCurrentItem(Panel.MATRIX.getOrder());
-                else if(mLargePager != null) mLargePager.setCurrentItem(LargePanel.MATRIX.getOrder());
-            }
-            break;
-
-        case R.id.hex:
-            if(!getHexVisibility()) {
-                if(mPager != null) mPager.setCurrentItem(Panel.HEX.getOrder());
-                else if(mSmallPager != null) mSmallPager.setCurrentItem(SmallPanel.HEX.getOrder());
-            }
-            break;
-
         case R.id.lock:
             setPagingEnabled(false);
             break;
@@ -443,6 +302,22 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         case R.id.settings:
             startActivity(new Intent(this, Preferences.class));
             finish();
+            break;
+        default:
+            // Menu item is for switching pages
+            if(mPager != null) {
+                mPager.setCurrentItem(Page.getOrder(getContext(), Page.getPage(getContext(), item.getTitle().toString())));
+            }
+            else {
+                Page page = Page.getSmallPage(getContext(), item.getTitle().toString());
+                if(page != null) {
+                    mSmallPager.setCurrentItem(Page.getSmallOrder(getContext(), page));
+                }
+                else {
+                    page = Page.getLargePage(getContext(), item.getTitle().toString());
+                    mLargePager.setCurrentItem(Page.getLargeOrder(getContext(), page));
+                }
+            }
             break;
         }
         return super.onOptionsItemSelected(item);
@@ -480,13 +355,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mHistorySlider.animateSliderClosed();
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && !getBasicVisibility() && CalculatorSettings.basicPanel(getContext()) && !clingActive) {
-            mPager.setCurrentItem(Panel.BASIC.getOrder());
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && !Page.getCurrentPage(mPager).isBasic() && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), NormalPanel.BASIC)) && !clingActive) {
+            mPager.setCurrentItem(Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC)));
             return true;
         }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !(getAdvancedVisibility() && getBasicVisibility()) && CalculatorSettings.basicPanel(getContext()) && CalculatorSettings.advancedPanel(getContext()) && !clingActive) {
-            mSmallPager.setCurrentItem(SmallPanel.ADVANCED.getOrder());
-            mLargePager.setCurrentItem(LargePanel.BASIC.getOrder());
+        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !(Page.getCurrentPage(mSmallPager).isAdvanced() && Page.getCurrentPage(mLargePager).isBasic()) && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), LargePanel.BASIC)) && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), SmallPanel.ADVANCED)) && !clingActive) {
+            mSmallPager.setCurrentItem(Page.getSmallOrder(getContext(), new Page(getContext(), SmallPanel.ADVANCED)));
+            mLargePager.setCurrentItem(Page.getLargeOrder(getContext(), new Page(getContext(), LargePanel.BASIC)));
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK) {
@@ -609,13 +484,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         }
     }
 
-    public void showFirstRunMatrixCling(boolean animate) {
+    public void showFirstRunMatrixCling(boolean animate, View matrixPage) {
         // Enable the clings only if they have not been dismissed before
         if(isClingsEnabled() && !CalculatorSettings.isDismissed(getContext(), Cling.MATRIX_CLING_DISMISSED_KEY)) {
-            View v;
-            if(mPager != null) v = ((PageAdapter) mPager.getAdapter()).mMatrixPage.findViewById(R.id.matrix);
-            else if(mLargePager != null) v = ((LargePageAdapter) mLargePager.getAdapter()).mMatrixPage.findViewById(R.id.matrix);
-            else v = null;
+            View v = matrixPage.findViewById(R.id.matrix);
             int[] location = new int[3];
 
             v.setOnClickListener(new OnClickListener() {
@@ -679,18 +551,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private void runCling(boolean animate) {
-        if(getBasicVisibility()) {
-            showFirstRunSimpleCling(animate);
-        }
-        if(getMatrixVisibility()) {
-            showFirstRunMatrixCling(animate);
-        }
-        if(getHexVisibility()) {
-            showFirstRunHexCling(animate);
-        }
-        if(getGraphVisibility()) {
-            showFirstRunGraphCling(animate);
-        }
+        Page largePage = mPager == null ? Page.getCurrentLargePage(mLargePager) : Page.getCurrentPage(mPager);
+        Page smallPage = mPager == null ? Page.getCurrentSmallPage(mLargePager) : null;
+        largePage.showTutorial(this, animate);
+        if(smallPage != null) smallPage.showTutorial(this, animate);
     }
 
     private void setPagingEnabled(boolean enabled) {

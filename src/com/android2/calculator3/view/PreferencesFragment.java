@@ -1,10 +1,12 @@
 package com.android2.calculator3.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.view.View;
 import android.widget.ListView;
@@ -15,7 +17,6 @@ import com.xlythe.engine.theme.Theme;
 import com.xlythe.engine.theme.ThemeListPreference;
 
 public class PreferencesFragment extends PreferenceFragment {
-
     private static final String EXTRA_LIST_POSITION = "list_position";
     private static final String EXTRA_LIST_VIEW_OFFSET = "list_view_top";
 
@@ -24,8 +25,51 @@ public class PreferencesFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.layout.preferences);
 
+        // Update theme (as needed)
+        boolean useLightTheme = Theme.isLightTheme(getContext());
+
+        Preference panels = findPreference("panels");
+        if(panels != null) {
+            panels.setIcon(useLightTheme ? R.drawable.settings_panels_icon_grey : R.drawable.settings_panels_icon_white);
+            panels.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    PageOrderFragment fragment = new PageOrderFragment();
+                    getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).addToBackStack(null).commit();
+                    return true;
+                }
+            });
+        }
+
+        Preference actions = findPreference("actions");
+        if(actions != null) {
+            actions.setIcon(useLightTheme ? R.drawable.settings_actions_icon_grey : R.drawable.settings_actions_icon_white);
+            actions.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    ActionsPreferencesFragment fragment = new ActionsPreferencesFragment();
+                    getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).addToBackStack(null).commit();
+                    return true;
+                }
+            });
+        }
+
+        Preference units = findPreference("units");
+        if(units != null) {
+            units.setIcon(useLightTheme ? R.drawable.settings_units_icon_grey : R.drawable.settings_units_icon_white);
+            units.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    UnitsPreferencesFragment fragment = new UnitsPreferencesFragment();
+                    getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).addToBackStack(null).commit();
+                    return true;
+                }
+            });
+        }
+
         ThemeListPreference theme = (ThemeListPreference) findPreference("THEME_STYLE");
         if(theme != null) {
+            theme.setIcon(useLightTheme ? R.drawable.settings_theme_icon_grey : R.drawable.settings_theme_icon_white);
             theme.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -56,6 +100,7 @@ public class PreferencesFragment extends PreferenceFragment {
 
         Preference about = findPreference("ABOUT");
         if(about != null) {
+            about.setIcon(useLightTheme ? R.drawable.settings_about_icon_grey : R.drawable.settings_about_icon_white);
             String versionName = "";
             try {
                 versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
@@ -63,7 +108,7 @@ public class PreferencesFragment extends PreferenceFragment {
             catch(NameNotFoundException e) {
                 e.printStackTrace();
             }
-            about.setTitle(about.getTitle() + " " + versionName);
+            about.setTitle(about.getTitle() + " v" + versionName);
         }
     }
 
@@ -82,4 +127,23 @@ public class PreferencesFragment extends PreferenceFragment {
         return (ListView) getView().findViewById(android.R.id.list);
     }
 
+    protected Context getContext() {
+        return getActivity();
+    }
+
+    public static class ActionsPreferencesFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.layout.preferences_actions);
+        }
+    }
+
+    public static class UnitsPreferencesFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.layout.preferences_units);
+        }
+    }
 }
