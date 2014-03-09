@@ -147,7 +147,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 mPager.setCurrentItem(state.getInt(STATE_CURRENT_VIEW, mPager.getCurrentItem()));
             }
             else {
-                scrollToBasicPage();
+                Page basic = new Page(getContext(), NormalPanel.BASIC);
+                if(CalculatorSettings.isPageEnabled(getContext(), basic)) {
+                    scrollToPage(basic);
+                }
             }
             mPager.setOnPageChangeListener(this);
             runCling(false);
@@ -310,9 +313,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             finish();
             break;
         default:
-            // Menu item is for switching pages
+            // TODO Menu item is for switching pages
             if(mPager != null) {
-                mPager.setCurrentItem(Page.getOrder(getContext(), Page.getPage(getContext(), item.getTitle().toString())));
+                Page page = Page.getPage(getContext(), item.getTitle().toString());
+                scrollToPage(page);
             }
             else {
                 Page page = Page.getSmallPage(getContext(), item.getTitle().toString());
@@ -363,7 +367,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && !Page.getCurrentPage(mPager).isBasic() && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), NormalPanel.BASIC)) && !clingActive) {
             // Infinite scrolling makes this tricky
-            scrollToBasicPage();
+            scrollToPage(new Page(getContext(), NormalPanel.BASIC));
             return true;
         }
         else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !(Page.getCurrentPage(mSmallPager).isAdvanced() && Page.getCurrentPage(mLargePager).isBasic()) && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), LargePanel.BASIC)) && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), SmallPanel.ADVANCED)) && !clingActive) {
@@ -591,8 +595,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     @Override
     public void onPageSelected(int position) {}
 
-    private void scrollToBasicPage() {
-        int order = Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC));
+    private void scrollToPage(Page p) {
+        int order = Page.getOrder(getContext(), p);
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {
             int pagesSize = Page.getPages(getContext()).size();
             int currentItem = mPager.getCurrentItem();
