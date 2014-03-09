@@ -163,7 +163,7 @@ public class Page {
     }
 
     public enum SmallPanel implements Panel {
-        HEX(R.string.hex, R.bool.HEX, true),
+        HEX(R.string.hexPanel, R.bool.HEX, true),
         ADVANCED(R.string.advanced, R.bool.ADVANCED, false);
 
         SmallPanel(int name, int defaultValue, boolean hasTutorial) {

@@ -218,10 +218,15 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         super.onPrepareOptionsMenu(menu);
 
         Page page = mPager == null ? Page.getCurrentLargePage(mLargePager) : Page.getCurrentPage(mPager);
+        Page smallPage = mPager == null ? Page.getCurrentSmallPage(mSmallPager) : null;
 
         for(int i = 0; i < menu.size(); i++) {
             MenuItem m = menu.getItem(i);
-            m.setVisible(!m.getTitle().toString().equals(page.getName()));
+
+            boolean equalToLargePage = m.getTitle().toString().equals(page.getName());
+            boolean equalToSmallPage = smallPage != null && m.getTitle().toString().equals(smallPage.getName());
+
+            m.setVisible(!equalToLargePage && !equalToSmallPage);
         }
 
         MenuItem mClearHistory = menu.findItem(R.id.clear_history);
