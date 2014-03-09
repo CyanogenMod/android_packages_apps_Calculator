@@ -23,6 +23,7 @@ public class Page {
     private final boolean mDefaultValue;
     private final boolean mHasTutorial;
     private final Panel mPanel;
+    private final boolean mIsSmall;
 
     private interface Panel {
         public String name();
@@ -268,6 +269,7 @@ public class Page {
         mDefaultValue = context.getResources().getBoolean(panel.getDefaultValue());
         mHasTutorial = panel.hasTutorial();
         mPanel = panel;
+        mIsSmall = panel.getClass().isAssignableFrom(SmallPanel.class);
     }
 
     Page(App app) {
@@ -276,6 +278,7 @@ public class Page {
         mDefaultValue = true;
         mHasTutorial = false;
         mPanel = null;
+        mIsSmall = false;
     }
 
     public static List<Page> getAllPages(Context context) {
@@ -391,21 +394,11 @@ public class Page {
     }
 
     public boolean isSmall() {
-        if(mPanel != null) {
-            for(Panel p : SmallPanel.values()) {
-                return p.equals(mPanel);
-            }
-        }
-        return false;
+        return mIsSmall;
     }
 
     public boolean isLarge() {
-        if(mPanel != null) {
-            for(Panel p : LargePanel.values()) {
-                return p.equals(mPanel);
-            }
-        }
-        return true;
+        return !mIsSmall;
     }
 
     public void showTutorial(Calculator calc, boolean animate) {
@@ -468,7 +461,7 @@ public class Page {
     }
 
     public static int getSmallOrder(Context context, Page page) {
-        List<Page> pages = Page.getPages(context);
+        List<Page> pages = Page.getSmallPages(context);
         for(int i = 0; i < pages.size(); i++) {
             Page p = pages.get(i);
             if(p.equals(page)) return i;
@@ -477,7 +470,7 @@ public class Page {
     }
 
     public static int getLargeOrder(Context context, Page page) {
-        List<Page> pages = Page.getPages(context);
+        List<Page> pages = Page.getLargePages(context);
         for(int i = 0; i < pages.size(); i++) {
             Page p = pages.get(i);
             if(p.equals(page)) return i;

@@ -160,8 +160,23 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             // Expanded UI
             mSmallPager.setAdapter(new SmallPageAdapter(getContext(), mLogic));
             mLargePager.setAdapter(new LargePageAdapter(getContext(), mGraph, mLogic));
-            mSmallPager.setCurrentItem(state == null ? Page.getSmallOrder(getContext(), new Page(getContext(), SmallPanel.ADVANCED)) : state.getInt(STATE_CURRENT_VIEW_SMALL, Page.getSmallOrder(getContext(), new Page(getContext(), SmallPanel.ADVANCED))));
-            mLargePager.setCurrentItem(state == null ? Page.getLargeOrder(getContext(), new Page(getContext(), LargePanel.BASIC)) : state.getInt(STATE_CURRENT_VIEW_LARGE, Page.getLargeOrder(getContext(), new Page(getContext(), LargePanel.BASIC))));
+            mSmallPager.scrollToMiddle();
+            mLargePager.scrollToMiddle();
+            if(state != null) {
+                mSmallPager.setCurrentItem(state.getInt(STATE_CURRENT_VIEW, mSmallPager.getCurrentItem()));
+                mLargePager.setCurrentItem(state.getInt(STATE_CURRENT_VIEW, mLargePager.getCurrentItem()));
+            }
+            else {
+                Page basic = new Page(getContext(), LargePanel.BASIC);
+                Page advanced = new Page(getContext(), SmallPanel.ADVANCED);
+                if(CalculatorSettings.isPageEnabled(getContext(), basic)) {
+                    scrollToPage(basic);
+                }
+                if(CalculatorSettings.isPageEnabled(getContext(), advanced)) {
+                    scrollToPage(advanced);
+                }
+            }
+
             mSmallPager.setOnPageChangeListener(this);
             mLargePager.setOnPageChangeListener(this);
             runCling(false);
@@ -313,7 +328,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             finish();
             break;
         default:
-            // TODO Menu item is for switching pages
+            // Menu item is for switching pages
             if(mPager != null) {
                 Page page = Page.getPage(getContext(), item.getTitle().toString());
                 scrollToPage(page);
@@ -563,7 +578,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
     private void runCling(boolean animate) {
         Page largePage = mPager == null ? Page.getCurrentLargePage(mLargePager) : Page.getCurrentPage(mPager);
-        Page smallPage = mPager == null ? Page.getCurrentSmallPage(mLargePager) : null;
+        Page smallPage = mPager == null ? Page.getCurrentSmallPage(mSmallPager) : null;
         largePage.showTutorial(this, animate);
         if(smallPage != null) smallPage.showTutorial(this, animate);
     }
@@ -596,12 +611,20 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     public void onPageSelected(int position) {}
 
     private void scrollToPage(Page p) {
+        CalculatorViewPager pager = mPager;
         int order = Page.getOrder(getContext(), p);
+        int pagesSize = Page.getPages(getContext()).size();
+
+        if(pager == null) {
+            pager = p.isSmall() ? mSmallPager : mLargePager;
+            order = p.isSmall() ? Page.getSmallOrder(getContext(), p) : Page.getLargeOrder(getContext(), p);
+            pagesSize = p.isSmall() ? Page.getSmallPages(getContext()).size() : Page.getLargePages(getContext()).size();
+        }
+
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {
-            int pagesSize = Page.getPages(getContext()).size();
-            int currentItem = mPager.getCurrentItem();
-            int currentItemUp = mPager.getCurrentItem();
-            int currentItemDown = mPager.getCurrentItem();
+            int currentItem = pager.getCurrentItem();
+            int currentItemUp = pager.getCurrentItem();
+            int currentItemDown = pager.getCurrentItem();
             while(currentItemUp % pagesSize != order && currentItemDown % pagesSize != order) {
                 currentItemUp++;
                 currentItemDown--;
@@ -609,18 +632,18 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             if(currentItemUp % pagesSize == order) {
                 while(currentItemUp != currentItem) {
                     currentItem++;
-                    mPager.setCurrentItem(currentItem);
+                    pager.setCurrentItem(currentItem);
                 }
             }
             else {
                 while(currentItemDown != currentItem) {
                     currentItem--;
-                    mPager.setCurrentItem(currentItem);
+                    pager.setCurrentItem(currentItem);
                 }
             }
         }
         else {
-            mPager.setCurrentItem(order);
+            pager.setCurrentItem(order);
         }
     }
 }

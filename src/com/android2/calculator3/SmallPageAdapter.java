@@ -18,7 +18,7 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
         mGraph = null;
         mLogic = logic;
         mListener = null;
-        mCount = Page.getPages(mContext).size();
+        mCount = Page.getSmallPages(mContext).size();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
 
     @Override
     public View getViewAt(int position) {
-        List<Page> pages = Page.getPages(mContext);
+        List<Page> pages = Page.getSmallPages(mContext);
         View v = pages.get(position).getView(mContext, mListener, mGraph, mLogic);
         if(v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v);
