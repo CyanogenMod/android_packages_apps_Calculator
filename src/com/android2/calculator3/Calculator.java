@@ -640,24 +640,15 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         }
 
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {
-            int currentItem = pager.getCurrentItem();
-            int currentItemUp = pager.getCurrentItem();
-            int currentItemDown = pager.getCurrentItem();
-            while(currentItemUp % pagesSize != order && currentItemDown % pagesSize != order) {
-                currentItemUp++;
-                currentItemDown--;
+            int offset = 0;
+            while((pager.getCurrentItem() + offset) % pagesSize != order && (pager.getCurrentItem() - offset) % pagesSize != order) {
+                offset++;
             }
-            if(currentItemUp % pagesSize == order) {
-                while(currentItemUp != currentItem) {
-                    currentItem++;
-                    pager.setCurrentItem(currentItem);
-                }
+            if((pager.getCurrentItem() + offset) % pagesSize == order) {
+                pager.setCurrentItem(pager.getCurrentItem() + offset);
             }
             else {
-                while(currentItemDown != currentItem) {
-                    currentItem--;
-                    pager.setCurrentItem(currentItem);
-                }
+                pager.setCurrentItem(pager.getCurrentItem() - offset);
             }
         }
         else {

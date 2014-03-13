@@ -6,6 +6,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android2.calculator3.view.CalculatorViewPager;
+
 public class PageAdapter extends CalculatorPageAdapter {
     private final Graph mGraph;
     private final Logic mLogic;
@@ -27,7 +29,7 @@ public class PageAdapter extends CalculatorPageAdapter {
 
     @Override
     public int getCount() {
-        return CalculatorSettings.useInfiniteScrolling(mContext) ? Integer.MAX_VALUE : mCount;
+        return CalculatorSettings.useInfiniteScrolling(mContext) ? CalculatorViewPager.MAX_SIZE_CONSTANT * mCount : mCount;
     }
 
     @Override

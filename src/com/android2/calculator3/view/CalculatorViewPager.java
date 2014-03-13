@@ -26,6 +26,8 @@ import com.android2.calculator3.Page;
 import com.android2.calculator3.Page.NormalPanel;
 
 public class CalculatorViewPager extends ViewPager {
+    // Usually we use a huge constant, but ViewPager crashes when the size is too big.
+    public static int MAX_SIZE_CONSTANT = 100;
     private boolean mIsEnabled;
 
     public CalculatorViewPager(Context context) {
@@ -74,8 +76,7 @@ public class CalculatorViewPager extends ViewPager {
     public void scrollToMiddle() {
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {
             int pagesSize = Page.getPages(getContext()).size();
-            int halfwayDownTheInfiniteList = (Integer.MAX_VALUE / pagesSize) / 2 * pagesSize + Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC));
-            System.out.println("Halfway down is: " + halfwayDownTheInfiniteList);
+            int halfwayDownTheInfiniteList = (MAX_SIZE_CONSTANT / pagesSize) / 2 * pagesSize + Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC));
             setCurrentItem(halfwayDownTheInfiniteList);
         }
     }
