@@ -247,7 +247,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 }
             }
 
-            // A special check when current pager is mLargePager
+            // A special check when mLargePager exists
             if(mLargePager != null) {
                 iterator = ((CalculatorPageAdapter) mLargePager.getAdapter()).getViewIterator();
                 for(View child : iterator) {

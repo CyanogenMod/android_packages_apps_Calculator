@@ -35,11 +35,11 @@ public class Page {
 
         public boolean hasTutorial();
 
-        public View getView(Context context, EventListener listener, Graph graph, Logic logic);
+        public View getView(Context context);
 
         public void showTutorial(Calculator calc, boolean animate);
 
-        public void refresh(Context context, View view, Graph graph, Logic logic);
+        public void refresh(Context context, View view, EventListener listener, Graph graph, Logic logic);
     }
 
     public enum NormalPanel implements Panel {
@@ -72,7 +72,7 @@ public class Page {
             return mHasTutorial;
         }
 
-        public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
+        public View getView(Context context) {
             View v = null;
             switch(this) {
             case BASIC:
@@ -83,11 +83,6 @@ public class Page {
                 break;
             case MATRIX:
                 v = View.inflate(context, R.layout.matrix_pad, null);
-                View easterEgg = v.findViewById(R.id.easter);
-                if(easterEgg != null) {
-                    easterEgg.setOnClickListener(listener);
-                    easterEgg.setOnLongClickListener(listener);
-                }
                 break;
             case ADVANCED:
                 v = View.inflate(context, R.layout.advanced_pad, null);
@@ -108,7 +103,7 @@ public class Page {
                 calc.showFirstRunGraphCling(animate);
                 break;
             case MATRIX:
-                calc.showFirstRunMatrixCling(animate, getView(calc, null, null, null));
+                calc.showFirstRunMatrixCling(animate, getView(calc));
                 break;
             case ADVANCED:
                 break;
@@ -119,7 +114,7 @@ public class Page {
         }
 
         @Override
-        public void refresh(Context context, View view, Graph graph, Logic logic) {
+        public void refresh(Context context, View view, EventListener listener, Graph graph, Logic logic) {
             if(NormalPanel.GRAPH.equals(this)) {
                 if(mGraphDisplay == null) {
                     mGraphDisplay = graph.getGraph(context);
@@ -156,16 +151,25 @@ public class Page {
                 }
             }
             else if(NormalPanel.HEX.equals(this)) {
-                switch(logic.mBaseModule.getMode()) {
-                case BINARY:
-                    view.findViewById(R.id.bin).setSelected(true);
-                    break;
-                case DECIMAL:
-                    view.findViewById(R.id.dec).setSelected(true);
-                    break;
-                case HEXADECIMAL:
-                    view.findViewById(R.id.hex).setSelected(true);
-                    break;
+                if(logic != null) {
+                    switch(logic.mBaseModule.getMode()) {
+                    case BINARY:
+                        view.findViewById(R.id.bin).setSelected(true);
+                        break;
+                    case DECIMAL:
+                        view.findViewById(R.id.dec).setSelected(true);
+                        break;
+                    case HEXADECIMAL:
+                        view.findViewById(R.id.hex).setSelected(true);
+                        break;
+                    }
+                }
+            }
+            else if(NormalPanel.MATRIX.equals(this)) {
+                View easterEgg = view.findViewById(R.id.easter);
+                if(easterEgg != null && listener != null) {
+                    easterEgg.setOnClickListener(listener);
+                    easterEgg.setOnLongClickListener(listener);
                 }
             }
         }
@@ -197,7 +201,7 @@ public class Page {
             return mHasTutorial;
         }
 
-        public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
+        public View getView(Context context) {
             View v = null;
             switch(this) {
             case ADVANCED:
@@ -221,18 +225,20 @@ public class Page {
         }
 
         @Override
-        public void refresh(Context context, View view, Graph graph, Logic logic) {
+        public void refresh(Context context, View view, EventListener listener, Graph graph, Logic logic) {
             if(SmallPanel.HEX.equals(this)) {
-                switch(logic.mBaseModule.getMode()) {
-                case BINARY:
-                    view.findViewById(R.id.bin).setSelected(true);
-                    break;
-                case DECIMAL:
-                    view.findViewById(R.id.dec).setSelected(true);
-                    break;
-                case HEXADECIMAL:
-                    view.findViewById(R.id.hex).setSelected(true);
-                    break;
+                if(logic != null) {
+                    switch(logic.mBaseModule.getMode()) {
+                    case BINARY:
+                        view.findViewById(R.id.bin).setSelected(true);
+                        break;
+                    case DECIMAL:
+                        view.findViewById(R.id.dec).setSelected(true);
+                        break;
+                    case HEXADECIMAL:
+                        view.findViewById(R.id.hex).setSelected(true);
+                        break;
+                    }
                 }
             }
         }
@@ -266,7 +272,7 @@ public class Page {
             return mHasTutorial;
         }
 
-        public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
+        public View getView(Context context) {
             View v = null;
             switch(this) {
             case BASIC:
@@ -277,11 +283,6 @@ public class Page {
                 break;
             case MATRIX:
                 v = View.inflate(context, R.layout.matrix_pad, null);
-                View easterEgg = v.findViewById(R.id.easter);
-                if(easterEgg != null) {
-                    easterEgg.setOnClickListener(listener);
-                    easterEgg.setOnLongClickListener(listener);
-                }
                 break;
             }
             return v;
@@ -296,13 +297,13 @@ public class Page {
                 calc.showFirstRunGraphCling(animate);
                 break;
             case MATRIX:
-                calc.showFirstRunMatrixCling(animate, getView(calc, null, null, null));
+                calc.showFirstRunMatrixCling(animate, getView(calc));
                 break;
             }
         }
 
         @Override
-        public void refresh(Context context, View view, Graph graph, Logic logic) {
+        public void refresh(Context context, View view, EventListener listener, Graph graph, Logic logic) {
             if(LargePanel.GRAPH.equals(this)) {
                 if(mGraphDisplay == null) {
                     mGraphDisplay = graph.getGraph(context);
@@ -418,7 +419,7 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
-        while(list.size() != 0 && list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while(list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
             for(int i = 0; i < size; i++) {
@@ -444,7 +445,7 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
-        while(list.size() != 0 && list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while(list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
             for(int i = 0; i < size; i++) {
@@ -467,10 +468,6 @@ public class Page {
             int lhsOrder = CalculatorSettings.getPageOrder(context, lhs);
             return lhsOrder - rhsOrder;
         }
-    }
-
-    public static boolean isPageVisible(int currentPage, Page page) {
-        return false;
     }
 
     public String getName() {
@@ -518,8 +515,8 @@ public class Page {
     public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
         if(mView == null) {
             if(mPanel != null) {
-                mView = mPanel.getView(context, listener, graph, logic);
-                mPanel.refresh(context, mView, graph, logic);
+                mView = mPanel.getView(context);
+                mPanel.refresh(context, mView, listener, graph, logic);
             }
             else mView = null;
         }
