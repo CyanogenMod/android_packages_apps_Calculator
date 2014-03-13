@@ -94,16 +94,18 @@ public class Page {
                 break;
             case HEX:
                 v = View.inflate(context, R.layout.hex_pad, null);
-                switch(logic.mBaseModule.getMode()) {
-                case BINARY:
-                    v.findViewById(R.id.bin).setSelected(true);
-                    break;
-                case DECIMAL:
-                    v.findViewById(R.id.dec).setSelected(true);
-                    break;
-                case HEXADECIMAL:
-                    v.findViewById(R.id.hex).setSelected(true);
-                    break;
+                if(logic != null) {
+                    switch(logic.mBaseModule.getMode()) {
+                    case BINARY:
+                        v.findViewById(R.id.bin).setSelected(true);
+                        break;
+                    case DECIMAL:
+                        v.findViewById(R.id.dec).setSelected(true);
+                        break;
+                    case HEXADECIMAL:
+                        v.findViewById(R.id.hex).setSelected(true);
+                        break;
+                    }
                 }
                 break;
             }
@@ -396,7 +398,7 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
-        if(list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while(list.size() != 0 && list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
             for(int i = 0; i < size; i++) {
@@ -415,7 +417,7 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
-        if(list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while(list.size() != 0 && list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
             for(int i = 0; i < size; i++) {
@@ -441,7 +443,7 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
-        if(list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while(list.size() != 0 && list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
             for(int i = 0; i < size; i++) {

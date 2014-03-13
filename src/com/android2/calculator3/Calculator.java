@@ -628,7 +628,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     @Override
     public void onPageSelected(int position) {}
 
-    private void scrollToPage(Page p) {
+    protected void scrollToPage(Page p) {
         CalculatorViewPager pager = mPager;
         int order = Page.getOrder(getContext(), p);
         int pagesSize = Page.getPages(getContext()).size();
