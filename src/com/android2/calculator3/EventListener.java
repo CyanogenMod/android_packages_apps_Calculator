@@ -245,7 +245,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             // There are multiple views with the same id,
             // but the id is unique per page
             // Find ids on every page
-            Iterable<View> iterator = ((CalculatorPageAdapter) pager.getAdapter()).getViewIterator(mContext);
+            Iterable<View> iterator = ((CalculatorPageAdapter) pager.getAdapter()).getViewIterator();
             for(View child : iterator) {
                 if(child != null) {
                     View v = child.findViewById(resId);
@@ -254,15 +254,16 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                     }
                 }
             }
-            int count = pager.getAdapter().getCount();
+
             // A special check when current pager is mLargePager
-            if(mPager == null && mLargePager != null) {
-                count = mLargePager.getAdapter().getCount();
-                for(int i = 0; i < count; i++) {
-                    View child = ((CalculatorPageAdapter) mLargePager.getAdapter()).getViewAt(i);
-                    View v = child.findViewById(resId);
-                    if(v != null) {
-                        v.setEnabled(enabled);
+            if(mLargePager != null) {
+                iterator = ((CalculatorPageAdapter) mLargePager.getAdapter()).getViewIterator();
+                for(View child : iterator) {
+                    if(child != null) {
+                        View v = child.findViewById(resId);
+                        if(v != null) {
+                            v.setEnabled(enabled);
+                        }
                     }
                 }
             }

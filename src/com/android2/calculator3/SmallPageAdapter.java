@@ -12,24 +12,28 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
     private final Logic mLogic;
     private final Context mContext;
     private final EventListener mListener;
-    private final int mCount;
+    private final List<Page> mPages;
 
     public SmallPageAdapter(Context context, Logic logic) {
         mContext = context;
         mGraph = null;
         mLogic = logic;
         mListener = null;
-        mCount = Page.getSmallPages(mContext).size();
+        mPages = Page.getSmallPages(mContext);
+    }
+
+    protected Context getContext() {
+        return mContext;
     }
 
     @Override
     public int getCount() {
-        return CalculatorSettings.useInfiniteScrolling(mContext) ? Integer.MAX_VALUE : mCount;
+        return CalculatorSettings.useInfiniteScrolling(mContext) ? Integer.MAX_VALUE : mPages.size();
     }
 
     @Override
     public View getViewAt(int position) {
-        position = position % mCount;
+        position = position % mPages.size();
         List<Page> pages = Page.getSmallPages(mContext);
         View v = pages.get(position).getView(mContext, mListener, mGraph, mLogic);
         if(v.getParent() != null) {
@@ -41,8 +45,8 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
     }
 
     @Override
-    public Iterable<View> getViewIterator(Context context) {
-        return new CalculatorIterator(context);
+    public Iterable<View> getViewIterator() {
+        return new CalculatorIterator(this);
     }
 
     private static class CalculatorIterator implements Iterator<View>, Iterable<View> {
@@ -50,10 +54,10 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
         List<Page> mPages;
         Context mContext;
 
-        CalculatorIterator(Context context) {
+        CalculatorIterator(SmallPageAdapter adapter) {
             super();
-            mPages = Page.getSmallPages(context);
-            mContext = context;
+            mPages = adapter.mPages;
+            mContext = adapter.getContext();
         }
 
         @Override
