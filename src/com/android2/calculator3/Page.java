@@ -9,6 +9,7 @@ import org.achartengine.GraphicalView;
 
 import android.content.Context;
 import android.view.View;
+import android.view.View.OnAttachStateChangeListener;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
@@ -118,6 +119,15 @@ public class Page {
             if(NormalPanel.GRAPH.equals(this)) {
                 if(mGraphDisplay == null) {
                     mGraphDisplay = graph.getGraph(context);
+                    mGraphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                        @Override
+                        public void onViewDetachedFromWindow(View v) {
+                            mGraphDisplay = null;
+                        }
+
+                        @Override
+                        public void onViewAttachedToWindow(View v) {}
+                    });
                     logic.setGraphDisplay(mGraphDisplay);
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
                     l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -307,6 +317,15 @@ public class Page {
             if(LargePanel.GRAPH.equals(this)) {
                 if(mGraphDisplay == null) {
                     mGraphDisplay = graph.getGraph(context);
+                    mGraphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                        @Override
+                        public void onViewDetachedFromWindow(View v) {
+                            mGraphDisplay = null;
+                        }
+
+                        @Override
+                        public void onViewAttachedToWindow(View v) {}
+                    });
                     logic.setGraphDisplay(mGraphDisplay);
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
                     l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -521,6 +540,15 @@ public class Page {
             if(mView == null) {
                 mView = mPanel.getView(context);
             }
+            mView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                @Override
+                public void onViewDetachedFromWindow(View v) {
+                    mView = null;
+                }
+
+                @Override
+                public void onViewAttachedToWindow(View v) {}
+            });
             if(logic != null) mPanel.refresh(context, mView, listener, graph, logic);
         }
         else mView = null;
