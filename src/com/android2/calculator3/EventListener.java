@@ -98,25 +98,16 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
         case R.id.hex:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.HEXADECIMAL));
-            view.setSelected(true);
-            ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
-            ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
             applyAllBannedResources(mHandler.mBaseModule, Mode.HEXADECIMAL);
             break;
 
         case R.id.bin:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.BINARY));
-            view.setSelected(true);
-            ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
-            ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
             applyAllBannedResources(mHandler.mBaseModule, Mode.BINARY);
             break;
 
         case R.id.dec:
             mHandler.setText(mHandler.mBaseModule.setMode(Mode.DECIMAL));
-            view.setSelected(true);
-            ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
-            ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
             applyAllBannedResources(mHandler.mBaseModule, Mode.DECIMAL);
             break;
 
@@ -240,6 +231,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     private void applyBannedResources(BaseModule base, Mode baseMode, boolean enabled) {
         List<Integer> resources = base.mBannedResources.get(baseMode);
         ViewPager pager = mPager != null ? mPager : mSmallPager;
+
         for(Integer resource : resources) {
             final int resId = resource.intValue();
             // There are multiple views with the same id,
@@ -266,6 +258,14 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                         }
                     }
                 }
+            }
+        }
+
+        // Update the buttons on the hex page(s)
+        Iterable<View> iterator = ((CalculatorPageAdapter) pager.getAdapter()).getViewIterator();
+        for(View child : iterator) {
+            if(child != null) {
+                updateBaseButtons(baseMode, child);
             }
         }
     }
@@ -367,5 +367,35 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             return true;
         }
         return false;
+    }
+
+    private void updateBaseButtons(Mode baseMode, View parent) {
+        int id = 0;
+        switch(baseMode) {
+        case HEXADECIMAL:
+            id = R.id.hex;
+            break;
+        case BINARY:
+            id = R.id.bin;
+            break;
+        case DECIMAL:
+            id = R.id.dec;
+            break;
+        }
+        View v = parent.findViewById(id);
+        if(v != null) {
+            clearSelectedBase(parent);
+            v.setSelected(true);
+        }
+    }
+
+    private void clearSelectedBase(View parent) {
+        View hex = parent.findViewById(R.id.hex);
+        View bin = parent.findViewById(R.id.bin);
+        View dec = parent.findViewById(R.id.dec);
+
+        hex.setSelected(false);
+        bin.setSelected(false);
+        dec.setSelected(false);
     }
 }

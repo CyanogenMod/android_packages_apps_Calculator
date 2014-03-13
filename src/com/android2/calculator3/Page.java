@@ -398,7 +398,7 @@ public class Page {
             }
         }
         Collections.sort(list, new PageSort(context));
-        while(list.size() != 0 && list.size() < 3 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while(list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
             for(int i = 0; i < size; i++) {
