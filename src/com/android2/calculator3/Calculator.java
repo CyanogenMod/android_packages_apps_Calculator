@@ -16,6 +16,9 @@
 
 package com.android2.calculator3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -71,6 +74,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private View mOverflowMenuButton;
     private Slider mHistorySlider;
     private Graph mGraph;
+    private List<Page> mPages;
 
     private boolean clingActive = false;
 
@@ -141,7 +145,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mGraph = new Graph(mLogic);
 
         if(mPager != null) {
-            mPager.setAdapter(new PageAdapter(getContext(), mListener, mGraph, mLogic));
+            CalculatorPageAdapter adapter = new PageAdapter(getContext(), mListener, mGraph, mLogic);
+            mPages = adapter.getPages();
+            mPager.setAdapter(adapter);
             mPager.scrollToMiddle();
             if(state != null) {
                 mPager.setCurrentItem(state.getInt(STATE_CURRENT_VIEW, mPager.getCurrentItem()));
@@ -158,8 +164,12 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         }
         else if(mSmallPager != null && mLargePager != null) {
             // Expanded UI
-            mSmallPager.setAdapter(new SmallPageAdapter(getContext(), mLogic));
-            mLargePager.setAdapter(new LargePageAdapter(getContext(), mGraph, mLogic));
+            CalculatorPageAdapter smallAdapter = new SmallPageAdapter(getContext(), mLogic);
+            CalculatorPageAdapter largeAdapter = new LargePageAdapter(getContext(), mGraph, mLogic);
+            mPages = new ArrayList<Page>(smallAdapter.getPages());
+            mPages.addAll(largeAdapter.getPages());
+            mSmallPager.setAdapter(smallAdapter);
+            mLargePager.setAdapter(largeAdapter);
             mSmallPager.scrollToMiddle();
             mLargePager.scrollToMiddle();
             if(state != null) {
@@ -277,18 +287,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         popupMenu.inflate(R.menu.menu_top);
 
-        if(mPager != null) {
-            for(Page p : Page.getPages(getContext())) {
-                menu.add(p.getName());
-            }
-        }
-        else {
-            for(Page p : Page.getSmallPages(getContext())) {
-                menu.add(p.getName());
-            }
-            for(Page p : Page.getLargePages(getContext())) {
-                menu.add(p.getName());
-            }
+        for(Page p : mPages) {
+            menu.add(p.getName());
         }
 
         popupMenu.inflate(R.menu.menu_bottom);
@@ -631,12 +631,12 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     protected void scrollToPage(Page p) {
         CalculatorViewPager pager = mPager;
         int order = Page.getOrder(getContext(), p);
-        int pagesSize = Page.getPages(getContext()).size();
+        int pagesSize = mPages.size();
 
         if(pager == null) {
             pager = p.isSmall() ? mSmallPager : mLargePager;
             order = p.isSmall() ? Page.getSmallOrder(getContext(), p) : Page.getLargeOrder(getContext(), p);
-            pagesSize = p.isSmall() ? Page.getSmallPages(getContext()).size() : Page.getLargePages(getContext()).size();
+            pagesSize = p.isSmall() ? ((CalculatorPageAdapter) mSmallPager.getAdapter()).getPages().size() : ((CalculatorPageAdapter) mSmallPager.getAdapter()).getPages().size();
         }
 
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {

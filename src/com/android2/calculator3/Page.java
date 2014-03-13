@@ -94,19 +94,6 @@ public class Page {
                 break;
             case HEX:
                 v = View.inflate(context, R.layout.hex_pad, null);
-                if(logic != null) {
-                    switch(logic.mBaseModule.getMode()) {
-                    case BINARY:
-                        v.findViewById(R.id.bin).setSelected(true);
-                        break;
-                    case DECIMAL:
-                        v.findViewById(R.id.dec).setSelected(true);
-                        break;
-                    case HEXADECIMAL:
-                        v.findViewById(R.id.hex).setSelected(true);
-                        break;
-                    }
-                }
                 break;
             }
             return v;
@@ -166,6 +153,19 @@ public class Page {
                 }
                 else {
                     mGraphDisplay.repaint();
+                }
+            }
+            else if(NormalPanel.HEX.equals(this)) {
+                switch(logic.mBaseModule.getMode()) {
+                case BINARY:
+                    view.findViewById(R.id.bin).setSelected(true);
+                    break;
+                case DECIMAL:
+                    view.findViewById(R.id.dec).setSelected(true);
+                    break;
+                case HEXADECIMAL:
+                    view.findViewById(R.id.hex).setSelected(true);
+                    break;
                 }
             }
         }

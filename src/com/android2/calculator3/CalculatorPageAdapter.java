@@ -66,4 +66,6 @@ public abstract class CalculatorPageAdapter extends PagerAdapter {
     }
 
     public abstract Iterable<View> getViewIterator();
+
+    public abstract List<Page> getPages();
 }

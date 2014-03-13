@@ -45,6 +45,11 @@ public class LargePageAdapter extends CalculatorPageAdapter {
     }
 
     @Override
+    public List<Page> getPages() {
+        return mPages;
+    }
+
+    @Override
     public Iterable<View> getViewIterator() {
         return new CalculatorIterator(this);
     }

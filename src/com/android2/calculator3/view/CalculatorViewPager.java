@@ -21,6 +21,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.android2.calculator3.CalculatorPageAdapter;
 import com.android2.calculator3.CalculatorSettings;
 import com.android2.calculator3.Page;
 import com.android2.calculator3.Page.NormalPanel;
@@ -75,7 +76,7 @@ public class CalculatorViewPager extends ViewPager {
 
     public void scrollToMiddle() {
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {
-            int pagesSize = Page.getPages(getContext()).size();
+            int pagesSize = ((CalculatorPageAdapter) getAdapter()).getPages().size();
             int halfwayDownTheInfiniteList = (MAX_SIZE_CONSTANT / pagesSize) / 2 * pagesSize + Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC));
             setCurrentItem(halfwayDownTheInfiniteList);
         }
