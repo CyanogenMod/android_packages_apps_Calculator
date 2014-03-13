@@ -97,18 +97,18 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.hex:
-            mHandler.setText(mHandler.mBaseModule.setMode(Mode.HEXADECIMAL));
-            applyAllBannedResources(mHandler.mBaseModule, Mode.HEXADECIMAL);
+            mHandler.setText(mHandler.getBaseModule().setMode(Mode.HEXADECIMAL));
+            applyAllBannedResources(mHandler.getBaseModule(), Mode.HEXADECIMAL);
             break;
 
         case R.id.bin:
-            mHandler.setText(mHandler.mBaseModule.setMode(Mode.BINARY));
-            applyAllBannedResources(mHandler.mBaseModule, Mode.BINARY);
+            mHandler.setText(mHandler.getBaseModule().setMode(Mode.BINARY));
+            applyAllBannedResources(mHandler.getBaseModule(), Mode.BINARY);
             break;
 
         case R.id.dec:
-            mHandler.setText(mHandler.mBaseModule.setMode(Mode.DECIMAL));
-            applyAllBannedResources(mHandler.mBaseModule, Mode.DECIMAL);
+            mHandler.setText(mHandler.getBaseModule().setMode(Mode.DECIMAL));
+            applyAllBannedResources(mHandler.getBaseModule(), Mode.DECIMAL);
             break;
 
         case R.id.matrix:

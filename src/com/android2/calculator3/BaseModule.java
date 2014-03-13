@@ -18,6 +18,7 @@ public class BaseModule {
     Logic mLogic;
     private Mode mMode = Mode.DECIMAL;
     Map<Mode, List<Integer>> mBannedResources;
+    private OnBaseChangeListener mBaseChangeListener;
 
     BaseModule(Logic logic) {
         this.mLogic = logic;
@@ -54,6 +55,7 @@ public class BaseModule {
     public String setMode(Mode mode) {
         String text = updateTextToNewMode(mLogic.getText(), this.mMode, mode);
         this.mMode = mode;
+        if(mBaseChangeListener != null) mBaseChangeListener.onBaseChange(mMode);
         return text;
     }
 
@@ -340,5 +342,17 @@ public class BaseModule {
             }
         }
         return modifiedNumber;
+    }
+
+    public void setOnBaseChangeListener(OnBaseChangeListener l) {
+        mBaseChangeListener = l;
+    }
+
+    public OnBaseChangeListener getOnBaseChangeListener() {
+        return mBaseChangeListener;
+    }
+
+    public static interface OnBaseChangeListener {
+        public void onBaseChange(Mode newBase);
     }
 }

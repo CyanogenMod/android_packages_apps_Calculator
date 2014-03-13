@@ -40,7 +40,7 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
             ((ViewGroup) v.getParent()).removeView(v);
         }
         System.out.println("Rawr for page " + pages.get(position).getName());
-        applyBannedResourcesByPage(mLogic, v, mLogic.mBaseModule.getMode());
+        applyBannedResourcesByPage(mLogic, v, mLogic.getBaseModule().getMode());
         return v;
     }
 
@@ -72,7 +72,7 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
 
         @Override
         public View next() {
-            View v = mPages.get(mCurrentPosition).getView(mContext, null, null, null);
+            View v = mPages.get(mCurrentPosition).getView(mContext);
             mCurrentPosition++;
             return v;
         }

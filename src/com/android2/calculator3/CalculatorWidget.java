@@ -195,7 +195,7 @@ public class CalculatorWidget extends AppWidgetProvider {
 
         if(CalculatorSettings.digitGrouping(context)) {
             final Logic logic = new Logic(context, null, null);
-            BaseModule bm = logic.mBaseModule;
+            BaseModule bm = logic.getBaseModule();
             value = bm.groupSentence(value, value.length());
         }
 

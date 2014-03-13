@@ -62,9 +62,9 @@ public class Logic {
     int mLineLength = 0;
     private Graph mGraph;
     EquationFormatter mEquationFormatter;
-    public GraphModule mGraphModule;
-    public BaseModule mBaseModule;
-    public MatrixModule mMatrixModule;
+    private GraphModule mGraphModule;
+    private BaseModule mBaseModule;
+    private MatrixModule mMatrixModule;
 
     private final boolean mUseRadians;
 
@@ -443,5 +443,17 @@ public class Logic {
     static boolean isPostFunction(char c) {
         // exponent, factorial, percent
         return "^!%".indexOf(c) != -1;
+    }
+
+    public GraphModule getGraphModule() {
+        return mGraphModule;
+    }
+
+    public BaseModule getBaseModule() {
+        return mBaseModule;
+    }
+
+    public MatrixModule getMatrixModule() {
+        return mMatrixModule;
     }
 }

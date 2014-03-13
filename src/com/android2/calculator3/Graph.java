@@ -67,22 +67,22 @@ public class Graph {
         mChartView.addPanListener(new PanListener() {
             @Override
             public void panApplied() {
-                mLogic.mGraphModule.updateGraphCatchErrors(Graph.this);
+                mLogic.getGraphModule().updateGraphCatchErrors(Graph.this);
             }
         });
         mChartView.addZoomListener(new ZoomListener() {
             @Override
             public void zoomReset() {
-                mLogic.mGraphModule.updateGraphCatchErrors(Graph.this);
+                mLogic.getGraphModule().updateGraphCatchErrors(Graph.this);
             }
 
             @Override
             public void zoomApplied(ZoomEvent event) {
-                mLogic.mGraphModule.updateGraphCatchErrors(Graph.this);
+                mLogic.getGraphModule().updateGraphCatchErrors(Graph.this);
             }
         }, true, true);
 
-        mLogic.mGraphModule.updateGraphCatchErrors(this);
+        mLogic.getGraphModule().updateGraphCatchErrors(this);
 
         return mChartView;
     }

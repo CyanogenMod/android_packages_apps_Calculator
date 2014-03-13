@@ -18,6 +18,7 @@ package com.android2.calculator3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -46,7 +47,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.TextView;
 
+import com.android2.calculator3.BaseModule.Mode;
+import com.android2.calculator3.BaseModule.OnBaseChangeListener;
 import com.android2.calculator3.Page.LargePanel;
 import com.android2.calculator3.Page.NormalPanel;
 import com.android2.calculator3.Page.SmallPanel;
@@ -75,6 +79,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private Slider mHistorySlider;
     private Graph mGraph;
     private List<Page> mPages;
+    private TextView mDetails;
 
     private boolean clingActive = false;
 
@@ -113,6 +118,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mBackspaceButton.setOnLongClickListener(mListener);
         }
 
+        mDetails = (TextView) findViewById(R.id.details);
+
         mPersist = new Persist(this);
         mPersist.load();
 
@@ -122,7 +129,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         mLogic = new Logic(this, mHistory, mDisplay);
         mLogic.setListener(this);
-        if(mPersist.getMode() != null) mLogic.mBaseModule.setMode(mPersist.getMode());
+        mLogic.getBaseModule().setOnBaseChangeListener(new OnBaseChangeListener() {
+            @Override
+            public void onBaseChange(Mode newBase) {
+                updateDetails();
+            }
+        });
+        if(mPersist.getMode() != null) mLogic.getBaseModule().setMode(mPersist.getMode());
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
         mLogic.setLineLength(mDisplay.getMaxDigits());
@@ -203,6 +216,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         updateDeleteMode();
 
         mHistorySlider.bringToFront();
+        updateDetails();
     }
 
     private void updateDeleteMode() {
@@ -362,7 +376,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         super.onPause();
         mLogic.updateHistory();
         mPersist.setDeleteMode(mLogic.getDeleteMode());
-        mPersist.setMode(mLogic.mBaseModule.getMode());
+        mPersist.setMode(mLogic.getBaseModule().getMode());
         mPersist.save();
     }
 
@@ -640,6 +654,25 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         }
         else {
             pager.setCurrentItem(order);
+        }
+    }
+
+    private void updateDetails() {
+        if(mDetails != null) {
+            String units = CalculatorSettings.useRadians(getContext()) ? getString(R.string.radians) : getString(R.string.degrees);
+            String base = "";
+            switch(mLogic.getBaseModule().getMode()) {
+            case HEXADECIMAL:
+                base = getString(R.string.hex).toUpperCase(Locale.getDefault());
+                break;
+            case BINARY:
+                base = getString(R.string.bin).toUpperCase(Locale.getDefault());
+                break;
+            case DECIMAL:
+                base = getString(R.string.dec).toUpperCase(Locale.getDefault());
+                break;
+            }
+            mDetails.setText(base + " | " + units);
         }
     }
 }

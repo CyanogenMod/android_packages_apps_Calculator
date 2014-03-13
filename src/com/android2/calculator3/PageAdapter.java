@@ -40,7 +40,7 @@ public class PageAdapter extends CalculatorPageAdapter {
         if(v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v);
         }
-        applyBannedResourcesByPage(mLogic, v, mLogic.mBaseModule.getMode());
+        applyBannedResourcesByPage(mLogic, v, mLogic.getBaseModule().getMode());
 
         return v;
     }
@@ -73,7 +73,7 @@ public class PageAdapter extends CalculatorPageAdapter {
 
         @Override
         public View next() {
-            View v = mPages.get(mCurrentPosition).getView(mContext, null, null, null);
+            View v = mPages.get(mCurrentPosition).getView(mContext);
             mCurrentPosition++;
             return v;
         }

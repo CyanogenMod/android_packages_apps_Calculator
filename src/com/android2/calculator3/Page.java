@@ -152,7 +152,7 @@ public class Page {
             }
             else if(NormalPanel.HEX.equals(this)) {
                 if(logic != null) {
-                    switch(logic.mBaseModule.getMode()) {
+                    switch(logic.getBaseModule().getMode()) {
                     case BINARY:
                         view.findViewById(R.id.bin).setSelected(true);
                         break;
@@ -228,7 +228,7 @@ public class Page {
         public void refresh(Context context, View view, EventListener listener, Graph graph, Logic logic) {
             if(SmallPanel.HEX.equals(this)) {
                 if(logic != null) {
-                    switch(logic.mBaseModule.getMode()) {
+                    switch(logic.getBaseModule().getMode()) {
                     case BINARY:
                         view.findViewById(R.id.bin).setSelected(true);
                         break;
@@ -512,14 +512,18 @@ public class Page {
         }
     }
 
+    public View getView(Context context) {
+        return getView(context, null, null, null);
+    }
+
     public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
-        if(mView == null) {
-            if(mPanel != null) {
+        if(mPanel != null) {
+            if(mView == null) {
                 mView = mPanel.getView(context);
-                mPanel.refresh(context, mView, listener, graph, logic);
             }
-            else mView = null;
+            if(logic != null) mPanel.refresh(context, mView, listener, graph, logic);
         }
+        else mView = null;
         return mView;
     }
 

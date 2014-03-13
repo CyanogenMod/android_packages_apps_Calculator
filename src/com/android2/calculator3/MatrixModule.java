@@ -88,8 +88,7 @@ public class MatrixModule {
         }
 
         // Handle functions.
-        match = Pattern.compile("(\u221a|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
-                .matcher(input);
+        match = Pattern.compile("(\u221a|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])").matcher(input);
         while(match.find()) {
             String res = applyFunc(match.group(1), match.group(2));
             input = input.replace(match.group(), res);
@@ -198,7 +197,7 @@ public class MatrixModule {
         }
 
         result = mLogic.relocalize(result);
-        return mLogic.mBaseModule.updateTextToNewMode(result, Mode.DECIMAL, mLogic.mBaseModule.getMode());
+        return mLogic.getBaseModule().updateTextToNewMode(result, Mode.DECIMAL, mLogic.getBaseModule().getMode());
     }
 
     private static char[] opSplit(String str) {

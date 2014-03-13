@@ -207,7 +207,7 @@ public class CalculatorEditText extends ThemedEditText {
     }
 
     private Spanned formatText(String input) {
-        BaseModule bm = mDisplay.mLogic.mBaseModule;
+        BaseModule bm = mDisplay.mLogic.getBaseModule();
         if(CalculatorSettings.digitGrouping(getContext())) {
             // Add grouping, and then split on the selection handle
             // which is saved as a unique char
