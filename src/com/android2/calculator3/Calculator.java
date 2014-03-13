@@ -227,8 +227,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        Page page = mPager == null ? Page.getCurrentLargePage(mLargePager) : Page.getCurrentPage(mPager);
-        Page smallPage = mPager == null ? Page.getCurrentSmallPage(mSmallPager) : null;
+        Page page = mPager == null ? Page.getCurrentPage(mLargePager) : Page.getCurrentPage(mPager);
+        Page smallPage = mPager == null ? Page.getCurrentPage(mSmallPager) : null;
 
         for(int i = 0; i < menu.size(); i++) {
             MenuItem m = menu.getItem(i);
@@ -334,20 +334,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             break;
         default:
             // Menu item is for switching pages
-            if(mPager != null) {
-                Page page = Page.getPage(getContext(), item.getTitle().toString());
-                scrollToPage(page);
-            }
-            else {
-                Page page = Page.getSmallPage(getContext(), item.getTitle().toString());
-                if(page != null) {
-                    mSmallPager.setCurrentItem(Page.getSmallOrder(getContext(), page));
-                }
-                else {
-                    page = Page.getLargePage(getContext(), item.getTitle().toString());
-                    mLargePager.setCurrentItem(Page.getLargeOrder(getContext(), page));
-                }
-            }
+            scrollToPage(Page.getPage(mPages, item.getTitle().toString()));
             break;
         }
         return super.onOptionsItemSelected(item);
@@ -393,13 +380,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !clingActive) {
             boolean scrolled = false;
             if(CalculatorSettings.isPageEnabled(getContext(), SmallPanel.ADVANCED)) {
-                if(!Page.getCurrentSmallPage(mSmallPager).isAdvanced()) {
+                if(!Page.getCurrentPage(mSmallPager).isAdvanced()) {
                     scrollToPage(new Page(getContext(), SmallPanel.ADVANCED));
                     scrolled = true;
                 }
             }
             if(CalculatorSettings.isPageEnabled(getContext(), LargePanel.BASIC)) {
-                if(!Page.getCurrentLargePage(mLargePager).isBasic()) {
+                if(!Page.getCurrentPage(mLargePager).isBasic()) {
                     scrollToPage(new Page(getContext(), LargePanel.BASIC));
                     scrolled = true;
                 }
@@ -595,8 +582,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private void runCling(boolean animate) {
-        Page largePage = mPager == null ? Page.getCurrentLargePage(mLargePager) : Page.getCurrentPage(mPager);
-        Page smallPage = mPager == null ? Page.getCurrentSmallPage(mSmallPager) : null;
+        Page largePage = mPager == null ? Page.getCurrentPage(mLargePager) : Page.getCurrentPage(mPager);
+        Page smallPage = mPager == null ? Page.getCurrentPage(mSmallPager) : null;
         largePage.showTutorial(this, animate);
         if(smallPage != null) smallPage.showTutorial(this, animate);
     }
@@ -630,13 +617,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
     protected void scrollToPage(Page p) {
         CalculatorViewPager pager = mPager;
-        int order = Page.getOrder(getContext(), p);
+        int order = Page.getOrder(mPages, p);
         int pagesSize = mPages.size();
 
         if(pager == null) {
             pager = p.isSmall() ? mSmallPager : mLargePager;
-            order = p.isSmall() ? Page.getSmallOrder(getContext(), p) : Page.getLargeOrder(getContext(), p);
-            pagesSize = p.isSmall() ? ((CalculatorPageAdapter) mSmallPager.getAdapter()).getPages().size() : ((CalculatorPageAdapter) mSmallPager.getAdapter()).getPages().size();
+            order = Page.getOrder(((CalculatorPageAdapter) pager.getAdapter()).getPages(), p);
+            pagesSize = ((CalculatorPageAdapter) pager.getAdapter()).getPages().size();
         }
 
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {

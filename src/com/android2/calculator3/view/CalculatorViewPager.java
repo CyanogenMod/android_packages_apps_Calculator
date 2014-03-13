@@ -16,6 +16,8 @@
 
 package com.android2.calculator3.view;
 
+import java.util.List;
+
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -76,8 +78,8 @@ public class CalculatorViewPager extends ViewPager {
 
     public void scrollToMiddle() {
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {
-            int pagesSize = ((CalculatorPageAdapter) getAdapter()).getPages().size();
-            int halfwayDownTheInfiniteList = (MAX_SIZE_CONSTANT / pagesSize) / 2 * pagesSize + Page.getOrder(getContext(), new Page(getContext(), NormalPanel.BASIC));
+            List<Page> pages = ((CalculatorPageAdapter) getAdapter()).getPages();
+            int halfwayDownTheInfiniteList = (MAX_SIZE_CONSTANT / pages.size()) / 2 * pages.size() + Page.getOrder(pages, new Page(getContext(), NormalPanel.BASIC));
             setCurrentItem(halfwayDownTheInfiniteList);
         }
     }

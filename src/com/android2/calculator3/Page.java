@@ -205,19 +205,6 @@ public class Page {
                 break;
             case HEX:
                 v = View.inflate(context, R.layout.hex_pad, null);
-                if(logic != null) {
-                    switch(logic.mBaseModule.getMode()) {
-                    case BINARY:
-                        v.findViewById(R.id.bin).setSelected(true);
-                        break;
-                    case DECIMAL:
-                        v.findViewById(R.id.dec).setSelected(true);
-                        break;
-                    case HEXADECIMAL:
-                        v.findViewById(R.id.hex).setSelected(true);
-                        break;
-                    }
-                }
                 break;
             }
             return v;
@@ -234,7 +221,21 @@ public class Page {
         }
 
         @Override
-        public void refresh(Context context, View view, Graph graph, Logic logic) {}
+        public void refresh(Context context, View view, Graph graph, Logic logic) {
+            if(SmallPanel.HEX.equals(this)) {
+                switch(logic.mBaseModule.getMode()) {
+                case BINARY:
+                    view.findViewById(R.id.bin).setSelected(true);
+                    break;
+                case DECIMAL:
+                    view.findViewById(R.id.dec).setSelected(true);
+                    break;
+                case HEXADECIMAL:
+                    view.findViewById(R.id.hex).setSelected(true);
+                    break;
+                }
+            }
+        }
     }
 
     public enum LargePanel implements Panel {
@@ -526,64 +527,18 @@ public class Page {
     }
 
     public static Page getCurrentPage(CalculatorViewPager pager) {
-        List<Page> pages = Page.getPages(pager.getContext());
+        List<Page> pages = ((CalculatorPageAdapter) pager.getAdapter()).getPages();
         return pages.get(pager.getCurrentItem() % pages.size());
     }
 
-    public static Page getCurrentSmallPage(CalculatorViewPager pager) {
-        List<Page> pages = Page.getSmallPages(pager.getContext());
-        return pages.get(pager.getCurrentItem() % pages.size());
-    }
-
-    public static Page getCurrentLargePage(CalculatorViewPager pager) {
-        List<Page> pages = Page.getLargePages(pager.getContext());
-        return pages.get(pager.getCurrentItem() % pages.size());
-    }
-
-    public static Page getPage(Context context, String name) {
-        List<Page> pages = Page.getPages(context);
+    public static Page getPage(List<Page> pages, String name) {
         for(Page p : pages) {
             if(p.getName().equals(name)) return p;
         }
         return null;
     }
 
-    public static Page getSmallPage(Context context, String name) {
-        List<Page> pages = Page.getSmallPages(context);
-        for(Page p : pages) {
-            if(p.getName().equals(name)) return p;
-        }
-        return null;
-    }
-
-    public static Page getLargePage(Context context, String name) {
-        List<Page> pages = Page.getLargePages(context);
-        for(Page p : pages) {
-            if(p.getName().equals(name)) return p;
-        }
-        return null;
-    }
-
-    public static int getOrder(Context context, Page page) {
-        List<Page> pages = Page.getPages(context);
-        for(int i = 0; i < pages.size(); i++) {
-            Page p = pages.get(i);
-            if(p.equals(page)) return i;
-        }
-        return -1;
-    }
-
-    public static int getSmallOrder(Context context, Page page) {
-        List<Page> pages = Page.getSmallPages(context);
-        for(int i = 0; i < pages.size(); i++) {
-            Page p = pages.get(i);
-            if(p.equals(page)) return i;
-        }
-        return -1;
-    }
-
-    public static int getLargeOrder(Context context, Page page) {
-        List<Page> pages = Page.getLargePages(context);
+    public static int getOrder(List<Page> pages, Page page) {
         for(int i = 0; i < pages.size(); i++) {
             Page p = pages.get(i);
             if(p.equals(page)) return i;
