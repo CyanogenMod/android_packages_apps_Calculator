@@ -27,35 +27,16 @@
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/left_right_padding"
         android:paddingRight="@dimen/left_right_padding" >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:minHeight="@dimen/min_display_height"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:orientation="horizontal" >
-            <com.android2.calculator3.view.CalculatorDisplay
-                android:id="@+id/display"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                maxDigits="@integer/max_digits" >
-                <com.android2.calculator3.view.ScrollableDisplay
-                    style="@style/Theme.Calculator.Display" />
-                <com.android2.calculator3.view.ScrollableDisplay
-                    style="@style/Theme.Calculator.Display" />
-            </com.android2.calculator3.view.CalculatorDisplay>
-            <com.xlythe.engine.theme.ThemedImageButton
-                android:id="@+id/overflow_menu"
-                android:layout_width="48dip"
-                android:layout_height="match_parent"
-                theme:src="@drawable/ic_menu_overflow"
-                theme:themeBackground="@drawable/menu_bg"
-                android:layout_marginLeft="8dip"
-                android:visibility="gone"
-                android:contentDescription="@null" />
+            android:layout_height="wrap_content" >
             <FrameLayout
+                android:id="@+id/backspace"
                 android:layout_width="100dip"
-                android:layout_height="match_parent" >
+                android:layout_height="@dimen/min_display_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" >
                 <com.xlythe.engine.theme.ThemedButton
                     android:id="@+id/clear"
                     android:text="@string/clear"
@@ -74,7 +55,37 @@
                     android:paddingRight="5dip"
                     android:contentDescription="@null" />
             </FrameLayout>
-        </LinearLayout>
+            <com.xlythe.engine.theme.ThemedImageButton
+                android:id="@+id/overflow_menu"
+                android:layout_width="48dip"
+                android:layout_height="@dimen/min_display_height"
+                theme:src="@drawable/ic_menu_overflow"
+                theme:themeBackground="@drawable/menu_bg"
+                android:layout_marginLeft="8dip"
+                android:visibility="gone"
+                android:layout_toLeftOf="@id/backspace"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null" />
+            <com.android2.calculator3.view.CalculatorDisplay
+                android:id="@+id/display"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                maxDigits="@integer/max_digits"
+                android:layout_toLeftOf="@id/overflow_menu"
+                android:layout_centerVertical="true" >
+                <com.android2.calculator3.view.ScrollableDisplay
+                    style="@style/Theme.Calculator.Display" />
+                <com.android2.calculator3.view.ScrollableDisplay
+                    style="@style/Theme.Calculator.Display" />
+            </com.android2.calculator3.view.CalculatorDisplay>
+            <com.xlythe.engine.theme.ThemedTextView
+                android:id="@+id/details"
+                theme:textColor="@color/details_color"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
