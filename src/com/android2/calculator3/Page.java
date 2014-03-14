@@ -3,7 +3,9 @@ package com.android2.calculator3;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.achartengine.GraphicalView;
 
@@ -59,7 +61,7 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
-        private GraphicalView mGraphDisplay;
+        private Map<View, GraphicalView> mGraphHolder = new HashMap<View, GraphicalView>();
 
         public int getName() {
             return mName;
@@ -115,28 +117,29 @@ public class Page {
         }
 
         @Override
-        public void refresh(Context context, View view, EventListener listener, Graph graph, Logic logic) {
+        public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
             if(NormalPanel.GRAPH.equals(this)) {
-                if(mGraphDisplay == null) {
-                    mGraphDisplay = graph.getGraph(context);
-                    mGraphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                if(!mGraphHolder.containsKey(view)) {
+                    final GraphicalView graphDisplay = graph.getGraph(context);
+                    mGraphHolder.put(view, graphDisplay);
+                    graphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                         @Override
                         public void onViewDetachedFromWindow(View v) {
-                            mGraphDisplay = null;
+                            mGraphHolder.remove(view);
                         }
 
                         @Override
                         public void onViewAttachedToWindow(View v) {}
                     });
-                    logic.setGraphDisplay(mGraphDisplay);
+                    logic.setGraphDisplay(graphDisplay);
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
-                    l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    l.addView(graphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
                     View zoomIn = view.findViewById(R.id.zoomIn);
                     zoomIn.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mGraphDisplay.zoomIn();
+                            graphDisplay.zoomIn();
                         }
                     });
 
@@ -144,7 +147,7 @@ public class Page {
                     zoomOut.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mGraphDisplay.zoomOut();
+                            graphDisplay.zoomOut();
                         }
                     });
 
@@ -152,12 +155,12 @@ public class Page {
                     zoomReset.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mGraphDisplay.zoomReset();
+                            graphDisplay.zoomReset();
                         }
                     });
                 }
                 else {
-                    mGraphDisplay.repaint();
+                    mGraphHolder.get(view).repaint();
                 }
             }
             else if(NormalPanel.HEX.equals(this)) {
@@ -268,7 +271,7 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
-        private GraphicalView mGraphDisplay;
+        private Map<View, GraphicalView> mGraphHolder = new HashMap<View, GraphicalView>();
 
         public int getName() {
             return mName;
@@ -313,28 +316,29 @@ public class Page {
         }
 
         @Override
-        public void refresh(Context context, View view, EventListener listener, Graph graph, Logic logic) {
+        public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
             if(LargePanel.GRAPH.equals(this)) {
-                if(mGraphDisplay == null) {
-                    mGraphDisplay = graph.getGraph(context);
-                    mGraphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                if(!mGraphHolder.containsKey(view)) {
+                    final GraphicalView graphDisplay = graph.getGraph(context);
+                    mGraphHolder.put(view, graphDisplay);
+                    graphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                         @Override
                         public void onViewDetachedFromWindow(View v) {
-                            mGraphDisplay = null;
+                            mGraphHolder.remove(view);
                         }
 
                         @Override
                         public void onViewAttachedToWindow(View v) {}
                     });
-                    logic.setGraphDisplay(mGraphDisplay);
+                    logic.setGraphDisplay(graphDisplay);
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
-                    l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    l.addView(graphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
                     View zoomIn = view.findViewById(R.id.zoomIn);
                     zoomIn.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mGraphDisplay.zoomIn();
+                            graphDisplay.zoomIn();
                         }
                     });
 
@@ -342,7 +346,7 @@ public class Page {
                     zoomOut.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mGraphDisplay.zoomOut();
+                            graphDisplay.zoomOut();
                         }
                     });
 
@@ -350,12 +354,12 @@ public class Page {
                     zoomReset.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mGraphDisplay.zoomReset();
+                            graphDisplay.zoomReset();
                         }
                     });
                 }
                 else {
-                    mGraphDisplay.repaint();
+                    mGraphHolder.get(view).repaint();
                 }
             }
         }
