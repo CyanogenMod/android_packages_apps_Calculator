@@ -55,7 +55,7 @@
             <FrameLayout
                 android:layout_width="100dip"
                 android:layout_height="match_parent">
-                <Button
+                <com.xlythe.engine.theme.ThemedButton
                     android:id="@+id/clear"
                     android:text="@string/clear"
                     style="@style/Theme.Calculator.Clear"
