@@ -29,31 +29,33 @@
         android:layout_height="match_parent" >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:minHeight="@dimen/min_display_height"
             android:layout_height="wrap_content" >
-            <com.xlythe.engine.theme.ThemedImageButton
-                android:id="@+id/overflow_menu"
-                android:layout_width="48dip"
-                android:layout_height="@dimen/min_display_height"
-                theme:src="@drawable/ic_menu_overflow"
-                theme:themeBackground="@drawable/menu_bg"
-                android:layout_marginLeft="8dip"
-                android:visibility="gone"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="@null" />
-            <com.android2.calculator3.view.CalculatorDisplay
-                android:id="@+id/display"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/overflow_menu"
-                android:layout_centerVertical="true"
-                maxDigits="@integer/max_digits" >
-                <com.android2.calculator3.view.ScrollableDisplay
-                    style="@style/Theme.Calculator.Display" />
-                <com.android2.calculator3.view.ScrollableDisplay
-                    style="@style/Theme.Calculator.Display" />
-            </com.android2.calculator3.view.CalculatorDisplay>
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:minHeight="@dimen/min_display_height"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal" >
+	            <com.android2.calculator3.view.CalculatorDisplay
+	                 android:id="@+id/display"
+	                 android:layout_width="0dip"
+	                 android:layout_height="match_parent"
+	                 android:layout_weight="1"
+	                 maxDigits="@integer/max_digits" >
+	                <com.android2.calculator3.view.ScrollableDisplay
+	                    style="@style/Theme.Calculator.Display" />
+	                <com.android2.calculator3.view.ScrollableDisplay
+	                    style="@style/Theme.Calculator.Display" />
+	            </com.android2.calculator3.view.CalculatorDisplay>
+	            <com.xlythe.engine.theme.ThemedImageButton
+	                android:id="@+id/overflow_menu"
+	                android:layout_width="48dip"
+	                android:layout_height="match_parent"
+	                theme:src="@drawable/ic_menu_overflow"
+	                theme:themeBackground="@drawable/menu_bg"
+	                android:layout_marginLeft="8dip"
+	                android:visibility="gone"
+	                android:contentDescription="@null" />
+	        </LinearLayout>
             <com.xlythe.engine.theme.ThemedTextView
                 android:id="@+id/details"
                 theme:textColor="@color/details_color"
@@ -61,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
-        </RelativeLayout>
+	    </RelativeLayout>
         <RelativeLayout 
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
