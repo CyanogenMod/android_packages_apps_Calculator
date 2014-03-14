@@ -575,6 +575,15 @@ public class Page {
         return -1;
     }
 
+    public static List<Page> removeDuplicates(List<Page> pages) {
+        ArrayList<Page> clean = new ArrayList<Page>();
+        for(Page p : pages) {
+            if(clean.contains(p)) continue;
+            clean.add(p);
+        }
+        return clean;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj != null) {

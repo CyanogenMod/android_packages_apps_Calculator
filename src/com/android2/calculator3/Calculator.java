@@ -199,6 +199,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                     scrollToPage(advanced);
                 }
             }
+            mPages = Page.removeDuplicates(mPages);
 
             mSmallPager.setOnPageChangeListener(this);
             mLargePager.setOnPageChangeListener(this);
