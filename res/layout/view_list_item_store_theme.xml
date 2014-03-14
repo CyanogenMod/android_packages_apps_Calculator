@@ -14,19 +14,21 @@
         android:visibility="gone"
         android:contentDescription="@null" />
 
-    <TextView
+    <com.xlythe.engine.theme.ThemedTextView
         android:id="@+id/text1"
         android:layout_toRightOf="@id/image1"
         android:padding="5dp"
         android:textSize="20sp"
+        theme:textColor="@color/store_row_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true" />
 
-    <TextView
+    <com.xlythe.engine.theme.ThemedTextView
         android:id="@+id/text2"
         android:padding="5dp"
         android:textSize="20sp"
+        theme:textColor="@color/store_row_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

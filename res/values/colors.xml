@@ -29,6 +29,7 @@
     <color name="graph_labels_color">#FFFFFF</color>
     <color name="details_color">#AAAAAA</color>
     <color name="store_tab_text">#FFFFFF</color>
+    <color name="store_row_text">#FFFFFF</color>
     <color name="background">#FF000000</color>
     <drawable name="background">#FF000000</drawable>
 </resources>
