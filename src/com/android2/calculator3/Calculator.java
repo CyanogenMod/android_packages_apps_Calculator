@@ -58,6 +58,7 @@ import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
 import com.android2.calculator3.view.Cling;
 import com.android2.calculator3.view.HistoryLine;
+import com.xlythe.engine.theme.App;
 import com.xlythe.engine.theme.Theme;
 import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
@@ -254,24 +255,27 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             m.setVisible(!equalToLargePage && !equalToSmallPage);
         }
 
-        MenuItem mClearHistory = menu.findItem(R.id.clear_history);
-        mClearHistory.setVisible(mHistorySlider.isSliderOpen());
+        MenuItem clearHistory = menu.findItem(R.id.clear_history);
+        clearHistory.setVisible(mHistorySlider.isSliderOpen());
 
-        MenuItem mShowHistory = menu.findItem(R.id.show_history);
-        mShowHistory.setVisible(!mHistorySlider.isSliderOpen());
+        MenuItem showHistory = menu.findItem(R.id.show_history);
+        showHistory.setVisible(!mHistorySlider.isSliderOpen());
 
-        MenuItem mHideHistory = menu.findItem(R.id.hide_history);
-        mHideHistory.setVisible(mHistorySlider.isSliderOpen());
+        MenuItem hideHistory = menu.findItem(R.id.hide_history);
+        hideHistory.setVisible(mHistorySlider.isSliderOpen());
 
-        MenuItem mLock = menu.findItem(R.id.lock);
-        if(mLock != null) {
-            mLock.setVisible(page.isGraph() && getPagingEnabled());
+        MenuItem lock = menu.findItem(R.id.lock);
+        if(lock != null) {
+            lock.setVisible(page.isGraph() && getPagingEnabled());
         }
 
-        MenuItem mUnlock = menu.findItem(R.id.unlock);
-        if(mUnlock != null) {
-            mUnlock.setVisible(page.isGraph() && !getPagingEnabled());
+        MenuItem unlock = menu.findItem(R.id.unlock);
+        if(unlock != null) {
+            unlock.setVisible(page.isGraph() && !getPagingEnabled());
         }
+
+        MenuItem store = menu.findItem(R.id.store);
+        store.setVisible(App.doesPackageExists(getContext(), "com.android.vending"));
 
         return true;
     }

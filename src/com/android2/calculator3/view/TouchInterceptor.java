@@ -17,10 +17,11 @@ package com.android2.calculator3.view;
  */
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -31,8 +32,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-
-import com.android2.calculator3.R;
 
 public class TouchInterceptor extends ListView {
 
@@ -72,10 +71,20 @@ public class TouchInterceptor extends ListView {
         super(context);
 
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-        Resources res = getResources();
-        mItemHeightNormal = res.getDimensionPixelSize(R.dimen.normal_height);
+
+        mItemHeightNormal = (int) resolveAttribute(getContext(), android.R.attr.listPreferredItemHeight);
         mItemHeightHalf = mItemHeightNormal / 2;
-        mItemHeightExpanded = res.getDimensionPixelSize(R.dimen.expanded_height);
+        mItemHeightExpanded = mItemHeightNormal * 2;
+    }
+
+    public float resolveAttribute(Context context, int attr) {
+        TypedValue value = new TypedValue();
+        DisplayMetrics metrics = new DisplayMetrics();
+
+        context.getTheme().resolveAttribute(attr, value, true);
+        ((WindowManager) (context.getSystemService(Context.WINDOW_SERVICE))).getDefaultDisplay().getMetrics(metrics);
+
+        return TypedValue.complexToDimension(value.data, metrics);
     }
 
     @Override

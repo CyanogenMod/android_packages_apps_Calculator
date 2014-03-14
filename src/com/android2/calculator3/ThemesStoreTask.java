@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.xlythe.engine.theme.App;
 
 public class ThemesStoreTask extends AsyncTask<String, String, List<App>> {
-    private static final String THEME_URL = "http://xlythe.com/saolauncher/store/themes.html";
+    private static final String THEME_URL = "http://xlythe.com/calculator/store/themes.json";
 
     private final Context mContext;
 

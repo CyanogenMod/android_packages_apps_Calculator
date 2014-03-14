@@ -38,6 +38,18 @@ public class ThemesFragment extends ListFragment {
         mDataSource.open();
         mThemes = mDataSource.getAllApps();
 
+        // Show ui
+        setListAdapter(new StoreAdapter(getActivity(), mThemes));
+
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if(mThemes.isEmpty()) setListShown(false);
+
         // Load from server (and update ui when finished)
         mTask = new ThemesStoreTask(getActivity()) {
             @Override
@@ -49,14 +61,17 @@ public class ThemesFragment extends ListFragment {
                     mThemes.add(a);
                 }
                 ((StoreAdapter) getListAdapter()).notifyDataSetChanged();
+                setListShown(true);
+            }
+
+            @Override
+            protected void onCancelled() {
+                super.onCancelled();
+                setListShown(true);
             }
         };
         mTask.executeAsync();
 
-        // Show ui
-        setListAdapter(new StoreAdapter(getActivity(), mThemes));
-
-        return rootView;
     }
 
     @Override
@@ -73,5 +88,15 @@ public class ThemesFragment extends ListFragment {
         super.onDestroy();
         mTask.cancel(true);
         mDataSource.close();
+    }
+
+    @Override
+    public void setListShown(boolean shown) {
+        try {
+            super.setListShown(shown);
+        }
+        catch(IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 }
