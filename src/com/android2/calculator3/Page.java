@@ -543,16 +543,16 @@ public class Page {
         if(mPanel != null) {
             if(mView == null) {
                 mView = mPanel.getView(context);
-            }
-            mView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
-                @Override
-                public void onViewDetachedFromWindow(View v) {
-                    mView = null;
-                }
+                mView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                    @Override
+                    public void onViewDetachedFromWindow(View v) {
+                        mView = null;
+                    }
 
-                @Override
-                public void onViewAttachedToWindow(View v) {}
-            });
+                    @Override
+                    public void onViewAttachedToWindow(View v) {}
+                });
+            }
             if(logic != null) mPanel.refresh(context, mView, listener, graph, logic);
         }
         else mView = null;

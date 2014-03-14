@@ -34,12 +34,10 @@ public class SmallPageAdapter extends CalculatorPageAdapter {
     @Override
     public View getViewAt(int position) {
         position = position % mPages.size();
-        List<Page> pages = Page.getSmallPages(mContext);
-        View v = pages.get(position).getView(mContext, mListener, mGraph, mLogic);
+        View v = mPages.get(position).getView(mContext, mListener, mGraph, mLogic);
         if(v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v);
         }
-        System.out.println("Rawr for page " + pages.get(position).getName());
         applyBannedResourcesByPage(mLogic, v, mLogic.getBaseModule().getMode());
         return v;
     }

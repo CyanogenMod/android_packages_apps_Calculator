@@ -34,8 +34,7 @@ public class LargePageAdapter extends CalculatorPageAdapter {
     @Override
     public View getViewAt(int position) {
         position = position % mPages.size();
-        List<Page> pages = Page.getLargePages(mContext);
-        View v = pages.get(position).getView(mContext, mListener, mGraph, mLogic);
+        View v = mPages.get(position).getView(mContext, mListener, mGraph, mLogic);
         if(v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v);
         }
