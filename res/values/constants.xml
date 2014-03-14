@@ -27,4 +27,5 @@
     <item type="bool" name="CLICK_TO_OPEN_HISTORY">false</item>
     <item type="bool" name="DIGIT_GROUPING">true</item>
     <item type="bool" name="USE_RADIANS">true</item>
+    <item type="bool" name="SHOW_DETAILS">true</item>
 </resources>

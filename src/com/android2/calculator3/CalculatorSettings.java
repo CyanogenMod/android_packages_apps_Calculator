@@ -47,6 +47,10 @@ public class CalculatorSettings {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("DIGIT_GROUPING", context.getResources().getBoolean(R.bool.DIGIT_GROUPING));
     }
 
+    public static boolean showDetails(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("SHOW_DETAILS", context.getResources().getBoolean(R.bool.SHOW_DETAILS));
+    }
+
     static boolean isDismissed(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
     }

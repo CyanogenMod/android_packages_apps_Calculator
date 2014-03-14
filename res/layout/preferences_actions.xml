@@ -16,4 +16,8 @@
         android:title="@string/digitGrouping"
         android:key="DIGIT_GROUPING"
         android:defaultValue="@bool/DIGIT_GROUPING" />
+    <CheckBoxPreference
+        android:title="@string/showDetails"
+        android:key="SHOW_DETAILS"
+        android:defaultValue="@bool/SHOW_DETAILS" />
 </PreferenceScreen>

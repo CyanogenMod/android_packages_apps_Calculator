@@ -659,7 +659,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     }
 
     private void updateDetails() {
-        if(mDetails != null) {
+        if(mDetails != null && CalculatorSettings.showDetails(getContext())) {
             String units = CalculatorSettings.useRadians(getContext()) ? getString(R.string.radians) : getString(R.string.degrees);
             String base = "";
             switch(mLogic.getBaseModule().getMode()) {
