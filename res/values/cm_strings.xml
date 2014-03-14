@@ -82,14 +82,16 @@
     <string name="unlock">Unlock page</string>
 
     <string name="copy">Copy \'%s\'</string>
-    <!-- History menu item for removing item from history -->
+    <!-- Menu item for removing item from history -->
     <string name="remove_from_history">Remove from history</string>
-    <!-- History menu item for viewing history -->
+    <!-- Menu item for viewing history -->
     <string name="showHistory">Show history</string>
-    <!-- History menu item for hiding history -->
+    <!-- Menu item for hiding history -->
     <string name="hideHistory">Hide history</string>
-    <!-- History menu item for entering settings -->
+    <!-- Menu item for entering settings -->
     <string name="settings">Settings</string>
+    <!-- Menu item for entering store -->
+    <string name="store">Store</string>
 
     <!-- Matrix page text -->
     <string name="det">det</string>
@@ -154,6 +156,11 @@
     <!-- Decimal point. Make sure Matrix separator is unique from decimal. Make sure dot is unique from the above separators. -->
     <string name="dot">.</string>
     <string name="matrix_separator">,</string>
+
+    <string name="store_tab_themes">Themes</string>
+    <string name="store_tab_extensions">Extensions</string>
+    <string name="store_price_installed">Installed</string>
+    <string name="store_price_free">Free</string>
 
     <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
 </resources>

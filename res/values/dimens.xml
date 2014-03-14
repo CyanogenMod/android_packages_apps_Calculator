@@ -19,4 +19,6 @@
     <dimen name="normal_height">50dp</dimen>
     <!-- twice the height of a normal list item -->
     <dimen name="expanded_height">100dp</dimen>
+
+    <dimen name="store_tab_height">45dp</dimen>
 </resources>

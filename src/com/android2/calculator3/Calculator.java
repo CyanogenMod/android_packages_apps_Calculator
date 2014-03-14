@@ -343,6 +343,10 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             setPagingEnabled(true);
             break;
 
+        case R.id.store:
+            startActivity(new Intent(this, StoreActivity.class));
+            break;
+
         case R.id.settings:
             startActivity(new Intent(this, Preferences.class));
             finish();

@@ -27,6 +27,10 @@
         android:showAsAction="ifRoom|withText"
         android:title="@string/unlock"/>
 
+    <item android:id="@+id/store"
+        android:showAsAction="ifRoom|withText"
+        android:title="Store"/>
+
     <item android:id="@+id/settings"
         android:showAsAction="ifRoom|withText"
         android:title="@string/settings"/>
