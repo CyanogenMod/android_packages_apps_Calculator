@@ -35,9 +35,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ViewSwitcher;
 
-import com.android2.calculator3.R;
 import com.android2.calculator3.CalculatorEditable;
 import com.android2.calculator3.Logic;
+import com.android2.calculator3.R;
 
 /**
  * Provides vertical scrolling for the input/result EditText.
@@ -80,9 +80,9 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         String detString = context.getString(R.string.det);
         String dx = context.getString(R.string.dx);
         String dy = context.getString(R.string.dy);
+        String cbrtString = context.getString(R.string.cbrt);
 
-        mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString
-                + "(", modString + "(", lnString + "(", detString + "(", dx, dy);
+        mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString + "(", modString + "(", lnString + "(", detString + "(", dx, dy, cbrtString + "(");
         setOnLongClickListener(this);
     }
 
@@ -105,8 +105,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 /*
-                 * the EditText should still accept letters (eg. 'sin') coming
-                 * from the on-screen touch buttons, so don't filter anything.
+                 * the EditText should still accept letters (eg. 'sin') coming from the on-screen touch buttons, so don't filter anything.
                  */
                 return null;
             }
@@ -126,14 +125,12 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                     else {
                         // Check and remove keywords
                         String textBeforeInsertionHandle = getActiveEditText().getText().toString().substring(0, selectionHandle);
-                        String textAfterInsertionHandle = getActiveEditText().getText().toString()
-                                .substring(selectionHandle, getActiveEditText().getText().toString().length());
+                        String textAfterInsertionHandle = getActiveEditText().getText().toString().substring(selectionHandle, getActiveEditText().getText().toString().length());
 
                         for(String s : mKeywords) {
                             if(textBeforeInsertionHandle.endsWith(s)) {
                                 int deletionLength = s.length();
-                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)
-                                        + textAfterInsertionHandle;
+                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength) + textAfterInsertionHandle;
                                 getActiveEditText().setText(text);
                                 setSelection(selectionHandle - deletionLength);
                                 return true;
@@ -151,8 +148,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             text.setLogic(logic);
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
-            text.setLayoutParams(new ScrollableDisplay.LayoutParams(ScrollableDisplay.LayoutParams.WRAP_CONTENT, ScrollableDisplay.LayoutParams.WRAP_CONTENT,
-                    Gravity.RIGHT | Gravity.CENTER_VERTICAL));
+            text.setLayoutParams(new ScrollableDisplay.LayoutParams(ScrollableDisplay.LayoutParams.WRAP_CONTENT, ScrollableDisplay.LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
         }
     }
 
