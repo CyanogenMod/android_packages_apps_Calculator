@@ -134,7 +134,7 @@ public class Graph {
         renderer.setYAxisBold(true);
         renderer.setZoomButtonsVisible(false);
         renderer.setExternalZoomEnabled(true);
-        addSeriesRenderer(context.getResources().getColor(R.color.graph_color), renderer);
+        addSeriesRenderer(Theme.getColor(context, R.color.graph_color), renderer);
         return renderer;
     }
 

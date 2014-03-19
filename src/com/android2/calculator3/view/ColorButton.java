@@ -28,6 +28,7 @@ import android.view.MotionEvent;
 import com.android2.calculator3.Calculator;
 import com.android2.calculator3.EventListener;
 import com.android2.calculator3.R;
+import com.xlythe.engine.theme.Theme;
 import com.xlythe.engine.theme.ThemedButton;
 
 /**
@@ -121,7 +122,7 @@ class ColorButton extends ThemedButton {
             drawMagicFlame(0, canvas);
         }
 
-        mHintPaint.setColor(getCurrentHintTextColor());
+        mHintPaint.setColor(Theme.getColor(getContext(), R.color.button_hint_text));
         CharSequence hint = getHint();
         if(hint != null) {
             int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);

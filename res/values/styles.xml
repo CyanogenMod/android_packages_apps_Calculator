@@ -102,6 +102,7 @@
        <item name="textColor">@color/function_text_color</item>
        <item name="textColorHint">@color/button_hint_text</item>
        <item name="android:gravity">center</item>
+       <item name="android:layout_margin">0dp</item>
     </style>
     
     <style name="Theme.Calculator.ButtonStyle.Equal" >
