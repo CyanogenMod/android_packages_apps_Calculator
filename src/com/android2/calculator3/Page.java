@@ -17,7 +17,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
 import com.android2.calculator3.view.CalculatorViewPager;
-import com.xlythe.engine.extension.Extension;
 import com.xlythe.engine.theme.App;
 
 public class Page {
@@ -393,22 +392,22 @@ public class Page {
     }
 
     public static List<Page> getAllPages(Context context) {
-        List<App> extensions = Extension.getApps(context);
         ArrayList<Page> list = new ArrayList<Page>();
         for(Panel p : NormalPanel.values()) {
             Page page = new Page(context, p);
             list.add(page);
         }
-        for(App a : extensions) {
-            Page page = new Page(a);
-            list.add(page);
-        }
+        // TODO Readd when extensions are added
+        // List<App> extensions = Extension.getApps(context);
+        // for(App a : extensions) {
+        // Page page = new Page(a);
+        // list.add(page);
+        // }
         Collections.sort(list, new PageSort(context));
         return list;
     }
 
     public static List<Page> getPages(Context context) {
-        List<App> extensions = Extension.getApps(context);
         ArrayList<Page> list = new ArrayList<Page>();
         for(Panel p : NormalPanel.values()) {
             Page page = new Page(context, p);
@@ -416,12 +415,14 @@ public class Page {
                 list.add(page);
             }
         }
-        for(App a : extensions) {
-            Page page = new Page(a);
-            if(CalculatorSettings.isPageEnabled(context, page)) {
-                list.add(page);
-            }
-        }
+        // TODO Readd when extensions are added
+        // List<App> extensions = Extension.getApps(context);
+        // for(App a : extensions) {
+        // Page page = new Page(a);
+        // if(CalculatorSettings.isPageEnabled(context, page)) {
+        // list.add(page);
+        // }
+        // }
         Collections.sort(list, new PageSort(context));
         while(list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
@@ -453,7 +454,6 @@ public class Page {
     }
 
     public static List<Page> getLargePages(Context context) {
-        List<App> extensions = Extension.getApps(context);
         ArrayList<Page> list = new ArrayList<Page>();
         for(Panel p : LargePanel.values()) {
             Page page = new Page(context, p);
@@ -461,12 +461,14 @@ public class Page {
                 list.add(page);
             }
         }
-        for(App a : extensions) {
-            Page page = new Page(a);
-            if(CalculatorSettings.isPageEnabled(context, page)) {
-                list.add(page);
-            }
-        }
+        // TODO Readd when extensions are added
+        // List<App> extensions = Extension.getApps(context);
+        // for(App a : extensions) {
+        // Page page = new Page(a);
+        // if(CalculatorSettings.isPageEnabled(context, page)) {
+        // list.add(page);
+        // }
+        // }
         Collections.sort(list, new PageSort(context));
         while(list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice

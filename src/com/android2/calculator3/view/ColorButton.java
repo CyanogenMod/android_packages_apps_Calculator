@@ -17,7 +17,6 @@
 package com.android2.calculator3.view;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
@@ -58,9 +57,7 @@ class ColorButton extends ThemedButton {
     }
 
     private void init(Calculator calc, AttributeSet attrs) {
-        Resources res = getResources();
-
-        CLICK_FEEDBACK_COLOR = res.getColor(R.color.magic_flame);
+        CLICK_FEEDBACK_COLOR = Theme.getColor(getContext(), R.color.magic_flame);
         mFeedbackPaint = new Paint();
         mFeedbackPaint.setStyle(Style.STROKE);
         mFeedbackPaint.setStrokeWidth(2);
