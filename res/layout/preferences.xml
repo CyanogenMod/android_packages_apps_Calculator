@@ -11,7 +11,7 @@
         android:key="units" />
     <com.xlythe.engine.theme.ThemeListPreference
         android:title="@string/pref_theme"
-        android:key="THEME_STYLE" />
+        android:key="SELECTED_THEME" />
     <Preference
         android:title="@string/app_name"
         android:summary="@string/application_copyright"

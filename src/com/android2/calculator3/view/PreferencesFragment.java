@@ -67,7 +67,7 @@ public class PreferencesFragment extends PreferenceFragment {
             });
         }
 
-        ThemeListPreference theme = (ThemeListPreference) findPreference("THEME_STYLE");
+        ThemeListPreference theme = (ThemeListPreference) findPreference("SELECTED_THEME");
         if(theme != null) {
             theme.setIcon(useLightTheme ? R.drawable.settings_theme_icon_grey : R.drawable.settings_theme_icon_white);
             theme.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {

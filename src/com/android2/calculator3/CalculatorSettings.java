@@ -56,7 +56,7 @@ public class CalculatorSettings {
     }
 
     public static String getTheme(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString("THEME_STYLE", context.getPackageName());
+        return PreferenceManager.getDefaultSharedPreferences(context).getString("SELECTED_THEME", context.getPackageName());
     }
 
     static void saveKey(Context context, String key, boolean value) {
