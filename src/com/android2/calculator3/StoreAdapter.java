@@ -5,51 +5,31 @@ import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xlythe.engine.theme.App;
 
-public class StoreAdapter extends ArrayAdapter<App> {
-    protected static final int textViewResourceId = R.layout.view_list_item_store_theme;
-
+public class StoreAdapter extends BitmapAdapter<App> {
     public StoreAdapter(Context context, List<App> values) {
-        super(context, textViewResourceId, values);
-    }
-
-    static class ViewHolder {
-        TextView text;
-        TextView detail;
-        ImageView icon;
+        super(context, values);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        View v;
-        if(convertView == null) {
-            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(textViewResourceId, null);
-            holder = new ViewHolder();
-            holder.text = (TextView) v.findViewById(R.id.text1);
-            holder.detail = (TextView) v.findViewById(R.id.text2);
-            holder.icon = (ImageView) v.findViewById(R.id.image1);
-            v.setTag(holder);
-        }
-        else {
-            v = convertView;
-            holder = (ViewHolder) v.getTag();
-        }
+    public View inflateView() {
+        return View.inflate(getContext(), R.layout.view_list_item_store_theme, null);
+    }
 
-        final App o = getItem(position);
-        holder.text.setText(o == null ? null : o.getName());
-        holder.detail.setText(o == null ? null : formatPrice(o));
+    @Override
+    public void updateView(View convertView, App object) {
+        TextView text1 = (TextView) convertView.findViewById(R.id.text1);
+        TextView text2 = (TextView) convertView.findViewById(R.id.text2);
+        ImageView image1 = (ImageView) convertView.findViewById(R.id.image1);
 
-        return v;
+        text1.setText(object.getName());
+        text2.setText(formatPrice(object));
+        grabImage(convertView, image1, object.getImageUrl());
     }
 
     private String formatPrice(App a) {

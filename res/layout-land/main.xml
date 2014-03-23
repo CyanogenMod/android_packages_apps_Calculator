@@ -67,7 +67,7 @@
 	                     android:layout_height="match_parent"
 	                     android:layout_marginRight="0dp"
 	                     android:textSize="15sp"
-	                     style="@style/Theme.Calculator.ButtonStyle" />
+	                     style="@style/Theme.Calculator.ButtonStyle.Del" />
 	                <!-- marginRight has to be 0 to catch border-touch -->
 	                <com.android2.calculator3.view.ColorButton
 	                     android:id="@+id/del"
@@ -77,7 +77,7 @@
 	                     android:layout_marginRight="0dp"
 	                     android:textSize="15sp"
 	                     android:padding="10dp"
-	                     style="@style/Theme.Calculator.ButtonStyle" />
+	                     style="@style/Theme.Calculator.ButtonStyle.Del" />
 	            </FrameLayout>
 	        </LinearLayout>
             <com.xlythe.engine.theme.ThemedTextView
@@ -94,8 +94,7 @@
             <com.xlythe.slider.Slider
                 android:id="@+id/pulldown"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/Theme.Calculator.Slider" >
+                android:layout_height="match_parent" >
                 <include layout="@layout/history_panel" />
             </com.xlythe.slider.Slider>
             <com.android2.calculator3.view.CalculatorViewPager

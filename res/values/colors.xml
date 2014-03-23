@@ -22,7 +22,7 @@
     <color name="pressed_color">#66ffffff</color>
     <color name="history_input">#E6E6E6</color>
     <color name="history_result">#999999</color>
-    <color name="slider_bg">#FF000000</color>
+    <color name="graph_background">#FF000000</color>
     <color name="graph_color">#31B6E7</color>
     <color name="graph_axes_color">#000000</color>
     <color name="graph_grid_color">#333333</color>
@@ -30,6 +30,5 @@
     <color name="details_color">#AAAAAA</color>
     <color name="store_tab_text">#FFFFFF</color>
     <color name="store_row_text">#FFFFFF</color>
-    <color name="background">#FF000000</color>
     <drawable name="background">#FF000000</drawable>
 </resources>

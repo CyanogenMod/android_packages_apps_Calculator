@@ -23,6 +23,7 @@ import java.util.Locale;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -88,6 +89,8 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private static final String STATE_CURRENT_VIEW_SMALL = "state-current-view-small";
     private static final String STATE_CURRENT_VIEW_LARGE = "state-current-view-large";
 
+    @SuppressLint("NewApi")
+    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -152,7 +155,12 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mHistorySlider.enableTouch(false);
         }
         mHistorySlider.setBarBackground(Theme.getDrawable(getContext(), R.drawable.btn_slider));
-        mHistorySlider.setBackgroundColor(Theme.getColor(getContext(), R.color.slider_bg));
+        if(android.os.Build.VERSION.SDK_INT < 16) {
+            mHistorySlider.setBackgroundDrawable(Theme.getDrawable(getContext(), R.drawable.background));
+        }
+        else {
+            mHistorySlider.setBackground(Theme.getDrawable(getContext(), R.drawable.background));
+        }
         mHistoryView = (ListView) mHistorySlider.findViewById(R.id.history);
         setUpHistory();
 

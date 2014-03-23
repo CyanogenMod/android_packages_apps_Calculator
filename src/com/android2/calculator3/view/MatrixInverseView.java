@@ -43,6 +43,7 @@ public class MatrixInverseView extends ThemedTextView {
         setTextColor(Theme.get(R.color.display_text_color));
         Typeface tf = Theme.getFont(getContext());
         if(tf != null) setTypeface(tf);
+        setFont("display_font");
     }
 
     @Override

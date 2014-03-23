@@ -84,8 +84,7 @@
                     <com.xlythe.slider.Slider
                         android:id="@+id/pulldown"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        style="@style/Theme.Calculator.Slider" >
+                        android:layout_height="match_parent" >
                         <include layout="@layout/history_panel" />
                     </com.xlythe.slider.Slider>
                 </RelativeLayout>

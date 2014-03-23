@@ -257,6 +257,7 @@ public class CalculatorEditText extends ThemedEditText {
         et.setTextColor(Theme.get(R.color.display_text_color));
         Typeface tf = Theme.getFont(parent.getContext());
         if(tf != null) et.setTypeface(tf);
+        et.setFont("display_font");
         et.setPadding(5, 0, 5, 0);
         et.setEnabled(parent.isEnabled());
         AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

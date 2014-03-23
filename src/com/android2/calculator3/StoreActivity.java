@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -29,7 +30,7 @@ public class StoreActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         // Update theme (as needed)
-        int customTheme = Theme.getSettingsTheme(this);
+        int customTheme = Theme.getTheme(this);
         if(customTheme != 0) {
             super.setTheme(customTheme);
         }
@@ -53,6 +54,8 @@ public class StoreActivity extends FragmentActivity {
             TextView tab = (TextView) tabs.getChildAt(i);
 
             tab.setTextColor(Theme.getColor(getContext(), R.color.store_tab_text));
+            Typeface tf = Theme.getFont(getContext());
+            if(tf != null) tab.setTypeface(tf);
 
             setBackground(tab, Theme.get(R.drawable.custom_tab_indicator));
         }

@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Preferences" android:theme="@style/Theme.Settings.Calculator" android:label="@string/settings" />
-        <activity android:name=".StoreActivity" android:theme="@style/Theme.Settings.Calculator" android:label="@string/store" />
+        <activity android:name=".StoreActivity" android:theme="@style/Theme.Calculator" android:label="@string/store" />
         <receiver android:name=".CalculatorWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

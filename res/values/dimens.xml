@@ -15,5 +15,5 @@
 -->
 
 <resources>
-    <dimen name="store_tab_height">45dp</dimen>
+    <dimen name="store_tab_height">70dp</dimen>
 </resources>

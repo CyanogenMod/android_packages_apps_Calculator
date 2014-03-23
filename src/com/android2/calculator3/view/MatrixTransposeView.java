@@ -41,6 +41,7 @@ public class MatrixTransposeView extends ThemedTextView {
         setTextColor(Theme.get(R.color.display_text_color));
         Typeface tf = Theme.getFont(getContext());
         if(tf != null) setTypeface(tf);
+        setFont("display_font");
         setPadding(0, 0, 0, 0);
     }
 

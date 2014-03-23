@@ -12,15 +12,14 @@ public class StoreHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_PACKAGE = "package";
     public static final String COLUMN_PRICE = "price";
+    public static final String COLUMN_IMAGE_URL = "image_url";
 
     private static final String DATABASE_NAME = "apps.db";
     protected static final int DATABASE_VERSION = 1;
 
     // Database creation sql statement
-    protected static final String DATABASE_CREATE_THEMES = "create table " + TABLE_THEMES + "(" + COLUMN_ID + " integer primary key autoincrement, "
-            + COLUMN_NAME + " text, " + COLUMN_PACKAGE + " text, " + COLUMN_PRICE + " float(10)" + ");";
-    protected static final String DATABASE_CREATE_EXTENSION = "create table " + TABLE_EXTENSIONS + "(" + COLUMN_ID + " integer primary key autoincrement, "
-            + COLUMN_NAME + " text, " + COLUMN_PACKAGE + " text, " + COLUMN_PRICE + " float(10)" + ");";
+    protected static final String DATABASE_CREATE_THEMES = "create table " + TABLE_THEMES + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text, " + COLUMN_PACKAGE + " text, " + COLUMN_PRICE + " float(10), " + COLUMN_IMAGE_URL + " text" + ");";
+    protected static final String DATABASE_CREATE_EXTENSION = "create table " + TABLE_EXTENSIONS + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text, " + COLUMN_PACKAGE + " text, " + COLUMN_PRICE + " float(10), " + COLUMN_IMAGE_URL + " text" + ");";
 
     public StoreHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

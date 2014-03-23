@@ -111,7 +111,7 @@ public class Graph {
         renderer.setLegendHeight(22);
         renderer.setPointSize(5f);
         renderer.setMargins(new int[] { 20, 30, 15, 20 });
-        renderer.setMarginsColor(Theme.getColor(context, R.color.background));
+        renderer.setMarginsColor(Theme.getColor(context, R.color.graph_background));
         renderer.setChartTitle("");
         renderer.setXTitle(context.getResources().getString(R.string.X));
         renderer.setYTitle(context.getResources().getString(R.string.Y));
