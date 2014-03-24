@@ -36,8 +36,10 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -243,7 +245,14 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+
         getMenuInflater().inflate(R.menu.menu_top, menu);
+
+        for(Page p : mPages) {
+            menu.add(p.getName());
+        }
+
+        getMenuInflater().inflate(R.menu.menu_bottom, menu);
         return true;
     }
 
@@ -283,7 +292,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         }
 
         MenuItem store = menu.findItem(R.id.store);
-        store.setVisible(App.doesPackageExists(getContext(), "com.android.vending"));
+        if(store != null) {
+            store.setVisible(App.doesPackageExists(getContext(), "com.android.vending"));
+        }
 
         return true;
     }
@@ -293,6 +304,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         if(mOverflowMenuButton != null) {
             mOverflowMenuButton.setVisibility(View.VISIBLE);
             mOverflowMenuButton.setOnClickListener(this);
+            constructPopupMenu();
         }
     }
 
@@ -311,15 +323,20 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private PopupMenu constructPopupMenu() {
         final PopupMenu popupMenu = new PopupMenu(this, mOverflowMenuButton);
         final Menu menu = popupMenu.getMenu();
-
-        popupMenu.inflate(R.menu.menu_top);
-
-        for(Page p : mPages) {
-            menu.add(p.getName());
+        if(android.os.Build.VERSION.SDK_INT >= 19) {
+            mOverflowMenuButton.setOnTouchListener(new OnTouchListener() {
+                @SuppressLint("NewApi")
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                        onPrepareOptionsMenu(popupMenu.getMenu());
+                    }
+                    return popupMenu.getDragToOpenListener().onTouch(v, event);
+                }
+            });
         }
 
-        popupMenu.inflate(R.menu.menu_bottom);
-
+        onCreateOptionsMenu(menu);
         popupMenu.setOnMenuItemClickListener(this);
         onPrepareOptionsMenu(menu);
         return popupMenu;
