@@ -563,7 +563,12 @@ public class Page {
 
     public static Page getCurrentPage(CalculatorViewPager pager) {
         List<Page> pages = ((CalculatorPageAdapter) pager.getAdapter()).getPages();
-        return pages.get(pager.getCurrentItem() % pages.size());
+        if(pages.size() != 0) {
+            return pages.get(pager.getCurrentItem() % pages.size());
+        }
+        else {
+            return null;
+        }
     }
 
     public static Page getPage(List<Page> pages, String name) {

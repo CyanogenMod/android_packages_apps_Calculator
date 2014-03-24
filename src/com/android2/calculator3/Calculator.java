@@ -266,7 +266,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         for(int i = 0; i < menu.size(); i++) {
             MenuItem m = menu.getItem(i);
 
-            boolean equalToLargePage = m.getTitle().toString().equals(page.getName());
+            boolean equalToLargePage = page != null && m.getTitle().toString().equals(page.getName());
             boolean equalToSmallPage = smallPage != null && m.getTitle().toString().equals(smallPage.getName());
 
             m.setVisible(!equalToLargePage && !equalToSmallPage);
@@ -282,12 +282,12 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         hideHistory.setVisible(mHistorySlider.isSliderOpen());
 
         MenuItem lock = menu.findItem(R.id.lock);
-        if(lock != null) {
+        if(lock != null && page != null) {
             lock.setVisible(page.isGraph() && getPagingEnabled());
         }
 
         MenuItem unlock = menu.findItem(R.id.unlock);
-        if(unlock != null) {
+        if(unlock != null && page != null) {
             unlock.setVisible(page.isGraph() && !getPagingEnabled());
         }
 
@@ -632,7 +632,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     private void runCling(boolean animate) {
         Page largePage = mPager == null ? Page.getCurrentPage(mLargePager) : Page.getCurrentPage(mPager);
         Page smallPage = mPager == null ? Page.getCurrentPage(mSmallPager) : null;
-        largePage.showTutorial(this, animate);
+        if(largePage != null) largePage.showTutorial(this, animate);
         if(smallPage != null) smallPage.showTutorial(this, animate);
     }
 
