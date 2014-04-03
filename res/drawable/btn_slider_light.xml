@@ -16,7 +16,7 @@
 
 <selector
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true" android:drawable="@drawable/btn_keyboard_key_dark_pressed_holo_light" />
-    <item android:state_pressed="true" android:drawable="@drawable/btn_keyboard_key_dark_pressed_holo_light" />
-    <item android:drawable="@drawable/btn_slider_holo_light" />
+    <item android:state_selected="true" android:drawable="@drawable/btn_keyboard_key_dark_pressed_holo" />
+    <item android:state_pressed="true" android:drawable="@drawable/btn_keyboard_key_dark_pressed_holo" />
+    <item android:drawable="@drawable/btn_keyboard_key_dark_normal_holo_light" />
 </selector>
