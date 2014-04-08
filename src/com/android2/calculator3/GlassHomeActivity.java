@@ -94,13 +94,17 @@ public class GlassHomeActivity extends Activity {
                 Logic logic = new Logic(getBaseContext());
                 logic.setLineLength(7);
 
-                String value;
+                String result;
                 try {
-                    value = logic.evaluate(spokenText);
+                    result = logic.evaluate(spokenText);
                 }
                 catch(SyntaxException e) {
-                    value = getString(R.string.error);
+                    result = getString(R.string.error);
                 }
+                Intent intent = new Intent(this, GlassResultActivity.class);
+                intent.putExtra(GlassResultActivity.EXTRA_RESULT, result);
+                startActivity(intent);
+                finish();
             }
             else {
                 detectionFailed();
