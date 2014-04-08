@@ -29,6 +29,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -157,11 +158,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mHistorySlider.enableTouch(false);
         }
         mHistorySlider.setBarBackground(Theme.getDrawable(getContext(), R.drawable.btn_slider));
+        Drawable sliderBackground = Theme.getDrawable(getContext(), "slider_background");
+        if(sliderBackground == null) sliderBackground = Theme.getDrawable(getContext(), R.drawable.background);
         if(android.os.Build.VERSION.SDK_INT < 16) {
-            mHistorySlider.setBackgroundDrawable(Theme.getDrawable(getContext(), R.drawable.background));
+            mHistorySlider.setBackgroundDrawable(sliderBackground);
         }
         else {
-            mHistorySlider.setBackground(Theme.getDrawable(getContext(), R.drawable.background));
+            mHistorySlider.setBackground(sliderBackground);
         }
         mHistoryView = (ListView) mHistorySlider.findViewById(R.id.history);
         setUpHistory();

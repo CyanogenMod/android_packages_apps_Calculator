@@ -113,7 +113,7 @@
 
     <style name="Theme.Calculator.ButtonStyle.Digit" >
        <item name="themeBackground">@drawable/btn_digit</item>
-        <item name="textColor">@color/text_color</item>
+       <item name="textColor">@color/text_color</item>
     </style>
 
     <style name="Theme.Calculator.ButtonStyle.Widget" >

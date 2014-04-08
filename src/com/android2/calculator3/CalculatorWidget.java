@@ -152,7 +152,7 @@ public class CalculatorWidget extends AppWidgetProvider {
             final String input = value;
             if(input.isEmpty()) return;
 
-            final Logic logic = new Logic(context, null, null);
+            final Logic logic = new Logic(context);
             logic.setLineLength(7);
 
             try {
