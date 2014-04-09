@@ -31,6 +31,10 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Display;
@@ -52,6 +56,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
+import android.widget.TextView.BufferType;
 
 import com.android2.calculator3.BaseModule.Mode;
 import com.android2.calculator3.BaseModule.OnBaseChangeListener;
@@ -710,6 +715,26 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 break;
             }
             mDetails.setText(base + " | " + units);
+
+            mDetails.setMovementMethod(LinkMovementMethod.getInstance());
+            mDetails.setText(base + " | " + units, BufferType.SPANNABLE);
+            Spannable spans = (Spannable) mDetails.getText();
+            ClickableSpan clickSpan = getClickableSpan(units);
+            spans.setSpan(clickSpan, base.length() + 3, mDetails.getText().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // clickSpan = getClickableSpan(base);
+            // spans.setSpan(clickSpan, 0, base.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+    }
+
+    private ClickableSpan getClickableSpan(final String word) {
+        return new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                CalculatorSettings.setRadiansEnabled(getContext(), !CalculatorSettings.useRadians(getContext()));
+                updateDetails();
+            }
+
+            public void updateDrawState(TextPaint ds) {}
+        };
     }
 }

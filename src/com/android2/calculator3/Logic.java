@@ -55,6 +55,7 @@ public class Logic {
 
     CalculatorDisplay mDisplay;
     GraphicalView mGraphDisplay;
+    private final Context mContext;
     Symbols mSymbols = new Symbols();
     private final History mHistory;
     String mResult = "";
@@ -65,8 +66,6 @@ public class Logic {
     private GraphModule mGraphModule;
     private BaseModule mBaseModule;
     private MatrixModule mMatrixModule;
-
-    private final boolean mUseRadians;
 
     final String mErrorString;
     private final String mSinString;
@@ -104,6 +103,7 @@ public class Logic {
 
     Logic(Context context, History history, CalculatorDisplay display) {
         final Resources r = context.getResources();
+        mContext = context.getApplicationContext();
         mErrorString = r.getString(R.string.error);
         mSinString = r.getString(R.string.sin);
         mCosString = r.getString(R.string.cos);
@@ -125,7 +125,6 @@ public class Logic {
         mMatrixSeparator = r.getString(R.string.matrix_separator);
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
-        mUseRadians = CalculatorSettings.useRadians(context);
 
         mEquationFormatter = new EquationFormatter();
         mHistory = history;
@@ -370,7 +369,7 @@ public class Logic {
         input = input.replace(mSinString, "sin");
         input = input.replace(mCosString, "cos");
         input = input.replace(mTanString, "tan");
-        if(!mUseRadians) {
+        if(!CalculatorSettings.useRadians(mContext)) {
             input = input.replace("sin", "sind");
             input = input.replace("cos", "cosd");
             input = input.replace("tan", "tand");

@@ -27,6 +27,10 @@ public class CalculatorSettings {
         return PreferenceManager.getDefaultSharedPreferences(context).getInt(page.getKey() + "_order", Integer.MAX_VALUE);
     }
 
+    static void setRadiansEnabled(Context context, boolean enabled) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("USE_RADIANS", enabled).commit();
+    }
+
     static boolean useRadians(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("USE_RADIANS", context.getResources().getBoolean(R.bool.USE_RADIANS));
     }
