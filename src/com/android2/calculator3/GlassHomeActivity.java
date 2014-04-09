@@ -93,6 +93,7 @@ public class GlassHomeActivity extends Activity {
                 List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 String spokenText = results.get(0).toLowerCase(Locale.US).replace("point", ".").replace("minus", "-").replace("plus", "+").replace("divided by", "/").replace("times", "*").replace("x", "*").replace(" ", "");
                 spokenText = SpellContext.replaceAllWithNumbers(spokenText);
+                spokenText = spokenText.replaceAll("[a-z]", "");
 
                 Log.v("Calculator", "Glass user queried \"" + spokenText + "\"");
 
