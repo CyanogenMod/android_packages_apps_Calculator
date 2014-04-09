@@ -9,30 +9,34 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/line" >
-        <TextView
-            android:id="@+id/display"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:longClickable="false"
-            android:gravity="left|center_vertical"
-            android:visibility="gone"
-            style="@style/Theme.Calculator.Display.Widget" />
-        <TextView
-            android:id="@+id/display_long_clickable"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:visibility="gone"
-            style="@style/Theme.Calculator.Display.Widget" />
+            android:layout_weight="3" >
+            <TextView
+                android:id="@+id/display"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:longClickable="false"
+                android:gravity="right|center_vertical"
+                android:visibility="gone"
+                style="@style/Theme.Calculator.Display.Widget" />
+            <TextView
+                android:id="@+id/display_long_clickable"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:visibility="gone"
+                style="@style/Theme.Calculator.Display.Widget" />
+        </LinearLayout>
         <ImageButton
             android:id="@+id/delete"
             android:src="@drawable/widget_delete"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:background="@drawable/menu_bg" />
+            android:layout_weight="1"
+            android:background="@drawable/menu_bg"
+            android:contentDescription="@string/del" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
