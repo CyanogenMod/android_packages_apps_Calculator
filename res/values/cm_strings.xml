@@ -169,4 +169,6 @@
     <!-- Glass strings -->
     <string name="glass_start">Calculate</string>
     <string name="voice_detection_failed">Calculation failed. Try again?</string>
+    <string name="voice_detection_repeat">Calculate again?</string>
+    <string name="speech_helper_negative" formatted="false">Negative %s</string>
 </resources>

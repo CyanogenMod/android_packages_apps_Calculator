@@ -73,8 +73,20 @@ public class PreferencesFragment extends PreferenceFragment {
             theme.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String appName = newValue.toString();
+
                     // Update theme
-                    Theme.setPackageName(newValue.toString());
+                    Theme.setPackageName(appName);
+
+                    // Swap app icons - Removed because of poor support
+                    // Intent appIconIntent = new Intent();
+                    // appIconIntent.setAction(getActivity().getPackageName() + ".APP_ICON");
+                    // appIconIntent.putExtra("app_name", appName);
+                    // getActivity().sendBroadcast(appIconIntent);
+                    // boolean hasAppIcon = Theme.getString(getActivity(), "calc") != null;
+                    // String packageName = getActivity().getPackageName();
+                    // int state = !hasAppIcon || packageName.equals(appName) ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+                    // getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(packageName, packageName + ".Calculator"), state, PackageManager.DONT_KILL_APP);
 
                     // Create a new intent to relaunch the settings
                     Intent intent = new Intent(getActivity(), Preferences.class);

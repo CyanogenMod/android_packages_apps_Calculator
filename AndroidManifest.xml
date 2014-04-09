@@ -33,7 +33,7 @@
             android:name=".GlassHomeActivity"
             android:label="@string/app_name"
             android:theme="@style/GlassTheme"
-            android:icon="@drawable/ic_launcher" >
+            android:icon="@drawable/ic_launcher_glass" >
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
@@ -45,7 +45,7 @@
             android:name=".GlassResultActivity"
             android:label="@string/app_name"
             android:theme="@style/GlassTheme"
-            android:icon="@drawable/ic_launcher" />
+            android:icon="@drawable/ic_launcher_glass" />
         <activity android:name=".Preferences" android:theme="@style/Theme.Settings.Calculator" android:label="@string/settings" />
         <activity android:name=".StoreActivity" android:theme="@style/Theme.Calculator" android:label="@string/store" />
         <receiver android:name=".CalculatorWidget" >

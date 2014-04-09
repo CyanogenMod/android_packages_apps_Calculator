@@ -49,6 +49,7 @@
         <item name="android:paddingRight">35dp</item>
         <item name="android:text">@string/cling_dismiss</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/cling_button_bg</item>
     </style>
 
@@ -117,7 +118,7 @@
     </style>
 
     <style name="Theme.Calculator.ButtonStyle.Widget" >
-       <item name="android:background">@drawable/circle_bg</item>
+       <item name="android:background">@drawable/menu_bg</item>
     </style>
     
     <style name="Theme.Calculator.ButtonStyle.Small" >

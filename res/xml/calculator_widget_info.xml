@@ -6,4 +6,4 @@
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen|keyguard"
     android:resizeMode="vertical"
-    android:previewImage="@drawable/egg" />
+    android:previewImage="@drawable/widget_preview" />

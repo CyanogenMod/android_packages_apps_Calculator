@@ -197,6 +197,7 @@ public class CalculatorWidget extends AppWidgetProvider {
             final Logic logic = new Logic(context, null, null);
             BaseModule bm = logic.getBaseModule();
             value = bm.groupSentence(value, value.length());
+            value = value.replace(String.valueOf(BaseModule.SELECTION_HANDLE), "");
         }
 
         int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable : R.id.display;

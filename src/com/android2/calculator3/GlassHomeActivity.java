@@ -2,6 +2,7 @@ package com.android2.calculator3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.javia.arity.SyntaxException;
 
@@ -9,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -89,10 +91,13 @@ public class GlassHomeActivity extends Activity {
         if(requestCode == SPEECH_REQUEST) {
             if(resultCode == RESULT_OK) {
                 List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                String spokenText = results.get(0);
+                String spokenText = results.get(0).toLowerCase(Locale.US).replace("point", ".").replace("minus", "-").replace("plus", "+").replace("divided by", "/").replace("times", "*").replace("x", "*").replace(" ", "");
+                spokenText = SpellContext.replaceAllWithNumbers(spokenText);
+
+                Log.v("Calculator", "Glass user queried \"" + spokenText + "\"");
 
                 Logic logic = new Logic(getBaseContext());
-                logic.setLineLength(7);
+                logic.setLineLength(100);
 
                 String result;
                 try {

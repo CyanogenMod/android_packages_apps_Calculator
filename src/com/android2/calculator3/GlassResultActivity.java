@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
@@ -35,6 +38,13 @@ public class GlassResultActivity extends Activity {
         ExampleCardScrollAdapter adapter = new ExampleCardScrollAdapter();
         mCardScrollView.setAdapter(adapter);
         mCardScrollView.activate();
+        mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> av, View v, int position, long id) {
+                startActivity(new Intent(getBaseContext(), GlassHomeActivity.class));
+                finish();
+            }
+        });
         setContentView(mCardScrollView);
     }
 
@@ -62,6 +72,10 @@ public class GlassResultActivity extends Activity {
 
     private void speakResult() {
         if(mTextToSpeech != null && mIsTextToSpeechInit) {
+            if(mResult.startsWith(String.valueOf(Logic.MINUS))) {
+                // Speech can't say "-1". It says "1" instead.
+                mResult = getString(R.string.speech_helper_negative, mResult.substring(1));
+            }
             mTextToSpeech.speak(mResult, TextToSpeech.QUEUE_ADD, null);
         }
     }
@@ -73,6 +87,7 @@ public class GlassResultActivity extends Activity {
 
         card = new Card(this);
         card.setText(mResult);
+        card.setFootnote(R.string.voice_detection_repeat);
         mCards.add(card);
     }
 

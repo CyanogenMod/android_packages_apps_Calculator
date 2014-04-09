@@ -54,17 +54,14 @@ public class Preferences extends Activity {
             if(getFragmentManager().findFragmentById(android.R.id.content) != mFragment) {
                 try {
                     getFragmentManager().popBackStack();
+                    return true;
                 }
                 catch(Exception e) {
                     e.printStackTrace();
-                    startActivity(new Intent(this, Calculator.class));
-                    finish();
                 }
             }
-            else {
-                startActivity(new Intent(this, Calculator.class));
-                finish();
-            }
+            startActivity(new Intent(this, Calculator.class));
+            finish();
             return true;
         }
         return super.onKeyDown(keyCode, keyEvent);
