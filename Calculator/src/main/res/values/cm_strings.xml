@@ -135,6 +135,7 @@
     <string name="degrees">DEG</string>
     <string name="theme">Theme</string>
     <string name="showDetails">Show Details</string>
+    <string name="floatingCalc">Floating Calculator</string>
 
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>

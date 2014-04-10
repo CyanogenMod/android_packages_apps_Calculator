@@ -238,9 +238,15 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         mHistorySlider.bringToFront();
         updateDetails();
 
-        // Start Floating Calc service if not up yet
         Intent startServiceIntent = new Intent(getContext(), FloatingCalculator.class);
-        startService(startServiceIntent);
+        if(CalculatorSettings.floatingCalculator(getContext())){
+            // Start Floating Calc service if not up yet
+            startService(startServiceIntent);
+        }
+        else {
+            // Stop Floating Calc service if up
+            stopService(startServiceIntent);
+        }
     }
 
     private void updateDeleteMode() {

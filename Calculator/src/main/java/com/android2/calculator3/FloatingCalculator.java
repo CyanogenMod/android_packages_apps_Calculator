@@ -51,7 +51,7 @@ public class FloatingCalculator extends Service {
         mParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_PHONE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
 
         mParams.gravity = Gravity.TOP | Gravity.LEFT;
-        mParams.x = 0;
+        mParams.x = 50;
         mParams.y = 100;
 
         mWindowManager.addView(v, mParams);
@@ -248,37 +248,19 @@ public class FloatingCalculator extends Service {
             mAnimationHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mDestY != -1) {
-                        // Update coordinates of the view
-                        float percent = mInterpolator.getInterpolation(((float)mCurrentStep)/mSteps);
-                        mParams.x = mOrigX - (int) (percent * mDistX);
-                        mParams.y = mOrigY - (int) (percent * mDistY);
-                        // TODO math is probably bad here
-                        mWindowManager.updateViewLayout(mDraggableIcon, mParams);
+                    // Update coordinates of the view
+                    float percent = mInterpolator.getInterpolation(((float)mCurrentStep)/mSteps);
+                    mParams.x = mOrigX - (int) (percent * mDistX);
+                    mParams.y = mOrigY - (int) (percent * mDistY);
+                    // TODO math is probably bad here
+                    mWindowManager.updateViewLayout(mDraggableIcon, mParams);
 
-                        // Cancel animation when the destination is reached
-                        if(mCurrentStep > mSteps) {
-                            AnimationTimerTask.this.cancel();
-                            mAnimationTimer.cancel();
-                        }
-                        mCurrentStep++;
+                    // Cancel animation when the destination is reached
+                    if(mCurrentStep > mSteps) {
+                        AnimationTimerTask.this.cancel();
+                        mAnimationTimer.cancel();
                     }
-                    else {
-                        // Update coordinates of the view
-                        float percent = mInterpolator.getInterpolation(((float)mCurrentStep)/mSteps);
-                        mParams.x = mOrigX - (int) (percent * mDistX);
-                        mParams.y += percent * mVelocityY;
-                        mParams.y = Math.max(mParams.y, 0);
-                        mParams.y = Math.min(mParams.y, getResources().getDisplayMetrics().heightPixels);
-                        mWindowManager.updateViewLayout(mDraggableIcon, mParams);
-
-                        // Cancel animation when the destination is reached
-                        if(mCurrentStep > mSteps) {
-                            AnimationTimerTask.this.cancel();
-                            mAnimationTimer.cancel();
-                        }
-                        mCurrentStep++;
-                    }
+                    mCurrentStep++;
                 }
             });
         }

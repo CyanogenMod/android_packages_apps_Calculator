@@ -11,6 +11,8 @@ import android.preference.PreferenceFragment;
 import android.view.View;
 import android.widget.ListView;
 
+import com.android2.calculator3.CalculatorSettings;
+import com.android2.calculator3.FloatingCalculator;
 import com.android2.calculator3.Preferences;
 import com.android2.calculator3.R;
 import com.xlythe.engine.theme.Theme;
@@ -148,6 +150,25 @@ public class PreferencesFragment extends PreferenceFragment {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.layout.preferences_actions);
+
+            Preference floatingCalc = findPreference("FLOATING_CALCULATOR");
+            if(floatingCalc != null) {
+                floatingCalc.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        Intent startServiceIntent = new Intent(getActivity(), FloatingCalculator.class);
+                        if((Boolean) newValue){
+                            // Start Floating Calc service if not up yet
+                            getActivity().startService(startServiceIntent);
+                        }
+                        else {
+                            // Stop Floating Calc service if up
+                            getActivity().stopService(startServiceIntent);
+                        }
+                        return true;
+                    }
+                });
+            }
         }
     }
 

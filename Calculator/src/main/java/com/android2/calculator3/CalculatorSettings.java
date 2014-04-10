@@ -55,6 +55,10 @@ public class CalculatorSettings {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("SHOW_DETAILS", context.getResources().getBoolean(R.bool.SHOW_DETAILS));
     }
 
+    public static boolean floatingCalculator(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("FLOATING_CALCULATOR", context.getResources().getBoolean(R.bool.FLOATING_CALCULATOR));
+    }
+
     static boolean isDismissed(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
     }
@@ -66,5 +70,4 @@ public class CalculatorSettings {
     static void saveKey(Context context, String key, boolean value) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).commit();
     }
-
 }
