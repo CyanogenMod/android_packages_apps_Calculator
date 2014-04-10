@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     theme:themeBackground="@drawable/background"
     android:orientation="vertical" >
-    <com.viewpagerindicator.TabPageIndicator
+    <com.viewpager.indicator.TabPageIndicator
         android:id="@+id/titles"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />

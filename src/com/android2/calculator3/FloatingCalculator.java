@@ -176,10 +176,10 @@ public class FloatingCalculator extends Service {
 
     // Timer for animation/automatic movement of the tray.
     private class AnimationTimerTask extends TimerTask {
-        // Ultimate destination coordinates toward which the tray will move
+        // Ultimate destination coordinates toward which the view will move
         int mDestX;
         int mDestY;
-        boolean mOvershoot;
+        float mVelocityY;
 
         public AnimationTimerTask(int x, int y) {
             super();
@@ -192,12 +192,13 @@ public class FloatingCalculator extends Service {
             super();
 
             float velocityX = calculateVelocityX();
-            float velocityY = calculateVelocityY();
+            mVelocityY = calculateVelocityY();
             int screenWidth = getResources().getDisplayMetrics().widthPixels;
             mDestX = (mParams.x + mDraggableIcon.getWidth() / 2 > screenWidth / 2) ? screenWidth : 0;
             if(Math.abs(velocityX) > 50) mDestX = (velocityX > 0) ? screenWidth : 0;
-            mDestY = (int) (mParams.y + velocityY * 0.6);
+            mDestY = (int) (mParams.y + mVelocityY * 0.6);
             mDestY = Math.max(mDestY, 0);
+            mDestY = -1;
         }
 
         // This function is called after every frame.
@@ -209,16 +210,31 @@ public class FloatingCalculator extends Service {
             mAnimationHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    if(mDestY != -1) {
+                        // Update coordinates of the view
+                        mParams.x = (2 * (mParams.x - mDestX)) / 3 + mDestX;
+                        mParams.y = (2 * (mParams.y - mDestY)) / 3 + mDestY;
+                        mWindowManager.updateViewLayout(mDraggableIcon, mParams);
 
-                    // Update coordinates of the tray
-                    mParams.x = (2 * (mParams.x - mDestX)) / 3 + mDestX;
-                    mParams.y = (2 * (mParams.y - mDestY)) / 3 + mDestY;
-                    mWindowManager.updateViewLayout(mDraggableIcon, mParams);
+                        // Cancel animation when the destination is reached
+                        if(Math.abs(mParams.x - mDestX) < 2 && Math.abs(mParams.y - mDestY) < 2) {
+                            AnimationTimerTask.this.cancel();
+                            mAnimationTimer.cancel();
+                        }
+                    }
+                    else {
+                        // Update coordinates of the view
+                        mParams.x = (2 * (mParams.x - mDestX)) / 3 + mDestX;
+                        mParams.y += mVelocityY;
+                        mVelocityY *= 2 / 3;
+                        mWindowManager.updateViewLayout(mDraggableIcon, mParams);
 
-                    // Cancel animation when the destination is reached
-                    if(Math.abs(mParams.x - mDestX) < 2 && Math.abs(mParams.y - mDestY) < 2) {
-                        AnimationTimerTask.this.cancel();
-                        mAnimationTimer.cancel();
+                        System.out.println("Params x: " + mParams.x);
+                        // Cancel animation when the destination is reached
+                        if(Math.abs(mParams.x - mDestX) < 8) {
+                            AnimationTimerTask.this.cancel();
+                            mAnimationTimer.cancel();
+                        }
                     }
                 }
             });

@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.viewpagerindicator.TabPageIndicator;
+import com.viewpager.indicator.TabPageIndicator;
 import com.xlythe.engine.theme.Theme;
 import com.xlythe.engine.theme.Theme.Res;
 
