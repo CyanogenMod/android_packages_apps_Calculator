@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ejml-0.21">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Calculator/libs/ejml-0.21.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

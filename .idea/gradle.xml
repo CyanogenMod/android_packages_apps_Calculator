@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="C:\Users\Will\AndroidStudioProjects\Calculator" />
+            <option value="C:\Users\Will\AndroidStudioProjects\Calculator\Calculator" />
+            <option value="C:\Users\Will\AndroidStudioProjects\Calculator\ThemeEngine" />
+            <option value="C:\Users\Will\AndroidStudioProjects\Calculator\ViewPagerIndicator" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
+
