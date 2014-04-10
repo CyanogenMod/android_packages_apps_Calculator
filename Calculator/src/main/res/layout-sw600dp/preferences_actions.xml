@@ -16,4 +16,8 @@
         android:title="@string/showDetails"
         android:key="SHOW_DETAILS"
         android:defaultValue="@bool/SHOW_DETAILS" />
+    <CheckBoxPreference
+        android:title="@string/floatingCalc"
+        android:key="FLOATING_CALCULATOR"
+        android:defaultValue="@bool/FLOATING_CALCULATOR" />
 </PreferenceScreen>

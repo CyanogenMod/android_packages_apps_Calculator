@@ -118,7 +118,11 @@
     </style>
 
     <style name="Theme.Calculator.ButtonStyle.Widget" >
-       <item name="android:background">@drawable/menu_bg</item>
+        <item name="android:background">@drawable/menu_bg</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.FloatingCalc" >
+        <item name="android:background">@drawable/circle_bg</item>
     </style>
     
     <style name="Theme.Calculator.ButtonStyle.Small" >

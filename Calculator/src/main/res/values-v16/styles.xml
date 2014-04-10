@@ -16,8 +16,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:theme="http://schemas.android.com/apk/res-auto">
     <style name="Theme.Calculator.ButtonStyle.Widget" >
-       <item name="android:background">@drawable/menu_bg</item>
-       <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:background">@drawable/menu_bg</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+    <style name="Theme.Calculator.ButtonStyle.FloatingCalc" >
+        <item name="android:background">@drawable/circle_bg</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
     <style name="Theme.Calculator.Display.Widget">
         <item name="android:fontFamily">sans-serif-light</item>
