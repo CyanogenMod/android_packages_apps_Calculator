@@ -6,6 +6,7 @@
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
 
@@ -54,5 +55,6 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/calculator_widget_info" />
         </receiver>
+        <service android:name=".FloatingCalculator" />
     </application>
 </manifest> 

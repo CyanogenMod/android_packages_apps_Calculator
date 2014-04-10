@@ -32,10 +32,10 @@ import android.graphics.Paint.Align;
 import com.xlythe.engine.theme.Theme;
 
 public class Graph {
-    private static final double MAX_HEIGHT_X = 10;
-    private static final double MAX_HEIGHT_Y = 10;
-    private static final double MIN_HEIGHT_X = -10;
-    private static final double MIN_HEIGHT_Y = -10;
+    public static final double MAX_HEIGHT_X = 10;
+    public static final double MAX_HEIGHT_Y = 10;
+    public static final double MIN_HEIGHT_X = -10;
+    public static final double MIN_HEIGHT_Y = -10;
 
     private GraphicalView mChartView;
     private XYMultipleSeriesDataset mDataset;
@@ -144,5 +144,10 @@ public class Graph {
         r.setPointStyle(PointStyle.POINT);
         r.setLineWidth(4f);
         renderer.addSeriesRenderer(r);
+    }
+
+    public boolean isTrigFunction() {
+        // TODO implement zoom to -pi : pi and -180 : 180 if trig
+        return false;
     }
 }
