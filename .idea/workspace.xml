@@ -79,57 +79,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FloatingCalculator.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FloatingCalculator.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/FloatingCalculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="4182">
-              <caret line="143" column="24" selection-start-line="143" selection-start-column="24" selection-end-line="143" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Calculator/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="1292">
-              <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
-              <folding>
-                <element signature="e#3111#3129#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Calculator/src/main/res/values/styles.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3332" max-vertical-offset="3740">
-              <caret line="204" column="38" selection-start-line="204" selection-start-column="17" selection-end-line="204" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FloatingCalculatorActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/FloatingCalculatorActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.87030715" vertical-offset="170" max-vertical-offset="799">
-              <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#477#671#0" expanded="true" />
-                <element signature="e#660#661#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Calculator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/Calculator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.60714287" vertical-offset="782" max-vertical-offset="11135">
-              <caret line="115" column="22" selection-start-line="115" selection-start-column="8" selection-end-line="115" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.17406143" vertical-offset="3774" max-vertical-offset="4658">
+              <caret line="250" column="38" selection-start-line="250" selection-start-column="38" selection-end-line="250" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -1771,8 +1725,8 @@
         <option value="$PROJECT_DIR$/ThemeEngine/build.gradle" />
         <option value="$PROJECT_DIR$/Calculator/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/Calculator/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/FloatingCalculator.java" />
         <option value="$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/FloatingCalculatorActivity.java" />
+        <option value="$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/FloatingCalculator.java" />
       </list>
     </option>
   </component>
@@ -2236,32 +2190,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Calculator/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3332" max-vertical-offset="3740">
-          <caret line="204" column="38" selection-start-line="204" selection-start-column="17" selection-end-line="204" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Calculator/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="1292">
-          <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
-          <folding>
-            <element signature="e#3111#3129#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/FloatingCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="4182">
-          <caret line="143" column="24" selection-start-line="143" selection-start-column="24" selection-end-line="143" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/Calculator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.60714287" vertical-offset="782" max-vertical-offset="11135">
@@ -2272,13 +2200,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/FloatingCalculatorActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.87030715" vertical-offset="170" max-vertical-offset="799">
-          <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.2320819" vertical-offset="170" max-vertical-offset="799">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#477#671#0" expanded="true" />
             <element signature="e#660#661#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Calculator/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44444445" vertical-offset="3332" max-vertical-offset="3740">
+          <caret line="204" column="38" selection-start-line="204" selection-start-column="17" selection-end-line="204" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Calculator/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.59385663" vertical-offset="829" max-vertical-offset="1292">
+          <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
+          <folding>
+            <element signature="e#3111#3129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Calculator/src/main/java/com/android2/calculator3/FloatingCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17406143" vertical-offset="3774" max-vertical-offset="4658">
+          <caret line="250" column="38" selection-start-line="250" selection-start-column="38" selection-end-line="250" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -16,12 +16,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
+import android.view.animation.Interpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 public class FloatingCalculator extends Service {
     public static FloatingCalculator ACTIVE_CALCULATOR;
-    private static final int ANIMATION_FRAME_RATE = 30; // Animation frame rate per second.
+    private static final int ANIMATION_FRAME_RATE = 60; // Animation frame rate per second.
 
     // View variables
     private WindowManager mWindowManager;
@@ -193,12 +195,29 @@ public class FloatingCalculator extends Service {
         int mDestX;
         int mDestY;
         float mVelocityY;
+        long mDuration = 300;
+        Interpolator mInterpolator;
+        long mSteps;
+        long mCurrentStep;
+        int mDistX;
+        int mOrigX;
+        int mDistY;
+        int mOrigY;
 
         public AnimationTimerTask(int x, int y) {
             super();
 
             mDestX = x;
             mDestY = y;
+
+
+            mInterpolator = new OvershootInterpolator();
+            mSteps = (int) (((float)mDuration) / 1000 * ANIMATION_FRAME_RATE);
+            mCurrentStep = 1;
+            mDistX = mParams.x - mDestX;
+            mOrigX = mParams.x;
+            mDistY = mParams.y - mDestY;
+            mOrigY = mParams.y;
         }
 
         public AnimationTimerTask() {
@@ -207,17 +226,23 @@ public class FloatingCalculator extends Service {
             float velocityX = calculateVelocityX();
             mVelocityY = calculateVelocityY();
             int screenWidth = getResources().getDisplayMetrics().widthPixels;
-            mDestX = (mParams.x + mDraggableIcon.getWidth() / 2 > screenWidth / 2) ? screenWidth : 0;
-            if(Math.abs(velocityX) > 50) mDestX = (velocityX > 0) ? screenWidth : 0;
-            mDestY = (int) (mParams.y + mVelocityY * 0.6);
-            mDestY = Math.max(mDestY, 0);
-            mDestY = -1;
+            int offset = 50;
+            mDestX = (mParams.x + mDraggableIcon.getWidth() / 2 > screenWidth / 2) ? screenWidth-mDraggableIcon.getWidth()-offset : 0+offset;
+            if(Math.abs(velocityX) > 50) mDestX = (velocityX > 0) ? screenWidth-mDraggableIcon.getWidth()-offset : 0+offset;
+            mDestY = mParams.y + (int) (mVelocityY * 3);
+
+            mInterpolator = new OvershootInterpolator();
+            mSteps = (int) (((float)mDuration) / 1000 * ANIMATION_FRAME_RATE);
+            mCurrentStep = 1;
+            mOrigX = mParams.x;
+            mDistX = mOrigX - mDestX;
+            mOrigY = mParams.y;
+            mDistY = mOrigY - mDestY;
         }
 
         // This function is called after every frame.
         @Override
         public void run() {
-
             // handler is used to run the function on main UI thread in order to
             // access the layouts and UI elements.
             mAnimationHandler.post(new Runnable() {
@@ -225,29 +250,34 @@ public class FloatingCalculator extends Service {
                 public void run() {
                     if(mDestY != -1) {
                         // Update coordinates of the view
-                        mParams.x = (2 * (mParams.x - mDestX)) / 3 + mDestX;
-                        mParams.y = (2 * (mParams.y - mDestY)) / 3 + mDestY;
+                        float percent = mInterpolator.getInterpolation(((float)mCurrentStep)/mSteps);
+                        mParams.x = mOrigX - (int) (percent * mDistX);
+                        mParams.y = mOrigY - (int) (percent * mDistY);
+                        // TODO math is probably bad here
                         mWindowManager.updateViewLayout(mDraggableIcon, mParams);
 
                         // Cancel animation when the destination is reached
-                        if(Math.abs(mParams.x - mDestX) < 2 && Math.abs(mParams.y - mDestY) < 2) {
+                        if(mCurrentStep > mSteps) {
                             AnimationTimerTask.this.cancel();
                             mAnimationTimer.cancel();
                         }
+                        mCurrentStep++;
                     }
                     else {
                         // Update coordinates of the view
-                        mParams.x = (2 * (mParams.x - mDestX)) / 3 + mDestX;
-                        mParams.y += mVelocityY;
-                        mVelocityY *= 2 / 3;
+                        float percent = mInterpolator.getInterpolation(((float)mCurrentStep)/mSteps);
+                        mParams.x = mOrigX - (int) (percent * mDistX);
+                        mParams.y += percent * mVelocityY;
+                        mParams.y = Math.max(mParams.y, 0);
+                        mParams.y = Math.min(mParams.y, getResources().getDisplayMetrics().heightPixels);
                         mWindowManager.updateViewLayout(mDraggableIcon, mParams);
 
-                        System.out.println("Params x: " + mParams.x);
                         // Cancel animation when the destination is reached
-                        if(Math.abs(mParams.x - mDestX) < 8) {
+                        if(mCurrentStep > mSteps) {
                             AnimationTimerTask.this.cancel();
                             mAnimationTimer.cancel();
                         }
+                        mCurrentStep++;
                     }
                 }
             });
