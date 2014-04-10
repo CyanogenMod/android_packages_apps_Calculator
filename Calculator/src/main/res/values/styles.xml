@@ -201,4 +201,14 @@
        <item name="themeBackground">@drawable/menu_bg</item>
        <item name="android:textSize">@dimen/btn_clear_text_size</item>
     </style>
+
+    <style name="TransparentBackground" >
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
 </resources>

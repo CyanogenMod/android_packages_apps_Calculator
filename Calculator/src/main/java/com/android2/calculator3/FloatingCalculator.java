@@ -17,8 +17,10 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class FloatingCalculator extends Service {
+    public static FloatingCalculator ACTIVE_CALCULATOR;
     private static final int ANIMATION_FRAME_RATE = 30; // Animation frame rate per second.
 
     // View variables
@@ -57,6 +59,8 @@ public class FloatingCalculator extends Service {
     public void onCreate() {
         super.onCreate();
 
+        ACTIVE_CALCULATOR = this;
+
         OnTouchListener dragListener = new OnTouchListener() {
             float mPrevDragX;
             float mPrevDragY;
@@ -94,9 +98,9 @@ public class FloatingCalculator extends Service {
                     else {
                         // Animate the icon
                         mTimerTask = new AnimationTimerTask();
+                        mAnimationTimer = new Timer();
+                        mAnimationTimer.schedule(mTimerTask, 0, ANIMATION_FRAME_RATE);
                     }
-                    mAnimationTimer = new Timer();
-                    mAnimationTimer.schedule(mTimerTask, 0, ANIMATION_FRAME_RATE);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     // Calculate position of the whole tray according to the drag, and update layout.
@@ -134,18 +138,27 @@ public class FloatingCalculator extends Service {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mDraggableIcon);
             mDraggableIcon = null;
         }
+        ACTIVE_CALCULATOR = null;
     }
 
-    private void openCalculator() {
+    public void openCalculator() {
         mPrevX = mParams.x;
         mPrevY = mParams.y;
         mTimerTask = new AnimationTimerTask((int) (getResources().getDisplayMetrics().widthPixels - mDraggableIcon.getWidth() * 1.5), 100);
+        mAnimationTimer = new Timer();
+        mAnimationTimer.schedule(mTimerTask, 0, ANIMATION_FRAME_RATE);
+        Intent intent = new Intent(getContext(), FloatingCalculatorActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
-    private void closeCalculator() {
+    public void closeCalculator() {
         mTimerTask = new AnimationTimerTask(mPrevX, mPrevY);
+        mAnimationTimer = new Timer();
+        mAnimationTimer.schedule(mTimerTask, 0, ANIMATION_FRAME_RATE);
         mPrevX = -1;
         mPrevY = -1;
+        if(FloatingCalculatorActivity.ACTIVE_ACTIVITY != null) FloatingCalculatorActivity.ACTIVE_ACTIVITY.finish();
     }
 
     private float calculateVelocityX() {
@@ -240,13 +253,14 @@ public class FloatingCalculator extends Service {
             });
         }
     }
-}
 
-class FloatingView extends ImageView {
-    public FloatingView(Context context) {
-        super(context);
+    private static class FloatingView extends ImageView {
+        public FloatingView(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {}
     }
 
-    @Override
-    protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {}
 }
