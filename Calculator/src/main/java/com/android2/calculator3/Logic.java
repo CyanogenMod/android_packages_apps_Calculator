@@ -150,7 +150,7 @@ public class Logic {
     public void setDeleteMode(int mode) {
         if(mDeleteMode != mode) {
             mDeleteMode = mode;
-            mListener.onDeleteModeChange();
+            if(mListener != null) mListener.onDeleteModeChange();
         }
     }
 
@@ -346,8 +346,7 @@ public class Logic {
 
         String result = "";
         if(value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
-        else if(value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit
-                                                                                // -
+        else if(value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit -
         else if(value.re != 0 && value.im == 0) result = real;
         else if(value.re == 0 && value.im != 0) result = imaginary + "i";
         else if(value.re == 0 && value.im == 0) result = "0";

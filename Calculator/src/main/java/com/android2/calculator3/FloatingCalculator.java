@@ -312,15 +312,22 @@ public class FloatingCalculator extends Service {
                         String text = mNumber;
                         if(((Button) v).getText().toString().equals("=")){
                             // Solve
-                            try {
-                                text = logic.evaluate(text);
+                            if(logic.getDeleteMode() == Logic.DELETE_MODE_CLEAR) {
+                                text = "";
                             }
-                            catch(SyntaxException e) {
-                                text = getResources().getString(R.string.error);
+                            else {
+                                try {
+                                    text = logic.evaluate(text);
+                                    mNumber = text;
+                                } catch (SyntaxException e) {
+                                    text = getResources().getString(R.string.error);
+                                    mNumber = "";
+                                }
+                                logic.setDeleteMode(Logic.DELETE_MODE_CLEAR);
                             }
-                            mNumber = "";
                         }
                         else {
+                            if(logic.getDeleteMode() == Logic.DELETE_MODE_CLEAR && !logic.isOperator(((Button) v).getText().toString())) text = "";
                             text += ((Button) v).getText();
                             mNumber = text;
                             if (CalculatorSettings.digitGrouping(getContext())) {
@@ -328,11 +335,13 @@ public class FloatingCalculator extends Service {
                                 text = bm.groupSentence(text, text.length());
                                 text = text.replace(String.valueOf(BaseModule.SELECTION_HANDLE), "");
                             }
+                            logic.setDeleteMode(Logic.DELETE_MODE_BACKSPACE);
                         }
                         display.setText(text);
                     }
                     else if(v instanceof ImageButton) {
                         String text = mNumber;
+                        if(logic.getDeleteMode() == Logic.DELETE_MODE_CLEAR) text = "";
                         if(text.length() > 0) text = text.substring(0, text.length()-1);
                         mNumber = text;
                         if (CalculatorSettings.digitGrouping(getContext())) {
