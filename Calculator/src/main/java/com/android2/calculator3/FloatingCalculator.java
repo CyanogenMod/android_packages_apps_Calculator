@@ -53,6 +53,8 @@ public class FloatingCalculator extends Service {
     private FloatingCalc mCalcView;
     private FloatingCalc mDeleteBoxView;
     private boolean mDeleteBoxVisible = false;
+    private boolean mIsPressed = false;
+    private boolean mIsDestroyed = false;
 
     // Animation variables
     private List<Float> mDeltaXArray;
@@ -96,7 +98,8 @@ public class FloatingCalculator extends Service {
         mParams.y = y;
         if(isDeleteMode()) showDeleteBox();
         else hideDeleteBox();
-        mWindowManager.updateViewLayout(mDraggableIcon, mParams);
+        if(mDeleteBoxVisible && !mIsPressed) stopSelf();
+        else if(!mIsDestroyed) mWindowManager.updateViewLayout(mDraggableIcon, mParams);
     }
 
     private boolean isDeleteMode() {
@@ -104,8 +107,8 @@ public class FloatingCalculator extends Service {
         int screenHeight = getScreenHeight();
         int boxWidth = (int) getResources().getDimension(R.dimen.floating_window_delete_box_width);
         int boxHeight = (int) getResources().getDimension(R.dimen.floating_window_delete_box_height);
-        boolean horz = mParams.x > (screenWidth/2-boxWidth/2) && mParams.x < (screenWidth/2+boxWidth/2);
-        boolean vert = mParams.y > (screenHeight-boxHeight);
+        boolean horz = mParams.x+(mDraggableIcon == null ? 0 : mDraggableIcon.getWidth()) > (screenWidth/2-boxWidth/2) && mParams.x < (screenWidth/2+boxWidth/2);
+        boolean vert = mParams.y+(mDraggableIcon == null ? 0 : mDraggableIcon.getHeight()) > (screenHeight-boxHeight);
 
         return horz && vert;
     }
@@ -186,6 +189,7 @@ public class FloatingCalculator extends Service {
                     mPrevDragY = event.getRawY();
 
                     mDragged = false;
+                    mIsPressed = true;
 
                     mDeltaXArray = new LinkedList<Float>();
                     mDeltaYArray = new LinkedList<Float>();
@@ -196,11 +200,8 @@ public class FloatingCalculator extends Service {
                     }
                     break;
                 case MotionEvent.ACTION_UP:
-                    if(mDeleteBoxVisible) {
-                        // Kill the service
-                        stopSelf();
-                    }
-                    else if(!mDragged) {
+                    mIsPressed = false;
+                    if(!mDragged) {
                         if(mPrevX == -1) {
                             openCalculator();
                         }
@@ -243,6 +244,7 @@ public class FloatingCalculator extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mIsDestroyed = true;
         if(mDraggableIcon != null) {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mDraggableIcon);
             mDraggableIcon = null;
@@ -254,6 +256,10 @@ public class FloatingCalculator extends Service {
         if(mCalcView != null) {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mCalcView);
             mCalcView = null;
+        }
+        if(mAnimationTask != null) {
+            mAnimationTask.cancel();
+            mAnimationTask = null;
         }
         ACTIVE_CALCULATOR = null;
     }
