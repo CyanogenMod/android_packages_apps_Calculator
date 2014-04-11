@@ -163,6 +163,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mHistorySlider.enableTouch(false);
         }
         mHistorySlider.setBarBackground(Theme.getDrawable(getContext(), R.drawable.btn_slider));
+        mHistorySlider.enableVibration(CalculatorSettings.vibrateOnPress(getContext()));
         Drawable sliderBackground = Theme.getDrawable(getContext(), "slider_background");
         if(sliderBackground == null) sliderBackground = Theme.getDrawable(getContext(), R.drawable.background);
         if(android.os.Build.VERSION.SDK_INT < 16) {
