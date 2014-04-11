@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -169,6 +170,16 @@ public class PreferencesFragment extends PreferenceFragment {
                     }
                 });
             }
+
+            Preference vibrateOnPress = findPreference("VIBRATE_ON_PRESS");
+            if(vibrateOnPress != null) {
+                Vibrator vi = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                if(!vi.hasVibrator()) removePreference(vibrateOnPress);
+            }
+        }
+
+        protected void removePreference(Preference preference) {
+            getPreferenceScreen().removePreference(preference);
         }
     }
 

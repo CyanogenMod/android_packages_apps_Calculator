@@ -5,6 +5,10 @@
         android:key="RETURN_TO_BASIC"
         android:defaultValue="@bool/RETURN_TO_BASIC" />
     <CheckBoxPreference
+        android:title="@string/vibrateOnPress"
+        android:key="VIBRATE_ON_PRESS"
+        android:defaultValue="@bool/VIBRATE_ON_PRESS" />
+    <CheckBoxPreference
         android:title="@string/infiniteScrolling"
         android:key="INFINITE_SCROLLING"
         android:defaultValue="@bool/INFINITE_SCROLLING" />

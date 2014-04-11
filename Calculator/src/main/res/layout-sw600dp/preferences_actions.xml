@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <CheckBoxPreference
+        android:title="@string/vibrateOnPress"
+        android:key="VIBRATE_ON_PRESS"
+        android:defaultValue="@bool/VIBRATE_ON_PRESS" />
+    <CheckBoxPreference
         android:title="@string/infiniteScrolling"
         android:key="INFINITE_SCROLLING"
         android:defaultValue="@bool/INFINITE_SCROLLING" />

@@ -10,6 +10,7 @@ import java.util.Map;
 import org.achartengine.GraphicalView;
 
 import android.content.Context;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.View.OnClickListener;
@@ -134,29 +135,15 @@ public class Page {
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
                     l.addView(graphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
+                    listener.setGraphDisplay(graphDisplay);
                     View zoomIn = view.findViewById(R.id.zoomIn);
-                    zoomIn.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            graphDisplay.zoomIn();
-                        }
-                    });
+                    zoomIn.setOnClickListener(listener);
 
                     View zoomOut = view.findViewById(R.id.zoomOut);
-                    zoomOut.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            graphDisplay.zoomOut();
-                        }
-                    });
+                    zoomOut.setOnClickListener(listener);
 
                     View zoomReset = view.findViewById(R.id.zoomReset);
-                    zoomReset.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            graphDisplay.zoomReset();
-                        }
-                    });
+                    zoomReset.setOnClickListener(listener);
                 }
                 else {
                     mGraphHolder.get(view).repaint();
@@ -333,29 +320,15 @@ public class Page {
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
                     l.addView(graphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
+                    listener.setGraphDisplay(graphDisplay);
                     View zoomIn = view.findViewById(R.id.zoomIn);
-                    zoomIn.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            graphDisplay.zoomIn();
-                        }
-                    });
+                    zoomIn.setOnClickListener(listener);
 
                     View zoomOut = view.findViewById(R.id.zoomOut);
-                    zoomOut.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            graphDisplay.zoomOut();
-                        }
-                    });
+                    zoomOut.setOnClickListener(listener);
 
                     View zoomReset = view.findViewById(R.id.zoomReset);
-                    zoomReset.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            graphDisplay.zoomReset();
-                        }
-                    });
+                    zoomReset.setOnClickListener(listener);
                 }
                 else {
                     mGraphHolder.get(view).repaint();

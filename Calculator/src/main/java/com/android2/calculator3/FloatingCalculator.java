@@ -16,6 +16,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -116,6 +117,7 @@ public class FloatingCalculator extends Service {
     private void showDeleteBox() {
         if(!mDeleteBoxVisible) {
             mDeleteBoxVisible = true;
+            vibrate();
             if (mDeleteBoxView == null) {
                 View child = View.inflate(getContext(), R.layout.floating_calculator_delete_box, null);
                 mDeleteBoxView = new FloatingCalc(getContext());
@@ -160,6 +162,12 @@ public class FloatingCalculator extends Service {
                 });
             }
         }
+    }
+
+    private void vibrate() {
+        Vibrator vi = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if(!vi.hasVibrator()) return;
+        vi.vibrate(100);
     }
 
     private void updateIconPositionByDelta(int deltaX, int deltaY) {

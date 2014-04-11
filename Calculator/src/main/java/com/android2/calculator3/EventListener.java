@@ -19,6 +19,7 @@ package com.android2.calculator3;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,12 +35,15 @@ import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
 
+import org.achartengine.GraphicalView;
+
 public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
     Context mContext;
     Logic mHandler;
     ViewPager mPager;
     ViewPager mSmallPager;
     ViewPager mLargePager;
+    GraphicalView mGraphDisplay;
 
     private String mErrorString;
     private String mModString;
@@ -73,6 +77,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
+        vibrate();
         View v;
         EditText active;
         int id = view.getId();
@@ -203,6 +208,18 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             Toast.makeText(mContext, R.string.easter_egg, Toast.LENGTH_SHORT).show();
             break;
 
+        case R.id.zoomIn:
+            mGraphDisplay.zoomIn();
+            break;
+
+        case R.id.zoomOut:
+            mGraphDisplay.zoomOut();
+            break;
+
+        case R.id.zoomReset:
+            mGraphDisplay.zoomReset();
+            break;
+
         default:
             if(view instanceof Button) {
                 String text = ((Button) view).getText().toString();
@@ -216,6 +233,14 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 mHandler.insert(text);
                 returnToBasic();
             }
+        }
+    }
+
+    private void vibrate() {
+        if(CalculatorSettings.vibrateOnPress(mContext)) {
+            Vibrator vi = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+            if (!vi.hasVibrator()) return;
+            vi.vibrate(100);
         }
     }
 
@@ -397,5 +422,9 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         hex.setSelected(false);
         bin.setSelected(false);
         dec.setSelected(false);
+    }
+
+    public void setGraphDisplay(GraphicalView display) {
+        mGraphDisplay = display;
     }
 }

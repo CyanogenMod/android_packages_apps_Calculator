@@ -29,4 +29,5 @@
     <item type="bool" name="USE_RADIANS">true</item>
     <item type="bool" name="SHOW_DETAILS">true</item>
     <item type="bool" name="FLOATING_CALCULATOR">true</item>
+    <item type="bool" name="VIBRATE_ON_PRESS">false</item>
 </resources>

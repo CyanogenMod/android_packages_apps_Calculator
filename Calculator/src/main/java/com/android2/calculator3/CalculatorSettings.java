@@ -59,6 +59,10 @@ public class CalculatorSettings {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("FLOATING_CALCULATOR", context.getResources().getBoolean(R.bool.FLOATING_CALCULATOR));
     }
 
+    public static boolean vibrateOnPress(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("VIBRATE_ON_PRESS", context.getResources().getBoolean(R.bool.VIBRATE_ON_PRESS));
+    }
+
     static boolean isDismissed(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
     }
