@@ -26,18 +26,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android2.calculator3.view.CalculatorDisplay;
 
 import org.javia.arity.SyntaxException;
 
 public class FloatingCalculator extends Service {
     public static FloatingCalculator ACTIVE_CALCULATOR;
-    private static final int ANIMATION_FRAME_RATE = 45; // Animation frame rate per second.
+    private static final int ANIMATION_FRAME_RATE = 120; // Animation frame rate per second.
     private static int MARGIN; // Margin around the phone.
     private static int DELETE_BOX_WIDTH;
     private static int DELETE_BOX_HEIGHT;
@@ -53,8 +57,7 @@ public class FloatingCalculator extends Service {
     // Animation variables
     private List<Float> mDeltaXArray;
     private List<Float> mDeltaYArray;
-    private Timer mAnimationTimer;
-    private AnimationTimerTask mTimerTask;
+    private AnimationTask mAnimationTask;
     private Handler mAnimationHandler = new Handler();
     private OnAnimationFinishedListener mAnimationFinishedListener;
 
@@ -64,8 +67,11 @@ public class FloatingCalculator extends Service {
     private boolean mIsCalcOpen = false;
 
     // Calc logic
-    private String mNumber = "";
     private View.OnClickListener mListener;
+    private CalculatorDisplay mDisplay;
+    private Persist mPersist;
+    private History mHistory;
+    private Logic mLogic;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -185,9 +191,8 @@ public class FloatingCalculator extends Service {
                     mDeltaYArray = new LinkedList<Float>();
 
                     // Cancel any currently running animations
-                    if(mTimerTask != null) {
-                        mTimerTask.cancel();
-                        mAnimationTimer.cancel();
+                    if(mAnimationTask != null) {
+                        mAnimationTask.cancel();
                     }
                     break;
                 case MotionEvent.ACTION_UP:
@@ -205,9 +210,8 @@ public class FloatingCalculator extends Service {
                     }
                     else {
                         // Animate the icon
-                        mTimerTask = new AnimationTimerTask();
-                        mAnimationTimer = new Timer();
-                        mAnimationTimer.schedule(mTimerTask, 0, ANIMATION_FRAME_RATE);
+                        mAnimationTask = new AnimationTask();
+                        mAnimationTask.run();
                     }
                     break;
                 case MotionEvent.ACTION_MOVE:
@@ -259,9 +263,8 @@ public class FloatingCalculator extends Service {
             mIsCalcOpen = true;
             mPrevX = mParams.x;
             mPrevY = mParams.y;
-            mTimerTask = new AnimationTimerTask((int) (getScreenWidth() - mDraggableIcon.getWidth() * 1.5), 100);
-            mAnimationTimer = new Timer();
-            mAnimationTimer.schedule(mTimerTask, 0, ANIMATION_FRAME_RATE);
+            mAnimationTask = new AnimationTask((int) (getScreenWidth() - mDraggableIcon.getWidth() * 1.5), 100);
+            mAnimationTask.run();
             Intent intent = new Intent(getContext(), FloatingCalculatorActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -282,9 +285,8 @@ public class FloatingCalculator extends Service {
         if(mIsCalcOpen) {
             mIsCalcOpen = false;
             if (returnToOrigin) {
-                mTimerTask = new AnimationTimerTask(mPrevX, mPrevY);
-                mAnimationTimer = new Timer();
-                mAnimationTimer.schedule(mTimerTask, 0, ANIMATION_FRAME_RATE);
+                mAnimationTask = new AnimationTask(mPrevX, mPrevY);
+                mAnimationTask.run();
             }
             mPrevX = -1;
             mPrevY = -1;
@@ -304,13 +306,28 @@ public class FloatingCalculator extends Service {
             int calcWidth = 4*(int) getResources().getDimension(R.dimen.floating_window_button_height);
             addView(mCalcView, screenWidth - calcWidth, 100 + mDraggableIcon.getHeight());
 
-            final Logic logic = new Logic(getContext(), null, null);
-            logic.setLineLength(7);
-            final TextView display = (TextView) mCalcView.findViewById(R.id.display);
-            display.setOnLongClickListener(new View.OnLongClickListener() {
+            mPersist = new Persist(this);
+            mPersist.load();
+
+            mHistory = mPersist.mHistory;
+
+            mDisplay = (CalculatorDisplay) mCalcView.findViewById(R.id.display);
+            mDisplay.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    copyContent(display);
+                    copyContent(mDisplay.getText());
+                    return true;
+                }
+            });
+
+            mLogic = new Logic(this, mHistory, mDisplay);
+            mLogic.setDeleteMode(mPersist.getDeleteMode());
+            mLogic.setLineLength(mDisplay.getMaxDigits());
+            final ImageButton del = (ImageButton) mCalcView.findViewById(R.id.delete);
+            del.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mLogic.onClear();
                     return true;
                 }
             });
@@ -318,47 +335,15 @@ public class FloatingCalculator extends Service {
                 @Override
                 public void onClick(View v) {
                     if(v instanceof Button) {
-                        String text = mNumber;
                         if(((Button) v).getText().toString().equals("=")){
-                            // Solve
-                            if(logic.getDeleteMode() == Logic.DELETE_MODE_CLEAR) {
-                                text = "";
-                            }
-                            else {
-                                try {
-                                    text = logic.evaluate(text);
-                                    mNumber = text;
-                                } catch (SyntaxException e) {
-                                    text = getResources().getString(R.string.error);
-                                    mNumber = "";
-                                }
-                                logic.setDeleteMode(Logic.DELETE_MODE_CLEAR);
-                            }
+                            mLogic.onEnter();
                         }
                         else {
-                            if(logic.getDeleteMode() == Logic.DELETE_MODE_CLEAR && !logic.isOperator(((Button) v).getText().toString())) text = "";
-                            text += ((Button) v).getText();
-                            mNumber = text;
-                            if (CalculatorSettings.digitGrouping(getContext())) {
-                                BaseModule bm = logic.getBaseModule();
-                                text = bm.groupSentence(text, text.length());
-                                text = text.replace(String.valueOf(BaseModule.SELECTION_HANDLE), "");
-                            }
-                            logic.setDeleteMode(Logic.DELETE_MODE_BACKSPACE);
+                            mLogic.insert(((Button) v).getText().toString());
                         }
-                        display.setText(text);
                     }
                     else if(v instanceof ImageButton) {
-                        String text = mNumber;
-                        if(logic.getDeleteMode() == Logic.DELETE_MODE_CLEAR) text = "";
-                        if(text.length() > 0) text = text.substring(0, text.length()-1);
-                        mNumber = text;
-                        if (CalculatorSettings.digitGrouping(getContext())) {
-                            BaseModule bm = logic.getBaseModule();
-                            text = bm.groupSentence(text, text.length());
-                            text = text.replace(String.valueOf(BaseModule.SELECTION_HANDLE), "");
-                        }
-                        display.setText(text);
+                        mLogic.onDelete();
                     }
                 }
             };
@@ -397,8 +382,7 @@ public class FloatingCalculator extends Service {
         }
     }
 
-    private void copyContent(TextView v) {
-        final String text = v.getText().toString();
+    private void copyContent(String text) {
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
         String toastText = String.format(getResources().getString(R.string.text_copied_toast), text);
@@ -464,12 +448,12 @@ public class FloatingCalculator extends Service {
     }
 
     // Timer for animation/automatic movement of the tray.
-    private class AnimationTimerTask extends TimerTask {
+    private class AnimationTask {
         // Ultimate destination coordinates toward which the view will move
         int mDestX;
         int mDestY;
         float mVelocityY;
-        long mDuration = 300;
+        long mDuration = 250;
         Interpolator mInterpolator;
         long mSteps;
         long mCurrentStep;
@@ -478,13 +462,11 @@ public class FloatingCalculator extends Service {
         int mDistY;
         int mOrigY;
 
-        public AnimationTimerTask(int x, int y) {
-            super();
-
+        public AnimationTask(int x, int y) {
             mDestX = x;
             mDestY = y;
 
-            mInterpolator = new OvershootInterpolator();
+            mInterpolator = new OvershootInterpolator(1.2f);
             mSteps = (int) (((float)mDuration) / 1000 * ANIMATION_FRAME_RATE);
             mCurrentStep = 1;
             mDistX = mParams.x - mDestX;
@@ -493,9 +475,7 @@ public class FloatingCalculator extends Service {
             mOrigY = mParams.y;
         }
 
-        public AnimationTimerTask() {
-            super();
-
+        public AnimationTask() {
             float velocityX = calculateVelocityX();
             mVelocityY = calculateVelocityY();
             int screenWidth = getScreenWidth();
@@ -506,7 +486,7 @@ public class FloatingCalculator extends Service {
             if(mDestY <= 0) mDestY = MARGIN;
             if(mDestY >= screenHeight-mDraggableIcon.getHeight()) mDestY = screenHeight-mDraggableIcon.getHeight()-MARGIN;
 
-            mInterpolator = new OvershootInterpolator(1f);
+            mInterpolator = new OvershootInterpolator(1.2f);
             mSteps = (int) (((float)mDuration) / 1000 * ANIMATION_FRAME_RATE);
             mCurrentStep = 1;
             mOrigX = mParams.x;
@@ -515,27 +495,28 @@ public class FloatingCalculator extends Service {
             mDistY = mOrigY - mDestY;
         }
 
-        // This function is called after every frame.
-        @Override
         public void run() {
-            // handler is used to run the function on main UI thread in order to
-            // access the layouts and UI elements.
-            mAnimationHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    // Update coordinates of the view
-                    float percent = mInterpolator.getInterpolation(((float)mCurrentStep)/mSteps);
-                    updateIconPosition(mOrigX - (int) (percent * mDistX), mOrigY - (int) (percent * mDistY));
+            for(mCurrentStep=1;mCurrentStep<=mSteps;mCurrentStep++) {
+                long delay = mCurrentStep * mDuration / mSteps;
+                final float currentStep = mCurrentStep;
+                mAnimationHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Update coordinates of the view
+                        float percent = mInterpolator.getInterpolation(currentStep/mSteps);
+                        updateIconPosition(mOrigX - (int) (percent * mDistX), mOrigY - (int) (percent * mDistY));
 
-                    // Cancel animation when the destination is reached
-                    if(mCurrentStep > mSteps) {
-                        AnimationTimerTask.this.cancel();
-                        mAnimationTimer.cancel();
-                        if(mAnimationFinishedListener != null) mAnimationFinishedListener.onAnimationFinished();
+                        // Notify the animation has ended
+                        if(currentStep >= mSteps) {
+                            if(mAnimationFinishedListener != null) mAnimationFinishedListener.onAnimationFinished();
+                        }
                     }
-                    mCurrentStep++;
-                }
-            });
+                }, delay);
+            }
+        }
+
+        public void cancel() {
+            mAnimationHandler.removeCallbacksAndMessages(null);
         }
     }
 

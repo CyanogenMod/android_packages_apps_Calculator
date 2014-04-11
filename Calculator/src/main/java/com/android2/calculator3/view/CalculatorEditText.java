@@ -76,12 +76,6 @@ public class CalculatorEditText extends ThemedEditText {
         super(display.getContext());
         setUp();
         mDisplay = display;
-        setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) display.mActiveEditText = CalculatorEditText.this;
-            }
-        });
     }
 
     private void setUp() {
@@ -130,6 +124,13 @@ public class CalculatorEditText extends ThemedEditText {
                 setText(formatText(mInput));
                 setSelection(Math.min(mSelectionHandle, getText().length()));
                 updating = false;
+            }
+        });
+
+        setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus && mDisplay != null) mDisplay.mActiveEditText = CalculatorEditText.this;
             }
         });
 
@@ -206,6 +207,13 @@ public class CalculatorEditText extends ThemedEditText {
         }
     }
 
+    @Override
+    public boolean performLongClick() {
+        mDisplay.performLongClick();
+        return false;
+    }
+
+
     private Spanned formatText(String input) {
         BaseModule bm = mDisplay.mLogic.getBaseModule();
         if(CalculatorSettings.digitGrouping(getContext())) {
@@ -247,18 +255,14 @@ public class CalculatorEditText extends ThemedEditText {
     }
 
     public static String load(String text, final AdvancedDisplay parent, final int pos) {
-        final CalculatorEditText et = new CalculatorEditText(parent);
+        final CalculatorEditText et = (CalculatorEditText) View.inflate(parent.getContext(), R.layout.view_calculator_edit_text, null);
+        et.mDisplay = parent;
         et.setText(text);
         et.setSelection(0);
+        et.setLongClickable(false);
         if(parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
         if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
-        et.setBackgroundResource(android.R.color.transparent);
-        et.setTextAppearance(parent.getContext(), R.style.Theme_Calculator_Display);
-        et.setTextColor(Theme.get(R.color.display_text_color));
-        Typeface tf = Theme.getFont(parent.getContext());
-        if(tf != null) et.setTypeface(tf);
         et.setFont("display_font");
-        et.setPadding(5, 0, 5, 0);
         et.setEnabled(parent.isEnabled());
         AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER_VERTICAL;
