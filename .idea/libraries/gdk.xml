@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="gdk">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Calculator/libs/gdk.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
