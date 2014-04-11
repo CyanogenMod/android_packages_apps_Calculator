@@ -255,7 +255,7 @@ public class CalculatorEditText extends ThemedEditText {
     }
 
     public static String load(String text, final AdvancedDisplay parent, final int pos) {
-        final CalculatorEditText et = (CalculatorEditText) View.inflate(parent.getContext(), R.layout.view_calculator_edit_text, null);
+        final CalculatorEditText et = (CalculatorEditText) View.inflate(parent.getContext(), parent.getEditTextLayout(), null);
         et.mDisplay = parent;
         et.setText(text);
         et.setSelection(0);

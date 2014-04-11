@@ -30,6 +30,7 @@ public class AdvancedDisplay extends LinearLayout {
     KeyListener mKeyListener;
     Factory mFactory;
     Logic mLogic;
+    private int mEditTextLayout = R.layout.view_calculator_edit_text;
 
     public AdvancedDisplay(Context context) {
         this(context, null);
@@ -38,6 +39,14 @@ public class AdvancedDisplay extends LinearLayout {
     public AdvancedDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(HORIZONTAL);
+    }
+
+    public void setEditTextLayout(int resId) {
+        mEditTextLayout = resId;
+    }
+
+    public int getEditTextLayout() {
+        return mEditTextLayout;
     }
 
     @Override

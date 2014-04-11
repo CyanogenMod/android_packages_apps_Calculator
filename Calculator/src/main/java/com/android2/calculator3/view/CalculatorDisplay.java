@@ -90,6 +90,12 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         return mMaxDigits;
     }
 
+    public void setEditTextLayout(int resId) {
+        for(int i=0;i<getChildCount();i++){
+            ((ScrollableDisplay) getChildAt(i)).getView().setEditTextLayout(resId);
+        }
+    }
+
     public void setLogic(Logic logic) {
         NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
             @Override

@@ -232,8 +232,6 @@ public class FloatingCalculator extends Service {
                         mCurrentX = mParams.x;
                         mCurrentY = mParams.y;
 
-                        showDeleteBox();
-
                         // Cancel any currently running animations
                         if (mAnimationTask != null) {
                             mAnimationTask.cancel();
@@ -263,8 +261,8 @@ public class FloatingCalculator extends Service {
                         // Calculate position of the whole tray according to the drag, and update layout.
                         float deltaX = event.getRawX() - mPrevDragX;
                         float deltaY = event.getRawY() - mPrevDragY;
-                        mCurrentX += deltaX;
-                        mCurrentY += deltaY;
+                        mCurrentX = (int) (event.getRawX()-mDraggableIcon.getWidth()/2);
+                        mCurrentY = (int) (event.getRawY()-mDraggableIcon.getHeight());
                         if (isDeleteMode(mCurrentX, mCurrentY)) {
                             if(!mIsInDeleteMode) animateToDeleteBoxCenter(null);
                         }
@@ -277,6 +275,7 @@ public class FloatingCalculator extends Service {
                             mAnimationTask.run();
                         }
                         else {
+                            if (mAnimationTask != null) mAnimationTask.cancel();
                             updateIconPosition(mCurrentX, mCurrentY);
                         }
                         mPrevDragX = event.getRawX();
@@ -285,6 +284,7 @@ public class FloatingCalculator extends Service {
                         mDragged = mDragged || Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5;
                         if (mDragged) {
                             closeCalculator(false);
+                            showDeleteBox();
                         }
 
                         mDeltaXArray.add(deltaX);
@@ -377,6 +377,7 @@ public class FloatingCalculator extends Service {
             mHistory = mPersist.mHistory;
 
             mDisplay = (CalculatorDisplay) mCalcView.findViewById(R.id.display);
+            mDisplay.setEditTextLayout(R.layout.view_calculator_edit_text_floating);
             mDisplay.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -613,6 +614,7 @@ public class FloatingCalculator extends Service {
 
         public void cancel() {
             mAnimationHandler.removeCallbacksAndMessages(null);
+            mAnimationTask = null;
         }
     }
 }

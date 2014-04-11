@@ -201,7 +201,9 @@
 
     <style name="Theme.Calculator.Display.Widget"/>
 
-    <style name="Theme.Calculator.Display.FloatingCalc" />
+    <style name="Theme.Calculator.Display.FloatingCalc" >
+        <item name="android:padding">0dp</item>
+    </style>
 
     <style name="Theme.Calculator.Clear">
        <item name="themeBackground">@drawable/menu_bg</item>

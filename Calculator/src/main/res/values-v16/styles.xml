@@ -28,5 +28,6 @@
     </style>
     <style name="Theme.Calculator.Display.FloatingCalc" >
         <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:padding">0dp</item>
     </style>
 </resources>
