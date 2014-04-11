@@ -6,7 +6,7 @@
     android:background="#60000000">
     <LinearLayout
         android:layout_width="match_parent"
-        android:minHeight="60dp"
+        android:minHeight="40dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/line" >
@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            style="@style/Theme.Calculator.Display.Widget" />
+            style="@style/Theme.Calculator.Display.FloatingCalc" />
         <ImageButton
             android:id="@+id/delete"
             android:src="@drawable/widget_delete"

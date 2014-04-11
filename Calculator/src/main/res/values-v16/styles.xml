@@ -26,4 +26,7 @@
     <style name="Theme.Calculator.Display.Widget">
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
+    <style name="Theme.Calculator.Display.FloatingCalc" >
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
 </resources>

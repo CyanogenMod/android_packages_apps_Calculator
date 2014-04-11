@@ -17,4 +17,6 @@
 <resources>
     <dimen name="store_tab_height">70dp</dimen>
     <dimen name="floating_window_button_height">70dp</dimen>
+    <dimen name="floating_window_delete_box_height">100dp</dimen>
+    <dimen name="floating_window_delete_box_width">300dp</dimen>
 </resources>

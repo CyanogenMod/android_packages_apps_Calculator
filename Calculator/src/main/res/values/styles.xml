@@ -201,6 +201,8 @@
 
     <style name="Theme.Calculator.Display.Widget"/>
 
+    <style name="Theme.Calculator.Display.FloatingCalc" />
+
     <style name="Theme.Calculator.Clear">
        <item name="themeBackground">@drawable/menu_bg</item>
        <item name="android:textSize">@dimen/btn_clear_text_size</item>
