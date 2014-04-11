@@ -109,7 +109,7 @@ public class FloatingCalculator extends Service {
         int screenHeight = getScreenHeight();
         int boxWidth = DELETE_BOX_WIDTH;
         int boxHeight = DELETE_BOX_HEIGHT;
-        boolean horz = x + (mDraggableIcon == null ? 0 : mDraggableIcon.getWidth()) > (screenWidth / 2 - boxWidth / 2) && mParams.x < (screenWidth / 2 + boxWidth / 2);
+        boolean horz = x + (mDraggableIcon == null ? 0 : mDraggableIcon.getWidth()) > (screenWidth / 2 - boxWidth / 2) && x < (screenWidth / 2 + boxWidth / 2);
         boolean vert = y + (mDraggableIcon == null ? 0 : mDraggableIcon.getHeight()) > (screenHeight - boxHeight);
 
         return horz && vert;
