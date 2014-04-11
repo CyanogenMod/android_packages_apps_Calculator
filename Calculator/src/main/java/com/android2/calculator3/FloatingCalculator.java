@@ -7,6 +7,8 @@ import java.util.TimerTask;
 
 import android.animation.Animator;
 import android.app.Service;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -305,6 +307,13 @@ public class FloatingCalculator extends Service {
             final Logic logic = new Logic(getContext(), null, null);
             logic.setLineLength(7);
             final TextView display = (TextView) mCalcView.findViewById(R.id.display);
+            display.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    copyContent(display);
+                    return true;
+                }
+            });
             mListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -387,6 +396,15 @@ public class FloatingCalculator extends Service {
             });
         }
     }
+
+    private void copyContent(TextView v) {
+        final String text = v.getText().toString();
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
+        String toastText = String.format(getResources().getString(R.string.text_copied_toast), text);
+        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
+    }
+
 
     private void applyListener(View view) {
         if(view instanceof ViewGroup) {
