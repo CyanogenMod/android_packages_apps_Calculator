@@ -82,10 +82,14 @@ public class FloatingCalculator extends Service {
     }
 
     private WindowManager.LayoutParams addView(View v, int x, int y) {
+        return addView(v, x, y, Gravity.TOP | Gravity.LEFT);
+    }
+
+    private WindowManager.LayoutParams addView(View v, int x, int y, int gravity) {
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_PHONE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
 
-        params.gravity = Gravity.TOP | Gravity.LEFT;
+        params.gravity = gravity;
         params.x = x;
         params.y = y;
 
@@ -106,8 +110,8 @@ public class FloatingCalculator extends Service {
     private boolean isDeleteMode() {
         int screenWidth = getScreenWidth();
         int screenHeight = getScreenHeight();
-        int boxWidth = (int) getResources().getDimension(R.dimen.floating_window_delete_box_width);
-        int boxHeight = (int) getResources().getDimension(R.dimen.floating_window_delete_box_height);
+        int boxWidth = DELETE_BOX_WIDTH;
+        int boxHeight = DELETE_BOX_HEIGHT;
         boolean horz = mParams.x+(mDraggableIcon == null ? 0 : mDraggableIcon.getWidth()) > (screenWidth/2-boxWidth/2) && mParams.x < (screenWidth/2+boxWidth/2);
         boolean vert = mParams.y+(mDraggableIcon == null ? 0 : mDraggableIcon.getHeight()) > (screenHeight-boxHeight);
 
@@ -122,11 +126,7 @@ public class FloatingCalculator extends Service {
                 View child = View.inflate(getContext(), R.layout.floating_calculator_delete_box, null);
                 mDeleteBoxView = new FloatingCalc(getContext());
                 mDeleteBoxView.addView(child);
-                int screenWidth = getScreenWidth();
-                int screenHeight = getScreenHeight();
-                int boxWidth = (int) getResources().getDimension(R.dimen.floating_window_delete_box_width);
-                int boxHeight = (int) getResources().getDimension(R.dimen.floating_window_delete_box_height);
-                addView(mDeleteBoxView, screenWidth / 2 - boxWidth / 2, screenHeight - boxHeight);
+                addView(mDeleteBoxView, 0, 0, Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
             } else {
                 mDeleteBoxView.setVisibility(View.VISIBLE);
             }
@@ -180,8 +180,8 @@ public class FloatingCalculator extends Service {
 
         ACTIVE_CALCULATOR = this;
         MARGIN = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
-        DELETE_BOX_WIDTH = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
-        DELETE_BOX_HEIGHT = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 75, getResources().getDisplayMetrics());
+        DELETE_BOX_WIDTH = (int) getResources().getDimension(R.dimen.floating_window_delete_box_width);
+        DELETE_BOX_HEIGHT = (int) getResources().getDimension(R.dimen.floating_window_delete_box_height);
 
         OnTouchListener dragListener = new OnTouchListener() {
             float mPrevDragX;
