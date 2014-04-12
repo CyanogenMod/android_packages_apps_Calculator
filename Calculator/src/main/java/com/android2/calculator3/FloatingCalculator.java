@@ -57,7 +57,7 @@ public class FloatingCalculator extends Service {
     private List<Float> mDeltaYArray;
     private AnimationTask mAnimationTask;
     private Handler mAnimationHandler = new Handler();
-    private OnAnimationFinishedListener mAnimationFinishedListener;
+    private long mAnimationLastOverwritten;
 
     // Open/Close variables
     private int mPrevX = -1;
@@ -215,11 +215,12 @@ public class FloatingCalculator extends Service {
     }
 
     private void animateToDeleteBoxCenter(final OnAnimationFinishedListener l) {
-        mAnimationFinishedListener = l;
+        if(mIsZoomingBack) return;
         mIsInDeleteMode = true;
         if (mAnimationTask != null) mAnimationTask.cancel();
         mAnimationTask = new AnimationTask(getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2, getScreenHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2);
         mAnimationTask.setDuration(150);
+        mAnimationTask.setAnimationFinishedListener(l);
         mAnimationTask.run();
         vibrate();
         mDeleteIcon.animate().scaleX(1.25f).scaleY(1.25f).setDuration(100);
@@ -298,18 +299,18 @@ public class FloatingCalculator extends Service {
                         if (isDeleteMode(mCurrentX, mCurrentY)) {
                             if(!mIsInDeleteMode) animateToDeleteBoxCenter(null);
                         }
-                        else if(isDeleteMode()) {
+                        else if(isDeleteMode() && !mIsZoomingBack) {
                             mIsInDeleteMode = false;
-                            mAnimationFinishedListener = new OnAnimationFinishedListener() {
+                            if (mAnimationTask != null) mAnimationTask.cancel();
+                            mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
+                            mAnimationTask.setDuration(50);
+                            mAnimationTask.setInterpolator(new LinearInterpolator());
+                            mAnimationTask.setAnimationFinishedListener(new OnAnimationFinishedListener() {
                                 @Override
                                 public void onAnimationFinished() {
                                     mIsZoomingBack = false;
                                 }
-                            };
-                            if (mAnimationTask != null) mAnimationTask.cancel();
-                            mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
-                            mAnimationTask.setDuration(150);
-                            mAnimationTask.setInterpolator(new LinearInterpolator());
+                            });
                             mAnimationTask.run();
                             mIsZoomingBack = true;
                             mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
@@ -318,14 +319,6 @@ public class FloatingCalculator extends Service {
                             if(!mIsZoomingBack) {
                                 if (mAnimationTask != null) mAnimationTask.cancel();
                                 updateIconPosition(mCurrentX, mCurrentY);
-                            }
-                            else {
-                                if (mAnimationTask != null) mAnimationTask.cancel();
-                                long remainingDuration = mAnimationTask.getRemainingDuration();
-                                mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
-                                mAnimationTask.setDuration(remainingDuration);
-                                mAnimationTask.setInterpolator(new LinearInterpolator());
-                                mAnimationTask.run();
                             }
                         }
                         mPrevDragX = event.getRawX();
@@ -376,20 +369,21 @@ public class FloatingCalculator extends Service {
 
     public void openCalculator() {
         if (!mIsCalcOpen) {
+            if(mIsZoomingBack) return;
             mIsCalcOpen = true;
             mPrevX = mParams.x;
             mPrevY = mParams.y;
             mAnimationTask = new AnimationTask((int) (getScreenWidth() - mDraggableIcon.getWidth() * 1.5), 100);
-            mAnimationTask.run();
-            Intent intent = new Intent(getContext(), FloatingCalculatorActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            mAnimationFinishedListener = new OnAnimationFinishedListener() {
+            mAnimationTask.setAnimationFinishedListener(new OnAnimationFinishedListener() {
                 @Override
                 public void onAnimationFinished() {
                     showCalculator();
                 }
-            };
+            });
+            mAnimationTask.run();
+            Intent intent = new Intent(getContext(), FloatingCalculatorActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -401,6 +395,7 @@ public class FloatingCalculator extends Service {
         if (mIsCalcOpen) {
             mIsCalcOpen = false;
             if (returnToOrigin) {
+                if(mIsZoomingBack) return;
                 mAnimationTask = new AnimationTask(mPrevX, mPrevY);
                 mAnimationTask.run();
             }
@@ -409,7 +404,6 @@ public class FloatingCalculator extends Service {
             if (FloatingCalculatorActivity.ACTIVE_ACTIVITY != null)
                 FloatingCalculatorActivity.ACTIVE_ACTIVITY.finish();
             hideCalculator();
-            mAnimationFinishedListener = null;
         }
     }
 
@@ -589,6 +583,7 @@ public class FloatingCalculator extends Service {
         int mOrigX;
         int mDistY;
         int mOrigY;
+        OnAnimationFinishedListener mAnimationFinishedListener;
 
         public AnimationTask(int x, int y) {
             setup(x, y);
@@ -599,6 +594,7 @@ public class FloatingCalculator extends Service {
         }
 
         private void setup(int x, int y) {
+            if(mIsZoomingBack) throw new RuntimeException("Returning to user's finger. Avoid animations while mIsZoomingBack flag is set.");
             mDestX = x;
             mDestY = y;
 
@@ -625,6 +621,14 @@ public class FloatingCalculator extends Service {
             long remainingDuration = mDuration - elapsedTime;
             if(remainingDuration < 0) remainingDuration = 0;
             return remainingDuration;
+        }
+
+        public void setAnimationFinishedListener(OnAnimationFinishedListener l) {
+            mAnimationFinishedListener = l;
+        }
+
+        public OnAnimationFinishedListener getAnimationFinishedListener() {
+            return mAnimationFinishedListener;
         }
 
         public void setInterpolator(Interpolator interpolator) {
@@ -655,7 +659,6 @@ public class FloatingCalculator extends Service {
         }
 
         public void run() {
-            if(mIsZoomingBack) return;
             mStartTime = System.currentTimeMillis();
             for (mCurrentStep = 1; mCurrentStep <= mSteps; mCurrentStep++) {
                 long delay = mCurrentStep * mDuration / mSteps;
@@ -678,7 +681,6 @@ public class FloatingCalculator extends Service {
         }
 
         public void cancel() {
-            if(mIsZoomingBack) return;
             mAnimationHandler.removeCallbacksAndMessages(null);
             mAnimationTask = null;
         }
