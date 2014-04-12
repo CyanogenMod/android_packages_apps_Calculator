@@ -18,6 +18,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -33,8 +34,9 @@ import java.util.List;
 
 public class FloatingCalculator extends Service {
     private static final int ANIMATION_FRAME_RATE = 60; // Animation frame rate per second.
-    public static FloatingCalculator ACTIVE_CALCULATOR;
-    private static int MARGIN; // Margin around the phone.
+    public static FloatingCalculator ACTIVE_CALCULATOR; // A copy of the service for the floating activity
+    private static int MARGIN_VERTICAL; // Margin around the phone.
+    private static int MARGIN_HORIZONTAL; // Margin around the phone.
     private static int DELETE_BOX_WIDTH;
     private static int DELETE_BOX_HEIGHT;
     private static int FLOATING_WINDOW_ICON_SIZE;
@@ -232,7 +234,8 @@ public class FloatingCalculator extends Service {
         super.onCreate();
 
         ACTIVE_CALCULATOR = this;
-        MARGIN = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -10, getResources().getDisplayMetrics());
+        MARGIN_VERTICAL = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
+        MARGIN_HORIZONTAL = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -10, getResources().getDisplayMetrics());
         DELETE_BOX_WIDTH = (int) getResources().getDimension(R.dimen.floating_window_delete_box_width);
         DELETE_BOX_HEIGHT = (int) getResources().getDimension(R.dimen.floating_window_delete_box_height);
         FLOATING_WINDOW_ICON_SIZE = (int) getResources().getDimension(R.dimen.floating_window_icon);
@@ -303,7 +306,8 @@ public class FloatingCalculator extends Service {
                             };
                             if (mAnimationTask != null) mAnimationTask.cancel();
                             mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
-                            mAnimationTask.setDuration(100);
+                            mAnimationTask.setDuration(150);
+                            mAnimationTask.setInterpolator(new LinearInterpolator());
                             mAnimationTask.run();
                             mIsZoomingBack = true;
                             mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
@@ -312,6 +316,14 @@ public class FloatingCalculator extends Service {
                             if(!mIsZoomingBack) {
                                 if (mAnimationTask != null) mAnimationTask.cancel();
                                 updateIconPosition(mCurrentX, mCurrentY);
+                            }
+                            else {
+                                if (mAnimationTask != null) mAnimationTask.cancel();
+                                long remainingDuration = mAnimationTask.getRemainingDuration();
+                                mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
+                                mAnimationTask.setDuration(remainingDuration);
+                                mAnimationTask.setInterpolator(new LinearInterpolator());
+                                mAnimationTask.run();
                             }
                         }
                         mPrevDragX = event.getRawX();
@@ -334,7 +346,7 @@ public class FloatingCalculator extends Service {
         mDraggableIcon.setOnTouchListener(dragListener);
         View.inflate(getContext(), R.layout.floating_calculator_icon, mDraggableIcon);
         mParams = addView(mDraggableIcon, 0, 0);
-        updateIconPosition(MARGIN, 100);
+        updateIconPosition(MARGIN_HORIZONTAL, 100);
     }
 
     @Override
@@ -567,6 +579,7 @@ public class FloatingCalculator extends Service {
         int mDestX;
         int mDestY;
         long mDuration = 350;
+        long mStartTime;
         Interpolator mInterpolator;
         long mSteps;
         long mCurrentStep;
@@ -605,12 +618,27 @@ public class FloatingCalculator extends Service {
             return mDuration;
         }
 
+        public long getRemainingDuration() {
+            long elapsedTime = System.currentTimeMillis() - mStartTime;
+            long remainingDuration = mDuration - elapsedTime;
+            if(remainingDuration < 0) remainingDuration = 0;
+            return remainingDuration;
+        }
+
+        public void setInterpolator(Interpolator interpolator) {
+            mInterpolator = interpolator;
+        }
+
+        public Interpolator getInterpolator() {
+            return mInterpolator;
+        }
+
         private int calculateX() {
             float velocityX = calculateVelocityX();
             int screenWidth = getScreenWidth();
-            int destX = (mParams.x + mDraggableIcon.getWidth() / 2 > screenWidth / 2) ? screenWidth - mDraggableIcon.getWidth() - MARGIN : 0 + MARGIN;
+            int destX = (mParams.x + mDraggableIcon.getWidth() / 2 > screenWidth / 2) ? screenWidth - mDraggableIcon.getWidth() - MARGIN_HORIZONTAL : 0 + MARGIN_HORIZONTAL;
             if (Math.abs(velocityX) > 50)
-                destX = (velocityX > 0) ? screenWidth - mDraggableIcon.getWidth() - MARGIN : 0 + MARGIN;
+                destX = (velocityX > 0) ? screenWidth - mDraggableIcon.getWidth() - MARGIN_HORIZONTAL : 0 + MARGIN_HORIZONTAL;
             return destX;
         }
 
@@ -618,14 +646,15 @@ public class FloatingCalculator extends Service {
             float velocityY = calculateVelocityY();
             int screenHeight = getScreenHeight();
             int destY = mParams.y + (int) (velocityY * 3);
-            if (destY <= 0) destY = MARGIN;
+            if (destY <= 0) destY = MARGIN_VERTICAL;
             if (destY >= screenHeight - mDraggableIcon.getHeight())
-                destY = screenHeight - mDraggableIcon.getHeight() - MARGIN;
+                destY = screenHeight - mDraggableIcon.getHeight() - MARGIN_VERTICAL;
             return destY;
         }
 
         public void run() {
             if(mIsZoomingBack) return;
+            mStartTime = System.currentTimeMillis();
             for (mCurrentStep = 1; mCurrentStep <= mSteps; mCurrentStep++) {
                 long delay = mCurrentStep * mDuration / mSteps;
                 final float currentStep = mCurrentStep;
