@@ -38,4 +38,10 @@ public class FloatingCalculatorActivity extends Activity {
         if(FloatingCalculator.ACTIVE_CALCULATOR != null) FloatingCalculator.ACTIVE_CALCULATOR.closeCalculator();
         ACTIVE_ACTIVITY = null;
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.blank, R.anim.blank);
+    }
 }
