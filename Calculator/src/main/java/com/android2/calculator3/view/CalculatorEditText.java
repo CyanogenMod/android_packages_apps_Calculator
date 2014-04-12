@@ -33,6 +33,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -206,13 +207,6 @@ public class CalculatorEditText extends ThemedEditText {
             }
         }
     }
-
-    @Override
-    public boolean performLongClick() {
-        mDisplay.performLongClick();
-        return false;
-    }
-
 
     private Spanned formatText(String input) {
         BaseModule bm = mDisplay.mLogic.getBaseModule();
