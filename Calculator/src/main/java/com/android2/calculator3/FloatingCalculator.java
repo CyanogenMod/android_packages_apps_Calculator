@@ -275,6 +275,8 @@ public class FloatingCalculator extends Service {
                             }
                         } else {
                             // Animate the icon
+                            mIsZoomingBack = false;
+                            if (mAnimationTask != null) mAnimationTask.cancel();
                             mAnimationTask = new AnimationTask();
                             mAnimationTask.run();
                         }
