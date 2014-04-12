@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android2.calculator3.view.CalculatorDisplay;
@@ -31,20 +32,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FloatingCalculator extends Service {
-    private static final int ANIMATION_FRAME_RATE = 120; // Animation frame rate per second.
+    private static final int ANIMATION_FRAME_RATE = 60; // Animation frame rate per second.
     public static FloatingCalculator ACTIVE_CALCULATOR;
     private static int MARGIN; // Margin around the phone.
     private static int DELETE_BOX_WIDTH;
     private static int DELETE_BOX_HEIGHT;
+    private static int FLOATING_WINDOW_ICON_SIZE;
 
     // View variables
     private WindowManager mWindowManager;
     private FloatingView mDraggableIcon;
     private WindowManager.LayoutParams mParams;
-    private FloatingCalc mCalcView;
-    private FloatingCalc mDeleteBoxView;
+    private WindowManager.LayoutParams mCalcParams;
+    private FloatingView mCalcView;
+    private FloatingView mDeleteBoxView;
     private boolean mDeleteBoxVisible = false;
-    private boolean mIsPressed = false;
     private boolean mIsDestroyed = false;
     private boolean mIsBeingDestroyed = false;
 
@@ -71,6 +73,9 @@ public class FloatingCalculator extends Service {
     private int mCurrentX;
     private int mCurrentY;
     private boolean mIsInDeleteMode = false;
+    private View mDeleteIcon;
+    private View mDeleteIconHolder;
+    private boolean mIsZoomingBack = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -78,12 +83,12 @@ public class FloatingCalculator extends Service {
     }
 
     private WindowManager.LayoutParams addView(View v, int x, int y) {
-        return addView(v, x, y, Gravity.TOP | Gravity.LEFT);
+        return addView(v, x, y, Gravity.TOP | Gravity.LEFT, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
-    private WindowManager.LayoutParams addView(View v, int x, int y, int gravity) {
+    private WindowManager.LayoutParams addView(View v, int x, int y, int gravity, int width, int height) {
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_PHONE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams(width, height, WindowManager.LayoutParams.TYPE_PHONE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
 
         params.gravity = gravity;
         params.x = x;
@@ -95,6 +100,25 @@ public class FloatingCalculator extends Service {
     }
 
     private void updateIconPosition(int x, int y) {
+        View v = mDraggableIcon.findViewById(R.id.icon);
+        v.setTranslationX(0);
+        if(x < 0) {
+            v.setTranslationX(x);
+            x = 0;
+        }
+        if(x > getScreenWidth()-FLOATING_WINDOW_ICON_SIZE) {
+            v.setTranslationX(x-getScreenWidth()+FLOATING_WINDOW_ICON_SIZE);
+            x = getScreenWidth()-FLOATING_WINDOW_ICON_SIZE;
+        }
+        v.setTranslationY(0);
+        if(y < 0) {
+            v.setTranslationY(y);
+            y = 0;
+        }
+        if(y > getScreenHeight()-FLOATING_WINDOW_ICON_SIZE) {
+            v.setTranslationY(y - getScreenHeight() + FLOATING_WINDOW_ICON_SIZE);
+            y = getScreenHeight()-FLOATING_WINDOW_ICON_SIZE;
+        }
         mParams.x = x;
         mParams.y = y;
         if (!mIsDestroyed) mWindowManager.updateViewLayout(mDraggableIcon, mParams);
@@ -120,15 +144,18 @@ public class FloatingCalculator extends Service {
             mDeleteBoxVisible = true;
             if (mDeleteBoxView == null) {
                 View child = View.inflate(getContext(), R.layout.floating_calculator_delete_box, null);
-                mDeleteBoxView = new FloatingCalc(getContext());
+                mDeleteBoxView = new FloatingView(getContext());
                 mDeleteBoxView.addView(child);
-                addView(mDeleteBoxView, 0, 0, Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
+                mDeleteIcon = (ImageView) mDeleteBoxView.findViewById(R.id.delete_icon);
+                mDeleteIconHolder = mDeleteBoxView.findViewById(R.id.delete_icon_holder);
+                addView(mDeleteBoxView, 0, 0, Gravity.BOTTOM | Gravity.CENTER_VERTICAL, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
             } else {
                 mDeleteBoxView.setVisibility(View.VISIBLE);
             }
+            mDeleteIconHolder.setTranslationY(200);
+            mDeleteIconHolder.animate().translationYBy(-200).setListener(null);
             View child = mDeleteBoxView.getChildAt(0);
-            child.setAlpha(0);
-            child.animate().setDuration(150).alpha(1).setListener(null);
+            child.findViewById(R.id.box).getLayoutParams().width = getScreenWidth();
         }
     }
 
@@ -136,9 +163,7 @@ public class FloatingCalculator extends Service {
         if (mDeleteBoxVisible) {
             mDeleteBoxVisible = false;
             if (mDeleteBoxView != null) {
-                View child = mDeleteBoxView.getChildAt(0);
-                child.setAlpha(1);
-                child.animate().setDuration(150).alpha(0).setListener(new Animator.AnimatorListener() {
+                mDeleteIconHolder.animate().translationYBy(200).setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationCancel(Animator animation) {
                     }
@@ -163,7 +188,7 @@ public class FloatingCalculator extends Service {
     private void vibrate() {
         Vibrator vi = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (!vi.hasVibrator()) return;
-        vi.vibrate(50);
+        vi.vibrate(25);
     }
 
     private void close(boolean animate) {
@@ -195,6 +220,7 @@ public class FloatingCalculator extends Service {
         mAnimationTask.setDuration(150);
         mAnimationTask.run();
         vibrate();
+        mDeleteIcon.animate().scaleX(1.25f).scaleY(1.25f).setDuration(100);
     }
 
     private void updateIconPositionByDelta(int deltaX, int deltaY) {
@@ -206,9 +232,10 @@ public class FloatingCalculator extends Service {
         super.onCreate();
 
         ACTIVE_CALCULATOR = this;
-        MARGIN = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+        MARGIN = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -10, getResources().getDisplayMetrics());
         DELETE_BOX_WIDTH = (int) getResources().getDimension(R.dimen.floating_window_delete_box_width);
         DELETE_BOX_HEIGHT = (int) getResources().getDimension(R.dimen.floating_window_delete_box_height);
+        FLOATING_WINDOW_ICON_SIZE = (int) getResources().getDimension(R.dimen.floating_window_icon);
 
         OnTouchListener dragListener = new OnTouchListener() {
             float mPrevDragX;
@@ -224,7 +251,6 @@ public class FloatingCalculator extends Service {
                         mPrevDragY = event.getRawY();
 
                         mDragged = false;
-                        mIsPressed = true;
 
                         mDeltaXArray = new LinkedList<Float>();
                         mDeltaYArray = new LinkedList<Float>();
@@ -238,10 +264,6 @@ public class FloatingCalculator extends Service {
                         }
                         break;
                     case MotionEvent.ACTION_UP:
-                        mIsPressed = false;
-
-                        hideDeleteBox();
-
                         if (!mDragged) {
                             if (mPrevX == -1) {
                                 openCalculator();
@@ -254,7 +276,12 @@ public class FloatingCalculator extends Service {
                             mAnimationTask.run();
                         }
 
-                        if(mIsInDeleteMode) close(true);
+                        if(mIsInDeleteMode) {
+                            close(true);
+                        }
+                        else {
+                            hideDeleteBox();
+                        }
 
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -268,15 +295,24 @@ public class FloatingCalculator extends Service {
                         }
                         else if(isDeleteMode()) {
                             mIsInDeleteMode = false;
-                            mAnimationFinishedListener = null;
+                            mAnimationFinishedListener = new OnAnimationFinishedListener() {
+                                @Override
+                                public void onAnimationFinished() {
+                                    mIsZoomingBack = false;
+                                }
+                            };
                             if (mAnimationTask != null) mAnimationTask.cancel();
                             mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
-                            mAnimationTask.setDuration(150);
+                            mAnimationTask.setDuration(100);
                             mAnimationTask.run();
+                            mIsZoomingBack = true;
+                            mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
                         }
                         else {
-                            if (mAnimationTask != null) mAnimationTask.cancel();
-                            updateIconPosition(mCurrentX, mCurrentY);
+                            if(!mIsZoomingBack) {
+                                if (mAnimationTask != null) mAnimationTask.cancel();
+                                updateIconPosition(mCurrentX, mCurrentY);
+                            }
                         }
                         mPrevDragX = event.getRawX();
                         mPrevDragY = event.getRawY();
@@ -295,9 +331,10 @@ public class FloatingCalculator extends Service {
             }
         };
         mDraggableIcon = new FloatingView(this);
-        mDraggableIcon.setImageResource(R.drawable.ic_launcher_calculator);
         mDraggableIcon.setOnTouchListener(dragListener);
-        mParams = addView(mDraggableIcon, MARGIN, 100);
+        View.inflate(getContext(), R.layout.floating_calculator_icon, mDraggableIcon);
+        mParams = addView(mDraggableIcon, 0, 0);
+        updateIconPosition(MARGIN, 100);
     }
 
     @Override
@@ -365,11 +402,9 @@ public class FloatingCalculator extends Service {
     public void showCalculator() {
         if (mCalcView == null) {
             View child = View.inflate(getContext(), R.layout.floating_calculator, null);
-            mCalcView = new FloatingCalc(getContext());
+            mCalcView = new FloatingView(getContext());
             mCalcView.addView(child);
-            int screenWidth = getScreenWidth();
-            int calcWidth = 4 * (int) getResources().getDimension(R.dimen.floating_window_button_height);
-            addView(mCalcView, screenWidth - calcWidth, 100 + mDraggableIcon.getHeight());
+            mCalcParams = addView(mCalcView, 0, 0);
 
             mPersist = new Persist(this);
             mPersist.load();
@@ -415,6 +450,14 @@ public class FloatingCalculator extends Service {
         } else {
             mCalcView.setVisibility(View.VISIBLE);
         }
+        // Adjust calc location
+        int screenWidth = getScreenWidth();
+        int calcWidth = 4 * (int) getResources().getDimension(R.dimen.floating_window_button_height);
+        mCalcParams.x = screenWidth - calcWidth;
+        mCalcParams.y = 110 + mDraggableIcon.getHeight();
+        if (!mIsDestroyed) mWindowManager.updateViewLayout(mCalcView, mCalcParams);
+
+        // Animate calc in
         View child = mCalcView.getChildAt(0);
         child.setAlpha(0);
         child.animate().setDuration(150).alpha(1).setListener(null);
@@ -512,18 +555,8 @@ public class FloatingCalculator extends Service {
         public void onAnimationFinished();
     }
 
-    private static class FloatingView extends ImageView {
+    private static class FloatingView extends LinearLayout {
         public FloatingView(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {
-        }
-    }
-
-    private static class FloatingCalc extends LinearLayout {
-        public FloatingCalc(Context context) {
             super(context);
         }
     }
@@ -533,7 +566,7 @@ public class FloatingCalculator extends Service {
         // Ultimate destination coordinates toward which the view will move
         int mDestX;
         int mDestY;
-        long mDuration = 200;
+        long mDuration = 350;
         Interpolator mInterpolator;
         long mSteps;
         long mCurrentStep;
@@ -554,7 +587,7 @@ public class FloatingCalculator extends Service {
             mDestX = x;
             mDestY = y;
 
-            mInterpolator = new OvershootInterpolator(1.2f);
+            mInterpolator = new OvershootInterpolator(1.4f);
             mSteps = (int) (((float) mDuration) / 1000 * ANIMATION_FRAME_RATE);
             mCurrentStep = 1;
             mDistX = mParams.x - mDestX;
@@ -592,6 +625,7 @@ public class FloatingCalculator extends Service {
         }
 
         public void run() {
+            if(mIsZoomingBack) return;
             for (mCurrentStep = 1; mCurrentStep <= mSteps; mCurrentStep++) {
                 long delay = mCurrentStep * mDuration / mSteps;
                 final float currentStep = mCurrentStep;
@@ -613,6 +647,7 @@ public class FloatingCalculator extends Service {
         }
 
         public void cancel() {
+            if(mIsZoomingBack) return;
             mAnimationHandler.removeCallbacksAndMessages(null);
             mAnimationTask = null;
         }

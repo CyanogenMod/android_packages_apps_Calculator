@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/box"
         android:layout_height="@dimen/floating_window_delete_box_height"
-        android:layout_width="@dimen/floating_window_delete_box_width"
-        android:orientation="vertical"
-        android:background="#60ff0000" >
-        <TextView
+        android:layout_width="match_parent"
+        android:background="@drawable/floating_calc_delete_bg" >
+        <RelativeLayout
+            android:id="@+id/delete_icon_holder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/del"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:gravity="center"/>
-    </LinearLayout>
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/delete_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/button_small"
+                android:layout_centerInParent="true" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/x"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </RelativeLayout>
 </FrameLayout>
