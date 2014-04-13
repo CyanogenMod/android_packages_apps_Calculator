@@ -324,6 +324,10 @@ public class FloatingCalculator extends Service {
                             mIsZoomingBack = true;
                             mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
                         } else {
+                            if(mIsInDeleteMode) {
+                                mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
+                                mIsInDeleteMode = false;
+                            }
                             if (!mIsZoomingBack && mDragged) {
                                 if (mAnimationTask != null) mAnimationTask.cancel();
                                 updateIconPosition(mCurrentX, mCurrentY);
