@@ -465,6 +465,7 @@ public class FloatingCalculator extends Service {
                     if (v instanceof Button) {
                         if (((Button) v).getText().toString().equals("=")) {
                             mLogic.onEnter();
+                            mLogic.updateHistory();
                             mPersist.save();
                         } else if(v.getId() == R.id.parentheses) {
                             if (mLogic.isError()) mLogic.setText("");
