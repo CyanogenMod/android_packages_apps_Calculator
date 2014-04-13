@@ -110,18 +110,5 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
         historyView.setAdapter(historyAdapter);
         historyView.setStackFromBottom(true);
         historyView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-        historyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                copyContent(view.toString());
-            }
-        });
-    }
-
-    private void copyContent(String text) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
-        String toastText = String.format(mContext.getResources().getString(R.string.text_copied_toast), text);
-        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
     }
 }

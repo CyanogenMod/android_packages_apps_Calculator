@@ -18,6 +18,7 @@ package com.android2.calculator3;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,16 +70,11 @@ class HistoryAdapter extends BaseAdapter {
         } else {
             view = (HistoryLine) convertView;
         }
-
-        TextView expr = (TextView) view.findViewById(R.id.historyExpr);
-        TextView result = (TextView) view.findViewById(R.id.historyResult);
-
         HistoryEntry entry = mEntries.elementAt(position);
-        expr.setText(Html.fromHtml(mEquationFormatter.insertSupscripts(entry.getBase())));
-        result.setText(entry.getEdited());
         view.setHistoryEntry(entry);
         view.setHistory(mHistory);
         view.setAdapter(this);
+        updateView(entry, view);
 
         return view;
     }
@@ -89,5 +85,17 @@ class HistoryAdapter extends BaseAdapter {
 
     protected HistoryLine createView() {
         return (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
+    }
+
+    protected void updateView(HistoryEntry entry, HistoryLine view) {
+        TextView expr = (TextView) view.findViewById(R.id.historyExpr);
+        TextView result = (TextView) view.findViewById(R.id.historyResult);
+
+        expr.setText(formatText(entry.getBase()));
+        result.setText(entry.getEdited());
+    }
+
+    protected Spanned formatText(String text) {
+        return Html.fromHtml(mEquationFormatter.insertSupscripts(text));
     }
 }

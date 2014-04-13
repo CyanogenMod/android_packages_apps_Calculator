@@ -16,6 +16,8 @@
 
 package com.android2.calculator3;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android2.calculator3.view.HistoryLine;
 
@@ -33,7 +36,32 @@ class FloatingHistoryAdapter extends HistoryAdapter {
         super(context, history);
     }
 
+    @Override
     protected HistoryLine createView() {
-        return (HistoryLine) View.inflate(getContext(), R.layout.floating_history_entry, null);
+        HistoryLine v = (HistoryLine) View.inflate(getContext(), R.layout.floating_history_entry, null);
+        return v;
+    }
+
+    @Override
+    protected void updateView(final HistoryEntry entry, HistoryLine view) {
+        TextView expr = (TextView) view.findViewById(R.id.historyExpr);
+        TextView result = (TextView) view.findViewById(R.id.historyResult);
+
+        expr.setText(formatText(entry.getBase()));
+        result.setText(entry.getEdited());
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                copyContent(entry.getEdited());
+            }
+        });
+    }
+
+    private void copyContent(String text) {
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
+        String toastText = String.format(getContext().getResources().getString(R.string.text_copied_toast), text);
+        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
     }
 }
