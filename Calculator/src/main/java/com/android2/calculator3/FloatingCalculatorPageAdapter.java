@@ -108,6 +108,7 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
         BaseAdapter historyAdapter = new FloatingHistoryAdapter(mContext, mHistory);
         mHistory.setObserver(historyAdapter);
         historyView.setAdapter(historyAdapter);
+        historyView.setStackFromBottom(true);
         historyView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         historyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
