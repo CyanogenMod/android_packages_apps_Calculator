@@ -200,7 +200,8 @@ public class FloatingCalculator extends Service {
                 @Override
                 public void onAnimationFinished() {
                     hideDeleteBox();
-                    mDraggableIconImage.animate().translationY(400).setListener(new AnimationFinishedListener() {
+                    mDeleteIconHolder.animate().scaleX(0.3f).scaleY(0.3f);
+                    mDraggableIconImage.animate().scaleX(0.3f).scaleY(0.3f).translationY(400).setDuration(mDeleteIconHolder.animate().getDuration()).setListener(new AnimationFinishedListener() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             stopSelf();
@@ -455,17 +456,17 @@ public class FloatingCalculator extends Service {
                 }
             });
 
-            mLogic = new Logic(this, mHistory, mDisplay);
+            mLogic = new Logic(this, mDisplay);
+            mLogic.setHistory(mHistory);
             mLogic.setDeleteMode(mPersist.getDeleteMode());
             mLogic.setLineLength(mDisplay.getMaxDigits());
+            mLogic.resumeWithHistory();
             mListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (v instanceof Button) {
                         if (((Button) v).getText().toString().equals("=")) {
                             mLogic.onEnter();
-                            mLogic.updateHistory();
-                            mPersist.save();
                         } else if (v.getId() == R.id.parentheses) {
                             if (mLogic.isError()) mLogic.setText("");
                             mLogic.setText("(" + mLogic.getText() + ")");
@@ -477,6 +478,9 @@ public class FloatingCalculator extends Service {
                     } else if (v instanceof ImageButton) {
                         mLogic.onDelete();
                     }
+                    mLogic.updateHistory();
+                    mPersist.setDeleteMode(mLogic.getDeleteMode());
+                    mPersist.save();
                 }
             };
             final ImageButton del = (ImageButton) mCalcView.findViewById(R.id.delete);

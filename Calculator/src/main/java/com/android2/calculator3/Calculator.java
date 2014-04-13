@@ -129,14 +129,9 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         mDetails = (TextView) findViewById(R.id.details);
 
-        mPersist = new Persist(this);
-        mPersist.load();
-
-        mHistory = mPersist.mHistory;
-
         mDisplay = (CalculatorDisplay) findViewById(R.id.display);
 
-        mLogic = new Logic(this, mHistory, mDisplay);
+        mLogic = new Logic(this, mDisplay);
         mLogic.setListener(this);
         mLogic.getBaseModule().setOnBaseChangeListener(new OnBaseChangeListener() {
             @Override
@@ -144,13 +139,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                 updateDetails();
             }
         });
-        if (mPersist.getMode() != null) mLogic.getBaseModule().setMode(mPersist.getMode());
-
-        mLogic.setDeleteMode(mPersist.getDeleteMode());
         mLogic.setLineLength(mDisplay.getMaxDigits());
-
-        mHistoryAdapter = new HistoryAdapter(this, mHistory);
-        mHistory.setObserver(mHistoryAdapter);
 
         mHistorySlider = (Slider) findViewById(R.id.pulldown);
         mHistorySlider.setBarHeight(getResources().getDimensionPixelSize(R.dimen.history_bar_height));
@@ -170,7 +159,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             mHistorySlider.setBackground(sliderBackground);
         }
         mHistoryView = (ListView) mHistorySlider.findViewById(R.id.history);
-        setUpHistory();
 
         mGraph = new Graph(mLogic);
 
@@ -225,7 +213,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         createFakeMenu();
 
-        mLogic.resumeWithHistory();
         updateDeleteMode();
 
         mHistorySlider.bringToFront();
@@ -235,8 +222,26 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
     @Override
     public void onResume() {
         super.onResume();
+
+        // Kill floating calc (if exists)
         Intent serviceIntent = new Intent(getContext(), FloatingCalculator.class);
         stopService(serviceIntent);
+
+        // Load new history
+        mPersist = new Persist(this);
+        mPersist.load();
+
+        if (mPersist.getMode() != null) mLogic.getBaseModule().setMode(mPersist.getMode());
+        mLogic.setDeleteMode(mPersist.getDeleteMode());
+
+        mHistory = mPersist.mHistory;
+
+        mLogic.setHistory(mHistory);
+        mLogic.resumeWithHistory();
+
+        mHistoryAdapter = new HistoryAdapter(this, mHistory);
+        mHistory.setObserver(mHistoryAdapter);
+        setUpHistory();
     }
 
     private void updateDeleteMode() {

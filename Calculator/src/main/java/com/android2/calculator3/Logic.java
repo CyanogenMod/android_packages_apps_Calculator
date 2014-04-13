@@ -64,7 +64,7 @@ public class Logic {
     final String mX;
     final String mY;
     private final Context mContext;
-    private final History mHistory;
+    private History mHistory;
     private final String mSinString;
     private final String mCosString;
     private final String mTanString;
@@ -89,10 +89,10 @@ public class Logic {
     private Listener mListener;
 
     Logic(Context context) {
-        this(context, null, null);
+        this(context, null);
     }
 
-    Logic(Context context, History history, CalculatorDisplay display) {
+    Logic(Context context, CalculatorDisplay display) {
         final Resources r = context.getResources();
         mContext = context.getApplicationContext();
         mErrorString = r.getString(R.string.error);
@@ -118,7 +118,6 @@ public class Logic {
         mY = r.getString(R.string.Y);
 
         mEquationFormatter = new EquationFormatter();
-        mHistory = history;
         mDisplay = display;
         if (mDisplay != null) mDisplay.setLogic(this);
         mGraphModule = new GraphModule(this);
@@ -126,6 +125,9 @@ public class Logic {
         mMatrixModule = new MatrixModule(this);
     }
 
+    public void setHistory(History history) {
+        mHistory = history;
+    }
     public static boolean isOperator(String text) {
         return text.length() == 1 && isOperator(text.charAt(0));
     }

@@ -183,7 +183,7 @@ public class CalculatorWidget extends AppWidgetProvider {
         String value = getValue(context, appWidgetId);
 
         if (CalculatorSettings.digitGrouping(context)) {
-            final Logic logic = new Logic(context, null, null);
+            final Logic logic = new Logic(context, null);
             BaseModule bm = logic.getBaseModule();
             value = bm.groupSentence(value, value.length());
             value = value.replace(String.valueOf(BaseModule.SELECTION_HANDLE), "");
