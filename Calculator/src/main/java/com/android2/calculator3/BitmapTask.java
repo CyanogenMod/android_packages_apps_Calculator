@@ -1,5 +1,14 @@
 package com.android2.calculator3;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.support.v4.util.LruCache;
+import android.util.Log;
+import android.widget.ImageView;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,18 +20,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.support.v4.util.LruCache;
-import android.util.Log;
-import android.widget.ImageView;
-
 /**
  * A class for loading an image from a URL into an ImageView.
- * */
+ */
 public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
     private static final LruCache<String, Bitmap> LOADED_BITMAPS = new LruCache<String, Bitmap>(4 * 1024 * 1024);
     private static final String TAG = "BitmapTask";
@@ -43,7 +43,7 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
     private Bitmap getImageBitmap(String url) {
         Bitmap bitmap = null;
 
-        if(url != null && !"".equals(url)) {
+        if (url != null && !"".equals(url)) {
             try {
                 URL aURL = new URL(url);
                 URLConnection conn = aURL.openConnection();
@@ -55,8 +55,7 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
                 is.close();
 
                 cacheBitmap(mImageView.getContext(), bitmap, url);
-            }
-            catch(IOException e) {
+            } catch (IOException e) {
                 Log.e(TAG, "Error getting bitmap from url " + url, e);
             }
         }
@@ -65,11 +64,10 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
     }
 
     private File getCacheFile(Context context, String url) {
-        if(url != null && !"".equals(url)) {
+        if (url != null && !"".equals(url)) {
             try {
                 return new File(context.getCacheDir() + File.separator + URLEncoder.encode(url, "UTF-8"));
-            }
-            catch(UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
@@ -78,17 +76,17 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
 
     /**
      * Save bitmap to cache dir for quicker loading
-     * */
+     */
     private void cacheBitmap(Context context, Bitmap bitmap, String url) {
-        if(url != null && !"".equals(url)) {
+        if (url != null && !"".equals(url)) {
 
             Log.d(TAG, "Saving bitmap to memory.");
-            if(bitmap != null) LOADED_BITMAPS.put(url, bitmap);
+            if (bitmap != null) LOADED_BITMAPS.put(url, bitmap);
 
             File cache = getCacheFile(context, url);
             Log.d(TAG, "Got cache file at " + cache);
 
-            if(!cache.isDirectory()) {
+            if (!cache.isDirectory()) {
                 Log.d(TAG, "Saving bitmap to disk now.");
 
                 cache.delete();
@@ -98,14 +96,11 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
                     fos.close();
                     Log.d(TAG, "Bitmap saved to disk.");
-                }
-                catch(FileNotFoundException e) {
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                }
-                catch(IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
-                }
-                catch(NullPointerException e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
             }
@@ -114,19 +109,18 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
 
     /**
      * Load bitmap from cache dir
-     * */
+     */
     private Bitmap loadCache(Context context, String url) {
-        if(url != null && !"".equals(url)) {
+        if (url != null && !"".equals(url)) {
             File cache = getCacheFile(context, url);
 
-            if(!cache.isDirectory()) {
+            if (!cache.isDirectory()) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(cache.toString(), options);
 
                 return bitmap;
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -134,13 +128,12 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
     }
 
     private Bitmap loadMemCache(String url) {
-        if(url != null && !"".equals(url)) {
+        if (url != null && !"".equals(url)) {
             Log.d(TAG, "Grabbing bitmap from memory with key: " + url);
             Bitmap bitmap = LOADED_BITMAPS.get(url);
-            if(bitmap != null) {
+            if (bitmap != null) {
                 return bitmap;
-            }
-            else {
+            } else {
                 Log.d(TAG, "But there was no bitmap in memory");
             }
         }
@@ -153,13 +146,12 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
         System.out.println("I'm in async with url: " + mURL);
 
         Bitmap bitmap = loadMemCache(mURL);
-        if(bitmap != null) {
+        if (bitmap != null) {
             mImageView.setImageBitmap(bitmap);
             pullFromOnline = false;
-        }
-        else {
+        } else {
             bitmap = loadCache(mImageView.getContext(), mURL);
-            if(bitmap != null) {
+            if (bitmap != null) {
                 mImageView.setImageBitmap(bitmap);
                 System.out.println("I have loaded the bitmap");
 
@@ -168,11 +160,10 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
             }
         }
 
-        if(pullFromOnline) {
-            if(android.os.Build.VERSION.SDK_INT < 11) {
+        if (pullFromOnline) {
+            if (android.os.Build.VERSION.SDK_INT < 11) {
                 execute(args);
-            }
-            else {
+            } else {
                 executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args);
             }
         }
@@ -188,6 +179,6 @@ public class BitmapTask extends AsyncTask<Void, Void, Bitmap> {
     protected void onPostExecute(Bitmap result) {
         super.onPostExecute(result);
 
-        if(result != null) mImageView.setImageBitmap(result);
+        if (result != null) mImageView.setImageBitmap(result);
     }
 }

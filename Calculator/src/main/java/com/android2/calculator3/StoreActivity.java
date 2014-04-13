@@ -1,7 +1,5 @@
 package com.android2.calculator3;
 
-import java.util.Locale;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
@@ -23,6 +21,8 @@ import com.viewpager.indicator.TabPageIndicator;
 import com.xlythe.engine.theme.Theme;
 import com.xlythe.engine.theme.Theme.Res;
 
+import java.util.Locale;
+
 public class StoreActivity extends FragmentActivity {
 
     @Override
@@ -31,7 +31,7 @@ public class StoreActivity extends FragmentActivity {
 
         // Update theme (as needed)
         int customTheme = Theme.getTheme(this);
-        if(customTheme != 0) {
+        if (customTheme != 0) {
             super.setTheme(customTheme);
         }
 
@@ -50,25 +50,25 @@ public class StoreActivity extends FragmentActivity {
         // Theme the indicator
         ViewGroup tabs = (ViewGroup) titleIndicator.getChildAt(0);
         tabs.getLayoutParams().height = getTabHeight();
-        for(int i = 0; i < tabs.getChildCount(); i++) {
+        for (int i = 0; i < tabs.getChildCount(); i++) {
             TextView tab = (TextView) tabs.getChildAt(i);
 
             tab.setTextColor(Theme.getColor(getContext(), R.color.store_tab_text));
             Typeface tf = Theme.getFont(getContext());
-            if(tf != null) tab.setTypeface(tf);
+            if (tf != null) tab.setTypeface(tf);
 
             setBackground(tab, Theme.get(R.drawable.custom_tab_indicator));
         }
 
         ActionBar mActionBar = getActionBar();
-        if(mActionBar != null) {
+        if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, Calculator.class));
             finish();
             return true;
@@ -87,15 +87,13 @@ public class StoreActivity extends FragmentActivity {
     @SuppressLint("NewApi")
     @SuppressWarnings("deprecation")
     private void setBackground(View v, Res res) {
-        if(res != null) {
-            if(Theme.COLOR.equals(res.getType())) {
+        if (res != null) {
+            if (Theme.COLOR.equals(res.getType())) {
                 v.setBackgroundColor(Theme.getColor(getContext(), res.getName()));
-            }
-            else if(Theme.DRAWABLE.equals(res.getType())) {
-                if(android.os.Build.VERSION.SDK_INT < 16) {
+            } else if (Theme.DRAWABLE.equals(res.getType())) {
+                if (android.os.Build.VERSION.SDK_INT < 16) {
                     v.setBackgroundDrawable(Theme.getDrawable(getContext(), res.getName()));
-                }
-                else {
+                } else {
                     v.setBackground(Theme.getDrawable(getContext(), res.getName()));
                 }
             }
@@ -117,11 +115,11 @@ public class StoreActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch(position) {
-            case 0:
-                return new ThemesFragment();
-            default:
-                return null;
+            switch (position) {
+                case 0:
+                    return new ThemesFragment();
+                default:
+                    return null;
             }
         }
 
@@ -133,9 +131,9 @@ public class StoreActivity extends FragmentActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
-            switch(position) {
-            case 0:
-                return getString(R.string.store_tab_themes).toUpperCase(l);
+            switch (position) {
+                case 0:
+                    return getString(R.string.store_tab_themes).toUpperCase(l);
             }
             return null;
         }

@@ -13,7 +13,7 @@ import com.xlythe.engine.theme.Theme;
 
 /**
  * @author Will Harmon
- **/
+ */
 public class Preferences extends Activity {
     Fragment mFragment;
 
@@ -22,25 +22,25 @@ public class Preferences extends Activity {
         super.onCreate(savedInstanceState);
 
         int customTheme = Theme.getSettingsTheme(this);
-        if(customTheme != 0) {
+        if (customTheme != 0) {
             super.setTheme(customTheme);
         }
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             mFragment = new PreferencesFragment();
             mFragment.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().add(android.R.id.content, mFragment).commit();
         }
 
         ActionBar mActionBar = getActionBar();
-        if(mActionBar != null) {
+        if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, Calculator.class));
             finish();
             return true;
@@ -50,13 +50,12 @@ public class Preferences extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
-            if(getFragmentManager().findFragmentById(android.R.id.content) != mFragment) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (getFragmentManager().findFragmentById(android.R.id.content) != mFragment) {
                 try {
                     getFragmentManager().popBackStack();
                     return true;
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

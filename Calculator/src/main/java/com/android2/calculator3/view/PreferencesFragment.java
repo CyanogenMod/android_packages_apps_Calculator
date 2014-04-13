@@ -12,7 +12,6 @@ import android.preference.PreferenceFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.android2.calculator3.CalculatorSettings;
 import com.android2.calculator3.FloatingCalculator;
 import com.android2.calculator3.Preferences;
 import com.android2.calculator3.R;
@@ -32,7 +31,7 @@ public class PreferencesFragment extends PreferenceFragment {
         boolean useLightTheme = Theme.isLightTheme(getContext());
 
         Preference panels = findPreference("panels");
-        if(panels != null) {
+        if (panels != null) {
             panels.setIcon(useLightTheme ? R.drawable.settings_panels_icon_grey : R.drawable.settings_panels_icon_white);
             panels.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
@@ -45,7 +44,7 @@ public class PreferencesFragment extends PreferenceFragment {
         }
 
         Preference actions = findPreference("actions");
-        if(actions != null) {
+        if (actions != null) {
             actions.setIcon(useLightTheme ? R.drawable.settings_actions_icon_grey : R.drawable.settings_actions_icon_white);
             actions.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
@@ -58,7 +57,7 @@ public class PreferencesFragment extends PreferenceFragment {
         }
 
         Preference units = findPreference("units");
-        if(units != null) {
+        if (units != null) {
             units.setIcon(useLightTheme ? R.drawable.settings_units_icon_grey : R.drawable.settings_units_icon_white);
             units.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
@@ -71,7 +70,7 @@ public class PreferencesFragment extends PreferenceFragment {
         }
 
         ThemeListPreference theme = (ThemeListPreference) findPreference("SELECTED_THEME");
-        if(theme != null) {
+        if (theme != null) {
             theme.setIcon(useLightTheme ? R.drawable.settings_theme_icon_grey : R.drawable.settings_theme_icon_white);
             theme.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
@@ -114,13 +113,12 @@ public class PreferencesFragment extends PreferenceFragment {
         }
 
         Preference about = findPreference("ABOUT");
-        if(about != null) {
+        if (about != null) {
             about.setIcon(useLightTheme ? R.drawable.settings_about_icon_grey : R.drawable.settings_about_icon_white);
             String versionName = "";
             try {
                 versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
-            }
-            catch(NameNotFoundException e) {
+            } catch (NameNotFoundException e) {
                 e.printStackTrace();
             }
             about.setTitle(about.getTitle() + " v" + versionName);
@@ -133,7 +131,7 @@ public class PreferencesFragment extends PreferenceFragment {
 
         // Restore the scroll position, if any
         final Bundle args = getArguments();
-        if(args != null) {
+        if (args != null) {
             getListView().setSelectionFromTop(args.getInt(EXTRA_LIST_POSITION, 0), args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
         }
     }
@@ -153,16 +151,15 @@ public class PreferencesFragment extends PreferenceFragment {
             addPreferencesFromResource(R.layout.preferences_actions);
 
             Preference floatingCalc = findPreference("FLOATING_CALCULATOR");
-            if(floatingCalc != null) {
+            if (floatingCalc != null) {
                 floatingCalc.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         Intent startServiceIntent = new Intent(getActivity(), FloatingCalculator.class);
-                        if((Boolean) newValue){
+                        if ((Boolean) newValue) {
                             // Start Floating Calc service if not up yet
                             getActivity().startService(startServiceIntent);
-                        }
-                        else {
+                        } else {
                             // Stop Floating Calc service if up
                             getActivity().stopService(startServiceIntent);
                         }
@@ -172,9 +169,9 @@ public class PreferencesFragment extends PreferenceFragment {
             }
 
             Preference vibrateOnPress = findPreference("VIBRATE_ON_PRESS");
-            if(vibrateOnPress != null) {
+            if (vibrateOnPress != null) {
                 Vibrator vi = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-                if(!vi.hasVibrator()) removePreference(vibrateOnPress);
+                if (!vi.hasVibrator()) removePreference(vibrateOnPress);
             }
         }
 

@@ -40,19 +40,14 @@ public class MatrixTransposeView extends ThemedTextView {
         setTextAppearance(display.getContext(), R.style.Theme_Calculator_Display);
         setTextColor(Theme.get(R.color.display_text_color));
         Typeface tf = Theme.getFont(getContext());
-        if(tf != null) setTypeface(tf);
+        if (tf != null) setTypeface(tf);
         setFont("display_font");
         setPadding(0, 0, 0, 0);
     }
 
-    @Override
-    public String toString() {
-        return PATTERN;
-    }
-
     public static boolean load(final MutableString text, final AdvancedDisplay parent) {
         boolean changed = MatrixTransposeView.load(text, parent, parent.getChildCount());
-        if(changed) {
+        if (changed) {
             // Always append a trailing EditText
             CalculatorEditText.load(parent);
         }
@@ -60,7 +55,7 @@ public class MatrixTransposeView extends ThemedTextView {
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
-        if(!text.startsWith(PATTERN)) return false;
+        if (!text.startsWith(PATTERN)) return false;
 
         text.setText(text.substring(PATTERN.length()));
 
@@ -68,5 +63,10 @@ public class MatrixTransposeView extends ThemedTextView {
         parent.addView(mv, pos);
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return PATTERN;
     }
 }

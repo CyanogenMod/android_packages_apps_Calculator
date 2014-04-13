@@ -2,7 +2,6 @@ package com.android2.calculator3;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -35,7 +34,8 @@ public class FloatingCalculatorActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(FloatingCalculator.ACTIVE_CALCULATOR != null) FloatingCalculator.ACTIVE_CALCULATOR.closeCalculator();
+        if (FloatingCalculator.ACTIVE_CALCULATOR != null)
+            FloatingCalculator.ACTIVE_CALCULATOR.closeCalculator();
         ACTIVE_ACTIVITY = null;
     }
 

@@ -13,9 +13,9 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android2.calculator3.R;
 import com.android2.calculator3.History;
 import com.android2.calculator3.HistoryEntry;
+import com.android2.calculator3.R;
 
 public class HistoryLine extends LinearLayout {
     private static final int COPY = 0;
@@ -34,7 +34,7 @@ public class HistoryLine extends LinearLayout {
     @Override
     public void onCreateContextMenu(ContextMenu menu) {
         MenuHandler handler = new MenuHandler();
-        if(mMenuItemsStrings == null) {
+        if (mMenuItemsStrings == null) {
             Resources resources = getResources();
             mMenuItemsStrings = new String[4];
             mMenuItemsStrings[COPY] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase() + "=" + mHistoryEntry.getEdited());
@@ -42,32 +42,23 @@ public class HistoryLine extends LinearLayout {
             mMenuItemsStrings[COPY_EDITED] = String.format(resources.getString(R.string.copy), mHistoryEntry.getEdited());
             mMenuItemsStrings[REMOVE] = resources.getString(R.string.remove_from_history);
         }
-        for(int i = 0; i < mMenuItemsStrings.length; i++) {
+        for (int i = 0; i < mMenuItemsStrings.length; i++) {
             menu.add(Menu.NONE, i, i, mMenuItemsStrings[i]).setOnMenuItemClickListener(handler);
-        }
-    }
-
-    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
-        public boolean onMenuItemClick(MenuItem item) {
-            return onTextContextMenuItem(item.getTitle());
         }
     }
 
     public boolean onTextContextMenuItem(CharSequence title) {
         boolean handled = false;
-        if(TextUtils.equals(title, mMenuItemsStrings[COPY])) {
+        if (TextUtils.equals(title, mMenuItemsStrings[COPY])) {
             copyContent(mHistoryEntry.getBase() + "=" + mHistoryEntry.getEdited());
             handled = true;
-        }
-        else if(TextUtils.equals(title, mMenuItemsStrings[COPY_BASE])) {
+        } else if (TextUtils.equals(title, mMenuItemsStrings[COPY_BASE])) {
             copyContent(mHistoryEntry.getBase());
             handled = true;
-        }
-        else if(TextUtils.equals(title, mMenuItemsStrings[COPY_EDITED])) {
+        } else if (TextUtils.equals(title, mMenuItemsStrings[COPY_EDITED])) {
             copyContent(mHistoryEntry.getEdited());
             handled = true;
-        }
-        else if(TextUtils.equals(title, mMenuItemsStrings[REMOVE])) {
+        } else if (TextUtils.equals(title, mMenuItemsStrings[REMOVE])) {
             removeContent();
             handled = true;
         }
@@ -112,5 +103,11 @@ public class HistoryLine extends LinearLayout {
 
     public void showMenu() {
         showContextMenu();
+    }
+
+    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
+        public boolean onMenuItemClick(MenuItem item) {
+            return onTextContextMenuItem(item.getTitle());
+        }
     }
 }

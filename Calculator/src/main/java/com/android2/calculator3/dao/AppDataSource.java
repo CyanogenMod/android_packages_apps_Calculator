@@ -1,8 +1,5 @@
 package com.android2.calculator3.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,21 +8,22 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.xlythe.engine.theme.App;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AppDataSource implements DataSource {
     private static StoreHelper instance;
-
-    public static synchronized StoreHelper getHelper(Context context) {
-        if(instance == null) instance = new StoreHelper(context);
-
-        return instance;
-    }
-
     // Database fields
     private SQLiteDatabase database;
     private StoreHelper dbHelper;
-
     public AppDataSource(Context context) {
         dbHelper = getHelper(context);
+    }
+
+    public static synchronized StoreHelper getHelper(Context context) {
+        if (instance == null) instance = new StoreHelper(context);
+
+        return instance;
     }
 
     public void open() throws SQLException {
@@ -37,7 +35,7 @@ public abstract class AppDataSource implements DataSource {
     }
 
     public String[] getColumns() {
-        String[] allColumns = { StoreHelper.COLUMN_ID, StoreHelper.COLUMN_NAME, StoreHelper.COLUMN_PACKAGE, StoreHelper.COLUMN_PRICE, StoreHelper.COLUMN_IMAGE_URL };
+        String[] allColumns = {StoreHelper.COLUMN_ID, StoreHelper.COLUMN_NAME, StoreHelper.COLUMN_PACKAGE, StoreHelper.COLUMN_PRICE, StoreHelper.COLUMN_IMAGE_URL};
         return allColumns;
     }
 
@@ -58,7 +56,7 @@ public abstract class AppDataSource implements DataSource {
     }
 
     public void createApps(List<App> apps) {
-        for(App a : apps) {
+        for (App a : apps) {
             createApp(a);
         }
     }
@@ -68,7 +66,7 @@ public abstract class AppDataSource implements DataSource {
         values.put(StoreHelper.COLUMN_NAME, app.getName());
         values.put(StoreHelper.COLUMN_PRICE, app.getPrice());
         values.put(StoreHelper.COLUMN_IMAGE_URL, app.getImageUrl());
-        database.update(getTableName(), values, String.format("%s = ?", StoreHelper.COLUMN_PACKAGE), new String[] { app.getPackageName() });
+        database.update(getTableName(), values, String.format("%s = ?", StoreHelper.COLUMN_PACKAGE), new String[]{app.getPackageName()});
     }
 
     public void deleteApp(App app) {
@@ -86,14 +84,13 @@ public abstract class AppDataSource implements DataSource {
         Cursor cursor = null;
         try {
             cursor = database.query(getTableName(), getColumns(), null, null, null, null, null);
-        }
-        catch(IllegalStateException e) {
+        } catch (IllegalStateException e) {
             e.printStackTrace();
             return apps;
         }
 
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             App app = cursorToApp(cursor);
             apps.add(app);
             cursor.moveToNext();

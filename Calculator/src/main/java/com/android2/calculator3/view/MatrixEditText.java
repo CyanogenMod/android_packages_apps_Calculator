@@ -73,6 +73,36 @@ public class MatrixEditText extends ThemedEditText implements OnFocusChangeListe
         });
     }
 
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            mDisplay.mActiveEditText = MatrixEditText.this;
+            if (getText().toString().equals(Logic.NAN)) {
+                setText("");
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return getText().toString();
+    }
+
+    @Override
+    public View focusSearch(int direction) {
+        switch (direction) {
+            case View.FOCUS_FORWARD:
+                return mParent.nextView(this);
+            case View.FOCUS_BACKWARD:
+                return mParent.previousView(this);
+        }
+        return super.focusSearch(direction);
+    }
+
+    public MatrixView getMatrixView() {
+        return mParent;
+    }
+
     class MatrixKeyListener extends NumberKeyListener {
         @Override
         public int getInputType() {
@@ -91,8 +121,8 @@ public class MatrixEditText extends ThemedEditText implements OnFocusChangeListe
 
         @Override
         public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
-            if(keyCode == KeyEvent.KEYCODE_DEL) {
-                if(mParent.isEmpty()) mDisplay.removeView(mParent);
+            if (keyCode == KeyEvent.KEYCODE_DEL) {
+                if (mParent.isEmpty()) mDisplay.removeView(mParent);
             }
             return super.onKeyDown(view, content, keyCode, event);
         }
@@ -111,41 +141,12 @@ public class MatrixEditText extends ThemedEditText implements OnFocusChangeListe
         }
 
         @Override
-        public void onDestroyActionMode(ActionMode mode) {}
+        public void onDestroyActionMode(ActionMode mode) {
+        }
 
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }
-    }
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if(hasFocus) {
-            mDisplay.mActiveEditText = MatrixEditText.this;
-            if(getText().toString().equals(Logic.NAN)) {
-                setText("");
-            }
-        }
-    }
-
-    @Override
-    public String toString() {
-        return getText().toString();
-    }
-
-    @Override
-    public View focusSearch(int direction) {
-        switch(direction) {
-        case View.FOCUS_FORWARD:
-            return mParent.nextView(this);
-        case View.FOCUS_BACKWARD:
-            return mParent.previousView(this);
-        }
-        return super.focusSearch(direction);
-    }
-
-    public MatrixView getMatrixView() {
-        return mParent;
     }
 }

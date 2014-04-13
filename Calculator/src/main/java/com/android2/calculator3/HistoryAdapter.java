@@ -16,8 +16,6 @@
 
 package com.android2.calculator3;
 
-import java.util.Vector;
-
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -28,15 +26,17 @@ import android.widget.TextView;
 
 import com.android2.calculator3.view.HistoryLine;
 
+import java.util.Vector;
+
 class HistoryAdapter extends BaseAdapter {
+    private final Context mContext;
     private final Vector<HistoryEntry> mEntries;
-    private final LayoutInflater mInflater;
     private final EquationFormatter mEquationFormatter;
     private final History mHistory;
 
     HistoryAdapter(Context context, History history) {
+        mContext = context;
         mEntries = history.mEntries;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mEquationFormatter = new EquationFormatter();
         mHistory = history;
     }
@@ -64,10 +64,9 @@ class HistoryAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         HistoryLine view;
-        if(convertView == null) {
-            view = (HistoryLine) mInflater.inflate(R.layout.history_entry, parent, false);
-        }
-        else {
+        if (convertView == null) {
+            view = createView();
+        } else {
             view = (HistoryLine) convertView;
         }
 
@@ -82,5 +81,13 @@ class HistoryAdapter extends BaseAdapter {
         view.setAdapter(this);
 
         return view;
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+
+    protected HistoryLine createView() {
+        return (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
     }
 }

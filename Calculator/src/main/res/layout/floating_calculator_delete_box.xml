@@ -13,8 +13,8 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/delete_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/button_small"
                 android:layout_centerInParent="true" />
             <ImageView

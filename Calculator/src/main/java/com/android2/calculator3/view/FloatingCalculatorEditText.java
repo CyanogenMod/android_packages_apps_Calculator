@@ -17,33 +17,8 @@
 package com.android2.calculator3.view;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.text.Editable;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.ActionMode;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
-
-import com.android2.calculator3.BaseModule;
-import com.android2.calculator3.CalculatorSettings;
-import com.android2.calculator3.EquationFormatter;
-import com.android2.calculator3.R;
-import com.xlythe.engine.theme.ThemedEditText;
 
 public class FloatingCalculatorEditText extends CalculatorEditText {
     public FloatingCalculatorEditText(Context context, AttributeSet attrs) {

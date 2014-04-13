@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
- *    
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *    
+ *
  *            http://www.apache.org/licenses/LICENSE-2.0
- *    
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 package com.android2.calculator3;
+
+import android.content.Context;
+import android.graphics.Paint.Align;
+
+import com.xlythe.engine.theme.Theme;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -26,24 +31,26 @@ import org.achartengine.tools.PanListener;
 import org.achartengine.tools.ZoomEvent;
 import org.achartengine.tools.ZoomListener;
 
-import android.content.Context;
-import android.graphics.Paint.Align;
-
-import com.xlythe.engine.theme.Theme;
-
 public class Graph {
     public static final double MAX_HEIGHT_X = 10;
     public static final double MAX_HEIGHT_Y = 10;
     public static final double MIN_HEIGHT_X = -10;
     public static final double MIN_HEIGHT_Y = -10;
-
+    private final Logic mLogic;
     private GraphicalView mChartView;
     private XYMultipleSeriesDataset mDataset;
     private XYMultipleSeriesRenderer mRenderer;
-    private final Logic mLogic;
 
     public Graph(Logic l) {
         mLogic = l;
+    }
+
+    public static void addSeriesRenderer(int color, XYMultipleSeriesRenderer renderer) {
+        XYSeriesRenderer r = new XYSeriesRenderer();
+        r.setColor(color);
+        r.setPointStyle(PointStyle.POINT);
+        r.setLineWidth(4f);
+        renderer.addSeriesRenderer(r);
     }
 
     public XYMultipleSeriesDataset getDataset() {
@@ -96,7 +103,7 @@ public class Graph {
     private void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
         XYSeries series = new XYSeries(title, scale);
         int seriesLength = xValues.length;
-        for(int k = 0; k < seriesLength; k++) {
+        for (int k = 0; k < seriesLength; k++) {
             series.add(xValues[k], yValues[k]);
         }
         dataset.addSeries(series);
@@ -110,7 +117,7 @@ public class Graph {
         renderer.setLegendTextSize(20);
         renderer.setLegendHeight(22);
         renderer.setPointSize(5f);
-        renderer.setMargins(new int[] { 20, 30, 15, 20 });
+        renderer.setMargins(new int[]{20, 30, 15, 20});
         renderer.setMarginsColor(Theme.getColor(context, R.color.graph_background));
         renderer.setChartTitle("");
         renderer.setXTitle(context.getResources().getString(R.string.X));
@@ -136,14 +143,6 @@ public class Graph {
         renderer.setExternalZoomEnabled(true);
         addSeriesRenderer(Theme.getColor(context, R.color.graph_color), renderer);
         return renderer;
-    }
-
-    public static void addSeriesRenderer(int color, XYMultipleSeriesRenderer renderer) {
-        XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(color);
-        r.setPointStyle(PointStyle.POINT);
-        r.setLineWidth(4f);
-        renderer.addSeriesRenderer(r);
     }
 
     public boolean isTrigFunction() {

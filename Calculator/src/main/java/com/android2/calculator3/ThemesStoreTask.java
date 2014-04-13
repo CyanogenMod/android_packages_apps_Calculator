@@ -1,12 +1,5 @@
 package com.android2.calculator3;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,6 +7,13 @@ import android.os.AsyncTask;
 import com.android2.calculator3.dao.ThemesDataSource;
 import com.google.gson.Gson;
 import com.xlythe.engine.theme.App;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 public class ThemesStoreTask extends AsyncTask<String, String, List<App>> {
     private static final String THEME_URL = "http://xlythe.com/calculator/store/themes.json";
@@ -41,14 +41,13 @@ public class ThemesStoreTask extends AsyncTask<String, String, List<App>> {
             StringBuilder builder = new StringBuilder();
 
             int data = isr.read();
-            while(data != -1) {
+            while (data != -1) {
                 char current = (char) data;
                 data = isr.read();
                 builder.append(current);
             }
             result = builder.toString();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -63,8 +62,7 @@ public class ThemesStoreTask extends AsyncTask<String, String, List<App>> {
             dataSource.open();
             dataSource.deleteApps();
             dataSource.createApps(apps);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             // May have returned a 500 DB may be closed or context may be null
             e.printStackTrace();
             cancel(true);
@@ -75,10 +73,9 @@ public class ThemesStoreTask extends AsyncTask<String, String, List<App>> {
 
     @SuppressLint("NewApi")
     public void executeAsync() {
-        if(android.os.Build.VERSION.SDK_INT < 11) {
+        if (android.os.Build.VERSION.SDK_INT < 11) {
             execute();
-        }
-        else {
+        } else {
             executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }

@@ -16,8 +16,6 @@
 
 package com.android2.calculator3.view;
 
-import java.util.List;
-
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -27,6 +25,8 @@ import com.android2.calculator3.CalculatorPageAdapter;
 import com.android2.calculator3.CalculatorSettings;
 import com.android2.calculator3.Page;
 import com.android2.calculator3.Page.NormalPanel;
+
+import java.util.List;
 
 public class CalculatorViewPager extends ViewPager {
     // Usually we use a huge constant, but ViewPager crashes when the size is too big.
@@ -52,7 +52,7 @@ public class CalculatorViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(mIsEnabled) {
+        if (mIsEnabled) {
             return super.onTouchEvent(event);
         }
 
@@ -61,23 +61,23 @@ public class CalculatorViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if(mIsEnabled) {
+        if (mIsEnabled) {
             return super.onInterceptTouchEvent(event);
         }
 
         return false;
     }
 
-    public void setPagingEnabled(boolean enabled) {
-        mIsEnabled = enabled;
-    }
-
     public boolean getPagingEnabled() {
         return mIsEnabled;
     }
 
+    public void setPagingEnabled(boolean enabled) {
+        mIsEnabled = enabled;
+    }
+
     public void scrollToMiddle() {
-        if(CalculatorSettings.useInfiniteScrolling(getContext())) {
+        if (CalculatorSettings.useInfiniteScrolling(getContext())) {
             List<Page> pages = ((CalculatorPageAdapter) getAdapter()).getPages();
             int halfwayDownTheInfiniteList = (MAX_SIZE_CONSTANT / pages.size()) / 2 * pages.size() + Page.getOrder(pages, new Page(getContext(), NormalPanel.BASIC));
             setCurrentItem(halfwayDownTheInfiniteList);
