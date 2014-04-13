@@ -169,6 +169,10 @@ public class CalculatorEditText extends ThemedEditText {
         });
     }
 
+    public AdvancedDisplay getAdvancedDisplay() {
+        return mDisplay;
+    }
+
     @Override
     public String toString() {
         return mInput;

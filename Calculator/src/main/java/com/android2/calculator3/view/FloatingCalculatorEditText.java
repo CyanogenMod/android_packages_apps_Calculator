@@ -16,11 +16,21 @@
 
 package com.android2.calculator3.view;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.text.Selection;
+import android.text.Spannable;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.widget.Toast;
 
+import com.android2.calculator3.R;
 import com.xlythe.engine.theme.Theme;
 
 public class FloatingCalculatorEditText extends CalculatorEditText {
@@ -28,9 +38,29 @@ public class FloatingCalculatorEditText extends CalculatorEditText {
         super(context, attrs);
     }
 
+    public static int LONG_PRESS_TIME = ViewConfiguration.getLongPressTimeout();
+    private long mPressedTime;
+    private final Handler mHandler = new Handler();
+    private Runnable mOnLongPressed = new Runnable() {
+        public void run() {
+            copyContent(getAdvancedDisplay().getText());
+        }
+    };
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return false;
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            mPressedTime = System.currentTimeMillis();
+            mHandler.postDelayed(mOnLongPressed, LONG_PRESS_TIME);
+        }
+        if(event.getAction() == MotionEvent.ACTION_UP){
+            if(System.currentTimeMillis() - mPressedTime < LONG_PRESS_TIME) {
+                mHandler.removeCallbacks(mOnLongPressed);
+            }
+            final int offset = getOffsetForPosition(event.getX(), event.getY());
+            Selection.setSelection(getText(), offset);
+        }
+        return true;
     }
 
     @Override
@@ -38,4 +68,11 @@ public class FloatingCalculatorEditText extends CalculatorEditText {
 
     @Override
     public void setFont(String font) {}
+
+    private void copyContent(String text) {
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
+        String toastText = String.format(getContext().getResources().getString(R.string.text_copied_toast), text);
+        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
+    }
 }
