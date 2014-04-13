@@ -52,7 +52,8 @@ public class FloatingCalculator extends Service {
     private WindowManager.LayoutParams mParams;
     private WindowManager.LayoutParams mCalcParams;
     private FloatingView mCalcView;
-    private FloatingView mDeleteBoxView;
+    private FloatingView mDeleteView;
+    private View mDeleteBoxView;
     private boolean mDeleteBoxVisible = false;
     private boolean mIsDestroyed = false;
     private boolean mIsBeingDestroyed = false;
@@ -63,7 +64,6 @@ public class FloatingCalculator extends Service {
     private List<Float> mDeltaXArray;
     private List<Float> mDeltaYArray;
     private AnimationTask mAnimationTask;
-    private long mAnimationLastOverwritten;
 
     // Open/Close variables
     private int mPrevX = -1;
@@ -153,19 +153,21 @@ public class FloatingCalculator extends Service {
     private void showDeleteBox() {
         if (!mDeleteBoxVisible) {
             mDeleteBoxVisible = true;
-            if (mDeleteBoxView == null) {
-                View child = View.inflate(getContext(), R.layout.floating_calculator_delete_box, null);
-                mDeleteBoxView = new FloatingView(getContext());
-                mDeleteBoxView.addView(child);
-                mDeleteIcon = (ImageView) mDeleteBoxView.findViewById(R.id.delete_icon);
-                mDeleteIconHolder = mDeleteBoxView.findViewById(R.id.delete_icon_holder);
-                addView(mDeleteBoxView, 0, 0, Gravity.BOTTOM | Gravity.CENTER_VERTICAL, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            if (mDeleteView == null) {
+                mDeleteView = new FloatingView(getContext());
+                View.inflate(getContext(), R.layout.floating_calculator_delete_box, mDeleteView);
+                mDeleteIcon = (ImageView) mDeleteView.findViewById(R.id.delete_icon);
+                mDeleteIconHolder = mDeleteView.findViewById(R.id.delete_icon_holder);
+                mDeleteBoxView = mDeleteView.findViewById(R.id.box);
+                addView(mDeleteView, 0, 0, Gravity.BOTTOM | Gravity.CENTER_VERTICAL, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
             } else {
-                mDeleteBoxView.setVisibility(View.VISIBLE);
+                mDeleteView.setVisibility(View.VISIBLE);
             }
-            mDeleteIconHolder.setTranslationY(200);
-            mDeleteIconHolder.animate().translationYBy(-204).setListener(null);
-            View child = mDeleteBoxView.getChildAt(0);
+            mDeleteBoxView.setAlpha(0);
+            mDeleteBoxView.animate().alpha(1);
+            mDeleteIconHolder.setTranslationY(400);
+            mDeleteIconHolder.animate().translationYBy(-404).setListener(null);
+            View child = mDeleteView.getChildAt(0);
             child.findViewById(R.id.box).getLayoutParams().width = getScreenWidth();
         }
     }
@@ -173,23 +175,12 @@ public class FloatingCalculator extends Service {
     public void hideDeleteBox() {
         if (mDeleteBoxVisible) {
             mDeleteBoxVisible = false;
-            if (mDeleteBoxView != null) {
-                mDeleteIconHolder.animate().translationYBy(200).setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
-
+            if (mDeleteView != null) {
+                mDeleteBoxView.animate().alpha(0);
+                mDeleteIconHolder.animate().translationYBy(400).setListener(new AnimationFinishedListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        if (mDeleteBoxView != null) mDeleteBoxView.setVisibility(View.GONE);
+                        if (mDeleteView != null) mDeleteView.setVisibility(View.GONE);
                     }
                 });
             }
@@ -210,23 +201,10 @@ public class FloatingCalculator extends Service {
             animateToDeleteBoxCenter(new OnAnimationFinishedListener() {
                 @Override
                 public void onAnimationFinished() {
-                    mDeleteIconHolder.animate().translationY(300).setDuration(150);
-                    mDraggableIcon.findViewById(R.id.box).animate().translationY(300).setDuration(150).setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                        }
-
+                    mDraggableIcon.findViewById(R.id.box).animate().translationY(300).setDuration(150).setListener(new AnimationFinishedListener() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             stopSelf();
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
                         }
                     });
                 }
@@ -379,9 +357,9 @@ public class FloatingCalculator extends Service {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mDraggableIcon);
             mDraggableIcon = null;
         }
-        if (mDeleteBoxView != null) {
-            ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mDeleteBoxView);
-            mDeleteBoxView = null;
+        if (mDeleteView != null) {
+            ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mDeleteView);
+            mDeleteView = null;
         }
         if (mCalcView != null) {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mCalcView);
@@ -513,19 +491,7 @@ public class FloatingCalculator extends Service {
         if (mCalcView != null) {
             View child = mCalcView.getChildAt(0);
             child.setAlpha(1);
-            child.animate().setDuration(150).alpha(0).setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationStart(Animator animation) {
-                }
-
+            child.animate().setDuration(150).alpha(0).setListener(new AnimationFinishedListener() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mCalcView.setVisibility(View.GONE);
