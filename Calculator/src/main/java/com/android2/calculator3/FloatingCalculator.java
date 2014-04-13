@@ -80,7 +80,7 @@ public class FloatingCalculator extends Service {
     private boolean mIsInDeleteMode = false;
     private View mDeleteIcon;
     private View mDeleteIconHolder;
-    private boolean mIsZoomingBack = false;
+    private boolean mIsAnimationLocked = false;
     private boolean mDontVibrate = false;
 
     @Override
@@ -214,7 +214,7 @@ public class FloatingCalculator extends Service {
     }
 
     private void animateToDeleteBoxCenter(final OnAnimationFinishedListener l) {
-        if (mIsZoomingBack) return;
+        if (mIsAnimationLocked) return;
         mIsInDeleteMode = true;
         if (mAnimationTask != null) mAnimationTask.cancel();
         mAnimationTask = new AnimationTask(getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2, getScreenHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2);
@@ -244,6 +244,8 @@ public class FloatingCalculator extends Service {
         OnTouchListener dragListener = new OnTouchListener() {
             float mPrevDragX;
             float mPrevDragY;
+            float mOrigX;
+            float mOrigY;
 
             boolean mDragged;
 
@@ -251,8 +253,8 @@ public class FloatingCalculator extends Service {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        mPrevDragX = event.getRawX();
-                        mPrevDragY = event.getRawY();
+                        mPrevDragX = mOrigX = event.getRawX();
+                        mPrevDragY = mOrigY = event.getRawY();
 
                         mDragged = false;
 
@@ -271,6 +273,8 @@ public class FloatingCalculator extends Service {
                         }
                         break;
                     case MotionEvent.ACTION_UP:
+                        mIsAnimationLocked = false;
+                        if (mAnimationTask != null) mAnimationTask.cancel();
                         if (!mDragged) {
                             if (!mIsCalcOpen) {
                                 openCalculator();
@@ -279,8 +283,6 @@ public class FloatingCalculator extends Service {
                             }
                         } else {
                             // Animate the icon
-                            mIsZoomingBack = false;
-                            if (mAnimationTask != null) mAnimationTask.cancel();
                             mAnimationTask = new AnimationTask();
                             mAnimationTask.run();
                         }
@@ -295,9 +297,6 @@ public class FloatingCalculator extends Service {
 
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        // Calculate position of the whole tray according to the drag, and update layout.
-                        float deltaX = event.getRawX() - mPrevDragX;
-                        float deltaY = event.getRawY() - mPrevDragY;
                         mCurrentX = (int) (event.getRawX() - mDraggableIcon.getWidth() / 2);
                         mCurrentY = (int) (event.getRawY() - mDraggableIcon.getHeight());
                         if (isDeleteMode(mCurrentX, mCurrentY)) {
@@ -307,7 +306,7 @@ public class FloatingCalculator extends Service {
                                     mDontVibrate = true;
                                 }
                             });
-                        } else if (isDeleteMode() && !mIsZoomingBack) {
+                        } else if (isDeleteMode() && !mIsAnimationLocked) {
                             mDontVibrate = false;
                             mIsInDeleteMode = false;
                             if (mAnimationTask != null) mAnimationTask.cancel();
@@ -317,33 +316,39 @@ public class FloatingCalculator extends Service {
                             mAnimationTask.setAnimationFinishedListener(new OnAnimationFinishedListener() {
                                 @Override
                                 public void onAnimationFinished() {
-                                    mIsZoomingBack = false;
+                                    mIsAnimationLocked = false;
                                 }
                             });
                             mAnimationTask.run();
-                            mIsZoomingBack = true;
+                            mIsAnimationLocked = true;
                             mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
                         } else {
                             if(mIsInDeleteMode) {
                                 mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
                                 mIsInDeleteMode = false;
                             }
-                            if (!mIsZoomingBack && mDragged) {
+                            if (!mIsAnimationLocked && mDragged) {
                                 if (mAnimationTask != null) mAnimationTask.cancel();
                                 updateIconPosition(mCurrentX, mCurrentY);
                             }
                         }
+
+                        float deltaX = event.getRawX() - mPrevDragX;
+                        float deltaY = event.getRawY() - mPrevDragY;
+
+                        mDeltaXArray.add(deltaX);
+                        mDeltaYArray.add(deltaY);
+
                         mPrevDragX = event.getRawX();
                         mPrevDragY = event.getRawY();
 
+                        deltaX = event.getRawX() - mOrigX;
+                        deltaY = event.getRawY() - mOrigY;
                         mDragged = mDragged || Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5;
                         if (mDragged) {
                             closeCalculator(false);
                             showDeleteBox();
                         }
-
-                        mDeltaXArray.add(deltaX);
-                        mDeltaYArray.add(deltaY);
                         break;
                 }
                 return true;
@@ -382,11 +387,11 @@ public class FloatingCalculator extends Service {
 
     public void openCalculator() {
         if (!mIsCalcOpen) {
-            if (mIsZoomingBack) return;
+            if (mIsAnimationLocked) return;
             mIsCalcOpen = true;
             mPrevX = mCurrentPosX;
             mPrevY = mCurrentPosY;
-            mAnimationTask = new AnimationTask((int) (getScreenWidth() - mDraggableIcon.getWidth() * 1.2), 100);
+            mAnimationTask = new AnimationTask(getOpenX(), getOpenY());
             mAnimationTask.setAnimationFinishedListener(new OnAnimationFinishedListener() {
                 @Override
                 public void onAnimationFinished() {
@@ -400,6 +405,14 @@ public class FloatingCalculator extends Service {
         }
     }
 
+    private int getOpenX() {
+        return (int) (getScreenWidth() - mDraggableIcon.getWidth() * 1.2);
+    }
+
+    private int getOpenY() {
+        return 100;
+    }
+
     public void closeCalculator() {
         closeCalculator(true);
     }
@@ -408,7 +421,7 @@ public class FloatingCalculator extends Service {
         if (mIsCalcOpen) {
             mIsCalcOpen = false;
             if (returnToOrigin) {
-                if (mIsZoomingBack) return;
+                if (mIsAnimationLocked) return;
                 mAnimationTask = new AnimationTask(mPrevX, mPrevY);
                 mAnimationTask.run();
             }
@@ -600,8 +613,8 @@ public class FloatingCalculator extends Service {
         }
 
         private void setup(int x, int y) {
-            if (mIsZoomingBack)
-                throw new RuntimeException("Returning to user's finger. Avoid animations while mIsZoomingBack flag is set.");
+            if (mIsAnimationLocked)
+                throw new RuntimeException("Returning to user's finger. Avoid animations while mIsAnimationLocked flag is set.");
             mDestX = x;
             mDestY = y;
 

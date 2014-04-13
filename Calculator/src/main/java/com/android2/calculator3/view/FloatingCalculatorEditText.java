@@ -17,8 +17,11 @@
 package com.android2.calculator3.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
+import com.xlythe.engine.theme.Theme;
 
 public class FloatingCalculatorEditText extends CalculatorEditText {
     public FloatingCalculatorEditText(Context context, AttributeSet attrs) {
@@ -29,4 +32,10 @@ public class FloatingCalculatorEditText extends CalculatorEditText {
     public boolean onTouchEvent(MotionEvent event) {
         return false;
     }
+
+    @Override
+    public void setDefaultFont() {}
+
+    @Override
+    public void setFont(String font) {}
 }
