@@ -193,7 +193,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         } else if (mSmallPager != null && mLargePager != null) {
             // Expanded UI
             CalculatorPageAdapter smallAdapter = new SmallPageAdapter(getContext(), mLogic);
-            CalculatorPageAdapter largeAdapter = new LargePageAdapter(getContext(), mGraph, mLogic);
+            CalculatorPageAdapter largeAdapter = new LargePageAdapter(getContext(), mListener, mGraph, mLogic);
             mPages = new ArrayList<Page>(smallAdapter.getPages());
             mPages.addAll(largeAdapter.getPages());
             mSmallPager.setAdapter(smallAdapter);

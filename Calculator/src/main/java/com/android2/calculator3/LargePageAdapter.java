@@ -14,11 +14,11 @@ public class LargePageAdapter extends CalculatorPageAdapter {
     private final EventListener mListener;
     private final List<Page> mPages;
 
-    public LargePageAdapter(Context context, Graph graph, Logic logic) {
+    public LargePageAdapter(Context context, EventListener listener, Graph graph, Logic logic) {
         mContext = context;
         mGraph = graph;
         mLogic = logic;
-        mListener = null;
+        mListener = listener;
         mPages = Page.getLargePages(mContext);
     }
 
