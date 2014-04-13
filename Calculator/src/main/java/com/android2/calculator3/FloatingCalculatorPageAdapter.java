@@ -14,18 +14,24 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android2.calculator3.view.AdvancedDisplay;
+import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.HistoryLine;
 
 public class FloatingCalculatorPageAdapter extends PagerAdapter {
     private final Context mContext;
     private final View.OnClickListener mListener;
+    private final Logic mLogic;
+    private final CalculatorDisplay mDisplay;
     private final History mHistory;
     private final View[] mViews = new View[3];
 
-    public FloatingCalculatorPageAdapter(Context context, View.OnClickListener listener, History history) {
+    public FloatingCalculatorPageAdapter(Context context, View.OnClickListener listener, History history, Logic logic, CalculatorDisplay display) {
         mContext = context;
         mListener = listener;
         mHistory = history;
+        mLogic = logic;
+        mDisplay = display;
     }
 
     protected Context getContext() {
@@ -105,7 +111,17 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
     }
 
     private void setUpHistory(ListView historyView) {
-        BaseAdapter historyAdapter = new FloatingHistoryAdapter(mContext, mHistory);
+        FloatingHistoryAdapter.OnHistoryItemClickListener listener = new FloatingHistoryAdapter.OnHistoryItemClickListener() {
+            @Override
+            public void onHistoryItemClick(HistoryEntry entry) {
+                int deleteMode = mLogic.getDeleteMode();
+                if (mDisplay.getText().isEmpty()) deleteMode = Logic.DELETE_MODE_CLEAR;
+                mDisplay.insert(entry.getEdited());
+                mLogic.setDeleteMode(deleteMode);
+            }
+        };
+        FloatingHistoryAdapter historyAdapter = new FloatingHistoryAdapter(mContext, mHistory);
+        historyAdapter.setOnHistoryItemClickListener(listener);
         mHistory.setObserver(historyAdapter);
         historyView.setAdapter(historyAdapter);
         historyView.setStackFromBottom(true);

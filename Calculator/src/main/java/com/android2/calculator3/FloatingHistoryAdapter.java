@@ -32,6 +32,8 @@ import com.android2.calculator3.view.HistoryLine;
 import java.util.Vector;
 
 class FloatingHistoryAdapter extends HistoryAdapter {
+    private OnHistoryItemClickListener mListener;
+
     FloatingHistoryAdapter(Context context, History history) {
         super(context, history);
     }
@@ -53,7 +55,8 @@ class FloatingHistoryAdapter extends HistoryAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                copyContent(entry.getEdited());
+                if(mListener != null) mListener.onHistoryItemClick(entry);
+//                copyContent(entry.getEdited());
             }
         });
     }
@@ -63,5 +66,13 @@ class FloatingHistoryAdapter extends HistoryAdapter {
         clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
         String toastText = String.format(getContext().getResources().getString(R.string.text_copied_toast), text);
         Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
+    }
+
+    public void setOnHistoryItemClickListener(OnHistoryItemClickListener l) {
+        mListener = l;
+    }
+
+    public static interface OnHistoryItemClickListener {
+        public void onHistoryItemClick(HistoryEntry entry);
     }
 }

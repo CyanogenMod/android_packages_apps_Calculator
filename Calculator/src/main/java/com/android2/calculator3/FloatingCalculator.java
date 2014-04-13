@@ -490,7 +490,7 @@ public class FloatingCalculator extends Service {
                 }
             });
 
-            FloatingCalculatorPageAdapter adapter = new FloatingCalculatorPageAdapter(getContext(), mListener, mHistory);
+            FloatingCalculatorPageAdapter adapter = new FloatingCalculatorPageAdapter(getContext(), mListener, mHistory, mLogic, mDisplay);
             mPager.setAdapter(adapter);
             mPager.setCurrentItem(1);
         } else {
