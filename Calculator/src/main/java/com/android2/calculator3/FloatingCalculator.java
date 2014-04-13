@@ -478,9 +478,6 @@ public class FloatingCalculator extends Service {
                     } else if (v instanceof ImageButton) {
                         mLogic.onDelete();
                     }
-                    mLogic.updateHistory();
-                    mPersist.setDeleteMode(mLogic.getDeleteMode());
-                    mPersist.save();
                 }
             };
             final ImageButton del = (ImageButton) mCalcView.findViewById(R.id.delete);
@@ -513,6 +510,9 @@ public class FloatingCalculator extends Service {
     }
 
     public void hideCalculator() {
+        mLogic.updateHistory();
+        mPersist.setDeleteMode(mLogic.getDeleteMode());
+        mPersist.save();
         if (mCalcView != null) {
             View child = mCalcView.getChildAt(0);
             child.setAlpha(1);
