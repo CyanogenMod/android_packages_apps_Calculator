@@ -9,15 +9,12 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Parcelable;
 import android.os.Vibrator;
-import android.support.v4.view.PagerAdapter;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -31,7 +28,6 @@ import android.widget.Toast;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,6 +81,7 @@ public class FloatingCalculator extends Service {
     private View mDeleteIcon;
     private View mDeleteIconHolder;
     private boolean mIsZoomingBack = false;
+    private boolean mDontVibrate = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -188,6 +185,7 @@ public class FloatingCalculator extends Service {
     }
 
     private void vibrate() {
+        if(mDontVibrate) return;
         Vibrator vi = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (!vi.hasVibrator()) return;
         vi.vibrate(25);
@@ -201,7 +199,8 @@ public class FloatingCalculator extends Service {
             animateToDeleteBoxCenter(new OnAnimationFinishedListener() {
                 @Override
                 public void onAnimationFinished() {
-                    mDraggableIcon.findViewById(R.id.box).animate().translationY(300).setDuration(150).setListener(new AnimationFinishedListener() {
+                    hideDeleteBox();
+                    mDraggableIconImage.animate().translationY(400).setListener(new AnimationFinishedListener() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             stopSelf();
@@ -290,10 +289,9 @@ public class FloatingCalculator extends Service {
                             close(true);
                         } else {
                             hideDeleteBox();
+                            mDraggableIconImage.setScaleX(1f);
+                            mDraggableIconImage.setScaleY(1f);
                         }
-
-                        mDraggableIconImage.setScaleX(1f);
-                        mDraggableIconImage.setScaleY(1f);
 
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -303,8 +301,14 @@ public class FloatingCalculator extends Service {
                         mCurrentX = (int) (event.getRawX() - mDraggableIcon.getWidth() / 2);
                         mCurrentY = (int) (event.getRawY() - mDraggableIcon.getHeight());
                         if (isDeleteMode(mCurrentX, mCurrentY)) {
-                            if (!mIsInDeleteMode) animateToDeleteBoxCenter(null);
+                            if (!mIsInDeleteMode) animateToDeleteBoxCenter(new OnAnimationFinishedListener() {
+                                @Override
+                                public void onAnimationFinished() {
+                                    mDontVibrate = true;
+                                }
+                            });
                         } else if (isDeleteMode() && !mIsZoomingBack) {
+                            mDontVibrate = false;
                             mIsInDeleteMode = false;
                             if (mAnimationTask != null) mAnimationTask.cancel();
                             mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
@@ -445,11 +449,11 @@ public class FloatingCalculator extends Service {
                             mLogic.onEnter();
                             mLogic.updateHistory();
                             mPersist.save();
-                        } else if(v.getId() == R.id.parentheses) {
+                        } else if (v.getId() == R.id.parentheses) {
                             if (mLogic.isError()) mLogic.setText("");
                             mLogic.setText("(" + mLogic.getText() + ")");
                         } else if (((Button) v).getText().toString().length() >= 2) {
-                            mLogic.insert(((Button) v).getText().toString()+"(");
+                            mLogic.insert(((Button) v).getText().toString() + "(");
                         } else {
                             mLogic.insert(((Button) v).getText().toString());
                         }
