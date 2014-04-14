@@ -2,6 +2,8 @@ package com.xlythe.engine.theme;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class Theme {
     public static final String RAW = "raw";
     public static final String DRAWABLE = "drawable";
     public static final String STRING = "string";
+    public static final String BOOLEAN = "bool";
     private static String PACKAGE_NAME;
     private static SparseArray<Theme.Res> RES_MAP;
     private static final Map<String, Typeface> TYPEFACE_MAP = new HashMap<String, Typeface>();
@@ -56,49 +59,34 @@ public class Theme {
     }
 
     @SuppressWarnings("rawtypes")
-    public static void buildResourceMap(Class color, Class drawable, Class raw) {
+    public static void buildResourceMap(Class r) {
         RES_MAP = new SparseArray<Theme.Res>();
-        if(color != null) {
+        try {
+            Class color = Class.forName(r.getName() + "$color");
             for(Field f : color.getFields()) {
-                Res r = new Res(COLOR, f.getName());
-                try {
-                    RES_MAP.put(f.getInt(null), r);
-                }
-                catch(IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-                catch(IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                RES_MAP.put(f.getInt(null), new Res(COLOR, f.getName()));
             }
-        }
-        if(drawable != null) {
+            Class drawable = Class.forName(r.getName() + "$drawable");
             for(Field f : drawable.getFields()) {
-                Res r = new Res(DRAWABLE, f.getName());
-                try {
-                    RES_MAP.put(f.getInt(null), r);
-                }
-                catch(IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-                catch(IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                RES_MAP.put(f.getInt(null), new Res(DRAWABLE, f.getName()));
+            }
+            Class raw = Class.forName(r.getName() + "$raw");
+            for(Field f : raw.getFields()) {
+                RES_MAP.put(f.getInt(null), new Res(RAW, f.getName()));
+            }
+            Class bool = Class.forName(r.getName() + "$bool");
+            for(Field f : bool.getFields()) {
+                RES_MAP.put(f.getInt(null), new Res(BOOLEAN, f.getName()));
             }
         }
-        if(raw != null) {
-            for(Field f : raw.getFields()) {
-                Res r = new Res(RAW, f.getName());
-                try {
-                    RES_MAP.put(f.getInt(null), r);
-                }
-                catch(IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-                catch(IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
+        catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        catch(IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch(ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -153,6 +141,29 @@ public class Theme {
         int id = getId(context, STRING, name);
         if(id == 0) return null;
         return getResources(context).getString(id);
+    }
+
+    /**
+     * Gets string from theme apk
+     * */
+    public static Boolean getBoolean(Context context, int resId) {
+        return getBoolean(context, Theme.get(resId));
+    }
+
+    /**
+     * Gets string from theme apk
+     * */
+    public static Boolean getBoolean(Context context, Res res) {
+        return getBoolean(context, res.getName());
+    }
+
+    /**
+     * Gets string from theme apk
+     * */
+    public static Boolean getBoolean(Context context, String name) {
+        int id = getId(context, BOOLEAN, name);
+        if(id == 0) return null;
+        return getResources(context).getBoolean(id);
     }
 
     /**
@@ -379,49 +390,32 @@ public class Theme {
             return TYPEFACE_MAP.get(key);
         }
         AssetManager am = getResources(context).getAssets();
-        try {
-            String[] assets = am.list("");
-            for(String s : assets) {
-                if(s.startsWith(name)) {
-                    Typeface t = null;
-                    try {
-                        // Try/catch for broken fonts
-                        t = Typeface.createFromAsset(am, s);
-                    }
-                    catch(Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    TYPEFACE_MAP.put(key, t);
-                    return TYPEFACE_MAP.get(key);
-                }
+        String[] extensions = {".ttf", ".otf"};
+        for(String s : extensions) {
+            try {
+                am.open(name + s);
+                // Try/catch for broken fonts
+                Typeface t = Typeface.createFromAsset(am, name+s);
+                TYPEFACE_MAP.put(key, t);
+                return TYPEFACE_MAP.get(key);
             }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
+            catch(Exception e) {
+                e.printStackTrace();
+            }
         }
 
         am = context.getResources().getAssets();
-        try {
-            String[] assets = am.list("");
-            for(String s : assets) {
-                if(s.startsWith(name)) {
-                    Typeface t = null;
-                    try {
-                        // Try/catch for broken fonts
-                        t = Typeface.createFromAsset(am, s);
-                    }
-                    catch(Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    TYPEFACE_MAP.put(key, t);
-                    return TYPEFACE_MAP.get(key);
-                }
+        for(String s : extensions) {
+            try {
+                am.open(name + s);
+                // Try/catch for broken fonts
+                Typeface t = Typeface.createFromAsset(am, name+s);
+                TYPEFACE_MAP.put(key, t);
+                return TYPEFACE_MAP.get(key);
             }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
+            catch(Exception e) {
+                e.printStackTrace();
+            }
         }
         TYPEFACE_MAP.put(key, null);
         return TYPEFACE_MAP.get(key);

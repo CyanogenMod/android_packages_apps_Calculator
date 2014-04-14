@@ -30,7 +30,7 @@ public class StoreActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         // Update theme (as needed)
-        Theme.buildResourceMap(R.color.class, R.drawable.class, R.raw.class);
+        Theme.buildResourceMap(com.android2.calculator3.R.class);
         Theme.setPackageName(CalculatorSettings.getTheme(getContext()));
         int customTheme = Theme.getTheme(this);
         if (customTheme != 0) {

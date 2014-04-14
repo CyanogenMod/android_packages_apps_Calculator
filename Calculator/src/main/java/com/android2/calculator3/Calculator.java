@@ -103,7 +103,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-        Theme.buildResourceMap(R.color.class, R.drawable.class, R.raw.class);
+        Theme.buildResourceMap(com.android2.calculator3.R.class);
         Theme.setPackageName(CalculatorSettings.getTheme(getContext()));
         int customTheme = Theme.getTheme(getContext());
         if (customTheme != 0) {

@@ -240,7 +240,7 @@ public class FloatingCalculator extends Service {
         super.onCreate();
 
         // Set up theme engine (the display uses it, but most of it should be turned off. this is just in case)
-        Theme.buildResourceMap(R.color.class, R.drawable.class, R.raw.class);
+        Theme.buildResourceMap(com.android2.calculator3.R.class);
         Theme.setPackageName(CalculatorSettings.getTheme(getContext()));
 
         // Set up a static callback for the FloatingCalculatorActivity
