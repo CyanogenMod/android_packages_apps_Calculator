@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
+import com.xlythe.engine.theme.Theme;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -167,7 +168,7 @@ public class FloatingCalculator extends Service {
             mDeleteBoxView.setAlpha(0);
             mDeleteBoxView.animate().alpha(1);
             mDeleteIconHolder.setTranslationY(CLOSE_ANIMATION_DISTANCE);
-            mDeleteIconHolder.animate().translationYBy(-1*(CLOSE_ANIMATION_DISTANCE+CLOSE_OFFSET)).setListener(null);
+            mDeleteIconHolder.animate().translationYBy(-1 * (CLOSE_ANIMATION_DISTANCE + CLOSE_OFFSET)).setListener(null);
             View child = mDeleteView.getChildAt(0);
             child.findViewById(R.id.box).getLayoutParams().width = getScreenWidth();
         }
@@ -238,7 +239,14 @@ public class FloatingCalculator extends Service {
     public void onCreate() {
         super.onCreate();
 
+        // Set up theme engine (the display uses it, but most of it should be turned off. this is just in case)
+        Theme.buildResourceMap(R.color.class, R.drawable.class, R.raw.class);
+        Theme.setPackageName(CalculatorSettings.getTheme(getContext()));
+
+        // Set up a static callback for the FloatingCalculatorActivity
         ACTIVE_CALCULATOR = this;
+
+        // Load margins, distances, etc
         MARGIN_VERTICAL = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
         MARGIN_HORIZONTAL = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -10, getResources().getDisplayMetrics());
         MARGIN_CALCULATOR = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
