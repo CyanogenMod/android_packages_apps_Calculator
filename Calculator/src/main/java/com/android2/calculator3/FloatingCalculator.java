@@ -2,10 +2,12 @@ package com.android2.calculator3;
 
 import android.animation.Animator;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.IBinder;
@@ -32,7 +34,7 @@ import com.xlythe.engine.theme.Theme;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FloatingCalculator extends Service {
+public class FloatingCalculator extends Service implements OnTouchListener {
     private static final int ANIMATION_FRAME_RATE = 60; // Animation frame rate per second.
     public static FloatingCalculator ACTIVE_CALCULATOR; // A copy of the service for the floating activity
     private static int MARGIN_VERTICAL; // Margin around the phone.
@@ -47,6 +49,7 @@ public class FloatingCalculator extends Service {
     private static int FLOATING_WINDOW_ICON_SIZE;
 
     // View variables
+    private BroadcastReceiver mBroadcastReceiver;
     private WindowManager mWindowManager;
     private FloatingView mDraggableIcon;
     private View mDraggableIconImage;
@@ -87,6 +90,13 @@ public class FloatingCalculator extends Service {
     private View mDeleteIconHolder;
     private boolean mIsAnimationLocked = false;
     private boolean mDontVibrate = false;
+
+    // Drag variables
+    float mPrevDragX;
+    float mPrevDragY;
+    float mOrigX;
+    float mOrigY;
+    boolean mDragged;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -258,125 +268,133 @@ public class FloatingCalculator extends Service {
         DELETE_BOX_HEIGHT = (int) getResources().getDimension(R.dimen.floating_window_delete_box_height);
         FLOATING_WINDOW_ICON_SIZE = (int) getResources().getDimension(R.dimen.floating_window_icon);
 
-        OnTouchListener dragListener = new OnTouchListener() {
-            float mPrevDragX;
-            float mPrevDragY;
-            float mOrigX;
-            float mOrigY;
-
-            boolean mDragged;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        mPrevDragX = mOrigX = event.getRawX();
-                        mPrevDragY = mOrigY = event.getRawY();
-
-                        mDragged = false;
-
-                        mDeltaXArray = new LinkedList<Float>();
-                        mDeltaYArray = new LinkedList<Float>();
-
-                        mCurrentX = mParams.x;
-                        mCurrentY = mParams.y;
-
-                        mDraggableIconImage.setScaleX(0.92f);
-                        mDraggableIconImage.setScaleY(0.92f);
-
-                        // Cancel any currently running animations
-                        if (mAnimationTask != null) {
-                            mAnimationTask.cancel();
-                        }
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        mIsAnimationLocked = false;
-                        if (mAnimationTask != null) mAnimationTask.cancel();
-                        if (!mDragged) {
-                            if (!mIsCalcOpen) {
-                                openCalculator();
-                            } else {
-                                closeCalculator();
-                            }
-                        } else {
-                            // Animate the icon
-                            mAnimationTask = new AnimationTask();
-                            mAnimationTask.run();
-                        }
-
-                        if (mIsInDeleteMode) {
-                            close(true);
-                        } else {
-                            hideDeleteBox();
-                            mDraggableIconImage.setScaleX(1f);
-                            mDraggableIconImage.setScaleY(1f);
-                        }
-
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        mCurrentX = (int) (event.getRawX() - mDraggableIcon.getWidth() / 2);
-                        mCurrentY = (int) (event.getRawY() - mDraggableIcon.getHeight());
-                        if (isDeleteMode(mCurrentX, mCurrentY)) {
-                            if (!mIsInDeleteMode) animateToDeleteBoxCenter(new OnAnimationFinishedListener() {
-                                @Override
-                                public void onAnimationFinished() {
-                                    mDontVibrate = true;
-                                }
-                            });
-                        } else if (isDeleteMode() && !mIsAnimationLocked) {
-                            mDontVibrate = false;
-                            mIsInDeleteMode = false;
-                            if (mAnimationTask != null) mAnimationTask.cancel();
-                            mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
-                            mAnimationTask.setDuration(50);
-                            mAnimationTask.setInterpolator(new LinearInterpolator());
-                            mAnimationTask.setAnimationFinishedListener(new OnAnimationFinishedListener() {
-                                @Override
-                                public void onAnimationFinished() {
-                                    mIsAnimationLocked = false;
-                                }
-                            });
-                            mAnimationTask.run();
-                            mIsAnimationLocked = true;
-                            mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
-                        } else {
-                            if(mIsInDeleteMode) {
-                                mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
-                                mIsInDeleteMode = false;
-                            }
-                            if (!mIsAnimationLocked && mDragged) {
-                                if (mAnimationTask != null) mAnimationTask.cancel();
-                                updateIconPosition(mCurrentX, mCurrentY);
-                            }
-                        }
-
-                        float deltaX = event.getRawX() - mPrevDragX;
-                        float deltaY = event.getRawY() - mPrevDragY;
-
-                        mDeltaXArray.add(deltaX);
-                        mDeltaYArray.add(deltaY);
-
-                        mPrevDragX = event.getRawX();
-                        mPrevDragY = event.getRawY();
-
-                        deltaX = event.getRawX() - mOrigX;
-                        deltaY = event.getRawY() - mOrigY;
-                        mDragged = mDragged || Math.abs(deltaX) > DRAG_DELTA || Math.abs(deltaY) > DRAG_DELTA;
-                        if (mDragged) {
-                            closeCalculator(false);
-                            showDeleteBox();
-                        }
-                        break;
-                }
-                return true;
-            }
-        };
         mDraggableIcon = new FloatingView(this);
-        mDraggableIcon.setOnTouchListener(dragListener);
+        mDraggableIcon.setOnTouchListener(this);
         View.inflate(getContext(), R.layout.floating_calculator_icon, mDraggableIcon);
         mDraggableIconImage = mDraggableIcon.findViewById(R.id.icon);
         mParams = addView(mDraggableIcon, 0, 0);
         updateIconPosition(MARGIN_HORIZONTAL, STARTING_POINT_Y);
+
+        // Actionbar changes heights based on orientation
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent myIntent) {
+                int x = mParams.x == 0 ? 0+MARGIN_HORIZONTAL : getScreenWidth()-FLOATING_WINDOW_ICON_SIZE-MARGIN_HORIZONTAL;
+                int y = mCurrentPosY;
+                if (y <= 0) y = MARGIN_VERTICAL;
+                if (y >= getScreenHeight() - mDraggableIcon.getHeight())
+                    y = getScreenHeight() - mDraggableIcon.getHeight() - MARGIN_VERTICAL;
+                updateIconPosition(x, y);
+            }
+        };
+        registerReceiver(mBroadcastReceiver, filter);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mPrevDragX = mOrigX = event.getRawX();
+                mPrevDragY = mOrigY = event.getRawY();
+
+                mDragged = false;
+
+                mDeltaXArray = new LinkedList<Float>();
+                mDeltaYArray = new LinkedList<Float>();
+
+                mCurrentX = mParams.x;
+                mCurrentY = mParams.y;
+
+                mDraggableIconImage.setScaleX(0.92f);
+                mDraggableIconImage.setScaleY(0.92f);
+
+                // Cancel any currently running animations
+                if (mAnimationTask != null) {
+                    mAnimationTask.cancel();
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                mIsAnimationLocked = false;
+                if (mAnimationTask != null) mAnimationTask.cancel();
+                if (!mDragged) {
+                    if (!mIsCalcOpen) {
+                        openCalculator();
+                    } else {
+                        closeCalculator();
+                    }
+                } else {
+                    // Animate the icon
+                    mAnimationTask = new AnimationTask();
+                    mAnimationTask.run();
+                }
+
+                if (mIsInDeleteMode) {
+                    close(true);
+                } else {
+                    hideDeleteBox();
+                    mDraggableIconImage.setScaleX(1f);
+                    mDraggableIconImage.setScaleY(1f);
+                }
+
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mCurrentX = (int) (event.getRawX() - mDraggableIcon.getWidth() / 2);
+                mCurrentY = (int) (event.getRawY() - mDraggableIcon.getHeight());
+                if (isDeleteMode(mCurrentX, mCurrentY)) {
+                    if (!mIsInDeleteMode) animateToDeleteBoxCenter(new OnAnimationFinishedListener() {
+                        @Override
+                        public void onAnimationFinished() {
+                            mDontVibrate = true;
+                        }
+                    });
+                } else if (isDeleteMode() && !mIsAnimationLocked) {
+                    mDontVibrate = false;
+                    mIsInDeleteMode = false;
+                    if (mAnimationTask != null) mAnimationTask.cancel();
+                    mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
+                    mAnimationTask.setDuration(50);
+                    mAnimationTask.setInterpolator(new LinearInterpolator());
+                    mAnimationTask.setAnimationFinishedListener(new OnAnimationFinishedListener() {
+                        @Override
+                        public void onAnimationFinished() {
+                            mIsAnimationLocked = false;
+                        }
+                    });
+                    mAnimationTask.run();
+                    mIsAnimationLocked = true;
+                    mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
+                } else {
+                    if(mIsInDeleteMode) {
+                        mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
+                        mIsInDeleteMode = false;
+                    }
+                    if (!mIsAnimationLocked && mDragged) {
+                        if (mAnimationTask != null) mAnimationTask.cancel();
+                        updateIconPosition(mCurrentX, mCurrentY);
+                    }
+                }
+
+                float deltaX = event.getRawX() - mPrevDragX;
+                float deltaY = event.getRawY() - mPrevDragY;
+
+                mDeltaXArray.add(deltaX);
+                mDeltaYArray.add(deltaY);
+
+                mPrevDragX = event.getRawX();
+                mPrevDragY = event.getRawY();
+
+                deltaX = event.getRawX() - mOrigX;
+                deltaY = event.getRawY() - mOrigY;
+                mDragged = mDragged || Math.abs(deltaX) > DRAG_DELTA || Math.abs(deltaY) > DRAG_DELTA;
+                if (mDragged) {
+                    closeCalculator(false);
+                    showDeleteBox();
+                }
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -398,6 +416,10 @@ public class FloatingCalculator extends Service {
         if (mAnimationTask != null) {
             mAnimationTask.cancel();
             mAnimationTask = null;
+        }
+        if (mBroadcastReceiver != null) {
+            unregisterReceiver(mBroadcastReceiver);
+            mBroadcastReceiver = null;
         }
         ACTIVE_CALCULATOR = null;
     }
