@@ -548,9 +548,11 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     }
 
     public void hideCalculator() {
-        mLogic.updateHistory();
-        mPersist.setDeleteMode(mLogic.getDeleteMode());
-        mPersist.save();
+        if(mPersist != null && mLogic != null) {
+            mLogic.updateHistory();
+            mPersist.setDeleteMode(mLogic.getDeleteMode());
+            mPersist.save();
+        }
         if (mCalcView != null) {
             View child = mCalcView.getChildAt(0);
             child.setAlpha(1);
