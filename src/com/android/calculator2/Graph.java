@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
- *    
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *    
+ *
  *            http://www.apache.org/licenses/LICENSE-2.0
- *    
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,22 +27,30 @@ import org.achartengine.tools.ZoomEvent;
 import org.achartengine.tools.ZoomListener;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Paint.Align;
 
-public class Graph {
-    private static final double MAX_HEIGHT_X = 10;
-    private static final double MAX_HEIGHT_Y = 10;
-    private static final double MIN_HEIGHT_X = -10;
-    private static final double MIN_HEIGHT_Y = -10;
+import com.xlythe.engine.theme.Theme;
 
+public class Graph {
+    public static final double MAX_HEIGHT_X = 10;
+    public static final double MAX_HEIGHT_Y = 10;
+    public static final double MIN_HEIGHT_X = -10;
+    public static final double MIN_HEIGHT_Y = -10;
+    private final Logic mLogic;
     private GraphicalView mChartView;
     private XYMultipleSeriesDataset mDataset;
     private XYMultipleSeriesRenderer mRenderer;
-    private final Logic mLogic;
 
     public Graph(Logic l) {
         mLogic = l;
+    }
+
+    public static void addSeriesRenderer(int color, XYMultipleSeriesRenderer renderer) {
+        XYSeriesRenderer r = new XYSeriesRenderer();
+        r.setColor(color);
+        r.setPointStyle(PointStyle.POINT);
+        r.setLineWidth(4f);
+        renderer.addSeriesRenderer(r);
     }
 
     public XYMultipleSeriesDataset getDataset() {
@@ -66,22 +74,22 @@ public class Graph {
         mChartView.addPanListener(new PanListener() {
             @Override
             public void panApplied() {
-                mLogic.mGraphModule.updateGraphCatchErrors(Graph.this);
+                mLogic.getGraphModule().updateGraphCatchErrors(Graph.this);
             }
         });
         mChartView.addZoomListener(new ZoomListener() {
             @Override
             public void zoomReset() {
-                mLogic.mGraphModule.updateGraphCatchErrors(Graph.this);
+                mLogic.getGraphModule().updateGraphCatchErrors(Graph.this);
             }
 
             @Override
             public void zoomApplied(ZoomEvent event) {
-                mLogic.mGraphModule.updateGraphCatchErrors(Graph.this);
+                mLogic.getGraphModule().updateGraphCatchErrors(Graph.this);
             }
         }, true, true);
 
-        mLogic.mGraphModule.updateGraphCatchErrors(this);
+        mLogic.getGraphModule().updateGraphCatchErrors(this);
 
         return mChartView;
     }
@@ -110,8 +118,7 @@ public class Graph {
         renderer.setLegendHeight(22);
         renderer.setPointSize(5f);
         renderer.setMargins(new int[] { 20, 30, 15, 20 });
-        renderer.setMarginsColor(CalculatorSettings.useLightTheme(context) ? context.getResources().getColor(R.color.background_light) : context.getResources()
-                .getColor(R.color.background));
+        renderer.setMarginsColor(Theme.getColor(context, R.color.graph_background));
         renderer.setChartTitle("");
         renderer.setXTitle(context.getResources().getString(R.string.X));
         renderer.setYTitle(context.getResources().getString(R.string.Y));
@@ -119,11 +126,11 @@ public class Graph {
         renderer.setXAxisMax(Graph.MAX_HEIGHT_X);
         renderer.setYAxisMin(Graph.MIN_HEIGHT_Y);
         renderer.setYAxisMax(Graph.MAX_HEIGHT_Y);
-        renderer.setAxesColor(CalculatorSettings.useLightTheme(context) ? Color.BLACK : Color.GRAY);
-        renderer.setLabelsColor(CalculatorSettings.useLightTheme(context) ? Color.BLACK : Color.LTGRAY);
-        renderer.setGridColor(CalculatorSettings.useLightTheme(context) ? Color.DKGRAY : Color.DKGRAY);
-        renderer.setXLabelsColor(CalculatorSettings.useLightTheme(context) ? Color.BLACK : Color.LTGRAY);
-        renderer.setYLabelsColor(0, CalculatorSettings.useLightTheme(context) ? Color.BLACK : Color.LTGRAY);
+        renderer.setAxesColor(Theme.getColor(context, R.color.graph_axes_color));
+        renderer.setLabelsColor(Theme.getColor(context, R.color.graph_labels_color));
+        renderer.setGridColor(Theme.getColor(context, R.color.graph_grid_color));
+        renderer.setXLabelsColor(Theme.getColor(context, R.color.graph_labels_color));
+        renderer.setYLabelsColor(0, Theme.getColor(context, R.color.graph_labels_color));
         renderer.setYLabelsAlign(Align.RIGHT);
         renderer.setXLabels(20);
         renderer.setYLabels(20);
@@ -134,15 +141,12 @@ public class Graph {
         renderer.setYAxisBold(true);
         renderer.setZoomButtonsVisible(false);
         renderer.setExternalZoomEnabled(true);
-        addSeriesRenderer(context.getResources().getColor(R.color.graph_color), renderer);
+        addSeriesRenderer(Theme.getColor(context, R.color.graph_color), renderer);
         return renderer;
     }
 
-    public static void addSeriesRenderer(int color, XYMultipleSeriesRenderer renderer) {
-        XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(color);
-        r.setPointStyle(PointStyle.POINT);
-        r.setLineWidth(4f);
-        renderer.addSeriesRenderer(r);
+    public boolean isTrigFunction() {
+        // TODO implement zoom to -pi : pi and -180 : 180 if trig
+        return false;
     }
 }

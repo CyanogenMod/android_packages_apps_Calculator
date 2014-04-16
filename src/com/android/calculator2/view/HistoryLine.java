@@ -47,12 +47,6 @@ public class HistoryLine extends LinearLayout {
         }
     }
 
-    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
-        public boolean onMenuItemClick(MenuItem item) {
-            return onTextContextMenuItem(item.getTitle());
-        }
-    }
-
     public boolean onTextContextMenuItem(CharSequence title) {
         boolean handled = false;
         if(TextUtils.equals(title, mMenuItemsStrings[COPY])) {
@@ -112,5 +106,11 @@ public class HistoryLine extends LinearLayout {
 
     public void showMenu() {
         showContextMenu();
+    }
+
+    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
+        public boolean onMenuItemClick(MenuItem item) {
+            return onTextContextMenuItem(item.getTitle());
+        }
     }
 }

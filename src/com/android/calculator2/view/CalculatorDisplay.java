@@ -45,23 +45,15 @@ import com.android.calculator2.R;
 public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
     private static final String ATTR_MAX_DIGITS = "maxDigits";
     private static final int DEFAULT_MAX_DIGITS = 10;
-
+    private int mMaxDigits = DEFAULT_MAX_DIGITS;
     // only these chars are accepted from keyboard
     private static final char[] ACCEPTED_CHARS = "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
-
     private static final int ANIM_DURATION = 400;
-
-    public enum Scroll {
-        UP, DOWN, NONE
-    }
-
+    private final List<String> mKeywords;
     TranslateAnimation inAnimUp;
     TranslateAnimation outAnimUp;
     TranslateAnimation inAnimDown;
     TranslateAnimation outAnimDown;
-
-    private int mMaxDigits = DEFAULT_MAX_DIGITS;
-    private final List<String> mKeywords;
 
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -80,13 +72,18 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
         String dy = context.getString(R.string.dy);
         String cbrtString = context.getString(R.string.cbrt);
 
-        mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString
-                + "(", modString + "(", lnString + "(", detString + "(", dx, dy, cbrtString + "(");
+        mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString + "(", modString + "(", lnString + "(", detString + "(", dx, dy, cbrtString + "(");
         setOnLongClickListener(this);
     }
 
     public int getMaxDigits() {
         return mMaxDigits;
+    }
+
+    public void setEditTextLayout(int resId) {
+        for(int i = 0; i < getChildCount(); i++) {
+            ((ScrollableDisplay) getChildAt(i)).getView().setEditTextLayout(resId);
+        }
     }
 
     public void setLogic(Logic logic) {
@@ -104,8 +101,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 /*
-                 * the EditText should still accept letters (eg. 'sin') coming
-                 * from the on-screen touch buttons, so don't filter anything.
+                 * the EditText should still accept letters (eg. 'sin') coming from the on-screen touch buttons, so don't filter anything.
                  */
                 return null;
             }
@@ -125,14 +121,12 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
                     else {
                         // Check and remove keywords
                         String textBeforeInsertionHandle = getActiveEditText().getText().toString().substring(0, selectionHandle);
-                        String textAfterInsertionHandle = getActiveEditText().getText().toString()
-                                .substring(selectionHandle, getActiveEditText().getText().toString().length());
+                        String textAfterInsertionHandle = getActiveEditText().getText().toString().substring(selectionHandle, getActiveEditText().getText().toString().length());
 
                         for(String s : mKeywords) {
                             if(textBeforeInsertionHandle.endsWith(s)) {
                                 int deletionLength = s.length();
-                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength)
-                                        + textAfterInsertionHandle;
+                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength) + textAfterInsertionHandle;
                                 getActiveEditText().setText(text);
                                 setSelection(selectionHandle - deletionLength);
                                 return true;
@@ -150,8 +144,7 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
             text.setLogic(logic);
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
-            text.setLayoutParams(new ScrollableDisplay.LayoutParams(ScrollableDisplay.LayoutParams.WRAP_CONTENT, ScrollableDisplay.LayoutParams.WRAP_CONTENT,
-                    Gravity.RIGHT | Gravity.CENTER_VERTICAL));
+            text.setLayoutParams(new ScrollableDisplay.LayoutParams(ScrollableDisplay.LayoutParams.WRAP_CONTENT, ScrollableDisplay.LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
         }
     }
 
@@ -236,5 +229,11 @@ public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListen
     @Override
     public boolean onLongClick(View v) {
         return getAdvancedDisplay().performLongClick();
+    }
+
+    public enum Scroll {
+        UP,
+        DOWN,
+        NONE
     }
 }

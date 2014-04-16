@@ -1,0 +1,26 @@
+<com.android.calculator2.view.HistoryLine xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="false"
+    android:background="@drawable/menu_bg"
+    android:padding="6dp" >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:gravity="left"
+        android:textColor="@android:color/white"
+        android:id="@+id/historyExpr"
+        android:background="@android:color/transparent"
+        style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="@android:color/white"
+        android:gravity="right"
+        android:id="@+id/historyResult"
+        android:background="@android:color/transparent"
+        style="@style/Theme.Calculator.ButtonStyle.FloatingCalc" />
+</com.android.calculator2.view.HistoryLine>

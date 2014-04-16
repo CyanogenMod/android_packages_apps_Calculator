@@ -13,6 +13,8 @@ import com.android.calculator2.R;
 
 public class ScrollableDisplay extends HorizontalScrollView implements OnLongClickListener {
     private int mMaxHeight;
+    private boolean gravityRight = false;
+    private boolean autoScrolling = false;
 
     public ScrollableDisplay(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -67,9 +69,6 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
         }
         return scrollRange;
     }
-
-    private boolean gravityRight = false;
-    private boolean autoScrolling = false;
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {

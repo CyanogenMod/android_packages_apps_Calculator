@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/floating_calc_background">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:minHeight="65dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/line" >
+        <com.android.calculator2.view.CalculatorDisplay
+            android:id="@+id/display"
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
+            maxDigits="7" >
+            <com.android.calculator2.view.ScrollableDisplay
+                style="@style/Theme.Calculator.Display.FloatingCalc" />
+            <com.android.calculator2.view.ScrollableDisplay
+                style="@style/Theme.Calculator.Display.FloatingCalc" />
+        </com.android.calculator2.view.CalculatorDisplay>
+        <ImageButton
+            android:id="@+id/delete"
+            android:src="@drawable/widget_delete"
+            android:layout_width="@dimen/floating_window_button_height"
+            android:layout_height="match_parent"
+            android:background="@drawable/menu_bg"
+            android:contentDescription="@string/del" />
+    </LinearLayout>
+    <com.android.calculator2.view.CalculatorViewPager
+        android:id="@+id/panelswitch"
+        android:layout_width="280dp"
+        android:layout_height="280dp" />
+</LinearLayout>
