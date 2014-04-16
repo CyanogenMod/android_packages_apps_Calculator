@@ -1,14 +1,15 @@
 /*
+ * Copyright (C) 2014 The CyanogenMod Project
  * Copyright (C) 2008 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -41,20 +42,20 @@ class Persist {
         this.mContext = context;
     }
 
-    public void setDeleteMode(int mode) {
-        mDeleteMode = mode;
-    }
-
     public int getDeleteMode() {
         return mDeleteMode;
     }
 
-    public void setMode(Mode mode) {
-        this.mMode = mode;
+    public void setDeleteMode(int mode) {
+        mDeleteMode = mode;
     }
 
     public Mode getMode() {
         return mMode;
+    }
+
+    public void setMode(Mode mode) {
+        this.mMode = mode;
     }
 
     public void load() {
@@ -62,25 +63,26 @@ class Persist {
             InputStream is = new BufferedInputStream(mContext.openFileInput(FILE_NAME), 8192);
             DataInputStream in = new DataInputStream(is);
             int version = in.readInt();
-            if(version > LAST_VERSION) {
+            if (version > LAST_VERSION) {
                 throw new IOException("data version " + version + "; expected " + LAST_VERSION);
             }
-            if(version > 1) {
+
+            if (version > 1) {
                 mDeleteMode = in.readInt();
             }
-            if(version > 2) {
+
+            if (version > 2) {
                 int quickSerializable = in.readInt();
-                for(Mode m : Mode.values()) {
-                    if(m.getQuickSerializable() == quickSerializable) this.mMode = m;
+                for (Mode m : Mode.values()) {
+                    if (m.getQuickSerializable() == quickSerializable) this.mMode = m;
                 }
             }
+
             mHistory = new History(version, in);
             in.close();
-        }
-        catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -91,11 +93,12 @@ class Persist {
             DataOutputStream out = new DataOutputStream(os);
             out.writeInt(LAST_VERSION);
             out.writeInt(mDeleteMode);
-            out.writeInt(mMode.quickSerializable);
+            out.writeInt(mMode == null ? Mode.DECIMAL.getQuickSerializable() : mMode
+                    .getQuickSerializable());
+
             mHistory.write(out);
             out.close();
-        }
-        catch(IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }

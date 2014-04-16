@@ -1,14 +1,15 @@
 /*
+ * Copyright (C) 2014 The CyanogenMod Project
  * Copyright (C) 2008 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -35,14 +36,14 @@ public class History {
     }
 
     History(int version, DataInput in) throws IOException {
-        if(version >= VERSION_1) {
+        if (version >= VERSION_1) {
             int size = in.readInt();
-            for(int i = 0; i < size; ++i) {
+            for (int i = 0; i < size; ++i) {
                 mEntries.add(new HistoryEntry(version, in));
             }
+
             mPos = in.readInt();
-        }
-        else {
+        } else {
             throw new IOException("invalid version " + version);
         }
     }
@@ -52,7 +53,7 @@ public class History {
     }
 
     private void notifyChanged() {
-        if(mObserver != null) {
+        if (mObserver != null) {
             mObserver.notifyDataSetChanged();
         }
     }
@@ -66,9 +67,10 @@ public class History {
 
     void write(DataOutput out) throws IOException {
         out.writeInt(mEntries.size());
-        for(HistoryEntry entry : mEntries) {
+        for (HistoryEntry entry : mEntries) {
             entry.write(out);
         }
+
         out.writeInt(mPos);
     }
 
@@ -77,29 +79,33 @@ public class History {
     }
 
     boolean moveToPrevious() {
-        if(mPos > 0) {
+        if (mPos > 0) {
             --mPos;
             return true;
         }
+
         return false;
     }
 
     boolean moveToNext() {
-        if(mPos < mEntries.size() - 1) {
+        if (mPos < mEntries.size() - 1) {
             ++mPos;
             return true;
         }
+
         return false;
     }
 
     void enter(String base, String edited) {
         current().clearEdited();
-        if(mEntries.size() >= MAX_ENTRIES) {
+        if (mEntries.size() >= MAX_ENTRIES) {
             mEntries.remove(0);
         }
-        if((mEntries.size() < 2 || !base.equals(mEntries.elementAt(mEntries.size() - 2).getBase())) && !base.isEmpty() && !edited.isEmpty()) {
+        if ((mEntries.size() < 2 || !base.equals(mEntries.elementAt(
+                mEntries.size() - 2).getBase())) && !base.isEmpty() && !edited.isEmpty()) {
             mEntries.insertElementAt(new HistoryEntry(base, edited), mEntries.size() - 1);
         }
+
         mPos = mEntries.size() - 1;
         notifyChanged();
     }
