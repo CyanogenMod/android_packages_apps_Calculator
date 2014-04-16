@@ -30,46 +30,46 @@
         <LinearLayout
             android:orientation="vertical"
             android:background="@android:color/transparent"
-            style="?digit_button_style" >
+            style="@style/Theme.Calculator.ButtonStyle.Digit" >
             <com.android.calculator2.view.ColorButton
                 android:id="@+id/matrix_transpose"
                 android:text="@string/matrix_transpose"
-                style="?button_half_style" />
+                style="@style/Theme.Calculator.ButtonStyle.Half" />
             <com.android.calculator2.view.ColorButton
                 android:id="@+id/matrix_inverse"
                 android:text="@string/matrix_inverse"
-                style="?button_half_style" />
+                style="@style/Theme.Calculator.ButtonStyle.Half" />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:background="@android:color/transparent"
-            style="?digit_button_style" >
+            style="@style/Theme.Calculator.ButtonStyle.Digit" >
             <com.android.calculator2.view.ColorButton
                 android:id="@+id/minus_row"
                 android:text="@string/minus_row"
-                style="?button_half_style" />
+                style="@style/Theme.Calculator.ButtonStyle.Half" />
             <com.android.calculator2.view.ColorButton
                 android:id="@+id/plus_row"
                 android:text="@string/plus_row"
-                style="?button_half_style" />
+                style="@style/Theme.Calculator.ButtonStyle.Half" />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:background="@android:color/transparent"
-            style="?digit_button_style" >
+            style="@style/Theme.Calculator.ButtonStyle.Digit" >
             <com.android.calculator2.view.ColorButton
                 android:id="@+id/minus_col"
                 android:text="@string/minus_col"
-                style="?button_half_style" />
+                style="@style/Theme.Calculator.ButtonStyle.Half" />
             <com.android.calculator2.view.ColorButton
                 android:id="@+id/plus_col"
                 android:text="@string/plus_col"
-                style="?button_half_style" />
+                style="@style/Theme.Calculator.ButtonStyle.Half" />
         </LinearLayout>
         <com.android.calculator2.view.ColorButton
             android:id="@+id/matrix"
             android:text="@string/matrix_new"
-            style="?button_style" />
+            style="@style/Theme.Calculator.ButtonStyle" />
     </LinearLayout>
     <LinearLayout
         android:layout_weight="3"
@@ -78,20 +78,20 @@
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit7"
             android:text="@string/digit7"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit8"
             android:text="@string/digit8"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit9"
             android:text="@string/digit9"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/mul"
             android:text="@string/mul"
             android:hint="@string/div"
-            style="?button_style" />
+            style="@style/Theme.Calculator.ButtonStyle" />
     </LinearLayout>
     <LinearLayout
         android:layout_weight="3"
@@ -100,20 +100,20 @@
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit4"
             android:text="@string/digit4"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit5"
             android:text="@string/digit5"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit6"
             android:text="@string/digit6"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/plus"
             android:text="@string/plus"
             android:hint="@string/minus"
-            style="?button_style" />
+            style="@style/Theme.Calculator.ButtonStyle" />
     </LinearLayout>
     <LinearLayout
         android:layout_weight="3"
@@ -122,20 +122,20 @@
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit1"
             android:text="@string/digit1"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit2"
             android:text="@string/digit2"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit3"
             android:text="@string/digit3"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/next"
             android:text="@string/next"
             android:textSize="@dimen/btn_function_text_size"
-            style="?button_style" />
+            style="@style/Theme.Calculator.ButtonStyle" />
     </LinearLayout>
     <LinearLayout
         android:layout_weight="3"
@@ -144,19 +144,19 @@
         <com.android.calculator2.view.ColorButton
             android:id="@+id/dot"
             android:text="@string/dot"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/digit0"
             android:text="@string/digit0"
-            style="?digit_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle.Digit" />
+        <com.android.calculator2.view.ColorButton
+            android:id="@+id/equal"
+            android:text="@string/equal"
+            style="@style/Theme.Calculator.ButtonStyle.Equal" />
         <com.android.calculator2.view.ColorButton
             android:id="@+id/det"
             android:text="@string/det"
             android:textSize="@dimen/btn_function_text_size"
-            style="?button_style" />
-        <com.android.calculator2.view.ColorButton
-            android:id="@+id/equal"
-            android:text="@string/equal"
-            style="?equal_button_style" />
+            style="@style/Theme.Calculator.ButtonStyle" />
     </LinearLayout>
 </LinearLayout>

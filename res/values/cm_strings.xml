@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright (C) 2012-2014 The CyanogenMod Project
+<!-- Copyright (C) 2012-2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -16,9 +15,9 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- App copyright -->
-    <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
+    <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
     <!-- App version -->
-    <string name="application_version" translatable="false">v3.5.1</string>
+    <string name="application_version" translatable="false">v3.5.3</string>
 
     <!-- Displayed letters for the hex digit buttons -->
     <string name="A" translatable="false">A</string>
@@ -66,7 +65,7 @@
     <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
     <string name="mod">mod</string>
     <!-- Displayed on button on screen for the cube root function. -->
-    <string name="cbrt" translatable="false">\u00b3\u221a</string>
+    <string name="cbrt">\u00b3\u221a</string>
 
     <!-- Displayed on buttons on screen for parentheses. -->
     <string name="parentheses" translatable="false">( )</string>
@@ -85,14 +84,16 @@
     <string name="unlock">Unlock page</string>
 
     <string name="copy">Copy \'%s\'</string>
-    <!-- History menu item for removing item from history -->
+    <!-- Menu item for removing item from history -->
     <string name="remove_from_history">Remove from history</string>
-    <!-- History menu item for viewing history -->
+    <!-- Menu item for viewing history -->
     <string name="showHistory">Show history</string>
-    <!-- History menu item for hiding history -->
+    <!-- Menu item for hiding history -->
     <string name="hideHistory">Hide history</string>
-    <!-- History menu item for entering settings -->
+    <!-- Menu item for entering settings -->
     <string name="settings">Settings</string>
+    <!-- Menu item for entering store -->
+    <string name="store">Store</string>
 
     <!-- Matrix page text -->
     <string name="det">det</string>
@@ -126,14 +127,16 @@
     <string name="pref_theme">Theme</string>
     <string name="pref_about">About</string>
     <string name="returnToBasic">Return to the basic panel</string>
+    <string name="infiniteScrolling">Infinite scrolling</string>
     <string name="clickToOpenHistory">Click to open history</string>
     <string name="digitGrouping">Digit grouping</string>
     <string name="trigUnits">Trig units</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
-    <string name="holo">Holo</string>
-    <string name="holo_light">Light</string>
-    <string name="holo_dark">Dark</string>
+    <string name="theme">Theme</string>
+    <string name="showDetails">Show Details</string>
+    <string name="floatingCalc">Floating Calculator</string>
+    <string name="vibrateOnPress">Vibrate on Click</string>
 
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>
@@ -158,5 +161,16 @@
     <string name="dot">.</string>
     <string name="matrix_separator">,</string>
 
+    <string name="store_tab_themes">Themes</string>
+    <string name="store_tab_extensions">Extensions</string>
+    <string name="store_price_installed">Installed</string>
+    <string name="store_price_free">Free</string>
+
     <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
+
+    <!-- Glass strings -->
+    <string name="glass_start">Calculate</string>
+    <string name="voice_detection_failed">Calculation failed. Try again?</string>
+    <string name="voice_detection_repeat">Calculate again?</string>
+    <string name="speech_helper_negative" formatted="false">Negative %s</string>
 </resources>

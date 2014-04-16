@@ -18,7 +18,10 @@ package com.android.calculator2;
 
 import java.util.List;
 
+import org.achartengine.GraphicalView;
+
 import android.content.Context;
+import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,7 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.calculator2.BaseModule.Mode;
-import com.android.calculator2.Calculator.Panel;
+import com.android.calculator2.Page.NormalPanel;
 import com.android.calculator2.view.MatrixEditText;
 import com.android.calculator2.view.MatrixInverseView;
 import com.android.calculator2.view.MatrixTransposeView;
@@ -40,6 +43,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     ViewPager mPager;
     ViewPager mSmallPager;
     ViewPager mLargePager;
+    GraphicalView mGraphDisplay;
 
     private String mErrorString;
     private String mModString;
@@ -73,6 +77,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
+        vibrate();
         View v;
         EditText active;
         int id = view.getId();
@@ -97,27 +102,18 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             break;
 
         case R.id.hex:
-            mHandler.setText(mHandler.mBaseModule.setMode(Mode.HEXADECIMAL));
-            view.setSelected(true);
-            ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
-            ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
-            applyAllBannedResources(mHandler.mBaseModule, Mode.HEXADECIMAL);
+            mHandler.setText(mHandler.getBaseModule().setMode(Mode.HEXADECIMAL));
+            applyAllBannedResources(mHandler.getBaseModule(), Mode.HEXADECIMAL);
             break;
 
         case R.id.bin:
-            mHandler.setText(mHandler.mBaseModule.setMode(Mode.BINARY));
-            view.setSelected(true);
-            ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
-            ((View) view.getParent()).findViewById(R.id.dec).setSelected(false);
-            applyAllBannedResources(mHandler.mBaseModule, Mode.BINARY);
+            mHandler.setText(mHandler.getBaseModule().setMode(Mode.BINARY));
+            applyAllBannedResources(mHandler.getBaseModule(), Mode.BINARY);
             break;
 
         case R.id.dec:
-            mHandler.setText(mHandler.mBaseModule.setMode(Mode.DECIMAL));
-            view.setSelected(true);
-            ((View) view.getParent()).findViewById(R.id.bin).setSelected(false);
-            ((View) view.getParent()).findViewById(R.id.hex).setSelected(false);
-            applyAllBannedResources(mHandler.mBaseModule, Mode.DECIMAL);
+            mHandler.setText(mHandler.getBaseModule().setMode(Mode.DECIMAL));
+            applyAllBannedResources(mHandler.getBaseModule(), Mode.DECIMAL);
             break;
 
         case R.id.matrix:
@@ -169,28 +165,6 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             }
             break;
 
-        // +/-, changes the sign of the current number. Might be useful later
-        // (but removed for now)
-        // case R.id.sign:
-        // if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
-        // active = mHandler.mDisplay.getActiveEditText();
-        // int selection = active.getSelectionStart();
-        // if(active.getText().toString().matches(Logic.NUMBER)) {
-        // if(active.getText().toString().startsWith(String.valueOf(Logic.MINUS)))
-        // {
-        // active.setText(active.getText().toString().substring(1));
-        // selection--;
-        // }
-        // else {
-        // active.setText(Logic.MINUS + active.getText().toString());
-        // selection++;
-        // }
-        // if(selection > active.length()) selection--;
-        // if(selection < 0) selection = 0;
-        // active.setSelection(selection);
-        // }
-        // break;
-
         case R.id.parentheses:
             if(mHandler.getText().equals(mErrorString)) mHandler.setText("");
             if(mHandler.getText().contains("=")) {
@@ -234,6 +208,18 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             Toast.makeText(mContext, R.string.easter_egg, Toast.LENGTH_SHORT).show();
             break;
 
+        case R.id.zoomIn:
+            mGraphDisplay.zoomIn();
+            break;
+
+        case R.id.zoomOut:
+            mGraphDisplay.zoomOut();
+            break;
+
+        case R.id.zoomReset:
+            mGraphDisplay.zoomReset();
+            break;
+
         default:
             if(view instanceof Button) {
                 String text = ((Button) view).getText().toString();
@@ -250,6 +236,14 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         }
     }
 
+    private void vibrate() {
+        if(CalculatorSettings.vibrateOnPress(mContext)) {
+            Vibrator vi = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+            if(!vi.hasVibrator()) return;
+            vi.vibrate(CalculatorSettings.getVibrationStrength());
+        }
+    }
+
     private void applyAllBannedResources(BaseModule base, Mode baseMode) {
         for(Mode key : base.mBannedResources.keySet()) {
             if(baseMode.compareTo(key) != 0) {
@@ -262,29 +256,41 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     private void applyBannedResources(BaseModule base, Mode baseMode, boolean enabled) {
         List<Integer> resources = base.mBannedResources.get(baseMode);
         ViewPager pager = mPager != null ? mPager : mSmallPager;
+
         for(Integer resource : resources) {
             final int resId = resource.intValue();
             // There are multiple views with the same id,
             // but the id is unique per page
             // Find ids on every page
-            int count = pager.getAdapter().getCount();
-            for(int i = 0; i < count; i++) {
-                View child = ((CalculatorPageAdapter) pager.getAdapter()).getViewAt(i);
-                View v = child.findViewById(resId);
-                if(v != null) {
-                    v.setEnabled(enabled);
-                }
-            }
-            // An especial check when current pager is mLargePager
-            if(mPager == null && mLargePager != null) {
-                count = mLargePager.getAdapter().getCount();
-                for(int i = 0; i < count; i++) {
-                    View child = ((CalculatorPageAdapter) mLargePager.getAdapter()).getViewAt(i);
+            Iterable<View> iterator = ((CalculatorPageAdapter) pager.getAdapter()).getViewIterator();
+            for(View child : iterator) {
+                if(child != null) {
                     View v = child.findViewById(resId);
                     if(v != null) {
                         v.setEnabled(enabled);
                     }
                 }
+            }
+
+            // A special check when mLargePager exists
+            if(mLargePager != null) {
+                iterator = ((CalculatorPageAdapter) mLargePager.getAdapter()).getViewIterator();
+                for(View child : iterator) {
+                    if(child != null) {
+                        View v = child.findViewById(resId);
+                        if(v != null) {
+                            v.setEnabled(enabled);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Update the buttons on the hex page(s)
+        Iterable<View> iterator = ((CalculatorPageAdapter) pager.getAdapter()).getViewIterator();
+        for(View child : iterator) {
+            if(child != null) {
+                updateBaseButtons(baseMode, child);
             }
         }
     }
@@ -346,8 +352,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
             return true;
         }
 
-        if(keyCode != KeyEvent.KEYCODE_DPAD_CENTER && keyCode != KeyEvent.KEYCODE_DPAD_UP && keyCode != KeyEvent.KEYCODE_DPAD_DOWN
-                && keyCode != KeyEvent.KEYCODE_ENTER) {
+        if(keyCode != KeyEvent.KEYCODE_DPAD_CENTER && keyCode != KeyEvent.KEYCODE_DPAD_UP && keyCode != KeyEvent.KEYCODE_DPAD_DOWN && keyCode != KeyEvent.KEYCODE_ENTER) {
             if(keyEvent.isPrintingKey() && action == KeyEvent.ACTION_UP) {
                 // Tell the handler that text was updated.
                 mHandler.onTextChanged();
@@ -356,9 +361,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         }
 
         /*
-         * We should act on KeyEvent.ACTION_DOWN, but strangely sometimes the
-         * DOWN event isn't received, only the UP. So the workaround is to act
-         * on UP... http://b/issue?id=1022478
+         * We should act on KeyEvent.ACTION_DOWN, but strangely sometimes the DOWN event isn't received, only the UP. So the workaround is to act on UP... http://b/issue?id=1022478
          */
 
         if(action == KeyEvent.ACTION_UP) {
@@ -381,10 +384,47 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     }
 
     private boolean returnToBasic() {
-        if(mPager != null && mPager.getCurrentItem() != Panel.BASIC.getOrder() && CalculatorSettings.returnToBasic(mContext)) {
-            mPager.setCurrentItem(Panel.BASIC.getOrder());
+        if(mPager != null && CalculatorSettings.returnToBasic(mContext)) {
+            Page basic = new Page(mContext, NormalPanel.BASIC);
+            if(CalculatorSettings.isPageEnabled(mContext, basic)) {
+                ((Calculator) mContext).scrollToPage(basic);
+            }
             return true;
         }
         return false;
+    }
+
+    private void updateBaseButtons(Mode baseMode, View parent) {
+        int id = 0;
+        switch(baseMode) {
+        case HEXADECIMAL:
+            id = R.id.hex;
+            break;
+        case BINARY:
+            id = R.id.bin;
+            break;
+        case DECIMAL:
+            id = R.id.dec;
+            break;
+        }
+        View v = parent.findViewById(id);
+        if(v != null) {
+            clearSelectedBase(parent);
+            v.setSelected(true);
+        }
+    }
+
+    private void clearSelectedBase(View parent) {
+        View hex = parent.findViewById(R.id.hex);
+        View bin = parent.findViewById(R.id.bin);
+        View dec = parent.findViewById(R.id.dec);
+
+        hex.setSelected(false);
+        bin.setSelected(false);
+        dec.setSelected(false);
+    }
+
+    public void setGraphDisplay(GraphicalView display) {
+        mGraphDisplay = display;
     }
 }

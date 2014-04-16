@@ -29,10 +29,86 @@ public class MatrixModule {
         return temp;
     }
 
+    private static char[] opSplit(String str) {
+        StringBuilder buffer = new StringBuilder();
+        char c, prev;
+        prev = str.charAt(0);
+        for(int i = 0; i < str.length(); i++) {
+            c = str.charAt(i);
+            if(c == '^' || c == Logic.MUL || c == Logic.DIV || c == '+') buffer.append(c);
+            else if(c == '-' && (Character.isDigit(prev) || prev == ']') && (prev != 'e')) buffer.append(c);
+            prev = c;
+        }
+
+        return buffer.toString().toCharArray();
+    }
+
+    // Look for the nearest valid operand
+    private static int[] lookAfield(Object[] field, int orig) {
+        int left, right;
+
+        // Start with the original position (of the operator)
+        // Left operand is at the same index as its operator
+        // But if it's null, look farther left
+        int pos = orig;
+        while(field[pos] == null)
+            //
+            pos--;
+        left = pos;
+        // Right operand is one greater than the operator index
+        pos = orig + 1;
+        while(field[pos] == null)
+            // Look to the right if null
+            pos++;
+        right = pos;// Found it
+
+        return new int[] { left, right };// Return the indices to allow later
+        // sub-in of null
+    }
+
+    private static String fact(int n) {
+        long m = n;
+        for(int i = n - 1; i > 1; i--)
+            m *= i;
+
+        return Long.toString(m);
+    }
+
+    private static String numToString(double arg) {
+        // Cut off very small arguments
+        if(Math.abs(arg) < 1.0E-10) return "0";
+
+        String temp = Double.toString(arg).replace('E', 'e');
+        if(temp.endsWith(".0")) temp = temp.substring(0, temp.length() - 2);
+        return temp;
+    }
+
+    private static String printMatrix(SimpleMatrix mat) {
+        StringBuilder buffer = new StringBuilder("[");
+        int m = mat.numRows();
+        int n = mat.numCols();
+        for(int i = 0; i < m; i++) {
+            buffer.append('[');
+            for(int j = 0; j < n; j++) {
+                buffer.append(numToString(mat.get(i, j)));
+                if(j != n - 1) buffer.append(',');
+            }
+            buffer.append(']');
+        }
+        buffer.append(']');
+
+        return buffer.toString();
+    }
+
     double gatherScalar(String text) throws SyntaxException {
         if(!Character.isDigit(text.charAt(1))) throw new SyntaxException();
         return Double.parseDouble(text.substring(1));
     }
+
+    // The following have a lot of repeated boilerplate code.
+    // Condensing it down would require language features/properties
+    // that Java does not have.
+    // In short, Java is not F#.
 
     private String calculate(String input) throws SyntaxException {
         // I never realized negative numbers could be so difficult.
@@ -88,8 +164,7 @@ public class MatrixModule {
         }
 
         // Handle functions.
-        match = Pattern.compile("(\u221a|cbrt|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])")
-                .matcher(input);
+        match = Pattern.compile("(\u221a|cbrt|log|ln|asin|acos|atan|sind|cosd|tand|asind|acosd|atand|sin|cos|tan|det)(\u2212?\\d+(?:\\.\\d+)?|\\[\\[.+\\]\\])").matcher(input);
         while(match.find()) {
             String res = applyFunc(match.group(1), match.group(2));
             input = input.replace(match.group(), res);
@@ -180,7 +255,7 @@ public class MatrixModule {
                 if(piece instanceof Double) return numToString((Double) piece);
                 else if(piece instanceof SimpleMatrix) return printMatrix((SimpleMatrix) piece);
                 else throw new SyntaxException(); // Neither matrix nor double
-                                                  // should never happen
+                // should never happen
             }
         throw new RuntimeException(); // Getting here should be impossible
     }// end main
@@ -198,58 +273,8 @@ public class MatrixModule {
         }
 
         result = mLogic.relocalize(result);
-        return mLogic.mBaseModule.updateTextToNewMode(result, Mode.DECIMAL, mLogic.mBaseModule.getMode());
+        return mLogic.getBaseModule().updateTextToNewMode(result, Mode.DECIMAL, mLogic.getBaseModule().getMode());
     }
-
-    private static char[] opSplit(String str) {
-        StringBuilder buffer = new StringBuilder();
-        char c, prev;
-        prev = str.charAt(0);
-        for(int i = 0; i < str.length(); i++) {
-            c = str.charAt(i);
-            if(c == '^' || c == Logic.MUL || c == Logic.DIV || c == '+') buffer.append(c);
-            else if(c == '-' && (Character.isDigit(prev) || prev == ']') && (prev != 'e')) buffer.append(c);
-            prev = c;
-        }
-
-        return buffer.toString().toCharArray();
-    }
-
-    // Look for the nearest valid operand
-    private static int[] lookAfield(Object[] field, int orig) {
-        int left, right;
-
-        // Start with the original position (of the operator)
-        // Left operand is at the same index as its operator
-        // But if it's null, look farther left
-        int pos = orig;
-        while(field[pos] == null)
-            //
-            pos--;
-        left = pos;
-        // Right operand is one greater than the operator index
-        pos = orig + 1;
-        while(field[pos] == null)
-            // Look to the right if null
-            pos++;
-        right = pos;// Found it
-
-        return new int[] { left, right };// Return the indices to allow later
-                                         // sub-in of null
-    }
-
-    private static String fact(int n) {
-        long m = n;
-        for(int i = n - 1; i > 1; i--)
-            m *= i;
-
-        return Long.toString(m);
-    }
-
-    // The following have a lot of repeated boilerplate code.
-    // Condensing it down would require language features/properties
-    // that Java does not have.
-    // In short, Java is not F#.
 
     private String applyFunc(String func, String arg) throws SyntaxException {
         arg = arg.replace(Logic.MINUS, '-');
@@ -453,7 +478,7 @@ public class MatrixModule {
                 return numToString(d);
             }
             else return arg; // Determinant of a scalar is equivalent to det. of
-                             // 1x1 matrix, which is the matrix' one element
+            // 1x1 matrix, which is the matrix' one element
         }
         else throw new SyntaxException();
     }
@@ -567,6 +592,16 @@ public class MatrixModule {
         }
     }
 
+    // private Object applyMod(Object object, Object object2) throws
+    // SyntaxException {
+    // if(object instanceof Double && object2 instanceof Double) {
+    // double arg1 = (Double) object;
+    // double arg2 = (Double) object2;
+    // return arg1 % arg2;
+    // }
+    // else throw new SyntaxException();
+    // }
+
     private Object applyPlus(Object l, Object r) throws SyntaxException {
         if(l instanceof SimpleMatrix && r instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
@@ -613,16 +648,6 @@ public class MatrixModule {
         }
     }
 
-    // private Object applyMod(Object object, Object object2) throws
-    // SyntaxException {
-    // if(object instanceof Double && object2 instanceof Double) {
-    // double arg1 = (Double) object;
-    // double arg2 = (Double) object2;
-    // return arg1 % arg2;
-    // }
-    // else throw new SyntaxException();
-    // }
-
     private SimpleMatrix parseMatrix(String text) throws SyntaxException {
         // Count rows & cols
         String interior = text.substring(2, text.length() - 2);
@@ -640,31 +665,5 @@ public class MatrixModule {
         }
 
         return temp;
-    }
-
-    private static String numToString(double arg) {
-        // Cut off very small arguments
-        if(Math.abs(arg) < 1.0E-10) return "0";
-
-        String temp = Double.toString(arg).replace('E', 'e');
-        if(temp.endsWith(".0")) temp = temp.substring(0, temp.length() - 2);
-        return temp;
-    }
-
-    private static String printMatrix(SimpleMatrix mat) {
-        StringBuilder buffer = new StringBuilder("[");
-        int m = mat.numRows();
-        int n = mat.numCols();
-        for(int i = 0; i < m; i++) {
-            buffer.append('[');
-            for(int j = 0; j < n; j++) {
-                buffer.append(numToString(mat.get(i, j)));
-                if(j != n - 1) buffer.append(',');
-            }
-            buffer.append(']');
-        }
-        buffer.append(']');
-
-        return buffer.toString();
     }
 }
