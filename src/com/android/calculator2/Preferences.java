@@ -2,30 +2,34 @@ package com.android.calculator2;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.android.calculator2.view.PreferencesFragment;
+import com.xlythe.engine.theme.Theme;
 
 /**
  * @author Will Harmon
- **/
+ */
 public class Preferences extends Activity {
+    Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(CalculatorSettings.useLightTheme(this)) {
-            super.setTheme(R.style.Theme_Settings_Calculator_Light);
+        int customTheme = Theme.getSettingsTheme(this);
+        if (customTheme != 0) {
+            super.setTheme(customTheme);
         }
 
-        if(savedInstanceState == null) {
-            PreferencesFragment fragment = new PreferencesFragment();
-            fragment.setArguments(getIntent().getExtras());
-            getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
+        if (savedInstanceState == null) {
+            mFragment = new PreferencesFragment();
+            mFragment.setArguments(getIntent().getExtras());
+            getFragmentManager().beginTransaction().add(android.R.id.content, mFragment).commit();
         }
 
         ActionBar mActionBar = getActionBar();
@@ -46,7 +50,15 @@ public class Preferences extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (getFragmentManager().findFragmentById(android.R.id.content) != mFragment) {
+                try {
+                    getFragmentManager().popBackStack();
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             startActivity(new Intent(this, Calculator.class));
             finish();
             return true;

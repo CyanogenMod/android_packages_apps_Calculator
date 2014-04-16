@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <SwitchPreference
+        android:title="@string/trigUnits"
+        android:key="USE_RADIANS"
+        android:switchTextOn="@string/radians"
+        android:switchTextOff="@string/degrees"
+        android:defaultValue="@bool/USE_RADIANS" />
+</PreferenceScreen>
