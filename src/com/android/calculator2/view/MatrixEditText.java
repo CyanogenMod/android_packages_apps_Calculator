@@ -35,8 +35,10 @@ import android.widget.TextView;
 
 import com.android.calculator2.Logic;
 import com.android.calculator2.R;
+import com.xlythe.engine.theme.Theme;
+import com.xlythe.engine.theme.ThemedEditText;
 
-public class MatrixEditText extends EditText implements OnFocusChangeListener {
+public class MatrixEditText extends ThemedEditText implements OnFocusChangeListener {
     private static final char[] ACCEPTED_CHARS = "0123456789,.-\u2212".toCharArray();
 
     private MatrixView mParent;
@@ -58,6 +60,8 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         setKeyListener(new MatrixKeyListener());
         setOnFocusChangeListener(this);
         setGravity(Gravity.CENTER);
+        setTextColor(Theme.get(R.color.display_text_color));
+        setFont("display_font");
 
         // Listen for the enter button on physical keyboards
         setOnEditorActionListener(new EditText.OnEditorActionListener() {
@@ -67,6 +71,36 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(hasFocus) {
+            mDisplay.mActiveEditText = MatrixEditText.this;
+            if(getText().toString().equals(Logic.NAN)) {
+                setText("");
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return getText().toString();
+    }
+
+    @Override
+    public View focusSearch(int direction) {
+        switch(direction) {
+        case View.FOCUS_FORWARD:
+            return mParent.nextView(this);
+        case View.FOCUS_BACKWARD:
+            return mParent.previousView(this);
+        }
+        return super.focusSearch(direction);
+    }
+
+    public MatrixView getMatrixView() {
+        return mParent;
     }
 
     class MatrixKeyListener extends NumberKeyListener {
@@ -113,35 +147,5 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }
-    }
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if(hasFocus) {
-            mDisplay.mActiveEditText = MatrixEditText.this;
-            if(getText().toString().equals(Logic.NAN)) {
-                setText("");
-            }
-        }
-    }
-
-    @Override
-    public String toString() {
-        return getText().toString();
-    }
-
-    @Override
-    public View focusSearch(int direction) {
-        switch(direction) {
-        case View.FOCUS_FORWARD:
-            return mParent.nextView(this);
-        case View.FOCUS_BACKWARD:
-            return mParent.previousView(this);
-        }
-        return super.focusSearch(direction);
-    }
-
-    public MatrixView getMatrixView() {
-        return mParent;
     }
 }

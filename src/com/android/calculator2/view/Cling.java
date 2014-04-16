@@ -118,7 +118,9 @@ public class Cling extends FrameLayout {
             return false;
         }
         return true;
-    };
+    }
+
+    ;
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
@@ -170,8 +172,7 @@ public class Cling extends FrameLayout {
                     mHandTouchGraphic = getResources().getDrawable(R.drawable.hand);
                 }
                 int offset = cz;
-                mHandTouchGraphic.setBounds(cx + offset, cy + offset, cx + mHandTouchGraphic.getIntrinsicWidth() + offset,
-                        cy + mHandTouchGraphic.getIntrinsicHeight() + offset);
+                mHandTouchGraphic.setBounds(cx + offset, cy + offset, cx + mHandTouchGraphic.getIntrinsicWidth() + offset, cy + mHandTouchGraphic.getIntrinsicHeight() + offset);
                 mHandTouchGraphic.draw(c);
             }
 
@@ -182,5 +183,7 @@ public class Cling extends FrameLayout {
 
         // Draw the rest of the cling
         super.dispatchDraw(canvas);
-    };
+    }
+
+    ;
 }

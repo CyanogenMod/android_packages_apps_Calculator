@@ -17,15 +17,16 @@
 package com.android.calculator2.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.text.InputType;
-import android.widget.TextView;
 
-import com.android.calculator2.CalculatorSettings;
 import com.android.calculator2.MutableString;
 import com.android.calculator2.R;
+import com.xlythe.engine.theme.Theme;
+import com.xlythe.engine.theme.ThemedTextView;
 
-public class MatrixInverseView extends TextView {
+public class MatrixInverseView extends ThemedTextView {
     private final static char PLACEHOLDER = '\uFEFF';
     public final static String PATTERN = PLACEHOLDER + "^-1";
 
@@ -37,14 +38,12 @@ public class MatrixInverseView extends TextView {
         super(display.getContext());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         setText(Html.fromHtml("<sup><small>-1</small></sup>"));
-        setTextAppearance(display.getContext(), CalculatorSettings.useLightTheme(getContext()) ? R.style.Theme_Calculator_Display_Light
-                : R.style.Theme_Calculator_Display);
+        setTextAppearance(display.getContext(), R.style.Theme_Calculator_Display);
         setPadding(0, 0, 0, 0);
-    }
-
-    @Override
-    public String toString() {
-        return PATTERN;
+        setTextColor(Theme.get(R.color.display_text_color));
+        Typeface tf = Theme.getFont(getContext());
+        if(tf != null) setTypeface(tf);
+        setFont("display_font");
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent) {
@@ -65,5 +64,10 @@ public class MatrixInverseView extends TextView {
         parent.addView(mv, pos);
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return PATTERN;
     }
 }
