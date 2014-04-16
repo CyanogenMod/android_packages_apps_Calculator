@@ -24,12 +24,12 @@ public class AdvancedDisplay extends LinearLayout {
     private static final int CUT = 0;
     private static final int COPY = 1;
     private static final int PASTE = 2;
-    private String[] mMenuItemsStrings;
-
     EditText mActiveEditText;
     KeyListener mKeyListener;
     Factory mFactory;
     Logic mLogic;
+    private String[] mMenuItemsStrings;
+    private int mEditTextLayout = R.layout.view_calculator_edit_text;
 
     public AdvancedDisplay(Context context) {
         this(context, null);
@@ -38,6 +38,14 @@ public class AdvancedDisplay extends LinearLayout {
     public AdvancedDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(HORIZONTAL);
+    }
+
+    public int getEditTextLayout() {
+        return mEditTextLayout;
+    }
+
+    public void setEditTextLayout(int resId) {
+        mEditTextLayout = resId;
     }
 
     @Override
@@ -74,6 +82,24 @@ public class AdvancedDisplay extends LinearLayout {
             text += getChildAt(i).toString();
         }
         return text;
+    }
+
+    public void setText(String text) {
+        clear();
+        CalculatorEditText.load(this);
+        getLastView().requestFocus();
+        final MutableString ms = new MutableString(text);
+        while(!ms.isEmpty()) {
+            if(MatrixView.load(ms, this)) continue;
+            if(MatrixTransposeView.load(ms, this)) continue;
+            if(MatrixInverseView.load(ms, this)) continue;
+
+            // Append the next character to the trailing EditText
+            ((CalculatorEditText) getLastView()).setText(((CalculatorEditText) getLastView()).getText() + ms.substring(0, 1));
+            ((CalculatorEditText) getLastView()).setSelection(((CalculatorEditText) getLastView()).length());
+            ms.setText(ms.substring(1, ms.length()));
+        }
+        getLastView().requestFocus();
     }
 
     public void clear() {
@@ -156,24 +182,6 @@ public class AdvancedDisplay extends LinearLayout {
         }
     }
 
-    public void setText(String text) {
-        clear();
-        CalculatorEditText.load(this);
-        getLastView().requestFocus();
-        final MutableString ms = new MutableString(text);
-        while(!ms.isEmpty()) {
-            if(MatrixView.load(ms, this)) continue;
-            if(MatrixTransposeView.load(ms, this)) continue;
-            if(MatrixInverseView.load(ms, this)) continue;
-
-            // Append the next character to the trailing EditText
-            ((CalculatorEditText) getLastView()).setText(((CalculatorEditText) getLastView()).getText() + ms.substring(0, 1));
-            ((CalculatorEditText) getLastView()).setSelection(((CalculatorEditText) getLastView()).length());
-            ms.setText(ms.substring(1, ms.length()));
-        }
-        getLastView().requestFocus();
-    }
-
     public void setKeyListener(KeyListener input) {
         mKeyListener = input;
     }
@@ -207,12 +215,6 @@ public class AdvancedDisplay extends LinearLayout {
     public boolean performLongClick() {
         showContextMenu();
         return true;
-    }
-
-    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
-        public boolean onMenuItemClick(MenuItem item) {
-            return onTextContextMenuItem(item.getTitle());
-        }
     }
 
     public boolean onTextContextMenuItem(CharSequence title) {
@@ -255,11 +257,6 @@ public class AdvancedDisplay extends LinearLayout {
         }
     }
 
-    private void setPrimaryClip(ClipData clip) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(clip);
-    }
-
     private void copyContent() {
         final String text = getText();
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -279,6 +276,11 @@ public class AdvancedDisplay extends LinearLayout {
         return clipboard.getPrimaryClip();
     }
 
+    private void setPrimaryClip(ClipData clip) {
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(clip);
+    }
+
     private void pasteContent() {
         ClipData clip = getPrimaryClip();
         if(clip != null) {
@@ -293,5 +295,11 @@ public class AdvancedDisplay extends LinearLayout {
 
     private boolean canPaste(CharSequence paste) {
         return paste.length() > 0;
+    }
+
+    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
+        public boolean onMenuItemClick(MenuItem item) {
+            return onTextContextMenuItem(item.getTitle());
+        }
     }
 }

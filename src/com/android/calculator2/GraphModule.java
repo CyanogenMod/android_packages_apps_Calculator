@@ -17,6 +17,13 @@ public class GraphModule {
         this.mLogic = logic;
     }
 
+    private static void clearGraph(Graph g) {
+        int seriesCount = g.getDataset().getSeriesCount();
+        for(int i = 0; i < seriesCount; i++) {
+            g.getDataset().removeSeries(0);
+        }
+    }
+
     void updateGraphCatchErrors(Graph g) {
         try {
             updateGraph(g);
@@ -48,13 +55,6 @@ public class GraphModule {
         if(Logic.isOperator(eq.charAt(eq.length() - 1)) || mLogic.displayContainsMatrices() || eq.endsWith("(")) return;
 
         new GraphTask(g, mLogic).execute(eq);
-    }
-
-    private static void clearGraph(Graph g) {
-        int seriesCount = g.getDataset().getSeriesCount();
-        for(int i = 0; i < seriesCount; i++) {
-            g.getDataset().removeSeries(0);
-        }
     }
 
     public static class GraphTask extends AsyncTask<String, String, GraphicalView> {
@@ -243,8 +243,7 @@ public class GraphModule {
         }
 
         boolean graphChanged(Graph graph, String equation, double minX, double maxX, double minY, double maxY) {
-            return !equation.equals(mLogic.getText()) || minY != graph.getRenderer().getYAxisMin() || maxY != graph.getRenderer().getYAxisMax()
-                    || minX != graph.getRenderer().getXAxisMin() || maxX != graph.getRenderer().getXAxisMax();
+            return !equation.equals(mLogic.getText()) || minY != graph.getRenderer().getYAxisMin() || maxY != graph.getRenderer().getYAxisMax() || minX != graph.getRenderer().getXAxisMin() || maxX != graph.getRenderer().getXAxisMax();
         }
 
         boolean pointIsNaN(double lastV, double v, double max, double min) {
