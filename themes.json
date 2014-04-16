@@ -1,0 +1,47 @@
+[
+    {
+        "price":"0.00",
+        "packageName":"com.xlythe.calculator.theme.light",
+        "name":"Calculator Light",
+        "imageUrl":"http://xlythe.com/calculator/store/theme_light.png",
+        "onPlayStore":true,
+        "onAmazonStore":false,
+        "customUrl":null
+    },
+    {
+        "price":"0.00",
+        "packageName":"com.xlythe.calculator.theme.niko",
+        "name":"Niko",
+        "imageUrl":"http://xlythe.com/calculator/store/theme_niko.png",
+        "onPlayStore":true,
+        "onAmazonStore":false,
+        "customUrl":null
+    },
+    {
+        "price":"0.99",
+        "packageName":"com.xlythe.calculator.theme.holo.light",
+        "name":"Holo Light",
+        "imageUrl":"http://xlythe.com/calculator/store/theme_holo_light.png",
+        "onPlayStore":true,
+        "onAmazonStore":false,
+        "customUrl":null
+    },
+    {
+        "price":"0.99",
+        "packageName":"com.xlythe.calculator.theme.holo.dark",
+        "name":"Holo Dark",
+        "imageUrl":"http://xlythe.com/calculator/store/theme_holo_dark.png",
+        "onPlayStore":true,
+        "onAmazonStore":false,
+        "customUrl":null
+    },
+    {
+        "price":"0.99",
+        "packageName":"com.xlythe.calculator.theme.ios",
+        "name":"iOS7",
+        "imageUrl":"http://xlythe.com/calculator/store/theme_ios.png",
+        "onPlayStore":true,
+        "onAmazonStore":false,
+        "customUrl":null
+    }
+]

@@ -12,38 +12,28 @@ import org.javia.arity.SyntaxException;
 
 public class BaseModule {
     public static final char SELECTION_HANDLE = '\u2620';
+    private final static int PRECISION = 8;
     public final String REGEX_NUMBER;
     public final String REGEX_NOT_NUMBER;
-
     Logic mLogic;
-    private Mode mMode = Mode.DECIMAL;
     Map<Mode, List<Integer>> mBannedResources;
+    private Mode mMode = Mode.DECIMAL;
+    private OnBaseChangeListener mBaseChangeListener;
 
     BaseModule(Logic logic) {
         this.mLogic = logic;
 
         REGEX_NUMBER = "[A-F0-9" + Pattern.quote(mLogic.mDecimalPoint) + SELECTION_HANDLE + "]";
-        REGEX_NOT_NUMBER = "[^A-F0-9" + Pattern.quote(mLogic.mDecimalPoint) + SELECTION_HANDLE + "]";
+        REGEX_NOT_NUMBER = "[^A-F0-9" + Pattern.quote(mLogic.mDecimalPoint) + SELECTION_HANDLE
+                + "]";
 
         mBannedResources = new HashMap<Mode, List<Integer>>(3);
-        mBannedResources.put(Mode.DECIMAL, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F));
-        mBannedResources.put(Mode.BINARY, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F, R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5,
-                R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9));
+        mBannedResources.put(Mode.DECIMAL,
+                Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F));
+        mBannedResources.put(Mode.BINARY, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E,
+                R.id.F, R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5, R.id.digit6,
+                R.id.digit7, R.id.digit8, R.id.digit9));
         mBannedResources.put(Mode.HEXADECIMAL, new ArrayList<Integer>());
-    }
-
-    public enum Mode {
-        BINARY(0), DECIMAL(1), HEXADECIMAL(2);
-
-        int quickSerializable;
-
-        Mode(int num) {
-            this.quickSerializable = num;
-        }
-
-        public int getQuickSerializable() {
-            return quickSerializable;
-        }
     }
 
     public Mode getMode() {
@@ -53,11 +43,13 @@ public class BaseModule {
     public String setMode(Mode mode) {
         String text = updateTextToNewMode(mLogic.getText(), this.mMode, mode);
         this.mMode = mode;
+        if(mBaseChangeListener != null) mBaseChangeListener.onBaseChange(mMode);
         return text;
     }
 
     String updateTextToNewMode(final String originalText, final Mode mode1, final Mode mode2) {
-        if(mode1.equals(mode2) || originalText.equals(mLogic.mErrorString) || originalText.isEmpty()) return originalText;
+        if(mode1.equals(mode2) || originalText.equals(mLogic.mErrorString)
+                || originalText.isEmpty()) return originalText;
 
         String[] operations = originalText.split(REGEX_NUMBER);
         String[] numbers = originalText.split(REGEX_NOT_NUMBER);
@@ -186,9 +178,8 @@ public class BaseModule {
         return formatted.toArray();
     }
 
-    private final static int PRECISION = 8;
-
-    private String newBase(String originalNumber, int originalBase, int base) throws SyntaxException {
+    private String newBase(String originalNumber, int originalBase, int base)
+            throws SyntaxException {
         String[] split = originalNumber.split(Pattern.quote(mLogic.mDecimalPoint));
         if(split.length == 0) {
             split = new String[1];
@@ -222,7 +213,8 @@ public class BaseModule {
 
         double decimal = 0;
         if(originalBase != 10) {
-            String decimalFraction = Long.toString(Long.parseLong(split[1], originalBase)) + "/" + originalBase + "^" + split[1].length();
+            String decimalFraction = Long.toString(Long.parseLong(split[1], originalBase)) + "/"
+                    + originalBase + "^" + split[1].length();
             decimal = mLogic.mSymbols.eval(decimalFraction);
         }
         else {
@@ -243,7 +235,8 @@ public class BaseModule {
     public String groupSentence(String originalText, int selectionHandle) {
         if(originalText.equals(mLogic.mErrorString) || originalText.isEmpty()) return originalText;
 
-        originalText = originalText.substring(0, selectionHandle) + SELECTION_HANDLE + originalText.substring(selectionHandle);
+        originalText = originalText.substring(0, selectionHandle) + SELECTION_HANDLE
+                + originalText.substring(selectionHandle);
         String[] operations = originalText.split(REGEX_NUMBER);
         String[] numbers = originalText.split(REGEX_NOT_NUMBER);
         String[] translatedNumbers = new String[numbers.length];
@@ -339,5 +332,33 @@ public class BaseModule {
             }
         }
         return modifiedNumber;
+    }
+
+    public OnBaseChangeListener getOnBaseChangeListener() {
+        return mBaseChangeListener;
+    }
+
+    public void setOnBaseChangeListener(OnBaseChangeListener l) {
+        mBaseChangeListener = l;
+    }
+
+    public enum Mode {
+        BINARY(0),
+        DECIMAL(1),
+        HEXADECIMAL(2);
+
+        int quickSerializable;
+
+        Mode(int num) {
+            this.quickSerializable = num;
+        }
+
+        public int getQuickSerializable() {
+            return quickSerializable;
+        }
+    }
+
+    public static interface OnBaseChangeListener {
+        public void onBaseChange(Mode newBase);
     }
 }

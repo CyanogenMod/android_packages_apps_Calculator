@@ -38,6 +38,16 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     private boolean mClearText = false;
 
+    private static String getValue(Context context, int appWidgetId) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(
+                PREFERENCE_WIDGET_PREAMBLE + appWidgetId, "");
+    }
+
+    private static void setValue(Context context, int appWidgetId, String newValue) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit()
+                .putString(PREFERENCE_WIDGET_PREAMBLE + appWidgetId, newValue).commit();
+    }
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for(int appWidgetID : appWidgetIds) {
@@ -152,11 +162,11 @@ public class CalculatorWidget extends AppWidgetProvider {
             final String input = value;
             if(input.isEmpty()) return;
 
-            final Logic mLogic = new Logic(context, null, null);
-            mLogic.setLineLength(7);
+            final Logic logic = new Logic(context);
+            logic.setLineLength(7);
 
             try {
-                value = mLogic.evaluate(input);
+                value = logic.evaluate(input);
             }
             catch(SyntaxException e) {
                 value = context.getResources().getString(R.string.error);
@@ -181,7 +191,8 @@ public class CalculatorWidget extends AppWidgetProvider {
         setValue(context, appWidgetId, value);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, CalculatorWidget.class));
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context,
+                CalculatorWidget.class));
         for(int appWidgetID : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetID);
         }
@@ -189,16 +200,25 @@ public class CalculatorWidget extends AppWidgetProvider {
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), CalculatorSettings.useLightTheme(context) ? R.layout.widget_light : R.layout.widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+
         String value = getValue(context, appWidgetId);
 
-        int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable : R.id.display;
+        if(CalculatorSettings.digitGrouping(context)) {
+            final Logic logic = new Logic(context, null);
+            BaseModule bm = logic.getBaseModule();
+            value = bm.groupSentence(value, value.length());
+            value = value.replace(String.valueOf(BaseModule.SELECTION_HANDLE), "");
+        }
 
+        int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable
+                : R.id.display;
+
+        remoteViews.setViewVisibility(R.id.background,
+                CalculatorSettings.showWidgetBackground(context) ? View.VISIBLE : View.GONE);
         remoteViews.setViewVisibility(displayId, View.VISIBLE);
         remoteViews.setTextViewText(displayId, value);
         remoteViews.setTextViewText(R.id.display, value);
-        remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
-        remoteViews.setViewVisibility(R.id.delete, mClearText ? View.GONE : View.VISIBLE);
         setOnClickListeners(context, appWidgetId, remoteViews);
 
         try {
@@ -221,65 +241,71 @@ public class CalculatorWidget extends AppWidgetProvider {
         // And add our button values (0-16)
 
         intent.setAction(DIGIT_0);
-        remoteViews.setOnClickPendingIntent(R.id.digit0, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 0, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit0,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 0, intent, 0));
 
         intent.setAction(DIGIT_1);
-        remoteViews.setOnClickPendingIntent(R.id.digit1, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 1, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit1,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 1, intent, 0));
 
         intent.setAction(DIGIT_2);
-        remoteViews.setOnClickPendingIntent(R.id.digit2, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 2, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit2,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 2, intent, 0));
 
         intent.setAction(DIGIT_3);
-        remoteViews.setOnClickPendingIntent(R.id.digit3, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 3, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit3,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 3, intent, 0));
 
         intent.setAction(DIGIT_4);
-        remoteViews.setOnClickPendingIntent(R.id.digit4, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 4, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit4,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 4, intent, 0));
 
         intent.setAction(DIGIT_5);
-        remoteViews.setOnClickPendingIntent(R.id.digit5, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 5, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit5,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 5, intent, 0));
 
         intent.setAction(DIGIT_6);
-        remoteViews.setOnClickPendingIntent(R.id.digit6, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 6, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit6,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 6, intent, 0));
 
         intent.setAction(DIGIT_7);
-        remoteViews.setOnClickPendingIntent(R.id.digit7, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 7, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit7,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 7, intent, 0));
 
         intent.setAction(DIGIT_8);
-        remoteViews.setOnClickPendingIntent(R.id.digit8, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 8, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit8,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 8, intent, 0));
 
         intent.setAction(DIGIT_9);
-        remoteViews.setOnClickPendingIntent(R.id.digit9, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 9, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.digit9,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 9, intent, 0));
 
         intent.setAction(DOT);
-        remoteViews.setOnClickPendingIntent(R.id.dot, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 10, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.dot,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 10, intent, 0));
 
         intent.setAction(DIV);
-        remoteViews.setOnClickPendingIntent(R.id.div, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 11, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.div,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 11, intent, 0));
 
         intent.setAction(MUL);
-        remoteViews.setOnClickPendingIntent(R.id.mul, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 12, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.mul,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 12, intent, 0));
 
         intent.setAction(MINUS);
-        remoteViews.setOnClickPendingIntent(R.id.minus, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 13, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.minus,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 13, intent, 0));
 
         intent.setAction(PLUS);
-        remoteViews.setOnClickPendingIntent(R.id.plus, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 14, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.plus,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 14, intent, 0));
 
         intent.setAction(EQUALS);
-        remoteViews.setOnClickPendingIntent(R.id.equal, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 15, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.equal,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 15, intent, 0));
 
-        intent.setAction(CLR);
-        remoteViews.setOnClickPendingIntent(R.id.clear, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 16, intent, 0));
-
-        intent.setAction(DEL);
-        remoteViews.setOnClickPendingIntent(R.id.delete, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 17, intent, 0));
-    }
-
-    private static String getValue(Context context, int appWidgetId) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(PREFERENCE_WIDGET_PREAMBLE + appWidgetId, "");
-    }
-
-    private static void setValue(Context context, int appWidgetId, String newValue) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PREFERENCE_WIDGET_PREAMBLE + appWidgetId, newValue).commit();
+        intent.setAction(mClearText ? CLR : DEL);
+        remoteViews.setOnClickPendingIntent(R.id.delete,
+                PendingIntent.getBroadcast(context, shiftedAppWidgetId + 17, intent, 0));
     }
 }

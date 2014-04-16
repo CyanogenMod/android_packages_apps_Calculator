@@ -2,41 +2,47 @@ package com.android.calculator2;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.android.calculator2.view.PreferencesFragment;
+import com.xlythe.engine.theme.Theme;
 
 /**
  * @author Will Harmon
- **/
+ */
 public class Preferences extends Activity {
+    Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(CalculatorSettings.useLightTheme(this)) {
-            super.setTheme(R.style.Theme_Settings_Calculator_Light);
+        int customTheme = Theme.getSettingsTheme(this);
+        if(customTheme != 0) {
+            super.setTheme(customTheme);
         }
 
+        setContentView(R.layout.activity_preferences);
+
         if(savedInstanceState == null) {
-            PreferencesFragment fragment = new PreferencesFragment();
-            fragment.setArguments(getIntent().getExtras());
-            getFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
+            mFragment = new PreferencesFragment();
+            mFragment.setArguments(getIntent().getExtras());
+            getFragmentManager().beginTransaction().add(R.id.content_view, mFragment).commit();
         }
 
         ActionBar mActionBar = getActionBar();
-        if (mActionBar != null) {
+        if(mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if(item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, Calculator.class));
             finish();
             return true;
@@ -47,6 +53,15 @@ public class Preferences extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
+            if(getFragmentManager().findFragmentById(R.id.content_view) != mFragment) {
+                try {
+                    getFragmentManager().popBackStack();
+                    return true;
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
             startActivity(new Intent(this, Calculator.class));
             finish();
             return true;
