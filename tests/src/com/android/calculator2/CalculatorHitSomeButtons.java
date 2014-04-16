@@ -1,16 +1,16 @@
 /**
  * Copyright (c) 2008, Google Inc.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0 
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
@@ -24,16 +24,17 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.android.calculator2.Calculator.LargePanel;
-import com.android.calculator2.Calculator.Panel;
-import com.android.calculator2.Calculator.SmallPanel;
+import com.android.calculator2.Page.LargePanel;
+import com.android.calculator2.Page.Panel;
+import com.android.calculator2.Page.NormalPanel;
+import com.android.calculator2.Page.SmallPanel;
 import com.android.calculator2.view.CalculatorDisplay;
 import com.android.calculator2.view.CalculatorViewPager;
 import com.android.calculator2.view.Cling;
 
 /**
  * Instrumentation tests for poking some buttons
- * 
+ *
  */
 
 public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<Calculator> {
@@ -77,7 +78,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     public void testPressSomeKeys() {
         Log.v(TAG, "Pressing some keys!");
 
-        swipe(Panel.BASIC);
+        swipe(NormalPanel.BASIC);
         swipe(LargePanel.BASIC);
 
         // Make sure that we clear the output
@@ -99,7 +100,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     public void testTapSomeButtons() {
         Log.v(TAG, "Tapping some buttons!");
 
-        swipe(Panel.BASIC);
+        swipe(NormalPanel.BASIC);
         swipe(LargePanel.BASIC);
 
         // Make sure that we clear the output
@@ -133,7 +134,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     public void testTapSomeMatrixButtons() {
         Log.v(TAG, "Making some matrices!");
 
-        swipe(Panel.MATRIX);
+        swipe(NormalPanel.MATRIX);
         swipe(LargePanel.MATRIX);
 
         // Make sure that we clear the output
@@ -155,7 +156,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     public void testMatrixMult() {
         Log.v(TAG, "Testing correctness of matrix multiplication.");
 
-        swipe(Panel.MATRIX);
+        swipe(NormalPanel.MATRIX);
         swipe(LargePanel.MATRIX);
 
         // Clear the input
@@ -193,7 +194,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     public void testDeterminant() {
         Log.v(TAG, "Testing correctness of determinant.");
 
-        swipe(Panel.MATRIX);
+        swipe(NormalPanel.MATRIX);
         swipe(LargePanel.MATRIX);
 
         tap(R.id.clear);
@@ -214,7 +215,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         tap(R.id.digit9);
         tap(R.id.next);
 
-        swipe(Panel.BASIC);
+        swipe(NormalPanel.BASIC);
         swipe(LargePanel.BASIC);
 
         sleep();
@@ -230,7 +231,7 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
     public void testMatrixScalarOps() {
         Log.v(TAG, "Testing matrix-scalar multiplication, functions, and order of operations.");
 
-        swipe(Panel.MATRIX);
+        swipe(NormalPanel.MATRIX);
         swipe(LargePanel.MATRIX);
 
         tap(R.id.clear);
@@ -239,13 +240,13 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         // Testing det(cos([[1,2][3,4]])*log(1+2^3))
         tap(R.id.det);
 
-        swipe(Panel.ADVANCED);
+        swipe(NormalPanel.ADVANCED);
         swipe(SmallPanel.ADVANCED);
         sleep();
 
         tap(R.id.cos);
 
-        swipe(Panel.MATRIX);
+        swipe(NormalPanel.MATRIX);
         swipe(LargePanel.MATRIX);
         sleep();
 
@@ -259,25 +260,25 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         tap(R.id.digit4);
         tap(R.id.next);
 
-        swipe(Panel.ADVANCED);
+        swipe(NormalPanel.ADVANCED);
         swipe(SmallPanel.ADVANCED);
         sleep();
 
         tap(R.id.rightParen);
 
-        swipe(Panel.MATRIX);
+        swipe(NormalPanel.MATRIX);
         swipe(LargePanel.MATRIX);
         sleep();
 
         tap(R.id.mul);
 
-        swipe(Panel.ADVANCED);
+        swipe(NormalPanel.ADVANCED);
         swipe(SmallPanel.ADVANCED);
         sleep();
 
         tap(R.id.lg);
 
-        swipe(Panel.MATRIX);
+        swipe(NormalPanel.MATRIX);
         swipe(LargePanel.MATRIX);
         sleep();
 
@@ -285,26 +286,26 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         tap(R.id.plus);
         tap(R.id.digit2);
 
-        swipe(Panel.ADVANCED);
+        swipe(NormalPanel.ADVANCED);
         swipe(SmallPanel.ADVANCED);
         sleep();
 
         tap(R.id.power);
 
-        swipe(Panel.BASIC);
+        swipe(NormalPanel.BASIC);
         swipe(LargePanel.BASIC);
         sleep();
 
         tap(R.id.digit3);
 
-        swipe(Panel.ADVANCED);
+        swipe(NormalPanel.ADVANCED);
         swipe(SmallPanel.ADVANCED);
         sleep();
 
         tap(R.id.rightParen);
         tap(R.id.rightParen);
 
-        swipe(Panel.BASIC);
+        swipe(NormalPanel.BASIC);
         swipe(LargePanel.BASIC);
         sleep();
 
@@ -376,47 +377,8 @@ public class CalculatorHitSomeButtons extends ActivityInstrumentationTestCase2<C
         return false;
     }
 
-    protected boolean swipe(final Panel page) {
-        final CalculatorViewPager pager = (CalculatorViewPager) mActivity.findViewById(R.id.panelswitch);
-
-        // On a phone
-        if(pager != null) {
-            pager.post(new Runnable() {
-                @Override
-                public void run() {
-                    pager.setCurrentItem(page.getOrder());
-                }
-            });
-        }
-        return false;
-    }
-
-    protected boolean swipe(final SmallPanel page) {
-        final CalculatorViewPager smallPager = (CalculatorViewPager) mActivity.findViewById(R.id.smallPanelswitch);
-
-        if(smallPager != null) {
-            smallPager.post(new Runnable() {
-                @Override
-                public void run() {
-                    smallPager.setCurrentItem(page.getOrder());
-                }
-            });
-        }
-        return false;
-    }
-
-    protected boolean swipe(final LargePanel page) {
-        final CalculatorViewPager largePager = (CalculatorViewPager) mActivity.findViewById(R.id.largePanelswitch);
-
-        if(largePager != null) {
-            largePager.post(new Runnable() {
-                @Override
-                public void run() {
-                    largePager.setCurrentItem(page.getOrder());
-                }
-            });
-        }
-        return false;
+    protected void swipe(final Panel page) {
+        mActivity.scrollToPage(new Page(mActivity, page));
     }
 
     private String displayVal() {
