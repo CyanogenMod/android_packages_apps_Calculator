@@ -31,7 +31,8 @@ public class CalculatorEditable extends SpannableStringBuilder {
     }
 
     @Override
-    public SpannableStringBuilder replace(int start, int end, CharSequence tb, int tbstart, int tbend) {
+    public SpannableStringBuilder replace(int start, int end, CharSequence tb, int tbstart,
+            int tbend) {
         if(isInsideReplace) {
             return super.replace(start, end, tb, tbstart, tbend);
         }

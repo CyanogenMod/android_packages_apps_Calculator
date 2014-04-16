@@ -41,20 +41,20 @@ class Persist {
         this.mContext = context;
     }
 
-    public void setDeleteMode(int mode) {
-        mDeleteMode = mode;
-    }
-
     public int getDeleteMode() {
         return mDeleteMode;
     }
 
-    public void setMode(Mode mode) {
-        this.mMode = mode;
+    public void setDeleteMode(int mode) {
+        mDeleteMode = mode;
     }
 
     public Mode getMode() {
         return mMode;
+    }
+
+    public void setMode(Mode mode) {
+        this.mMode = mode;
     }
 
     public void load() {
@@ -91,7 +91,8 @@ class Persist {
             DataOutputStream out = new DataOutputStream(os);
             out.writeInt(LAST_VERSION);
             out.writeInt(mDeleteMode);
-            out.writeInt(mMode.quickSerializable);
+            out.writeInt(mMode == null ? Mode.DECIMAL.getQuickSerializable() : mMode
+                    .getQuickSerializable());
             mHistory.write(out);
             out.close();
         }

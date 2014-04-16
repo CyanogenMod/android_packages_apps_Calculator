@@ -17,27 +17,26 @@
 package com.android.calculator2.view;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.Button;
 
 import com.android.calculator2.Calculator;
 import com.android.calculator2.EventListener;
 import com.android.calculator2.R;
+import com.xlythe.engine.theme.Theme;
+import com.xlythe.engine.theme.ThemedButton;
 
 /**
  * Button with click-animation effect.
  */
-class ColorButton extends Button {
-    int CLICK_FEEDBACK_COLOR;
+class ColorButton extends ThemedButton {
     static final int CLICK_FEEDBACK_INTERVAL = 10;
     static final int CLICK_FEEDBACK_DURATION = 350;
-
+    int CLICK_FEEDBACK_COLOR;
     float mTextX;
     float mTextY;
     long mAnimStart;
@@ -57,9 +56,7 @@ class ColorButton extends Button {
     }
 
     private void init(Calculator calc, AttributeSet attrs) {
-        Resources res = getResources();
-
-        CLICK_FEEDBACK_COLOR = res.getColor(R.color.magic_flame);
+        CLICK_FEEDBACK_COLOR = Theme.getColor(getContext(), R.color.magic_flame);
         mFeedbackPaint = new Paint();
         mFeedbackPaint.setStyle(Style.STROKE);
         mFeedbackPaint.setStrokeWidth(2);
@@ -82,7 +79,8 @@ class ColorButton extends Button {
             mTextX = (getWidth() - textWidth) / 2;
         }
         mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
-        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent)
+        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize()
+                * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent)
                 / 100f);
     }
 
@@ -122,11 +120,14 @@ class ColorButton extends Button {
             drawMagicFlame(0, canvas);
         }
 
-        mHintPaint.setColor(getCurrentHintTextColor());
+        mHintPaint.setColor(Theme.getColor(getContext(), R.color.button_hint_text));
         CharSequence hint = getHint();
         if(hint != null) {
-            int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
-            int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2)
+            int offsetX = getContext().getResources().getDimensionPixelSize(
+                    R.dimen.button_hint_offset_x);
+            int offsetY = (int) ((mTextY
+                    + getContext().getResources().getDimensionPixelSize(
+                            R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2)
                     - getPaddingTop();
 
             float textWidth = mHintPaint.measureText(hint.toString());
@@ -136,7 +137,8 @@ class ColorButton extends Button {
                 mHintPaint.setTextSize(textSize * width / textWidth);
             }
 
-            canvas.drawText(getHint(), 0, getHint().length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
+            canvas.drawText(getHint(), 0, getHint().length(), mTextX + offsetX, mTextY - offsetY,
+                    mHintPaint);
         }
 
         getPaint().setColor(getCurrentTextColor());
