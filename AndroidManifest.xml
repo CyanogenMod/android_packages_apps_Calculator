@@ -1,48 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2014 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.calculator2"
-    android:versionName="@string/application_version">
+    android:versionName="4.2.1">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <original-package android:name="com.android.calculator2" />
 
-    <application android:label="@string/app_name" android:icon="@mipmap/ic_launcher_calculator">
-        <activity android:name=".Calculator" 
-                  android:theme="@style/Theme.Calculator"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher_calculator">
+        <activity android:name=".Calculator"
+            android:theme="@style/Theme.Calculator"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.APP_CALCULATOR" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity-alias
-            android:label="@string/app_name"
-            android:icon="@mipmap/ic_launcher_calculator"
-            android:name=".Calculator-Dark"
-            android:enabled="true"
-            android:targetActivity=".Calculator">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
-        <activity-alias
-            android:label="@string/app_name"
-            android:icon="@mipmap/ic_launcher_calculator_light"
-            android:name=".Calculator-Light"
-            android:enabled="false"
-            android:targetActivity=".Calculator">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
+
         <activity android:name=".Preferences" android:theme="@style/Theme.Settings.Calculator" android:label="@string/settings" />
-        <receiver android:name=".CalculatorWidget" >
+        <activity android:name=".StoreActivity" android:theme="@style/Theme.Calculator" android:label="@string/store" />
+        <activity android:name=".StoreInfoActivity" android:theme="@style/Theme.Settings.Calculator" android:label="@string/store" />
+
+        <activity android:name=".GlassHomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/GlassTheme"
+            android:icon="@drawable/ic_launcher_glass">
+
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+            </intent-filter>
+
+            <meta-data android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/voice_trigger_start" />
+        </activity>
+
+        <activity android:name=".GlassResultActivity"
+            android:label="@string/app_name"
+            android:theme="@style/GlassTheme"
+            android:icon="@drawable/ic_launcher_glass" />
+
+        <activity android:name=".FloatingCalculatorActivity"
+            android:theme="@style/TransparentBackground"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance"
+            android:noHistory="true"
+            android:finishOnTaskLaunch="true"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"/>
+
+        <activity android:name=".FloatingCalculatorCreateShortCutActivity"
+            android:label="@string/app_name"
+            android:icon="@drawable/ic_launcher_floating">
+
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".FloatingCalculatorOpenShortCutActivity"
+            android:theme="@style/TransparentBackground"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance"
+            android:noHistory="true"
+            android:finishOnTaskLaunch="true"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:exported="true" />
+
+        <receiver android:name=".CalculatorWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/calculator_widget_info" />
         </receiver>
+
+        <service android:name=".FloatingCalculator">
+            <intent-filter>
+                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
+            </intent-filter>
+        </service>
     </application>
-</manifest> 
+</manifest>
