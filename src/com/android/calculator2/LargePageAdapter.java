@@ -1,120 +1,114 @@
+/*
+ * Copyright (C) 2014 The CyanogenMod Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.android.calculator2;
 
-import org.achartengine.GraphicalView;
+import java.util.Iterator;
+import java.util.List;
 
-import android.view.LayoutInflater;
+import android.content.Context;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
-
-import com.android.calculator2.BaseModule.Mode;
-import com.android.calculator2.Calculator.LargePanel;
-import com.android.calculator2.view.CalculatorViewPager;
 
 public class LargePageAdapter extends CalculatorPageAdapter {
-    private final ViewGroup mGraphPage;
-    private final ViewGroup mSimplePage;
-    final ViewGroup mMatrixPage;
-    private final CalculatorViewPager mParent;
-    private GraphicalView mGraphDisplay;
     private final Graph mGraph;
     private final Logic mLogic;
-    private int mCount = 0;
+    private final Context mContext;
+    private final EventListener mListener;
+    private final List<Page> mPages;
 
-    public LargePageAdapter(CalculatorViewPager parent, Graph graph, Logic logic) {
-        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        mGraphPage = (ViewGroup) inflater.inflate(R.layout.graph_pad, parent, false);
-        mSimplePage = (ViewGroup) inflater.inflate(R.layout.simple_pad, parent, false);
-        mMatrixPage = (ViewGroup) inflater.inflate(R.layout.matrix_pad, parent, false);
-
-        mParent = parent;
+    public LargePageAdapter(Context context, EventListener listener, Graph graph, Logic logic) {
+        mContext = context;
         mGraph = graph;
         mLogic = logic;
-        setOrder();
+        mListener = listener;
+        mPages = Page.getLargePages(mContext);
+    }
 
-        applyBannedResources(mLogic.mBaseModule.getMode());
+    protected Context getContext() {
+        return mContext;
     }
 
     @Override
     public int getCount() {
-        return mCount;
+        return CalculatorSettings.useInfiniteScrolling(mContext)
+                ? Integer.MAX_VALUE : mPages.size();
     }
 
     @Override
     public View getViewAt(int position) {
-        if(position == LargePanel.GRAPH.getOrder() && CalculatorSettings.graphPanel(mParent.getContext())) {
-            if(mGraphDisplay == null) {
-                mGraphDisplay = mGraph.getGraph(mParent.getContext());
-                mLogic.setGraphDisplay(mGraphDisplay);
-                LinearLayout l = (LinearLayout) mGraphPage.findViewById(R.id.graph);
-                l.addView(mGraphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-                View zoomIn = mGraphPage.findViewById(R.id.zoomIn);
-                zoomIn.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mGraphDisplay.zoomIn();
-                    }
-                });
-
-                View zoomOut = mGraphPage.findViewById(R.id.zoomOut);
-                zoomOut.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mGraphDisplay.zoomOut();
-                    }
-                });
-
-                View zoomReset = mGraphPage.findViewById(R.id.zoomReset);
-                zoomReset.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mGraphDisplay.zoomReset();
-                    }
-                });
-            }
-            else {
-                mGraphDisplay.repaint();
-            }
-            return mGraphPage;
+        position = position % mPages.size();
+        View v = mPages.get(position).getView(mContext, mListener, mGraph, mLogic);
+        if (v.getParent() != null) {
+            ((ViewGroup) v.getParent()).removeView(v);
         }
-        else if(position == LargePanel.BASIC.getOrder() && CalculatorSettings.basicPanel(mParent.getContext())) {
-            return mSimplePage;
-        }
-        else if(position == LargePanel.MATRIX.getOrder() && CalculatorSettings.matrixPanel(mParent.getContext())) {
-            return mMatrixPage;
-        }
-        return null;
+
+        applyBannedResourcesByPage(mLogic, v, mLogic.getBaseModule().getMode());
+
+        return v;
     }
 
     @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-
-        setOrder();
+    public View getViewAtDontDetach(int position) {
+        position = position % mPages.size();
+        View v = mPages.get(position).getView(mContext, mListener, mGraph, mLogic);
+        return v;
     }
 
-    private void setOrder() {
-        mCount = 0;
-        if(CalculatorSettings.graphPanel(mParent.getContext())) {
-            LargePanel.GRAPH.setOrder(mCount);
-            mCount++;
-        }
-        if(CalculatorSettings.basicPanel(mParent.getContext())) {
-            LargePanel.BASIC.setOrder(mCount);
-            mCount++;
-        }
-        if(CalculatorSettings.matrixPanel(mParent.getContext())) {
-            LargePanel.MATRIX.setOrder(mCount);
-            mCount++;
-        }
+    @Override
+    public List<Page> getPages() {
+        return mPages;
     }
 
-    private void applyBannedResources(Mode baseMode) {
-        applyBannedResourcesByPage(mLogic, mGraphPage, baseMode);
-        applyBannedResourcesByPage(mLogic, mSimplePage, baseMode);
-        applyBannedResourcesByPage(mLogic, mMatrixPage, baseMode);
+    @Override
+    public Iterable<View> getViewIterator() {
+        return new CalculatorIterator(this);
+    }
+
+    private static class CalculatorIterator implements Iterator<View>, Iterable<View> {
+        int mCurrentPosition = 0;
+        List<Page> mPages;
+        Context mContext;
+
+        CalculatorIterator(LargePageAdapter adapter) {
+            super();
+            mPages = adapter.mPages;
+            mContext = adapter.getContext();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return mCurrentPosition < mPages.size();
+        }
+
+        @Override
+        public View next() {
+            View v = mPages.get(mCurrentPosition).getView(mContext);
+            mCurrentPosition++;
+            return v;
+        }
+
+        @Override
+        public void remove() {
+            // Do nothing here
+        }
+
+        @Override
+        public Iterator<View> iterator() {
+            return this;
+        }
     }
 }
