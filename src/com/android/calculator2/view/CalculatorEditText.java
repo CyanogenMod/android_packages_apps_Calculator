@@ -43,12 +43,10 @@ import com.android.calculator2.BaseModule;
 import com.android.calculator2.CalculatorSettings;
 import com.android.calculator2.EquationFormatter;
 import com.android.calculator2.R;
+import com.xlythe.engine.theme.ThemedEditText;
 
-public class CalculatorEditText extends EditText {
+public class CalculatorEditText extends ThemedEditText {
     private static final int BLINK = 500;
-
-    private EquationFormatter mEquationFormatter;
-    private AdvancedDisplay mDisplay;
     private final long mShowCursor = SystemClock.uptimeMillis();
     Paint mHighlightPaint = new Paint();
     Handler mHandler = new Handler();
@@ -58,11 +56,13 @@ public class CalculatorEditText extends EditText {
             CalculatorEditText.this.invalidate();
         }
     };
-    private String mInput = "";
-    private int mSelectionHandle = 0;
     String mDecSeparator;
     String mBinSeparator;
     String mHexSeparator;
+    private EquationFormatter mEquationFormatter;
+    private AdvancedDisplay mDisplay;
+    private String mInput = "";
+    private int mSelectionHandle = 0;
 
     public CalculatorEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -73,12 +73,33 @@ public class CalculatorEditText extends EditText {
         super(display.getContext());
         setUp();
         mDisplay = display;
-        setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) display.mActiveEditText = CalculatorEditText.this;
-            }
-        });
+    }
+
+    public static String load(final AdvancedDisplay parent) {
+        return CalculatorEditText.load("", parent);
+    }
+
+    public static String load(String text, final AdvancedDisplay parent) {
+        return CalculatorEditText.load(text, parent, parent.getChildCount());
+    }
+
+    public static String load(String text, final AdvancedDisplay parent, final int pos) {
+        final CalculatorEditText et = (CalculatorEditText) View.inflate(parent.getContext(),
+                parent.getEditTextLayout(), null);
+        et.mDisplay = parent;
+        et.setText(text);
+        et.setSelection(0);
+        et.setLongClickable(false);
+        if(parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
+        if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
+        et.setFont("display_font");
+        et.setEnabled(parent.isEnabled());
+        AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_VERTICAL;
+        et.setLayoutParams(params);
+        parent.addView(et, pos);
+        return "";
     }
 
     private void setUp() {
@@ -89,7 +110,8 @@ public class CalculatorEditText extends EditText {
 
         // Hide the keyboard
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
 
         // Display ^ , and other visual cues
@@ -107,7 +129,9 @@ public class CalculatorEditText extends EditText {
             public void afterTextChanged(Editable s) {
                 if(updating) return;
 
-                mInput = s.toString().replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER).replace(mDecSeparator, "").replace(mBinSeparator, "")
+                mInput = s.toString()
+                        .replace(EquationFormatter.PLACEHOLDER, EquationFormatter.POWER)
+                        .replace(mDecSeparator, "").replace(mBinSeparator, "")
                         .replace(mHexSeparator, "");
                 updating = true;
 
@@ -131,6 +155,13 @@ public class CalculatorEditText extends EditText {
             }
         });
 
+        setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus && mDisplay != null) mDisplay.mActiveEditText = CalculatorEditText.this;
+            }
+        });
+
         // Listen for the enter button on physical keyboards
         setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -141,25 +172,8 @@ public class CalculatorEditText extends EditText {
         });
     }
 
-    class NoTextSelectionMode implements ActionMode.Callback {
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            return false;
-        }
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            // Prevents the selection action mode on double tap.
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {}
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
+    public AdvancedDisplay getAdvancedDisplay() {
+        return mDisplay;
     }
 
     @Override
@@ -205,7 +219,7 @@ public class CalculatorEditText extends EditText {
     }
 
     private Spanned formatText(String input) {
-        BaseModule bm = mDisplay.mLogic.mBaseModule;
+        BaseModule bm = mDisplay.mLogic.getBaseModule();
         if(CalculatorSettings.digitGrouping(getContext())) {
             // Add grouping, and then split on the selection handle
             // which is saved as a unique char
@@ -236,29 +250,24 @@ public class CalculatorEditText extends EditText {
         return count;
     }
 
-    public static String load(final AdvancedDisplay parent) {
-        return CalculatorEditText.load("", parent);
-    }
+    class NoTextSelectionMode implements ActionMode.Callback {
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return false;
+        }
 
-    public static String load(String text, final AdvancedDisplay parent) {
-        return CalculatorEditText.load(text, parent, parent.getChildCount());
-    }
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Prevents the selection action mode on double tap.
+            return false;
+        }
 
-    public static String load(String text, final AdvancedDisplay parent, final int pos) {
-        final CalculatorEditText et = new CalculatorEditText(parent);
-        et.setText(text);
-        et.setSelection(0);
-        if(parent.mKeyListener != null) et.setKeyListener(parent.mKeyListener);
-        if(parent.mFactory != null) et.setEditableFactory(parent.mFactory);
-        et.setBackgroundResource(android.R.color.transparent);
-        et.setTextAppearance(parent.getContext(), CalculatorSettings.useLightTheme(parent.getContext()) ? R.style.Theme_Calculator_Display_Light
-                : R.style.Theme_Calculator_Display);
-        et.setPadding(5, 0, 5, 0);
-        et.setEnabled(parent.isEnabled());
-        AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER_VERTICAL;
-        et.setLayoutParams(params);
-        parent.addView(et, pos);
-        return "";
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {}
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
     }
 }

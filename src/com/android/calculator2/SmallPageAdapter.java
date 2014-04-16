@@ -1,90 +1,87 @@
 package com.android.calculator2;
 
-import android.view.LayoutInflater;
+import java.util.Iterator;
+import java.util.List;
+
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.calculator2.BaseModule.Mode;
-import com.android.calculator2.Calculator.SmallPanel;
-import com.android.calculator2.view.CalculatorViewPager;
-
 public class SmallPageAdapter extends CalculatorPageAdapter {
-    private final ViewGroup mHexPage;
-    private final ViewGroup mFunctionPage;
-    private final ViewGroup mAdvancedPage;
-    private final CalculatorViewPager mParent;
+    private final Graph mGraph;
     private final Logic mLogic;
-    private int mCount = 0;
+    private final Context mContext;
+    private final EventListener mListener;
+    private final List<Page> mPages;
 
-    public SmallPageAdapter(CalculatorViewPager parent, Logic logic) {
-        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        mHexPage = (ViewGroup) inflater.inflate(R.layout.hex_pad, parent, false);
-        mFunctionPage = (ViewGroup) inflater.inflate(R.layout.function_pad, parent, false);
-        mAdvancedPage = (ViewGroup) inflater.inflate(R.layout.advanced_pad, parent, false);
-
-        mParent = parent;
+    public SmallPageAdapter(Context context, Logic logic) {
+        mContext = context;
+        mGraph = null;
         mLogic = logic;
-        setOrder();
+        mListener = null;
+        mPages = Page.getSmallPages(mContext);
+    }
 
-        applyBannedResources(mLogic.mBaseModule.getMode());
-        switch(mLogic.mBaseModule.getMode()) {
-        case BINARY:
-            mHexPage.findViewById(R.id.bin).setSelected(true);
-            break;
-        case DECIMAL:
-            mHexPage.findViewById(R.id.dec).setSelected(true);
-            break;
-        case HEXADECIMAL:
-            mHexPage.findViewById(R.id.hex).setSelected(true);
-            break;
-        }
+    protected Context getContext() {
+        return mContext;
     }
 
     @Override
     public int getCount() {
-        return mCount;
+        return CalculatorSettings.useInfiniteScrolling(mContext) ? Integer.MAX_VALUE : mPages
+                .size();
     }
 
     @Override
     public View getViewAt(int position) {
-        if(position == SmallPanel.FUNCTION.getOrder() && CalculatorSettings.functionPanel(mParent.getContext())) {
-            return mFunctionPage;
+        position = position % mPages.size();
+        View v = mPages.get(position).getView(mContext, mListener, mGraph, mLogic);
+        if(v.getParent() != null) {
+            ((ViewGroup) v.getParent()).removeView(v);
         }
-        else if(position == SmallPanel.ADVANCED.getOrder() && CalculatorSettings.advancedPanel(mParent.getContext())) {
-            return mAdvancedPage;
-        }
-        else if(position == SmallPanel.HEX.getOrder() && CalculatorSettings.hexPanel(mParent.getContext())) {
-            return mHexPage;
-        }
-        return null;
+        applyBannedResourcesByPage(mLogic, v, mLogic.getBaseModule().getMode());
+        return v;
     }
 
     @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-
-        setOrder();
+    public List<Page> getPages() {
+        return mPages;
     }
 
-    private void setOrder() {
-        mCount = 0;
-        if(CalculatorSettings.hexPanel(mParent.getContext())) {
-            SmallPanel.HEX.setOrder(mCount);
-            mCount++;
-        }
-        if(CalculatorSettings.advancedPanel(mParent.getContext())) {
-            SmallPanel.ADVANCED.setOrder(mCount);
-            mCount++;
-        }
-        if(CalculatorSettings.functionPanel(mParent.getContext())) {
-            SmallPanel.FUNCTION.setOrder(mCount);
-            mCount++;
-        }
+    @Override
+    public Iterable<View> getViewIterator() {
+        return new CalculatorIterator(this);
     }
 
-    private void applyBannedResources(Mode baseMode) {
-        applyBannedResourcesByPage(mLogic, mFunctionPage, baseMode);
-        applyBannedResourcesByPage(mLogic, mAdvancedPage, baseMode);
-        applyBannedResourcesByPage(mLogic, mHexPage, baseMode);
+    private static class CalculatorIterator implements Iterator<View>, Iterable<View> {
+        int mCurrentPosition = 0;
+        List<Page> mPages;
+        Context mContext;
+
+        CalculatorIterator(SmallPageAdapter adapter) {
+            super();
+            mPages = adapter.mPages;
+            mContext = adapter.getContext();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return mCurrentPosition < mPages.size();
+        }
+
+        @Override
+        public View next() {
+            View v = mPages.get(mCurrentPosition).getView(mContext);
+            mCurrentPosition++;
+            return v;
+        }
+
+        @Override
+        public void remove() {}
+
+        @Override
+        public Iterator<View> iterator() {
+            return this;
+        }
     }
 }

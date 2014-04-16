@@ -76,7 +76,8 @@ public class Cling extends FrameLayout {
 
             Resources r = getContext().getResources();
             mPunchThroughGraphic = r.getDrawable(R.drawable.cling);
-            mPunchThroughGraphicCenterRadius = r.getDimensionPixelSize(R.dimen.clingPunchThroughGraphicCenterRadius);
+            mPunchThroughGraphicCenterRadius = r
+                    .getDimensionPixelSize(R.dimen.clingPunchThroughGraphicCenterRadius);
             mRevealRadius = revealRadius;
 
             mErasePaint = new Paint();
@@ -113,12 +114,15 @@ public class Cling extends FrameLayout {
     @Override
     public boolean onTouchEvent(android.view.MotionEvent event) {
         int[] pos = getPunchThroughPosition();
-        double diff = Math.sqrt(Math.pow(event.getX() - pos[0], 2) + Math.pow(event.getY() - pos[1], 2));
+        double diff = Math.sqrt(Math.pow(event.getX() - pos[0], 2)
+                + Math.pow(event.getY() - pos[1], 2));
         if(diff < mRevealRadius) {
             return false;
         }
         return true;
-    };
+    }
+
+    ;
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
@@ -127,7 +131,8 @@ public class Cling extends FrameLayout {
             mCalculator.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
             // Initialize the draw buffer (to allow punching through)
-            Bitmap b = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+            Bitmap b = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(),
+                    Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(b);
 
             // Draw the background
@@ -170,7 +175,8 @@ public class Cling extends FrameLayout {
                     mHandTouchGraphic = getResources().getDrawable(R.drawable.hand);
                 }
                 int offset = cz;
-                mHandTouchGraphic.setBounds(cx + offset, cy + offset, cx + mHandTouchGraphic.getIntrinsicWidth() + offset,
+                mHandTouchGraphic.setBounds(cx + offset, cy + offset,
+                        cx + mHandTouchGraphic.getIntrinsicWidth() + offset,
                         cy + mHandTouchGraphic.getIntrinsicHeight() + offset);
                 mHandTouchGraphic.draw(c);
             }
@@ -182,5 +188,7 @@ public class Cling extends FrameLayout {
 
         // Draw the rest of the cling
         super.dispatchDraw(canvas);
-    };
+    }
+
+    ;
 }
