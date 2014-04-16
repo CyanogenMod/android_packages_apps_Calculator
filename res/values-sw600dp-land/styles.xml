@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2011 The Android Open Source Project
+<!--
+     Copyright (C) 2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -19,7 +20,6 @@
     <dimen name="btn_function_text_size">25sp</dimen>
     <dimen name="btn_clear_text_size">40sp</dimen>
     <dimen name="display_text_size">60sp</dimen>
-
     <dimen name="left_right_padding">16sp</dimen>
     <dimen name="top_bottom_padding">16sp</dimen>
     <dimen name="group_padding">16sp</dimen>
