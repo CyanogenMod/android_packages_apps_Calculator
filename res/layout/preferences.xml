@@ -1,70 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2014 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <PreferenceCategory
-        android:title="@string/pref_panels" >
-        <CheckBoxPreference
-            android:title="@string/graph"
-            android:key="GRAPH"
-            android:defaultValue="@bool/GRAPH" />
-<!--   <CheckBoxPreference
-            android:title="@string/function"
-            android:key="FUNCTION"
-            android:defaultValue="@bool/FUNCTION" /> -->
-        <CheckBoxPreference
-            android:title="@string/hexPanel"
-            android:key="HEX"
-            android:defaultValue="@bool/HEX" />
-        <CheckBoxPreference
-            android:title="@string/basic"
-            android:key="BASIC"
-            android:defaultValue="@bool/BASIC" />
-        <CheckBoxPreference
-            android:title="@string/advanced"
-            android:key="ADVANCED"
-            android:defaultValue="@bool/ADVANCED" />
-        <CheckBoxPreference
-            android:title="@string/matrix"
-            android:key="MATRIX"
-            android:defaultValue="@bool/MATRIX" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/pref_actions" >
-        <CheckBoxPreference
-            android:title="@string/returnToBasic"
-            android:key="RETURN_TO_BASIC"
-            android:defaultValue="@bool/RETURN_TO_BASIC" />
-        <CheckBoxPreference
-            android:title="@string/clickToOpenHistory"
-            android:key="CLICK_TO_OPEN_HISTORY"
-            android:defaultValue="@bool/CLICK_TO_OPEN_HISTORY" />
-        <CheckBoxPreference
-            android:title="@string/digitGrouping"
-            android:key="DIGIT_GROUPING"
-            android:defaultValue="false" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/pref_units" >
-        <SwitchPreference
-            android:title="@string/trigUnits"
-            android:key="USE_RADIANS"
-            android:switchTextOn="@string/radians"
-            android:switchTextOff="@string/degrees"
-            android:defaultValue="@bool/USE_RADIANS" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/pref_theme" >
-        <SwitchPreference
-            android:title="@string/holo"
-            android:key="THEME_STYLE"
-            android:switchTextOn="@string/holo_light"
-            android:switchTextOff="@string/holo_dark"
-            android:defaultValue="false" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/pref_about" >
-        <Preference
-            android:title="@string/app_name"
-            android:summary="@string/application_copyright"
-            android:key="ABOUT" />
-    </PreferenceCategory>
+    <Preference android:title="@string/pref_panels"
+        android:key="panels" />
+
+    <Preference android:title="@string/pref_actions"
+        android:key="actions" />
+
+    <Preference android:title="@string/pref_units"
+        android:key="units" />
+
+    <com.xlythe.engine.theme.ThemeListPreference android:title="@string/pref_theme"
+        android:key="SELECTED_THEME" />
+
+    <Preference android:title="@string/app_name"
+        android:summary="@string/application_copyright"
+        android:key="ABOUT" />
 </PreferenceScreen>
