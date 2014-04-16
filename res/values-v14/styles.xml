@@ -1,0 +1,3 @@
+<resources>
+	<style name="GlassTheme" parent="@android:style/Theme.DeviceDefault" />
+</resources>
