@@ -37,19 +37,16 @@ public class HistoryLine extends LinearLayout {
         if(mMenuItemsStrings == null) {
             Resources resources = getResources();
             mMenuItemsStrings = new String[4];
-            mMenuItemsStrings[COPY] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase() + "=" + mHistoryEntry.getEdited());
-            mMenuItemsStrings[COPY_BASE] = String.format(resources.getString(R.string.copy), mHistoryEntry.getBase());
-            mMenuItemsStrings[COPY_EDITED] = String.format(resources.getString(R.string.copy), mHistoryEntry.getEdited());
+            mMenuItemsStrings[COPY] = String.format(resources.getString(R.string.copy),
+                    mHistoryEntry.getBase() + "=" + mHistoryEntry.getEdited());
+            mMenuItemsStrings[COPY_BASE] = String.format(resources.getString(R.string.copy),
+                    mHistoryEntry.getBase());
+            mMenuItemsStrings[COPY_EDITED] = String.format(resources.getString(R.string.copy),
+                    mHistoryEntry.getEdited());
             mMenuItemsStrings[REMOVE] = resources.getString(R.string.remove_from_history);
         }
         for(int i = 0; i < mMenuItemsStrings.length; i++) {
             menu.add(Menu.NONE, i, i, mMenuItemsStrings[i]).setOnMenuItemClickListener(handler);
-        }
-    }
-
-    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
-        public boolean onMenuItemClick(MenuItem item) {
-            return onTextContextMenuItem(item.getTitle());
         }
     }
 
@@ -75,9 +72,11 @@ public class HistoryLine extends LinearLayout {
     }
 
     public void copyContent(String content) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
+                Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, content));
-        String toastText = String.format(getResources().getString(R.string.text_copied_toast), content);
+        String toastText = String.format(getResources().getString(R.string.text_copied_toast),
+                content);
         Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
     }
 
@@ -112,5 +111,11 @@ public class HistoryLine extends LinearLayout {
 
     public void showMenu() {
         showContextMenu();
+    }
+
+    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
+        public boolean onMenuItemClick(MenuItem item) {
+            return onTextContextMenuItem(item.getTitle());
+        }
     }
 }

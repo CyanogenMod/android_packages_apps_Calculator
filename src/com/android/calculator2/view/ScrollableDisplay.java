@@ -13,6 +13,8 @@ import com.android.calculator2.R;
 
 public class ScrollableDisplay extends HorizontalScrollView implements OnLongClickListener {
     private int mMaxHeight;
+    private boolean gravityRight = false;
+    private boolean autoScrolling = false;
 
     public ScrollableDisplay(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -20,7 +22,8 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
 
     public ScrollableDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ScrollableDisplay, defStyle, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ScrollableDisplay,
+                defStyle, 0);
         setMaxHeight(a.getDimensionPixelSize(R.styleable.ScrollableDisplay_max_height, -1));
         a.recycle();
         addView(new AdvancedDisplay(context));
@@ -63,13 +66,11 @@ public class ScrollableDisplay extends HorizontalScrollView implements OnLongCli
         int scrollRange = 0;
         if(getChildCount() > 0) {
             View child = getChildAt(0);
-            scrollRange = Math.max(0, child.getWidth() - (getWidth() - getPaddingLeft() - getPaddingRight()));
+            scrollRange = Math.max(0, child.getWidth()
+                    - (getWidth() - getPaddingLeft() - getPaddingRight()));
         }
         return scrollRange;
     }
-
-    private boolean gravityRight = false;
-    private boolean autoScrolling = false;
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
