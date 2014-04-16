@@ -16,4 +16,6 @@
 <resources>
     <dimen name="group_padding">48sp</dimen>
     <dimen name="history_bar_height">25dp</dimen>
+    <dimen name="button_hint_offset_x">25dp</dimen>
+    <dimen name="button_hint_offset_y">30dp</dimen>
 </resources>

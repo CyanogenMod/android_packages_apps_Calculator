@@ -15,11 +15,11 @@ public class EquationFormatter {
         final StringBuilder formattedInput = new StringBuilder(input);
 
         int unclosedParen = 0;
-        for(int i = 0; i < formattedInput.length(); i++) {
-            if(formattedInput.charAt(i) == LEFT_PAREN) unclosedParen++;
-            else if(formattedInput.charAt(i) == RIGHT_PAREN) unclosedParen--;
+        for (int i = 0; i < formattedInput.length(); i++) {
+            if (formattedInput.charAt(i) == LEFT_PAREN) unclosedParen++;
+            else if (formattedInput.charAt(i) == RIGHT_PAREN) unclosedParen--;
         }
-        for(int i = 0; i < unclosedParen; i++) {
+        for (int i = 0; i < unclosedParen; i++) {
             formattedInput.append(RIGHT_PAREN);
         }
         return formattedInput.toString();
@@ -32,39 +32,38 @@ public class EquationFormatter {
         int sub_closed = 0;
         int paren_open = 0;
         int paren_closed = 0;
-        for(int i = 0; i < input.length(); i++) {
+        for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
-            if(c == POWER) {
+            if (c == POWER) {
                 formattedInput.append("<sup>");
-                if(sub_open == 0) formattedInput.append("<small>");
+                if (sub_open == 0) formattedInput.append("<small>");
                 sub_open++;
-                if(i + 1 == input.length()) {
+                if (i + 1 == input.length()) {
                     formattedInput.append(c);
-                    if(sub_closed == 0) formattedInput.append("</small>");
+                    if (sub_closed == 0) formattedInput.append("</small>");
                     formattedInput.append("</sup>");
                     sub_closed++;
-                }
-                else {
+                } else {
                     formattedInput.append(PLACEHOLDER);
                 }
                 continue;
             }
 
-            if(sub_open > sub_closed) {
-                if(paren_open == paren_closed) {
+            if (sub_open > sub_closed) {
+                if (paren_open == paren_closed) {
                     // Decide when to break the <sup> started by ^
-                    if(c == PLUS // 2^3+1
+                    if (c == PLUS // 2^3+1
                             || (c == MINUS && input.charAt(i - 1) != POWER) // 2^3-1
                             || c == MUL // 2^3*1
                             || c == DIV // 2^3/1
                             || c == EQUAL // X^3=1
                             || (c == LEFT_PAREN && (Character.isDigit(input.charAt(i - 1)) || input.charAt(i - 1) == RIGHT_PAREN)) // 2^3(1)
-                                                                                                                                   // or
-                                                                                                                                   // 2^(3-1)(0)
+                            // or
+                            // 2^(3-1)(0)
                             || (Character.isDigit(c) && input.charAt(i - 1) == RIGHT_PAREN) // 2^(3)1
                             || (!Character.isDigit(c) && Character.isDigit(input.charAt(i - 1))) && c != '.') { // 2^3log(1)
-                        while(sub_open > sub_closed) {
-                            if(sub_closed == 0) formattedInput.append("</small>");
+                        while (sub_open > sub_closed) {
+                            if (sub_closed == 0) formattedInput.append("</small>");
                             formattedInput.append("</sup>");
                             sub_closed++;
                         }
@@ -72,25 +71,23 @@ public class EquationFormatter {
                         sub_closed = 0;
                         paren_open = 0;
                         paren_closed = 0;
-                        if(c == LEFT_PAREN) {
+                        if (c == LEFT_PAREN) {
                             paren_open--;
-                        }
-                        else if(c == RIGHT_PAREN) {
+                        } else if (c == RIGHT_PAREN) {
                             paren_closed--;
                         }
                     }
                 }
-                if(c == LEFT_PAREN) {
+                if (c == LEFT_PAREN) {
                     paren_open++;
-                }
-                else if(c == RIGHT_PAREN) {
+                } else if (c == RIGHT_PAREN) {
                     paren_closed++;
                 }
             }
             formattedInput.append(c);
         }
-        while(sub_open > sub_closed) {
-            if(sub_closed == 0) formattedInput.append("</small>");
+        while (sub_open > sub_closed) {
+            if (sub_closed == 0) formattedInput.append("</small>");
             formattedInput.append("</sup>");
             sub_closed++;
         }

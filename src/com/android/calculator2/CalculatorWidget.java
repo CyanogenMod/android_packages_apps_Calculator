@@ -1,7 +1,5 @@
 package com.android.calculator2;
 
-import org.javia.arity.SyntaxException;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.android.calculator2.BaseModule.Mode;
+
+import org.javia.arity.SyntaxException;
 
 public class CalculatorWidget extends AppWidgetProvider {
     public final static String PREFERENCE_WIDGET_PREAMBLE = "com.android.calculator2.CALC_WIDGET_VALUE_";
@@ -38,9 +38,17 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     private boolean mClearText = false;
 
+    private static String getValue(Context context, int appWidgetId) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(PREFERENCE_WIDGET_PREAMBLE + appWidgetId, "");
+    }
+
+    private static void setValue(Context context, int appWidgetId, String newValue) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PREFERENCE_WIDGET_PREAMBLE + appWidgetId, newValue).commit();
+    }
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for(int appWidgetID : appWidgetIds) {
+        for (int appWidgetID : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetID);
         }
     }
@@ -49,162 +57,149 @@ public class CalculatorWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         String value = getValue(context, appWidgetId);
-        if(value.equals(context.getResources().getString(R.string.error))) value = "";
+        if (value.equals(context.getResources().getString(R.string.error))) value = "";
         mClearText = intent.getBooleanExtra(SHOW_CLEAR, false);
 
-        if(intent.getAction().equals(DIGIT_0)) {
-            if(mClearText) {
+        if (intent.getAction().equals(DIGIT_0)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "0";
-        }
-        else if(intent.getAction().equals(DIGIT_1)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_1)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "1";
-        }
-        else if(intent.getAction().equals(DIGIT_2)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_2)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "2";
-        }
-        else if(intent.getAction().equals(DIGIT_3)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_3)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "3";
-        }
-        else if(intent.getAction().equals(DIGIT_4)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_4)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "4";
-        }
-        else if(intent.getAction().equals(DIGIT_5)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_5)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "5";
-        }
-        else if(intent.getAction().equals(DIGIT_6)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_6)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "6";
-        }
-        else if(intent.getAction().equals(DIGIT_7)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_7)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "7";
-        }
-        else if(intent.getAction().equals(DIGIT_8)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_8)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "8";
-        }
-        else if(intent.getAction().equals(DIGIT_9)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DIGIT_9)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += "9";
-        }
-        else if(intent.getAction().equals(DOT)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(DOT)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
             }
             value += context.getResources().getString(R.string.dot);
-        }
-        else if(intent.getAction().equals(DIV)) {
+        } else if (intent.getAction().equals(DIV)) {
             value += context.getResources().getString(R.string.div);
-        }
-        else if(intent.getAction().equals(MUL)) {
+        } else if (intent.getAction().equals(MUL)) {
             value += context.getResources().getString(R.string.mul);
-        }
-        else if(intent.getAction().equals(MINUS)) {
+        } else if (intent.getAction().equals(MINUS)) {
             value += context.getResources().getString(R.string.minus);
-        }
-        else if(intent.getAction().equals(PLUS)) {
+        } else if (intent.getAction().equals(PLUS)) {
             value += context.getResources().getString(R.string.plus);
-        }
-        else if(intent.getAction().equals(EQUALS)) {
-            if(mClearText) {
+        } else if (intent.getAction().equals(EQUALS)) {
+            if (mClearText) {
                 value = "";
                 mClearText = false;
-            }
-            else {
+            } else {
                 mClearText = true;
             }
             final String input = value;
-            if(input.isEmpty()) return;
+            if (input.isEmpty()) return;
 
-            final Logic mLogic = new Logic(context, null, null);
-            mLogic.setLineLength(7);
+            final Logic logic = new Logic(context);
+            logic.setLineLength(7);
 
             try {
-                value = mLogic.evaluate(input);
-            }
-            catch(SyntaxException e) {
+                value = logic.evaluate(input);
+            } catch (SyntaxException e) {
                 value = context.getResources().getString(R.string.error);
             }
 
             // Try to save it to history
-            if(!value.equals(context.getResources().getString(R.string.error))) {
+            if (!value.equals(context.getResources().getString(R.string.error))) {
                 final Persist persist = new Persist(context);
                 persist.load();
-                if(persist.getMode() == null) persist.setMode(Mode.DECIMAL);
+                if (persist.getMode() == null) persist.setMode(Mode.DECIMAL);
                 final History history = persist.mHistory;
                 history.enter(input, value);
                 persist.save();
             }
-        }
-        else if(intent.getAction().equals(CLR)) {
+        } else if (intent.getAction().equals(CLR)) {
             value = "";
-        }
-        else if(intent.getAction().equals(DEL)) {
-            if(value.length() > 0) value = value.substring(0, value.length() - 1);
+        } else if (intent.getAction().equals(DEL)) {
+            if (value.length() > 0) value = value.substring(0, value.length() - 1);
         }
         setValue(context, appWidgetId, value);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, CalculatorWidget.class));
-        for(int appWidgetID : appWidgetIds) {
+        for (int appWidgetID : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetID);
         }
         super.onReceive(context, intent);
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), CalculatorSettings.useLightTheme(context) ? R.layout.widget_light : R.layout.widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+
         String value = getValue(context, appWidgetId);
+
+        if (CalculatorSettings.digitGrouping(context)) {
+            final Logic logic = new Logic(context, null);
+            BaseModule bm = logic.getBaseModule();
+            value = bm.groupSentence(value, value.length());
+            value = value.replace(String.valueOf(BaseModule.SELECTION_HANDLE), "");
+        }
 
         int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable : R.id.display;
 
         remoteViews.setViewVisibility(displayId, View.VISIBLE);
         remoteViews.setTextViewText(displayId, value);
         remoteViews.setTextViewText(R.id.display, value);
-        remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
-        remoteViews.setViewVisibility(R.id.delete, mClearText ? View.GONE : View.VISIBLE);
         setOnClickListeners(context, appWidgetId, remoteViews);
 
         try {
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
     }
 
     private void setOnClickListeners(Context context, int appWidgetId, RemoteViews remoteViews) {
@@ -268,18 +263,7 @@ public class CalculatorWidget extends AppWidgetProvider {
         intent.setAction(EQUALS);
         remoteViews.setOnClickPendingIntent(R.id.equal, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 15, intent, 0));
 
-        intent.setAction(CLR);
-        remoteViews.setOnClickPendingIntent(R.id.clear, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 16, intent, 0));
-
-        intent.setAction(DEL);
+        intent.setAction(mClearText ? CLR : DEL);
         remoteViews.setOnClickPendingIntent(R.id.delete, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 17, intent, 0));
-    }
-
-    private static String getValue(Context context, int appWidgetId) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(PREFERENCE_WIDGET_PREAMBLE + appWidgetId, "");
-    }
-
-    private static void setValue(Context context, int appWidgetId, String newValue) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PREFERENCE_WIDGET_PREAMBLE + appWidgetId, newValue).commit();
     }
 }
