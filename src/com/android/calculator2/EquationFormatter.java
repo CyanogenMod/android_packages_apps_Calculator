@@ -58,11 +58,13 @@ public class EquationFormatter {
                             || c == MUL // 2^3*1
                             || c == DIV // 2^3/1
                             || c == EQUAL // X^3=1
-                            || (c == LEFT_PAREN && (Character.isDigit(input.charAt(i - 1)) || input.charAt(i - 1) == RIGHT_PAREN)) // 2^3(1)
-                                                                                                                                   // or
-                                                                                                                                   // 2^(3-1)(0)
+                            || (c == LEFT_PAREN && (Character.isDigit(input.charAt(i - 1)) || input
+                                    .charAt(i - 1) == RIGHT_PAREN)) // 2^3(1)
+                            // or
+                            // 2^(3-1)(0)
                             || (Character.isDigit(c) && input.charAt(i - 1) == RIGHT_PAREN) // 2^(3)1
-                            || (!Character.isDigit(c) && Character.isDigit(input.charAt(i - 1))) && c != '.') { // 2^3log(1)
+                            || (!Character.isDigit(c) && Character.isDigit(input.charAt(i - 1)))
+                            && c != '.') { // 2^3log(1)
                         while(sub_open > sub_closed) {
                             if(sub_closed == 0) formattedInput.append("</small>");
                             formattedInput.append("</sup>");

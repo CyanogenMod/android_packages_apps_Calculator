@@ -18,39 +18,52 @@
  */
 -->
 
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xlythe.engine.theme.ThemedRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:theme="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    theme:themeBackground="@drawable/background" >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:minHeight="@dimen/min_display_height"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-            <com.android.calculator2.view.CalculatorDisplay
-                 android:id="@+id/display"
-                 android:layout_width="0dip"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 maxDigits="@integer/max_digits" >
-                <com.android.calculator2.view.ScrollableDisplay
-                    style="?display_style" />
-                <com.android.calculator2.view.ScrollableDisplay
-                    style="?display_style" />
-            </com.android.calculator2.view.CalculatorDisplay>
-            <ImageButton
-                android:id="@+id/overflow_menu"
-                android:layout_width="48dip"
-                android:layout_height="match_parent"
-                android:src="?ic_menu_overflow"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_marginLeft="8dip"
-                android:visibility="gone"
-                android:contentDescription="@null" />
-        </LinearLayout>
+            android:layout_height="wrap_content" >
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:minHeight="@dimen/min_display_height"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal" >
+	            <com.android.calculator2.view.CalculatorDisplay
+	                 android:id="@+id/display"
+	                 android:layout_width="0dip"
+	                 android:layout_height="match_parent"
+	                 android:layout_weight="1"
+	                 maxDigits="@integer/max_digits" >
+	                <com.android.calculator2.view.ScrollableDisplay
+	                    style="@style/Theme.Calculator.Display" />
+	                <com.android.calculator2.view.ScrollableDisplay
+	                    style="@style/Theme.Calculator.Display" />
+	            </com.android.calculator2.view.CalculatorDisplay>
+	            <com.xlythe.engine.theme.ThemedImageButton
+	                android:id="@+id/overflow_menu"
+	                android:layout_width="48dip"
+	                android:layout_height="match_parent"
+	                theme:src="@drawable/ic_menu_overflow"
+	                theme:themeBackground="@drawable/menu_bg"
+	                android:layout_marginLeft="8dip"
+	                android:visibility="gone"
+	                android:contentDescription="@null" />
+	        </LinearLayout>
+            <com.xlythe.engine.theme.ThemedTextView
+                android:id="@+id/details"
+                theme:textColor="@color/details_color"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+	    </RelativeLayout>
         <RelativeLayout 
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
@@ -71,8 +84,7 @@
                     <com.xlythe.slider.Slider
                         android:id="@+id/pulldown"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        style="?slider_style" >
+                        android:layout_height="match_parent" >
                         <include layout="@layout/history_panel" />
                     </com.xlythe.slider.Slider>
                 </RelativeLayout>
@@ -88,7 +100,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="0dp"
                         android:textSize="15sp"
-                        style="?button_del_style" />
+                        style="@style/Theme.Calculator.ButtonStyle.Del" />
                     <!-- marginRight has to be 0 to catch border-touch -->
                     <com.android.calculator2.view.ColorButton
                         android:id="@+id/del"
@@ -97,7 +109,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="0dp"
                         android:textSize="15sp"
-                        style="?button_del_style" />
+                        style="@style/Theme.Calculator.ButtonStyle.Del" />
                 </FrameLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -126,4 +138,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-</RelativeLayout>
+</com.xlythe.engine.theme.ThemedRelativeLayout>

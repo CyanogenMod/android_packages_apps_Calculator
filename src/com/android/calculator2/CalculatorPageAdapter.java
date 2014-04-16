@@ -44,11 +44,11 @@ public abstract class CalculatorPageAdapter extends PagerAdapter {
     @Override
     public void restoreState(Parcelable state, ClassLoader loader) {}
 
-    protected void applyBannedResourcesByPage(Logic logic, ViewGroup page, Mode baseMode) {
+    protected void applyBannedResourcesByPage(Logic logic, View page, Mode baseMode) {
         // Enable
-        for(Mode key : logic.mBaseModule.mBannedResources.keySet()) {
+        for(Mode key : logic.getBaseModule().mBannedResources.keySet()) {
             if(baseMode.compareTo(key) != 0) {
-                List<Integer> resources = logic.mBaseModule.mBannedResources.get(key);
+                List<Integer> resources = logic.getBaseModule().mBannedResources.get(key);
                 for(Integer resource : resources) {
                     final int resId = resource.intValue();
                     View v = page.findViewById(resId);
@@ -57,11 +57,15 @@ public abstract class CalculatorPageAdapter extends PagerAdapter {
             }
         }
         // Disable
-        List<Integer> resources = logic.mBaseModule.mBannedResources.get(baseMode);
+        List<Integer> resources = logic.getBaseModule().mBannedResources.get(baseMode);
         for(Integer resource : resources) {
             final int resId = resource.intValue();
             View v = page.findViewById(resId);
             if(v != null) v.setEnabled(false);
         }
     }
+
+    public abstract Iterable<View> getViewIterator();
+
+    public abstract List<Page> getPages();
 }

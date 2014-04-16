@@ -24,12 +24,12 @@ public class AdvancedDisplay extends LinearLayout {
     private static final int CUT = 0;
     private static final int COPY = 1;
     private static final int PASTE = 2;
-    private String[] mMenuItemsStrings;
-
     EditText mActiveEditText;
     KeyListener mKeyListener;
     Factory mFactory;
     Logic mLogic;
+    private String[] mMenuItemsStrings;
+    private int mEditTextLayout = R.layout.view_calculator_edit_text;
 
     public AdvancedDisplay(Context context) {
         this(context, null);
@@ -38,6 +38,14 @@ public class AdvancedDisplay extends LinearLayout {
     public AdvancedDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(HORIZONTAL);
+    }
+
+    public int getEditTextLayout() {
+        return mEditTextLayout;
+    }
+
+    public void setEditTextLayout(int resId) {
+        mEditTextLayout = resId;
     }
 
     @Override
@@ -74,6 +82,26 @@ public class AdvancedDisplay extends LinearLayout {
             text += getChildAt(i).toString();
         }
         return text;
+    }
+
+    public void setText(String text) {
+        clear();
+        CalculatorEditText.load(this);
+        getLastView().requestFocus();
+        final MutableString ms = new MutableString(text);
+        while(!ms.isEmpty()) {
+            if(MatrixView.load(ms, this)) continue;
+            if(MatrixTransposeView.load(ms, this)) continue;
+            if(MatrixInverseView.load(ms, this)) continue;
+
+            // Append the next character to the trailing EditText
+            ((CalculatorEditText) getLastView()).setText(((CalculatorEditText) getLastView())
+                    .getText() + ms.substring(0, 1));
+            ((CalculatorEditText) getLastView()).setSelection(((CalculatorEditText) getLastView())
+                    .length());
+            ms.setText(ms.substring(1, ms.length()));
+        }
+        getLastView().requestFocus();
     }
 
     public void clear() {
@@ -127,7 +155,9 @@ public class AdvancedDisplay extends LinearLayout {
                     }
                     else {
                         // don't allow leading operators
-                        if(cursor == 0 && getActiveEditText() == getChildAt(0) && Logic.isOperator(delta) && !delta.equals(String.valueOf(Logic.MINUS))) {
+                        if(cursor == 0 && getActiveEditText() == getChildAt(0)
+                                && Logic.isOperator(delta)
+                                && !delta.equals(String.valueOf(Logic.MINUS))) {
                             return;
                         }
                         getActiveEditText().getText().insert(cursor, text.subSequence(0, 1));
@@ -154,24 +184,6 @@ public class AdvancedDisplay extends LinearLayout {
             getChildAt(index + 2).requestFocus();
             ((CalculatorEditText) getChildAt(index + 2)).setSelection(0);
         }
-    }
-
-    public void setText(String text) {
-        clear();
-        CalculatorEditText.load(this);
-        getLastView().requestFocus();
-        final MutableString ms = new MutableString(text);
-        while(!ms.isEmpty()) {
-            if(MatrixView.load(ms, this)) continue;
-            if(MatrixTransposeView.load(ms, this)) continue;
-            if(MatrixInverseView.load(ms, this)) continue;
-
-            // Append the next character to the trailing EditText
-            ((CalculatorEditText) getLastView()).setText(((CalculatorEditText) getLastView()).getText() + ms.substring(0, 1));
-            ((CalculatorEditText) getLastView()).setSelection(((CalculatorEditText) getLastView()).length());
-            ms.setText(ms.substring(1, ms.length()));
-        }
-        getLastView().requestFocus();
     }
 
     public void setKeyListener(KeyListener input) {
@@ -209,12 +221,6 @@ public class AdvancedDisplay extends LinearLayout {
         return true;
     }
 
-    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
-        public boolean onMenuItemClick(MenuItem item) {
-            return onTextContextMenuItem(item.getTitle());
-        }
-    }
-
     public boolean onTextContextMenuItem(CharSequence title) {
         boolean handled = false;
         if(TextUtils.equals(title, mMenuItemsStrings[CUT])) {
@@ -250,21 +256,19 @@ public class AdvancedDisplay extends LinearLayout {
             menu.getItem(COPY).setVisible(false);
         }
         ClipData primaryClip = getPrimaryClip();
-        if(primaryClip == null || primaryClip.getItemCount() == 0 || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
+        if(primaryClip == null || primaryClip.getItemCount() == 0
+                || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
             menu.getItem(PASTE).setVisible(false);
         }
     }
 
-    private void setPrimaryClip(ClipData clip) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(clip);
-    }
-
     private void copyContent() {
         final String text = getText();
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
+                Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
-        String toastText = String.format(getResources().getString(R.string.text_copied_toast), text);
+        String toastText = String
+                .format(getResources().getString(R.string.text_copied_toast), text);
         Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
     }
 
@@ -275,8 +279,15 @@ public class AdvancedDisplay extends LinearLayout {
     }
 
     private ClipData getPrimaryClip() {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
+                Context.CLIPBOARD_SERVICE);
         return clipboard.getPrimaryClip();
+    }
+
+    private void setPrimaryClip(ClipData clip) {
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(
+                Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(clip);
     }
 
     private void pasteContent() {
@@ -293,5 +304,11 @@ public class AdvancedDisplay extends LinearLayout {
 
     private boolean canPaste(CharSequence paste) {
         return paste.length() > 0;
+    }
+
+    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
+        public boolean onMenuItemClick(MenuItem item) {
+            return onTextContextMenuItem(item.getTitle());
+        }
     }
 }
