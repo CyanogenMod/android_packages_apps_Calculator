@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
+<!--
+     Copyright (C) 2014 The CyanogenMod Project
+     Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <resources>
     <color name="magic_flame">#00FFFFFF</color>
     <color name="button_text">#FFFFFFFF</color>
     <color name="button_hint_text">#474747</color>
-    <color name="button_disabled_text_color">#3a3a3a</color>
-    <color name="button_text_light">#2e2e2e</color>
-    <color name="button_disabled_text_color_light">#883a3a3a</color>
-    <color name="button_pressed_text_light">#ffffff</color>
+    <color name="button_disabled_text_color">#3A3A3A</color>
+    <color name="pressed_color">#66ffffff</color>
     <color name="history_input">#E6E6E6</color>
-    <color name="history_input_light">#0B0B0B</color>
     <color name="history_result">#999999</color>
-    <color name="history_result_light">#4ba5e2</color>
-    <color name="background">#FF000000</color>
-    <color name="background_light">#FFE6E6E6</color>
+    <color name="graph_background">#FF000000</color>
     <color name="graph_color">#31B6E7</color>
+    <color name="graph_axes_color">#000000</color>
+    <color name="graph_grid_color">#333333</color>
+    <color name="graph_labels_color">#FFFFFF</color>
+    <color name="details_color">#AAAAAA</color>
+    <color name="store_tab_text">#FFFFFF</color>
+    <color name="store_row_text">#FFFFFF</color>
+    <drawable name="background">#FF000000</drawable>
+    <drawable name="display_background">#00123456</drawable>
 </resources>
