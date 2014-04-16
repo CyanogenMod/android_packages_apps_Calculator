@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2014 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- Store -->
+    <dimen name="store_tab_height">70dp</dimen>
+
+    <!-- Floating Calculator -->
+    <dimen name="floating_window_icon">65dp</dimen>
+    <dimen name="floating_window_button_height">70dp</dimen>
+    <dimen name="floating_window_delete_box_height">125dp</dimen>
+    <dimen name="floating_window_delete_box_width">125dp</dimen>
+
+    <!-- Calculator -->
+    <dimen name="btn_digit_text_size">40sp</dimen>
+    <dimen name="btn_operation_text_size">40sp</dimen>
+    <dimen name="btn_function_text_size">30sp</dimen>
+    <dimen name="btn_clear_text_size">30sp</dimen>
+    <dimen name="display_text_size">40sp</dimen>
+    <dimen name="small_display_text_size">20sp</dimen>
+    <dimen name="min_display_height">100dp</dimen>
+    <dimen name="max_display_height">200dp</dimen>
+    <dimen name="history_bar_height">25dp</dimen>
+    <dimen name="matrix_edit_text_padding">17dp</dimen>
+    <dimen name="button_hint_offset_x">20dp</dimen>
+    <dimen name="button_hint_offset_y">20dp</dimen>
+    <dimen name="app_defaultsize_w">632.0dip</dimen>
+    <dimen name="app_defaultsize_h">598.0dip</dimen>
+    <dimen name="app_minimumsize_w">300dp</dimen>
+    <dimen name="app_minimumsize_h">300dp</dimen>
+
+    <!-- Cling -->
+    <dimen name="clingPunchThroughGraphicCenterRadius">94dp</dimen>
+    <dimen name="folderClingMarginTop">20dp</dimen>
+    <!-- The offset for the text in the cling -->
+    <dimen name="cling_text_block_offset_x">0dp</dimen>
+    <dimen name="cling_text_block_offset_y">0dp</dimen>
+</resources>
