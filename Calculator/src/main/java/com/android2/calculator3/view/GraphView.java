@@ -13,7 +13,13 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.android2.calculator3.R;
+import com.xlythe.engine.theme.Theme;
+
 public class GraphView extends View {
+    private PanListener mPanListener;
+    private ZoomListener mZoomListener;
+
     private Paint mBackgroundPaint;
     private Paint mTextPaint;
     private Paint mAxisPaint;
@@ -277,5 +283,45 @@ public class GraphView extends View {
         public void setY(float y) {
             mY = y;
         }
+    }
+
+    public void setData(LinkedList<Point> data) {
+        mData = data;
+    }
+
+    public void setGridColor(int color) {
+        mAxisPaint.setColor(color);
+    }
+
+    public void setTextColor(int color) {
+        mTextPaint.setColor(color);
+    }
+
+    public void setGraphColor(int color) {
+        mGraphPaint.setColor(color);
+    }
+
+    public void setPanListener(PanListener l) {
+        mPanListener = l;
+    }
+
+    public PanListener getPanListener() {
+        return mPanListener;
+    }
+
+    public void setZoomListener(ZoomListener l) {
+        mZoomListener = l;
+    }
+
+    public ZoomListener getZoomListener() {
+        return mZoomListener;
+    }
+
+    public static interface PanListener {
+        public void panApplied();
+    }
+
+    public static interface ZoomListener {
+        public void zoomApplied(int level);
     }
 }

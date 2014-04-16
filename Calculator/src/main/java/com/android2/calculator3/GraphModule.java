@@ -2,6 +2,8 @@ package com.android2.calculator3;
 
 import android.os.AsyncTask;
 
+import com.android2.calculator3.view.GraphView;
+
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
 import org.achartengine.util.MathHelper;
@@ -12,41 +14,21 @@ import java.util.List;
 
 public class GraphModule {
     Logic mLogic;
+    GraphView mGraphView;
 
     GraphModule(Logic logic) {
         this.mLogic = logic;
     }
 
-    private static void clearGraph(Graph g) {
-        int seriesCount = g.getDataset().getSeriesCount();
-        for (int i = 0; i < seriesCount; i++) {
-            g.getDataset().removeSeries(0);
-        }
-    }
-
-    void updateGraphCatchErrors(Graph g) {
-        try {
-            updateGraph(g);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private static void clearGraph(Graph graph) {
+        graph.getData().clear();
     }
 
     void updateGraph(final Graph g) {
-        if (g == null) return;
         final String eq = mLogic.getText();
 
         if (eq.isEmpty()) {
-            XYSeries series = new XYSeries("");
-
-            try {
-                clearGraph(g);
-                g.getDataset().addSeries(series);
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-
-            if (mLogic.mGraphDisplay != null) mLogic.mGraphDisplay.repaint();
+            mGraphView.invalidate();
             return;
         }
 
@@ -56,7 +38,7 @@ public class GraphModule {
         new GraphTask(g, mLogic).execute(eq);
     }
 
-    public static class GraphTask extends AsyncTask<String, String, GraphicalView> {
+    public static class GraphTask extends AsyncTask<String, String, GraphView> {
         private final Graph mGraph;
         private final Logic mLogic;
 
@@ -66,10 +48,13 @@ public class GraphModule {
         }
 
         @Override
-        protected GraphicalView doInBackground(String... eq) {
+        protected GraphView doInBackground(String... eq) {
             final String[] equation = eq[0].split("=");
 
-            if (equation.length != 2) return null;
+            if (equation.length != 2) {
+                cancel(true);
+                return null;
+            }
 
             // Translate into decimal
             equation[0] = mLogic.convertToDecimal(mLogic.localize(equation[0]));
@@ -194,21 +179,6 @@ public class GraphModule {
                             // TODO find closest value to previous one
                             series.get(i).add(x, values.get(i));
                         }
-
-                        // // TODO needs a lot of work. very broken
-                        // for(Double d : values) {
-                        // // find closest value to previous one per
-                        // // series
-                        // XYSeries closestSeries = series.get(0);
-                        // for(XYSeries s : series) {
-                        // if(tolerance(closestSeries.getY(closestSeries.getItemCount()
-                        // - 1), d) > tolerance(s.getY(s.getItemCount() -
-                        // 1), d)) {
-                        // closestSeries = s;
-                        // }
-                        // }
-                        // closestSeries.add(x, d);
-                        // }
                     }
                 }
 
@@ -236,11 +206,11 @@ public class GraphModule {
         }
 
         @Override
-        protected void onPostExecute(GraphicalView result) {
+        protected void onPostExecute(GraphView result) {
             super.onPostExecute(result);
 
             if (result != null) {
-                result.repaint();
+                result.invalidate();
             }
         }
     }

@@ -28,12 +28,11 @@ import android.widget.Toast;
 
 import com.android2.calculator3.BaseModule.Mode;
 import com.android2.calculator3.Page.NormalPanel;
+import com.android2.calculator3.view.GraphView;
 import com.android2.calculator3.view.MatrixEditText;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
-
-import org.achartengine.GraphicalView;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
     ViewPager mPager;
     ViewPager mSmallPager;
     ViewPager mLargePager;
-    GraphicalView mGraphDisplay;
+    GraphView mGraphDisplay;
 
     private String mErrorString;
     private String mModString;
@@ -417,7 +416,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         dec.setSelected(false);
     }
 
-    public void setGraphDisplay(GraphicalView display) {
+    public void setGraphDisplay(GraphView display) {
         mGraphDisplay = display;
     }
 }

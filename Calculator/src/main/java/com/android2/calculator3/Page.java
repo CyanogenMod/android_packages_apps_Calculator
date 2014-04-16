@@ -7,9 +7,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
 import com.android2.calculator3.view.CalculatorViewPager;
+import com.android2.calculator3.view.GraphView;
 import com.xlythe.engine.theme.App;
-
-import org.achartengine.GraphicalView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -266,7 +265,7 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
-        private Map<View, GraphicalView> mGraphHolder = new HashMap<View, GraphicalView>();
+        private Map<View, GraphView> mGraphHolder = new HashMap<View, GraphView>();
         NormalPanel(int name, int defaultValue, boolean hasTutorial) {
             mName = name;
             mDefaultValue = defaultValue;
@@ -330,7 +329,7 @@ public class Page {
         public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
             if (NormalPanel.GRAPH.equals(this)) {
                 if (!mGraphHolder.containsKey(view)) {
-                    final GraphicalView graphDisplay = graph.getGraph(context);
+                    final GraphView graphDisplay = graph.getGraph(context);
                     mGraphHolder.put(view, graphDisplay);
                     graphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                         @Override
@@ -356,7 +355,7 @@ public class Page {
                     View zoomReset = view.findViewById(R.id.zoomReset);
                     zoomReset.setOnClickListener(listener);
                 } else {
-                    mGraphHolder.get(view).repaint();
+                    mGraphHolder.get(view).invalidate();
                 }
             } else if (NormalPanel.HEX.equals(this)) {
                 if (logic != null) {
@@ -456,7 +455,7 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
-        private Map<View, GraphicalView> mGraphHolder = new HashMap<View, GraphicalView>();
+        private Map<View, GraphView> mGraphHolder = new HashMap<View, GraphView>();
         LargePanel(int name, int defaultValue, boolean hasTutorial) {
             mName = name;
             mDefaultValue = defaultValue;
@@ -509,7 +508,7 @@ public class Page {
         public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
             if (LargePanel.GRAPH.equals(this)) {
                 if (!mGraphHolder.containsKey(view)) {
-                    final GraphicalView graphDisplay = graph.getGraph(context);
+                    final GraphView graphDisplay = graph.getGraph(context);
                     mGraphHolder.put(view, graphDisplay);
                     graphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                         @Override
@@ -535,7 +534,7 @@ public class Page {
                     View zoomReset = view.findViewById(R.id.zoomReset);
                     zoomReset.setOnClickListener(listener);
                 } else {
-                    mGraphHolder.get(view).repaint();
+                    mGraphHolder.get(view).invalidate();
                 }
             }
         }

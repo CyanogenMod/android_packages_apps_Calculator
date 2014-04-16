@@ -24,11 +24,11 @@ import android.widget.EditText;
 import com.android2.calculator3.BaseModule.Mode;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorDisplay.Scroll;
+import com.android2.calculator3.view.GraphView;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
 
-import org.achartengine.GraphicalView;
 import org.javia.arity.Complex;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
@@ -76,7 +76,7 @@ public class Logic {
     private final String mDetString;
     private final String mCbrtString;
     CalculatorDisplay mDisplay;
-    GraphicalView mGraphDisplay;
+    GraphView mGraphDisplay;
     Symbols mSymbols = new Symbols();
     String mResult = "";
     boolean mIsError = false;
@@ -146,7 +146,7 @@ public class Logic {
         return "^!%".indexOf(c) != -1;
     }
 
-    public void setGraphDisplay(GraphicalView graphDisplay) {
+    public void setGraphDisplay(GraphView graphDisplay) {
         mGraphDisplay = graphDisplay;
     }
 
