@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="app_name">Theme</string>
     <string name="preferences_option_default">Default</string>
 
 </resources>
