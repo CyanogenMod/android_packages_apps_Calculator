@@ -28,7 +28,8 @@ public class BaseModule {
 
         mBannedResources = new HashMap<Mode, List<Integer>>(3);
         mBannedResources.put(Mode.DECIMAL, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F));
-        mBannedResources.put(Mode.BINARY, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F, R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5, R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9));
+        mBannedResources.put(Mode.BINARY, Arrays.asList(R.id.A, R.id.B, R.id.C, R.id.D, R.id.E, R.id.F,
+                R.id.digit2, R.id.digit3, R.id.digit4, R.id.digit5, R.id.digit6, R.id.digit7, R.id.digit8, R.id.digit9));
         mBannedResources.put(Mode.HEXADECIMAL, new ArrayList<Integer>());
     }
 

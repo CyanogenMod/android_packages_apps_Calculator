@@ -11,8 +11,7 @@ public class CalculatorSettings {
     }
 
     public static boolean isPageEnabled(Context context, Panel panel) {
-        Page page = new Page(context, panel);
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(page.getKey(), page.getDefaultValue());
+        return isPageEnabled(context, new Page(context, panel));
     }
 
     public static void setPageEnabled(Context context, Page page, boolean enabled) {

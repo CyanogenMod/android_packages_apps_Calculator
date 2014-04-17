@@ -298,13 +298,13 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
         hideHistory.setVisible(mHistorySlider.isSliderOpen());
 
         MenuItem lock = menu.findItem(R.id.lock);
-        if(lock != null && page != null) {
-            lock.setVisible(page.isGraph() && getPagingEnabled());
+        if(lock != null) {
+            lock.setVisible(page != null && page.isGraph() && getPagingEnabled());
         }
 
         MenuItem unlock = menu.findItem(R.id.unlock);
-        if(unlock != null && page != null) {
-            unlock.setVisible(page.isGraph() && !getPagingEnabled());
+        if(unlock != null) {
+            unlock.setVisible(page != null && page.isGraph() && !getPagingEnabled());
         }
 
         MenuItem store = menu.findItem(R.id.store);
@@ -438,36 +438,40 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && mHistorySlider.isSliderOpen() && !clingActive) {
-            mHistorySlider.animateSliderClosed();
-            return true;
-        }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mPager != null && !Page.getCurrentPage(mPager).isBasic() && CalculatorSettings.isPageEnabled(getContext(), new Page(getContext(), NormalPanel.BASIC)) && !clingActive) {
-            // Infinite scrolling makes this tricky
-            scrollToPage(new Page(getContext(), NormalPanel.BASIC));
-            return true;
-        }
-        else if(keyCode == KeyEvent.KEYCODE_BACK && mSmallPager != null && mLargePager != null && !clingActive) {
-            boolean scrolled = false;
-            if(CalculatorSettings.isPageEnabled(getContext(), SmallPanel.ADVANCED)) {
-                if(!Page.getCurrentPage(mSmallPager).isAdvanced()) {
-                    scrollToPage(new Page(getContext(), SmallPanel.ADVANCED));
-                    scrolled = true;
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            if(!clingActive) {
+                if(mHistorySlider.isSliderOpen()) {
+                    mHistorySlider.animateSliderClosed();
+                    return true;
+                }
+                else if(mPager != null && Page.getCurrentPage(mPager) != null && !Page.getCurrentPage(mPager).isBasic() && CalculatorSettings.isPageEnabled(getContext(), NormalPanel.BASIC)) {
+                    // Infinite scrolling makes this tricky
+                    scrollToPage(new Page(getContext(), NormalPanel.BASIC));
+                    return true;
+                }
+                else if(mSmallPager != null && mLargePager != null) {
+                    boolean scrolled = false;
+                    if(CalculatorSettings.isPageEnabled(getContext(), SmallPanel.ADVANCED)) {
+                        if(!Page.getCurrentPage(mSmallPager).isAdvanced()) {
+                            scrollToPage(new Page(getContext(), SmallPanel.ADVANCED));
+                            scrolled = true;
+                        }
+                    }
+                    if(CalculatorSettings.isPageEnabled(getContext(), LargePanel.BASIC)) {
+                        if(!Page.getCurrentPage(mLargePager).isBasic()) {
+                            scrollToPage(new Page(getContext(), LargePanel.BASIC));
+                            scrolled = true;
+                        }
+                    }
+                    if(!scrolled) finish();
+                    return true;
                 }
             }
-            if(CalculatorSettings.isPageEnabled(getContext(), LargePanel.BASIC)) {
-                if(!Page.getCurrentPage(mLargePager).isBasic()) {
-                    scrollToPage(new Page(getContext(), LargePanel.BASIC));
-                    scrolled = true;
-                }
-            }
-            if(!scrolled) finish();
-            return true;
-        }
-        else if(keyCode == KeyEvent.KEYCODE_BACK) {
+
             finish();
             return true;
         }
+
         return super.onKeyDown(keyCode, keyEvent);
     }
 
