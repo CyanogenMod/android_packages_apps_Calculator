@@ -15,30 +15,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:theme="http://schemas.android.com/apk/res-auto">
-    <dimen name="btn_digit_text_size">40sp</dimen>
-    <dimen name="btn_operation_text_size">40sp</dimen>
-    <dimen name="btn_function_text_size">30sp</dimen>
-    <dimen name="btn_clear_text_size">30sp</dimen>
-    <dimen name="display_text_size">40sp</dimen>
-    <dimen name="small_display_text_size">20sp</dimen>
-    <dimen name="min_display_height">100dp</dimen>
-    <dimen name="max_display_height">200dp</dimen>
-    <dimen name="history_bar_height">25dp</dimen>
-    <dimen name="matrix_edit_text_padding">17dp</dimen>
-    <dimen name="button_hint_offset_x">20dp</dimen>
-    <dimen name="button_hint_offset_y">20dp</dimen>
-    <dimen name="app_defaultsize_w">632.0dip</dimen>
-    <dimen name="app_defaultsize_h">598.0dip</dimen>
-    <dimen name="app_minimumsize_w">300dp</dimen>
-    <dimen name="app_minimumsize_h">300dp</dimen>
     <item type="integer" name="button_hint_text_size_percent">70</item>
-
-    <!-- Cling -->
-    <dimen name="clingPunchThroughGraphicCenterRadius">94dp</dimen>
-    <dimen name="folderClingMarginTop">20dp</dimen>
-    <!-- The offset for the text in the cling -->
-    <dimen name="cling_text_block_offset_x">0dp</dimen>
-    <dimen name="cling_text_block_offset_y">0dp</dimen>
 
     <style name="ClingButton">
         <item name="android:layout_width">wrap_content</item>
@@ -77,9 +54,9 @@
         <item name="android:windowBackground">@drawable/background</item>
         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
     </style>
-    
-    <style name="Theme.Settings.Calculator" parent="android:Theme.Holo" >
-        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+
+    <style name="Theme.Settings.Calculator" parent="@android:style/Theme.Holo" >
+        <item name="android:actionBarStyle">@android:style/Widget.Holo.ActionBar.Solid</item>
     </style>
 
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
