@@ -82,7 +82,6 @@
   <string name="cling_dismiss">Ok</string>
   <string name="dec_separator">\u0020</string>
   <string name="bin_separator">\u0020</string>
-  <string name="hex_separator">\u0020</string>
   <string name="dot">,</string>
   <string name="matrix_separator">\u0020</string>
   <string name="easter_egg">Magikarp utilise Splash, mais rien ne s\'est passé.</string>

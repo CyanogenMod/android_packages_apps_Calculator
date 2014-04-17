@@ -38,7 +38,11 @@
   <string name="showHistory">显示历史记录</string>
   <string name="hideHistory">隐藏历史记录</string>
   <string name="settings">设置</string>
+  <string name="det">行列式</string>
+  <string name="eigenvalue">特征向量</string>
+  <string name="solve">求解</string>
   <string name="dotProduct">点</string>
+  <string name="crossProduct">叉积</string>
   <string name="determinantDesc">行列式</string>
   <string name="eigenvalueDesc">特征向量</string>
   <string name="plus_row">+行</string>
@@ -64,6 +68,7 @@
   <string name="trigUnits">三角函数单位</string>
   <string name="radians">弧度</string>
   <string name="degrees">角度</string>
+  <string name="holo">Holo</string>
   <string name="holo_light">淡色</string>
   <string name="holo_dark">暗色</string>
   <string name="cling_simple_title">欢迎</string>
