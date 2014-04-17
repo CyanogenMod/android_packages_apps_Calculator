@@ -49,7 +49,7 @@
             android:theme="@style/GlassTheme"
             android:icon="@drawable/ic_launcher_glass" />
         <activity android:name=".Preferences" android:theme="@style/Theme.Settings.Calculator" android:label="@string/settings" />
-        <activity android:name=".StoreActivity" android:theme="@style/Theme.Calculator" android:label="@string/store" />
+        <activity android:name=".StoreActivity" android:theme="@style/Theme.Settings.Calculator" android:label="@string/store" />
         <activity
             android:name=".FloatingCalculatorActivity"
             android:theme="@style/TransparentBackground"

@@ -26,10 +26,12 @@ public class Preferences extends Activity {
             super.setTheme(customTheme);
         }
 
+        setContentView(R.layout.activity_preferences);
+
         if (savedInstanceState == null) {
             mFragment = new PreferencesFragment();
             mFragment.setArguments(getIntent().getExtras());
-            getFragmentManager().beginTransaction().add(android.R.id.content, mFragment).commit();
+            getFragmentManager().beginTransaction().add(R.id.content_view, mFragment).commit();
         }
 
         ActionBar mActionBar = getActionBar();
@@ -51,7 +53,7 @@ public class Preferences extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getFragmentManager().findFragmentById(android.R.id.content) != mFragment) {
+            if (getFragmentManager().findFragmentById(R.id.content_view) != mFragment) {
                 try {
                     getFragmentManager().popBackStack();
                     return true;

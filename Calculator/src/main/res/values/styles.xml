@@ -52,22 +52,10 @@
 
     <style name="Theme.Calculator" parent="android:Theme.Holo.NoActionBar">
         <item name="android:windowBackground">@drawable/background</item>
-        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
     </style>
 
     <style name="Theme.Settings.Calculator" parent="@android:style/Theme.Holo" >
         <item name="android:actionBarStyle">@android:style/Widget.Holo.ActionBar.Solid</item>
-    </style>
-
-    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
-        <item name="android:background">@drawable/custom_tab_indicator</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:divider">@drawable/custom_tab_indicator_divider</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:fadingEdge">horizontal</item>
-        <item name="android:fadingEdgeLength">8dp</item>
-        <item name="android:layout_height">40dp</item>
     </style>
     
     <style name="Theme.Calculator.ButtonStyle" >

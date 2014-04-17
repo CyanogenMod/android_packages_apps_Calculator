@@ -78,7 +78,6 @@
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="gdk" level="project" />
     <orderEntry type="library" exported="" name="arity-2.1.6" level="project" />
-    <orderEntry type="module" module-name="ViewPagerIndicator" exported="" />
     <orderEntry type="module" module-name="ThemeEngine" exported="" />
   </component>
 </module>

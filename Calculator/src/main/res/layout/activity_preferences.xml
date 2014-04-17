@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     theme:themeBackground="@drawable/settings_background"
     android:orientation="vertical" >
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <FrameLayout
+        android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </com.xlythe.engine.theme.ThemedLinearLayout>

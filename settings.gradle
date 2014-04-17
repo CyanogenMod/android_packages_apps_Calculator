@@ -1,1 +1,1 @@
-include ':Calculator', ':ThemeEngine', ':ViewPagerIndicator'
+include ':Calculator', ':ThemeEngine'

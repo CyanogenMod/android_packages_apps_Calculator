@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,10 +13,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.viewpager.indicator.TabPageIndicator;
 import com.xlythe.engine.theme.Theme;
 import com.xlythe.engine.theme.Theme.Res;
 
@@ -32,7 +28,7 @@ public class StoreActivity extends FragmentActivity {
         // Update theme (as needed)
         Theme.buildResourceMap(com.android2.calculator3.R.class);
         Theme.setPackageName(CalculatorSettings.getTheme(getContext()));
-        int customTheme = Theme.getTheme(this);
+        int customTheme = Theme.getSettingsTheme(this);
         if (customTheme != 0) {
             super.setTheme(customTheme);
         }
@@ -44,23 +40,6 @@ public class StoreActivity extends FragmentActivity {
         // Set up the ViewPager with the sections adapter.
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
-
-        // Bind the title indicator to the adapter
-        TabPageIndicator titleIndicator = (TabPageIndicator) findViewById(R.id.titles);
-        titleIndicator.setViewPager(viewPager);
-
-        // Theme the indicator
-        ViewGroup tabs = (ViewGroup) titleIndicator.getChildAt(0);
-        tabs.getLayoutParams().height = getTabHeight();
-        for (int i = 0; i < tabs.getChildCount(); i++) {
-            TextView tab = (TextView) tabs.getChildAt(i);
-
-            tab.setTextColor(Theme.getColor(getContext(), R.color.store_tab_text));
-            Typeface tf = Theme.getFont(getContext());
-            if (tf != null) tab.setTypeface(tf);
-
-            setBackground(tab, Theme.get(R.drawable.custom_tab_indicator));
-        }
 
         ActionBar mActionBar = getActionBar();
         if (mActionBar != null) {
