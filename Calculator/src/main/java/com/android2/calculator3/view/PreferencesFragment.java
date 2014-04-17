@@ -37,7 +37,7 @@ public class PreferencesFragment extends PreferenceFragment {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     PageOrderFragment fragment = new PageOrderFragment();
-                    getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.content_view, fragment).addToBackStack(null).commit();
                     return true;
                 }
             });
@@ -50,7 +50,7 @@ public class PreferencesFragment extends PreferenceFragment {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     ActionsPreferencesFragment fragment = new ActionsPreferencesFragment();
-                    getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.content_view, fragment).addToBackStack(null).commit();
                     return true;
                 }
             });
@@ -63,7 +63,7 @@ public class PreferencesFragment extends PreferenceFragment {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     UnitsPreferencesFragment fragment = new UnitsPreferencesFragment();
-                    getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.content_view, fragment).addToBackStack(null).commit();
                     return true;
                 }
             });
