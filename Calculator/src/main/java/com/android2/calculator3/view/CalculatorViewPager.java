@@ -79,8 +79,10 @@ public class CalculatorViewPager extends ViewPager {
     public void scrollToMiddle() {
         if(CalculatorSettings.useInfiniteScrolling(getContext())) {
             List<Page> pages = ((CalculatorPageAdapter) getAdapter()).getPages();
-            int halfwayDownTheInfiniteList = (MAX_SIZE_CONSTANT / pages.size()) / 2 * pages.size() + Page.getOrder(pages, new Page(getContext(), NormalPanel.BASIC));
-            setCurrentItem(halfwayDownTheInfiniteList);
+            if(pages.size() != 0) {
+                int halfwayDownTheInfiniteList = (MAX_SIZE_CONSTANT / pages.size()) / 2 * pages.size() + Page.getOrder(pages, new Page(getContext(), NormalPanel.BASIC));
+                setCurrentItem(halfwayDownTheInfiniteList);
+            }
         }
     }
 }
