@@ -76,7 +76,7 @@
   <string name="cling_matrix_title">Matrizes</string>
   <string name="cling_matrix_msg">Toque aqui para começar a construir e resolver matrizes.</string>
   <string name="cling_hex_title">Mudar bases</string>
-  <string name="cling_hex_msg">Troque entre decimal (dec), binário (bin) e hexadecimal (hex).\n\nAviso: Se acha que esta a obter resultados errados, está provavelmente na base errada. A base padrão é decimal.</string>
+  <string name="cling_hex_msg">Troque entre decimal (dec), binário (bin) e hexadecimal (hex).\n\nAviso: Se acha que está a obter resultados errados, está provavelmente na base errada. A base padrão é decimal.</string>
   <string name="cling_graph_title">Gráfico</string>
   <string name="cling_graph_msg">Os gráficos serão mostrados aqui automaticamente. Vá ao painel avançado e construa uma função usando X e Y.</string>
   <string name="cling_dismiss">OK</string>
