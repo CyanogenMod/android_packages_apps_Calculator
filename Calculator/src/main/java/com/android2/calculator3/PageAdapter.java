@@ -1,13 +1,13 @@
 package com.android2.calculator3;
 
+import java.util.Iterator;
+import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android2.calculator3.view.CalculatorViewPager;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class PageAdapter extends CalculatorPageAdapter {
     private final Context mContext;
@@ -37,7 +37,7 @@ public class PageAdapter extends CalculatorPageAdapter {
     public View getViewAt(int position) {
         position = position % mPages.size();
         View v = mPages.get(position).getView(mContext, mListener, mGraph, mLogic);
-        if (v.getParent() != null) {
+        if(v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v);
         }
         applyBannedResourcesByPage(mLogic, v, mLogic.getBaseModule().getMode());
@@ -79,8 +79,7 @@ public class PageAdapter extends CalculatorPageAdapter {
         }
 
         @Override
-        public void remove() {
-        }
+        public void remove() {}
 
         @Override
         public Iterator<View> iterator() {

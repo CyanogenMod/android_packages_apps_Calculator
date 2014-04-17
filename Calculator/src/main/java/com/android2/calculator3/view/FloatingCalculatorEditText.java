@@ -19,19 +19,14 @@ package com.android2.calculator3.view;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.text.Selection;
-import android.text.Spannable;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Toast;
 
 import com.android2.calculator3.R;
-import com.xlythe.engine.theme.Theme;
 
 public class FloatingCalculatorEditText extends CalculatorEditText {
     public FloatingCalculatorEditText(Context context, AttributeSet attrs) {
@@ -49,11 +44,11 @@ public class FloatingCalculatorEditText extends CalculatorEditText {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
+        if(event.getAction() == MotionEvent.ACTION_DOWN) {
             mPressedTime = System.currentTimeMillis();
             mHandler.postDelayed(mOnLongPressed, LONG_PRESS_TIME);
         }
-        if(event.getAction() == MotionEvent.ACTION_UP){
+        if(event.getAction() == MotionEvent.ACTION_UP) {
             if(System.currentTimeMillis() - mPressedTime < LONG_PRESS_TIME) {
                 mHandler.removeCallbacks(mOnLongPressed);
             }

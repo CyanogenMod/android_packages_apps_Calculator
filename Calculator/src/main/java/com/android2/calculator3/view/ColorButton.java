@@ -66,20 +66,20 @@ class ColorButton extends ThemedButton {
 
     private void layoutText() {
         Paint paint = getPaint();
-        if (mTextSize != 0f) paint.setTextSize(mTextSize);
+        if(mTextSize != 0f) paint.setTextSize(mTextSize);
         float textWidth = paint.measureText(getText().toString());
         float width = getWidth() - getPaddingLeft() - getPaddingRight();
         float textSize = getTextSize();
-        if (textWidth > width) {
+        if(textWidth > width) {
             paint.setTextSize(textSize * width / textWidth);
             mTextX = getPaddingLeft();
             mTextSize = textSize;
-        } else {
+        }
+        else {
             mTextX = (getWidth() - textWidth) / 2;
         }
         mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
-        if (mHintPaint != null)
-            mHintPaint.setTextSize(paint.getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent) / 100f);
+        if(mHintPaint != null) mHintPaint.setTextSize(paint.getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent) / 100f);
     }
 
     @Override
@@ -90,7 +90,7 @@ class ColorButton extends ThemedButton {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if (changed) layoutText();
+        if(changed) layoutText();
     }
 
     private void drawMagicFlame(int duration, Canvas canvas) {
@@ -103,29 +103,31 @@ class ColorButton extends ThemedButton {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (mAnimStart != -1) {
+        if(mAnimStart != -1) {
             int animDuration = (int) (System.currentTimeMillis() - mAnimStart);
 
-            if (animDuration >= CLICK_FEEDBACK_DURATION) {
+            if(animDuration >= CLICK_FEEDBACK_DURATION) {
                 mAnimStart = -1;
-            } else {
+            }
+            else {
                 drawMagicFlame(animDuration, canvas);
                 postInvalidateDelayed(CLICK_FEEDBACK_INTERVAL);
             }
-        } else if (isPressed()) {
+        }
+        else if(isPressed()) {
             drawMagicFlame(0, canvas);
         }
 
         mHintPaint.setColor(Theme.getColor(getContext(), R.color.button_hint_text));
         CharSequence hint = getHint();
-        if (hint != null) {
+        if(hint != null) {
             int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
             int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2) - getPaddingTop();
 
             float textWidth = mHintPaint.measureText(hint.toString());
             float width = getWidth() - getPaddingLeft() - getPaddingRight() - mTextX - offsetX;
             float textSize = mHintPaint.getTextSize();
-            if (textWidth > width) {
+            if(textWidth > width) {
                 mHintPaint.setTextSize(textSize * width / textWidth);
             }
 
@@ -146,19 +148,20 @@ class ColorButton extends ThemedButton {
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = super.onTouchEvent(event);
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                if (isPressed()) {
-                    animateClickFeedback();
-                } else {
-                    invalidate();
-                }
-                break;
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_CANCEL:
-                mAnimStart = -1;
+        switch(event.getAction()) {
+        case MotionEvent.ACTION_UP:
+            if(isPressed()) {
+                animateClickFeedback();
+            }
+            else {
                 invalidate();
-                break;
+            }
+            break;
+        case MotionEvent.ACTION_DOWN:
+        case MotionEvent.ACTION_CANCEL:
+            mAnimStart = -1;
+            invalidate();
+            break;
         }
 
         return result;

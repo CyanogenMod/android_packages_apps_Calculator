@@ -1,15 +1,15 @@
 package com.android2.calculator3;
 
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xlythe.engine.theme.App;
-
-import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
 
 public class StoreAdapter extends BitmapAdapter<App> {
     public StoreAdapter(Context context, List<App> values) {
@@ -33,10 +33,10 @@ public class StoreAdapter extends BitmapAdapter<App> {
     }
 
     private String formatPrice(App a) {
-        if (App.doesPackageExists(getContext(), a.getPackageName())) {
+        if(App.doesPackageExists(getContext(), a.getPackageName())) {
             return getContext().getString(R.string.store_price_installed);
         }
-        if (a.getPrice() == 0) {
+        if(a.getPrice() == 0) {
             return getContext().getString(R.string.store_price_free);
         }
         NumberFormat f = NumberFormat.getCurrencyInstance(Locale.US);

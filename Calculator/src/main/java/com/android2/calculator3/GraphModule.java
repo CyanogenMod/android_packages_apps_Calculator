@@ -1,14 +1,14 @@
 package com.android2.calculator3;
 
-import android.os.AsyncTask;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYSeries;
 import org.achartengine.util.MathHelper;
 import org.javia.arity.SyntaxException;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.os.AsyncTask;
 
 public class GraphModule {
     Logic mLogic;
@@ -19,7 +19,7 @@ public class GraphModule {
 
     private static void clearGraph(Graph g) {
         int seriesCount = g.getDataset().getSeriesCount();
-        for (int i = 0; i < seriesCount; i++) {
+        for(int i = 0; i < seriesCount; i++) {
             g.getDataset().removeSeries(0);
         }
     }
@@ -27,31 +27,32 @@ public class GraphModule {
     void updateGraphCatchErrors(Graph g) {
         try {
             updateGraph(g);
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
 
     void updateGraph(final Graph g) {
-        if (g == null) return;
+        if(g == null) return;
         final String eq = mLogic.getText();
 
-        if (eq.isEmpty()) {
+        if(eq.isEmpty()) {
             XYSeries series = new XYSeries("");
 
             try {
                 clearGraph(g);
                 g.getDataset().addSeries(series);
-            } catch (NullPointerException e) {
+            }
+            catch(NullPointerException e) {
                 e.printStackTrace();
             }
 
-            if (mLogic.mGraphDisplay != null) mLogic.mGraphDisplay.repaint();
+            if(mLogic.mGraphDisplay != null) mLogic.mGraphDisplay.repaint();
             return;
         }
 
-        if (Logic.isOperator(eq.charAt(eq.length() - 1)) || mLogic.displayContainsMatrices() || eq.endsWith("("))
-            return;
+        if(Logic.isOperator(eq.charAt(eq.length() - 1)) || mLogic.displayContainsMatrices() || eq.endsWith("(")) return;
 
         new GraphTask(g, mLogic).execute(eq);
     }
@@ -69,7 +70,7 @@ public class GraphModule {
         protected GraphicalView doInBackground(String... eq) {
             final String[] equation = eq[0].split("=");
 
-            if (equation.length != 2) return null;
+            if(equation.length != 2) return null;
 
             // Translate into decimal
             equation[0] = mLogic.convertToDecimal(mLogic.localize(equation[0]));
@@ -85,83 +86,95 @@ public class GraphModule {
                 double lastX = (maxX - minX) / 2 + minX;
                 double lastY = (maxY - minY) / 2 + minY;
 
-                if (equation[0].equals(mLogic.mY) && !equation[1].contains(mLogic.mY)) {
-                    for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
-                        if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                if(equation[0].equals(mLogic.mY) && !equation[1].contains(mLogic.mY)) {
+                    for(double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
+                        if(graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
 
                         try {
                             mLogic.mSymbols.define(mLogic.mX, x);
                             double y = mLogic.mSymbols.eval(equation[1]);
 
-                            if (pointIsNaN(lastY, y, maxY, minY)) {
+                            if(pointIsNaN(lastY, y, maxY, minY)) {
                                 series.get(0).add(x, MathHelper.NULL_VALUE);
-                            } else {
+                            }
+                            else {
                                 series.get(0).add(x, y);
                             }
                             lastY = y;
-                        } catch (SyntaxException e) {
+                        }
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
-                } else if (equation[0].equals(mLogic.mX) && !equation[1].contains(mLogic.mX)) {
-                    for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
-                        if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                }
+                else if(equation[0].equals(mLogic.mX) && !equation[1].contains(mLogic.mX)) {
+                    for(double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
+                        if(graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
 
                         try {
                             mLogic.mSymbols.define(mLogic.mY, y);
                             double x = mLogic.mSymbols.eval(equation[1]);
 
-                            if (pointIsNaN(lastX, x, maxX, minX)) {
+                            if(pointIsNaN(lastX, x, maxX, minX)) {
                                 series.get(0).add(MathHelper.NULL_VALUE, y);
-                            } else {
+                            }
+                            else {
                                 series.get(0).add(x, y);
                             }
                             lastX = x;
-                        } catch (SyntaxException e) {
+                        }
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
-                } else if (equation[1].equals(mLogic.mY) && !equation[0].contains(mLogic.mY)) {
-                    for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
-                        if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                }
+                else if(equation[1].equals(mLogic.mY) && !equation[0].contains(mLogic.mY)) {
+                    for(double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
+                        if(graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
 
                         try {
                             mLogic.mSymbols.define(mLogic.mX, x);
                             double y = mLogic.mSymbols.eval(equation[0]);
 
-                            if (pointIsNaN(lastY, y, maxY, minY)) {
+                            if(pointIsNaN(lastY, y, maxY, minY)) {
                                 series.get(0).add(x, MathHelper.NULL_VALUE);
-                            } else {
+                            }
+                            else {
                                 series.get(0).add(x, y);
                             }
                             lastY = y;
-                        } catch (SyntaxException e) {
+                        }
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
-                } else if (equation[1].equals(mLogic.mX) && !equation[0].contains(mLogic.mX)) {
-                    for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
-                        if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                }
+                else if(equation[1].equals(mLogic.mX) && !equation[0].contains(mLogic.mX)) {
+                    for(double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
+                        if(graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
 
                         try {
                             mLogic.mSymbols.define(mLogic.mY, y);
                             double x = mLogic.mSymbols.eval(equation[0]);
 
-                            if (pointIsNaN(lastX, x, maxX, minX)) {
+                            if(pointIsNaN(lastX, x, maxX, minX)) {
                                 series.get(0).add(MathHelper.NULL_VALUE, y);
-                            } else {
+                            }
+                            else {
                                 series.get(0).add(x, y);
                             }
                             lastX = x;
-                        } catch (SyntaxException e) {
+                        }
+                        catch(SyntaxException e) {
                             e.printStackTrace();
                         }
                     }
-                } else {
-                    for (double x = minX; x <= maxX; x += (0.01 * (maxX - minX))) {
+                }
+                else {
+                    for(double x = minX; x <= maxX; x += (0.01 * (maxX - minX))) {
                         List<Double> values = new ArrayList<Double>();
-                        for (double y = maxY; y >= minY; y -= (0.01 * (maxY - minY))) {
-                            if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                        for(double y = maxY; y >= minY; y -= (0.01 * (maxY - minY))) {
+                            if(graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
 
                             try {
                                 mLogic.mSymbols.define(mLogic.mX, x);
@@ -170,27 +183,29 @@ public class GraphModule {
                                 Double rightSide = mLogic.mSymbols.eval(equation[1]);
                                 // TODO increase scale of graph as zooming
                                 // out
-                                if (leftSide < 0 && rightSide < 0) {
-                                    if (leftSide * 0.97 >= rightSide && leftSide * 1.03 <= rightSide) {
-                                        values.add(y);
-                                    }
-                                } else {
-                                    if (leftSide * 0.97 <= rightSide && leftSide * 1.03 >= rightSide) {
+                                if(leftSide < 0 && rightSide < 0) {
+                                    if(leftSide * 0.97 >= rightSide && leftSide * 1.03 <= rightSide) {
                                         values.add(y);
                                     }
                                 }
-                            } catch (SyntaxException e) {
+                                else {
+                                    if(leftSide * 0.97 <= rightSide && leftSide * 1.03 >= rightSide) {
+                                        values.add(y);
+                                    }
+                                }
+                            }
+                            catch(SyntaxException e) {
                                 e.printStackTrace();
                             }
                         }
 
                         int color = mGraph.getRenderer().getSeriesRendererAt(0).getColor();
-                        while (values.size() > series.size()) {
+                        while(values.size() > series.size()) {
                             series.add(new XYSeries(""));
                             Graph.addSeriesRenderer(color, mGraph.getRenderer());
                         }
 
-                        for (int i = 0; i < values.size(); i++) {
+                        for(int i = 0; i < values.size(); i++) {
                             // TODO find closest value to previous one
                             series.get(i).add(x, values.get(i));
                         }
@@ -213,22 +228,22 @@ public class GraphModule {
                 }
 
                 clearGraph(mGraph);
-                for (XYSeries s : series) {
+                for(XYSeries s : series) {
                     mGraph.getDataset().addSeries(s);
                 }
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
             return mLogic.mGraphDisplay;
         }
 
         private double tolerance(double result, double truth) {
-            return (100.0 * Math.abs(truth - result) / Math.abs(truth));
+            return(100.0 * Math.abs(truth - result) / Math.abs(truth));
         }
 
         boolean graphChanged(Graph graph, String equation, double minX, double maxX, double minY, double maxY) {
-            return !equation.equals(mLogic.getText()) || minY != graph.getRenderer().getYAxisMin() || maxY != graph.getRenderer().getYAxisMax()
-                    || minX != graph.getRenderer().getXAxisMin() || maxX != graph.getRenderer().getXAxisMax();
+            return !equation.equals(mLogic.getText()) || minY != graph.getRenderer().getYAxisMin() || maxY != graph.getRenderer().getYAxisMax() || minX != graph.getRenderer().getXAxisMin() || maxX != graph.getRenderer().getXAxisMax();
         }
 
         boolean pointIsNaN(double lastV, double v, double max, double min) {
@@ -239,7 +254,7 @@ public class GraphModule {
         protected void onPostExecute(GraphicalView result) {
             super.onPostExecute(result);
 
-            if (result != null) {
+            if(result != null) {
                 result.repaint();
             }
         }

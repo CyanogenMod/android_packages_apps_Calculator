@@ -1,5 +1,7 @@
 package com.android2.calculator3.view;
 
+import java.util.List;
+
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -18,8 +20,6 @@ import com.android2.calculator3.CalculatorSettings;
 import com.android2.calculator3.Page;
 import com.android2.calculator3.R;
 
-import java.util.List;
-
 public class PageOrderFragment extends ListFragment {
 
     private final TouchInterceptor.DragListener mDragListener = new TouchInterceptor.DragListener() {
@@ -37,7 +37,7 @@ public class PageOrderFragment extends ListFragment {
         public void drop(int from, int to) {
             Log.i(getContext().getPackageName(), "Drop from " + from + " to " + to);
             doMove(from, to);
-            if (mChangeListener != null) {
+            if(mChangeListener != null) {
                 mChangeListener.change(mArray);
             }
         }
@@ -79,7 +79,7 @@ public class PageOrderFragment extends ListFragment {
         lv.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> av, View v, int position, long id) {
-                if (!"settings".equals(mArray.get(position).getKey())) {
+                if(!"settings".equals(mArray.get(position).getKey())) {
                     boolean isEnabled = CalculatorSettings.isPageEnabled(getContext(), mArray.get(position));
                     CalculatorSettings.setPageEnabled(getContext(), mArray.get(position), !isEnabled);
                     mAdapter.notifyDataSetChanged();
@@ -95,7 +95,7 @@ public class PageOrderFragment extends ListFragment {
         mAdapter.notifyDataSetChanged();
 
         // Update order
-        for (int i = 0; i < mArray.size(); i++) {
+        for(int i = 0; i < mArray.size(); i++) {
             CalculatorSettings.setPageOrder(getContext(), mArray.get(i), i);
         }
     }
@@ -130,7 +130,7 @@ public class PageOrderFragment extends ListFragment {
             checkView.setClickable(false);
             checkView.setChecked(CalculatorSettings.isPageEnabled(getContext(), values.get(position)));
 
-            if ("settings".equals(values.get(position).getKey())) {
+            if("settings".equals(values.get(position).getKey())) {
                 checkView.setEnabled(false);
             }
             return rowView;

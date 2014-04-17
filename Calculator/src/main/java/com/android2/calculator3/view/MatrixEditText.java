@@ -75,9 +75,9 @@ public class MatrixEditText extends ThemedEditText implements OnFocusChangeListe
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
+        if(hasFocus) {
             mDisplay.mActiveEditText = MatrixEditText.this;
-            if (getText().toString().equals(Logic.NAN)) {
+            if(getText().toString().equals(Logic.NAN)) {
                 setText("");
             }
         }
@@ -90,11 +90,11 @@ public class MatrixEditText extends ThemedEditText implements OnFocusChangeListe
 
     @Override
     public View focusSearch(int direction) {
-        switch (direction) {
-            case View.FOCUS_FORWARD:
-                return mParent.nextView(this);
-            case View.FOCUS_BACKWARD:
-                return mParent.previousView(this);
+        switch(direction) {
+        case View.FOCUS_FORWARD:
+            return mParent.nextView(this);
+        case View.FOCUS_BACKWARD:
+            return mParent.previousView(this);
         }
         return super.focusSearch(direction);
     }
@@ -121,8 +121,8 @@ public class MatrixEditText extends ThemedEditText implements OnFocusChangeListe
 
         @Override
         public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
-            if (keyCode == KeyEvent.KEYCODE_DEL) {
-                if (mParent.isEmpty()) mDisplay.removeView(mParent);
+            if(keyCode == KeyEvent.KEYCODE_DEL) {
+                if(mParent.isEmpty()) mDisplay.removeView(mParent);
             }
             return super.onKeyDown(view, content, keyCode, event);
         }
@@ -141,8 +141,7 @@ public class MatrixEditText extends ThemedEditText implements OnFocusChangeListe
         }
 
         @Override
-        public void onDestroyActionMode(ActionMode mode) {
-        }
+        public void onDestroyActionMode(ActionMode mode) {}
 
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {

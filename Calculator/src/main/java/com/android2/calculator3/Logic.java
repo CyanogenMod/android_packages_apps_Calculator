@@ -16,6 +16,13 @@
 
 package com.android2.calculator3;
 
+import java.util.Locale;
+
+import org.achartengine.GraphicalView;
+import org.javia.arity.Complex;
+import org.javia.arity.Symbols;
+import org.javia.arity.SyntaxException;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.KeyEvent;
@@ -27,13 +34,6 @@ import com.android2.calculator3.view.CalculatorDisplay.Scroll;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
-
-import org.achartengine.GraphicalView;
-import org.javia.arity.Complex;
-import org.javia.arity.Symbols;
-import org.javia.arity.SyntaxException;
-
-import java.util.Locale;
 
 public class Logic {
     public static final String INFINITY_UNICODE = "\u221e";
@@ -119,7 +119,7 @@ public class Logic {
 
         mEquationFormatter = new EquationFormatter();
         mDisplay = display;
-        if (mDisplay != null) mDisplay.setLogic(this);
+        if(mDisplay != null) mDisplay.setLogic(this);
         mGraphModule = new GraphModule(this);
         mBaseModule = new BaseModule(this);
         mMatrixModule = new MatrixModule(this);
@@ -128,6 +128,7 @@ public class Logic {
     public void setHistory(History history) {
         mHistory = history;
     }
+
     public static boolean isOperator(String text) {
         return text.length() == 1 && isOperator(text.charAt(0));
     }
@@ -163,9 +164,9 @@ public class Logic {
     }
 
     public void setDeleteMode(int mode) {
-        if (mDeleteMode != mode) {
+        if(mDeleteMode != mode) {
             mDeleteMode = mode;
-            if (mListener != null) mListener.onDeleteModeChange();
+            if(mListener != null) mListener.onDeleteModeChange();
         }
     }
 
@@ -180,11 +181,11 @@ public class Logic {
     void setText(String text) {
         clear(false);
         mDisplay.insert(text);
-        if (text.equals(mErrorString)) setDeleteMode(DELETE_MODE_CLEAR);
+        if(text.equals(mErrorString)) setDeleteMode(DELETE_MODE_CLEAR);
     }
 
     void insert(String delta) {
-        if (!acceptInsert(delta)) {
+        if(!acceptInsert(delta)) {
             clear(true);
         }
         mDisplay.insert(delta);
@@ -202,13 +203,14 @@ public class Logic {
 
     private void clearWithHistory(boolean scroll) {
         String text = mHistory.getText();
-        if (MARKER_EVALUATE_ON_RESUME.equals(text)) {
-            if (!mHistory.moveToPrevious()) {
+        if(MARKER_EVALUATE_ON_RESUME.equals(text)) {
+            if(!mHistory.moveToPrevious()) {
                 text = "";
             }
             text = mHistory.getBase();
             evaluateAndShowResult(text, CalculatorDisplay.Scroll.NONE);
-        } else {
+        }
+        else {
             mResult = "";
             mDisplay.setText(text, scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
             mIsError = false;
@@ -230,10 +232,10 @@ public class Logic {
     }
 
     boolean acceptInsert(String delta) {
-        if (mIsError || getText().equals(mErrorString)) {
+        if(mIsError || getText().equals(mErrorString)) {
             return false;
         }
-        if (getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || isPostFunction(delta)) {
+        if(getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || isPostFunction(delta)) {
             return true;
         }
 
@@ -244,9 +246,10 @@ public class Logic {
     }
 
     void onDelete() {
-        if (getText().equals(mResult) || mIsError) {
+        if(getText().equals(mResult) || mIsError) {
             clear(false);
-        } else {
+        }
+        else {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
         }
@@ -259,22 +262,20 @@ public class Logic {
     }
 
     public void onEnter() {
-        if (mDeleteMode == DELETE_MODE_CLEAR) {
+        if(mDeleteMode == DELETE_MODE_CLEAR) {
             clearWithHistory(false); // clear after an Enter on result
-        } else {
+        }
+        else {
             evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
         }
     }
 
     boolean displayContainsMatrices() {
         boolean containsMatrices = false;
-        for (int i = 0; i < mDisplay.getAdvancedDisplay().getChildCount(); i++) {
-            if (mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixView)
-                containsMatrices = true;
-            if (mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixInverseView)
-                containsMatrices = true;
-            if (mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixTransposeView)
-                containsMatrices = true;
+        for(int i = 0; i < mDisplay.getAdvancedDisplay().getChildCount(); i++) {
+            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixView) containsMatrices = true;
+            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixInverseView) containsMatrices = true;
+            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixTransposeView) containsMatrices = true;
         }
         return containsMatrices;
     }
@@ -283,13 +284,14 @@ public class Logic {
         boolean containsMatrices = displayContainsMatrices();
         try {
             String result = containsMatrices ? mMatrixModule.evaluateMatrices(mDisplay.getAdvancedDisplay()) : evaluate(text);
-            if (!text.equals(result)) {
+            if(!text.equals(result)) {
                 mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
                 mResult = result;
                 mDisplay.setText(mResult, scroll);
                 setDeleteMode(DELETE_MODE_CLEAR);
             }
-        } catch (SyntaxException e) {
+        }
+        catch(SyntaxException e) {
             mIsError = true;
             mResult = mErrorString;
             mDisplay.setText(mResult, scroll);
@@ -298,13 +300,13 @@ public class Logic {
     }
 
     void onUp() {
-        if (mHistory.moveToPrevious()) {
+        if(mHistory.moveToPrevious()) {
             mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.DOWN);
         }
     }
 
     void onDown() {
-        if (mHistory.moveToNext()) {
+        if(mHistory.moveToNext()) {
             mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.UP);
         }
     }
@@ -315,13 +317,13 @@ public class Logic {
     }
 
     public String evaluate(String input) throws SyntaxException {
-        if (input.trim().isEmpty()) {
+        if(input.trim().isEmpty()) {
             return "";
         }
 
         // Drop final infix operators (they can only result in error)
         int size = input.length();
-        while (size > 0 && isOperator(input.charAt(size - 1))) {
+        while(size > 0 && isOperator(input.charAt(size - 1))) {
             input = input.substring(0, size - 1);
             --size;
         }
@@ -334,17 +336,17 @@ public class Logic {
         Complex value = mSymbols.evalComplex(decimalInput);
 
         String real = "";
-        for (int precision = mLineLength; precision > 6; precision--) {
+        for(int precision = mLineLength; precision > 6; precision--) {
             real = tryFormattingWithPrecision(value.re, precision);
-            if (real.length() <= mLineLength) {
+            if(real.length() <= mLineLength) {
                 break;
             }
         }
 
         String imaginary = "";
-        for (int precision = mLineLength; precision > 6; precision--) {
+        for(int precision = mLineLength; precision > 6; precision--) {
             imaginary = tryFormattingWithPrecision(value.im, precision);
-            if (imaginary.length() <= mLineLength) {
+            if(imaginary.length() <= mLineLength) {
                 break;
             }
         }
@@ -353,11 +355,11 @@ public class Logic {
         imaginary = mBaseModule.updateTextToNewMode(imaginary, Mode.DECIMAL, mBaseModule.getMode()).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
 
         String result = "";
-        if (value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
-        else if (value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit -
-        else if (value.re != 0 && value.im == 0) result = real;
-        else if (value.re == 0 && value.im != 0) result = imaginary + "i";
-        else if (value.re == 0 && value.im == 0) result = "0";
+        if(value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
+        else if(value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit -
+        else if(value.re != 0 && value.im == 0) result = real;
+        else if(value.re == 0 && value.im != 0) result = imaginary + "i";
+        else if(value.re == 0 && value.im == 0) result = "0";
 
         result = relocalize(result);
         return result;
@@ -376,7 +378,7 @@ public class Logic {
         input = input.replace(mSinString, "sin");
         input = input.replace(mCosString, "cos");
         input = input.replace(mTanString, "tan");
-        if (!CalculatorSettings.useRadians(mContext)) {
+        if(!CalculatorSettings.useRadians(mContext)) {
             input = input.replace("sin", "sind");
             input = input.replace("cos", "cosd");
             input = input.replace("tan", "tand");
@@ -400,40 +402,41 @@ public class Logic {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
         String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
-        if (result.equals(NAN)) { // treat NaN as Error
+        if(result.equals(NAN)) { // treat NaN as Error
             return mErrorString;
         }
         String mantissa = result;
         String exponent = null;
         int e = result.indexOf('e');
-        if (e != -1) {
+        if(e != -1) {
             mantissa = result.substring(0, e);
 
             // Strip "+" and unnecessary 0's from the exponent
             exponent = result.substring(e + 1);
-            if (exponent.startsWith("+")) {
+            if(exponent.startsWith("+")) {
                 exponent = exponent.substring(1);
             }
             exponent = String.valueOf(Integer.parseInt(exponent));
         }
 
         int period = mantissa.indexOf('.');
-        if (period == -1) {
+        if(period == -1) {
             period = mantissa.indexOf(',');
         }
-        if (period != -1) {
+        if(period != -1) {
             // Strip trailing 0's
-            while (mantissa.length() > 0 && mantissa.endsWith("0")) {
+            while(mantissa.length() > 0 && mantissa.endsWith("0")) {
                 mantissa = mantissa.substring(0, mantissa.length() - 1);
             }
-            if (mantissa.length() == period + 1) {
+            if(mantissa.length() == period + 1) {
                 mantissa = mantissa.substring(0, mantissa.length() - 1);
             }
         }
 
-        if (exponent != null) {
+        if(exponent != null) {
             result = mantissa + 'e' + exponent;
-        } else {
+        }
+        else {
             result = mantissa;
         }
         return result;

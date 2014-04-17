@@ -19,17 +19,11 @@ package com.android2.calculator3;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android2.calculator3.view.HistoryLine;
-
-import java.util.Vector;
 
 class FloatingHistoryAdapter extends HistoryAdapter {
     private OnHistoryItemClickListener mListener;
@@ -56,7 +50,7 @@ class FloatingHistoryAdapter extends HistoryAdapter {
             @Override
             public void onClick(View v) {
                 if(mListener != null) mListener.onHistoryItemClick(entry);
-//                copyContent(entry.getEdited());
+                // copyContent(entry.getEdited());
             }
         });
     }

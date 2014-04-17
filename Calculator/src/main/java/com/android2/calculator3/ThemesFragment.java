@@ -1,5 +1,7 @@
 package com.android2.calculator3;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,8 +18,6 @@ import android.widget.ListAdapter;
 
 import com.android2.calculator3.dao.ThemesDataSource;
 import com.xlythe.engine.theme.App;
-
-import java.util.List;
 
 /**
  * @author Will Harmon
@@ -70,16 +70,16 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (mThemes.isEmpty()) setListShown(false);
+        if(mThemes.isEmpty()) setListShown(false);
 
         // Load from server (and update ui when finished)
         mTask = new ThemesStoreTask(getActivity()) {
             @Override
             protected void onPostExecute(List<App> result) {
                 super.onPostExecute(result);
-                if (result == null) return;
+                if(result == null) return;
                 mThemes.clear();
-                for (App a : result) {
+                for(App a : result) {
                     mThemes.add(a);
                 }
                 ((StoreAdapter) getListAdapter()).notifyDataSetChanged();

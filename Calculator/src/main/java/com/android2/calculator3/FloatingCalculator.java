@@ -1,5 +1,8 @@
 package com.android2.calculator3;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import android.animation.Animator;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -30,9 +33,6 @@ import android.widget.Toast;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
 import com.xlythe.engine.theme.Theme;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class FloatingCalculator extends Service implements OnTouchListener {
     private static final int ANIMATION_FRAME_RATE = 60; // Animation frame rate per second.
@@ -125,26 +125,26 @@ public class FloatingCalculator extends Service implements OnTouchListener {
         mCurrentPosY = y;
         View v = mDraggableIconImage;
         v.setTranslationX(0);
-        if (x < 0) {
+        if(x < 0) {
             v.setTranslationX(x);
             x = 0;
         }
-        if (x > getScreenWidth() - FLOATING_WINDOW_ICON_SIZE) {
+        if(x > getScreenWidth() - FLOATING_WINDOW_ICON_SIZE) {
             v.setTranslationX(x - getScreenWidth() + FLOATING_WINDOW_ICON_SIZE);
             x = getScreenWidth() - FLOATING_WINDOW_ICON_SIZE;
         }
         v.setTranslationY(0);
-        if (y < 0) {
+        if(y < 0) {
             v.setTranslationY(y);
             y = 0;
         }
-        if (y > getScreenHeight() - FLOATING_WINDOW_ICON_SIZE) {
+        if(y > getScreenHeight() - FLOATING_WINDOW_ICON_SIZE) {
             v.setTranslationY(y - getScreenHeight() + FLOATING_WINDOW_ICON_SIZE);
             y = getScreenHeight() - FLOATING_WINDOW_ICON_SIZE;
         }
         mParams.x = x;
         mParams.y = y;
-        if (!mIsDestroyed) mWindowManager.updateViewLayout(mDraggableIcon, mParams);
+        if(!mIsDestroyed) mWindowManager.updateViewLayout(mDraggableIcon, mParams);
     }
 
     private boolean isDeleteMode() {
@@ -163,16 +163,17 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     }
 
     private void showDeleteBox() {
-        if (!mDeleteBoxVisible) {
+        if(!mDeleteBoxVisible) {
             mDeleteBoxVisible = true;
-            if (mDeleteView == null) {
+            if(mDeleteView == null) {
                 mDeleteView = new FloatingView(getContext());
                 View.inflate(getContext(), R.layout.floating_calculator_delete_box, mDeleteView);
                 mDeleteIcon = (ImageView) mDeleteView.findViewById(R.id.delete_icon);
                 mDeleteIconHolder = mDeleteView.findViewById(R.id.delete_icon_holder);
                 mDeleteBoxView = mDeleteView.findViewById(R.id.box);
                 addView(mDeleteView, 0, 0, Gravity.BOTTOM | Gravity.CENTER_VERTICAL, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            } else {
+            }
+            else {
                 mDeleteView.setVisibility(View.VISIBLE);
             }
             mDeleteBoxView.setAlpha(0);
@@ -185,14 +186,14 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     }
 
     public void hideDeleteBox() {
-        if (mDeleteBoxVisible) {
+        if(mDeleteBoxVisible) {
             mDeleteBoxVisible = false;
-            if (mDeleteView != null) {
+            if(mDeleteView != null) {
                 mDeleteBoxView.animate().alpha(0);
                 mDeleteIconHolder.animate().translationYBy(CLOSE_ANIMATION_DISTANCE).setListener(new AnimationFinishedListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        if (mDeleteView != null) mDeleteView.setVisibility(View.GONE);
+                        if(mDeleteView != null) mDeleteView.setVisibility(View.GONE);
                     }
                 });
             }
@@ -202,15 +203,15 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     private void vibrate() {
         if(mDontVibrate) return;
         Vibrator vi = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (!vi.hasVibrator()) return;
+        if(!vi.hasVibrator()) return;
         vi.vibrate(25);
     }
 
     private void close(boolean animate) {
-        if (mIsBeingDestroyed) return;
+        if(mIsBeingDestroyed) return;
         mIsBeingDestroyed = true;
 
-        if (animate) {
+        if(animate) {
             animateToDeleteBoxCenter(new OnAnimationFinishedListener() {
                 @Override
                 public void onAnimationFinished() {
@@ -224,15 +225,16 @@ public class FloatingCalculator extends Service implements OnTouchListener {
                     });
                 }
             });
-        } else {
+        }
+        else {
             stopSelf();
         }
     }
 
     private void animateToDeleteBoxCenter(final OnAnimationFinishedListener l) {
-        if (mIsAnimationLocked) return;
+        if(mIsAnimationLocked) return;
         mIsInDeleteMode = true;
-        if (mAnimationTask != null) mAnimationTask.cancel();
+        if(mAnimationTask != null) mAnimationTask.cancel();
         mAnimationTask = new AnimationTask(getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2, getScreenHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2);
         mAnimationTask.setDuration(150);
         mAnimationTask.setAnimationFinishedListener(l);
@@ -281,11 +283,10 @@ public class FloatingCalculator extends Service implements OnTouchListener {
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent myIntent) {
-                int x = mParams.x == 0 ? 0+MARGIN_HORIZONTAL : getScreenWidth()-FLOATING_WINDOW_ICON_SIZE-MARGIN_HORIZONTAL;
+                int x = mParams.x == 0 ? 0 + MARGIN_HORIZONTAL : getScreenWidth() - FLOATING_WINDOW_ICON_SIZE - MARGIN_HORIZONTAL;
                 int y = mCurrentPosY;
-                if (y <= 0) y = MARGIN_VERTICAL;
-                if (y >= getScreenHeight() - mDraggableIcon.getHeight())
-                    y = getScreenHeight() - mDraggableIcon.getHeight() - MARGIN_VERTICAL;
+                if(y <= 0) y = MARGIN_VERTICAL;
+                if(y >= getScreenHeight() - mDraggableIcon.getHeight()) y = getScreenHeight() - mDraggableIcon.getHeight() - MARGIN_VERTICAL;
                 updateIconPosition(x, y);
             }
         };
@@ -294,105 +295,110 @@ public class FloatingCalculator extends Service implements OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                mPrevDragX = mOrigX = event.getRawX();
-                mPrevDragY = mOrigY = event.getRawY();
+        switch(event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            mPrevDragX = mOrigX = event.getRawX();
+            mPrevDragY = mOrigY = event.getRawY();
 
-                mDragged = false;
+            mDragged = false;
 
-                mDeltaXArray = new LinkedList<Float>();
-                mDeltaYArray = new LinkedList<Float>();
+            mDeltaXArray = new LinkedList<Float>();
+            mDeltaYArray = new LinkedList<Float>();
 
-                mCurrentX = mParams.x;
-                mCurrentY = mParams.y;
+            mCurrentX = mParams.x;
+            mCurrentY = mParams.y;
 
-                mDraggableIconImage.setScaleX(0.92f);
-                mDraggableIconImage.setScaleY(0.92f);
+            mDraggableIconImage.setScaleX(0.92f);
+            mDraggableIconImage.setScaleY(0.92f);
 
-                // Cancel any currently running animations
-                if (mAnimationTask != null) {
-                    mAnimationTask.cancel();
+            // Cancel any currently running animations
+            if(mAnimationTask != null) {
+                mAnimationTask.cancel();
+            }
+            break;
+        case MotionEvent.ACTION_UP:
+            mIsAnimationLocked = false;
+            if(mAnimationTask != null) mAnimationTask.cancel();
+            if(!mDragged) {
+                if(!mIsCalcOpen) {
+                    openCalculator();
                 }
-                break;
-            case MotionEvent.ACTION_UP:
-                mIsAnimationLocked = false;
-                if (mAnimationTask != null) mAnimationTask.cancel();
-                if (!mDragged) {
-                    if (!mIsCalcOpen) {
-                        openCalculator();
-                    } else {
-                        closeCalculator();
+                else {
+                    closeCalculator();
+                }
+            }
+            else {
+                // Animate the icon
+                mAnimationTask = new AnimationTask();
+                mAnimationTask.run();
+            }
+
+            if(mIsInDeleteMode) {
+                close(true);
+            }
+            else {
+                hideDeleteBox();
+                mDraggableIconImage.setScaleX(1f);
+                mDraggableIconImage.setScaleY(1f);
+            }
+
+            break;
+        case MotionEvent.ACTION_MOVE:
+            mCurrentX = (int) (event.getRawX() - mDraggableIcon.getWidth() / 2);
+            mCurrentY = (int) (event.getRawY() - mDraggableIcon.getHeight());
+            if(isDeleteMode(mCurrentX, mCurrentY)) {
+                if(!mIsInDeleteMode) animateToDeleteBoxCenter(new OnAnimationFinishedListener() {
+                    @Override
+                    public void onAnimationFinished() {
+                        mDontVibrate = true;
                     }
-                } else {
-                    // Animate the icon
-                    mAnimationTask = new AnimationTask();
-                    mAnimationTask.run();
-                }
-
-                if (mIsInDeleteMode) {
-                    close(true);
-                } else {
-                    hideDeleteBox();
-                    mDraggableIconImage.setScaleX(1f);
-                    mDraggableIconImage.setScaleY(1f);
-                }
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-                mCurrentX = (int) (event.getRawX() - mDraggableIcon.getWidth() / 2);
-                mCurrentY = (int) (event.getRawY() - mDraggableIcon.getHeight());
-                if (isDeleteMode(mCurrentX, mCurrentY)) {
-                    if (!mIsInDeleteMode) animateToDeleteBoxCenter(new OnAnimationFinishedListener() {
-                        @Override
-                        public void onAnimationFinished() {
-                            mDontVibrate = true;
-                        }
-                    });
-                } else if (isDeleteMode() && !mIsAnimationLocked) {
-                    mDontVibrate = false;
-                    mIsInDeleteMode = false;
-                    if (mAnimationTask != null) mAnimationTask.cancel();
-                    mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
-                    mAnimationTask.setDuration(50);
-                    mAnimationTask.setInterpolator(new LinearInterpolator());
-                    mAnimationTask.setAnimationFinishedListener(new OnAnimationFinishedListener() {
-                        @Override
-                        public void onAnimationFinished() {
-                            mIsAnimationLocked = false;
-                        }
-                    });
-                    mAnimationTask.run();
-                    mIsAnimationLocked = true;
+                });
+            }
+            else if(isDeleteMode() && !mIsAnimationLocked) {
+                mDontVibrate = false;
+                mIsInDeleteMode = false;
+                if(mAnimationTask != null) mAnimationTask.cancel();
+                mAnimationTask = new AnimationTask(mCurrentX, mCurrentY);
+                mAnimationTask.setDuration(50);
+                mAnimationTask.setInterpolator(new LinearInterpolator());
+                mAnimationTask.setAnimationFinishedListener(new OnAnimationFinishedListener() {
+                    @Override
+                    public void onAnimationFinished() {
+                        mIsAnimationLocked = false;
+                    }
+                });
+                mAnimationTask.run();
+                mIsAnimationLocked = true;
+                mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
+            }
+            else {
+                if(mIsInDeleteMode) {
                     mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
-                } else {
-                    if(mIsInDeleteMode) {
-                        mDeleteIcon.animate().scaleX(1f).scaleY(1f).setDuration(100);
-                        mIsInDeleteMode = false;
-                    }
-                    if (!mIsAnimationLocked && mDragged) {
-                        if (mAnimationTask != null) mAnimationTask.cancel();
-                        updateIconPosition(mCurrentX, mCurrentY);
-                    }
+                    mIsInDeleteMode = false;
                 }
-
-                float deltaX = event.getRawX() - mPrevDragX;
-                float deltaY = event.getRawY() - mPrevDragY;
-
-                mDeltaXArray.add(deltaX);
-                mDeltaYArray.add(deltaY);
-
-                mPrevDragX = event.getRawX();
-                mPrevDragY = event.getRawY();
-
-                deltaX = event.getRawX() - mOrigX;
-                deltaY = event.getRawY() - mOrigY;
-                mDragged = mDragged || Math.abs(deltaX) > DRAG_DELTA || Math.abs(deltaY) > DRAG_DELTA;
-                if (mDragged) {
-                    closeCalculator(false);
-                    showDeleteBox();
+                if(!mIsAnimationLocked && mDragged) {
+                    if(mAnimationTask != null) mAnimationTask.cancel();
+                    updateIconPosition(mCurrentX, mCurrentY);
                 }
-                break;
+            }
+
+            float deltaX = event.getRawX() - mPrevDragX;
+            float deltaY = event.getRawY() - mPrevDragY;
+
+            mDeltaXArray.add(deltaX);
+            mDeltaYArray.add(deltaY);
+
+            mPrevDragX = event.getRawX();
+            mPrevDragY = event.getRawY();
+
+            deltaX = event.getRawX() - mOrigX;
+            deltaY = event.getRawY() - mOrigY;
+            mDragged = mDragged || Math.abs(deltaX) > DRAG_DELTA || Math.abs(deltaY) > DRAG_DELTA;
+            if(mDragged) {
+                closeCalculator(false);
+                showDeleteBox();
+            }
+            break;
         }
         return true;
     }
@@ -401,23 +407,23 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     public void onDestroy() {
         super.onDestroy();
         mIsDestroyed = true;
-        if (mDraggableIcon != null) {
+        if(mDraggableIcon != null) {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mDraggableIcon);
             mDraggableIcon = null;
         }
-        if (mDeleteView != null) {
+        if(mDeleteView != null) {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mDeleteView);
             mDeleteView = null;
         }
-        if (mCalcView != null) {
+        if(mCalcView != null) {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mCalcView);
             mCalcView = null;
         }
-        if (mAnimationTask != null) {
+        if(mAnimationTask != null) {
             mAnimationTask.cancel();
             mAnimationTask = null;
         }
-        if (mBroadcastReceiver != null) {
+        if(mBroadcastReceiver != null) {
             unregisterReceiver(mBroadcastReceiver);
             mBroadcastReceiver = null;
         }
@@ -425,8 +431,8 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     }
 
     public void openCalculator() {
-        if (!mIsCalcOpen) {
-            if (mIsAnimationLocked) return;
+        if(!mIsCalcOpen) {
+            if(mIsAnimationLocked) return;
             mIsCalcOpen = true;
             mPrevX = mCurrentPosX;
             mPrevY = mCurrentPosY;
@@ -457,21 +463,20 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     }
 
     public void closeCalculator(boolean returnToOrigin) {
-        if (mIsCalcOpen) {
+        if(mIsCalcOpen) {
             mIsCalcOpen = false;
-            if (returnToOrigin) {
-                if (mIsAnimationLocked) return;
+            if(returnToOrigin) {
+                if(mIsAnimationLocked) return;
                 mAnimationTask = new AnimationTask(mPrevX, mPrevY);
                 mAnimationTask.run();
             }
-            if (FloatingCalculatorActivity.ACTIVE_ACTIVITY != null)
-                FloatingCalculatorActivity.ACTIVE_ACTIVITY.finish();
+            if(FloatingCalculatorActivity.ACTIVE_ACTIVITY != null) FloatingCalculatorActivity.ACTIVE_ACTIVITY.finish();
             hideCalculator();
         }
     }
 
     public void showCalculator() {
-        if (mCalcView == null) {
+        if(mCalcView == null) {
             View child = View.inflate(getContext(), R.layout.floating_calculator, null);
             mCalcView = new FloatingView(getContext());
             mCalcView.addView(child);
@@ -502,18 +507,22 @@ public class FloatingCalculator extends Service implements OnTouchListener {
             mListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (v instanceof Button) {
-                        if (((Button) v).getText().toString().equals("=")) {
+                    if(v instanceof Button) {
+                        if(((Button) v).getText().toString().equals("=")) {
                             mLogic.onEnter();
-                        } else if (v.getId() == R.id.parentheses) {
-                            if (mLogic.isError()) mLogic.setText("");
+                        }
+                        else if(v.getId() == R.id.parentheses) {
+                            if(mLogic.isError()) mLogic.setText("");
                             mLogic.setText("(" + mLogic.getText() + ")");
-                        } else if (((Button) v).getText().toString().length() >= 2) {
+                        }
+                        else if(((Button) v).getText().toString().length() >= 2) {
                             mLogic.insert(((Button) v).getText().toString() + "(");
-                        } else {
+                        }
+                        else {
                             mLogic.insert(((Button) v).getText().toString());
                         }
-                    } else if (v instanceof ImageButton) {
+                    }
+                    else if(v instanceof ImageButton) {
                         mLogic.onDelete();
                     }
                 }
@@ -531,15 +540,16 @@ public class FloatingCalculator extends Service implements OnTouchListener {
             FloatingCalculatorPageAdapter adapter = new FloatingCalculatorPageAdapter(getContext(), mListener, mHistory, mLogic, mDisplay);
             mPager.setAdapter(adapter);
             mPager.setCurrentItem(1);
-        } else {
+        }
+        else {
             mCalcView.setVisibility(View.VISIBLE);
         }
         // Adjust calc location
         int screenWidth = getScreenWidth();
         int calcWidth = 4 * (int) getResources().getDimension(R.dimen.floating_window_button_height);
         mCalcParams.x = screenWidth - calcWidth - MARGIN_CALCULATOR;
-        mCalcParams.y = (int) (STARTING_POINT_Y*1.1) + mDraggableIcon.getHeight();
-        if (!mIsDestroyed) mWindowManager.updateViewLayout(mCalcView, mCalcParams);
+        mCalcParams.y = (int) (STARTING_POINT_Y * 1.1) + mDraggableIcon.getHeight();
+        if(!mIsDestroyed) mWindowManager.updateViewLayout(mCalcView, mCalcParams);
 
         // Animate calc in
         View child = mCalcView.getChildAt(0);
@@ -553,7 +563,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
             mPersist.setDeleteMode(mLogic.getDeleteMode());
             mPersist.save();
         }
-        if (mCalcView != null) {
+        if(mCalcView != null) {
             View child = mCalcView.getChildAt(0);
             child.setAlpha(1);
             child.animate().setDuration(150).alpha(0).setListener(new AnimationFinishedListener() {
@@ -575,9 +585,9 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     private float calculateVelocityX() {
         int depreciation = mDeltaXArray.size() + 1;
         float sum = 0;
-        for (Float f : mDeltaXArray) {
+        for(Float f : mDeltaXArray) {
             depreciation--;
-            if (depreciation > 5) continue;
+            if(depreciation > 5) continue;
             sum += f / depreciation;
         }
         return sum;
@@ -586,9 +596,9 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     private float calculateVelocityY() {
         int depreciation = mDeltaYArray.size() + 1;
         float sum = 0;
-        for (Float f : mDeltaYArray) {
+        for(Float f : mDeltaYArray) {
             depreciation--;
-            if (depreciation > 5) continue;
+            if(depreciation > 5) continue;
             sum += f / depreciation;
         }
         return sum;
@@ -609,7 +619,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
     private int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
+        if(resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
@@ -657,8 +667,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
         }
 
         private void setup(int x, int y) {
-            if (mIsAnimationLocked)
-                throw new RuntimeException("Returning to user's finger. Avoid animations while mIsAnimationLocked flag is set.");
+            if(mIsAnimationLocked) throw new RuntimeException("Returning to user's finger. Avoid animations while mIsAnimationLocked flag is set.");
             mDestX = x;
             mDestY = y;
 
@@ -682,7 +691,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
         public long getRemainingDuration() {
             long elapsedTime = System.currentTimeMillis() - mStartTime;
             long remainingDuration = mDuration - elapsedTime;
-            if (remainingDuration < 0) remainingDuration = 0;
+            if(remainingDuration < 0) remainingDuration = 0;
             return remainingDuration;
         }
 
@@ -706,7 +715,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
             float velocityX = calculateVelocityX();
             int screenWidth = getScreenWidth();
             int destX = (mParams.x + mDraggableIcon.getWidth() / 2 > screenWidth / 2) ? screenWidth - mDraggableIcon.getWidth() - MARGIN_HORIZONTAL : 0 + MARGIN_HORIZONTAL;
-            if (Math.abs(velocityX) > 50) {
+            if(Math.abs(velocityX) > 50) {
                 destX = (velocityX > 0) ? screenWidth - mDraggableIcon.getWidth() - MARGIN_HORIZONTAL : 0 + MARGIN_HORIZONTAL;
             }
             return destX;
@@ -717,15 +726,14 @@ public class FloatingCalculator extends Service implements OnTouchListener {
             mInterpolator = new OvershootInterpolator(mTension);
             int screenHeight = getScreenHeight();
             int destY = mParams.y + (int) (velocityY * 3);
-            if (destY <= 0) destY = MARGIN_VERTICAL;
-            if (destY >= screenHeight - mDraggableIcon.getHeight())
-                destY = screenHeight - mDraggableIcon.getHeight() - MARGIN_VERTICAL;
+            if(destY <= 0) destY = MARGIN_VERTICAL;
+            if(destY >= screenHeight - mDraggableIcon.getHeight()) destY = screenHeight - mDraggableIcon.getHeight() - MARGIN_VERTICAL;
             return destY;
         }
 
         public void run() {
             mStartTime = System.currentTimeMillis();
-            for (mCurrentStep = 1; mCurrentStep <= mSteps; mCurrentStep++) {
+            for(mCurrentStep = 1; mCurrentStep <= mSteps; mCurrentStep++) {
                 long delay = mCurrentStep * mDuration / mSteps;
                 final float currentStep = mCurrentStep;
                 mAnimationHandler.postDelayed(new Runnable() {
@@ -736,9 +744,8 @@ public class FloatingCalculator extends Service implements OnTouchListener {
                         updateIconPosition(mOrigX - (int) (percent * mDistX), mOrigY - (int) (percent * mDistY));
 
                         // Notify the animation has ended
-                        if (currentStep >= mSteps) {
-                            if (mAnimationFinishedListener != null)
-                                mAnimationFinishedListener.onAnimationFinished();
+                        if(currentStep >= mSteps) {
+                            if(mAnimationFinishedListener != null) mAnimationFinishedListener.onAnimationFinished();
                         }
                     }
                 }, delay);

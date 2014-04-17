@@ -1,5 +1,11 @@
 package com.android2.calculator3;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import org.javia.arity.SyntaxException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,17 +20,10 @@ import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
 
-import org.javia.arity.SyntaxException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 public class GlassHomeActivity extends Activity {
     private static final int SPEECH_REQUEST = 1000;
     private List<Card> mCards = new ArrayList<Card>();
-    private CardScrollView mCardScrollView;
-    ;
+    private CardScrollView mCardScrollView;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class GlassHomeActivity extends Activity {
         mCardScrollView.activate();
         setContentView(mCardScrollView);
 
-        if (savedInstanceState == null) displaySpeechRecognizer();
+        if(savedInstanceState == null) displaySpeechRecognizer();
     }
 
     @Override
@@ -61,8 +60,8 @@ public class GlassHomeActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SPEECH_REQUEST) {
-            if (resultCode == RESULT_OK) {
+        if(requestCode == SPEECH_REQUEST) {
+            if(resultCode == RESULT_OK) {
                 List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 String spokenText = results.get(0).toLowerCase(Locale.US).replace("point", ".").replace("minus", "-").replace("plus", "+").replace("divided by", "/").replace("times", "*").replace("x", "*").replace(" ", "");
                 spokenText = SpellContext.replaceAllWithNumbers(spokenText);
@@ -76,14 +75,16 @@ public class GlassHomeActivity extends Activity {
                 String result;
                 try {
                     result = logic.evaluate(spokenText);
-                } catch (SyntaxException e) {
+                }
+                catch(SyntaxException e) {
                     result = getString(R.string.error);
                 }
                 Intent intent = new Intent(this, GlassResultActivity.class);
                 intent.putExtra(GlassResultActivity.EXTRA_RESULT, result);
                 startActivity(intent);
                 finish();
-            } else {
+            }
+            else {
                 detectionFailed();
             }
         }

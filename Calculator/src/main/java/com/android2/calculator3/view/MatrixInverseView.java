@@ -42,13 +42,13 @@ public class MatrixInverseView extends ThemedTextView {
         setPadding(0, 0, 0, 0);
         setTextColor(Theme.get(R.color.display_text_color));
         Typeface tf = Theme.getFont(getContext());
-        if (tf != null) setTypeface(tf);
+        if(tf != null) setTypeface(tf);
         setFont("display_font");
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent) {
         boolean changed = MatrixInverseView.load(text, parent, parent.getChildCount());
-        if (changed) {
+        if(changed) {
             // Always append a trailing EditText
             CalculatorEditText.load(parent);
         }
@@ -56,7 +56,7 @@ public class MatrixInverseView extends ThemedTextView {
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
-        if (!text.startsWith(PATTERN)) return false;
+        if(!text.startsWith(PATTERN)) return false;
 
         text.setText(text.substring(PATTERN.length()));
 

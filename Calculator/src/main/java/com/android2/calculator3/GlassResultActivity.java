@@ -1,5 +1,8 @@
 package com.android2.calculator3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +16,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GlassResultActivity extends Activity {
     public static String EXTRA_RESULT;
@@ -56,7 +56,7 @@ public class GlassResultActivity extends Activity {
         mTextToSpeech = new TextToSpeech(getBaseContext(), new OnInitListener() {
             @Override
             public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
+                if(status == TextToSpeech.SUCCESS) {
                     mIsTextToSpeechInit = true;
                     speakResult();
                 }
@@ -67,12 +67,12 @@ public class GlassResultActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mTextToSpeech != null) mTextToSpeech.shutdown();
+        if(mTextToSpeech != null) mTextToSpeech.shutdown();
     }
 
     private void speakResult() {
-        if (mTextToSpeech != null && mIsTextToSpeechInit) {
-            if (mResult.startsWith(String.valueOf(Logic.MINUS))) {
+        if(mTextToSpeech != null && mIsTextToSpeechInit) {
+            if(mResult.startsWith(String.valueOf(Logic.MINUS))) {
                 // Speech can't say "-1". It says "1" instead.
                 mResult = getString(R.string.speech_helper_negative, mResult.substring(1));
             }

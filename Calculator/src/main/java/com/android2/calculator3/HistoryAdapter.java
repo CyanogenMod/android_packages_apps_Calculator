@@ -16,18 +16,17 @@
 
 package com.android2.calculator3;
 
+import java.util.Vector;
+
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android2.calculator3.view.HistoryLine;
-
-import java.util.Vector;
 
 class HistoryAdapter extends BaseAdapter {
     private final Context mContext;
@@ -65,9 +64,10 @@ class HistoryAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         HistoryLine view;
-        if (convertView == null) {
+        if(convertView == null) {
             view = createView();
-        } else {
+        }
+        else {
             view = (HistoryLine) convertView;
         }
         HistoryEntry entry = mEntries.elementAt(position);

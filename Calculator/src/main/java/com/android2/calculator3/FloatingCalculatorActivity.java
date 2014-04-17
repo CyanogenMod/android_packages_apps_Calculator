@@ -34,8 +34,7 @@ public class FloatingCalculatorActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (FloatingCalculator.ACTIVE_CALCULATOR != null)
-            FloatingCalculator.ACTIVE_CALCULATOR.closeCalculator();
+        if(FloatingCalculator.ACTIVE_CALCULATOR != null) FloatingCalculator.ACTIVE_CALCULATOR.closeCalculator();
         ACTIVE_ACTIVITY = null;
     }
 

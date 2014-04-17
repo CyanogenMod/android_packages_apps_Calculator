@@ -3,8 +3,7 @@ package com.android2.calculator3;
 public class MutableString {
     private String mText;
 
-    public MutableString() {
-    }
+    public MutableString() {}
 
     public MutableString(String text) {
         this.mText = text;

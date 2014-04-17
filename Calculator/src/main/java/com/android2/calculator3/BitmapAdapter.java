@@ -1,15 +1,15 @@
 package com.android2.calculator3;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 /**
  * A simplified adapter. Handles caching of views as well as loading images from a URL efficiently.
@@ -32,7 +32,7 @@ public abstract class BitmapAdapter<T extends Serializable> extends ArrayAdapter
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
+        if(convertView == null) {
             convertView = inflateView();
         }
         updateView(convertView, getItem(position));
@@ -42,7 +42,7 @@ public abstract class BitmapAdapter<T extends Serializable> extends ArrayAdapter
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
+        if(convertView == null) {
             convertView = inflateDropdownView();
         }
         updateDropdownView(convertView, getItem(position));
@@ -55,11 +55,11 @@ public abstract class BitmapAdapter<T extends Serializable> extends ArrayAdapter
      */
     public void updateAdapter(List<T> data) {
         // Cache can be null
-        if (data == null) return;
+        if(data == null) return;
 
         List<T> adapterList = getList();
         adapterList.clear();
-        for (T t : data) {
+        for(T t : data) {
             adapterList.add(t);
         }
         notifyDataSetChanged();
@@ -71,7 +71,7 @@ public abstract class BitmapAdapter<T extends Serializable> extends ArrayAdapter
     protected void grabImage(View convertView, ImageView iv, String url) {
         // Kill the previous async tasks
         BitmapTask previousTask = mAsyncTasks.get(convertView);
-        if (previousTask != null) {
+        if(previousTask != null) {
             previousTask.cancel(true);
         }
         BitmapTask newTask = new BitmapTask(iv, url);
@@ -100,6 +100,5 @@ public abstract class BitmapAdapter<T extends Serializable> extends ArrayAdapter
     /**
      * Passes the view from inflateDropdownView. There's a chance views like TextViews already have data, so make sure to clear everything you aren't updating. Also, avoid permanent UI changes like adding or removing views to convertView.
      */
-    public void updateDropdownView(View convertView, T object) {
-    }
+    public void updateDropdownView(View convertView, T object) {}
 }

@@ -15,11 +15,6 @@
  */
 package com.android2.calculator3;
 
-import android.content.Context;
-import android.graphics.Paint.Align;
-
-import com.xlythe.engine.theme.Theme;
-
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -30,6 +25,11 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import org.achartengine.tools.PanListener;
 import org.achartengine.tools.ZoomEvent;
 import org.achartengine.tools.ZoomListener;
+
+import android.content.Context;
+import android.graphics.Paint.Align;
+
+import com.xlythe.engine.theme.Theme;
 
 public class Graph {
     public static final double MAX_HEIGHT_X = 10;
@@ -103,7 +103,7 @@ public class Graph {
     private void addXYSeries(XYMultipleSeriesDataset dataset, String title, double[] xValues, double[] yValues, int scale) {
         XYSeries series = new XYSeries(title, scale);
         int seriesLength = xValues.length;
-        for (int k = 0; k < seriesLength; k++) {
+        for(int k = 0; k < seriesLength; k++) {
             series.add(xValues[k], yValues[k]);
         }
         dataset.addSeries(series);
@@ -117,7 +117,7 @@ public class Graph {
         renderer.setLegendTextSize(20);
         renderer.setLegendHeight(22);
         renderer.setPointSize(5f);
-        renderer.setMargins(new int[]{20, 30, 15, 20});
+        renderer.setMargins(new int[] { 20, 30, 15, 20 });
         renderer.setMarginsColor(Theme.getColor(context, R.color.graph_background));
         renderer.setChartTitle("");
         renderer.setXTitle(context.getResources().getString(R.string.X));

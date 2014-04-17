@@ -199,24 +199,24 @@ public class GraphView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                mStartX = event.getX();
-                mStartY = event.getY();
-                mDragOffsetX = 0;
-                mDragOffsetY = 0;
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-            case MotionEvent.ACTION_MOVE:
-                mOffsetX += mDragOffsetX;
-                mOffsetY += mDragOffsetY;
-                mDragOffsetX = (int) (event.getX() - mStartX) / mLineMargin;
-                mDragOffsetY = (int) (event.getY() - mStartY) / mLineMargin;
-                mDragRemainderX = (int) (event.getX() - mStartX) % mLineMargin;
-                mDragRemainderY = (int) (event.getY() - mStartY) % mLineMargin;
-                mOffsetX -= mDragOffsetX;
-                mOffsetY -= mDragOffsetY;
-                break;
+        case MotionEvent.ACTION_DOWN:
+            mStartX = event.getX();
+            mStartY = event.getY();
+            mDragOffsetX = 0;
+            mDragOffsetY = 0;
+            break;
+        case MotionEvent.ACTION_UP:
+            break;
+        case MotionEvent.ACTION_MOVE:
+            mOffsetX += mDragOffsetX;
+            mOffsetY += mDragOffsetY;
+            mDragOffsetX = (int) (event.getX() - mStartX) / mLineMargin;
+            mDragOffsetY = (int) (event.getY() - mStartY) / mLineMargin;
+            mDragRemainderX = (int) (event.getX() - mStartX) % mLineMargin;
+            mDragRemainderY = (int) (event.getY() - mStartY) % mLineMargin;
+            mOffsetX -= mDragOffsetX;
+            mOffsetY -= mDragOffsetY;
+            break;
         }
         invalidate();
         return true;

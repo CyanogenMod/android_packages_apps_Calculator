@@ -15,8 +15,7 @@ public class FloatingCalculatorCreateShortCutActivity extends Activity {
 
         if(Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             // create shortcut if requested
-            Intent.ShortcutIconResource icon =
-                    Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_floating);
+            Intent.ShortcutIconResource icon = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_floating);
 
             Intent intent = new Intent();
             Intent launchIntent = new Intent(this, FloatingCalculatorOpenShortCutActivity.class);
@@ -39,8 +38,7 @@ public class FloatingCalculatorCreateShortCutActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (FloatingCalculator.ACTIVE_CALCULATOR != null)
-            FloatingCalculator.ACTIVE_CALCULATOR.closeCalculator();
+        if(FloatingCalculator.ACTIVE_CALCULATOR != null) FloatingCalculator.ACTIVE_CALCULATOR.closeCalculator();
         ACTIVE_ACTIVITY = null;
     }
 
