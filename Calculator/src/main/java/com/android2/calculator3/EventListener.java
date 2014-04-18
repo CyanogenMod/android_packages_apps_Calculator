@@ -240,7 +240,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
         if(CalculatorSettings.vibrateOnPress(mContext)) {
             Vibrator vi = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
             if(!vi.hasVibrator()) return;
-            vi.vibrate(100);
+            vi.vibrate(CalculatorSettings.getVibrationStrength());
         }
     }
 

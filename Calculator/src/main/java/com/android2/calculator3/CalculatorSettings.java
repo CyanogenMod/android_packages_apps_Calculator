@@ -73,4 +73,8 @@ public class CalculatorSettings {
     static void saveKey(Context context, String key, boolean value) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).commit();
     }
+
+    public static int getVibrationStrength() {
+        return 40;
+    }
 }
