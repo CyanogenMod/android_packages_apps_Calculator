@@ -91,7 +91,7 @@ class Persist {
             DataOutputStream out = new DataOutputStream(os);
             out.writeInt(LAST_VERSION);
             out.writeInt(mDeleteMode);
-            out.writeInt(mMode.quickSerializable);
+            out.writeInt(mMode == null ? Mode.DECIMAL.getQuickSerializable() : mMode.getQuickSerializable());
             mHistory.write(out);
             out.close();
         }
