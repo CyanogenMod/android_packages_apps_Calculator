@@ -75,6 +75,6 @@ public class CalculatorSettings {
     }
 
     public static int getVibrationStrength() {
-        return 40;
+        return 10;
     }
 }
