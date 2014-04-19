@@ -329,9 +329,9 @@ public class Page {
         public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
             if (NormalPanel.GRAPH.equals(this)) {
                 if (!mGraphHolder.containsKey(view)) {
-                    final GraphView graphDisplay = graph.getGraph(context);
-                    mGraphHolder.put(view, graphDisplay);
-                    graphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                    final GraphView graphView = logic.mGraphView = graph.createGraph(context);
+                    mGraphHolder.put(view, graphView);
+                    graphView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                         @Override
                         public void onViewDetachedFromWindow(View v) {
                             mGraphHolder.remove(view);
@@ -341,11 +341,11 @@ public class Page {
                         public void onViewAttachedToWindow(View v) {
                         }
                     });
-                    logic.setGraphDisplay(graphDisplay);
+                    logic.setGraphDisplay(graphView);
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
-                    l.addView(graphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    l.addView(graphView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-                    listener.setGraphDisplay(graphDisplay);
+                    listener.setGraphDisplay(graphView);
                     View zoomIn = view.findViewById(R.id.zoomIn);
                     zoomIn.setOnClickListener(listener);
 
@@ -357,6 +357,7 @@ public class Page {
                 } else {
                     mGraphHolder.get(view).invalidate();
                 }
+                logic.getGraphModule().updateGraph(graph);
             } else if (NormalPanel.HEX.equals(this)) {
                 if (logic != null) {
                     switch (logic.getBaseModule().getMode()) {
@@ -508,9 +509,10 @@ public class Page {
         public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
             if (LargePanel.GRAPH.equals(this)) {
                 if (!mGraphHolder.containsKey(view)) {
-                    final GraphView graphDisplay = graph.getGraph(context);
-                    mGraphHolder.put(view, graphDisplay);
-                    graphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                    final GraphView graphView = logic.mGraphView = graph.createGraph(context);
+                    logic.getGraphModule().updateGraph(graph);
+                    mGraphHolder.put(view, graphView);
+                    graphView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                         @Override
                         public void onViewDetachedFromWindow(View v) {
                             mGraphHolder.remove(view);
@@ -520,11 +522,11 @@ public class Page {
                         public void onViewAttachedToWindow(View v) {
                         }
                     });
-                    logic.setGraphDisplay(graphDisplay);
+                    logic.setGraphDisplay(graphView);
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
-                    l.addView(graphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    l.addView(graphView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-                    listener.setGraphDisplay(graphDisplay);
+                    listener.setGraphDisplay(graphView);
                     View zoomIn = view.findViewById(R.id.zoomIn);
                     zoomIn.setOnClickListener(listener);
 

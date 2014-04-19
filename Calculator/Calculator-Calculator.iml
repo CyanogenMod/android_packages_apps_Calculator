@@ -72,7 +72,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="slider" level="project" />
     <orderEntry type="library" exported="" name="ejml-0.21" level="project" />
-    <orderEntry type="library" exported="" name="achartengine" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />

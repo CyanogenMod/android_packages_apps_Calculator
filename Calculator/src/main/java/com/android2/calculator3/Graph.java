@@ -25,40 +25,30 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Graph {
-    public static final double MAX_HEIGHT_X = 10;
-    public static final double MAX_HEIGHT_Y = 10;
-    public static final double MIN_HEIGHT_X = -10;
-    public static final double MIN_HEIGHT_Y = -10;
     private final Logic mLogic;
     private GraphView mGraphView;
-    private LinkedList<GraphView.Point> mData;
+    private LinkedList<GraphView.Point> mData = new LinkedList<GraphView.Point>();
 
     public Graph(Logic l) {
         mLogic = l;
     }
 
-    public GraphView getGraph(Context context) {
-        String title = "";
-        double[] xValues = new double[0];
-        double[] yValues = new double[0];
-
+    public GraphView createGraph(Context context) {
         mLogic.setGraph(this);
 
         mGraphView = new GraphView(context);
         mGraphView.setPanListener(new GraphView.PanListener() {
             @Override
             public void panApplied() {
-                mLogic.getGraphModule().updateGraphCatchErrors(Graph.this);
+                mLogic.getGraphModule().updateGraph(Graph.this);
             }
         });
         mGraphView.setZoomListener(new GraphView.ZoomListener() {
             @Override
             public void zoomApplied(int level) {
-                mLogic.getGraphModule().updateGraphCatchErrors(Graph.this);
+                mLogic.getGraphModule().updateGraph(Graph.this);
             }
         });
-
-        mLogic.getGraphModule().updateGraphCatchErrors(this);
 
         mGraphView.setBackgroundColor(Theme.getColor(context, R.color.graph_background));
         mGraphView.setTextColor(Theme.getColor(context, R.color.graph_labels_color));
@@ -67,11 +57,16 @@ public class Graph {
         return mGraphView;
     }
 
-    private void addData(float[] xValues, float[] yValues) {
+    public void addData(float[] xValues, float[] yValues) {
         int seriesLength = xValues.length;
         for (int k = 0; k < seriesLength; k++) {
             mData.add(new GraphView.Point(xValues[k], yValues[k]));
         }
+        mGraphView.setData(mData);
+    }
+
+    public void setData(LinkedList<GraphView.Point> data) {
+        mData = data;
         mGraphView.setData(mData);
     }
 

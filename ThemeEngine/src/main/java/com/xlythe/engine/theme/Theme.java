@@ -399,9 +399,7 @@ public class Theme {
                 TYPEFACE_MAP.put(key, t);
                 return TYPEFACE_MAP.get(key);
             }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
+            catch(Exception e) {}
         }
 
         am = context.getResources().getAssets();
@@ -413,9 +411,7 @@ public class Theme {
                 TYPEFACE_MAP.put(key, t);
                 return TYPEFACE_MAP.get(key);
             }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
+            catch(Exception e) {}
         }
         TYPEFACE_MAP.put(key, null);
         return TYPEFACE_MAP.get(key);
