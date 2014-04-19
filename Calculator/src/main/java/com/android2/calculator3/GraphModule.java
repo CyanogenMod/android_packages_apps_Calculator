@@ -13,6 +13,7 @@ import java.util.List;
 
 public class GraphModule {
     Logic mLogic;
+    GraphTask mGraphTask;
 
     GraphModule(Logic logic) {
         this.mLogic = logic;
@@ -25,7 +26,9 @@ public class GraphModule {
             return;
         }
 
-        new GraphTask(graph, mLogic).execute(equation);
+        if(mGraphTask != null) mGraphTask.cancel(true);
+        mGraphTask = new GraphTask(graph, mLogic);
+        mGraphTask.execute(equation);
     }
 
     public static class GraphTask extends AsyncTask<String, String, GraphView> {
@@ -53,6 +56,7 @@ public class GraphModule {
             final double maxY = mLogic.mGraphView.getYAxisMax();
             final double minX = mLogic.mGraphView.getXAxisMin();
             final double maxX = mLogic.mGraphView.getXAxisMax();
+            System.out.println(minX+","+maxX+" "+minY+","+maxY);
 
             final LinkedList<GraphView.Point> series = new LinkedList<GraphView.Point>();
             double lastX = (maxX - minX) / 2 + minX;
@@ -168,7 +172,7 @@ public class GraphModule {
         }
 
         boolean graphChanged(String equation, double minX, double maxX, double minY, double maxY) {
-            return !equation.equals(mLogic.getText()) || minY != mLogic.mGraphView.getYAxisMin() || maxY != mLogic.mGraphView.getYAxisMax()
+            return isCancelled() || !equation.equals(mLogic.getText()) || minY != mLogic.mGraphView.getYAxisMin() || maxY != mLogic.mGraphView.getYAxisMax()
                     || minX != mLogic.mGraphView.getXAxisMin() || maxX != mLogic.mGraphView.getXAxisMax();
         }
 

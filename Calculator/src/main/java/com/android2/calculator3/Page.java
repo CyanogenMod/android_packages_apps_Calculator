@@ -341,6 +341,7 @@ public class Page {
                         @Override
                         public void onViewAttachedToWindow(View v) {}
                     });
+                    graphView.setData(graph.getData());
                     graphView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
                         public void onGlobalLayout() {
@@ -527,6 +528,7 @@ public class Page {
                         public void onViewAttachedToWindow(View v) {
                         }
                     });
+                    graphView.setData(graph.getData());
                     graphView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
                         public void onGlobalLayout() {
