@@ -60,7 +60,9 @@ public class GraphModule {
 
             if (equation[0].equals(mLogic.mY) && !equation[1].contains(mLogic.mY)) {
                 for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
-                    if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                    if (graphChanged(eq[0], minX, maxX, minY, maxY)) {
+                        return null;
+                    }
 
                     try {
                         mLogic.mSymbols.define(mLogic.mX, x);
@@ -72,13 +74,11 @@ public class GraphModule {
                             series.add(new GraphView.Point(x, y));
                         }
                         lastY = y;
-                    } catch (SyntaxException e) {
-                        e.printStackTrace();
-                    }
+                    } catch (SyntaxException e) {}
                 }
             } else if (equation[0].equals(mLogic.mX) && !equation[1].contains(mLogic.mX)) {
                 for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
-                    if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                    if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
 
                     try {
                         mLogic.mSymbols.define(mLogic.mY, y);
@@ -90,13 +90,11 @@ public class GraphModule {
                             series.add(new GraphView.Point(x, y));
                         }
                         lastX = x;
-                    } catch (SyntaxException e) {
-                        e.printStackTrace();
-                    }
+                    } catch (SyntaxException e) {}
                 }
             } else if (equation[1].equals(mLogic.mY) && !equation[0].contains(mLogic.mY)) {
                 for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
-                    if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                    if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
 
                     try {
                         mLogic.mSymbols.define(mLogic.mX, x);
@@ -108,13 +106,11 @@ public class GraphModule {
                             series.add(new GraphView.Point(x, y));
                         }
                         lastY = y;
-                    } catch (SyntaxException e) {
-                        e.printStackTrace();
-                    }
+                    } catch (SyntaxException e) {}
                 }
             } else if (equation[1].equals(mLogic.mX) && !equation[0].contains(mLogic.mX)) {
                 for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
-                    if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                    if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
 
                     try {
                         mLogic.mSymbols.define(mLogic.mY, y);
@@ -126,15 +122,15 @@ public class GraphModule {
                             series.add(new GraphView.Point(x, y));
                         }
                         lastX = x;
-                    } catch (SyntaxException e) {
-                        e.printStackTrace();
-                    }
+                    } catch (SyntaxException e) {}
                 }
             } else {
                 for (double x = minX; x <= maxX; x += (0.005 * (maxX - minX))) {
                     List<Double> values = new ArrayList<Double>();
                     for (double y = maxY; y >= minY; y -= (0.005 * (maxY - minY))) {
-                        if (graphChanged(mGraph, eq[0], minX, maxX, minY, maxY)) return null;
+                        if (graphChanged(eq[0], minX, maxX, minY, maxY)) {
+                            return null;
+                        }
 
                         try {
                             mLogic.mSymbols.define(mLogic.mX, x);
@@ -163,7 +159,6 @@ public class GraphModule {
                 }
             }
 
-            System.out.println("Setting data");
             mGraph.setData(series);
             return mLogic.mGraphView;
         }
@@ -172,7 +167,7 @@ public class GraphModule {
             return (100.0 * Math.abs(truth - result) / Math.abs(truth));
         }
 
-        boolean graphChanged(Graph graph, String equation, double minX, double maxX, double minY, double maxY) {
+        boolean graphChanged(String equation, double minX, double maxX, double minY, double maxY) {
             return !equation.equals(mLogic.getText()) || minY != mLogic.mGraphView.getYAxisMin() || maxY != mLogic.mGraphView.getYAxisMax()
                     || minX != mLogic.mGraphView.getXAxisMin() || maxX != mLogic.mGraphView.getXAxisMax();
         }

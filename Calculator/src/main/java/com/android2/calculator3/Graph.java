@@ -45,7 +45,7 @@ public class Graph {
         });
         mGraphView.setZoomListener(new GraphView.ZoomListener() {
             @Override
-            public void zoomApplied(int level) {
+            public void zoomApplied(float level) {
                 mLogic.getGraphModule().updateGraph(Graph.this);
             }
         });

@@ -166,7 +166,7 @@ public class GraphView extends View {
     }
 
     private int getRawX(Point p) {
-        for(int i = 1, j = mOffsetX; i * mLineMargin < getWidth(); i++, j++) {
+        for(int i = 1, j = mOffsetX; (i+1) * mLineMargin < getWidth(); i++, j++) {
             if(p.getX() >= j * mZoomLevel && p.getX() < j * mZoomLevel + 1 * mZoomLevel) {
                 // Point is close
                 int decimal = (int) (mLineMargin * (p.getX() - j * mZoomLevel));
@@ -180,7 +180,7 @@ public class GraphView extends View {
     }
 
     private int getRawY(Point p) {
-        for(int i = 1, j = -mOffsetY; i * mLineMargin < getHeight(); i++, j--) {
+        for(int i = 1, j = -mOffsetY; (i+1) * mLineMargin < getHeight(); i++, j--) {
             if(p.getY() >= j * mZoomLevel && p.getY() < j * mZoomLevel + 1 * mZoomLevel) {
                 // Point is close
                 int decimal = (int) (mLineMargin * (p.getY() - j * mZoomLevel));
@@ -220,6 +220,7 @@ public class GraphView extends View {
                 mDragRemainderY = (int) (event.getY() - mStartY) % mLineMargin;
                 mOffsetX -= mDragOffsetX;
                 mOffsetY -= mDragOffsetY;
+                if(mPanListener != null) mPanListener.panApplied();
                 break;
         }
         invalidate();
@@ -229,11 +230,13 @@ public class GraphView extends View {
     public void zoomIn() {
         mZoomLevel /= 2;
         invalidate();
+        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
     }
 
     public void zoomOut() {
         mZoomLevel *= 2;
         invalidate();
+        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
     }
 
     public void zoomReset() {
@@ -253,6 +256,8 @@ public class GraphView extends View {
         i--;
         mOffsetY = -i / 2;
         invalidate();
+        if(mPanListener != null) mPanListener.panApplied();
+        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
     }
 
     public int getXAxisMin() {
@@ -372,6 +377,6 @@ public class GraphView extends View {
     }
 
     public static interface ZoomListener {
-        public void zoomApplied(int level);
+        public void zoomApplied(float level);
     }
 }

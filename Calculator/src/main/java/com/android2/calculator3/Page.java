@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import com.android2.calculator3.view.CalculatorViewPager;
@@ -326,7 +327,7 @@ public class Page {
         }
 
         @Override
-        public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
+        public void refresh(Context context, final View view, EventListener listener, final Graph graph, final Logic logic) {
             if (NormalPanel.GRAPH.equals(this)) {
                 if (!mGraphHolder.containsKey(view)) {
                     final GraphView graphView = logic.mGraphView = graph.createGraph(context);
@@ -338,7 +339,12 @@ public class Page {
                         }
 
                         @Override
-                        public void onViewAttachedToWindow(View v) {
+                        public void onViewAttachedToWindow(View v) {}
+                    });
+                    graphView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            logic.getGraphModule().updateGraph(graph);
                         }
                     });
                     logic.setGraphDisplay(graphView);
@@ -357,7 +363,6 @@ public class Page {
                 } else {
                     mGraphHolder.get(view).invalidate();
                 }
-                logic.getGraphModule().updateGraph(graph);
             } else if (NormalPanel.HEX.equals(this)) {
                 if (logic != null) {
                     switch (logic.getBaseModule().getMode()) {
@@ -506,7 +511,7 @@ public class Page {
         }
 
         @Override
-        public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
+        public void refresh(Context context, final View view, EventListener listener, final Graph graph, final Logic logic) {
             if (LargePanel.GRAPH.equals(this)) {
                 if (!mGraphHolder.containsKey(view)) {
                     final GraphView graphView = logic.mGraphView = graph.createGraph(context);
@@ -520,6 +525,12 @@ public class Page {
 
                         @Override
                         public void onViewAttachedToWindow(View v) {
+                        }
+                    });
+                    graphView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            logic.getGraphModule().updateGraph(graph);
                         }
                     });
                     logic.setGraphDisplay(graphView);
