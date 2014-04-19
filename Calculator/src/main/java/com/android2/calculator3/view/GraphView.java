@@ -1,7 +1,9 @@
 package com.android2.calculator3.view;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,10 +12,18 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.android2.calculator3.R;
+import com.xlythe.engine.theme.Theme;
+
 public class GraphView extends View {
+    public static final double NULL_VALUE = Double.NaN;
+    private PanListener mPanListener;
+    private ZoomListener mZoomListener;
+
     private Paint mBackgroundPaint;
     private Paint mTextPaint;
     private Paint mAxisPaint;
@@ -48,7 +58,8 @@ public class GraphView extends View {
 
         mTextPaint = new Paint();
         mTextPaint.setColor(Color.BLACK);
-        mTextPaint.setTextSize(48);
+        mTextPaint.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+
 
         mAxisPaint = new Paint();
         mAxisPaint.setColor(Color.DKGRAY);
@@ -63,12 +74,6 @@ public class GraphView extends View {
         zoomReset();
 
         mData = new LinkedList<Point>();
-        mData.add(new Point(0, 0));
-        mData.add(new Point(1, 1));
-        mData.add(new Point(2, 2));
-        mData.add(new Point(2, 3));
-        mData.add(new Point(3, 0));
-        mData.add(new Point(7, 5));
     }
 
     @Override
@@ -146,26 +151,28 @@ public class GraphView extends View {
         }
 
         LinkedList<Point> data = new LinkedList<Point>(mData);
-        Point prev = data.remove();
-        for(Point p : data) {
-            int prevX = getRawX(prev);
-            int prevY = getRawY(prev);
-            int pX = getRawX(p);
-            int pY = getRawY(p);
+        if(data.size() != 0) {
+            Point prev = data.remove();
+            for (Point p : data) {
+                int prevX = getRawX(prev);
+                int prevY = getRawY(prev);
+                int pX = getRawX(p);
+                int pY = getRawY(p);
 
-            prev = p;
+                prev = p;
 
-            if(prevX == -1 || prevY == -1 || pX == -1 || pY == -1) continue;
+                if (prevX == -1 || prevY == -1 || pX == -1 || pY == -1) continue;
 
-            canvas.drawLine(prevX, prevY, pX, pY, mGraphPaint);
+                canvas.drawLine(prevX, prevY, pX, pY, mGraphPaint);
+            }
         }
     }
 
     private int getRawX(Point p) {
         for(int i = 1, j = mOffsetX; i * mLineMargin < getWidth(); i++, j++) {
-            if(p.getX() >= j * mZoomLevel && p.getX() < j * mZoomLevel + 1 * mZoomLevel) {
+            if(p.getX() >= j * mZoomLevel && p.getX() < (j + 1) * mZoomLevel) {
                 // Point is close
-                int decimal = (int) (mLineMargin * (p.getX() - j * mZoomLevel));
+                int decimal = (int) (mLineMargin * (p.getX() - j));
                 int pos = i * mLineMargin + mDragRemainderX + decimal;
 
                 if(pos < mLineMargin) return -1;
@@ -177,10 +184,10 @@ public class GraphView extends View {
 
     private int getRawY(Point p) {
         for(int i = 1, j = -mOffsetY; i * mLineMargin < getHeight(); i++, j--) {
-            if(p.getY() >= j * mZoomLevel && p.getY() < j * mZoomLevel + 1 * mZoomLevel) {
+            if(p.getY() >= j * mZoomLevel && p.getY() < (j + 1) * mZoomLevel) {
                 // Point is close
-                int decimal = (int) (mLineMargin * (p.getY() - j * mZoomLevel));
-                int pos = i * mLineMargin + mDragRemainderY + decimal;
+                int decimal = (int) (mLineMargin * (p.getY() - j));
+                int pos = i * mLineMargin + mDragRemainderY - decimal;
 
                 if(pos < mLineMargin) return -1;
                 else return pos;
@@ -199,24 +206,25 @@ public class GraphView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            mStartX = event.getX();
-            mStartY = event.getY();
-            mDragOffsetX = 0;
-            mDragOffsetY = 0;
-            break;
-        case MotionEvent.ACTION_UP:
-            break;
-        case MotionEvent.ACTION_MOVE:
-            mOffsetX += mDragOffsetX;
-            mOffsetY += mDragOffsetY;
-            mDragOffsetX = (int) (event.getX() - mStartX) / mLineMargin;
-            mDragOffsetY = (int) (event.getY() - mStartY) / mLineMargin;
-            mDragRemainderX = (int) (event.getX() - mStartX) % mLineMargin;
-            mDragRemainderY = (int) (event.getY() - mStartY) % mLineMargin;
-            mOffsetX -= mDragOffsetX;
-            mOffsetY -= mDragOffsetY;
-            break;
+            case MotionEvent.ACTION_DOWN:
+                mStartX = event.getX();
+                mStartY = event.getY();
+                mDragOffsetX = 0;
+                mDragOffsetY = 0;
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mOffsetX += mDragOffsetX;
+                mOffsetY += mDragOffsetY;
+                mDragOffsetX = (int) (event.getX() - mStartX) / mLineMargin;
+                mDragOffsetY = (int) (event.getY() - mStartY) / mLineMargin;
+                mDragRemainderX = (int) (event.getX() - mStartX) % mLineMargin;
+                mDragRemainderY = (int) (event.getY() - mStartY) % mLineMargin;
+                mOffsetX -= mDragOffsetX;
+                mOffsetY -= mDragOffsetY;
+                if(mPanListener != null) mPanListener.panApplied();
+                break;
         }
         invalidate();
         return true;
@@ -225,17 +233,18 @@ public class GraphView extends View {
     public void zoomIn() {
         mZoomLevel /= 2;
         invalidate();
+        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
     }
 
     public void zoomOut() {
         mZoomLevel *= 2;
         invalidate();
+        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
     }
 
     public void zoomReset() {
         mZoomLevel = 1;
-        mLineMargin = 70;
-        mMinLineMargin = 70;
+        mLineMargin = mMinLineMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
         int i = 0;
         while(i * mLineMargin < getWidth()) {
             i++;
@@ -249,20 +258,42 @@ public class GraphView extends View {
         i--;
         mOffsetY = -i / 2;
         invalidate();
+        if(mPanListener != null) mPanListener.panApplied();
+        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
+    }
+
+    public float getXAxisMin() {
+        return mOffsetX * mZoomLevel;
+    }
+
+    public float getXAxisMax() {
+        int num = mOffsetX;
+        for(int i = 1; i * mLineMargin < getWidth(); i++, num++);
+        return num * mZoomLevel;
+    }
+
+    public float getYAxisMin() {
+        return mOffsetY * mZoomLevel;
+    }
+
+    public float getYAxisMax() {
+        int num = mOffsetY;
+        for(int i = 1; i * mLineMargin < getHeight(); i++, num++);
+        return num * mZoomLevel;
     }
 
     public static class Point {
-        private float mX;
-        private float mY;
+        private double mX;
+        private double mY;
 
         public Point() {}
 
-        public Point(float x, float y) {
+        public Point(double x, double y) {
             mX = x;
             mY = y;
         }
 
-        public float getX() {
+        public double getX() {
             return mX;
         }
 
@@ -270,12 +301,84 @@ public class GraphView extends View {
             mX = x;
         }
 
-        public float getY() {
+        public double getY() {
             return mY;
         }
 
         public void setY(float y) {
             mY = y;
         }
+    }
+
+    public void setData(List<Point> data) {
+        mData = sort(new ArrayList<Point>(data));
+    }
+
+    private LinkedList<Point> sort(List<Point> data) {
+        LinkedList<Point> sorted = new LinkedList<Point>();
+        Point key = null;
+        while(!data.isEmpty()) {
+            if(key == null) {
+                key = data.get(0);
+                data.remove(0);
+                sorted.add(key);
+            }
+            Point closestPoint = null;
+            for(Point p : data) {
+                if(closestPoint == null)  closestPoint = p;
+                if(getDistance(key, p) < getDistance(key, closestPoint)) closestPoint = p;
+            }
+            key = closestPoint;
+            data.remove(key);
+            sorted.add(key);
+        }
+        return sorted;
+    }
+
+    private double getDistance(Point a, Point b) {
+        return Math.sqrt(square(a.getX()-b.getX())+square(a.getY()-b.getY()));
+    }
+
+    private double square(double val) {
+        return val*val;
+    }
+
+    public void setGridColor(int color) {
+        mAxisPaint.setColor(color);
+    }
+
+    public void setTextColor(int color) {
+        mTextPaint.setColor(color);
+    }
+
+    public void setGraphColor(int color) {
+        mGraphPaint.setColor(color);
+    }
+
+    @Override
+    public void setBackgroundColor(int color) { mBackgroundPaint.setColor(color); }
+
+    public void setPanListener(PanListener l) {
+        mPanListener = l;
+    }
+
+    public PanListener getPanListener() {
+        return mPanListener;
+    }
+
+    public void setZoomListener(ZoomListener l) {
+        mZoomListener = l;
+    }
+
+    public ZoomListener getZoomListener() {
+        return mZoomListener;
+    }
+
+    public static interface PanListener {
+        public void panApplied();
+    }
+
+    public static interface ZoomListener {
+        public void zoomApplied(float level);
     }
 }

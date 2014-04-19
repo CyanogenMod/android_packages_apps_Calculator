@@ -93,16 +93,6 @@ public class GlassResultActivity extends Activity {
 
     private class ExampleCardScrollAdapter extends CardScrollAdapter {
         @Override
-        public int findIdPosition(Object id) {
-            return -1;
-        }
-
-        @Override
-        public int findItemPosition(Object item) {
-            return mCards.indexOf(item);
-        }
-
-        @Override
         public int getCount() {
             return mCards.size();
         }
@@ -114,7 +104,12 @@ public class GlassResultActivity extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return mCards.get(position).toView();
+            return mCards.get(position).getView();
+        }
+
+        @Override
+        public int getPosition(Object obj) {
+            return mCards.indexOf(obj);
         }
     }
 }

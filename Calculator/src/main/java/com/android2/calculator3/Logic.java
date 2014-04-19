@@ -18,7 +18,6 @@ package com.android2.calculator3;
 
 import java.util.Locale;
 
-import org.achartengine.GraphicalView;
 import org.javia.arity.Complex;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
@@ -31,6 +30,7 @@ import android.widget.EditText;
 import com.android2.calculator3.BaseModule.Mode;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorDisplay.Scroll;
+import com.android2.calculator3.view.GraphView;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
@@ -76,7 +76,7 @@ public class Logic {
     private final String mDetString;
     private final String mCbrtString;
     CalculatorDisplay mDisplay;
-    GraphicalView mGraphDisplay;
+    GraphView mGraphView;
     Symbols mSymbols = new Symbols();
     String mResult = "";
     boolean mIsError = false;
@@ -135,7 +135,7 @@ public class Logic {
 
     static boolean isOperator(char c) {
         // plus minus times div
-        return "+\u2212\u00d7\u00f7/*".indexOf(c) != -1;
+        return "+\u2212\u00d7\u00f7/*^".indexOf(c) != -1;
     }
 
     static boolean isPostFunction(String text) {
@@ -147,8 +147,8 @@ public class Logic {
         return "^!%".indexOf(c) != -1;
     }
 
-    public void setGraphDisplay(GraphicalView graphDisplay) {
-        mGraphDisplay = graphDisplay;
+    public void setGraphDisplay(GraphView graphView) {
+        mGraphView = graphView;
     }
 
     public void setGraph(Graph graph) {
@@ -190,7 +190,7 @@ public class Logic {
         }
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
-        mGraphModule.updateGraphCatchErrors(mGraph);
+        mGraphModule.updateGraph(mGraph);
     }
 
     public void onTextChanged() {
@@ -253,12 +253,12 @@ public class Logic {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
             mResult = "";
         }
-        mGraphModule.updateGraphCatchErrors(mGraph);
+        mGraphModule.updateGraph(mGraph);
     }
 
     void onClear() {
         clear(mDeleteMode == DELETE_MODE_CLEAR);
-        mGraphModule.updateGraphCatchErrors(mGraph);
+        mGraphModule.updateGraph(mGraph);
     }
 
     public void onEnter() {

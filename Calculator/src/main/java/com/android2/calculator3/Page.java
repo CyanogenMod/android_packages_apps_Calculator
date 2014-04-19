@@ -1,22 +1,22 @@
 package com.android2.calculator3;
 
+import android.content.Context;
+import android.view.View;
+import android.view.View.OnAttachStateChangeListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
+
+import com.android2.calculator3.view.CalculatorViewPager;
+import com.android2.calculator3.view.GraphView;
+import com.xlythe.engine.theme.App;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.achartengine.GraphicalView;
-
-import android.content.Context;
-import android.view.View;
-import android.view.View.OnAttachStateChangeListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
-
-import com.android2.calculator3.view.CalculatorViewPager;
-import com.xlythe.engine.theme.App;
 
 public class Page {
     private final String mName;
@@ -56,7 +56,7 @@ public class Page {
 
     public static List<Page> getAllPages(Context context) {
         ArrayList<Page> list = new ArrayList<Page>();
-        for(Panel p : NormalPanel.values()) {
+        for (Panel p : NormalPanel.values()) {
             Page page = new Page(context, p);
             list.add(page);
         }
@@ -72,9 +72,9 @@ public class Page {
 
     public static List<Page> getPages(Context context) {
         ArrayList<Page> list = new ArrayList<Page>();
-        for(Panel p : NormalPanel.values()) {
+        for (Panel p : NormalPanel.values()) {
             Page page = new Page(context, p);
-            if(CalculatorSettings.isPageEnabled(context, page)) {
+            if (CalculatorSettings.isPageEnabled(context, page)) {
                 list.add(page);
             }
         }
@@ -87,10 +87,10 @@ public class Page {
         // }
         // }
         Collections.sort(list, new PageSort(context));
-        while(list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while (list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 list.add(new Page(list.get(i)));
             }
         }
@@ -99,17 +99,17 @@ public class Page {
 
     public static List<Page> getSmallPages(Context context) {
         ArrayList<Page> list = new ArrayList<Page>();
-        for(Panel p : SmallPanel.values()) {
+        for (Panel p : SmallPanel.values()) {
             Page page = new Page(context, p);
-            if(CalculatorSettings.isPageEnabled(context, page)) {
+            if (CalculatorSettings.isPageEnabled(context, page)) {
                 list.add(page);
             }
         }
         Collections.sort(list, new PageSort(context));
-        while(list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while (list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 list.add(new Page(list.get(i)));
             }
         }
@@ -118,9 +118,9 @@ public class Page {
 
     public static List<Page> getLargePages(Context context) {
         ArrayList<Page> list = new ArrayList<Page>();
-        for(Panel p : LargePanel.values()) {
+        for (Panel p : LargePanel.values()) {
             Page page = new Page(context, p);
-            if(CalculatorSettings.isPageEnabled(context, page)) {
+            if (CalculatorSettings.isPageEnabled(context, page)) {
                 list.add(page);
             }
         }
@@ -133,10 +133,10 @@ public class Page {
         // }
         // }
         Collections.sort(list, new PageSort(context));
-        while(list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
+        while (list.size() != 0 && list.size() < 4 && CalculatorSettings.useInfiniteScrolling(context)) {
             // Double the records to avoid using the same view twice
             int size = list.size();
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 list.add(new Page(list.get(i)));
             }
         }
@@ -145,33 +145,32 @@ public class Page {
 
     public static Page getCurrentPage(CalculatorViewPager pager) {
         List<Page> pages = ((CalculatorPageAdapter) pager.getAdapter()).getPages();
-        if(pages.size() != 0) {
+        if (pages.size() != 0) {
             return pages.get(pager.getCurrentItem() % pages.size());
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     public static Page getPage(List<Page> pages, String name) {
-        for(Page p : pages) {
-            if(p.getName().equals(name)) return p;
+        for (Page p : pages) {
+            if (p.getName().equals(name)) return p;
         }
         return null;
     }
 
     public static int getOrder(List<Page> pages, Page page) {
-        for(int i = 0; i < pages.size(); i++) {
+        for (int i = 0; i < pages.size(); i++) {
             Page p = pages.get(i);
-            if(p.equals(page)) return i;
+            if (p.equals(page)) return i;
         }
         return -1;
     }
 
     public static List<Page> removeDuplicates(List<Page> pages) {
         ArrayList<Page> clean = new ArrayList<Page>();
-        for(Page p : pages) {
-            if(clean.contains(p)) continue;
+        for (Page p : pages) {
+            if (clean.contains(p)) continue;
             clean.add(p);
         }
         return clean;
@@ -214,7 +213,7 @@ public class Page {
     }
 
     public void showTutorial(Calculator calc, boolean animate) {
-        if(mPanel != null && mPanel.hasTutorial()) {
+        if (mPanel != null && mPanel.hasTutorial()) {
             mPanel.showTutorial(calc, animate);
         }
     }
@@ -224,8 +223,8 @@ public class Page {
     }
 
     public View getView(Context context, EventListener listener, Graph graph, Logic logic) {
-        if(mPanel != null) {
-            if(mView == null) {
+        if (mPanel != null) {
+            if (mView == null) {
                 mView = mPanel.getView(context);
                 mView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                     @Override
@@ -234,24 +233,23 @@ public class Page {
                     }
 
                     @Override
-                    public void onViewAttachedToWindow(View v) {}
+                    public void onViewAttachedToWindow(View v) {
+                    }
                 });
             }
-            if(logic != null) mPanel.refresh(context, mView, listener, graph, logic);
-        }
-        else mView = null;
+            if (logic != null) mPanel.refresh(context, mView, listener, graph, logic);
+        } else mView = null;
         return mView;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null) {
-            if(obj.getClass().isAssignableFrom(Page.class)) {
+        if (obj != null) {
+            if (obj.getClass().isAssignableFrom(Page.class)) {
                 Page p = (Page) obj;
-                if(p.getKey() == null || getKey() == null) {
+                if (p.getKey() == null || getKey() == null) {
                     return p.getKey() == null && getKey() == null;
-                }
-                else {
+                } else {
                     return getKey().equals(p.getKey());
                 }
             }
@@ -268,8 +266,7 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
-        private Map<View, GraphicalView> mGraphHolder = new HashMap<View, GraphicalView>();
-
+        private Map<View, GraphView> mGraphHolder = new HashMap<View, GraphView>();
         NormalPanel(int name, int defaultValue, boolean hasTutorial) {
             mName = name;
             mDefaultValue = defaultValue;
@@ -290,52 +287,52 @@ public class Page {
 
         public View getView(Context context) {
             View v = null;
-            switch(this) {
-            case BASIC:
-                v = View.inflate(context, R.layout.simple_pad, null);
-                break;
-            case GRAPH:
-                v = View.inflate(context, R.layout.graph_pad, null);
-                break;
-            case MATRIX:
-                v = View.inflate(context, R.layout.matrix_pad, null);
-                break;
-            case ADVANCED:
-                v = View.inflate(context, R.layout.advanced_pad, null);
-                break;
-            case HEX:
-                v = View.inflate(context, R.layout.hex_pad, null);
-                break;
+            switch (this) {
+                case BASIC:
+                    v = View.inflate(context, R.layout.simple_pad, null);
+                    break;
+                case GRAPH:
+                    v = View.inflate(context, R.layout.graph_pad, null);
+                    break;
+                case MATRIX:
+                    v = View.inflate(context, R.layout.matrix_pad, null);
+                    break;
+                case ADVANCED:
+                    v = View.inflate(context, R.layout.advanced_pad, null);
+                    break;
+                case HEX:
+                    v = View.inflate(context, R.layout.hex_pad, null);
+                    break;
             }
             return v;
         }
 
         public void showTutorial(Calculator calc, boolean animate) {
-            switch(this) {
-            case BASIC:
-                calc.showFirstRunSimpleCling(animate);
-                break;
-            case GRAPH:
-                calc.showFirstRunGraphCling(animate);
-                break;
-            case MATRIX:
-                calc.showFirstRunMatrixCling(animate, getView(calc));
-                break;
-            case ADVANCED:
-                break;
-            case HEX:
-                calc.showFirstRunHexCling(animate);
-                break;
+            switch (this) {
+                case BASIC:
+                    calc.showFirstRunSimpleCling(animate);
+                    break;
+                case GRAPH:
+                    calc.showFirstRunGraphCling(animate);
+                    break;
+                case MATRIX:
+                    calc.showFirstRunMatrixCling(animate, getView(calc));
+                    break;
+                case ADVANCED:
+                    break;
+                case HEX:
+                    calc.showFirstRunHexCling(animate);
+                    break;
             }
         }
 
         @Override
-        public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
-            if(NormalPanel.GRAPH.equals(this)) {
-                if(!mGraphHolder.containsKey(view)) {
-                    final GraphicalView graphDisplay = graph.getGraph(context);
-                    mGraphHolder.put(view, graphDisplay);
-                    graphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+        public void refresh(Context context, final View view, EventListener listener, final Graph graph, final Logic logic) {
+            if (NormalPanel.GRAPH.equals(this)) {
+                if (!mGraphHolder.containsKey(view)) {
+                    final GraphView graphView = logic.mGraphView = graph.createGraph(context);
+                    mGraphHolder.put(view, graphView);
+                    graphView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                         @Override
                         public void onViewDetachedFromWindow(View v) {
                             mGraphHolder.remove(view);
@@ -344,11 +341,18 @@ public class Page {
                         @Override
                         public void onViewAttachedToWindow(View v) {}
                     });
-                    logic.setGraphDisplay(graphDisplay);
+                    graphView.setData(graph.getData());
+                    graphView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            logic.getGraphModule().updateGraph(graph);
+                        }
+                    });
+                    logic.setGraphDisplay(graphView);
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
-                    l.addView(graphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    l.addView(graphView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-                    listener.setGraphDisplay(graphDisplay);
+                    listener.setGraphDisplay(graphView);
                     View zoomIn = view.findViewById(R.id.zoomIn);
                     zoomIn.setOnClickListener(listener);
 
@@ -357,29 +361,26 @@ public class Page {
 
                     View zoomReset = view.findViewById(R.id.zoomReset);
                     zoomReset.setOnClickListener(listener);
+                } else {
+                    mGraphHolder.get(view).invalidate();
                 }
-                else {
-                    mGraphHolder.get(view).repaint();
-                }
-            }
-            else if(NormalPanel.HEX.equals(this)) {
-                if(logic != null) {
-                    switch(logic.getBaseModule().getMode()) {
-                    case BINARY:
-                        view.findViewById(R.id.bin).setSelected(true);
-                        break;
-                    case DECIMAL:
-                        view.findViewById(R.id.dec).setSelected(true);
-                        break;
-                    case HEXADECIMAL:
-                        view.findViewById(R.id.hex).setSelected(true);
-                        break;
+            } else if (NormalPanel.HEX.equals(this)) {
+                if (logic != null) {
+                    switch (logic.getBaseModule().getMode()) {
+                        case BINARY:
+                            view.findViewById(R.id.bin).setSelected(true);
+                            break;
+                        case DECIMAL:
+                            view.findViewById(R.id.dec).setSelected(true);
+                            break;
+                        case HEXADECIMAL:
+                            view.findViewById(R.id.hex).setSelected(true);
+                            break;
                     }
                 }
-            }
-            else if(NormalPanel.MATRIX.equals(this)) {
+            } else if (NormalPanel.MATRIX.equals(this)) {
                 View easterEgg = view.findViewById(R.id.easter);
-                if(easterEgg != null && listener != null) {
+                if (easterEgg != null && listener != null) {
                     easterEgg.setOnClickListener(listener);
                     easterEgg.setOnLongClickListener(listener);
                 }
@@ -393,7 +394,6 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
-
         SmallPanel(int name, int defaultValue, boolean hasTutorial) {
             mName = name;
             mDefaultValue = defaultValue;
@@ -414,41 +414,41 @@ public class Page {
 
         public View getView(Context context) {
             View v = null;
-            switch(this) {
-            case ADVANCED:
-                v = View.inflate(context, R.layout.advanced_pad, null);
-                break;
-            case HEX:
-                v = View.inflate(context, R.layout.hex_pad, null);
-                break;
+            switch (this) {
+                case ADVANCED:
+                    v = View.inflate(context, R.layout.advanced_pad, null);
+                    break;
+                case HEX:
+                    v = View.inflate(context, R.layout.hex_pad, null);
+                    break;
             }
             return v;
         }
 
         public void showTutorial(Calculator calc, boolean animate) {
-            switch(this) {
-            case ADVANCED:
-                break;
-            case HEX:
-                calc.showFirstRunHexCling(animate);
-                break;
+            switch (this) {
+                case ADVANCED:
+                    break;
+                case HEX:
+                    calc.showFirstRunHexCling(animate);
+                    break;
             }
         }
 
         @Override
         public void refresh(Context context, View view, EventListener listener, Graph graph, Logic logic) {
-            if(SmallPanel.HEX.equals(this)) {
-                if(logic != null) {
-                    switch(logic.getBaseModule().getMode()) {
-                    case BINARY:
-                        view.findViewById(R.id.bin).setSelected(true);
-                        break;
-                    case DECIMAL:
-                        view.findViewById(R.id.dec).setSelected(true);
-                        break;
-                    case HEXADECIMAL:
-                        view.findViewById(R.id.hex).setSelected(true);
-                        break;
+            if (SmallPanel.HEX.equals(this)) {
+                if (logic != null) {
+                    switch (logic.getBaseModule().getMode()) {
+                        case BINARY:
+                            view.findViewById(R.id.bin).setSelected(true);
+                            break;
+                        case DECIMAL:
+                            view.findViewById(R.id.dec).setSelected(true);
+                            break;
+                        case HEXADECIMAL:
+                            view.findViewById(R.id.hex).setSelected(true);
+                            break;
                     }
                 }
             }
@@ -462,8 +462,7 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
-        private Map<View, GraphicalView> mGraphHolder = new HashMap<View, GraphicalView>();
-
+        private Map<View, GraphView> mGraphHolder = new HashMap<View, GraphView>();
         LargePanel(int name, int defaultValue, boolean hasTutorial) {
             mName = name;
             mDefaultValue = defaultValue;
@@ -484,54 +483,63 @@ public class Page {
 
         public View getView(Context context) {
             View v = null;
-            switch(this) {
-            case BASIC:
-                v = View.inflate(context, R.layout.simple_pad, null);
-                break;
-            case GRAPH:
-                v = View.inflate(context, R.layout.graph_pad, null);
-                break;
-            case MATRIX:
-                v = View.inflate(context, R.layout.matrix_pad, null);
-                break;
+            switch (this) {
+                case BASIC:
+                    v = View.inflate(context, R.layout.simple_pad, null);
+                    break;
+                case GRAPH:
+                    v = View.inflate(context, R.layout.graph_pad, null);
+                    break;
+                case MATRIX:
+                    v = View.inflate(context, R.layout.matrix_pad, null);
+                    break;
             }
             return v;
         }
 
         public void showTutorial(Calculator calc, boolean animate) {
-            switch(this) {
-            case BASIC:
-                calc.showFirstRunSimpleCling(animate);
-                break;
-            case GRAPH:
-                calc.showFirstRunGraphCling(animate);
-                break;
-            case MATRIX:
-                calc.showFirstRunMatrixCling(animate, getView(calc));
-                break;
+            switch (this) {
+                case BASIC:
+                    calc.showFirstRunSimpleCling(animate);
+                    break;
+                case GRAPH:
+                    calc.showFirstRunGraphCling(animate);
+                    break;
+                case MATRIX:
+                    calc.showFirstRunMatrixCling(animate, getView(calc));
+                    break;
             }
         }
 
         @Override
-        public void refresh(Context context, final View view, EventListener listener, Graph graph, Logic logic) {
-            if(LargePanel.GRAPH.equals(this)) {
-                if(!mGraphHolder.containsKey(view)) {
-                    final GraphicalView graphDisplay = graph.getGraph(context);
-                    mGraphHolder.put(view, graphDisplay);
-                    graphDisplay.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+        public void refresh(Context context, final View view, EventListener listener, final Graph graph, final Logic logic) {
+            if (LargePanel.GRAPH.equals(this)) {
+                if (!mGraphHolder.containsKey(view)) {
+                    final GraphView graphView = logic.mGraphView = graph.createGraph(context);
+                    logic.getGraphModule().updateGraph(graph);
+                    mGraphHolder.put(view, graphView);
+                    graphView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                         @Override
                         public void onViewDetachedFromWindow(View v) {
                             mGraphHolder.remove(view);
                         }
 
                         @Override
-                        public void onViewAttachedToWindow(View v) {}
+                        public void onViewAttachedToWindow(View v) {
+                        }
                     });
-                    logic.setGraphDisplay(graphDisplay);
+                    graphView.setData(graph.getData());
+                    graphView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            logic.getGraphModule().updateGraph(graph);
+                        }
+                    });
+                    logic.setGraphDisplay(graphView);
                     LinearLayout l = (LinearLayout) view.findViewById(R.id.graph);
-                    l.addView(graphDisplay, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    l.addView(graphView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-                    listener.setGraphDisplay(graphDisplay);
+                    listener.setGraphDisplay(graphView);
                     View zoomIn = view.findViewById(R.id.zoomIn);
                     zoomIn.setOnClickListener(listener);
 
@@ -540,9 +548,8 @@ public class Page {
 
                     View zoomReset = view.findViewById(R.id.zoomReset);
                     zoomReset.setOnClickListener(listener);
-                }
-                else {
-                    mGraphHolder.get(view).repaint();
+                } else {
+                    mGraphHolder.get(view).invalidate();
                 }
             }
         }
