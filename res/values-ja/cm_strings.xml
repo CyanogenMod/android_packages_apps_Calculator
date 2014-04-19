@@ -63,7 +63,7 @@
   <string name="pref_theme">テーマ</string>
   <string name="pref_about">情報</string>
   <string name="returnToBasic">基本のパネルに戻る</string>
-  <string name="clickToOpenHistory">クリックすると履歴を開きます</string>
+  <string name="clickToOpenHistory">クリックして履歴を開く</string>
   <string name="digitGrouping">桁区切り</string>
   <string name="trigUnits">角度の単位</string>
   <string name="radians">RAD</string>
