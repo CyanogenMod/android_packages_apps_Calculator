@@ -1,10 +1,5 @@
 package com.android2.calculator3.view;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,13 +11,17 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.android2.calculator3.R;
-import com.xlythe.engine.theme.Theme;
+import com.android2.calculator3.Logic;
 
-public class GraphView extends View {
-    public static final double NULL_VALUE = Double.NaN;
-    private PanListener mPanListener;
-    private ZoomListener mZoomListener;
+import org.javia.arity.SyntaxException;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class GraphView2 extends View {
+    private static final DecimalFormat mFormat = new DecimalFormat("#.#");
 
     private Paint mBackgroundPaint;
     private Paint mTextPaint;
@@ -33,20 +32,22 @@ public class GraphView extends View {
     private int mLineMargin;
     private int mMinLineMargin;
     private float mZoomLevel = 1;
-    DecimalFormat mFormat = new DecimalFormat("#.#");
-    private LinkedList<Point> mData;
+    private Rect mAxisRect;
+    private Rect mGraphRect;
+    private String mEquation = "Y=X";
+    private Logic mLogic;
 
-    public GraphView(Context context) {
+    public GraphView2(Context context) {
         super(context);
         setup();
     }
 
-    public GraphView(Context context, AttributeSet attrs) {
+    public GraphView2(Context context, AttributeSet attrs) {
         super(context, attrs);
         setup();
     }
 
-    public GraphView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GraphView2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setup();
     }
@@ -60,20 +61,21 @@ public class GraphView extends View {
         mTextPaint.setColor(Color.BLACK);
         mTextPaint.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
 
-
         mAxisPaint = new Paint();
         mAxisPaint.setColor(Color.DKGRAY);
         mAxisPaint.setStyle(Style.STROKE);
         mAxisPaint.setStrokeWidth(2);
+        mAxisRect = new Rect();
 
         mGraphPaint = new Paint();
         mGraphPaint.setColor(Color.CYAN);
         mGraphPaint.setStyle(Style.STROKE);
         mGraphPaint.setStrokeWidth(6);
+        mGraphRect = new Rect();
+
+        mLogic = new Logic(getContext());
 
         zoomReset();
-
-        mData = new LinkedList<Point>();
     }
 
     @Override
@@ -113,7 +115,6 @@ public class GraphView extends View {
         canvas.drawPaint(mBackgroundPaint);
 
         // Draw the grid lines
-        Rect bounds = new Rect();
         int previousLine = 0;
         for(int i = 1, j = mOffsetX; i * mLineMargin < getWidth(); i++, j++) {
             // Draw vertical lines
@@ -127,8 +128,8 @@ public class GraphView extends View {
 
             // Draw label on left
             String text = mFormat.format(j * mZoomLevel);
-            mTextPaint.getTextBounds(text, 0, text.length(), bounds);
-            int textWidth = bounds.right - bounds.left;
+            mTextPaint.getTextBounds(text, 0, text.length(), mAxisRect);
+            int textWidth = mAxisRect.right - mAxisRect.left;
             canvas.drawText(text, x - textWidth / 2, mLineMargin / 2 + mTextPaint.getTextSize() / 2, mTextPaint);
         }
         previousLine = 0;
@@ -144,58 +145,35 @@ public class GraphView extends View {
 
             // Draw label on left
             String text = mFormat.format(-j * mZoomLevel);
-            mTextPaint.getTextBounds(text, 0, text.length(), bounds);
-            int textHeight = bounds.bottom - bounds.top;
-            int textWidth = bounds.right - bounds.left;
+            mTextPaint.getTextBounds(text, 0, text.length(), mAxisRect);
+            int textHeight = mAxisRect.bottom - mAxisRect.top;
+            int textWidth = mAxisRect.right - mAxisRect.left;
             canvas.drawText(text, mLineMargin / 2 - textWidth / 2, y + textHeight / 2, mTextPaint);
         }
 
-        LinkedList<Point> data = new LinkedList<Point>(mData);
-        if(data.size() != 0) {
-            Point prev = data.remove();
-            for (Point p : data) {
-                int prevX = getRawX(prev);
-                int prevY = getRawY(prev);
-                int pX = getRawX(p);
-                int pY = getRawY(p);
-
-                prev = p;
-
-                if (prevX == -1 || prevY == -1 || pX == -1 || pY == -1) continue;
-
-                canvas.drawLine(prevX, prevY, pX, pY, mGraphPaint);
+        // TODO graph from equation text
+        int size = mLineMargin/2;
+        for(int i = mDragRemainderY; i < getHeight(); i+=size) {
+            if(i < mLineMargin) continue;
+            for(int j = mDragRemainderX; j < getWidth(); j+=size) {
+                if(j < mLineMargin) continue;
+                mGraphRect.top = i;
+                mGraphRect.bottom = (i+size);
+                mGraphRect.left = j;
+                mGraphRect.right = (j+size);
+                if(rectContainsEquation(mGraphRect)) canvas.drawRect(mGraphRect, mGraphPaint);
             }
         }
     }
 
-    private int getRawX(Point p) {
-        if(Double.isNaN(p.getX()) || Double.isInfinite(p.getX())) return -1;
-
-        // The left line is at pos
-        float leftLine = mLineMargin + mDragRemainderX;
-        // And equals
-        float val = mOffsetX * mZoomLevel;
-        // And changes at a rate of
-        float slope = mLineMargin / mZoomLevel;
-        // Put it all together
-        int pos = (int) (slope * (p.getX()-val) + leftLine);
-
-        return pos;
-    }
-
-    private int getRawY(Point p) {
-        if(Double.isNaN(p.getY()) || Double.isInfinite(p.getY())) return -1;
-
-        // The top line is at pos
-        float topLine = mLineMargin + mDragRemainderY;
-        // And equals
-        float val = -mOffsetY * mZoomLevel;
-        // And changes at a rate of
-        float slope = mLineMargin / mZoomLevel;
-        // Put it all together
-        int pos = (int) (-slope * (p.getY()-val) + topLine);
-
-        return pos;
+    private boolean rectContainsEquation(Rect r) {
+        final String[] equation = mEquation.split("=");
+        try {
+            mLogic.mSymbols.define(mLogic.mX, r.left);
+            mLogic.mSymbols.define(mLogic.mY, r.top);
+            double left = mLogic.mSymbols.eval(equation[0]);
+        } catch (SyntaxException e) {}
+        return true;
     }
 
     private float mStartX;
@@ -225,7 +203,6 @@ public class GraphView extends View {
                 mDragRemainderY = (int) (event.getY() - mStartY) % mLineMargin;
                 mOffsetX -= mDragOffsetX;
                 mOffsetY -= mDragOffsetY;
-                if(mPanListener != null) mPanListener.panApplied();
                 break;
         }
         invalidate();
@@ -235,13 +212,11 @@ public class GraphView extends View {
     public void zoomIn() {
         mZoomLevel /= 2;
         invalidate();
-        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
     }
 
     public void zoomOut() {
         mZoomLevel *= 2;
         invalidate();
-        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
     }
 
     public void zoomReset() {
@@ -260,85 +235,6 @@ public class GraphView extends View {
         i--;
         mOffsetY = -i / 2;
         invalidate();
-        if(mPanListener != null) mPanListener.panApplied();
-        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
-    }
-
-    public float getXAxisMin() {
-        return mOffsetX * mZoomLevel;
-    }
-
-    public float getXAxisMax() {
-        int num = mOffsetX;
-        for(int i = 1; i * mLineMargin < getWidth(); i++, num++);
-        return num * mZoomLevel;
-    }
-
-    public float getYAxisMin() {
-        return mOffsetY * mZoomLevel;
-    }
-
-    public float getYAxisMax() {
-        int num = mOffsetY;
-        for(int i = 1; i * mLineMargin < getHeight(); i++, num++);
-        return num * mZoomLevel;
-    }
-
-    public static class Point {
-        private double mX;
-        private double mY;
-
-        public Point() {}
-
-        public Point(double x, double y) {
-            mX = x;
-            mY = y;
-        }
-
-        public double getX() {
-            return mX;
-        }
-
-        public void setX(float x) {
-            mX = x;
-        }
-
-        public double getY() {
-            return mY;
-        }
-
-        public void setY(float y) {
-            mY = y;
-        }
-    }
-
-    public void setData(List<Point> data) {
-        mData = sort(new ArrayList<Point>(data));
-    }
-
-    private LinkedList<Point> sort(List<Point> data) {
-        LinkedList<Point> sorted = new LinkedList<Point>();
-        Point key = null;
-        while(!data.isEmpty()) {
-            if(key == null) {
-                key = data.get(0);
-                data.remove(0);
-                sorted.add(key);
-            }
-            Point closestPoint = null;
-            for(Point p : data) {
-                if(closestPoint == null)  closestPoint = p;
-                if(getDistance(key, p) < getDistance(key, closestPoint)) closestPoint = p;
-            }
-            key = closestPoint;
-            data.remove(key);
-            sorted.add(key);
-        }
-        return sorted;
-    }
-
-    private double getDistance(Point a, Point b) {
-        return Math.sqrt(square(a.getX()-b.getX())+square(a.getY()-b.getY()));
     }
 
     private double square(double val) {
@@ -359,28 +255,4 @@ public class GraphView extends View {
 
     @Override
     public void setBackgroundColor(int color) { mBackgroundPaint.setColor(color); }
-
-    public void setPanListener(PanListener l) {
-        mPanListener = l;
-    }
-
-    public PanListener getPanListener() {
-        return mPanListener;
-    }
-
-    public void setZoomListener(ZoomListener l) {
-        mZoomListener = l;
-    }
-
-    public ZoomListener getZoomListener() {
-        return mZoomListener;
-    }
-
-    public static interface PanListener {
-        public void panApplied();
-    }
-
-    public static interface ZoomListener {
-        public void zoomApplied(float level);
-    }
 }

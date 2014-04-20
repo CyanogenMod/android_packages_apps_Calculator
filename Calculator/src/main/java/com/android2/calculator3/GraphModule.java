@@ -22,7 +22,10 @@ public class GraphModule {
     void updateGraph(Graph graph) {
         final String equation = mLogic.getText();
 
-        if ((equation.length() != 0 && Logic.isOperator(equation.charAt(equation.length() - 1))) || mLogic.displayContainsMatrices() || equation.endsWith("(")) {
+        boolean panelDisabled = !CalculatorSettings.isPageEnabled(mLogic.getContext(), Page.NormalPanel.GRAPH);
+        boolean endsWithOperator = equation.length() != 0 && (Logic.isOperator(equation.charAt(equation.length() - 1)) || equation.endsWith("("));
+        boolean containsMatrices = mLogic.displayContainsMatrices();
+        if (panelDisabled || endsWithOperator || containsMatrices) {
             return;
         }
 

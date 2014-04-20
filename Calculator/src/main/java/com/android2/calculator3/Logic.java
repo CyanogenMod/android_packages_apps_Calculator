@@ -61,8 +61,8 @@ public class Logic {
     final int mDecSeparatorDistance;
     final int mBinSeparatorDistance;
     final int mHexSeparatorDistance;
-    final String mX;
-    final String mY;
+    public final String mX;
+    public final String mY;
     private final Context mContext;
     private History mHistory;
     private final String mSinString;
@@ -77,7 +77,7 @@ public class Logic {
     private final String mCbrtString;
     CalculatorDisplay mDisplay;
     GraphView mGraphView;
-    Symbols mSymbols = new Symbols();
+    public Symbols mSymbols = new Symbols();
     String mResult = "";
     boolean mIsError = false;
     int mLineLength = 0;
@@ -88,7 +88,7 @@ public class Logic {
     private MatrixModule mMatrixModule;
     private Listener mListener;
 
-    Logic(Context context) {
+    public Logic(Context context) {
         this(context, null);
     }
 
@@ -456,6 +456,10 @@ public class Logic {
 
     public boolean isError() {
         return getText().equals(mErrorString);
+    }
+
+    public Context getContext() {
+        return mContext;
     }
 
     public interface Listener {
