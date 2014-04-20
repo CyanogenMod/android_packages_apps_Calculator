@@ -248,7 +248,8 @@ public class GraphView extends View {
                 }
                 else if (mMode == ZOOM) {
                     double distance = getDistance(new Point(event.getX(0), event.getY(0)), new Point(event.getX(1), event.getY(1)));
-                    float zoom = (float) (3 / (mZoomInitDistance - distance));
+                    double delta = mZoomInitDistance-distance;
+                    float zoom = (float) (delta / mZoomInitDistance);
                     setZoomLevel(mZoomInitLevel + zoom);
                 }
                 break;
