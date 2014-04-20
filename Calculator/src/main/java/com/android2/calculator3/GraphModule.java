@@ -47,6 +47,11 @@ public class GraphModule {
         protected GraphView doInBackground(String... eq) {
             final String[] equation = eq[0].split("=");
 
+            if(mLogic == null || mGraph == null) {
+                cancel(true);
+                return null;
+            }
+
             if (equation.length != 2) {
                 mGraph.setData(new LinkedList<GraphView.Point>());
                 return mLogic.mGraphView;
@@ -86,6 +91,9 @@ public class GraphModule {
                         series.add(new GraphView.Point(x, y));
                     } catch (SyntaxException e) {}
                 }
+
+                mGraph.setData(series, false);
+                return mLogic.mGraphView;
             } else if (equation[1].equals(mLogic.mY) && !equation[0].contains(mLogic.mY)) {
                 for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
                     if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
@@ -109,6 +117,9 @@ public class GraphModule {
                         series.add(new GraphView.Point(x, y));
                     } catch (SyntaxException e) {}
                 }
+
+                mGraph.setData(series, false);
+                return mLogic.mGraphView;
             } else {
                 for (double x = minX; x <= maxX; x += (0.005 * (maxX - minX))) {
                     List<Double> values = new ArrayList<Double>();
