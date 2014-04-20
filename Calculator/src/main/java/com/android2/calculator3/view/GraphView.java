@@ -150,6 +150,7 @@ public class GraphView extends View {
             canvas.drawText(text, mLineMargin / 2 - textWidth / 2, y + textHeight / 2, mTextPaint);
         }
 
+        canvas.clipRect(mLineMargin, mLineMargin, getWidth(), getHeight());
         LinkedList<Point> data = new LinkedList<Point>(mData);
         if(data.size() != 0) {
             Point prev = data.remove();
