@@ -64,8 +64,12 @@ public class Graph {
     }
 
     public void setData(LinkedList<GraphView.Point> data) {
+        setData(data, true);
+    }
+
+    public void setData(LinkedList<GraphView.Point> data, boolean sort) {
         mData = data;
-        mGraphView.setData(mData);
+        mGraphView.setData(mData, sort);
     }
 
     public LinkedList<GraphView.Point> getData() {

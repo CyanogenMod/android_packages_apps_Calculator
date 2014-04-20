@@ -15,6 +15,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android2.calculator3.R;
 import com.xlythe.engine.theme.Theme;
@@ -35,6 +36,7 @@ public class GraphView extends View {
     private float mZoomLevel = 1;
     DecimalFormat mFormat = new DecimalFormat("#.#");
     private LinkedList<Point> mData;
+    private float mMagicNumber;
 
     public GraphView(Context context) {
         super(context);
@@ -52,6 +54,8 @@ public class GraphView extends View {
     }
 
     private void setup() {
+        mMagicNumber = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
+
         mBackgroundPaint = new Paint();
         mBackgroundPaint.setColor(Color.WHITE);
         mBackgroundPaint.setStyle(Style.FILL);
@@ -153,24 +157,30 @@ public class GraphView extends View {
         canvas.clipRect(mLineMargin, mLineMargin, getWidth(), getHeight());
         LinkedList<Point> data = new LinkedList<Point>(mData);
         if(data.size() != 0) {
-            Point prev = data.remove();
-            for (Point p : data) {
-                int prevX = getRawX(prev);
-                int prevY = getRawY(prev);
-                int pX = getRawX(p);
-                int pY = getRawY(p);
+            Point previousPoint = data.remove();
+            for (Point currentPoint : data) {
+                int aX = getRawX(previousPoint);
+                int aY = getRawY(previousPoint);
+                int bX = getRawX(currentPoint);
+                int bY = getRawY(currentPoint);
 
-                prev = p;
+                previousPoint = currentPoint;
 
-                if (prevX == -1 || prevY == -1 || pX == -1 || pY == -1) continue;
+                if (aX == -1 || aY == -1 || bX == -1 || bY == -1 || tooFar(aX, aY, bX, bY)) continue;
 
-                canvas.drawLine(prevX, prevY, pX, pY, mGraphPaint);
+                canvas.drawLine(aX, aY, bX, bY, mGraphPaint);
             }
         }
     }
 
+    private boolean tooFar(float aX, float aY, float bX, float bY) {
+        boolean horzAsymptote = (aX > getXAxisMax() && bX < getXAxisMin()) || (aX < getXAxisMin() && bX > getXAxisMax());
+        boolean vertAsymptote = (aY > getYAxisMax() && bY < getYAxisMin()) || (aY < getYAxisMin() && bY > getYAxisMax());
+        return horzAsymptote || vertAsymptote;
+    }
+
     private int getRawX(Point p) {
-        if(Double.isNaN(p.getX()) || Double.isInfinite(p.getX())) return -1;
+        if(p == null || Double.isNaN(p.getX()) || Double.isInfinite(p.getX())) return -1;
 
         // The left line is at pos
         float leftLine = mLineMargin + mDragRemainderX;
@@ -185,7 +195,7 @@ public class GraphView extends View {
     }
 
     private int getRawY(Point p) {
-        if(Double.isNaN(p.getY()) || Double.isInfinite(p.getY())) return -1;
+        if(p == null || Double.isNaN(p.getY()) || Double.isInfinite(p.getY())) return -1;
 
         // The top line is at pos
         float topLine = mLineMargin + mDragRemainderY;
@@ -199,54 +209,100 @@ public class GraphView extends View {
         return pos;
     }
 
+    private static final int DRAG = 1;
+    private static final int ZOOM = 2;
     private float mStartX;
     private float mStartY;
     private int mDragOffsetX;
     private int mDragOffsetY;
     private int mDragRemainderX;
     private int mDragRemainderY;
+    private double mZoomInitDistance;
+    private float mZoomInitLevel;
+    private int mMode;
+    private int mPointers;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // Update mode if pointer count changes
+        if(mPointers != event.getPointerCount()) {
+            setMode(event);
+        };
         switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mStartX = event.getX();
-                mStartY = event.getY();
-                mDragOffsetX = 0;
-                mDragOffsetY = 0;
+                setMode(event);
                 break;
             case MotionEvent.ACTION_UP:
                 break;
             case MotionEvent.ACTION_MOVE:
-                mOffsetX += mDragOffsetX;
-                mOffsetY += mDragOffsetY;
-                mDragOffsetX = (int) (event.getX() - mStartX) / mLineMargin;
-                mDragOffsetY = (int) (event.getY() - mStartY) / mLineMargin;
-                mDragRemainderX = (int) (event.getX() - mStartX) % mLineMargin;
-                mDragRemainderY = (int) (event.getY() - mStartY) % mLineMargin;
-                mOffsetX -= mDragOffsetX;
-                mOffsetY -= mDragOffsetY;
-                if(mPanListener != null) mPanListener.panApplied();
+                if (mMode == DRAG) {
+                    mOffsetX += mDragOffsetX;
+                    mOffsetY += mDragOffsetY;
+                    mDragOffsetX = (int) (event.getX() - mStartX) / mLineMargin;
+                    mDragOffsetY = (int) (event.getY() - mStartY) / mLineMargin;
+                    mDragRemainderX = (int) (event.getX() - mStartX) % mLineMargin;
+                    mDragRemainderY = (int) (event.getY() - mStartY) % mLineMargin;
+                    mOffsetX -= mDragOffsetX;
+                    mOffsetY -= mDragOffsetY;
+                    if(mPanListener != null) mPanListener.panApplied();
+                }
+                else if (mMode == ZOOM) {
+                    double distance = getDistance(new Point(event.getX(0), event.getY(0)), new Point(event.getX(1), event.getY(1)));
+                    float zoom = (float) (3 / (mZoomInitDistance - distance));
+                    setZoomLevel(mZoomInitLevel + zoom);
+                }
                 break;
         }
         invalidate();
         return true;
     }
 
-    public void zoomIn() {
-        mZoomLevel /= 2;
+    private void setMode(MotionEvent e) {
+        mPointers = e.getPointerCount();
+        switch(e.getPointerCount()) {
+            case 1:
+                // Drag
+                setMode(DRAG, e);
+                break;
+            case 2:
+                // Zoom
+                setMode(ZOOM, e);
+                break;
+        }
+    }
+
+    private void setMode(int mode, MotionEvent e) {
+        mMode = mode;
+        switch(mode) {
+            case DRAG:
+                mStartX = e.getX();
+                mStartY = e.getY();
+                mDragOffsetX = 0;
+                mDragOffsetY = 0;
+                break;
+            case ZOOM:
+                mZoomInitDistance = getDistance(new Point(e.getX(0), e.getY(0)), new Point(e.getX(1), e.getY(1)));
+                mZoomInitLevel = mZoomLevel;
+                break;
+        }
+    }
+
+    public void setZoomLevel(float level) {
+        mZoomLevel = level;
         invalidate();
         if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
+    }
+
+    public void zoomIn() {
+        setZoomLevel(mZoomLevel / 2);
     }
 
     public void zoomOut() {
-        mZoomLevel *= 2;
-        invalidate();
-        if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
+        setZoomLevel(mZoomLevel * 2);
     }
 
     public void zoomReset() {
-        mZoomLevel = 1;
+        setZoomLevel(1);
         mLineMargin = mMinLineMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
         int i = 0;
         while(i * mLineMargin < getWidth()) {
@@ -314,7 +370,16 @@ public class GraphView extends View {
     }
 
     public void setData(List<Point> data) {
-        mData = sort(new ArrayList<Point>(data));
+        setData(data, true);
+    }
+
+    public void setData(List<Point> data, boolean sort) {
+        if(sort) {
+            mData = sort(new ArrayList<Point>(data));
+        }
+        else {
+            mData = new LinkedList<Point>(data);
+        }
     }
 
     private LinkedList<Point> sort(List<Point> data) {
@@ -326,16 +391,20 @@ public class GraphView extends View {
                 data.remove(0);
                 sorted.add(key);
             }
-            Point closestPoint = null;
-            for(Point p : data) {
-                if(closestPoint == null)  closestPoint = p;
-                if(getDistance(key, p) < getDistance(key, closestPoint)) closestPoint = p;
-            }
-            key = closestPoint;
+            key = findClosestPoint(key, data);
             data.remove(key);
             sorted.add(key);
         }
         return sorted;
+    }
+
+    private Point findClosestPoint(Point key, List<Point> data) {
+        Point closestPoint = null;
+        for(Point p : data) {
+            if(closestPoint == null)  closestPoint = p;
+            if(getDistance(key, p) < getDistance(key, closestPoint)) closestPoint = p;
+        }
+        return closestPoint;
     }
 
     private double getDistance(Point a, Point b) {

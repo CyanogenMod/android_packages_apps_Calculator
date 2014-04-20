@@ -61,9 +61,6 @@ public class GraphModule {
             final double maxX = mLogic.mGraphView.getXAxisMax();
 
             final LinkedList<GraphView.Point> series = new LinkedList<GraphView.Point>();
-            double lastX = (maxX - minX) / 2 + minX;
-            double lastY = (maxY - minY) / 2 + minY;
-
             if (equation[0].equals(mLogic.mY) && !equation[1].contains(mLogic.mY)) {
                 for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
                     if (graphChanged(eq[0], minX, maxX, minY, maxY)) {
@@ -73,15 +70,12 @@ public class GraphModule {
                     try {
                         mLogic.mSymbols.define(mLogic.mX, x);
                         double y = mLogic.mSymbols.eval(equation[1]);
-
-                        if (pointIsNaN(lastY, y, maxY, minY)) {
-                            series.add(new GraphView.Point(x, GraphView.NULL_VALUE));
-                        } else {
-                            series.add(new GraphView.Point(x, y));
-                        }
-                        lastY = y;
+                        series.add(new GraphView.Point(x, y));
                     } catch (SyntaxException e) {}
                 }
+
+                mGraph.setData(series, false);
+                return mLogic.mGraphView;
             } else if (equation[0].equals(mLogic.mX) && !equation[1].contains(mLogic.mX)) {
                 for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
                     if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
@@ -89,13 +83,7 @@ public class GraphModule {
                     try {
                         mLogic.mSymbols.define(mLogic.mY, y);
                         double x = mLogic.mSymbols.eval(equation[1]);
-
-                        if (pointIsNaN(lastX, x, maxX, minX)) {
-                            series.add(new GraphView.Point(GraphView.NULL_VALUE, y));
-                        } else {
-                            series.add(new GraphView.Point(x, y));
-                        }
-                        lastX = x;
+                        series.add(new GraphView.Point(x, y));
                     } catch (SyntaxException e) {}
                 }
             } else if (equation[1].equals(mLogic.mY) && !equation[0].contains(mLogic.mY)) {
@@ -105,15 +93,12 @@ public class GraphModule {
                     try {
                         mLogic.mSymbols.define(mLogic.mX, x);
                         double y = mLogic.mSymbols.eval(equation[0]);
-
-                        if (pointIsNaN(lastY, y, maxY, minY)) {
-                            series.add(new GraphView.Point(x, GraphView.NULL_VALUE));
-                        } else {
-                            series.add(new GraphView.Point(x, y));
-                        }
-                        lastY = y;
+                        series.add(new GraphView.Point(x, y));
                     } catch (SyntaxException e) {}
                 }
+
+                mGraph.setData(series, false);
+                return mLogic.mGraphView;
             } else if (equation[1].equals(mLogic.mX) && !equation[0].contains(mLogic.mX)) {
                 for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
                     if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
@@ -121,13 +106,7 @@ public class GraphModule {
                     try {
                         mLogic.mSymbols.define(mLogic.mY, y);
                         double x = mLogic.mSymbols.eval(equation[0]);
-
-                        if (pointIsNaN(lastX, x, maxX, minX)) {
-                            series.add(new GraphView.Point(GraphView.NULL_VALUE, y));
-                        } else {
-                            series.add(new GraphView.Point(x, y));
-                        }
-                        lastX = x;
+                        series.add(new GraphView.Point(x, y));
                     } catch (SyntaxException e) {}
                 }
             } else {
@@ -169,17 +148,9 @@ public class GraphModule {
             return mLogic.mGraphView;
         }
 
-        private double tolerance(double result, double truth) {
-            return (100.0 * Math.abs(truth - result) / Math.abs(truth));
-        }
-
         boolean graphChanged(String equation, double minX, double maxX, double minY, double maxY) {
             return isCancelled() || !equation.equals(mLogic.getText()) || minY != mLogic.mGraphView.getYAxisMin() || maxY != mLogic.mGraphView.getYAxisMax()
                     || minX != mLogic.mGraphView.getXAxisMin() || maxX != mLogic.mGraphView.getXAxisMax();
-        }
-
-        boolean pointIsNaN(double lastV, double v, double max, double min) {
-            return v == Double.NaN || v == Double.POSITIVE_INFINITY || v == Double.NEGATIVE_INFINITY || lastV > max && v < min || v > max && lastV < min;
         }
 
         @Override
