@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -73,7 +74,7 @@ public class GraphView extends View {
         mGraphPaint = new Paint();
         mGraphPaint.setColor(Color.CYAN);
         mGraphPaint.setStyle(Style.STROKE);
-        mGraphPaint.setStrokeWidth(6);
+        mGraphPaint.setStrokeWidth(3);
 
         zoomReset();
 
@@ -154,26 +155,121 @@ public class GraphView extends View {
             canvas.drawText(text, mLineMargin / 2 - textWidth / 2, y + textHeight / 2, mTextPaint);
         }
 
+        // Restrict drawing the graph to the grid
         canvas.clipRect(mLineMargin, mLineMargin, getWidth(), getHeight());
+
+        // Create a path to draw smooth arcs
         LinkedList<Point> data = new LinkedList<Point>(mData);
         if(data.size() != 0) {
-            Point previousPoint = data.remove();
-            for (Point currentPoint : data) {
-                int aX = getRawX(previousPoint);
-                int aY = getRawY(previousPoint);
-                int bX = getRawX(currentPoint);
-                int bY = getRawY(currentPoint);
-
-                previousPoint = currentPoint;
-
-                if (aX == -1 || aY == -1 || bX == -1 || bY == -1 || tooFar(aX, aY, bX, bY)) continue;
-
-                canvas.drawLine(aX, aY, bX, bY, mGraphPaint);
-            }
+//            drawInArc(data, canvas);
+//            drawWithCurvedLines(data, canvas);
+            drawWithStraightLines(data, canvas);
         }
     }
 
+    private void drawInArc(LinkedList<Point> data, Canvas canvas) {
+        Path path = new Path();
+
+        if(data.size() > 1){
+            for(int i = data.size() - 2; i < data.size(); i++){
+                if(i >= 0){
+                    Point point = data.get(i);
+
+                    if(i == 0){
+                        Point next = data.get(i + 1);
+                        point.dx = ((getRawX(next) - getRawX(point)) / 3);
+                        point.dy = ((getRawY(next) - getRawY(point)) / 3);
+                    }
+                    else if(i == data.size() - 1){
+                        Point prev = data.get(i - 1);
+                        point.dx = ((getRawX(point) - getRawX(prev)) / 3);
+                        point.dy = ((getRawY(point) - getRawY(prev)) / 3);
+                    }
+                    else{
+                        Point next = data.get(i + 1);
+                        Point prev = data.get(i - 1);
+                        point.dx = ((getRawX(next) - getRawX(prev)) / 3);
+                        point.dy = ((getRawY(next) - getRawY(prev)) / 3);
+                    }
+                }
+            }
+        }
+
+        boolean first = true;
+        for(int i = 0; i < data.size(); i++){
+            Point point = data.get(i);
+            if(first){
+                first = false;
+                path.moveTo(getRawX(point), getRawY(point));
+            }
+            else{
+                Point prev = data.get(i - 1);
+                path.cubicTo(getRawX(prev) + prev.dx, getRawY(prev) + prev.dy, getRawX(point) - point.dx, getRawY(point) - point.dy, getRawX(point), getRawY(point));
+            }
+        }
+        canvas.drawPath(path, mGraphPaint);
+    }
+
+    private void drawWithCurvedLines(LinkedList<Point> data, Canvas canvas) {
+        Path path = new Path();
+        path.moveTo(getRawX(data.get(0)), getRawY(data.get(0)));
+
+        final int n = 6;
+        for(int i = 1; i < data.size() - n; i+=n/2) {
+            Point a = data.get(i);
+            Point b = data.get(i+1);
+            Point c = data.get(i+2);
+            int aX = getRawX(a);
+            int aY = getRawY(a);
+            int bX = getRawX(b);
+            int bY = getRawY(b);
+            int cX = getRawX(c);
+            int cY = getRawY(c);
+            if(tooFar(aX, aY, bX, bY)) {
+                canvas.drawPath(path, mGraphPaint);
+                path = new Path();
+                path.moveTo(cX, cY);
+                i++;
+                continue;
+            }
+
+            float xc = (aX + bX) / 2;
+            float yc = (aY + bY) / 2;
+            path.quadTo(aX, aY, xc, yc);
+        }
+        canvas.drawPath(path, mGraphPaint);
+    }
+
+    private void drawWithStraightLines(LinkedList<Point> data, Canvas canvas) {
+        Point previousPoint = data.remove();
+        for (Point currentPoint : data) {
+            int aX = getRawX(previousPoint);
+            int aY = getRawY(previousPoint);
+            int bX = getRawX(currentPoint);
+            int bY = getRawY(currentPoint);
+
+            previousPoint = currentPoint;
+
+            if (aX == -1 || aY == -1 || bX == -1 || bY == -1 || tooFar(aX, aY, bX, bY)) continue;
+
+            canvas.drawLine(aX, aY, bX, bY, mGraphPaint);
+        }
+    }
+
+    private Point average(Point... args) {
+        float x = 0;
+        float y = 0;
+        for(Point p : args){
+            x += p.getX();
+            y += p.getY();
+        }
+        return new Point(x/args.length, y/args.length);
+    }
+
     private boolean tooFar(float aX, float aY, float bX, float bY) {
+        boolean outOfBounds = aX == -1 || aY == -1 || bX == -1 || bY == -1;
+        if(outOfBounds) return true;
+
         boolean horzAsymptote = (aX > getXAxisMax() && bX < getXAxisMin()) || (aX < getXAxisMin() && bX > getXAxisMax());
         boolean vertAsymptote = (aY > getYAxisMax() && bY < getYAxisMin()) || (aY < getYAxisMin() && bY > getYAxisMax());
         return horzAsymptote || vertAsymptote;
@@ -294,6 +390,10 @@ public class GraphView extends View {
         if(mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
     }
 
+    public float getZoomLevel() {
+        return mZoomLevel;
+    }
+
     public void zoomIn() {
         setZoomLevel(mZoomLevel / 2);
     }
@@ -345,6 +445,7 @@ public class GraphView extends View {
     public static class Point {
         private double mX;
         private double mY;
+        float dx, dy;
 
         public Point() {}
 
@@ -353,16 +454,16 @@ public class GraphView extends View {
             mY = y;
         }
 
-        public double getX() {
-            return mX;
+        public float getX() {
+            return (float) mX;
         }
 
         public void setX(float x) {
             mX = x;
         }
 
-        public double getY() {
-            return mY;
+        public float getY() {
+            return (float) mY;
         }
 
         public void setY(float y) {

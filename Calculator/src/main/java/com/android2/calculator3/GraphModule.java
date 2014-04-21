@@ -67,7 +67,7 @@ public class GraphModule {
 
             final LinkedList<GraphView.Point> series = new LinkedList<GraphView.Point>();
             if (equation[0].equals(mLogic.mY) && !equation[1].contains(mLogic.mY)) {
-                for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
+                for (double x = minX; x <= maxX; x += 0.01*mLogic.mGraphView.getZoomLevel()) {
                     if (graphChanged(eq[0], minX, maxX, minY, maxY)) {
                         return null;
                     }
@@ -82,7 +82,7 @@ public class GraphModule {
                 mGraph.setData(series, false);
                 return mLogic.mGraphView;
             } else if (equation[0].equals(mLogic.mX) && !equation[1].contains(mLogic.mX)) {
-                for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
+                for (double y = minY; y <= maxY; y += 0.01*mLogic.mGraphView.getZoomLevel()) {
                     if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
 
                     try {
@@ -95,7 +95,7 @@ public class GraphModule {
                 mGraph.setData(series, false);
                 return mLogic.mGraphView;
             } else if (equation[1].equals(mLogic.mY) && !equation[0].contains(mLogic.mY)) {
-                for (double x = minX; x <= maxX; x += (0.00125 * (maxX - minX))) {
+                for (double x = minX; x <= maxX; x += 0.01*mLogic.mGraphView.getZoomLevel()) {
                     if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
 
                     try {
@@ -108,7 +108,7 @@ public class GraphModule {
                 mGraph.setData(series, false);
                 return mLogic.mGraphView;
             } else if (equation[1].equals(mLogic.mX) && !equation[0].contains(mLogic.mX)) {
-                for (double y = minY; y <= maxY; y += (0.00125 * (maxY - minY))) {
+                for (double y = minY; y <= maxY; y += 0.01*mLogic.mGraphView.getZoomLevel()) {
                     if (graphChanged(eq[0], minX, maxX, minY, maxY)) return null;
 
                     try {
@@ -121,9 +121,9 @@ public class GraphModule {
                 mGraph.setData(series, false);
                 return mLogic.mGraphView;
             } else {
-                for (double x = minX; x <= maxX; x += (0.005 * (maxX - minX))) {
+                for (double x = minX; x <= maxX; x += 0.2*mLogic.mGraphView.getZoomLevel()) {
                     List<Double> values = new ArrayList<Double>();
-                    for (double y = maxY; y >= minY; y -= (0.005 * (maxY - minY))) {
+                    for (double y = maxY; y >= minY; y -= 0.2*mLogic.mGraphView.getZoomLevel()) {
                         if (graphChanged(eq[0], minX, maxX, minY, maxY)) {
                             return null;
                         }
@@ -136,11 +136,11 @@ public class GraphModule {
                             // TODO increase scale of graph as zooming
                             // out
                             if (leftSide < 0 && rightSide < 0) {
-                                if (leftSide * 0.99 >= rightSide && leftSide * 1.01 <= rightSide) {
+                                if (leftSide * 0.98 >= rightSide && leftSide * 1.02 <= rightSide) {
                                     values.add(y);
                                 }
                             } else {
-                                if (leftSide * 0.99 <= rightSide && leftSide * 1.01 >= rightSide) {
+                                if (leftSide * 0.98 <= rightSide && leftSide * 1.02 >= rightSide) {
                                     values.add(y);
                                 }
                             }
