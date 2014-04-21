@@ -13,9 +13,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.xlythe.engine.theme.App;
 import com.xlythe.engine.theme.Theme;
 import com.xlythe.engine.theme.Theme.Res;
 
@@ -52,6 +54,10 @@ public class StoreActivity extends FragmentActivity {
         if(item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, Calculator.class));
             finish();
+            return true;
+        }
+        else if(item.getItemId() == R.id.info) {
+            startActivity(new Intent(this, StoreInfoActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -120,5 +126,21 @@ public class StoreActivity extends FragmentActivity {
             }
             return null;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_store, menu);
+        return true;
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        MenuItem info = menu.findItem(R.id.info);
+        info.setIcon(Theme.isLightTheme(getContext()) ? R.drawable.action_about_grey : R.drawable.action_about_white);
+
+        return true;
     }
 }
