@@ -63,7 +63,7 @@
   <string name="pref_theme">主題</string>
   <string name="pref_about">關於</string>
   <string name="returnToBasic">返回基本面板</string>
-  <string name="clickToOpenHistory">按一下以開啟紀錄</string>
+  <string name="clickToOpenHistory">按一下即可開啟紀錄</string>
   <string name="digitGrouping">千分位分隔符號</string>
   <string name="trigUnits">角度單位</string>
   <string name="radians">RAD</string>

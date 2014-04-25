@@ -82,6 +82,7 @@
   <string name="cling_dismiss">OK</string>
   <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
+  <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp użył Chlupania, ale nic się nie stało.</string>
