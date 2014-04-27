@@ -210,6 +210,7 @@ public class CalculatorWidget extends AppWidgetProvider {
 
         int displayId = android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.id.display_long_clickable : R.id.display;
 
+        remoteViews.setViewVisibility(R.id.background, CalculatorSettings.showWidgetBackground(context) ? View.VISIBLE : View.GONE);
         remoteViews.setViewVisibility(displayId, View.VISIBLE);
         remoteViews.setTextViewText(displayId, value);
         remoteViews.setTextViewText(R.id.display, value);

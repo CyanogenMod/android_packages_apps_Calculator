@@ -77,4 +77,8 @@ public class CalculatorSettings {
     public static int getVibrationStrength() {
         return 10;
     }
+
+    public static boolean showWidgetBackground(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("SHOW_WIDGET_BACKGROUND", context.getResources().getBoolean(R.bool.SHOW_WIDGET_BACKGROUND));
+    }
 }
