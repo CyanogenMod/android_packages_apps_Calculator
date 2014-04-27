@@ -139,6 +139,7 @@
     <string name="showDetails">Show Details</string>
     <string name="floatingCalc">Floating Calculator</string>
     <string name="vibrateOnPress">Vibrate on Click</string>
+    <string name="showWidgetBackground">Show Widget Background</string>
 
     <!-- Clings -->
     <string name="cling_simple_title">Welcome</string>

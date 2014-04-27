@@ -9,9 +9,11 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ListView;
 
+import com.android2.calculator3.CalculatorWidget;
 import com.android2.calculator3.FloatingCalculator;
 import com.android2.calculator3.Preferences;
 import com.android2.calculator3.R;
@@ -165,6 +167,20 @@ public class PreferencesFragment extends PreferenceFragment {
                             // Stop Floating Calc service if up
                             getActivity().stopService(startServiceIntent);
                         }
+                        return true;
+                    }
+                });
+            }
+
+            Preference widgetBg = findPreference("SHOW_WIDGET_BACKGROUND");
+            if(widgetBg != null) {
+                widgetBg.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putBoolean("SHOW_WIDGET_BACKGROUND", (Boolean) newValue).commit();
+                        final Intent intent = new Intent(getActivity(), CalculatorWidget.class);
+                        intent.setAction("refresh");
+                        getActivity().sendBroadcast(intent);
                         return true;
                     }
                 });

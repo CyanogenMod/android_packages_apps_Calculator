@@ -24,4 +24,8 @@
         android:title="@string/floatingCalc"
         android:key="FLOATING_CALCULATOR"
         android:defaultValue="@bool/FLOATING_CALCULATOR" />
+    <CheckBoxPreference
+        android:title="@string/showWidgetBackground"
+        android:key="SHOW_WIDGET_BACKGROUND"
+        android:defaultValue="@bool/SHOW_WIDGET_BACKGROUND" />
 </PreferenceScreen>
