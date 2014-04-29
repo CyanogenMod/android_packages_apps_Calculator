@@ -34,8 +34,9 @@ public class GraphView extends View {
     private int mOffsetY;
     private int mLineMargin;
     private int mMinLineMargin;
+    private int mTextPaintSize;
     private float mZoomLevel = 1;
-    DecimalFormat mFormat = new DecimalFormat("#.#");
+    DecimalFormat mFormat = new DecimalFormat("#.###");
     private LinkedList<Point> mData;
     private float mMagicNumber;
 
@@ -61,9 +62,10 @@ public class GraphView extends View {
         mBackgroundPaint.setColor(Color.WHITE);
         mBackgroundPaint.setStyle(Style.FILL);
 
+        mTextPaintSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics());
         mTextPaint = new Paint();
         mTextPaint.setColor(Color.BLACK);
-        mTextPaint.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+        mTextPaint.setTextSize(mTextPaintSize);
 
 
         mAxisPaint = new Paint();
@@ -132,6 +134,8 @@ public class GraphView extends View {
 
             // Draw label on left
             String text = mFormat.format(j * mZoomLevel);
+            int textLength = ((text.startsWith("-") ? text.length()-1 : text.length())+1)/2;
+            mTextPaint.setTextSize(mTextPaintSize / textLength);
             mTextPaint.getTextBounds(text, 0, text.length(), bounds);
             int textWidth = bounds.right - bounds.left;
             canvas.drawText(text, x - textWidth / 2, mLineMargin / 2 + mTextPaint.getTextSize() / 2, mTextPaint);
