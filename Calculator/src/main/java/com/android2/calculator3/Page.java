@@ -266,6 +266,8 @@ public class Page {
         final int mName;
         final int mDefaultValue;
         final boolean mHasTutorial;
+        private View mMatrixView;
+        private boolean mLaunchMatrixCling = false;
         private Map<View, GraphView> mGraphHolder = new HashMap<View, GraphView>();
         NormalPanel(int name, int defaultValue, boolean hasTutorial) {
             mName = name;
@@ -307,7 +309,7 @@ public class Page {
             return v;
         }
 
-        public void showTutorial(Calculator calc, boolean animate) {
+        public void showTutorial(final Calculator calc, boolean animate) {
             switch (this) {
                 case BASIC:
                     calc.showFirstRunSimpleCling(animate);
@@ -316,7 +318,12 @@ public class Page {
                     calc.showFirstRunGraphCling(animate);
                     break;
                 case MATRIX:
-                    calc.showFirstRunMatrixCling(animate, getView(calc));
+                    if(!mMatrixView.isAttachedToWindow()) {
+                        mLaunchMatrixCling = true;
+                    }
+                    else {
+                        calc.showFirstRunMatrixCling(animate, mMatrixView);
+                    }
                     break;
                 case ADVANCED:
                     break;
@@ -379,6 +386,16 @@ public class Page {
                     }
                 }
             } else if (NormalPanel.MATRIX.equals(this)) {
+                mMatrixView = view;
+                if(mLaunchMatrixCling) {
+                    mMatrixView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            mMatrixView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            ((Calculator) mMatrixView.getContext()).showFirstRunMatrixCling(false, mMatrixView);
+                        }
+                    });
+                }
                 View easterEgg = view.findViewById(R.id.easter);
                 if (easterEgg != null && listener != null) {
                     easterEgg.setOnClickListener(listener);
