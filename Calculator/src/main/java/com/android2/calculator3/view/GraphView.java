@@ -153,6 +153,8 @@ public class GraphView extends View {
 
             // Draw label on left
             String text = mFormat.format(-j * mZoomLevel);
+            int textLength = ((text.startsWith("-") ? text.length()-1 : text.length())+1)/2;
+            mTextPaint.setTextSize(mTextPaintSize / textLength);
             mTextPaint.getTextBounds(text, 0, text.length(), bounds);
             int textHeight = bounds.bottom - bounds.top;
             int textWidth = bounds.right - bounds.left;
