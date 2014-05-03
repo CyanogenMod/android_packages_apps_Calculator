@@ -70,13 +70,13 @@ public class Theme {
             for(Field f : drawable.getFields()) {
                 RES_MAP.put(f.getInt(null), new Res(DRAWABLE, f.getName()));
             }
-            Class raw = Class.forName(r.getName() + "$raw");
-            for(Field f : raw.getFields()) {
-                RES_MAP.put(f.getInt(null), new Res(RAW, f.getName()));
-            }
             Class bool = Class.forName(r.getName() + "$bool");
             for(Field f : bool.getFields()) {
                 RES_MAP.put(f.getInt(null), new Res(BOOLEAN, f.getName()));
+            }
+            Class raw = Class.forName(r.getName() + "$raw");
+            for(Field f : raw.getFields()) {
+                RES_MAP.put(f.getInt(null), new Res(RAW, f.getName()));
             }
         }
         catch(IllegalArgumentException e) {
@@ -85,9 +85,7 @@ public class Theme {
         catch(IllegalAccessException e) {
             e.printStackTrace();
         }
-        catch(ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        catch(ClassNotFoundException e) {}
     }
 
     public static Context getThemeContext(Context context) {

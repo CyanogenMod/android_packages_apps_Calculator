@@ -176,6 +176,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
                     scrollToPage(basic);
                 }
             }
+            mPages = Page.removeDuplicates(mPages);
             mPager.setOnPageChangeListener(this);
             runCling(false);
             mListener.setHandler(this, mLogic, mPager);
@@ -285,7 +286,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
             boolean equalToLargePage = page != null && m.getTitle().toString().equals(page.getName());
             boolean equalToSmallPage = smallPage != null && m.getTitle().toString().equals(smallPage.getName());
 
-            m.setVisible(!equalToLargePage && !equalToSmallPage);
+            m.setVisible(!mHistorySlider.isSliderOpen() && !equalToLargePage && !equalToSmallPage);
         }
 
         MenuItem clearHistory = menu.findItem(R.id.clear_history);
@@ -299,17 +300,17 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
         MenuItem lock = menu.findItem(R.id.lock);
         if(lock != null) {
-            lock.setVisible(page != null && page.isGraph() && getPagingEnabled());
+            lock.setVisible(!mHistorySlider.isSliderOpen() && page != null && page.isGraph() && getPagingEnabled());
         }
 
         MenuItem unlock = menu.findItem(R.id.unlock);
         if(unlock != null) {
-            unlock.setVisible(page != null && page.isGraph() && !getPagingEnabled());
+            unlock.setVisible(!mHistorySlider.isSliderOpen() && page != null && page.isGraph() && !getPagingEnabled());
         }
 
         MenuItem store = menu.findItem(R.id.store);
         if(store != null) {
-            store.setVisible(App.doesPackageExists(getContext(), "com.android.vending"));
+            store.setVisible(!mHistorySlider.isSliderOpen() && App.doesPackageExists(getContext(), "com.android.vending"));
         }
 
         return true;

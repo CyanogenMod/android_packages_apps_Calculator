@@ -318,7 +318,7 @@ public class Page {
                     calc.showFirstRunGraphCling(animate);
                     break;
                 case MATRIX:
-                    if(!mMatrixView.isAttachedToWindow()) {
+                    if(mMatrixView == null || !mMatrixView.isEnabled()) {
                         mLaunchMatrixCling = true;
                     }
                     else {
@@ -387,11 +387,27 @@ public class Page {
                 }
             } else if (NormalPanel.MATRIX.equals(this)) {
                 mMatrixView = view;
+                mMatrixView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                    @Override
+                    public void onViewAttachedToWindow(View v) {
+                        v.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onViewDetachedFromWindow(View v) {
+                        v.setEnabled(false);
+                    }
+                });
                 if(mLaunchMatrixCling) {
                     mMatrixView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
                         public void onGlobalLayout() {
-                            mMatrixView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            if(android.os.Build.VERSION.SDK_INT < 16) {
+                                mMatrixView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                            }
+                            else {
+                                mMatrixView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            }
                             ((Calculator) mMatrixView.getContext()).showFirstRunMatrixCling(false, mMatrixView);
                         }
                     });
