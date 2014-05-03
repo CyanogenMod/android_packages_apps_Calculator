@@ -59,13 +59,16 @@ public class ThemesStoreTask extends AsyncTask<String, String, List<App>> {
             apps = Arrays.asList(array);
 
             // Update database
-            ThemesDataSource dataSource = new ThemesDataSource(mContext);
-            dataSource.open();
-            dataSource.deleteApps();
-            dataSource.createApps(apps);
+            if(apps.size() > 0) {
+                ThemesDataSource dataSource = new ThemesDataSource(mContext);
+                dataSource.open();
+                dataSource.deleteApps();
+                dataSource.createApps(apps);
+                dataSource.close();
+            }
         }
         catch(Exception e) {
-            // May have returned a 500 DB may be closed or context may be null
+            // May have returned a 500, DB may be closed, or context may be null
             e.printStackTrace();
             cancel(true);
         }

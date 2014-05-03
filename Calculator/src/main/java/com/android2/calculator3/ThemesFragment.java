@@ -1,16 +1,11 @@
 package com.android2.calculator3;
 
-import java.util.List;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -18,6 +13,8 @@ import android.widget.ListAdapter;
 
 import com.android2.calculator3.dao.ThemesDataSource;
 import com.xlythe.engine.theme.App;
+
+import java.util.List;
 
 /**
  * @author Will Harmon
@@ -35,10 +32,7 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        setRetainInstance(true);
-
+    public View inflateView(Bundle savedInstanceState) {
         // Create the GridView
         mGridView = new GridView(getActivity());
         mGridView.setOnItemClickListener(this);
@@ -70,7 +64,7 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(mThemes.isEmpty()) setListShown(false);
+        if(mThemes.isEmpty()) setViewShown(false);
 
         // Load from server (and update ui when finished)
         mTask = new ThemesStoreTask(getActivity()) {
@@ -82,14 +76,18 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
                 for(App a : result) {
                     mThemes.add(a);
                 }
-                ((StoreAdapter) getListAdapter()).notifyDataSetChanged();
-                setListShown(true);
+                if(!isDetached()) {
+                    ((StoreAdapter) getListAdapter()).notifyDataSetChanged();
+                    setViewShown(true);
+                }
             }
 
             @Override
             protected void onCancelled() {
                 super.onCancelled();
-                setListShown(true);
+                if(!isDetached()) {
+                    setViewShown(true);
+                }
             }
         };
         mTask.executeAsync();
@@ -112,9 +110,5 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
         super.onDestroy();
         mTask.cancel(true);
         mDataSource.close();
-    }
-
-    public void setListShown(boolean show) {
-        // TODO display some kind of loading indicator here
     }
 }
