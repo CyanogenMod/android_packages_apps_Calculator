@@ -39,8 +39,10 @@
   <string name="hideHistory">הסתר הסטוריה</string>
   <string name="settings">הגדרות</string>
   <string name="det">דטרמיננטה</string>
+  <string name="eigenvalue">Eigen</string>
   <string name="solve">פתרון</string>
   <string name="dotProduct">נקודה</string>
+  <string name="crossProduct">Cross</string>
   <string name="determinantDesc">דטרמיננטה</string>
   <string name="eigenvalueDesc">ערכים עצמיים</string>
   <string name="plus_row">+שורה</string>
@@ -83,4 +85,5 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
+  <string name="easter_egg">Magikarp השתמש ב-Splash, אבל כלום לא קרה.</string>
 </resources>
