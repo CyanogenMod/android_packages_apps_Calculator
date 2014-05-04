@@ -354,9 +354,13 @@ public class Logic {
 		imaginary = mBaseModule.updateTextToNewMode(imaginary, Mode.DECIMAL, mBaseModule.getMode()).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
 
 		String result = "";
-		if (value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
+		if (value.re != 0 && value.im == 1) result = real + "+" + "i";
+		else if (value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
+		else if (value.re != 0 && value.im == -1) result = real + "-" + "i";
 		else if (value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit -
 		else if (value.re != 0 && value.im == 0) result = real;
+		else if (value.re == 0 && value.im == 1) result = "i";
+		else if (value.re == 0 && value.im == -1) result = "-i";
 		else if (value.re == 0 && value.im != 0) result = imaginary + "i";
 		else if (value.re == 0 && value.im == 0) result = "0";
 
