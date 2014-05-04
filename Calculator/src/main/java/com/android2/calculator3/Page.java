@@ -496,6 +496,8 @@ public class Page {
 		final int mName;
 		final int mDefaultValue;
 		final boolean mHasTutorial;
+		private View mMatrixView;
+		private boolean mLaunchMatrixCling = false;
 		private Map<View, GraphView> mGraphHolder = new HashMap<View, GraphView>();
 
 		LargePanel(int name, int defaultValue, boolean hasTutorial) {
@@ -541,7 +543,11 @@ public class Page {
 					calc.showFirstRunGraphCling(animate);
 					break;
 				case MATRIX:
-					calc.showFirstRunMatrixCling(animate, getView(calc));
+					if (mMatrixView == null || !mMatrixView.isEnabled()) {
+						mLaunchMatrixCling = true;
+					} else {
+						calc.showFirstRunMatrixCling(animate, mMatrixView);
+					}
 					break;
 			}
 		}
@@ -551,7 +557,6 @@ public class Page {
 			if (LargePanel.GRAPH.equals(this)) {
 				if (!mGraphHolder.containsKey(view)) {
 					final GraphView graphView = logic.mGraphView = graph.createGraph(context);
-					logic.getGraphModule().updateGraph(graph);
 					mGraphHolder.put(view, graphView);
 					graphView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
 						@Override
@@ -585,6 +590,37 @@ public class Page {
 					zoomReset.setOnClickListener(listener);
 				} else {
 					mGraphHolder.get(view).invalidate();
+				}
+			} else if (LargePanel.MATRIX.equals(this)) {
+				mMatrixView = view;
+				mMatrixView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+					@Override
+					public void onViewAttachedToWindow(View v) {
+						v.setEnabled(true);
+					}
+
+					@Override
+					public void onViewDetachedFromWindow(View v) {
+						v.setEnabled(false);
+					}
+				});
+				if (mLaunchMatrixCling) {
+					mMatrixView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+						@Override
+						public void onGlobalLayout() {
+							if (android.os.Build.VERSION.SDK_INT < 16) {
+								mMatrixView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+							} else {
+								mMatrixView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+							}
+							((Calculator) mMatrixView.getContext()).showFirstRunMatrixCling(false, mMatrixView);
+						}
+					});
+				}
+				View easterEgg = view.findViewById(R.id.easter);
+				if (easterEgg != null && listener != null) {
+					easterEgg.setOnClickListener(listener);
+					easterEgg.setOnLongClickListener(listener);
 				}
 			}
 		}

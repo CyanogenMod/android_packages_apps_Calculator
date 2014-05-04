@@ -18,10 +18,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GraphView extends View {
-	public static final double NULL_VALUE = Double.NaN;
 	private static final int DRAG = 1;
 	private static final int ZOOM = 2;
-	DecimalFormat mFormat = new DecimalFormat("#.###");
+	DecimalFormat mFormat = new DecimalFormat("#.#####");
 	private PanListener mPanListener;
 	private ZoomListener mZoomListener;
 	private Paint mBackgroundPaint;
@@ -35,7 +34,6 @@ public class GraphView extends View {
 	private int mTextPaintSize;
 	private float mZoomLevel = 1;
 	private LinkedList<Point> mData;
-	private float mMagicNumber;
 	private float mStartX;
 	private float mStartY;
 	private int mDragOffsetX;
@@ -62,8 +60,6 @@ public class GraphView extends View {
 	}
 
 	private void setup() {
-		mMagicNumber = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
-
 		mBackgroundPaint = new Paint();
 		mBackgroundPaint.setColor(Color.WHITE);
 		mBackgroundPaint.setStyle(Style.FILL);
@@ -93,30 +89,12 @@ public class GraphView extends View {
 	protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld) {
 		super.onSizeChanged(xNew, yNew, xOld, yOld);
 
+		mLineMargin = mMinLineMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
 		// Center the offsets
-		int i = 0;
-		while (i * mLineMargin < xOld) {
-			i++;
-		}
-		i--;
-		mOffsetX += i / 2;
-		i = 0;
-		while (i * mLineMargin < yOld) {
-			i++;
-		}
-		i--;
-		mOffsetY += i / 2;
-		while (i * mLineMargin < xNew) {
-			i++;
-		}
-		i--;
-		mOffsetX -= i / 2;
-		i = 0;
-		while (i * mLineMargin < yNew) {
-			i++;
-		}
-		i--;
-		mOffsetY -= i / 2;
+		mOffsetX += (xOld/mLineMargin) / 2;
+		mOffsetY += (yOld/mLineMargin) / 2;
+		mOffsetX -= (xNew/mLineMargin) / 2;
+		mOffsetY -= (yNew/mLineMargin) / 2;
 	}
 
 	@Override
@@ -400,19 +378,8 @@ public class GraphView extends View {
 
 	public void zoomReset() {
 		setZoomLevel(1);
-		mLineMargin = mMinLineMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
-		int i = 0;
-		while (i * mLineMargin < getWidth()) {
-			i++;
-		}
-		i--;
-		mOffsetX = -i / 2;
-		i = 0;
-		while (i * mLineMargin < getHeight()) {
-			i++;
-		}
-		i--;
-		mOffsetY = -i / 2;
+		mDragRemainderX = mDragRemainderY = mOffsetX = mOffsetY = 0;
+		onSizeChanged(getWidth(), getHeight(), 0, 0);
 		invalidate();
 		if (mPanListener != null) mPanListener.panApplied();
 		if (mZoomListener != null) mZoomListener.zoomApplied(mZoomLevel);
