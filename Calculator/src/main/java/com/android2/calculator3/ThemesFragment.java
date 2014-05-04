@@ -20,95 +20,95 @@ import java.util.List;
  * @author Will Harmon
  */
 public class ThemesFragment extends Fragment implements OnItemClickListener {
-    private GridView mGridView;
-    private List<App> mThemes;
-    private ThemesStoreTask mTask;
-    private ThemesDataSource mDataSource;
+	private GridView mGridView;
+	private List<App> mThemes;
+	private ThemesStoreTask mTask;
+	private ThemesDataSource mDataSource;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((StoreAdapter) getListAdapter()).notifyDataSetChanged();
-    }
+	@Override
+	public void onResume() {
+		super.onResume();
+		((StoreAdapter) getListAdapter()).notifyDataSetChanged();
+	}
 
-    @Override
-    public View inflateView(Bundle savedInstanceState) {
-        // Create the GridView
-        mGridView = new GridView(getActivity());
-        mGridView.setOnItemClickListener(this);
-        mGridView.setNumColumns(GridView.AUTO_FIT);
-        mGridView.setGravity(Gravity.CENTER);
-        mGridView.setColumnWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125 + 30, getActivity().getResources().getDisplayMetrics()));
-        mGridView.setStretchMode(GridView.STRETCH_SPACING_UNIFORM);
+	@Override
+	public View inflateView(Bundle savedInstanceState) {
+		// Create the GridView
+		mGridView = new GridView(getActivity());
+		mGridView.setOnItemClickListener(this);
+		mGridView.setNumColumns(GridView.AUTO_FIT);
+		mGridView.setGravity(Gravity.CENTER);
+		mGridView.setColumnWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125 + 30, getActivity().getResources().getDisplayMetrics()));
+		mGridView.setStretchMode(GridView.STRETCH_SPACING_UNIFORM);
 
-        // Load the cache
-        mDataSource = new ThemesDataSource(getActivity());
-        mDataSource.open();
-        mThemes = mDataSource.getAllApps();
+		// Load the cache
+		mDataSource = new ThemesDataSource(getActivity());
+		mDataSource.open();
+		mThemes = mDataSource.getAllApps();
 
-        // Show ui
-        setListAdapter(new StoreAdapter(getActivity(), mThemes));
+		// Show ui
+		setListAdapter(new StoreAdapter(getActivity(), mThemes));
 
-        return mGridView;
-    }
+		return mGridView;
+	}
 
-    public ListAdapter getListAdapter() {
-        return mGridView.getAdapter();
-    }
+	public ListAdapter getListAdapter() {
+		return mGridView.getAdapter();
+	}
 
-    public void setListAdapter(ListAdapter adapter) {
-        mGridView.setAdapter(adapter);
-    }
+	public void setListAdapter(ListAdapter adapter) {
+		mGridView.setAdapter(adapter);
+	}
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 
-        if(mThemes.isEmpty()) setViewShown(false);
+		if (mThemes.isEmpty()) setViewShown(false);
 
-        // Load from server (and update ui when finished)
-        mTask = new ThemesStoreTask(getActivity()) {
-            @Override
-            protected void onPostExecute(List<App> result) {
-                super.onPostExecute(result);
-                if(result == null) return;
-                mThemes.clear();
-                for(App a : result) {
-                    mThemes.add(a);
-                }
-                if(!isDetached()) {
-                    ((StoreAdapter) getListAdapter()).notifyDataSetChanged();
-                    setViewShown(true);
-                }
-            }
+		// Load from server (and update ui when finished)
+		mTask = new ThemesStoreTask(getActivity()) {
+			@Override
+			protected void onPostExecute(List<App> result) {
+				super.onPostExecute(result);
+				if (result == null) return;
+				mThemes.clear();
+				for (App a : result) {
+					mThemes.add(a);
+				}
+				if (!isDetached()) {
+					((StoreAdapter) getListAdapter()).notifyDataSetChanged();
+					setViewShown(true);
+				}
+			}
 
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-                if(!isDetached()) {
-                    setViewShown(true);
-                }
-            }
-        };
-        mTask.executeAsync();
+			@Override
+			protected void onCancelled() {
+				super.onCancelled();
+				if (!isDetached()) {
+					setViewShown(true);
+				}
+			}
+		};
+		mTask.executeAsync();
 
-    }
+	}
 
-    public void onListItemClick(GridView g, View v, int position, long id) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
-        startActivity(intent);
-    }
+	public void onListItemClick(GridView g, View v, int position, long id) {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
+		startActivity(intent);
+	}
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        onListItemClick(mGridView, mGridView.getChildAt(position), position, mGridView.getChildAt(position).getId());
-    }
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		onListItemClick(mGridView, mGridView.getChildAt(position), position, mGridView.getChildAt(position).getId());
+	}
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mTask.cancel(true);
-        mDataSource.close();
-    }
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mTask.cancel(true);
+		mDataSource.close();
+	}
 }

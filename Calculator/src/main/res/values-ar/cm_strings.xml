@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2012-2013 The CyanogenMod Project
 
 	 Licensed under the Apache License, Version 2.0 (the "License");
 	 you may not use this file except in compliance with the License.
@@ -14,34 +13,34 @@
 	 limitations under the License.
 -->
 <resources>
-	<string name="X">X</string>
-	<string name="Y">Y</string>
-	<string name="dx">dX</string>
-	<string name="dy">dY</string>
-	<string name="solveForX">حل ل x</string>
-	<string name="solveForY">حل ل y</string>
-	<string name="mod">mod</string>
-	<string name="matrix">لوحة المصفوفة</string>
-	<string name="graph">لوحة الرسم البياني</string>
-	<string name="function">لوحة الدالة</string>
-	<string name="hexPanel">لوحة التعريف</string>
-	<string name="copy">نسخ\"%s\"</string>
-	<string name="remove_from_history">إزالة من التاريخ</string>
-	<string name="showHistory">إظهار الحسابات</string>
-	<string name="hideHistory">إخفاء الحسابات</string>
-	<string name="settings">إعدادات</string>
-	<string name="det">det</string>
-	<string name="eigenvalue">Eigen</string>
-	<string name="solve">حل</string>
-	<string name="dotProduct">Dot</string>
-	<string name="crossProduct">Cross</string>
-	<string name="determinantDesc">المحددات</string>
-	<string name="eigenvalueDesc">قيم Eigen</string>
-	<string name="hex">Hex</string>
-	<string name="bin">Bin</string>
-	<string name="dec">Dec</string>
-	<string name="hexDesc">Hexadecimal</string>
-	<string name="binDesc">Binary</string>
-	<string name="decDesc">عشري</string>
-	<string name="returnToBasic">العودة إلى اللوحة الأساسية</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="solveForX">حل ل x</string>
+    <string name="solveForY">حل ل y</string>
+    <string name="mod">mod</string>
+    <string name="matrix">لوحة المصفوفة</string>
+    <string name="graph">لوحة الرسم البياني</string>
+    <string name="function">لوحة الدالة</string>
+    <string name="hexPanel">لوحة التعريف</string>
+    <string name="copy">نسخ\"%s\"</string>
+    <string name="remove_from_history">إزالة من التاريخ</string>
+    <string name="showHistory">إظهار الحسابات</string>
+    <string name="hideHistory">إخفاء الحسابات</string>
+    <string name="settings">إعدادات</string>
+    <string name="det">det</string>
+    <string name="eigenvalue">Eigen</string>
+    <string name="solve">حل</string>
+    <string name="dotProduct">Dot</string>
+    <string name="crossProduct">Cross</string>
+    <string name="determinantDesc">المحددات</string>
+    <string name="eigenvalueDesc">قيم Eigen</string>
+    <string name="hex">Hex</string>
+    <string name="bin">Bin</string>
+    <string name="dec">Dec</string>
+    <string name="hexDesc">Hexadecimal</string>
+    <string name="binDesc">Binary</string>
+    <string name="decDesc">عشري</string>
+    <string name="returnToBasic">العودة إلى اللوحة الأساسية</string>
 </resources>

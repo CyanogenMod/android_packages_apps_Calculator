@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2012-2013 The CyanogenMod Project
 
 	 Licensed under the Apache License, Version 2.0 (the "License");
 	 you may not use this file except in compliance with the License.
@@ -14,15 +13,15 @@
 	 limitations under the License.
 -->
 <resources>
-	<string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
-	<string name="matrix">"Panou matrice"</string>
-	<string name="graph">"Panou grafic"</string>
-	<string name="function">"Panou funcție"</string>
-	<string name="hexPanel">"Panou hex"</string>
-	<string name="copy">"Copiați \"%s\""</string>
-	<string name="remove_from_history">"Ștergeți din istoric"</string>
-	<string name="showHistory">"Arătați istoricul"</string>
-	<string name="hideHistory">"Ascundeți istoricul"</string>
-	<string name="settings">"Setări"</string>
-	<string name="returnToBasic">"Întoarcere la panoul de bază"</string>
+    <string name="application_copyright">Copyright \u00A9 CyanogenMod 2013</string>
+    <string name="matrix">"Panou matrice"</string>
+    <string name="graph">"Panou grafic"</string>
+    <string name="function">"Panou funcție"</string>
+    <string name="hexPanel">"Panou hex"</string>
+    <string name="copy">"Copiați \"%s\""</string>
+    <string name="remove_from_history">"Ștergeți din istoric"</string>
+    <string name="showHistory">"Arătați istoricul"</string>
+    <string name="hideHistory">"Ascundeți istoricul"</string>
+    <string name="settings">"Setări"</string>
+    <string name="returnToBasic">"Întoarcere la panoul de bază"</string>
 </resources>

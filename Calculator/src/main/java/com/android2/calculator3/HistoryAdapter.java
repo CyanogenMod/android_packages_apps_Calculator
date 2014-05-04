@@ -29,73 +29,72 @@ import com.android2.calculator3.view.HistoryLine;
 import java.util.Vector;
 
 class HistoryAdapter extends BaseAdapter {
-    private final Context mContext;
-    private final Vector<HistoryEntry> mEntries;
-    private final EquationFormatter mEquationFormatter;
-    private final History mHistory;
+	private final Context mContext;
+	private final Vector<HistoryEntry> mEntries;
+	private final EquationFormatter mEquationFormatter;
+	private final History mHistory;
 
-    HistoryAdapter(Context context, History history) {
-        mContext = context;
-        mEntries = history.mEntries;
-        mEquationFormatter = new EquationFormatter();
-        mHistory = history;
-    }
+	HistoryAdapter(Context context, History history) {
+		mContext = context;
+		mEntries = history.mEntries;
+		mEquationFormatter = new EquationFormatter();
+		mHistory = history;
+	}
 
-    @Override
-    public int getCount() {
-        return mEntries.size() - 1;
-    }
+	@Override
+	public int getCount() {
+		return mEntries.size() - 1;
+	}
 
-    @Override
-    public Object getItem(int position) {
-        return mEntries.elementAt(position);
-    }
+	@Override
+	public Object getItem(int position) {
+		return mEntries.elementAt(position);
+	}
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 
-    @Override
-    public boolean hasStableIds() {
-        return true;
-    }
+	@Override
+	public boolean hasStableIds() {
+		return true;
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        HistoryLine view;
-        if(convertView == null) {
-            view = createView();
-        }
-        else {
-            view = (HistoryLine) convertView;
-        }
-        HistoryEntry entry = mEntries.elementAt(position);
-        view.setHistoryEntry(entry);
-        view.setHistory(mHistory);
-        view.setAdapter(this);
-        updateView(entry, view);
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		HistoryLine view;
+		if (convertView == null) {
+			view = createView();
+		} else {
+			view = (HistoryLine) convertView;
+		}
+		HistoryEntry entry = mEntries.elementAt(position);
+		view.setHistoryEntry(entry);
+		view.setHistory(mHistory);
+		view.setAdapter(this);
+		updateView(entry, view);
 
-        return view;
-    }
+		return view;
+	}
 
-    public Context getContext() {
-        return mContext;
-    }
+	public Context getContext() {
+		return mContext;
+	}
 
-    protected HistoryLine createView() {
-        return (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
-    }
+	protected HistoryLine createView() {
+		return (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
+	}
 
-    protected void updateView(HistoryEntry entry, HistoryLine view) {
-        TextView expr = (TextView) view.findViewById(R.id.historyExpr);
-        TextView result = (TextView) view.findViewById(R.id.historyResult);
+	protected void updateView(HistoryEntry entry, HistoryLine view) {
+		TextView expr = (TextView) view.findViewById(R.id.historyExpr);
+		TextView result = (TextView) view.findViewById(R.id.historyResult);
 
-        expr.setText(formatText(entry.getBase()));
-        result.setText(entry.getEdited());
-    }
+		expr.setText(formatText(entry.getBase()));
+		result.setText(entry.getEdited());
+	}
 
-    protected Spanned formatText(String text) {
-        return Html.fromHtml(mEquationFormatter.insertSupscripts(text));
-    }
+	protected Spanned formatText(String text) {
+		return Html.fromHtml(mEquationFormatter.insertSupscripts(text));
+	}
 }

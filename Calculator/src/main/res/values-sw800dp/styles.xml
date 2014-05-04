@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2011 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2011 The Android Open Source Project
 
 	 Licensed under the Apache License, Version 2.0 (the "License");
 	 you may not use this file except in compliance with the License.
@@ -14,9 +13,9 @@
 	 limitations under the License.
 -->
 <resources>
-	<dimen name="btn_digit_text_size">64sp</dimen>
-	<dimen name="btn_operation_text_size">64sp</dimen>
-	<dimen name="btn_function_text_size">32sp</dimen>
-	<dimen name="btn_clear_text_size">48sp</dimen>
-	<dimen name="display_text_size">72sp</dimen>
+    <dimen name="btn_digit_text_size">64sp</dimen>
+    <dimen name="btn_operation_text_size">64sp</dimen>
+    <dimen name="btn_function_text_size">32sp</dimen>
+    <dimen name="btn_clear_text_size">48sp</dimen>
+    <dimen name="display_text_size">72sp</dimen>
 </resources>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2011 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2011 The Android Open Source Project
 
 	 Licensed under the Apache License, Version 2.0 (the "License");
 	 you may not use this file except in compliance with the License.
@@ -15,20 +14,20 @@
 -->
 
 <resources>
-	<integer name="max_digits">14</integer>
-	<item type="bool" name="GRAPH">true</item>
-	<item type="bool" name="FUNCTION">false</item>
-	<item type="bool" name="HEX">true</item>
-	<item type="bool" name="BASIC">true</item>
-	<item type="bool" name="ADVANCED">true</item>
-	<item type="bool" name="MATRIX">true</item>
-	<item type="bool" name="RETURN_TO_BASIC">false</item>
-	<item type="bool" name="INFINITE_SCROLLING">false</item>
-	<item type="bool" name="CLICK_TO_OPEN_HISTORY">false</item>
-	<item type="bool" name="DIGIT_GROUPING">true</item>
-	<item type="bool" name="USE_RADIANS">true</item>
-	<item type="bool" name="SHOW_DETAILS">true</item>
-	<item type="bool" name="FLOATING_CALCULATOR">false</item>
-	<item type="bool" name="VIBRATE_ON_PRESS">false</item>
-	<item type="bool" name="SHOW_WIDGET_BACKGROUND">false</item>
+    <integer name="max_digits">14</integer>
+    <item name="GRAPH" type="bool">true</item>
+    <item name="FUNCTION" type="bool">false</item>
+    <item name="HEX" type="bool">true</item>
+    <item name="BASIC" type="bool">true</item>
+    <item name="ADVANCED" type="bool">true</item>
+    <item name="MATRIX" type="bool">true</item>
+    <item name="RETURN_TO_BASIC" type="bool">false</item>
+    <item name="INFINITE_SCROLLING" type="bool">false</item>
+    <item name="CLICK_TO_OPEN_HISTORY" type="bool">false</item>
+    <item name="DIGIT_GROUPING" type="bool">true</item>
+    <item name="USE_RADIANS" type="bool">true</item>
+    <item name="SHOW_DETAILS" type="bool">true</item>
+    <item name="FLOATING_CALCULATOR" type="bool">false</item>
+    <item name="VIBRATE_ON_PRESS" type="bool">false</item>
+    <item name="SHOW_WIDGET_BACKGROUND" type="bool">false</item>
 </resources>

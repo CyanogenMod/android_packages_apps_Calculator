@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -17,15 +16,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android2.calculator3.tests">
 
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="18"/>
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="18" />
 
     <application>
         <uses-library android:name="android.test.runner" />
     </application>
-    
+
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="com.android2.calculator3"
-        android:label="Calculator Functional Testset">
-    </instrumentation>
+        android:label="Calculator Functional Testset"
+        android:targetPackage="com.android2.calculator3"></instrumentation>
 
 </manifest> 

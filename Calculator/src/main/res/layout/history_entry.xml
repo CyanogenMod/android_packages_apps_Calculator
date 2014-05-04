@@ -1,20 +1,22 @@
 <com.android2.calculator3.view.HistoryLine xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:theme="http://schemas.android.com/apk/res-auto"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:padding="12dp" >
-	<com.xlythe.engine.theme.ThemedTextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textSize="@dimen/small_display_text_size"
-		theme:textColor="@color/history_input"
-		android:id="@+id/historyExpr" />
-	<com.xlythe.engine.theme.ThemedTextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textSize="@dimen/display_text_size"
-		theme:textColor="@color/history_result"
-		android:gravity="right"
-		android:id="@+id/historyResult" />
+    xmlns:theme="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <com.xlythe.engine.theme.ThemedTextView
+        android:id="@+id/historyExpr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/small_display_text_size"
+        theme:textColor="@color/history_input" />
+
+    <com.xlythe.engine.theme.ThemedTextView
+        android:id="@+id/historyResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textSize="@dimen/display_text_size"
+        theme:textColor="@color/history_result" />
 </com.android2.calculator3.view.HistoryLine>

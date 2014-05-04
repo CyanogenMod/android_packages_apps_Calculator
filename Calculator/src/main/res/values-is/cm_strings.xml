@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2012-2013 The CyanogenMod Project
 
 	 Licensed under the Apache License, Version 2.0 (the "License");
 	 you may not use this file except in compliance with the License.
@@ -14,9 +13,9 @@
 	 limitations under the License.
 -->
 <resources>
-	<string name="dec_separator">.</string>
-	<string name="bin_separator">\u0020</string>
-	<string name="hex_separator">\u0020</string>
-	<string name="dot">,</string>
-	<string name="matrix_separator">\u0020</string>
+    <string name="dec_separator">.</string>
+    <string name="bin_separator">\u0020</string>
+    <string name="hex_separator">\u0020</string>
+    <string name="dot">,</string>
+    <string name="matrix_separator">\u0020</string>
 </resources>

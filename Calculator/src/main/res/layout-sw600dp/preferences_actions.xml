@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-	<CheckBoxPreference
-		android:title="@string/vibrateOnPress"
-		android:key="VIBRATE_ON_PRESS"
-		android:defaultValue="@bool/VIBRATE_ON_PRESS" />
-	<CheckBoxPreference
-		android:title="@string/infiniteScrolling"
-		android:key="INFINITE_SCROLLING"
-		android:defaultValue="@bool/INFINITE_SCROLLING" />
-	<CheckBoxPreference
-		android:title="@string/clickToOpenHistory"
-		android:key="CLICK_TO_OPEN_HISTORY"
-		android:defaultValue="@bool/CLICK_TO_OPEN_HISTORY" />
-	<CheckBoxPreference
-		android:title="@string/digitGrouping"
-		android:key="DIGIT_GROUPING"
-		android:defaultValue="@bool/DIGIT_GROUPING" />
-	<CheckBoxPreference
-		android:title="@string/showDetails"
-		android:key="SHOW_DETAILS"
-		android:defaultValue="@bool/SHOW_DETAILS" />
-	<CheckBoxPreference
-		android:title="@string/floatingCalc"
-		android:key="FLOATING_CALCULATOR"
-		android:defaultValue="@bool/FLOATING_CALCULATOR" />
-	<CheckBoxPreference
-		android:title="@string/showWidgetBackground"
-		android:key="SHOW_WIDGET_BACKGROUND"
-		android:defaultValue="@bool/SHOW_WIDGET_BACKGROUND" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/VIBRATE_ON_PRESS"
+        android:key="VIBRATE_ON_PRESS"
+        android:title="@string/vibrateOnPress" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/INFINITE_SCROLLING"
+        android:key="INFINITE_SCROLLING"
+        android:title="@string/infiniteScrolling" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/CLICK_TO_OPEN_HISTORY"
+        android:key="CLICK_TO_OPEN_HISTORY"
+        android:title="@string/clickToOpenHistory" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/DIGIT_GROUPING"
+        android:key="DIGIT_GROUPING"
+        android:title="@string/digitGrouping" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/SHOW_DETAILS"
+        android:key="SHOW_DETAILS"
+        android:title="@string/showDetails" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/FLOATING_CALCULATOR"
+        android:key="FLOATING_CALCULATOR"
+        android:title="@string/floatingCalc" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/SHOW_WIDGET_BACKGROUND"
+        android:key="SHOW_WIDGET_BACKGROUND"
+        android:title="@string/showWidgetBackground" />
 </PreferenceScreen>

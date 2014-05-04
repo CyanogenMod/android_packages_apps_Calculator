@@ -36,433 +36,431 @@ import org.javia.arity.SyntaxException;
 import java.util.Locale;
 
 public class Logic {
-    public static final String INFINITY_UNICODE = "\u221e";
-    // Double.toString() for Infinity
-    public static final String INFINITY = "Infinity";
-    // Double.toString() for NaN
-    public static final String NAN = "NaN";
-    public static final char MINUS = '\u2212';
-    public static final String NUMBER = "[" + Logic.MINUS + "-]?[A-F0-9]+(\\.[A-F0-9]*)?";
-    public static final String MARKER_EVALUATE_ON_RESUME = "?";
-    public static final int DELETE_MODE_BACKSPACE = 0;
-    int mDeleteMode = DELETE_MODE_BACKSPACE;
-    public static final int DELETE_MODE_CLEAR = 1;
-    public static final int ROUND_DIGITS = 1;
-    static final char MUL = '\u00d7';
-    static final char PLUS = '+';
-    static final char DIV = '\u00f7';
-    static final char POW = '^';
-    final String mErrorString;
-    final String mDecSeparator;
-    final String mBinSeparator;
-    final String mHexSeparator;
-    final String mDecimalPoint;
-    final String mMatrixSeparator;
-    final int mDecSeparatorDistance;
-    final int mBinSeparatorDistance;
-    final int mHexSeparatorDistance;
-    public final String mX;
-    public final String mY;
-    private final Context mContext;
-    private History mHistory;
-    private final String mSinString;
-    private final String mCosString;
-    private final String mTanString;
-    private final String mArcsinString;
-    private final String mArccosString;
-    private final String mArctanString;
-    private final String mLogString;
-    private final String mLnString;
-    private final String mDetString;
-    private final String mCbrtString;
-    CalculatorDisplay mDisplay;
-    GraphView mGraphView;
-    public Symbols mSymbols = new Symbols();
-    String mResult = "";
-    boolean mIsError = false;
-    int mLineLength = 0;
-    EquationFormatter mEquationFormatter;
-    private Graph mGraph;
-    private GraphModule mGraphModule;
-    private BaseModule mBaseModule;
-    private MatrixModule mMatrixModule;
-    private Listener mListener;
+	public static final String INFINITY_UNICODE = "\u221e";
+	// Double.toString() for Infinity
+	public static final String INFINITY = "Infinity";
+	// Double.toString() for NaN
+	public static final String NAN = "NaN";
+	public static final char MINUS = '\u2212';
+	public static final String NUMBER = "[" + Logic.MINUS + "-]?[A-F0-9]+(\\.[A-F0-9]*)?";
+	public static final String MARKER_EVALUATE_ON_RESUME = "?";
+	public static final int DELETE_MODE_BACKSPACE = 0;
+	int mDeleteMode = DELETE_MODE_BACKSPACE;
+	public static final int DELETE_MODE_CLEAR = 1;
+	public static final int ROUND_DIGITS = 1;
+	static final char MUL = '\u00d7';
+	static final char PLUS = '+';
+	static final char DIV = '\u00f7';
+	static final char POW = '^';
+	public final String mX;
+	public final String mY;
+	final String mErrorString;
+	final String mDecSeparator;
+	final String mBinSeparator;
+	final String mHexSeparator;
+	final String mDecimalPoint;
+	final String mMatrixSeparator;
+	final int mDecSeparatorDistance;
+	final int mBinSeparatorDistance;
+	final int mHexSeparatorDistance;
+	private final Context mContext;
+	private final String mSinString;
+	private final String mCosString;
+	private final String mTanString;
+	private final String mArcsinString;
+	private final String mArccosString;
+	private final String mArctanString;
+	private final String mLogString;
+	private final String mLnString;
+	private final String mDetString;
+	private final String mCbrtString;
+	public Symbols mSymbols = new Symbols();
+	CalculatorDisplay mDisplay;
+	GraphView mGraphView;
+	String mResult = "";
+	boolean mIsError = false;
+	int mLineLength = 0;
+	EquationFormatter mEquationFormatter;
+	private History mHistory;
+	private Graph mGraph;
+	private GraphModule mGraphModule;
+	private BaseModule mBaseModule;
+	private MatrixModule mMatrixModule;
+	private Listener mListener;
 
-    public Logic(Context context) {
-        this(context, null);
-    }
+	public Logic(Context context) {
+		this(context, null);
+	}
 
-    Logic(Context context, CalculatorDisplay display) {
-        final Resources r = context.getResources();
-        mContext = context.getApplicationContext();
-        mErrorString = r.getString(R.string.error);
-        mSinString = r.getString(R.string.sin);
-        mCosString = r.getString(R.string.cos);
-        mTanString = r.getString(R.string.tan);
-        mArcsinString = r.getString(R.string.arcsin);
-        mArccosString = r.getString(R.string.arccos);
-        mArctanString = r.getString(R.string.arctan);
-        mLogString = r.getString(R.string.lg);
-        mLnString = r.getString(R.string.ln);
-        mDetString = r.getString(R.string.det);
-        mCbrtString = r.getString(R.string.cbrt);
-        mDecSeparator = r.getString(R.string.dec_separator);
-        mBinSeparator = r.getString(R.string.bin_separator);
-        mHexSeparator = r.getString(R.string.hex_separator);
-        mDecSeparatorDistance = r.getInteger(R.integer.dec_separator_distance);
-        mBinSeparatorDistance = r.getInteger(R.integer.bin_separator_distance);
-        mHexSeparatorDistance = r.getInteger(R.integer.hex_separator_distance);
-        mDecimalPoint = r.getString(R.string.dot);
-        mMatrixSeparator = r.getString(R.string.matrix_separator);
-        mX = r.getString(R.string.X);
-        mY = r.getString(R.string.Y);
+	Logic(Context context, CalculatorDisplay display) {
+		final Resources r = context.getResources();
+		mContext = context.getApplicationContext();
+		mErrorString = r.getString(R.string.error);
+		mSinString = r.getString(R.string.sin);
+		mCosString = r.getString(R.string.cos);
+		mTanString = r.getString(R.string.tan);
+		mArcsinString = r.getString(R.string.arcsin);
+		mArccosString = r.getString(R.string.arccos);
+		mArctanString = r.getString(R.string.arctan);
+		mLogString = r.getString(R.string.lg);
+		mLnString = r.getString(R.string.ln);
+		mDetString = r.getString(R.string.det);
+		mCbrtString = r.getString(R.string.cbrt);
+		mDecSeparator = r.getString(R.string.dec_separator);
+		mBinSeparator = r.getString(R.string.bin_separator);
+		mHexSeparator = r.getString(R.string.hex_separator);
+		mDecSeparatorDistance = r.getInteger(R.integer.dec_separator_distance);
+		mBinSeparatorDistance = r.getInteger(R.integer.bin_separator_distance);
+		mHexSeparatorDistance = r.getInteger(R.integer.hex_separator_distance);
+		mDecimalPoint = r.getString(R.string.dot);
+		mMatrixSeparator = r.getString(R.string.matrix_separator);
+		mX = r.getString(R.string.X);
+		mY = r.getString(R.string.Y);
 
-        mEquationFormatter = new EquationFormatter();
-        mDisplay = display;
-        if(mDisplay != null) mDisplay.setLogic(this);
-        mGraphModule = new GraphModule(this);
-        mBaseModule = new BaseModule(this);
-        mMatrixModule = new MatrixModule(this);
-    }
+		mEquationFormatter = new EquationFormatter();
+		mDisplay = display;
+		if (mDisplay != null) mDisplay.setLogic(this);
+		mGraphModule = new GraphModule(this);
+		mBaseModule = new BaseModule(this);
+		mMatrixModule = new MatrixModule(this);
+	}
 
-    public void setHistory(History history) {
-        mHistory = history;
-    }
+	public static boolean isOperator(String text) {
+		return text.length() == 1 && isOperator(text.charAt(0));
+	}
 
-    public static boolean isOperator(String text) {
-        return text.length() == 1 && isOperator(text.charAt(0));
-    }
+	static boolean isOperator(char c) {
+		// plus minus times div
+		return "+\u2212\u00d7\u00f7/*^".indexOf(c) != -1;
+	}
 
-    static boolean isOperator(char c) {
-        // plus minus times div
-        return "+\u2212\u00d7\u00f7/*^".indexOf(c) != -1;
-    }
+	static boolean isPostFunction(String text) {
+		return text.length() == 1 && isPostFunction(text.charAt(0));
+	}
 
-    static boolean isPostFunction(String text) {
-        return text.length() == 1 && isPostFunction(text.charAt(0));
-    }
+	static boolean isPostFunction(char c) {
+		// exponent, factorial, percent
+		return "^!%".indexOf(c) != -1;
+	}
 
-    static boolean isPostFunction(char c) {
-        // exponent, factorial, percent
-        return "^!%".indexOf(c) != -1;
-    }
+	public void setHistory(History history) {
+		mHistory = history;
+	}
 
-    public void setGraphDisplay(GraphView graphView) {
-        mGraphView = graphView;
-    }
+	public void setGraphDisplay(GraphView graphView) {
+		mGraphView = graphView;
+	}
 
-    public void setGraph(Graph graph) {
-        mGraph = graph;
-    }
+	public void setGraph(Graph graph) {
+		mGraph = graph;
+	}
 
-    public void setListener(Listener listener) {
-        this.mListener = listener;
-    }
+	public void setListener(Listener listener) {
+		this.mListener = listener;
+	}
 
-    public int getDeleteMode() {
-        return mDeleteMode;
-    }
+	public int getDeleteMode() {
+		return mDeleteMode;
+	}
 
-    public void setDeleteMode(int mode) {
-        if(mDeleteMode != mode) {
-            mDeleteMode = mode;
-            if(mListener != null) mListener.onDeleteModeChange();
-        }
-    }
+	public void setDeleteMode(int mode) {
+		if (mDeleteMode != mode) {
+			mDeleteMode = mode;
+			if (mListener != null) mListener.onDeleteModeChange();
+		}
+	}
 
-    void setLineLength(int nDigits) {
-        mLineLength = nDigits;
-    }
+	void setLineLength(int nDigits) {
+		mLineLength = nDigits;
+	}
 
-    public String getText() {
-        return mDisplay.getText();
-    }
+	public String getText() {
+		return mDisplay.getText();
+	}
 
-    void setText(String text) {
-        clear(false);
-        mDisplay.insert(text);
-        if(text.equals(mErrorString)) setDeleteMode(DELETE_MODE_CLEAR);
-    }
+	void setText(String text) {
+		clear(false);
+		mDisplay.insert(text);
+		if (text.equals(mErrorString)) setDeleteMode(DELETE_MODE_CLEAR);
+	}
 
-    void insert(String delta) {
-        if(!acceptInsert(delta)) {
-            clear(true);
-        }
-        mDisplay.insert(delta);
-        setDeleteMode(DELETE_MODE_BACKSPACE);
-        mGraphModule.updateGraph(mGraph);
-    }
+	void insert(String delta) {
+		if (!acceptInsert(delta)) {
+			clear(true);
+		}
+		mDisplay.insert(delta);
+		setDeleteMode(DELETE_MODE_BACKSPACE);
+		mGraphModule.updateGraph(mGraph);
+	}
 
-    public void onTextChanged() {
-        setDeleteMode(DELETE_MODE_BACKSPACE);
-    }
+	public void onTextChanged() {
+		setDeleteMode(DELETE_MODE_BACKSPACE);
+	}
 
-    public void resumeWithHistory() {
-        clearWithHistory(false);
-    }
+	public void resumeWithHistory() {
+		clearWithHistory(false);
+	}
 
-    private void clearWithHistory(boolean scroll) {
-        String text = mHistory.getText();
-        if(MARKER_EVALUATE_ON_RESUME.equals(text)) {
-            if(!mHistory.moveToPrevious()) {
-                text = "";
-            }
-            text = mHistory.getBase();
-            evaluateAndShowResult(text, CalculatorDisplay.Scroll.NONE);
-        }
-        else {
-            mResult = "";
-            mDisplay.setText(text, scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
-            mIsError = false;
-        }
-    }
+	private void clearWithHistory(boolean scroll) {
+		String text = mHistory.getText();
+		if (MARKER_EVALUATE_ON_RESUME.equals(text)) {
+			if (!mHistory.moveToPrevious()) {
+				text = "";
+			}
+			text = mHistory.getBase();
+			evaluateAndShowResult(text, CalculatorDisplay.Scroll.NONE);
+		} else {
+			mResult = "";
+			mDisplay.setText(text, scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
+			mIsError = false;
+		}
+	}
 
-    private void clear(boolean scroll) {
-        mHistory.enter("", "");
-        mDisplay.setText("", scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
-        cleared();
-    }
+	private void clear(boolean scroll) {
+		mHistory.enter("", "");
+		mDisplay.setText("", scroll ? CalculatorDisplay.Scroll.UP : CalculatorDisplay.Scroll.NONE);
+		cleared();
+	}
 
-    void cleared() {
-        mResult = "";
-        mIsError = false;
-        updateHistory();
+	void cleared() {
+		mResult = "";
+		mIsError = false;
+		updateHistory();
 
-        setDeleteMode(DELETE_MODE_BACKSPACE);
-    }
+		setDeleteMode(DELETE_MODE_BACKSPACE);
+	}
 
-    boolean acceptInsert(String delta) {
-        if(mIsError || getText().equals(mErrorString)) {
-            return false;
-        }
-        if(getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || isPostFunction(delta)) {
-            return true;
-        }
+	boolean acceptInsert(String delta) {
+		if (mIsError || getText().equals(mErrorString)) {
+			return false;
+		}
+		if (getDeleteMode() == DELETE_MODE_BACKSPACE || isOperator(delta) || isPostFunction(delta)) {
+			return true;
+		}
 
-        EditText editText = mDisplay.getActiveEditText();
-        int editLength = editText == null ? 0 : editText.getText().length();
+		EditText editText = mDisplay.getActiveEditText();
+		int editLength = editText == null ? 0 : editText.getText().length();
 
-        return mDisplay.getSelectionStart() != editLength;
-    }
+		return mDisplay.getSelectionStart() != editLength;
+	}
 
-    void onDelete() {
-        if(getText().equals(mResult) || mIsError) {
-            clear(false);
-        }
-        else {
-            mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
-            mResult = "";
-        }
-        mGraphModule.updateGraph(mGraph);
-    }
+	void onDelete() {
+		if (getText().equals(mResult) || mIsError) {
+			clear(false);
+		} else {
+			mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
+			mResult = "";
+		}
+		mGraphModule.updateGraph(mGraph);
+	}
 
-    void onClear() {
-        clear(mDeleteMode == DELETE_MODE_CLEAR);
-        mGraphModule.updateGraph(mGraph);
-    }
+	void onClear() {
+		clear(mDeleteMode == DELETE_MODE_CLEAR);
+		mGraphModule.updateGraph(mGraph);
+	}
 
-    public void onEnter() {
-        if(mDeleteMode == DELETE_MODE_CLEAR) {
-            clearWithHistory(false); // clear after an Enter on result
-        }
-        else {
-            evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
-        }
-    }
+	public void onEnter() {
+		if (mDeleteMode == DELETE_MODE_CLEAR) {
+			clearWithHistory(false); // clear after an Enter on result
+		} else {
+			evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
+		}
+	}
 
-    boolean displayContainsMatrices() {
-        boolean containsMatrices = false;
-        for(int i = 0; i < mDisplay.getAdvancedDisplay().getChildCount(); i++) {
-            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixView) containsMatrices = true;
-            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixInverseView) containsMatrices = true;
-            if(mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixTransposeView) containsMatrices = true;
-        }
-        return containsMatrices;
-    }
+	boolean displayContainsMatrices() {
+		boolean containsMatrices = false;
+		for (int i = 0; i < mDisplay.getAdvancedDisplay().getChildCount(); i++) {
+			if (mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixView)
+				containsMatrices = true;
+			if (mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixInverseView)
+				containsMatrices = true;
+			if (mDisplay.getAdvancedDisplay().getChildAt(i) instanceof MatrixTransposeView)
+				containsMatrices = true;
+		}
+		return containsMatrices;
+	}
 
-    public void evaluateAndShowResult(String text, Scroll scroll) {
-        boolean containsMatrices = displayContainsMatrices();
-        try {
-            String result = containsMatrices ? mMatrixModule.evaluateMatrices(mDisplay.getAdvancedDisplay()) : evaluate(text);
-            if(!text.equals(result)) {
-                mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
-                mResult = result;
-                mDisplay.setText(mResult, scroll);
-                setDeleteMode(DELETE_MODE_CLEAR);
-            }
-        }
-        catch(SyntaxException e) {
-            mIsError = true;
-            mResult = mErrorString;
-            mDisplay.setText(mResult, scroll);
-            setDeleteMode(DELETE_MODE_CLEAR);
-        }
-    }
+	public void evaluateAndShowResult(String text, Scroll scroll) {
+		boolean containsMatrices = displayContainsMatrices();
+		try {
+			String result = containsMatrices ? mMatrixModule.evaluateMatrices(mDisplay.getAdvancedDisplay()) : evaluate(text);
+			if (!text.equals(result)) {
+				mHistory.enter(mEquationFormatter.appendParenthesis(text), result);
+				mResult = result;
+				mDisplay.setText(mResult, scroll);
+				setDeleteMode(DELETE_MODE_CLEAR);
+			}
+		} catch (SyntaxException e) {
+			mIsError = true;
+			mResult = mErrorString;
+			mDisplay.setText(mResult, scroll);
+			setDeleteMode(DELETE_MODE_CLEAR);
+		}
+	}
 
-    void onUp() {
-        if(mHistory.moveToPrevious()) {
-            mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.DOWN);
-        }
-    }
+	void onUp() {
+		if (mHistory.moveToPrevious()) {
+			mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.DOWN);
+		}
+	}
 
-    void onDown() {
-        if(mHistory.moveToNext()) {
-            mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.UP);
-        }
-    }
+	void onDown() {
+		if (mHistory.moveToNext()) {
+			mDisplay.setText(mHistory.getText(), CalculatorDisplay.Scroll.UP);
+		}
+	}
 
-    void updateHistory() {
-        String text = getText();
-        mHistory.update(text);
-    }
+	void updateHistory() {
+		String text = getText();
+		mHistory.update(text);
+	}
 
-    public String evaluate(String input) throws SyntaxException {
-        if(input.trim().isEmpty()) {
-            return "";
-        }
+	public String evaluate(String input) throws SyntaxException {
+		if (input.trim().isEmpty()) {
+			return "";
+		}
 
-        // Drop final infix operators (they can only result in error)
-        int size = input.length();
-        while(size > 0 && isOperator(input.charAt(size - 1))) {
-            input = input.substring(0, size - 1);
-            --size;
-        }
+		// Drop final infix operators (they can only result in error)
+		int size = input.length();
+		while (size > 0 && isOperator(input.charAt(size - 1))) {
+			input = input.substring(0, size - 1);
+			--size;
+		}
 
-        input = localize(input);
+		input = localize(input);
 
-        // Convert to decimal
-        String decimalInput = convertToDecimal(input);
+		// Convert to decimal
+		String decimalInput = convertToDecimal(input);
 
-        Complex value = mSymbols.evalComplex(decimalInput);
+		Complex value = mSymbols.evalComplex(decimalInput);
 
-        String real = "";
-        for(int precision = mLineLength; precision > 6; precision--) {
-            real = tryFormattingWithPrecision(value.re, precision);
-            if(real.length() <= mLineLength) {
-                break;
-            }
-        }
+		String real = "";
+		for (int precision = mLineLength; precision > 6; precision--) {
+			real = tryFormattingWithPrecision(value.re, precision);
+			if (real.length() <= mLineLength) {
+				break;
+			}
+		}
 
-        String imaginary = "";
-        for(int precision = mLineLength; precision > 6; precision--) {
-            imaginary = tryFormattingWithPrecision(value.im, precision);
-            if(imaginary.length() <= mLineLength) {
-                break;
-            }
-        }
+		String imaginary = "";
+		for (int precision = mLineLength; precision > 6; precision--) {
+			imaginary = tryFormattingWithPrecision(value.im, precision);
+			if (imaginary.length() <= mLineLength) {
+				break;
+			}
+		}
 
-        real = mBaseModule.updateTextToNewMode(real, Mode.DECIMAL, mBaseModule.getMode()).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
-        imaginary = mBaseModule.updateTextToNewMode(imaginary, Mode.DECIMAL, mBaseModule.getMode()).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
+		real = mBaseModule.updateTextToNewMode(real, Mode.DECIMAL, mBaseModule.getMode()).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
+		imaginary = mBaseModule.updateTextToNewMode(imaginary, Mode.DECIMAL, mBaseModule.getMode()).replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
 
-        String result = "";
-        if(value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
-        else if(value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit -
-        else if(value.re != 0 && value.im == 0) result = real;
-        else if(value.re == 0 && value.im != 0) result = imaginary + "i";
-        else if(value.re == 0 && value.im == 0) result = "0";
+		String result = "";
+		if (value.re != 0 && value.im > 0) result = real + "+" + imaginary + "i";
+		else if (value.re != 0 && value.im < 0) result = real + imaginary + "i"; // Implicit -
+		else if (value.re != 0 && value.im == 0) result = real;
+		else if (value.re == 0 && value.im != 0) result = imaginary + "i";
+		else if (value.re == 0 && value.im == 0) result = "0";
 
-        result = relocalize(result);
-        return result;
-    }
+		result = relocalize(result);
+		return result;
+	}
 
-    public String convertToDecimal(String input) {
-        return mBaseModule.updateTextToNewMode(input, mBaseModule.getMode(), Mode.DECIMAL);
-    }
+	public String convertToDecimal(String input) {
+		return mBaseModule.updateTextToNewMode(input, mBaseModule.getMode(), Mode.DECIMAL);
+	}
 
-    String localize(String input) {
-        // Delocalize functions (e.g. Spanish localizes "sin" as "sen"). Order
-        // matters for arc functions
-        input = input.replace(mArcsinString, "asin");
-        input = input.replace(mArccosString, "acos");
-        input = input.replace(mArctanString, "atan");
-        input = input.replace(mSinString, "sin");
-        input = input.replace(mCosString, "cos");
-        input = input.replace(mTanString, "tan");
-        if(!CalculatorSettings.useRadians(mContext)) {
-            input = input.replace("sin", "sind");
-            input = input.replace("cos", "cosd");
-            input = input.replace("tan", "tand");
-        }
-        input = input.replace(mLogString, "log");
-        input = input.replace(mLnString, "ln");
-        input = input.replace(mDetString, "det");
-        input = input.replace(mCbrtString, "cbrt");
-        input = input.replace(mDecimalPoint, ".");
-        input = input.replace(mMatrixSeparator, ",");
-        return input;
-    }
+	String localize(String input) {
+		// Delocalize functions (e.g. Spanish localizes "sin" as "sen"). Order
+		// matters for arc functions
+		input = input.replace(mArcsinString, "asin");
+		input = input.replace(mArccosString, "acos");
+		input = input.replace(mArctanString, "atan");
+		input = input.replace(mSinString, "sin");
+		input = input.replace(mCosString, "cos");
+		input = input.replace(mTanString, "tan");
+		if (!CalculatorSettings.useRadians(mContext)) {
+			input = input.replace("sin", "sind");
+			input = input.replace("cos", "cosd");
+			input = input.replace("tan", "tand");
+		}
+		input = input.replace(mLogString, "log");
+		input = input.replace(mLnString, "ln");
+		input = input.replace(mDetString, "det");
+		input = input.replace(mCbrtString, "cbrt");
+		input = input.replace(mDecimalPoint, ".");
+		input = input.replace(mMatrixSeparator, ",");
+		return input;
+	}
 
-    String relocalize(String input) {
-        input = input.replace(",", mMatrixSeparator);
-        input = input.replace(".", mDecimalPoint);
-        return input;
-    }
+	String relocalize(String input) {
+		input = input.replace(",", mMatrixSeparator);
+		input = input.replace(".", mDecimalPoint);
+		return input;
+	}
 
-    String tryFormattingWithPrecision(double value, int precision) {
-        // The standard scientific formatter is basically what we need. We will
-        // start with what it produces and then massage it a bit.
-        String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
-        if(result.equals(NAN)) { // treat NaN as Error
-            return mErrorString;
-        }
-        String mantissa = result;
-        String exponent = null;
-        int e = result.indexOf('e');
-        if(e != -1) {
-            mantissa = result.substring(0, e);
+	String tryFormattingWithPrecision(double value, int precision) {
+		// The standard scientific formatter is basically what we need. We will
+		// start with what it produces and then massage it a bit.
+		String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
+		if (result.equals(NAN)) { // treat NaN as Error
+			return mErrorString;
+		}
+		String mantissa = result;
+		String exponent = null;
+		int e = result.indexOf('e');
+		if (e != -1) {
+			mantissa = result.substring(0, e);
 
-            // Strip "+" and unnecessary 0's from the exponent
-            exponent = result.substring(e + 1);
-            if(exponent.startsWith("+")) {
-                exponent = exponent.substring(1);
-            }
-            exponent = String.valueOf(Integer.parseInt(exponent));
-        }
+			// Strip "+" and unnecessary 0's from the exponent
+			exponent = result.substring(e + 1);
+			if (exponent.startsWith("+")) {
+				exponent = exponent.substring(1);
+			}
+			exponent = String.valueOf(Integer.parseInt(exponent));
+		}
 
-        int period = mantissa.indexOf('.');
-        if(period == -1) {
-            period = mantissa.indexOf(',');
-        }
-        if(period != -1) {
-            // Strip trailing 0's
-            while(mantissa.length() > 0 && mantissa.endsWith("0")) {
-                mantissa = mantissa.substring(0, mantissa.length() - 1);
-            }
-            if(mantissa.length() == period + 1) {
-                mantissa = mantissa.substring(0, mantissa.length() - 1);
-            }
-        }
+		int period = mantissa.indexOf('.');
+		if (period == -1) {
+			period = mantissa.indexOf(',');
+		}
+		if (period != -1) {
+			// Strip trailing 0's
+			while (mantissa.length() > 0 && mantissa.endsWith("0")) {
+				mantissa = mantissa.substring(0, mantissa.length() - 1);
+			}
+			if (mantissa.length() == period + 1) {
+				mantissa = mantissa.substring(0, mantissa.length() - 1);
+			}
+		}
 
-        if(exponent != null) {
-            result = mantissa + 'e' + exponent;
-        }
-        else {
-            result = mantissa;
-        }
-        return result;
-    }
+		if (exponent != null) {
+			result = mantissa + 'e' + exponent;
+		} else {
+			result = mantissa;
+		}
+		return result;
+	}
 
-    public GraphModule getGraphModule() {
-        return mGraphModule;
-    }
+	public GraphModule getGraphModule() {
+		return mGraphModule;
+	}
 
-    public BaseModule getBaseModule() {
-        return mBaseModule;
-    }
+	public BaseModule getBaseModule() {
+		return mBaseModule;
+	}
 
-    public MatrixModule getMatrixModule() {
-        return mMatrixModule;
-    }
+	public MatrixModule getMatrixModule() {
+		return mMatrixModule;
+	}
 
-    public boolean isError() {
-        return getText().equals(mErrorString);
-    }
+	public boolean isError() {
+		return getText().equals(mErrorString);
+	}
 
-    public Context getContext() {
-        return mContext;
-    }
+	public Context getContext() {
+		return mContext;
+	}
 
-    public interface Listener {
-        void onDeleteModeChange();
-    }
+	public interface Listener {
+		void onDeleteModeChange();
+	}
 }

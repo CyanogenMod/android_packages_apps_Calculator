@@ -22,54 +22,62 @@
     android:id="@+id/functionPad"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center">
-	<LinearLayout
-		android:layout_weight="1"
-		android:layout_width="match_parent"
-		android:layout_height="0dp" >
-		<com.android2.calculator3.view.ColorButton
-			android:id="@+id/solveForX"
-			android:text="@string/solveForX"
-			android:textSize="34dp"
-			android:layout_width="0dp"
-			android:layout_weight="2"
-			style="@style/Theme.Calculator.ButtonStyle.Small" />
-		<com.android2.calculator3.view.ColorButton
-			android:id="@+id/X"
-			android:text="@string/X"
-			android:layout_width="0dp"
-			android:layout_weight="1"
-			style="@style/Theme.Calculator.ButtonStyle.Digit" />
-		<com.android2.calculator3.view.ColorButton
-			android:id="@+id/Y"
-			android:text="@string/Y"
-			android:layout_width="0dp"
-			android:layout_weight="1"
-			style="@style/Theme.Calculator.ButtonStyle.Digit" />
-	</LinearLayout>
-	<LinearLayout
-		android:layout_weight="1"
-		android:layout_width="match_parent"
-		android:layout_height="0dp" >
-		<com.android2.calculator3.view.ColorButton
-			android:id="@+id/solveForY"
-			android:text="@string/solveForY"
-			android:textSize="34sp"
-			android:layout_width="0dp"
-			android:layout_weight="2"
-			style="@style/Theme.Calculator.ButtonStyle.Small" />
-		<com.android2.calculator3.view.ColorButton
-			android:id="@+id/integral"
-			android:text="@string/integral"
-			android:layout_width="0dp"
-			android:layout_weight="1"
-			style="@style/Theme.Calculator.ButtonStyle" />
-		<com.android2.calculator3.view.ColorButton
-			android:id="@+id/dx"
-			android:text="@string/dx"
-			android:layout_width="0dp"
-			android:layout_weight="1"
-			style="@style/Theme.Calculator.ButtonStyle" />
-	</LinearLayout>
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.android2.calculator3.view.ColorButton
+            android:id="@+id/solveForX"
+            style="@style/Theme.Calculator.ButtonStyle.Small"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:text="@string/solveForX"
+            android:textSize="34dp" />
+
+        <com.android2.calculator3.view.ColorButton
+            android:id="@+id/X"
+            style="@style/Theme.Calculator.ButtonStyle.Digit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/X" />
+
+        <com.android2.calculator3.view.ColorButton
+            android:id="@+id/Y"
+            style="@style/Theme.Calculator.ButtonStyle.Digit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/Y" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.android2.calculator3.view.ColorButton
+            android:id="@+id/solveForY"
+            style="@style/Theme.Calculator.ButtonStyle.Small"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:text="@string/solveForY"
+            android:textSize="34sp" />
+
+        <com.android2.calculator3.view.ColorButton
+            android:id="@+id/integral"
+            style="@style/Theme.Calculator.ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/integral" />
+
+        <com.android2.calculator3.view.ColorButton
+            android:id="@+id/dx"
+            style="@style/Theme.Calculator.ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/dx" />
+    </LinearLayout>
 </LinearLayout>

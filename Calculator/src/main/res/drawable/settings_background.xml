@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2011 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2011 The Android Open Source Project
 	 Copyright (C) 2013 The CyanogenMod Project
 
 	 Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +15,9 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item>
-	<shape>
-		<gradient
-			android:angle="90"
-			android:startColor="#FF2d2d2d"
-			android:endColor="#FF2d2d2d"
-			android:type="linear" />
-	</shape>
-</item>
+    <item>
+        <shape>
+            <gradient android:angle="90" android:endColor="#FF2d2d2d" android:startColor="#FF2d2d2d" android:type="linear" />
+        </shape>
+    </item>
 </selector>

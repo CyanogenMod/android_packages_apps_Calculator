@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-	<Preference
-		android:title="@string/pref_panels"
-		android:key="panels" />
-	<Preference
-		android:title="@string/pref_actions"
-		android:key="actions" />
-	<Preference
-		android:title="@string/pref_units"
-		android:key="units" />
-	<com.xlythe.engine.theme.ThemeListPreference
-		android:title="@string/pref_theme"
-		android:key="SELECTED_THEME" />
-	<Preference
-		android:title="@string/app_name"
-		android:summary="@string/application_copyright"
-		android:key="ABOUT" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="panels"
+        android:title="@string/pref_panels" />
+
+    <Preference
+        android:key="actions"
+        android:title="@string/pref_actions" />
+
+    <Preference
+        android:key="units"
+        android:title="@string/pref_units" />
+
+    <com.xlythe.engine.theme.ThemeListPreference
+        android:key="SELECTED_THEME"
+        android:title="@string/pref_theme" />
+
+    <Preference
+        android:key="ABOUT"
+        android:summary="@string/application_copyright"
+        android:title="@string/app_name" />
 </PreferenceScreen>

@@ -30,73 +30,70 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 class Persist {
-    private static final int LAST_VERSION = 3;
-    private static final String FILE_NAME = "calculator.data";
-    private final Context mContext;
-    History mHistory = new History();
-    private int mDeleteMode;
-    private Mode mMode;
+	private static final int LAST_VERSION = 3;
+	private static final String FILE_NAME = "calculator.data";
+	private final Context mContext;
+	History mHistory = new History();
+	private int mDeleteMode;
+	private Mode mMode;
 
-    Persist(Context context) {
-        this.mContext = context;
-    }
+	Persist(Context context) {
+		this.mContext = context;
+	}
 
-    public int getDeleteMode() {
-        return mDeleteMode;
-    }
+	public int getDeleteMode() {
+		return mDeleteMode;
+	}
 
-    public void setDeleteMode(int mode) {
-        mDeleteMode = mode;
-    }
+	public void setDeleteMode(int mode) {
+		mDeleteMode = mode;
+	}
 
-    public Mode getMode() {
-        return mMode;
-    }
+	public Mode getMode() {
+		return mMode;
+	}
 
-    public void setMode(Mode mode) {
-        this.mMode = mode;
-    }
+	public void setMode(Mode mode) {
+		this.mMode = mode;
+	}
 
-    public void load() {
-        try {
-            InputStream is = new BufferedInputStream(mContext.openFileInput(FILE_NAME), 8192);
-            DataInputStream in = new DataInputStream(is);
-            int version = in.readInt();
-            if(version > LAST_VERSION) {
-                throw new IOException("data version " + version + "; expected " + LAST_VERSION);
-            }
-            if(version > 1) {
-                mDeleteMode = in.readInt();
-            }
-            if(version > 2) {
-                int quickSerializable = in.readInt();
-                for(Mode m : Mode.values()) {
-                    if(m.getQuickSerializable() == quickSerializable) this.mMode = m;
-                }
-            }
-            mHistory = new History(version, in);
-            in.close();
-        }
-        catch(FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public void load() {
+		try {
+			InputStream is = new BufferedInputStream(mContext.openFileInput(FILE_NAME), 8192);
+			DataInputStream in = new DataInputStream(is);
+			int version = in.readInt();
+			if (version > LAST_VERSION) {
+				throw new IOException("data version " + version + "; expected " + LAST_VERSION);
+			}
+			if (version > 1) {
+				mDeleteMode = in.readInt();
+			}
+			if (version > 2) {
+				int quickSerializable = in.readInt();
+				for (Mode m : Mode.values()) {
+					if (m.getQuickSerializable() == quickSerializable) this.mMode = m;
+				}
+			}
+			mHistory = new History(version, in);
+			in.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public void save() {
-        try {
-            OutputStream os = new BufferedOutputStream(mContext.openFileOutput(FILE_NAME, 0), 8192);
-            DataOutputStream out = new DataOutputStream(os);
-            out.writeInt(LAST_VERSION);
-            out.writeInt(mDeleteMode);
-            out.writeInt(mMode == null ? Mode.DECIMAL.getQuickSerializable() : mMode.getQuickSerializable());
-            mHistory.write(out);
-            out.close();
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public void save() {
+		try {
+			OutputStream os = new BufferedOutputStream(mContext.openFileOutput(FILE_NAME, 0), 8192);
+			DataOutputStream out = new DataOutputStream(os);
+			out.writeInt(LAST_VERSION);
+			out.writeInt(mDeleteMode);
+			out.writeInt(mMode == null ? Mode.DECIMAL.getQuickSerializable() : mMode.getQuickSerializable());
+			mHistory.write(out);
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

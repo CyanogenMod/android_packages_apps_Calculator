@@ -43,197 +43,194 @@ import java.util.List;
  * Provides vertical scrolling for the input/result EditText.
  */
 public class CalculatorDisplay extends ViewSwitcher implements OnLongClickListener {
-    private static final String ATTR_MAX_DIGITS = "maxDigits";
-    private static final int DEFAULT_MAX_DIGITS = 10;
-    private int mMaxDigits = DEFAULT_MAX_DIGITS;
-    // only these chars are accepted from keyboard
-    private static final char[] ACCEPTED_CHARS = "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
-    private static final int ANIM_DURATION = 400;
-    private final List<String> mKeywords;
-    TranslateAnimation inAnimUp;
-    TranslateAnimation outAnimUp;
-    TranslateAnimation inAnimDown;
-    TranslateAnimation outAnimDown;
+	private static final String ATTR_MAX_DIGITS = "maxDigits";
+	private static final int DEFAULT_MAX_DIGITS = 10;
+	private int mMaxDigits = DEFAULT_MAX_DIGITS;
+	// only these chars are accepted from keyboard
+	private static final char[] ACCEPTED_CHARS = "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
+	private static final int ANIM_DURATION = 400;
+	private final List<String> mKeywords;
+	TranslateAnimation inAnimUp;
+	TranslateAnimation outAnimUp;
+	TranslateAnimation inAnimDown;
+	TranslateAnimation outAnimDown;
 
-    public CalculatorDisplay(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mMaxDigits = attrs.getAttributeIntValue(null, ATTR_MAX_DIGITS, DEFAULT_MAX_DIGITS);
-        String sinString = context.getString(R.string.sin);
-        String cosString = context.getString(R.string.cos);
-        String tanString = context.getString(R.string.tan);
-        String arcsinString = context.getString(R.string.arcsin);
-        String arccosString = context.getString(R.string.arccos);
-        String arctanString = context.getString(R.string.arctan);
-        String logString = context.getString(R.string.lg);
-        String lnString = context.getString(R.string.ln);
-        String modString = context.getString(R.string.mod);
-        String detString = context.getString(R.string.det);
-        String dx = context.getString(R.string.dx);
-        String dy = context.getString(R.string.dy);
-        String cbrtString = context.getString(R.string.cbrt);
+	public CalculatorDisplay(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		mMaxDigits = attrs.getAttributeIntValue(null, ATTR_MAX_DIGITS, DEFAULT_MAX_DIGITS);
+		String sinString = context.getString(R.string.sin);
+		String cosString = context.getString(R.string.cos);
+		String tanString = context.getString(R.string.tan);
+		String arcsinString = context.getString(R.string.arcsin);
+		String arccosString = context.getString(R.string.arccos);
+		String arctanString = context.getString(R.string.arctan);
+		String logString = context.getString(R.string.lg);
+		String lnString = context.getString(R.string.ln);
+		String modString = context.getString(R.string.mod);
+		String detString = context.getString(R.string.det);
+		String dx = context.getString(R.string.dx);
+		String dy = context.getString(R.string.dy);
+		String cbrtString = context.getString(R.string.cbrt);
 
-        mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString + "(", modString + "(", lnString + "(", detString + "(", dx, dy, cbrtString + "(");
-        setOnLongClickListener(this);
-    }
+		mKeywords = Arrays.asList(arcsinString + "(", arccosString + "(", arctanString + "(", sinString + "(", cosString + "(", tanString + "(", logString + "(", modString + "(", lnString + "(", detString + "(", dx, dy, cbrtString + "(");
+		setOnLongClickListener(this);
+	}
 
-    public int getMaxDigits() {
-        return mMaxDigits;
-    }
+	public int getMaxDigits() {
+		return mMaxDigits;
+	}
 
-    public void setEditTextLayout(int resId) {
-        for(int i = 0; i < getChildCount(); i++) {
-            ((ScrollableDisplay) getChildAt(i)).getView().setEditTextLayout(resId);
-        }
-    }
+	public void setEditTextLayout(int resId) {
+		for (int i = 0; i < getChildCount(); i++) {
+			((ScrollableDisplay) getChildAt(i)).getView().setEditTextLayout(resId);
+		}
+	}
 
-    public void setLogic(Logic logic) {
-        NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
-            @Override
-            public int getInputType() {
-                return EditorInfo.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-            }
+	public void setLogic(Logic logic) {
+		NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
+			@Override
+			public int getInputType() {
+				return EditorInfo.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
+			}
 
-            @Override
-            protected char[] getAcceptedChars() {
-                return ACCEPTED_CHARS;
-            }
+			@Override
+			protected char[] getAcceptedChars() {
+				return ACCEPTED_CHARS;
+			}
 
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                /*
+			@Override
+			public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+				/*
                  * the EditText should still accept letters (eg. 'sin') coming from the on-screen touch buttons, so don't filter anything.
                  */
-                return null;
-            }
+				return null;
+			}
 
-            @Override
-            public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_DEL) {
-                    int selectionHandle = getSelectionStart();
-                    if(selectionHandle == 0) {
-                        // Remove the view in front
-                        AdvancedDisplay editor = getAdvancedDisplay();
-                        int index = editor.getChildIndex(getActiveEditText());
-                        if(index > 0) {
-                            editor.removeView(editor.getChildAt(index - 1));
-                        }
-                    }
-                    else {
-                        // Check and remove keywords
-                        String textBeforeInsertionHandle = getActiveEditText().getText().toString().substring(0, selectionHandle);
-                        String textAfterInsertionHandle = getActiveEditText().getText().toString().substring(selectionHandle, getActiveEditText().getText().toString().length());
+			@Override
+			public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
+				if (keyCode == KeyEvent.KEYCODE_DEL) {
+					int selectionHandle = getSelectionStart();
+					if (selectionHandle == 0) {
+						// Remove the view in front
+						AdvancedDisplay editor = getAdvancedDisplay();
+						int index = editor.getChildIndex(getActiveEditText());
+						if (index > 0) {
+							editor.removeView(editor.getChildAt(index - 1));
+						}
+					} else {
+						// Check and remove keywords
+						String textBeforeInsertionHandle = getActiveEditText().getText().toString().substring(0, selectionHandle);
+						String textAfterInsertionHandle = getActiveEditText().getText().toString().substring(selectionHandle, getActiveEditText().getText().toString().length());
 
-                        for(String s : mKeywords) {
-                            if(textBeforeInsertionHandle.endsWith(s)) {
-                                int deletionLength = s.length();
-                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength) + textAfterInsertionHandle;
-                                getActiveEditText().setText(text);
-                                setSelection(selectionHandle - deletionLength);
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return super.onKeyDown(view, content, keyCode, event);
-            }
-        };
+						for (String s : mKeywords) {
+							if (textBeforeInsertionHandle.endsWith(s)) {
+								int deletionLength = s.length();
+								String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength) + textAfterInsertionHandle;
+								getActiveEditText().setText(text);
+								setSelection(selectionHandle - deletionLength);
+								return true;
+							}
+						}
+					}
+				}
+				return super.onKeyDown(view, content, keyCode, event);
+			}
+		};
 
-        Editable.Factory factory = new CalculatorEditable.Factory(logic);
-        for(int i = 0; i < 2; ++i) {
-            AdvancedDisplay text = ((ScrollableDisplay) getChildAt(i)).getView();
-            text.setLogic(logic);
-            text.setEditableFactory(factory);
-            text.setKeyListener(calculatorKeyListener);
-            text.setLayoutParams(new ScrollableDisplay.LayoutParams(ScrollableDisplay.LayoutParams.WRAP_CONTENT, ScrollableDisplay.LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
-        }
-    }
+		Editable.Factory factory = new CalculatorEditable.Factory(logic);
+		for (int i = 0; i < 2; ++i) {
+			AdvancedDisplay text = ((ScrollableDisplay) getChildAt(i)).getView();
+			text.setLogic(logic);
+			text.setEditableFactory(factory);
+			text.setKeyListener(calculatorKeyListener);
+			text.setLayoutParams(new ScrollableDisplay.LayoutParams(ScrollableDisplay.LayoutParams.WRAP_CONTENT, ScrollableDisplay.LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL));
+		}
+	}
 
-    @Override
-    public void setOnKeyListener(OnKeyListener l) {
-        getChildAt(0).setOnKeyListener(l);
-        getChildAt(1).setOnKeyListener(l);
-    }
+	@Override
+	public void setOnKeyListener(OnKeyListener l) {
+		getChildAt(0).setOnKeyListener(l);
+		getChildAt(1).setOnKeyListener(l);
+	}
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldW, int oldH) {
-        inAnimUp = new TranslateAnimation(0, 0, h, 0);
-        inAnimUp.setDuration(ANIM_DURATION);
-        outAnimUp = new TranslateAnimation(0, 0, 0, -h);
-        outAnimUp.setDuration(ANIM_DURATION);
+	@Override
+	protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+		inAnimUp = new TranslateAnimation(0, 0, h, 0);
+		inAnimUp.setDuration(ANIM_DURATION);
+		outAnimUp = new TranslateAnimation(0, 0, 0, -h);
+		outAnimUp.setDuration(ANIM_DURATION);
 
-        inAnimDown = new TranslateAnimation(0, 0, -h, 0);
-        inAnimDown.setDuration(ANIM_DURATION);
-        outAnimDown = new TranslateAnimation(0, 0, 0, h);
-        outAnimDown.setDuration(ANIM_DURATION);
-    }
+		inAnimDown = new TranslateAnimation(0, 0, -h, 0);
+		inAnimDown.setDuration(ANIM_DURATION);
+		outAnimDown = new TranslateAnimation(0, 0, 0, h);
+		outAnimDown.setDuration(ANIM_DURATION);
+	}
 
-    public AdvancedDisplay getAdvancedDisplay() {
-        return ((ScrollableDisplay) getCurrentView()).getView();
-    }
+	public AdvancedDisplay getAdvancedDisplay() {
+		return ((ScrollableDisplay) getCurrentView()).getView();
+	}
 
-    public EditText getActiveEditText() {
-        AdvancedDisplay editor = getAdvancedDisplay();
-        return editor.getActiveEditText();
-    }
+	public EditText getActiveEditText() {
+		AdvancedDisplay editor = getAdvancedDisplay();
+		return editor.getActiveEditText();
+	}
 
-    public void insert(String delta) {
-        AdvancedDisplay editor = getAdvancedDisplay();
-        editor.insert(delta);
-    }
+	public void insert(String delta) {
+		AdvancedDisplay editor = getAdvancedDisplay();
+		editor.insert(delta);
+	}
 
-    public String getText() {
-        AdvancedDisplay text = getAdvancedDisplay();
-        return text.getText();
-    }
+	public String getText() {
+		AdvancedDisplay text = getAdvancedDisplay();
+		return text.getText();
+	}
 
-    public void setText(CharSequence text, Scroll dir) {
-        if(getText().length() == 0) {
-            dir = Scroll.NONE;
-        }
+	public void setText(CharSequence text, Scroll dir) {
+		if (getText().length() == 0) {
+			dir = Scroll.NONE;
+		}
 
-        if(dir == Scroll.UP) {
-            setInAnimation(inAnimUp);
-            setOutAnimation(outAnimUp);
-        }
-        else if(dir == Scroll.DOWN) {
-            setInAnimation(inAnimDown);
-            setOutAnimation(outAnimDown);
-        }
-        else { // Scroll.NONE
-            setInAnimation(null);
-            setOutAnimation(null);
-        }
+		if (dir == Scroll.UP) {
+			setInAnimation(inAnimUp);
+			setOutAnimation(outAnimUp);
+		} else if (dir == Scroll.DOWN) {
+			setInAnimation(inAnimDown);
+			setOutAnimation(outAnimDown);
+		} else { // Scroll.NONE
+			setInAnimation(null);
+			setOutAnimation(null);
+		}
 
-        AdvancedDisplay editor = ((ScrollableDisplay) getNextView()).getView();
-        editor.setText(text.toString());
-        showNext();
-        getAdvancedDisplay().getLastView().requestFocus();
-    }
+		AdvancedDisplay editor = ((ScrollableDisplay) getNextView()).getView();
+		editor.setText(text.toString());
+		showNext();
+		getAdvancedDisplay().getLastView().requestFocus();
+	}
 
-    public int getSelectionStart() {
-        if(getActiveEditText() == null) return 0;
-        return getActiveEditText().getSelectionStart();
-    }
+	public int getSelectionStart() {
+		if (getActiveEditText() == null) return 0;
+		return getActiveEditText().getSelectionStart();
+	}
 
-    private void setSelection(int position) {
-        getActiveEditText().setSelection(position);
-    }
+	private void setSelection(int position) {
+		getActiveEditText().setSelection(position);
+	}
 
-    @Override
-    protected void onFocusChanged(boolean gain, int direction, Rect prev) {
-        if(!gain) {
-            requestFocus();
-        }
-    }
+	@Override
+	protected void onFocusChanged(boolean gain, int direction, Rect prev) {
+		if (!gain) {
+			requestFocus();
+		}
+	}
 
-    @Override
-    public boolean onLongClick(View v) {
-        return getAdvancedDisplay().performLongClick();
-    }
+	@Override
+	public boolean onLongClick(View v) {
+		return getAdvancedDisplay().performLongClick();
+	}
 
-    public enum Scroll {
-        UP,
-        DOWN,
-        NONE
-    }
+	public enum Scroll {
+		UP,
+		DOWN,
+		NONE
+	}
 }

@@ -3,10 +3,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="13dp">
-	<TextView
-		android:id="@+id/text"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:textSize="18sp"
-		android:autoLink="all"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:autoLink="all"
+        android:textSize="18sp" />
 </com.xlythe.engine.theme.ThemedLinearLayout>
