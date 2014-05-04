@@ -1,15 +1,15 @@
 package com.android2.calculator3;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 /**
  * A simplified adapter. Handles caching of views as well as loading images from a URL efficiently.

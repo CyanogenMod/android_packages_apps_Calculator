@@ -16,10 +16,6 @@
 
 package com.android2.calculator3;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -70,6 +66,10 @@ import com.xlythe.engine.theme.App;
 import com.xlythe.engine.theme.Theme;
 import com.xlythe.slider.Slider;
 import com.xlythe.slider.Slider.Direction;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener, CalculatorViewPager.OnPageChangeListener {
     private static final String STATE_CURRENT_VIEW = "state-current-view";

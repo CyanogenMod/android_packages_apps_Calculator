@@ -16,6 +16,10 @@
 
 package com.android2.calculator3;
 
+import android.content.Context;
+
+import com.android2.calculator3.BaseModule.Mode;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -24,10 +28,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import android.content.Context;
-
-import com.android2.calculator3.BaseModule.Mode;
 
 class Persist {
     private static final int LAST_VERSION = 3;

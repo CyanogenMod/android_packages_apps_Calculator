@@ -16,8 +16,6 @@
 
 package com.android2.calculator3;
 
-import java.util.List;
-
 import android.content.Context;
 import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
@@ -35,6 +33,8 @@ import com.android2.calculator3.view.MatrixEditText;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
+
+import java.util.List;
 
 public class EventListener implements View.OnKeyListener, View.OnClickListener, View.OnLongClickListener {
     Context mContext;

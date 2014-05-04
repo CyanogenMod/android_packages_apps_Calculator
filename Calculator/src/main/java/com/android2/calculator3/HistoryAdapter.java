@@ -16,8 +16,6 @@
 
 package com.android2.calculator3;
 
-import java.util.Vector;
-
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
@@ -27,6 +25,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android2.calculator3.view.HistoryLine;
+
+import java.util.Vector;
 
 class HistoryAdapter extends BaseAdapter {
     private final Context mContext;

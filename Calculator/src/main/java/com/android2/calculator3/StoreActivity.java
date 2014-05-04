@@ -1,7 +1,5 @@
 package com.android2.calculator3;
 
-import java.util.Locale;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
@@ -17,9 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.xlythe.engine.theme.App;
 import com.xlythe.engine.theme.Theme;
 import com.xlythe.engine.theme.Theme.Res;
+
+import java.util.Locale;
 
 public class StoreActivity extends FragmentActivity {
 

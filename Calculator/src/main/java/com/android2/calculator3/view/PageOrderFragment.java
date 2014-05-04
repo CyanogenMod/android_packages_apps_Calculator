@@ -1,7 +1,5 @@
 package com.android2.calculator3.view;
 
-import java.util.List;
-
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,6 +17,8 @@ import android.widget.TextView;
 import com.android2.calculator3.CalculatorSettings;
 import com.android2.calculator3.Page;
 import com.android2.calculator3.R;
+
+import java.util.List;
 
 public class PageOrderFragment extends ListFragment {
 

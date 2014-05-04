@@ -2,8 +2,6 @@ package com.android2.calculator3;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 
 import com.xlythe.engine.theme.Theme;

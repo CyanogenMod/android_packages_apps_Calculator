@@ -1,15 +1,15 @@
 package com.android2.calculator3;
 
-import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xlythe.engine.theme.App;
+
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
 
 public class StoreAdapter extends BitmapAdapter<App> {
     public StoreAdapter(Context context, List<App> values) {

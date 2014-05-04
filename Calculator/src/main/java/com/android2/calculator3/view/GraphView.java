@@ -1,10 +1,5 @@
 package com.android2.calculator3.view;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,10 +11,11 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
-import com.android2.calculator3.R;
-import com.xlythe.engine.theme.Theme;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GraphView extends View {
     public static final double NULL_VALUE = Double.NaN;

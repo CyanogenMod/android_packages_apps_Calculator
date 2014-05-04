@@ -1,7 +1,5 @@
 package com.xlythe.engine.theme;
 
-import java.io.Serializable;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+
+import java.io.Serializable;
 
 public class App implements Serializable {
     private static final long serialVersionUID = -7796311962836649402L;

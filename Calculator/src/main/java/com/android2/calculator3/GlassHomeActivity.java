@@ -1,11 +1,5 @@
 package com.android2.calculator3;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import org.javia.arity.SyntaxException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +13,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+
+import org.javia.arity.SyntaxException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class GlassHomeActivity extends Activity {
     private static final int SPEECH_REQUEST = 1000;

@@ -16,12 +16,6 @@
 
 package com.android2.calculator3;
 
-import java.util.Locale;
-
-import org.javia.arity.Complex;
-import org.javia.arity.Symbols;
-import org.javia.arity.SyntaxException;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.KeyEvent;
@@ -34,6 +28,12 @@ import com.android2.calculator3.view.GraphView;
 import com.android2.calculator3.view.MatrixInverseView;
 import com.android2.calculator3.view.MatrixTransposeView;
 import com.android2.calculator3.view.MatrixView;
+
+import org.javia.arity.Complex;
+import org.javia.arity.Symbols;
+import org.javia.arity.SyntaxException;
+
+import java.util.Locale;
 
 public class Logic {
     public static final String INFINITY_UNICODE = "\u221e";

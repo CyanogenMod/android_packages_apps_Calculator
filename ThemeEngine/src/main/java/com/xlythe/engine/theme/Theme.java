@@ -1,15 +1,5 @@
 package com.xlythe.engine.theme;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,7 +14,15 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.support.v4.util.LruCache;
+import android.util.Log;
 import android.util.SparseArray;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class Theme {
     public static final String COLOR = "color";
@@ -62,22 +60,27 @@ public class Theme {
     public static void buildResourceMap(Class r) {
         RES_MAP = new SparseArray<Theme.Res>();
         try {
+            Log.d("Theme", "Building resource map");
             Class color = Class.forName(r.getName() + "$color");
             for(Field f : color.getFields()) {
                 RES_MAP.put(f.getInt(null), new Res(COLOR, f.getName()));
             }
+            Log.d("Theme", "color loaded");
             Class drawable = Class.forName(r.getName() + "$drawable");
             for(Field f : drawable.getFields()) {
                 RES_MAP.put(f.getInt(null), new Res(DRAWABLE, f.getName()));
             }
+            Log.d("Theme", "drawable loaded");
             Class bool = Class.forName(r.getName() + "$bool");
             for(Field f : bool.getFields()) {
                 RES_MAP.put(f.getInt(null), new Res(BOOLEAN, f.getName()));
             }
+            Log.d("Theme", "bool loaded");
             Class raw = Class.forName(r.getName() + "$raw");
             for(Field f : raw.getFields()) {
                 RES_MAP.put(f.getInt(null), new Res(RAW, f.getName()));
             }
+            Log.d("Theme", "raw loaded");
         }
         catch(IllegalArgumentException e) {
             e.printStackTrace();

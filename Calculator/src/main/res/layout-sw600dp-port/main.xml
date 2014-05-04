@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,120 +17,120 @@
  */
 -->
 <com.xlythe.engine.theme.ThemedRelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:theme="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    theme:themeBackground="@drawable/background" >
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/left_right_padding"
-        android:paddingRight="@dimen/left_right_padding" >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-	        <LinearLayout
-	            android:layout_width="match_parent"
-	            android:minHeight="@dimen/min_display_height"
-	            android:layout_height="wrap_content"
-	            android:orientation="horizontal"
-	            android:background="@android:color/transparent" >
-	            <com.android2.calculator3.view.CalculatorDisplay
-	                android:id="@+id/display"
-	                android:layout_width="0dp"
-	                android:layout_weight="1"
-	                android:layout_height="match_parent"
-	                maxDigits="@integer/max_digits" >
-	                <com.android2.calculator3.view.ScrollableDisplay
-	                    style="@style/Theme.Calculator.Display" />
-	                <com.android2.calculator3.view.ScrollableDisplay
-	                    style="@style/Theme.Calculator.Display" />
-	            </com.android2.calculator3.view.CalculatorDisplay>
-	            <com.xlythe.engine.theme.ThemedImageButton android:id="@+id/overflow_menu"
-	                android:layout_width="48dip"
-	                android:layout_height="match_parent"
-	                theme:src="@drawable/ic_menu_overflow"
-	                theme:themeBackground="@drawable/menu_bg"
-	                android:layout_marginLeft="8dip"
-	                android:visibility="gone"
-	                android:contentDescription="@null" />
-	            <FrameLayout
-	                android:layout_width="100dip"
-	                android:layout_height="match_parent">
-	                <com.xlythe.engine.theme.ThemedButton
-	                    android:id="@+id/clear"
-	                    android:text="@string/clear"
-	                    style="@style/Theme.Calculator.Clear"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="match_parent"
-	                    android:paddingLeft="5dip"
-	                    android:paddingRight="5dip" />
-	                <com.xlythe.engine.theme.ThemedImageButton
-	                    android:id="@+id/del"
-	                    theme:src="@drawable/calc_clear_symbol"
-	                    style="@style/Theme.Calculator.Clear"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="match_parent"
-	                    android:paddingLeft="5dip"
-	                    android:paddingRight="5dip"
-	                    android:contentDescription="@null" />
-	            </FrameLayout>
-	        </LinearLayout>
-            <com.xlythe.engine.theme.ThemedTextView
-                android:id="@+id/details"
-                theme:textColor="@color/details_color"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-            <com.xlythe.slider.Slider
-                 android:id="@+id/pulldown"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent" >
-                <include layout="@layout/history_panel" />
-            </com.xlythe.slider.Slider>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/history_bar_height" >
-                <com.android2.calculator3.view.CalculatorViewPager
-                     android:id="@+id/smallPanelswitch"
-                     android:layout_width="match_parent"
-                     android:layout_height="0dp"
-                     android:layout_weight="2"
-                     android:layout_marginBottom="@dimen/group_padding" />
-                <com.android2.calculator3.view.CalculatorViewPager
-                     android:id="@+id/largePanelswitch"
-                     android:layout_width="match_parent"
-                     android:layout_height="0dp"
-                     android:layout_weight="5" />
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-    <include layout="@layout/simple_cling"
-        android:id="@+id/simple_cling"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-    <include layout="@layout/matrix_cling"
-        android:id="@+id/matrix_cling"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-    <include layout="@layout/hex_cling"
-        android:id="@+id/hex_cling"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-    <include layout="@layout/graph_cling"
-        android:id="@+id/graph_cling"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+	xmlns:theme="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	theme:themeBackground="@drawable/background" >
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingLeft="@dimen/left_right_padding"
+		android:paddingRight="@dimen/left_right_padding" >
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" >
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:minHeight="@dimen/min_display_height"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:background="@android:color/transparent" >
+				<com.android2.calculator3.view.CalculatorDisplay
+					android:id="@+id/display"
+					android:layout_width="0dp"
+					android:layout_weight="1"
+					android:layout_height="match_parent"
+					maxDigits="@integer/max_digits" >
+					<com.android2.calculator3.view.ScrollableDisplay
+						style="@style/Theme.Calculator.Display" />
+					<com.android2.calculator3.view.ScrollableDisplay
+						style="@style/Theme.Calculator.Display" />
+				</com.android2.calculator3.view.CalculatorDisplay>
+				<com.xlythe.engine.theme.ThemedImageButton android:id="@+id/overflow_menu"
+					android:layout_width="48dip"
+					android:layout_height="match_parent"
+					theme:src="@drawable/ic_menu_overflow"
+					theme:themeBackground="@drawable/menu_bg"
+					android:layout_marginLeft="8dip"
+					android:visibility="gone"
+					android:contentDescription="@null" />
+				<FrameLayout
+					android:layout_width="100dip"
+					android:layout_height="match_parent">
+					<com.xlythe.engine.theme.ThemedButton
+						android:id="@+id/clear"
+						android:text="@string/clear"
+						style="@style/Theme.Calculator.Clear"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:paddingLeft="5dip"
+						android:paddingRight="5dip" />
+					<com.xlythe.engine.theme.ThemedImageButton
+						android:id="@+id/del"
+						theme:src="@drawable/calc_clear_symbol"
+						style="@style/Theme.Calculator.Clear"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:paddingLeft="5dip"
+						android:paddingRight="5dip"
+						android:contentDescription="@null" />
+				</FrameLayout>
+			</LinearLayout>
+			<com.xlythe.engine.theme.ThemedTextView
+				android:id="@+id/details"
+				theme:textColor="@color/details_color"
+				android:textSize="18sp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp" />
+		</RelativeLayout>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" >
+			<com.xlythe.slider.Slider
+				 android:id="@+id/pulldown"
+				 android:layout_width="match_parent"
+				 android:layout_height="match_parent" >
+				<include layout="@layout/history_panel" />
+			</com.xlythe.slider.Slider>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:layout_marginTop="@dimen/history_bar_height" >
+				<com.android2.calculator3.view.CalculatorViewPager
+					 android:id="@+id/smallPanelswitch"
+					 android:layout_width="match_parent"
+					 android:layout_height="0dp"
+					 android:layout_weight="2"
+					 android:layout_marginBottom="@dimen/group_padding" />
+				<com.android2.calculator3.view.CalculatorViewPager
+					 android:id="@+id/largePanelswitch"
+					 android:layout_width="match_parent"
+					 android:layout_height="0dp"
+					 android:layout_weight="5" />
+			</LinearLayout>
+		</RelativeLayout>
+	</LinearLayout>
+	<include layout="@layout/simple_cling"
+		android:id="@+id/simple_cling"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:visibility="gone" />
+	<include layout="@layout/matrix_cling"
+		android:id="@+id/matrix_cling"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:visibility="gone" />
+	<include layout="@layout/hex_cling"
+		android:id="@+id/hex_cling"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:visibility="gone" />
+	<include layout="@layout/graph_cling"
+		android:id="@+id/graph_cling"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:visibility="gone" />
 </com.xlythe.engine.theme.ThemedRelativeLayout>

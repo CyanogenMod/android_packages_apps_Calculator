@@ -1,5 +1,7 @@
 package com.android2.calculator3;
 
+import org.javia.arity.SyntaxException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,8 +9,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
-
-import org.javia.arity.SyntaxException;
 
 public class BaseModule {
     public static final char SELECTION_HANDLE = '\u2620';

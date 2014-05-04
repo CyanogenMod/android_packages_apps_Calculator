@@ -1,13 +1,13 @@
 package com.android2.calculator3;
 
-import java.util.List;
-
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android2.calculator3.BaseModule.Mode;
+
+import java.util.List;
 
 public abstract class CalculatorPageAdapter extends PagerAdapter {
     @Override

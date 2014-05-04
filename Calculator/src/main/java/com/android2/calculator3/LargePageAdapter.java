@@ -1,11 +1,11 @@
 package com.android2.calculator3;
 
-import java.util.Iterator;
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class LargePageAdapter extends CalculatorPageAdapter {
     private final Graph mGraph;

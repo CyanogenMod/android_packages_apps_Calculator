@@ -16,9 +16,6 @@ import com.android2.calculator3.Logic;
 import org.javia.arity.SyntaxException;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class GraphView2 extends View {
     private static final DecimalFormat mFormat = new DecimalFormat("#.#");

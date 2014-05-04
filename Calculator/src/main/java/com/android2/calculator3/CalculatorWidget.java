@@ -1,7 +1,5 @@
 package com.android2.calculator3;
 
-import org.javia.arity.SyntaxException;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.android2.calculator3.BaseModule.Mode;
+
+import org.javia.arity.SyntaxException;
 
 public class CalculatorWidget extends AppWidgetProvider {
     public final static String PREFERENCE_WIDGET_PREAMBLE = "com.android2.calculator3.CALC_WIDGET_VALUE_";

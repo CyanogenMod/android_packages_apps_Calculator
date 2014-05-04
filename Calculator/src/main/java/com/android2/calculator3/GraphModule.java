@@ -1,7 +1,6 @@
 package com.android2.calculator3;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.android2.calculator3.view.GraphView;
 

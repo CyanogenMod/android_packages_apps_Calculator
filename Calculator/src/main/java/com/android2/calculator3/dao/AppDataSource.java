@@ -1,8 +1,5 @@
 package com.android2.calculator3.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,6 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.xlythe.engine.theme.App;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AppDataSource implements DataSource {
     private static StoreHelper instance;

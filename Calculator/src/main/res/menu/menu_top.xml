@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,17 +18,17 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <item android:id="@+id/show_history"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/showHistory"/>
-    
-    <item android:id="@+id/hide_history"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/hideHistory"/>
 
-    <item android:id="@+id/clear_history"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/clear_history"/>
+	<item android:id="@+id/show_history"
+		android:showAsAction="ifRoom|withText"
+		android:title="@string/showHistory"/>
+
+	<item android:id="@+id/hide_history"
+		android:showAsAction="ifRoom|withText"
+		android:title="@string/hideHistory"/>
+
+	<item android:id="@+id/clear_history"
+		android:showAsAction="ifRoom|withText"
+		android:title="@string/clear_history"/>
 
 </menu>

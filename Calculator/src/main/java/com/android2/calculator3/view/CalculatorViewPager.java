@@ -16,8 +16,6 @@
 
 package com.android2.calculator3.view;
 
-import java.util.List;
-
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -27,6 +25,8 @@ import com.android2.calculator3.CalculatorPageAdapter;
 import com.android2.calculator3.CalculatorSettings;
 import com.android2.calculator3.Page;
 import com.android2.calculator3.Page.NormalPanel;
+
+import java.util.List;
 
 public class CalculatorViewPager extends ViewPager {
     // Usually we use a huge constant, but ViewPager crashes when the size is too big.

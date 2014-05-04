@@ -1,11 +1,11 @@
 package com.xlythe.engine.theme;
 
-import java.util.List;
-
 import android.content.Context;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+
+import java.util.List;
 
 public class ThemeListPreference extends ListPreference {
     public ThemeListPreference(Context context) {

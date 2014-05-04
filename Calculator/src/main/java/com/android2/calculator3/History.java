@@ -16,12 +16,12 @@
 
 package com.android2.calculator3;
 
+import android.widget.BaseAdapter;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Vector;
-
-import android.widget.BaseAdapter;
 
 public class History {
     private static final int VERSION_1 = 1;

@@ -16,9 +16,6 @@
 
 package com.android2.calculator3.view;
 
-import java.util.Arrays;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
@@ -38,6 +35,9 @@ import android.widget.ViewSwitcher;
 import com.android2.calculator3.CalculatorEditable;
 import com.android2.calculator3.Logic;
 import com.android2.calculator3.R;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Provides vertical scrolling for the input/result EditText.

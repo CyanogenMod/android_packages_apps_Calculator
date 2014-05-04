@@ -1,12 +1,5 @@
 package com.android2.calculator3;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,6 +7,13 @@ import android.os.AsyncTask;
 import com.android2.calculator3.dao.ThemesDataSource;
 import com.google.gson.Gson;
 import com.xlythe.engine.theme.App;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 public class ThemesStoreTask extends AsyncTask<String, String, List<App>> {
     private static final String THEME_URL = "http://xlythe.com/calculator/store/themes.json";

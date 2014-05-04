@@ -1,8 +1,5 @@
 package com.android2.calculator3;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import android.animation.Animator;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -33,6 +30,9 @@ import android.widget.Toast;
 import com.android2.calculator3.view.CalculatorDisplay;
 import com.android2.calculator3.view.CalculatorViewPager;
 import com.xlythe.engine.theme.Theme;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class FloatingCalculator extends Service implements OnTouchListener {
     private static final int ANIMATION_FRAME_RATE = 60; // Animation frame rate per second.

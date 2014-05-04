@@ -1,8 +1,5 @@
 package com.android2.calculator3;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +13,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GlassResultActivity extends Activity {
     public static String EXTRA_RESULT;

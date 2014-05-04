@@ -1,10 +1,5 @@
 package com.android2.calculator3.view;
 
-import java.util.regex.Pattern;
-
-import org.ejml.simple.SimpleMatrix;
-import org.javia.arity.SyntaxException;
-
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +10,11 @@ import android.widget.TableRow;
 import com.android2.calculator3.Logic;
 import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
+
+import org.ejml.simple.SimpleMatrix;
+import org.javia.arity.SyntaxException;
+
+import java.util.regex.Pattern;
 
 public class MatrixView extends TableLayout {
     private int mRows, mColumns = 0;

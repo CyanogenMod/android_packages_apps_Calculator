@@ -1,15 +1,15 @@
 package com.android2.calculator3;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.android2.calculator3.BaseModule.Mode;
+import com.android2.calculator3.view.AdvancedDisplay;
 
 import org.ejml.simple.SimpleEVD;
 import org.ejml.simple.SimpleMatrix;
 import org.ejml.simple.SimpleSVD;
 import org.javia.arity.SyntaxException;
 
-import com.android2.calculator3.BaseModule.Mode;
-import com.android2.calculator3.view.AdvancedDisplay;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MatrixModule {
     Logic mLogic;
