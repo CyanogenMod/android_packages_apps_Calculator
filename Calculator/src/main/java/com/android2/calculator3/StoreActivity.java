@@ -119,7 +119,9 @@ public class StoreActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			switch (position) {
 				case 0:
-					return new ThemesFragment();
+					Fragment fragment = new ThemesFragment();
+					fragment.setArguments(getIntent().getExtras());
+					return fragment;
 				default:
 					return null;
 			}

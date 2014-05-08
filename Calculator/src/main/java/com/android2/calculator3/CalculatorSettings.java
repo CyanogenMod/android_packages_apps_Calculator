@@ -70,6 +70,10 @@ public class CalculatorSettings {
 		return PreferenceManager.getDefaultSharedPreferences(context).getString("SELECTED_THEME", context.getPackageName());
 	}
 
+	public static void setTheme(Context context, String packageName) {
+	    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("SELECTED_THEME", packageName).commit();
+	}
+
 	static void saveKey(Context context, String key, boolean value) {
 		PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).commit();
 	}

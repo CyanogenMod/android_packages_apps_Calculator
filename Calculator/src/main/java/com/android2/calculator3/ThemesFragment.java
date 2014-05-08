@@ -13,6 +13,7 @@ import android.widget.ListAdapter;
 
 import com.android2.calculator3.dao.ThemesDataSource;
 import com.xlythe.engine.theme.App;
+import com.xlythe.engine.theme.Theme;
 
 import java.util.List;
 
@@ -20,6 +21,9 @@ import java.util.List;
  * @author Will Harmon
  */
 public class ThemesFragment extends Fragment implements OnItemClickListener {
+	private static final String EXTRA_LIST_POSITION = "list_position";
+	private static final String EXTRA_LIST_VIEW_OFFSET = "list_view_top";
+
 	private GridView mGridView;
 	private List<App> mThemes;
 	private ThemesStoreTask mTask;
@@ -85,8 +89,10 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 			@Override
 			protected void onCancelled() {
 				super.onCancelled();
-				if (!isDetached()) {
+				try {
 					setViewShown(true);
+				} catch(IllegalStateException e){
+					e.printStackTrace();
 				}
 			}
 		};
@@ -95,14 +101,53 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 	}
 
 	public void onListItemClick(GridView g, View v, int position, long id) {
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
-		startActivity(intent);
+		if (App.doesPackageExists(getContext(),  mThemes.get(position).getPackageName())) {
+			String appName = mThemes.get(position).getPackageName();
+
+			// Update theme
+			CalculatorSettings.setTheme(getContext(), appName);
+			Theme.setPackageName(appName);
+
+			// Create a new intent to relaunch the settings
+			Intent intent = new Intent(getActivity(), getActivity().getClass());
+
+			// Preserve the list offsets
+			int itemPosition = mGridView.getFirstVisiblePosition();
+			View child = mGridView.getChildAt(0);
+			int itemOffset = child != null ? child.getTop() : 0;
+
+			intent.putExtra(EXTRA_LIST_POSITION, itemPosition);
+			intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);
+
+			// Go
+			startActivity(intent);
+			getActivity().finish();
+
+			// Set a smooth fade transition
+			getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+		}
+		else {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
+			startActivity(intent);
+		}
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		onListItemClick(mGridView, mGridView.getChildAt(position), position, mGridView.getChildAt(position).getId());
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		// Restore the scroll position, if any
+		final Bundle args = getArguments();
+		if (args != null) {
+			mGridView.setSelection(args.getInt(EXTRA_LIST_POSITION, 0));
+			mGridView.scrollBy(0, -1*args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
+		}
 	}
 
 	@Override
