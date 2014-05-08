@@ -74,7 +74,7 @@ public class Logic {
 	private final String mLnString;
 	private final String mDetString;
 	private final String mCbrtString;
-	public Symbols mSymbols = new Symbols();
+	public static final Symbols mSymbols = new Symbols();
 	CalculatorDisplay mDisplay;
 	GraphView mGraphView;
 	String mResult = "";
