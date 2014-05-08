@@ -20,7 +20,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -95,6 +94,10 @@ class ColorButton extends ThemedButton {
 	}
 
 	private void drawMagicFlame(int duration, Canvas canvas) {
+		if(CLICK_FEEDBACK_COLOR >= 0x00000000 && CLICK_FEEDBACK_COLOR <= 0x00FFFFFF) {
+			// Feedback has been set as transparent
+			return;
+		}
 		int alpha = 255 - 255 * duration / CLICK_FEEDBACK_DURATION;
 		int color = CLICK_FEEDBACK_COLOR | (alpha << 24);
 
