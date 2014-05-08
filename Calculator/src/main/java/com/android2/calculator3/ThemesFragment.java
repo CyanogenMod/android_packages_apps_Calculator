@@ -115,6 +115,7 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 			int itemPosition = mGridView.getFirstVisiblePosition();
 			View child = mGridView.getChildAt(0);
 			int itemOffset = child != null ? child.getTop() : 0;
+			itemOffset -= mGridView.getScrollY();
 
 			intent.putExtra(EXTRA_LIST_POSITION, itemPosition);
 			intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);

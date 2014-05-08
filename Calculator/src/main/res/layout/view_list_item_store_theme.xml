@@ -10,13 +10,14 @@
         android:layout_height="125dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:padding="4dp"
+        android:background="@drawable/store_image_background" >
 
         <ImageView
             android:id="@+id/image1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/store_image_background" />
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/text2"

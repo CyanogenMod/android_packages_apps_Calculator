@@ -20,6 +20,8 @@ import java.util.List;
 public class GraphView extends View {
 	private static final int DRAG = 1;
 	private static final int ZOOM = 2;
+	private static final int LINES = 1;
+	private static final int DOTS = 2;
 	DecimalFormat mFormat = new DecimalFormat("#.#####");
 	private PanListener mPanListener;
 	private ZoomListener mZoomListener;
@@ -34,6 +36,7 @@ public class GraphView extends View {
 	private int mTextPaintSize;
 	private float mZoomLevel = 1;
 	private LinkedList<Point> mData;
+	private int mDrawingAlgorithm = LINES;
 	private float mStartX;
 	private float mStartY;
 	private int mDragOffsetX;
@@ -149,11 +152,16 @@ public class GraphView extends View {
 		canvas.clipRect(mLineMargin, mLineMargin, getWidth(), getHeight());
 
 		// Create a path to draw smooth arcs
-		LinkedList<Point> data = new LinkedList<Point>(mData);
-		if (data.size() != 0) {
+		if(mDrawingAlgorithm == LINES) {
+			LinkedList<Point> data = new LinkedList<Point>(mData);
+			if (data.size() != 0) {
 //            drawInArc(data, canvas);
 //            drawWithCurvedLines(data, canvas);
-			drawWithStraightLines(data, canvas);
+			    drawWithStraightLines(data, canvas);
+			}
+		}
+		else if(mDrawingAlgorithm == DOTS) {
+			drawDots(mData, canvas);
 		}
 	}
 
@@ -251,6 +259,12 @@ public class GraphView extends View {
 			y += p.getY();
 		}
 		return new Point(x / args.length, y / args.length);
+	}
+
+	private void drawDots(LinkedList<Point> data, Canvas canvas) {
+		for(Point p : data) {
+			canvas.drawPoint(getRawX(p), getRawY(p), mGraphPaint);
+		}
 	}
 
 	private boolean tooFar(float aX, float aY, float bX, float bY) {
@@ -412,8 +426,10 @@ public class GraphView extends View {
 	public void setData(List<Point> data, boolean sort) {
 		if (sort) {
 			mData = sort(new ArrayList<Point>(data));
+			mDrawingAlgorithm = LINES;
 		} else {
 			mData = new LinkedList<Point>(data);
+			mDrawingAlgorithm = LINES;
 		}
 	}
 

@@ -349,7 +349,6 @@ public class Page {
 						public void onViewAttachedToWindow(View v) {
 						}
 					});
-					graphView.setData(graph.getData());
 					graphView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 						@Override
 						public void onGlobalLayout() {
@@ -369,6 +368,8 @@ public class Page {
 
 					View zoomReset = view.findViewById(R.id.zoomReset);
 					zoomReset.setOnClickListener(listener);
+
+					logic.getGraphModule().updateGraph(graph);
 				} else {
 					mGraphHolder.get(view).invalidate();
 				}
