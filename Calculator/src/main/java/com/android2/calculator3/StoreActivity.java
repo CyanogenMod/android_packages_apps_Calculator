@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,6 +60,17 @@ public class StoreActivity extends FragmentActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			startActivity(new Intent(this, Calculator.class));
+			finish();
+			overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_close_exit);
+			return true;
+		}
+		return super.onKeyDown(keyCode, keyEvent);
 	}
 
 	private int getDimensionPixelSize(int res) {

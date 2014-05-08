@@ -21,6 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -42,8 +43,7 @@ class ColorButton extends ThemedButton {
 	long mAnimStart;
 	EventListener mListener;
 	Paint mFeedbackPaint;
-	Paint mHintPaint = new Paint();
-	Rect mBounds = new Rect();
+	final Paint mHintPaint;
 	float mTextSize = 0f;
 
 	public ColorButton(Context context, AttributeSet attrs) {
@@ -53,6 +53,7 @@ class ColorButton extends ThemedButton {
 		mListener = calc.mListener;
 		setOnClickListener(mListener);
 		setOnLongClickListener(mListener);
+		mHintPaint = new Paint(getPaint());
 	}
 
 	private void init(Calculator calc, AttributeSet attrs) {
@@ -162,5 +163,15 @@ class ColorButton extends ThemedButton {
 		}
 
 		return result;
+	}
+
+	@Override
+	public void setTypeface(Typeface tf) {
+		if(mHintPaint != null) {
+			if (mHintPaint.getTypeface() != tf) {
+				mHintPaint.setTypeface(tf);
+			}
+		}
+		super.setTypeface(tf);
 	}
 }
