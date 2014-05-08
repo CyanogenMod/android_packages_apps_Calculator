@@ -31,3 +31,7 @@ gen/*
 .gradle/*
 
 .idea/*
+
+build/*
+
+*.iml
