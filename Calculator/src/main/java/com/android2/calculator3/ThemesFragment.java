@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -15,6 +16,8 @@ import com.android2.calculator3.dao.ThemesDataSource;
 import com.xlythe.engine.theme.App;
 import com.xlythe.engine.theme.Theme;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -100,7 +103,7 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 
 	}
 
-	public void onListItemClick(GridView g, View v, int position, long id) {
+	public void onListItemClick(int position) {
 		if (App.doesPackageExists(getContext(),  mThemes.get(position).getPackageName())) {
 			String appName = mThemes.get(position).getPackageName();
 
@@ -115,7 +118,6 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 			int itemPosition = mGridView.getFirstVisiblePosition();
 			View child = mGridView.getChildAt(0);
 			int itemOffset = child != null ? child.getTop() : 0;
-			itemOffset -= mGridView.getScrollY();
 
 			intent.putExtra(EXTRA_LIST_POSITION, itemPosition);
 			intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);
@@ -136,7 +138,7 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		onListItemClick(mGridView, mGridView.getChildAt(position), position, mGridView.getChildAt(position).getId());
+		onListItemClick(position);
 	}
 
 	@Override
@@ -147,7 +149,18 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 		final Bundle args = getArguments();
 		if (args != null) {
 			mGridView.setSelection(args.getInt(EXTRA_LIST_POSITION, 0));
-			mGridView.scrollBy(0, -1*args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
+			// Hack to scroll to the previous offset
+			mGridView.post(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Method m = AbsListView.class.getDeclaredMethod("trackMotionScroll", Integer.TYPE, Integer.TYPE);
+						m.setAccessible(true);
+						m.invoke(mGridView, args.getInt(EXTRA_LIST_VIEW_OFFSET, 0), args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
+					}
+					catch(Exception e){}
+				}
+			});
 		}
 	}
 

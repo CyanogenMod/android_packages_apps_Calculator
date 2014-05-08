@@ -116,4 +116,13 @@ public class App implements Serializable {
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
 	}
+
+	@Override
+	public App clone() {
+		try {
+			return (App) super.clone();
+		}catch(CloneNotSupportedException e){
+			return null;
+		}
+	}
 }
