@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * @author Will Harmon
  */
-public class ThemesFragment extends Fragment implements OnItemClickListener {
+public class ThemesFragment extends Fragment implements OnItemClickListener, OnItemLongClickListener {
 	private static final String EXTRA_LIST_POSITION = "list_position";
 	private static final String EXTRA_LIST_VIEW_OFFSET = "list_view_top";
 
@@ -43,6 +44,7 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 		// Create the GridView
 		mGridView = new GridView(getActivity());
 		mGridView.setOnItemClickListener(this);
+		mGridView.setOnItemLongClickListener(this);
 		mGridView.setNumColumns(GridView.AUTO_FIT);
 		mGridView.setGravity(Gravity.CENTER);
 		mGridView.setColumnWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125 + 30, getActivity().getResources().getDisplayMetrics()));
@@ -100,7 +102,6 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 			}
 		};
 		mTask.executeAsync();
-
 	}
 
 	public void onListItemClick(int position) {
@@ -136,9 +137,24 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 		}
 	}
 
+	public boolean onListItemLongClick(int position) {
+		if (App.doesPackageExists(getContext(),  mThemes.get(position).getPackageName())) {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
+			startActivity(intent);
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		onListItemClick(position);
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+		return onListItemLongClick(position);
 	}
 
 	@Override
@@ -153,12 +169,17 @@ public class ThemesFragment extends Fragment implements OnItemClickListener {
 			mGridView.post(new Runnable() {
 				@Override
 				public void run() {
-					try {
-						Method m = AbsListView.class.getDeclaredMethod("trackMotionScroll", Integer.TYPE, Integer.TYPE);
-						m.setAccessible(true);
-						m.invoke(mGridView, args.getInt(EXTRA_LIST_VIEW_OFFSET, 0), args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
+					if (android.os.Build.VERSION.SDK_INT >= 19) {
+					    mGridView.scrollListBy(-1 * args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
 					}
-					catch(Exception e){}
+					else {
+						try {
+							Method m = AbsListView.class.getDeclaredMethod("trackMotionScroll", Integer.TYPE, Integer.TYPE);
+							m.setAccessible(true);
+							m.invoke(mGridView, args.getInt(EXTRA_LIST_VIEW_OFFSET, 0), args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
+						} catch (Exception e) {
+						}
+					}
 				}
 			});
 		}
