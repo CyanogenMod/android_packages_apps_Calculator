@@ -24,20 +24,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/left_right_padding"
-        android:paddingRight="@dimen/left_right_padding">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <com.xlythe.engine.theme.ThemedLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
                 android:minHeight="@dimen/min_display_height"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                theme:themeBackground="@drawable/display_background">
 
                 <com.android2.calculator3.view.CalculatorDisplay
                     android:id="@+id/display"
@@ -84,7 +82,7 @@
                         android:paddingRight="5dip"
                         theme:src="@drawable/calc_clear_symbol" />
                 </FrameLayout>
-            </LinearLayout>
+            </com.xlythe.engine.theme.ThemedLinearLayout>
 
             <com.xlythe.engine.theme.ThemedTextView
                 android:id="@+id/details"

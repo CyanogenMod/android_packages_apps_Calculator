@@ -30,4 +30,5 @@
     <color name="store_tab_text">#FFFFFF</color>
     <color name="store_row_text">#FFFFFF</color>
     <drawable name="background">#FF000000</drawable>
+    <drawable name="display_background">#00123456</drawable>
 </resources>
