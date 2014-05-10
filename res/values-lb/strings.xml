@@ -15,8 +15,8 @@
      limitations under the License.
 -->
 <resources>
-  <string name="app_name">Calculadora</string>
-  <string name="error">Fallu</string>
+  <string name="app_name">Täscherechner</string>
+  <string name="error">Feeler</string>
   <string name="digit0">0</string>
   <string name="digit1">1</string>
   <string name="digit2">2</string>
@@ -27,15 +27,15 @@
   <string name="digit7">7</string>
   <string name="digit8">8</string>
   <string name="digit9">9</string>
-  <string name="del">DESANICIAR</string>
-  <string name="clear">LLIMPIAR</string>
+  <string name="del">LÄSCHEN</string>
+  <string name="clear">CLR</string>
   <string name="div">\u00f7</string>
   <string name="mul">\u00d7</string>
   <string name="plus">+</string>
   <string name="minus">\u2212</string>
   <string name="equal">=</string>
   <string name="enter">\u2193</string>
-  <string name="sin">sen</string>
+  <string name="sin">sin</string>
   <string name="cos">cos</string>
   <string name="tan">tan</string>
   <string name="pi">\u03c0</string>
@@ -47,8 +47,8 @@
   <string name="sqrt">\u221a</string>
   <string name="power">^</string>
   <string name="factorial">!</string>
-  <string name="basic">Funciones básiques</string>
-  <string name="advanced">Funciones avanzaes</string>
-  <string name="clear_history">Llimpiar l\'historial</string>
-  <string name="text_copied_toast">Testu copiáu</string>
+  <string name="basic">Einfache Panneau</string>
+  <string name="advanced">Erweiderte Panneau</string>
+  <string name="clear_history">Historique läschen</string>
+  <string name="text_copied_toast">Text kopéiert.</string>
 </resources>
