@@ -9,14 +9,19 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.util.SparseArray;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -357,20 +362,36 @@ public class Theme {
 		if (TYPEFACE_MAP.containsKey(key)) {
 			return TYPEFACE_MAP.get(key);
 		}
-		AssetManager am = getResources(context).getAssets();
+
 		String[] extensions = {".ttf", ".otf"};
 		for (String s : extensions) {
 			try {
-				am.open(name + s);
+				// Use cursor loader to grab font
+				Uri uri = Uri.parse("content://" + getPackageName() + ".FileProvider/" + name + s);
+				AssetFileDescriptor a = context.getContentResolver().openAssetFileDescriptor(uri, null);
+				FileInputStream in = new FileInputStream(a.getFileDescriptor());
+				in.skip(a.getStartOffset());
+				File file = new File(context.getCacheDir(), name + s);
+				file.createNewFile();
+				FileOutputStream fOutput = new FileOutputStream(file);
+				byte[] dataBuffer = new byte[1024];
+				int readLength = 0;
+				while ((readLength = in.read(dataBuffer)) != -1) {
+					fOutput.write(dataBuffer, 0, readLength);
+				}
+				in.close();
+				fOutput.close();
+
 				// Try/catch for broken fonts
-				Typeface t = Typeface.createFromAsset(am, name + s);
+				Typeface t = Typeface.createFromFile(file);
 				TYPEFACE_MAP.put(key, t);
 				return TYPEFACE_MAP.get(key);
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
-		am = context.getResources().getAssets();
+		AssetManager am = context.getResources().getAssets();
 		for (String s : extensions) {
 			try {
 				am.open(name + s);
