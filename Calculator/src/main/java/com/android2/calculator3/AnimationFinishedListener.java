@@ -14,4 +14,11 @@ public abstract class AnimationFinishedListener implements Animator.AnimatorList
 	@Override
 	public void onAnimationStart(Animator animation) {
 	}
+
+	@Override
+	public void onAnimationEnd(Animator animation) {
+		onAnimationFinished();
+	}
+
+	public abstract void onAnimationFinished();
 }

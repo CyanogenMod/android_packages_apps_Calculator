@@ -8,8 +8,6 @@ import android.os.Bundle;
  * Created by Will on 4/9/2014.
  */
 public class FloatingCalculatorCreateShortCutActivity extends Activity {
-	public static FloatingCalculatorCreateShortCutActivity ACTIVE_ACTIVITY;
-
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
 
@@ -27,20 +25,6 @@ public class FloatingCalculatorCreateShortCutActivity extends Activity {
 			setResult(RESULT_OK, intent);
 			finish();
 		}
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		ACTIVE_ACTIVITY = this;
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		if (FloatingCalculator.ACTIVE_CALCULATOR != null)
-			FloatingCalculator.ACTIVE_CALCULATOR.closeCalculator();
-		ACTIVE_ACTIVITY = null;
 	}
 
 	@Override

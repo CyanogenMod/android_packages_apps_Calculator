@@ -13,16 +13,8 @@ public class FloatingCalculatorActivity extends Activity {
 
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
-
-		View v = new View(this);
-		v.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				finish();
-				return false;
-			}
-		});
-		setContentView(v);
+		// TODO hide status bar if already hidden
+		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 	}
 
 	@Override
