@@ -9,12 +9,14 @@ import android.view.View;
  * Created by Will on 4/9/2014.
  */
 public class FloatingCalculatorActivity extends Activity {
+	public static final String EXTRA_HIDE_STATUS_BAR = "hide_status_bar";
 	public static FloatingCalculatorActivity ACTIVE_ACTIVITY;
 
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
-		// TODO hide status bar if already hidden
-		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+		if(getIntent().getBooleanExtra(EXTRA_HIDE_STATUS_BAR, false)) {
+			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+		}
 	}
 
 	@Override
