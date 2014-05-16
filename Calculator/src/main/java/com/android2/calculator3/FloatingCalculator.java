@@ -176,7 +176,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
 		mRootView.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				mRootView.setVisibility(View.GONE);
+				if(mRootView != null) mRootView.setVisibility(View.GONE);
 			}
 		}, 25);
 		int x = mCurrentPosX;
@@ -301,7 +301,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
 		mInactiveButton.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				mInactiveButton.setVisibility(View.INVISIBLE);
+				if(mInactiveButton != null) mInactiveButton.setVisibility(View.INVISIBLE);
 			}
 		}, 25);
 		switch (event.getAction()) {
@@ -651,7 +651,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
 		int mDestX;
 		int mDestY;
 		long mDuration = 450;
-		float mTension = 2f;
+		float mTension = 1.4f;
 		Interpolator mInterpolator = new OvershootInterpolator(mTension);
 		AnimationFinishedListener mAnimationFinishedListener;
 
@@ -670,9 +670,7 @@ public class FloatingCalculator extends Service implements OnTouchListener {
 
 			float velocityX = calculateVelocityX();
 			float velocityY = calculateVelocityY();
-			float distX = mDestX - mCurrentPosX;
 			mTension += Math.sqrt(sqr(velocityX) + sqr(velocityY)) / 200;
-			mTension += 7*Math.abs(velocityX/distX);
 			mInterpolator = new OvershootInterpolator(mTension);
 
 			mCurrentPosX = mDestX;
