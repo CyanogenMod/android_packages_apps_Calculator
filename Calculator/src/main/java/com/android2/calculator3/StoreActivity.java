@@ -21,15 +21,13 @@ import com.xlythe.engine.theme.Theme.Res;
 
 import java.util.Locale;
 
-public class StoreActivity extends FragmentActivity {
+public class StoreActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// Update theme (as needed)
-		Theme.buildResourceMap(com.android2.calculator3.R.class);
-		Theme.setPackageName(CalculatorSettings.getTheme(getContext()));
 		int customTheme = Theme.getSettingsTheme(this);
 		if (customTheme != 0) {
 			super.setTheme(customTheme);
@@ -51,11 +49,7 @@ public class StoreActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == android.R.id.home) {
-			startActivity(new Intent(this, Calculator.class));
-			finish();
-			return true;
-		} else if (item.getItemId() == R.id.info) {
+		if (item.getItemId() == R.id.info) {
 			startActivity(new Intent(this, StoreInfoActivity.class));
 			return true;
 		}
@@ -71,30 +65,6 @@ public class StoreActivity extends FragmentActivity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, keyEvent);
-	}
-
-	private int getDimensionPixelSize(int res) {
-		return getContext().getResources().getDimensionPixelSize(res);
-	}
-
-	private int getTabHeight() {
-		return getDimensionPixelSize(R.dimen.store_tab_height);
-	}
-
-	@SuppressLint("NewApi")
-	@SuppressWarnings("deprecation")
-	private void setBackground(View v, Res res) {
-		if (res != null) {
-			if (Theme.COLOR.equals(res.getType())) {
-				v.setBackgroundColor(Theme.getColor(getContext(), res.getName()));
-			} else if (Theme.DRAWABLE.equals(res.getType())) {
-				if (android.os.Build.VERSION.SDK_INT < 16) {
-					v.setBackgroundDrawable(Theme.getDrawable(getContext(), res.getName()));
-				} else {
-					v.setBackground(Theme.getDrawable(getContext(), res.getName()));
-				}
-			}
-		}
 	}
 
 	private Context getContext() {

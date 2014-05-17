@@ -71,7 +71,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Calculator extends Activity implements Logic.Listener, OnClickListener, OnMenuItemClickListener, CalculatorViewPager.OnPageChangeListener {
+public class Calculator extends BaseActivity implements Logic.Listener, OnClickListener, OnMenuItemClickListener, CalculatorViewPager.OnPageChangeListener {
 	private static final String STATE_CURRENT_VIEW = "state-current-view";
 	private static final String STATE_CURRENT_VIEW_SMALL = "state-current-view-small";
 	private static final String STATE_CURRENT_VIEW_LARGE = "state-current-view-large";
@@ -223,10 +223,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 	@Override
 	public void onResume() {
 		super.onResume();
-
-		// Kill floating calc (if exists)
-		Intent serviceIntent = new Intent(getContext(), FloatingCalculator.class);
-		stopService(serviceIntent);
 
 		// Load new history
 		mPersist = new Persist(this);
@@ -387,6 +383,7 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 
 			case R.id.store:
 				startActivity(new Intent(this, StoreActivity.class));
+				finish();
 				break;
 
 			case R.id.settings:
@@ -425,12 +422,6 @@ public class Calculator extends Activity implements Logic.Listener, OnClickListe
 		mPersist.setDeleteMode(mLogic.getDeleteMode());
 		mPersist.setMode(mLogic.getBaseModule().getMode());
 		mPersist.save();
-
-		Intent serviceIntent = new Intent(getContext(), FloatingCalculator.class);
-		if (CalculatorSettings.floatingCalculator(getContext())) {
-			// Start Floating Calc service if not up yet
-			startService(serviceIntent);
-		}
 	}
 
 	@Override

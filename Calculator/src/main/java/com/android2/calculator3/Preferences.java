@@ -14,7 +14,7 @@ import com.xlythe.engine.theme.Theme;
 /**
  * @author Will Harmon
  */
-public class Preferences extends Activity {
+public class Preferences extends BaseActivity {
 	Fragment mFragment;
 
 	@Override
@@ -38,16 +38,6 @@ public class Preferences extends Activity {
 		if (mActionBar != null) {
 			mActionBar.setDisplayHomeAsUpEnabled(true);
 		}
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == android.R.id.home) {
-			startActivity(new Intent(this, Calculator.class));
-			finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

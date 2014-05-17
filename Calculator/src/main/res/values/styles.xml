@@ -172,7 +172,7 @@
     <style name="Theme.Calculator.Clear">
         <item name="themeBackground">@drawable/menu_bg</item>
         <item name="android:textSize">@dimen/btn_clear_text_size</item>
-        <item name="android:textColor">@color/text_color</item>
+        <item name="textColor">@color/text_color</item>
     </style>
 
     <style name="TransparentBackground">
