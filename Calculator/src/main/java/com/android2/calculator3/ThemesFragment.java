@@ -124,7 +124,7 @@ public class ThemesFragment extends Fragment implements OnItemClickListener, OnI
 			intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);
 
 			// Go
-			startActivity(intent);
+			getActivity().startActivity(intent);
 			getActivity().finish();
 
 			// Set a smooth fade transition
@@ -133,7 +133,7 @@ public class ThemesFragment extends Fragment implements OnItemClickListener, OnI
 		else {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
-			startActivity(intent);
+			getActivity().startActivity(intent);
 		}
 	}
 
