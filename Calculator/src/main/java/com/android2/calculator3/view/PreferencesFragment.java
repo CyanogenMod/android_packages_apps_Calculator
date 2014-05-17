@@ -82,16 +82,6 @@ public class PreferencesFragment extends PreferenceFragment {
 					// Update theme
 					Theme.setPackageName(appName);
 
-					// Swap app icons - Removed because of poor support
-					// Intent appIconIntent = new Intent();
-					// appIconIntent.setAction(getActivity().getPackageName() + ".APP_ICON");
-					// appIconIntent.putExtra("app_name", appName);
-					// getActivity().sendBroadcast(appIconIntent);
-					// boolean hasAppIcon = Theme.getString(getActivity(), "calc") != null;
-					// String packageName = getActivity().getPackageName();
-					// int state = !hasAppIcon || packageName.equals(appName) ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-					// getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(packageName, packageName + ".Calculator"), state, PackageManager.DONT_KILL_APP);
-
 					// Create a new intent to relaunch the settings
 					Intent intent = new Intent(getActivity(), Preferences.class);
 
@@ -104,7 +94,7 @@ public class PreferencesFragment extends PreferenceFragment {
 					intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);
 
 					// Go
-					startActivity(intent);
+					getActivity().startActivity(intent);
 					getActivity().finish();
 
 					// Set a smooth fade transition

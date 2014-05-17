@@ -72,6 +72,7 @@ public class Theme {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			// Do nothing
 		}
 	}
 
@@ -387,19 +388,19 @@ public class Theme {
 				TYPEFACE_MAP.put(key, t);
 				return TYPEFACE_MAP.get(key);
 			} catch (Exception e) {
-				e.printStackTrace();
+				// Do nothing
 			}
 		}
 
 		AssetManager am = context.getResources().getAssets();
 		for (String s : extensions) {
 			try {
-				am.open(name + s);
 				// Try/catch for broken fonts
 				Typeface t = Typeface.createFromAsset(am, name + s);
 				TYPEFACE_MAP.put(key, t);
 				return TYPEFACE_MAP.get(key);
 			} catch (Exception e) {
+				// Do nothing
 			}
 		}
 		TYPEFACE_MAP.put(key, null);
