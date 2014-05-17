@@ -2,6 +2,8 @@ package com.android2.calculator3;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,10 +12,14 @@ import android.widget.TextView;
 
 import com.xlythe.engine.theme.Theme;
 
+import java.util.List;
+
 /**
  * Created by Will on 4/9/2014.
  */
 public class BaseActivity extends FragmentActivity {
+	private boolean mIsSwitchingActivities = false;
+
 	@Override
 	protected void onCreate(Bundle state) {
 		super.onCreate(state);
@@ -48,7 +54,16 @@ public class BaseActivity extends FragmentActivity {
 		Intent serviceIntent = new Intent(this, FloatingCalculator.class);
 		if (CalculatorSettings.floatingCalculator(this)) {
 			// Start Floating Calc service if not up yet
-			startService(serviceIntent);
+			if(!mIsSwitchingActivities) {
+			    startService(serviceIntent);
+			}
 		}
+		mIsSwitchingActivities = false;
+	}
+
+	@Override
+	public void startActivity(Intent intent) {
+		super.startActivity(intent);
+		mIsSwitchingActivities = intent.getComponent() != null && getPackageName().equals(intent.getComponent().getPackageName());
 	}
 }
