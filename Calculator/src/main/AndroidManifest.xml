@@ -81,7 +81,7 @@
             android:label="@string/store"
             android:theme="@style/Theme.Settings.Calculator" />
         <activity
-            android:name=".FloatingCalculatorActivity"
+            android:name="com.xlythe.floatingview.FloatingActivity"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:finishOnTaskLaunch="true"

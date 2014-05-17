@@ -52,6 +52,15 @@
                 android:background="@drawable/menu_bg"
                 android:contentDescription="@string/del"
                 android:src="@drawable/widget_delete" />
+
+            <ImageButton
+                android:id="@+id/clear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/menu_bg"
+                android:contentDescription="@string/clear"
+                android:src="@drawable/widget_clear" />
         </LinearLayout>
 
         <LinearLayout

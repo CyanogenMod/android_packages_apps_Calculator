@@ -195,6 +195,8 @@ public class CalculatorWidget extends AppWidgetProvider {
 		remoteViews.setViewVisibility(displayId, View.VISIBLE);
 		remoteViews.setTextViewText(displayId, value);
 		remoteViews.setTextViewText(R.id.display, value);
+		remoteViews.setViewVisibility(R.id.delete, mClearText ? View.GONE : View.VISIBLE);
+		remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
 		setOnClickListeners(context, appWidgetId, remoteViews);
 
 		try {
@@ -264,7 +266,10 @@ public class CalculatorWidget extends AppWidgetProvider {
 		intent.setAction(EQUALS);
 		remoteViews.setOnClickPendingIntent(R.id.equal, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 15, intent, 0));
 
-		intent.setAction(mClearText ? CLR : DEL);
-		remoteViews.setOnClickPendingIntent(R.id.delete, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 17, intent, 0));
+		intent.setAction(DEL);
+		remoteViews.setOnClickPendingIntent(R.id.delete, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 16, intent, 0));
+
+		intent.setAction(CLR);
+		remoteViews.setOnClickPendingIntent(R.id.clear, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 17, intent, 0));
 	}
 }

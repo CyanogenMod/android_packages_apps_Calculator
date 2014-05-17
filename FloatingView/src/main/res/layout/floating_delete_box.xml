@@ -7,7 +7,7 @@
         android:id="@+id/box"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/floating_calc_delete_bg" />
+        android:background="@drawable/delete_background" />
 
     <RelativeLayout
         android:id="@+id/delete_icon_holder"

@@ -1,1 +1,1 @@
-include ':Calculator', ':ThemeEngine'
+include ':Calculator', ':ThemeEngine', ':FloatingView'
