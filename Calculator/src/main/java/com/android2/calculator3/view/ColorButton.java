@@ -48,14 +48,14 @@ class ColorButton extends ThemedButton {
 	public ColorButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		Calculator calc = (Calculator) context;
-		init(calc, attrs);
+		init();
 		mListener = calc.mListener;
 		setOnClickListener(mListener);
 		setOnLongClickListener(mListener);
 		mHintPaint = new Paint(getPaint());
 	}
 
-	private void init(Calculator calc, AttributeSet attrs) {
+	private void init() {
 		CLICK_FEEDBACK_COLOR = Theme.getColor(getContext(), R.color.magic_flame);
 		mFeedbackPaint = new Paint();
 		mFeedbackPaint.setStyle(Style.STROKE);
@@ -78,8 +78,6 @@ class ColorButton extends ThemedButton {
 			mTextX = (getWidth() - textWidth) / 2;
 		}
 		mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
-		if (mHintPaint != null)
-			mHintPaint.setTextSize(paint.getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent) / 100f);
 	}
 
 	@Override
@@ -123,6 +121,7 @@ class ColorButton extends ThemedButton {
 		mHintPaint.setColor(Theme.getColor(getContext(), R.color.button_hint_text));
 		CharSequence hint = getHint();
 		if (hint != null) {
+			mHintPaint.setTextSize(getPaint().getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent) / 100f);
 			int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
 			int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2) - getPaddingTop();
 

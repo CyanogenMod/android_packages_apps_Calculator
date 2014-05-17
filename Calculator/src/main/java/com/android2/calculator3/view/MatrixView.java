@@ -4,19 +4,20 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.android2.calculator3.Logic;
 import com.android2.calculator3.MutableString;
 import com.android2.calculator3.R;
+import com.xlythe.engine.theme.Theme;
+import com.xlythe.engine.theme.ThemedTableLayout;
 
 import org.ejml.simple.SimpleMatrix;
 import org.javia.arity.SyntaxException;
 
 import java.util.regex.Pattern;
 
-public class MatrixView extends TableLayout {
+public class MatrixView extends ThemedTableLayout {
 	private int mRows, mColumns = 0;
 	private AdvancedDisplay mParent;
 	private Logic mLogic;
@@ -141,7 +142,7 @@ public class MatrixView extends TableLayout {
 
 	private void setup() {
 		mSeparator = getSeparator(getContext());
-		setBackgroundResource(R.drawable.matrix_background);
+		setBackground(Theme.get(R.drawable.matrix_background));
 		setFocusable(true);
 		mLogic = mParent.mLogic;
 	}
