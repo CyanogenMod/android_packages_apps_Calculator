@@ -35,7 +35,7 @@ public class FloatingCalculator extends FloatingView {
 		return View.inflate(getContext(), R.layout.floating_calculator_icon, null);
 	}
 
-	public View createView() {
+	public View inflateView() {
 		View child = View.inflate(getContext(), R.layout.floating_calculator, null);
 
 		mPager = (CalculatorViewPager) child.findViewById(R.id.panelswitch);
@@ -60,6 +60,8 @@ public class FloatingCalculator extends FloatingView {
 		mLogic.setDeleteMode(mPersist.getDeleteMode());
 		mLogic.setLineLength(mDisplay.getMaxDigits());
 		mLogic.resumeWithHistory();
+        final ImageButton del = (ImageButton) child.findViewById(R.id.delete);
+        final ImageButton clear = (ImageButton) child.findViewById(R.id.clear);
 		mListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -77,17 +79,28 @@ public class FloatingCalculator extends FloatingView {
 				} else if (v instanceof ImageButton) {
 					mLogic.onDelete();
 				}
+                del.setVisibility(mLogic.getDeleteMode() == Logic.DELETE_MODE_BACKSPACE ? View.VISIBLE : View.GONE);
+                clear.setVisibility(mLogic.getDeleteMode() == Logic.DELETE_MODE_CLEAR ? View.VISIBLE : View.GONE);
 			}
 		};
-		final ImageButton del = (ImageButton) child.findViewById(R.id.delete);
-		del.setOnClickListener(mListener);
-		del.setOnLongClickListener(new View.OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				mLogic.onClear();
-				return true;
-			}
-		});
+        del.setOnClickListener(mListener);
+        del.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mLogic.onClear();
+                return true;
+            }
+        });
+        clear.setOnClickListener(mListener);
+        clear.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mLogic.onClear();
+                return true;
+            }
+        });
+        del.setVisibility(mLogic.getDeleteMode() == Logic.DELETE_MODE_BACKSPACE ? View.VISIBLE : View.GONE);
+        clear.setVisibility(mLogic.getDeleteMode() == Logic.DELETE_MODE_CLEAR ? View.VISIBLE : View.GONE);
 
 		FloatingCalculatorPageAdapter adapter = new FloatingCalculatorPageAdapter(getContext(), mListener, mHistory, mLogic, mDisplay);
 		mPager.setAdapter(adapter);

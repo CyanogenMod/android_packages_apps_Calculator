@@ -21,7 +21,6 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public abstract class FloatingView extends Service implements OnTouchListener {
@@ -173,7 +172,9 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         mRootView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(mRootView != null) mRootView.setVisibility(View.GONE);
+                if(mRootView != null && !mIsViewOpen) {
+                    mRootView.setVisibility(View.GONE);
+                }
             }
         }, 30);
         int x = mCurrentPosX;
@@ -234,7 +235,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
     }
 
     private void animateToDeleteBoxCenter(final AnimationFinishedListener l) {
-        if(mIsAnimationLocked) return;
+        if(mIsAnimationLocked || mWiggle == null || mRootView == null || mDraggableIcon == null) return;
         mIsInDeleteMode = true;
         if(mAnimationTask != null) mAnimationTask.cancel();
         mAnimationTask = new AnimationTask(mWiggle.x + getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2, mWiggle.y + mRootView.getHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2+MAGIC_OFFSET);
@@ -503,11 +504,11 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         }
     }
 
-    protected abstract View createView();
+    protected abstract View inflateView();
 
     private void show() {
         if(mView == null) {
-            View child = createView();
+            View child = inflateView();
             mView = new FrameLayout(getContext());
             mView.addView(child);
             mRootView.addView(mView);

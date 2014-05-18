@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:background="@drawable/line"
         android:minHeight="65dp"
@@ -15,8 +15,9 @@
         <com.android2.calculator3.view.CalculatorDisplay
             android:id="@+id/display"
             maxDigits="7"
-            android:layout_width="210dp"
-            android:layout_height="match_parent">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <com.android2.calculator3.view.ScrollableDisplay style="@style/Theme.Calculator.Display.FloatingCalc" />
 
@@ -30,6 +31,14 @@
             android:background="@drawable/menu_bg"
             android:contentDescription="@string/del"
             android:src="@drawable/widget_delete" />
+
+        <ImageButton
+            android:id="@+id/clear"
+            android:layout_width="@dimen/floating_window_button_height"
+            android:layout_height="match_parent"
+            android:background="@drawable/menu_bg"
+            android:contentDescription="@string/clear"
+            android:src="@drawable/widget_clear" />
     </LinearLayout>
 
     <com.android2.calculator3.view.CalculatorViewPager
