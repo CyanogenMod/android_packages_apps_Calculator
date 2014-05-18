@@ -21,103 +21,103 @@ import java.util.List;
 import java.util.Locale;
 
 public class GlassHomeActivity extends Activity {
-	private static final int SPEECH_REQUEST = 1000;
-	private List<Card> mCards = new ArrayList<Card>();
-	private CardScrollView mCardScrollView;
-	;
+    private static final int SPEECH_REQUEST = 1000;
+    private List<Card> mCards = new ArrayList<Card>();
+    private CardScrollView mCardScrollView;
+    ;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    private class ExampleCardScrollAdapter extends CardScrollAdapter {
+        @Override
+        public int getCount() {
+            return mCards.size();
+        }
 
-		mCardScrollView = new CardScrollView(this);
-		ExampleCardScrollAdapter adapter = new ExampleCardScrollAdapter();
-		mCardScrollView.setAdapter(adapter);
-		mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> av, View v, int position, long id) {
-				mCards.clear();
-				mCardScrollView.getAdapter().notifyDataSetChanged();
-				displaySpeechRecognizer();
-			}
-		});
-		mCardScrollView.activate();
-		setContentView(mCardScrollView);
+        @Override
+        public Object getItem(int position) {
+            return mCards.get(position);
+        }
 
-		if (savedInstanceState == null) displaySpeechRecognizer();
-	}
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return mCards.get(position).getView();
+        }
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-		onCreate(null);
-	}
+        @Override
+        public int getPosition(Object obj) {
+            return mCards.indexOf(obj);
+        }
+    }    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	private void displaySpeechRecognizer() {
-		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-		startActivityForResult(intent, SPEECH_REQUEST);
-	}
+        mCardScrollView = new CardScrollView(this);
+        ExampleCardScrollAdapter adapter = new ExampleCardScrollAdapter();
+        mCardScrollView.setAdapter(adapter);
+        mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> av, View v, int position, long id) {
+                mCards.clear();
+                mCardScrollView.getAdapter().notifyDataSetChanged();
+                displaySpeechRecognizer();
+            }
+        });
+        mCardScrollView.activate();
+        setContentView(mCardScrollView);
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == SPEECH_REQUEST) {
-			if (resultCode == RESULT_OK) {
-				List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-				String spokenText = results.get(0).toLowerCase(Locale.US).replace("point", ".").replace("minus", "-").replace("plus", "+").replace("divided by", "/").replace("times", "*").replace("x", "*").replace(" ", "");
-				spokenText = SpellContext.replaceAllWithNumbers(spokenText);
-				spokenText = spokenText.replaceAll("[a-z]", "");
+        if(savedInstanceState == null) displaySpeechRecognizer();
+    }
 
-				Log.v("Calculator", "Glass user queried \"" + spokenText + "\"");
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        onCreate(null);
+    }
 
-				Logic logic = new Logic(getBaseContext());
-				logic.setLineLength(100);
+    private void displaySpeechRecognizer() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        startActivityForResult(intent, SPEECH_REQUEST);
+    }
 
-				String result;
-				try {
-					result = logic.evaluate(spokenText);
-				} catch (SyntaxException e) {
-					result = getString(R.string.error);
-				}
-				Intent intent = new Intent(this, GlassResultActivity.class);
-				intent.putExtra(GlassResultActivity.EXTRA_RESULT, result);
-				startActivity(intent);
-				finish();
-			} else {
-				detectionFailed();
-			}
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == SPEECH_REQUEST) {
+            if(resultCode == RESULT_OK) {
+                List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String spokenText = results.get(0).toLowerCase(Locale.US).replace("point", ".").replace("minus", "-").replace("plus", "+").replace("divided by", "/").replace("times", "*").replace("x", "*").replace(" ", "");
+                spokenText = SpellContext.replaceAllWithNumbers(spokenText);
+                spokenText = spokenText.replaceAll("[a-z]", "");
 
-	private void detectionFailed() {
-		mCards.clear();
+                Log.v("Calculator", "Glass user queried \"" + spokenText + "\"");
 
-		Card card = new Card(this);
-		card.setText(R.string.voice_detection_failed);
-		mCards.add(card);
-		mCardScrollView.getAdapter().notifyDataSetChanged();
-	}
+                Logic logic = new Logic(getBaseContext());
+                logic.setLineLength(100);
 
-	private class ExampleCardScrollAdapter extends CardScrollAdapter {
-		@Override
-		public int getCount() {
-			return mCards.size();
-		}
+                String result;
+                try {
+                    result = logic.evaluate(spokenText);
+                } catch(SyntaxException e) {
+                    result = getString(R.string.error);
+                }
+                Intent intent = new Intent(this, GlassResultActivity.class);
+                intent.putExtra(GlassResultActivity.EXTRA_RESULT, result);
+                startActivity(intent);
+                finish();
+            } else {
+                detectionFailed();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-		@Override
-		public Object getItem(int position) {
-			return mCards.get(position);
-		}
+    private void detectionFailed() {
+        mCards.clear();
 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			return mCards.get(position).getView();
-		}
+        Card card = new Card(this);
+        card.setText(R.string.voice_detection_failed);
+        mCards.add(card);
+        mCardScrollView.getAdapter().notifyDataSetChanged();
+    }
 
-		@Override
-		public int getPosition(Object obj) {
-			return mCards.indexOf(obj);
-		}
-	}
+
 }

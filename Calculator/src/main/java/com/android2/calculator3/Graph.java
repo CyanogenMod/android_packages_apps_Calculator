@@ -23,56 +23,56 @@ import com.xlythe.engine.theme.Theme;
 import java.util.LinkedList;
 
 public class Graph {
-	private final Logic mLogic;
-	private GraphView mGraphView;
-	private LinkedList<GraphView.Point> mData = new LinkedList<GraphView.Point>();
+    private final Logic mLogic;
+    private GraphView mGraphView;
+    private LinkedList<GraphView.Point> mData = new LinkedList<GraphView.Point>();
 
-	public Graph(Logic l) {
-		mLogic = l;
-	}
+    public Graph(Logic l) {
+        mLogic = l;
+    }
 
-	public GraphView createGraph(Context context) {
-		mLogic.setGraph(this);
+    public GraphView createGraph(Context context) {
+        mLogic.setGraph(this);
 
-		mGraphView = new GraphView(context);
-		mGraphView.setPanListener(new GraphView.PanListener() {
-			@Override
-			public void panApplied() {
-				mLogic.getGraphModule().updateGraph(Graph.this);
-			}
-		});
-		mGraphView.setZoomListener(new GraphView.ZoomListener() {
-			@Override
-			public void zoomApplied(float level) {
-				mLogic.getGraphModule().updateGraph(Graph.this);
-			}
-		});
+        mGraphView = new GraphView(context);
+        mGraphView.setPanListener(new GraphView.PanListener() {
+            @Override
+            public void panApplied() {
+                mLogic.getGraphModule().updateGraph(Graph.this);
+            }
+        });
+        mGraphView.setZoomListener(new GraphView.ZoomListener() {
+            @Override
+            public void zoomApplied(float level) {
+                mLogic.getGraphModule().updateGraph(Graph.this);
+            }
+        });
 
-		mGraphView.setBackgroundColor(Theme.getColor(context, R.color.graph_background));
-		mGraphView.setTextColor(Theme.getColor(context, R.color.graph_labels_color));
-		mGraphView.setGridColor(Theme.getColor(context, R.color.graph_grid_color));
-		mGraphView.setGraphColor(Theme.getColor(context, R.color.graph_color));
-		return mGraphView;
-	}
+        mGraphView.setBackgroundColor(Theme.getColor(context, R.color.graph_background));
+        mGraphView.setTextColor(Theme.getColor(context, R.color.graph_labels_color));
+        mGraphView.setGridColor(Theme.getColor(context, R.color.graph_grid_color));
+        mGraphView.setGraphColor(Theme.getColor(context, R.color.graph_color));
+        return mGraphView;
+    }
 
-	public void addData(float[] xValues, float[] yValues) {
-		int seriesLength = xValues.length;
-		for (int k = 0; k < seriesLength; k++) {
-			mData.add(new GraphView.Point(xValues[k], yValues[k]));
-		}
-		mGraphView.setData(mData);
-	}
+    public void addData(float[] xValues, float[] yValues) {
+        int seriesLength = xValues.length;
+        for(int k = 0; k < seriesLength; k++) {
+            mData.add(new GraphView.Point(xValues[k], yValues[k]));
+        }
+        mGraphView.setData(mData);
+    }
 
-	public void setData(LinkedList<GraphView.Point> data, boolean sort) {
-		mData = data;
-		mGraphView.setData(mData, sort);
-	}
+    public LinkedList<GraphView.Point> getData() {
+        return mData;
+    }
 
-	public LinkedList<GraphView.Point> getData() {
-		return mData;
-	}
+    public void setData(LinkedList<GraphView.Point> data) {
+        setData(data, true);
+    }
 
-	public void setData(LinkedList<GraphView.Point> data) {
-		setData(data, true);
-	}
+    public void setData(LinkedList<GraphView.Point> data, boolean sort) {
+        mData = data;
+        mGraphView.setData(mData, sort);
+    }
 }

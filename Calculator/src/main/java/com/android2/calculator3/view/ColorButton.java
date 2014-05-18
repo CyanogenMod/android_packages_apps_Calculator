@@ -34,146 +34,146 @@ import com.xlythe.engine.theme.ThemedButton;
  * Button with click-animation effect.
  */
 class ColorButton extends ThemedButton {
-	static final int CLICK_FEEDBACK_INTERVAL = 10;
-	static final int CLICK_FEEDBACK_DURATION = 350;
-	int CLICK_FEEDBACK_COLOR;
-	float mTextX;
-	float mTextY;
-	long mAnimStart;
-	EventListener mListener;
-	Paint mFeedbackPaint;
-	final Paint mHintPaint;
-	float mTextSize = 0f;
+    static final int CLICK_FEEDBACK_INTERVAL = 10;
+    static final int CLICK_FEEDBACK_DURATION = 350;
+    final Paint mHintPaint;
+    int CLICK_FEEDBACK_COLOR;
+    float mTextX;
+    float mTextY;
+    long mAnimStart;
+    EventListener mListener;
+    Paint mFeedbackPaint;
+    float mTextSize = 0f;
 
-	public ColorButton(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		Calculator calc = (Calculator) context;
-		init();
-		mListener = calc.mListener;
-		setOnClickListener(mListener);
-		setOnLongClickListener(mListener);
-		mHintPaint = new Paint(getPaint());
-	}
+    public ColorButton(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        Calculator calc = (Calculator) context;
+        init();
+        mListener = calc.mListener;
+        setOnClickListener(mListener);
+        setOnLongClickListener(mListener);
+        mHintPaint = new Paint(getPaint());
+    }
 
-	private void init() {
-		CLICK_FEEDBACK_COLOR = Theme.getColor(getContext(), R.color.magic_flame);
-		mFeedbackPaint = new Paint();
-		mFeedbackPaint.setStyle(Style.STROKE);
-		mFeedbackPaint.setStrokeWidth(2);
+    private void init() {
+        CLICK_FEEDBACK_COLOR = Theme.getColor(getContext(), R.color.magic_flame);
+        mFeedbackPaint = new Paint();
+        mFeedbackPaint.setStyle(Style.STROKE);
+        mFeedbackPaint.setStrokeWidth(2);
 
-		mAnimStart = -1;
-	}
+        mAnimStart = -1;
+    }
 
-	private void layoutText() {
-		Paint paint = getPaint();
-		if (mTextSize != 0f) paint.setTextSize(mTextSize);
-		float textWidth = paint.measureText(getText().toString());
-		float width = getWidth() - getPaddingLeft() - getPaddingRight();
-		float textSize = getTextSize();
-		if (textWidth > width) {
-			paint.setTextSize(textSize * width / textWidth);
-			mTextX = getPaddingLeft();
-			mTextSize = textSize;
-		} else {
-			mTextX = (getWidth() - textWidth) / 2;
-		}
-		mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
-	}
+    @Override
+    public void setTypeface(Typeface tf) {
+        if(mHintPaint != null) {
+            if(mHintPaint.getTypeface() != tf) {
+                mHintPaint.setTypeface(tf);
+            }
+        }
+        super.setTypeface(tf);
+    }
 
-	@Override
-	protected void onTextChanged(CharSequence text, int start, int before, int after) {
-		layoutText();
-	}
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if(mAnimStart != -1) {
+            int animDuration = (int) (System.currentTimeMillis() - mAnimStart);
 
-	@Override
-	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-		super.onLayout(changed, left, top, right, bottom);
-		if (changed) layoutText();
-	}
+            if(animDuration >= CLICK_FEEDBACK_DURATION) {
+                mAnimStart = -1;
+            } else {
+                drawMagicFlame(animDuration, canvas);
+                postInvalidateDelayed(CLICK_FEEDBACK_INTERVAL);
+            }
+        } else if(isPressed()) {
+            drawMagicFlame(0, canvas);
+        }
 
-	private void drawMagicFlame(int duration, Canvas canvas) {
-		if(CLICK_FEEDBACK_COLOR >= 0x00000000 && CLICK_FEEDBACK_COLOR <= 0x00FFFFFF) {
-			// Feedback has been set as transparent
-			return;
-		}
-		int alpha = 255 - 255 * duration / CLICK_FEEDBACK_DURATION;
-		int color = CLICK_FEEDBACK_COLOR | (alpha << 24);
+        mHintPaint.setColor(Theme.getColor(getContext(), R.color.button_hint_text));
+        CharSequence hint = getHint();
+        if(hint != null) {
+            mHintPaint.setTextSize(getPaint().getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent) / 100f);
+            int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
+            int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2) - getPaddingTop();
 
-		mFeedbackPaint.setColor(color);
-		canvas.drawRect(1, 1, getWidth() - 1, getHeight() - 1, mFeedbackPaint);
-	}
+            float textWidth = mHintPaint.measureText(hint.toString());
+            float width = getWidth() - getPaddingLeft() - getPaddingRight() - mTextX - offsetX;
+            float textSize = mHintPaint.getTextSize();
+            if(textWidth > width) {
+                mHintPaint.setTextSize(textSize * width / textWidth);
+            }
 
-	@Override
-	protected void onDraw(Canvas canvas) {
-		if (mAnimStart != -1) {
-			int animDuration = (int) (System.currentTimeMillis() - mAnimStart);
+            canvas.drawText(getHint(), 0, getHint().length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
+        }
 
-			if (animDuration >= CLICK_FEEDBACK_DURATION) {
-				mAnimStart = -1;
-			} else {
-				drawMagicFlame(animDuration, canvas);
-				postInvalidateDelayed(CLICK_FEEDBACK_INTERVAL);
-			}
-		} else if (isPressed()) {
-			drawMagicFlame(0, canvas);
-		}
+        getPaint().setColor(getCurrentTextColor());
+        CharSequence text = getText();
+        canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
+    }
 
-		mHintPaint.setColor(Theme.getColor(getContext(), R.color.button_hint_text));
-		CharSequence hint = getHint();
-		if (hint != null) {
-			mHintPaint.setTextSize(getPaint().getTextSize() * getContext().getResources().getInteger(R.integer.button_hint_text_size_percent) / 100f);
-			int offsetX = getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_x);
-			int offsetY = (int) ((mTextY + getContext().getResources().getDimensionPixelSize(R.dimen.button_hint_offset_y) - mHintPaint.getTextSize()) / 2) - getPaddingTop();
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if(changed) layoutText();
+    }
 
-			float textWidth = mHintPaint.measureText(hint.toString());
-			float width = getWidth() - getPaddingLeft() - getPaddingRight() - mTextX - offsetX;
-			float textSize = mHintPaint.getTextSize();
-			if (textWidth > width) {
-				mHintPaint.setTextSize(textSize * width / textWidth);
-			}
+    @Override
+    protected void onTextChanged(CharSequence text, int start, int before, int after) {
+        layoutText();
+    }
 
-			canvas.drawText(getHint(), 0, getHint().length(), mTextX + offsetX, mTextY - offsetY, mHintPaint);
-		}
+    private void layoutText() {
+        Paint paint = getPaint();
+        if(mTextSize != 0f) paint.setTextSize(mTextSize);
+        float textWidth = paint.measureText(getText().toString());
+        float width = getWidth() - getPaddingLeft() - getPaddingRight();
+        float textSize = getTextSize();
+        if(textWidth > width) {
+            paint.setTextSize(textSize * width / textWidth);
+            mTextX = getPaddingLeft();
+            mTextSize = textSize;
+        } else {
+            mTextX = (getWidth() - textWidth) / 2;
+        }
+        mTextY = (getHeight() - paint.ascent() - paint.descent()) / 2;
+    }
 
-		getPaint().setColor(getCurrentTextColor());
-		CharSequence text = getText();
-		canvas.drawText(text, 0, text.length(), mTextX, mTextY, getPaint());
-	}
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        boolean result = super.onTouchEvent(event);
 
-	public void animateClickFeedback() {
-		mAnimStart = System.currentTimeMillis();
-		invalidate();
-	}
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                if(isPressed()) {
+                    animateClickFeedback();
+                } else {
+                    invalidate();
+                }
+                break;
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_CANCEL:
+                mAnimStart = -1;
+                invalidate();
+                break;
+        }
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		boolean result = super.onTouchEvent(event);
+        return result;
+    }
 
-		switch (event.getAction()) {
-			case MotionEvent.ACTION_UP:
-				if (isPressed()) {
-					animateClickFeedback();
-				} else {
-					invalidate();
-				}
-				break;
-			case MotionEvent.ACTION_DOWN:
-			case MotionEvent.ACTION_CANCEL:
-				mAnimStart = -1;
-				invalidate();
-				break;
-		}
+    public void animateClickFeedback() {
+        mAnimStart = System.currentTimeMillis();
+        invalidate();
+    }
 
-		return result;
-	}
+    private void drawMagicFlame(int duration, Canvas canvas) {
+        if(CLICK_FEEDBACK_COLOR >= 0x00000000 && CLICK_FEEDBACK_COLOR <= 0x00FFFFFF) {
+            // Feedback has been set as transparent
+            return;
+        }
+        int alpha = 255 - 255 * duration / CLICK_FEEDBACK_DURATION;
+        int color = CLICK_FEEDBACK_COLOR | (alpha << 24);
 
-	@Override
-	public void setTypeface(Typeface tf) {
-		if(mHintPaint != null) {
-			if (mHintPaint.getTypeface() != tf) {
-				mHintPaint.setTypeface(tf);
-			}
-		}
-		super.setTypeface(tf);
-	}
+        mFeedbackPaint.setColor(color);
+        canvas.drawRect(1, 1, getWidth() - 1, getHeight() - 1, mFeedbackPaint);
+    }
 }

@@ -17,7 +17,6 @@ import com.android2.calculator3.dao.ThemesDataSource;
 import com.xlythe.engine.theme.App;
 import com.xlythe.engine.theme.Theme;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -25,170 +24,168 @@ import java.util.List;
  * @author Will Harmon
  */
 public class ThemesFragment extends Fragment implements OnItemClickListener, OnItemLongClickListener {
-	private static final String EXTRA_LIST_POSITION = "list_position";
-	private static final String EXTRA_LIST_VIEW_OFFSET = "list_view_top";
+    private static final String EXTRA_LIST_POSITION = "list_position";
+    private static final String EXTRA_LIST_VIEW_OFFSET = "list_view_top";
 
-	private GridView mGridView;
-	private List<App> mThemes;
-	private ThemesStoreTask mTask;
-	private ThemesDataSource mDataSource;
+    private GridView mGridView;
+    private List<App> mThemes;
+    private ThemesStoreTask mTask;
+    private ThemesDataSource mDataSource;
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		((StoreAdapter) getListAdapter()).notifyDataSetChanged();
-	}
+    @Override
+    public View inflateView(Bundle savedInstanceState) {
+        // Create the GridView
+        mGridView = new GridView(getActivity());
+        mGridView.setOnItemClickListener(this);
+        mGridView.setOnItemLongClickListener(this);
+        mGridView.setNumColumns(GridView.AUTO_FIT);
+        mGridView.setGravity(Gravity.CENTER);
+        mGridView.setColumnWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125 + 30, getActivity().getResources().getDisplayMetrics()));
+        mGridView.setStretchMode(GridView.STRETCH_SPACING_UNIFORM);
 
-	@Override
-	public View inflateView(Bundle savedInstanceState) {
-		// Create the GridView
-		mGridView = new GridView(getActivity());
-		mGridView.setOnItemClickListener(this);
-		mGridView.setOnItemLongClickListener(this);
-		mGridView.setNumColumns(GridView.AUTO_FIT);
-		mGridView.setGravity(Gravity.CENTER);
-		mGridView.setColumnWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125 + 30, getActivity().getResources().getDisplayMetrics()));
-		mGridView.setStretchMode(GridView.STRETCH_SPACING_UNIFORM);
+        // Load the cache
+        mDataSource = new ThemesDataSource(getActivity());
+        mDataSource.open();
+        mThemes = mDataSource.getAllApps();
 
-		// Load the cache
-		mDataSource = new ThemesDataSource(getActivity());
-		mDataSource.open();
-		mThemes = mDataSource.getAllApps();
+        // Show ui
+        setListAdapter(new StoreAdapter(getActivity(), mThemes));
 
-		// Show ui
-		setListAdapter(new StoreAdapter(getActivity(), mThemes));
+        return mGridView;
+    }
 
-		return mGridView;
-	}
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-	public ListAdapter getListAdapter() {
-		return mGridView.getAdapter();
-	}
+        if(mThemes.isEmpty()) setViewShown(false);
 
-	public void setListAdapter(ListAdapter adapter) {
-		mGridView.setAdapter(adapter);
-	}
+        // Load from server (and update ui when finished)
+        mTask = new ThemesStoreTask(getActivity()) {
+            @Override
+            protected void onPostExecute(List<App> result) {
+                super.onPostExecute(result);
+                if(result == null) return;
+                mThemes.clear();
+                for(App a : result) {
+                    mThemes.add(a);
+                }
+                if(!isDetached()) {
+                    ((StoreAdapter) getListAdapter()).notifyDataSetChanged();
+                    setViewShown(true);
+                }
+            }
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+            @Override
+            protected void onCancelled() {
+                super.onCancelled();
+                try {
+                    setViewShown(true);
+                } catch(IllegalStateException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        mTask.executeAsync();
+    }
 
-		if (mThemes.isEmpty()) setViewShown(false);
+    @Override
+    public void onStart() {
+        super.onStart();
 
-		// Load from server (and update ui when finished)
-		mTask = new ThemesStoreTask(getActivity()) {
-			@Override
-			protected void onPostExecute(List<App> result) {
-				super.onPostExecute(result);
-				if (result == null) return;
-				mThemes.clear();
-				for (App a : result) {
-					mThemes.add(a);
-				}
-				if (!isDetached()) {
-					((StoreAdapter) getListAdapter()).notifyDataSetChanged();
-					setViewShown(true);
-				}
-			}
+        // Restore the scroll position, if any
+        final Bundle args = getArguments();
+        if(args != null) {
+            mGridView.setSelection(args.getInt(EXTRA_LIST_POSITION, 0));
+            // Hack to scroll to the previous offset
+            mGridView.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(android.os.Build.VERSION.SDK_INT >= 19) {
+                        mGridView.scrollListBy(-1 * args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
+                    } else {
+                        try {
+                            Method m = AbsListView.class.getDeclaredMethod("trackMotionScroll", Integer.TYPE, Integer.TYPE);
+                            m.setAccessible(true);
+                            m.invoke(mGridView, args.getInt(EXTRA_LIST_VIEW_OFFSET, 0), args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
+                        } catch(Exception e) {
+                        }
+                    }
+                }
+            });
+        }
+    }
 
-			@Override
-			protected void onCancelled() {
-				super.onCancelled();
-				try {
-					setViewShown(true);
-				} catch(IllegalStateException e){
-					e.printStackTrace();
-				}
-			}
-		};
-		mTask.executeAsync();
-	}
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((StoreAdapter) getListAdapter()).notifyDataSetChanged();
+    }
 
-	public void onListItemClick(int position) {
-		if (App.doesPackageExists(getContext(),  mThemes.get(position).getPackageName())) {
-			String appName = mThemes.get(position).getPackageName();
+    public ListAdapter getListAdapter() {
+        return mGridView.getAdapter();
+    }
 
-			// Update theme
-			CalculatorSettings.setTheme(getContext(), appName);
-			Theme.setPackageName(appName);
+    public void setListAdapter(ListAdapter adapter) {
+        mGridView.setAdapter(adapter);
+    }
 
-			// Create a new intent to relaunch the settings
-			Intent intent = new Intent(getActivity(), getActivity().getClass());
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mTask.cancel(true);
+        mDataSource.close();
+    }
 
-			// Preserve the list offsets
-			int itemPosition = mGridView.getFirstVisiblePosition();
-			View child = mGridView.getChildAt(0);
-			int itemOffset = child != null ? child.getTop() : 0;
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        onListItemClick(position);
+    }
 
-			intent.putExtra(EXTRA_LIST_POSITION, itemPosition);
-			intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);
+    public void onListItemClick(int position) {
+        if(App.doesPackageExists(getContext(), mThemes.get(position).getPackageName())) {
+            String appName = mThemes.get(position).getPackageName();
 
-			// Go
-			getActivity().startActivity(intent);
-			getActivity().finish();
+            // Update theme
+            CalculatorSettings.setTheme(getContext(), appName);
+            Theme.setPackageName(appName);
 
-			// Set a smooth fade transition
-			getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-		}
-		else {
-			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
-			getActivity().startActivity(intent);
-		}
-	}
+            // Create a new intent to relaunch the settings
+            Intent intent = new Intent(getActivity(), getActivity().getClass());
 
-	public boolean onListItemLongClick(int position) {
-		if (App.doesPackageExists(getContext(),  mThemes.get(position).getPackageName())) {
-			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
-			startActivity(intent);
-			return true;
-		}
-		return false;
-	}
+            // Preserve the list offsets
+            int itemPosition = mGridView.getFirstVisiblePosition();
+            View child = mGridView.getChildAt(0);
+            int itemOffset = child != null ? child.getTop() : 0;
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		onListItemClick(position);
-	}
+            intent.putExtra(EXTRA_LIST_POSITION, itemPosition);
+            intent.putExtra(EXTRA_LIST_VIEW_OFFSET, itemOffset);
 
-	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-		return onListItemLongClick(position);
-	}
+            // Go
+            getActivity().startActivity(intent);
+            getActivity().finish();
 
-	@Override
-	public void onStart() {
-		super.onStart();
+            // Set a smooth fade transition
+            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
+            getActivity().startActivity(intent);
+        }
+    }
 
-		// Restore the scroll position, if any
-		final Bundle args = getArguments();
-		if (args != null) {
-			mGridView.setSelection(args.getInt(EXTRA_LIST_POSITION, 0));
-			// Hack to scroll to the previous offset
-			mGridView.post(new Runnable() {
-				@Override
-				public void run() {
-					if (android.os.Build.VERSION.SDK_INT >= 19) {
-					    mGridView.scrollListBy(-1 * args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
-					}
-					else {
-						try {
-							Method m = AbsListView.class.getDeclaredMethod("trackMotionScroll", Integer.TYPE, Integer.TYPE);
-							m.setAccessible(true);
-							m.invoke(mGridView, args.getInt(EXTRA_LIST_VIEW_OFFSET, 0), args.getInt(EXTRA_LIST_VIEW_OFFSET, 0));
-						} catch (Exception e) {
-						}
-					}
-				}
-			});
-		}
-	}
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        return onListItemLongClick(position);
+    }
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		mTask.cancel(true);
-		mDataSource.close();
-	}
+    public boolean onListItemLongClick(int position) {
+        if(App.doesPackageExists(getContext(), mThemes.get(position).getPackageName())) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + mThemes.get(position).getPackageName()));
+            startActivity(intent);
+            return true;
+        }
+        return false;
+    }
 }
