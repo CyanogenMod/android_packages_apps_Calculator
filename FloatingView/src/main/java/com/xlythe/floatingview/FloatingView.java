@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.util.TypedValue;
@@ -35,6 +36,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
     private static int DELETE_BOX_WIDTH;
     private static int DELETE_BOX_HEIGHT;
     private static int FLOATING_WINDOW_ICON_SIZE;
+    private static int MAGIC_OFFSET;
     // Drag variables
     float mPrevDragX;
     float mPrevDragY;
@@ -64,7 +66,8 @@ public abstract class FloatingView extends Service implements OnTouchListener {
     private AnimationTask mAnimationTask;
     // Open/Close variables
     private boolean mIsViewOpen = false;
-	private float mWiggle;
+	private Point mWiggle;
+    private boolean mEnableWiggle = false;
     // Close logic
     private boolean mIsInDeleteMode = false;
     private View mDeleteIcon;
@@ -85,7 +88,9 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         mRootView.setVisibility(View.GONE);
 
         mInactiveButton = new FrameLayout(getContext());
-        mInactiveButton.addView(inflateButton());
+        View icon = inflateButton();
+        FrameLayout.LayoutParams iconParams = new FrameLayout.LayoutParams((int) getResources().getDimension(R.dimen.floating_window_icon), (int) getResources().getDimension(R.dimen.floating_window_icon));
+        mInactiveButton.addView(icon, iconParams);
         params = mInactiveParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_PHONE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.TOP | Gravity.LEFT;
         mWindowManager.addView(mInactiveButton, params);
@@ -124,7 +129,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
             if(mDeleteView == null) {
                 mDeleteView = new FrameLayout(getContext());
                 View.inflate(getContext(), R.layout.floating_delete_box, mDeleteView);
-                mDeleteIcon = (ImageView) mDeleteView.findViewById(R.id.delete_icon);
+                mDeleteIcon = mDeleteView.findViewById(R.id.delete_icon);
                 mDeleteIconHolder = mDeleteView.findViewById(R.id.delete_icon_holder);
                 mDeleteBoxView = mDeleteView.findViewById(R.id.box);
                 mRootView.addView(mDeleteView);
@@ -133,10 +138,16 @@ public abstract class FloatingView extends Service implements OnTouchListener {
             else {
                 mDeleteView.setVisibility(View.VISIBLE);
             }
+            mEnableWiggle = false;
             mDeleteBoxView.setAlpha(0);
             mDeleteBoxView.animate().alpha(1);
             mDeleteIconHolder.setTranslationY(CLOSE_ANIMATION_DISTANCE);
-            mDeleteIconHolder.animate().translationYBy(-1 * (CLOSE_ANIMATION_DISTANCE + CLOSE_OFFSET)).setListener(null);
+            mDeleteIconHolder.animate().translationYBy(-1 * (CLOSE_ANIMATION_DISTANCE + CLOSE_OFFSET)).setListener(new AnimationFinishedListener() {
+                @Override
+                public void onAnimationFinished() {
+                    mEnableWiggle = true;
+                }
+            });
             View child = mDeleteView.getChildAt(0);
             child.findViewById(R.id.box).getLayoutParams().width = getScreenWidth();
         }
@@ -164,7 +175,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
             public void run() {
                 if(mRootView != null) mRootView.setVisibility(View.GONE);
             }
-        }, 25);
+        }, 30);
         int x = mCurrentPosX;
         int y = mCurrentPosY;
         View v = mInactiveButton.getChildAt(0);
@@ -226,7 +237,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         if(mIsAnimationLocked) return;
         mIsInDeleteMode = true;
         if(mAnimationTask != null) mAnimationTask.cancel();
-        mAnimationTask = new AnimationTask(getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2, mRootView.getHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2);
+        mAnimationTask = new AnimationTask(mWiggle.x + getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2, mWiggle.y + mRootView.getHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2+MAGIC_OFFSET);
         mAnimationTask.setDuration(150);
         mAnimationTask.setAnimationFinishedListener(l);
         mAnimationTask.run();
@@ -252,11 +263,14 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         DELETE_BOX_WIDTH = (int) getResources().getDimension(R.dimen.floating_window_delete_box_width);
         DELETE_BOX_HEIGHT = (int) getResources().getDimension(R.dimen.floating_window_delete_box_height);
         FLOATING_WINDOW_ICON_SIZE = (int) getResources().getDimension(R.dimen.floating_window_icon);
+        MAGIC_OFFSET = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics());
 
         addView();
         mDraggableIcon = new FrameLayout(this);
         mDraggableIcon.setOnTouchListener(this);
-        mDraggableIcon.addView(inflateButton());
+        View icon = inflateButton();
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int) getResources().getDimension(R.dimen.floating_window_icon), (int) getResources().getDimension(R.dimen.floating_window_icon));
+        mDraggableIcon.addView(icon, params);
         mRootView.addView(mDraggableIcon);
         updateIconPosition(MARGIN_HORIZONTAL, STARTING_POINT_Y);
         adjustInactivePosition();
@@ -272,9 +286,17 @@ public abstract class FloatingView extends Service implements OnTouchListener {
                 if(y <= 0) y = MARGIN_VERTICAL;
                 if(y >= getScreenHeight() - mDraggableIcon.getHeight()) y = getScreenHeight() - mDraggableIcon.getHeight() - MARGIN_VERTICAL;
                 updateIconPosition(x, y);
+                adjustInactivePosition();
             }
         };
         registerReceiver(mBroadcastReceiver, filter);
+    }
+
+    private void calculateWiggle(int x, int y) {
+        Point closeIcon = new Point(getScreenWidth() / 2, mRootView.getHeight() - DELETE_BOX_HEIGHT / 2);
+        int wiggleX = (x-closeIcon.x)/20;
+        int wiggleY = Math.max(-1 * DELETE_BOX_HEIGHT / 4, (y-closeIcon.y)/20);
+        mWiggle = new Point(wiggleX, wiggleY);
     }
 
     @Override
@@ -285,7 +307,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
             public void run() {
                 if(mInactiveButton != null) mInactiveButton.setVisibility(View.INVISIBLE);
             }
-        }, 25);
+        }, 30);
         switch(event.getAction()) {
         case MotionEvent.ACTION_DOWN:
             mPrevDragX = mOrigX = event.getRawX();
@@ -334,6 +356,15 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         case MotionEvent.ACTION_MOVE:
             int x = (int) (event.getRawX() - mDraggableIcon.getWidth() / 2);
             int y = (int) (event.getRawY() - mDraggableIcon.getHeight());
+            if(mDeleteIconHolder != null && mEnableWiggle) {
+                calculateWiggle(x, y);
+                mDeleteIconHolder.setTranslationX(mWiggle.x);
+                mDeleteIconHolder.setTranslationY(mWiggle.y);
+                if(mIsInDeleteMode && isDeleteMode(x, y)) {
+                    mDraggableIcon.setTranslationX(getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2 + mWiggle.x);
+                    mDraggableIcon.setTranslationY(mRootView.getHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2 + mWiggle.y+MAGIC_OFFSET);
+                }
+            }
             if(isDeleteMode(x, y)) {
                 if(!mIsInDeleteMode) animateToDeleteBoxCenter(new AnimationFinishedListener() {
                     @Override

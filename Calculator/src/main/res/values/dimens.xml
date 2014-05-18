@@ -17,12 +17,6 @@
     <!-- Store -->
     <dimen name="store_tab_height">70dp</dimen>
 
-    <!-- Floating Calculator -->
-    <dimen name="floating_window_icon">65dp</dimen>
-    <dimen name="floating_window_button_height">70dp</dimen>
-    <dimen name="floating_window_delete_box_height">125dp</dimen>
-    <dimen name="floating_window_delete_box_width">125dp</dimen>
-
     <!-- Calculator -->
     <dimen name="btn_digit_text_size">40sp</dimen>
     <dimen name="btn_operation_text_size">40sp</dimen>
