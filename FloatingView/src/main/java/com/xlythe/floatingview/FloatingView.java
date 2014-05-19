@@ -295,8 +295,8 @@ public abstract class FloatingView extends Service implements OnTouchListener {
 
     private void calculateWiggle(int x, int y) {
         Point closeIcon = new Point(getScreenWidth() / 2, mRootView.getHeight() - DELETE_BOX_HEIGHT / 2);
-        int wiggleX = (x-closeIcon.x)/20;
-        int wiggleY = Math.max(-1 * DELETE_BOX_HEIGHT / 4, (y-closeIcon.y)/20);
+        int wiggleX = (x-closeIcon.x)/10;
+        int wiggleY = Math.max(-1 * DELETE_BOX_HEIGHT / 4, (y-closeIcon.y)/10);
         mWiggle = new Point(wiggleX, wiggleY);
     }
 
