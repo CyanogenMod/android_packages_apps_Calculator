@@ -66,6 +66,8 @@ public abstract class FloatingView extends Service implements OnTouchListener {
     // Open/Close variables
     private boolean mIsViewOpen = false;
 	private Point mWiggle;
+    private boolean mAnimateWiggle = false;
+    private boolean mWiggleAnimating = false;
     private boolean mEnableWiggle = false;
     // Close logic
     private boolean mIsInDeleteMode = false;
@@ -138,6 +140,8 @@ public abstract class FloatingView extends Service implements OnTouchListener {
                 mDeleteView.setVisibility(View.VISIBLE);
             }
             mEnableWiggle = false;
+            mDeleteIconHolder.setTranslationX(0);
+            mDeleteIconHolder.setTranslationY(0);
             mDeleteBoxView.setAlpha(0);
             mDeleteBoxView.animate().alpha(1);
             mDeleteIconHolder.setTranslationY(CLOSE_ANIMATION_DISTANCE);
@@ -145,6 +149,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
                 @Override
                 public void onAnimationFinished() {
                     mEnableWiggle = true;
+                    mAnimateWiggle = true;
                 }
             });
             View child = mDeleteView.getChildAt(0);
@@ -296,7 +301,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
     private void calculateWiggle(int x, int y) {
         Point closeIcon = new Point(getScreenWidth() / 2, mRootView.getHeight() - DELETE_BOX_HEIGHT / 2);
         int wiggleX = (x-closeIcon.x)/10;
-        int wiggleY = Math.max(-1 * DELETE_BOX_HEIGHT / 4, (y-closeIcon.y)/10);
+        int wiggleY = Math.max(-1 * DELETE_BOX_HEIGHT / 8, (y-closeIcon.y)/10);
         mWiggle = new Point(wiggleX, wiggleY);
     }
 
@@ -357,13 +362,31 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         case MotionEvent.ACTION_MOVE:
             int x = (int) (event.getRawX() - mDraggableIcon.getWidth() / 2);
             int y = (int) (event.getRawY() - mDraggableIcon.getHeight());
-            if(mDeleteIconHolder != null && mEnableWiggle) {
+            if(mDeleteIconHolder != null) {
                 calculateWiggle(x, y);
-                mDeleteIconHolder.setTranslationX(mWiggle.x);
-                mDeleteIconHolder.setTranslationY(mWiggle.y);
-                if(mIsInDeleteMode && isDeleteMode(x, y)) {
-                    mDraggableIcon.setTranslationX(getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2 + mWiggle.x);
-                    mDraggableIcon.setTranslationY(mRootView.getHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2 + mWiggle.y+MAGIC_OFFSET);
+                if(!mEnableWiggle) {
+                    mEnableWiggle = true;
+                    mAnimateWiggle = true;
+                }
+                if(mEnableWiggle) {
+                    if(mAnimateWiggle) {
+                        mAnimateWiggle = false;
+                        mWiggleAnimating = true;
+                        mDeleteIconHolder.animate().translationX(mWiggle.x).translationY(mWiggle.y).setListener(new AnimationFinishedListener() {
+                            @Override
+                            public void onAnimationFinished() {
+                                mWiggleAnimating = false;
+                            }
+                        });
+                    }
+                    else if(!mWiggleAnimating) {
+                        mDeleteIconHolder.setTranslationX(mWiggle.x);
+                        mDeleteIconHolder.setTranslationY(mWiggle.y);
+                    }
+                    if(mIsInDeleteMode && isDeleteMode(x, y)) {
+                        mDraggableIcon.setTranslationX(getScreenWidth() / 2 - mDraggableIcon.getWidth() / 2 + mWiggle.x);
+                        mDraggableIcon.setTranslationY(mRootView.getHeight() - DELETE_BOX_HEIGHT / 2 - mDraggableIcon.getHeight() / 2 + mWiggle.y + MAGIC_OFFSET);
+                    }
                 }
             }
             if(isDeleteMode(x, y)) {
@@ -375,7 +398,6 @@ public abstract class FloatingView extends Service implements OnTouchListener {
                 });
             }
             else if(isDeleteMode() && !mIsAnimationLocked) {
-                mDontVibrate = false;
                 mIsInDeleteMode = false;
                 if(mAnimationTask != null) mAnimationTask.cancel();
                 mAnimationTask = new AnimationTask(x, y);
@@ -399,6 +421,7 @@ public abstract class FloatingView extends Service implements OnTouchListener {
                 if(!mIsAnimationLocked && mDragged) {
                     if(mAnimationTask != null) mAnimationTask.cancel();
                     updateIconPosition(x, y);
+                    mDontVibrate = false;
                 }
             }
 
