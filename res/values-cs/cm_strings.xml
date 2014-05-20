@@ -15,14 +15,18 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="application_copyright">Copyright \u00A9 2014 CyanogenMod projekt</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
+  <string name="arcsin">asin</string>
+  <string name="arccos">acos</string>
+  <string name="arctan">atan</string>
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="solveForX">Vyřešit pro X</string>
   <string name="solveForY">Vyřešit pro Y</string>
+  <string name="mod">mod</string>
   <string name="matrix">Panel matice</string>
   <string name="graph">Panel grafu</string>
   <string name="function">Panel funkce</string>
@@ -45,6 +49,7 @@
   <string name="minus_row">-Řádek</string>
   <string name="plus_col">+Sloup</string>
   <string name="minus_col">-Sloup</string>
+  <string name="matrix_transpose">T</string>
   <string name="next">Další</string>
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
@@ -61,6 +66,9 @@
   <string name="clickToOpenHistory">Otevřít historii</string>
   <string name="digitGrouping">Oddělovač řádů</string>
   <string name="trigUnits">Trig. jednotky</string>
+  <string name="radians">RAD</string>
+  <string name="degrees">DEG</string>
+  <string name="holo">Holo</string>
   <string name="holo_light">Světlé</string>
   <string name="holo_dark">Tmavé</string>
   <string name="cling_simple_title">Vítejte</string>
@@ -72,5 +80,13 @@
   <string name="cling_graph_title">Graf</string>
   <string name="cling_graph_msg">Zde se automaticky zobrazí grafy. V panelu Pokročilé funkce vytvořte funkci používající proměnné X a Y.</string>
   <string name="cling_dismiss">OK</string>
+  <string name="dec_separator">,</string>
+  <string name="bin_separator">\u0020</string>
+  <string name="hex_separator">\u0020</string>
+  <item name="dec_separator_distance" type="integer">3</item>
+  <item name="bin_separator_distance" type="integer">4</item>
+  <item name="hex_separator_distance" type="integer">2</item>
+  <string name="dot">.</string>
+  <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarpa použil šplouchanec, ale nic se nestalo.</string>
 </resources>
