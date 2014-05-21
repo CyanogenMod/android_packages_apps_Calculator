@@ -19,7 +19,7 @@ gson-2.2.4.jar - Gson (https://code.google.com/p/google-gson/)
     Gson is a library for parsing json
 
 slider.jar - Slider (https://github.com/Xlythe/Slider)
-    Slider is an animated view developed by me. It's used for the history pull down.
+    Slider is an animated view that can be dragged to show content. It's used for the history pull down.
 
 gdk.jar - Glass Developer Kit (https://developers.google.com/glass/develop/gdk/)
     GDK allows Android apps to run on Google Glass
