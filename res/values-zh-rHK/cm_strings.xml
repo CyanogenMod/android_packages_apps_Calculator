@@ -16,7 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">版權所有 \u00A9 2013年 CyanogenMod 計畫</string>
+  <string name="application_copyright">版權所有 \u00A9 2013 年 CyanogenMod 計畫</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -33,7 +33,7 @@
   <string name="hexPanel">十六進制板面</string>
   <string name="lock">鎖定頁面</string>
   <string name="unlock">解鎖頁面</string>
-  <string name="copy">複製 \'%s\'</string>
+  <string name="copy">複製「%s」</string>
   <string name="remove_from_history">從紀錄中刪除</string>
   <string name="showHistory">顯示紀錄</string>
   <string name="hideHistory">隱藏紀錄</string>
