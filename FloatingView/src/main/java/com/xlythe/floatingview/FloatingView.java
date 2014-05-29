@@ -173,6 +173,8 @@ public abstract class FloatingView extends Service implements OnTouchListener {
     }
 
     private void adjustInactivePosition() {
+        if(mRootView == null) return;
+
         mInactiveButton.setVisibility(View.VISIBLE);
         mRootView.postDelayed(new Runnable() {
             @Override
