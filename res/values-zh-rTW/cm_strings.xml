@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">角度單位</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">Light</string>
-  <string name="holo_dark">Dark</string>
   <string name="cling_simple_title">歡迎</string>
   <string name="cling_simple_msg">向左右滑動以存取更多內容。在設定中可以停用不需要的頁面。</string>
   <string name="cling_matrix_title">矩陣</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">圖表</string>
   <string name="cling_graph_msg">圖表將會自動顯示在這裡。請至進階面板並使用 X 和 Y 建立一個函數。</string>
   <string name="cling_dismiss">確定</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

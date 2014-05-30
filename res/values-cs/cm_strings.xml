@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2014 CyanogenMod projekt</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">Trig. jednotky</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">Světlé</string>
-  <string name="holo_dark">Tmavé</string>
   <string name="cling_simple_title">Vítejte</string>
   <string name="cling_simple_msg">Pro zobrazení dalších panelů použijte posunutí vlevo nebo vpravo. Nepoužívané panely je možné zakázat v nastavení.</string>
   <string name="cling_matrix_title">Matice</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">Graf</string>
   <string name="cling_graph_msg">Zde se automaticky zobrazí grafy. V panelu Pokročilé funkce vytvořte funkci používající proměnné X a Y.</string>
   <string name="cling_dismiss">OK</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

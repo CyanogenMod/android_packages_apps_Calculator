@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">Trig. mértékegység</string>
   <string name="radians">Radián</string>
   <string name="degrees">Fok</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">Világos</string>
-  <string name="holo_dark">Sötét</string>
   <string name="cling_simple_title">Üdvözöljük</string>
   <string name="cling_simple_msg">Csúsztasson jobbra vagy balra a további tartalmakért. A használni kívánt panelek a beállításokban megadhatóak.</string>
   <string name="cling_matrix_title">Mátrixok</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">Grafikon</string>
   <string name="cling_graph_msg">A grafikon automatikusan megjelenik. Más függvény értékek a részletes beállításokban adhatóak meg.</string>
   <string name="cling_dismiss">OK</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

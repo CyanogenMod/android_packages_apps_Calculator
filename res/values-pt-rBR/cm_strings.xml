@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asen</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">Unidades trig.</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">Claro</string>
-  <string name="holo_dark">Escuro</string>
   <string name="cling_simple_title">Bem vindo</string>
   <string name="cling_simple_msg">Deslize para esquerda e direita para acessar mais conteúdo. Páginas desnecessárias podem ser desativadas nas Configurações.</string>
   <string name="cling_matrix_title">Matrizes</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">Gráfico</string>
   <string name="cling_graph_msg">Gráficos irão aparecer automaticamente aqui. Vá até o painel avançado e construa uma função usando X e Y.</string>
   <string name="cling_dismiss">OK</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

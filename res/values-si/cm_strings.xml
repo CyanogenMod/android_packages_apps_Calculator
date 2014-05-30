@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">ප්‍රකාශන අයිතිය \u00A9 2013 CyanogenMod ව්‍යාපෘතිය</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">ත්‍රිකෝණමිතික ඒකක</string>
   <string name="radians">රේඩියන</string>
   <string name="degrees">අංශක</string>
-  <string name="holo">හොලෝ</string>
-  <string name="holo_light">සැහැල්ලු</string>
-  <string name="holo_dark">අඳුරු</string>
   <string name="cling_simple_title">ආයුබෝවන්</string>
   <string name="cling_simple_msg">තවත් අන්තර්ගතයන් ප්‍රවේශයට වමට සහ දකුණට රූටන්න. අනවශ්‍ය පිටු සැකසීම් තුළින් අබල කලහැක.</string>
   <string name="cling_matrix_title">න්‍යාස</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">ප්‍රස්තාරය</string>
   <string name="cling_graph_msg">ප්‍රස්තාර මෙහි ඉබේම දිස්වෙනු ඇත. උසස් පනේලය වෙත ගොස් X සහ Y භාවිතයෙන් ශ්‍රිතයක් තනන්න.</string>
   <string name="cling_dismiss">හරි</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">\u00A9 Проект CyanogenMod, 2013</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">Тригоном. единицы</string>
   <string name="radians">Радианы</string>
   <string name="degrees">Градусы</string>
-  <string name="holo">Тема</string>
-  <string name="holo_light">Светлая</string>
-  <string name="holo_dark">Тёмная</string>
   <string name="cling_simple_title">Добро пожаловать!</string>
   <string name="cling_simple_msg">Проведите пальцем влево или вправо, чтобы поменять режимы. Ненужные режимы могут быть отключены в настройках.</string>
   <string name="cling_matrix_title">Матрицы</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">График</string>
   <string name="cling_graph_msg">Графики будут автоматически показываться здесь. Перейдите к дополнительной панели и постройте функцию, используя X и Y.</string>
   <string name="cling_dismiss">OK</string>
-  <string name="dec_separator">\u0020</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

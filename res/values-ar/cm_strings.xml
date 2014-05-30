@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">حقوق الطبع والنشر \u00A9 2013 لي مشروع CyanogenMod</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">وحدات حساب المثلثات</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">فاتح</string>
-  <string name="holo_dark">داكن</string>
   <string name="cling_simple_title">مرحبا</string>
   <string name="cling_simple_msg">شريحة من اليمين واليسار الوصول إلى المزيد من المحتوى. يمكن تعطيل صفحات لا داعي لها في الإعدادات.</string>
   <string name="cling_matrix_title">المصفوفات</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">رسم بياني</string>
   <string name="cling_graph_msg">تلقائياً وسوف تظهر الرسوم البيانية هنا. انتقل إلى الفريق المتقدم وبناء دالة باستخدام X و Y.</string>
   <string name="cling_dismiss">موافق</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

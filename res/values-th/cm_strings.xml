@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">สงวนลิขสิทธิ์ \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">หน่วยมุม</string>
   <string name="radians">เรเดียน</string>
   <string name="degrees">องศา</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">สว่าง</string>
-  <string name="holo_dark">มืด</string>
   <string name="cling_simple_title">ยินดีต้อนรับ</string>
   <string name="cling_simple_msg">เลื่อนซ้ายและขวาเพื่อดูเนื้อหาเพิ่มเติม หน้าที่ไม่จำเป็น สามารถปิดได้ที่เมนู ตั้งค่า</string>
   <string name="cling_matrix_title">เมทริกซ์</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">กราฟ</string>
   <string name="cling_graph_msg">กราฟจะแสดงขึ้นที่นี่โดยอัตโนมัติ ไปที่แผงขั้นสูง เพื่อสร้างฟังก์ชั่นของกราฟ โดยใช้ X และ Y</string>
   <string name="cling_dismiss">ตกลง</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -27,6 +26,7 @@
   <string name="solveForX">Реши за X</string>
   <string name="solveForY">Реши за Y</string>
   <string name="mod">mod</string>
+  <string name="cbrt">\u00b3\u221a</string>
   <string name="matrix">Matrix табла</string>
   <string name="graph">Графикон табла</string>
   <string name="function">Функцијска табла</string>
@@ -68,9 +68,6 @@
   <string name="trigUnits">Триг јединице</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="holo">Холо</string>
-  <string name="holo_light">Светла</string>
-  <string name="holo_dark">Тамна</string>
   <string name="cling_simple_title">Добродошли</string>
   <string name="cling_simple_msg">Превлачите лево и десно да бисте приступили већем садржају. Непотребне странице могу бити онемогућен у подешавањима.</string>
   <string name="cling_matrix_title">Матрице</string>
@@ -80,7 +77,6 @@
   <string name="cling_graph_title">График</string>
   <string name="cling_graph_msg">Графикони ће се аутоматски појавити овде. Идите на напредном панелу и изградите функцију помоћу X и Y.</string>
   <string name="cling_dismiss">OK</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">Trigger enheter</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRADER</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">Lys</string>
-  <string name="holo_dark">Mørk</string>
   <string name="cling_simple_title">Velkommen</string>
   <string name="cling_simple_msg">Skyv til venstre og høyre for å få tilgang til mer innhold. Sider som er unødvendige kan deaktiveres i innstillinger.</string>
   <string name="cling_matrix_title">Matriser</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">Graf</string>
   <string name="cling_graph_msg">Grafer vil automatisk vises her. Gå til Avansert-panelet og bygg en funksjon med X og Y.</string>
   <string name="cling_dismiss">Ok</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

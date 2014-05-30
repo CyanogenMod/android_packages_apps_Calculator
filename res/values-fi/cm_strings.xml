@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">Trigonometriset yksiköt</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">Vaalea</string>
-  <string name="holo_dark">Tumma</string>
   <string name="cling_simple_title">Tervetuloa</string>
   <string name="cling_simple_msg">Liu\'uta vasemmalle ja oikealle käyttääksesi useampia sisältöjä. Tarpeettomat sivut voidaan poistaa käytöstä asetuksista.</string>
   <string name="cling_matrix_title">Matriisit</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">Graafit</string>
   <string name="cling_graph_msg">Graafit näkyvät tässä automaattisesti. Siirry edistyneisiin toimintoihin ja muodosta funktio X:ää ja Y:tä käyttäen.</string>
   <string name="cling_dismiss">OK</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

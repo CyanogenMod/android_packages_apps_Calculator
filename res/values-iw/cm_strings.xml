@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">כל הזכויות שמורות \u00A9 CyanogenMod 2013</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">יחידות בטריגונומטריה</string>
   <string name="radians">רדיאנים</string>
   <string name="degrees">מעלות</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">לבן</string>
-  <string name="holo_dark">כהה</string>
   <string name="cling_simple_title">ברוך הבא</string>
   <string name="cling_simple_msg">החלק ימינה ושמאלה לעוד דברים. אפשר להשבית דפים לא נחוצים בהעדפות.</string>
   <string name="cling_matrix_title">מטריצות</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">גרף</string>
   <string name="cling_graph_msg">גרפים יופיעו כאן אוטומטית. לך לחלון מתקדם ובנה פונקציה עם X ו-Y.</string>
   <string name="cling_dismiss">אישור</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

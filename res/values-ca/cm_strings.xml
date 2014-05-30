@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -37,7 +36,7 @@
   <string name="remove_from_history">Treu-ho de l\'historial</string>
   <string name="showHistory">Mostra l\'historial</string>
   <string name="hideHistory">Amaga l\'historial</string>
-  <string name="settings">Ajustaments</string>
+  <string name="settings">Configuració</string>
   <string name="det">det</string>
   <string name="eigenvalue">Autoval</string>
   <string name="solve">Resol</string>
@@ -68,11 +67,8 @@
   <string name="trigUnits">Unitats trigon.</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRA</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">Clar</string>
-  <string name="holo_dark">Fosc</string>
   <string name="cling_simple_title">Benvingut</string>
-  <string name="cling_simple_msg">Llisca a esquerra i dreta per accedir a més contingut. Les pàgines que no et siguin necessàries poden ser desactivades als Ajustaments.</string>
+  <string name="cling_simple_msg">Llisca a esquerra i dreta per accedir a més contingut. Les pàgines que no et siguin necessàries poden ser desactivades a la Configuració.</string>
   <string name="cling_matrix_title">Matrius</string>
   <string name="cling_matrix_msg">Pica aquí per començar a construir i resoldre matrius.</string>
   <string name="cling_hex_title">Canvia de base</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">Gràfics</string>
   <string name="cling_graph_msg">Els gràfics es mostraran automàticament aquí. Ves al panell avançat i construeix una funció utilitzant X i Y.</string>
   <string name="cling_dismiss">D\'acord</string>
-  <string name="dec_separator">,</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>

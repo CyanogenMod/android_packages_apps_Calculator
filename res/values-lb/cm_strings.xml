@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">Copyright \u00A9 2013 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -68,9 +67,6 @@
   <string name="trigUnits">Wénkeleenheeten</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRAD</string>
-  <string name="holo">Holo</string>
-  <string name="holo_light">Hell</string>
-  <string name="holo_dark">Däischter</string>
   <string name="cling_simple_title">Wëllkomm</string>
   <string name="cling_simple_msg">No lénks a riets wësche fir op weider Funktiounen zouzegräifen. Onnéideg Säite kënnen an den Astellungen deaktivéiert ginn.</string>
   <string name="cling_matrix_title">Matrissen</string>
@@ -80,7 +76,6 @@
   <string name="cling_graph_title">Graphen</string>
   <string name="cling_graph_msg">Graphe ginn automatesch hei ugewisen. Géi op den avancéierte Panneau a gëff eng Funktioun mat X an Y an.</string>
   <string name="cling_dismiss">OK</string>
-  <string name="dec_separator">.</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>
