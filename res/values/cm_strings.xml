@@ -147,7 +147,6 @@
     <string name="cling_dismiss">OK</string>
 
     <!-- Separators for dec, bin, and hex. Must be 1 charater! -->
-    <string name="dec_separator">\u002C</string>
     <string name="bin_separator">\u0020</string>
     <string name="hex_separator">\u0020</string>
     <item name="dec_separator_distance" type="integer">3</item>
