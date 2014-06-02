@@ -40,6 +40,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormatSymbols;
+
 import com.android.calculator2.BaseModule;
 import com.android.calculator2.CalculatorSettings;
 import com.android.calculator2.EquationFormatter;
@@ -113,7 +115,8 @@ public class CalculatorEditText extends ThemedEditText {
 
     private void setUp() {
         final Resources r = getContext().getResources();
-        mDecSeparator = r.getString(R.string.dec_separator);
+        final DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        mDecSeparator = dfs.getGroupingSeparator()+"";
         mBinSeparator = r.getString(R.string.bin_separator);
         mHexSeparator = r.getString(R.string.hex_separator);
 
