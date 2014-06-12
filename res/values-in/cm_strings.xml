@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Hak cipta \u00A9 2014 proyek CyanogenMod</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Panel hex</string>
   <string name="lock">Kunci halaman</string>
   <string name="unlock">Buka kunci halaman</string>
+  <string name="info">Info</string>
   <string name="copy">Menyalin \'%s\'</string>
   <string name="remove_from_history">Hapus dari riwayat</string>
   <string name="showHistory">Tampilkan riwayat</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Tema</string>
   <string name="pref_about">Tentang</string>
   <string name="returnToBasic">Kembali ke Panel dasar</string>
+  <string name="infiniteScrolling">Scroll tidak terbatas</string>
   <string name="clickToOpenHistory">Klik untuk membuka riwayat</string>
   <string name="digitGrouping">Pengelompokan digit</string>
   <string name="trigUnits">Unit Trigonometri</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">Tema</string>
+  <string name="showDetails">Tampilkan rincian</string>
+  <string name="floatingCalc">Kalkulator floating</string>
+  <string name="vibrateOnPress">Bergetar saat di klik</string>
+  <string name="showWidgetBackground">Tunjukkan latar belakang widget</string>
   <string name="cling_simple_title">Selamat datang</string>
   <string name="cling_simple_msg">Geser kiri dan kanan untuk mengakses lebih banyak konten. Halaman yang tidak diperlukan dapat dinonaktifkan dalam pengaturan.</string>
   <string name="cling_matrix_title">Matriks</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp menggunakan Splash tetapi tidak ada yang terjadi.</string>
+  <string name="glass_start">Hitung</string>
+  <string name="voice_detection_failed">Penghitungan gagal. Coba lagi?</string>
+  <string name="voice_detection_repeat">Hitung lagi?</string>
+  <string name="speech_helper_negative" formatted="false">Negatif %s</string>
 </resources>

@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 CyanogenMod projekt</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Binární panel</string>
   <string name="lock">Zamknout panel</string>
   <string name="unlock">Odemknout panel</string>
+  <string name="info">Informace</string>
   <string name="copy">Kopírovat \u201a%s\u2018</string>
   <string name="remove_from_history">Odebrat z historie</string>
   <string name="showHistory">Zobrazit historii</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Vzhled</string>
   <string name="pref_about">O aplikaci</string>
   <string name="returnToBasic">Zpět na základní panel</string>
+  <string name="infiniteScrolling">Nekonečné rolování</string>
   <string name="clickToOpenHistory">Otevřít historii</string>
   <string name="digitGrouping">Oddělovač řádů</string>
   <string name="trigUnits">Trig. jednotky</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">Vzhled</string>
+  <string name="showDetails">Zobrazit podrobnosti</string>
+  <string name="floatingCalc">Plovoucí kalkulačka</string>
+  <string name="vibrateOnPress">Vibrovat při kliknutí</string>
+  <string name="showWidgetBackground">Zobrazit pozadí widgetu</string>
   <string name="cling_simple_title">Vítejte</string>
   <string name="cling_simple_msg">Pro zobrazení dalších panelů použijte posunutí vlevo nebo vpravo. Nepoužívané panely je možné zakázat v nastavení.</string>
   <string name="cling_matrix_title">Matice</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarpa použil šplouchanec, ale nic se nestalo.</string>
+  <string name="glass_start">Počítat</string>
+  <string name="voice_detection_failed">Výpočet selhal. Zkusit znovu?</string>
+  <string name="voice_detection_repeat">Počítat znovu?</string>
+  <string name="speech_helper_negative" formatted="false">Záporné %s</string>
 </resources>

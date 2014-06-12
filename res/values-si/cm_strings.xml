@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">ප්‍රකාශන අයිතිය \u00A9 2014 CyanogenMod ව්‍යාපෘතිය</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">16 පාදයේ පනේලය</string>
   <string name="lock">අගුළු පිටුව</string>
   <string name="unlock">විවෘත පිටුව</string>
+  <string name="info">තොරතුරු</string>
   <string name="copy">\'%s\' පිටපත් කරන්න</string>
   <string name="remove_from_history">ඉතිහාසයෙන් ඉවත්කරන්න</string>
   <string name="showHistory">ඉතිහාසය පෙන්වන්න</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">තේමාව</string>
   <string name="pref_about">පිලිබඳ</string>
   <string name="returnToBasic">මූලික පනේලය වෙත ආපසු යන්න</string>
+  <string name="infiniteScrolling">අනන්ත අනුචලනය</string>
   <string name="clickToOpenHistory">ඉතිහාසය දිගහැරුමට ඔබන්න</string>
   <string name="digitGrouping">අංක කාණ්ඩ කිරීම</string>
   <string name="trigUnits">ත්‍රිකෝණමිතික ඒකක</string>
   <string name="radians">රේඩියන</string>
   <string name="degrees">අංශක</string>
+  <string name="theme">තේමාව</string>
+  <string name="showDetails">තොරතුරු පෙන්වන්න</string>
+  <string name="floatingCalc">පාවෙන ගණකය</string>
+  <string name="vibrateOnPress">එබීමේදී කම්පනය</string>
+  <string name="showWidgetBackground">විජටයේ පසුබිම පෙන්වන්න</string>
   <string name="cling_simple_title">ආයුබෝවන්</string>
   <string name="cling_simple_msg">තවත් අන්තර්ගතයන් ප්‍රවේශයට වමට සහ දකුණට රූටන්න. අනවශ්‍ය පිටු සැකසීම් තුළින් අබල කලහැක.</string>
   <string name="cling_matrix_title">න්‍යාස</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp Splash භාවිතා කළේය නමුත් කිසිවක් සිදුනොවුනි.</string>
+  <string name="glass_start">ගණනය කරන්න</string>
+  <string name="voice_detection_failed">ගණනය කිරීම අසමත්විය. යළි උත්සාහ කරන්නද?</string>
+  <string name="voice_detection_repeat">නැවත ගණනය කරන්නද?</string>
+  <string name="speech_helper_negative" formatted="false">සෘණ %s</string>
 </resources>

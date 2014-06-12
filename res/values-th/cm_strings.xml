@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">สงวนลิขสิทธิ์ \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">แผงเลขฐาน</string>
   <string name="lock">ล็อคหน้า</string>
   <string name="unlock">ปลดล็อคหน้า</string>
+  <string name="info">ข้อมูล</string>
   <string name="copy">คัดลอก \'%s\'</string>
   <string name="remove_from_history">ลบออกจากประวัติ</string>
   <string name="showHistory">แสดงประวัติ</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">ธีม</string>
   <string name="pref_about">เกี่ยวกับ</string>
   <string name="returnToBasic">กลับไปแผงปกติ</string>
+  <string name="infiniteScrolling">เลื่อนไม่มีที่สิ้นสุด</string>
   <string name="clickToOpenHistory">คลิกเพื่อดูประวัติ</string>
   <string name="digitGrouping">จัดกลุ่มตัวเลข</string>
   <string name="trigUnits">หน่วยมุม</string>
   <string name="radians">เรเดียน</string>
   <string name="degrees">องศา</string>
+  <string name="theme">ชุดรูปแบบ</string>
+  <string name="showDetails">แสดงรายละเอียด</string>
+  <string name="floatingCalc">เครื่องคิดเลขบนหน้าจอ</string>
+  <string name="vibrateOnPress">สั่นเมื่อแตะ</string>
+  <string name="showWidgetBackground">แสดงพื้นหลังวิดเจ็ด</string>
   <string name="cling_simple_title">ยินดีต้อนรับ</string>
   <string name="cling_simple_msg">เลื่อนซ้ายและขวาเพื่อดูเนื้อหาเพิ่มเติม หน้าที่ไม่จำเป็น สามารถปิดได้ที่เมนู ตั้งค่า</string>
   <string name="cling_matrix_title">เมทริกซ์</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">ไข่แตกแล้ว! แต่ไม่เกิดอะไรขี้น</string>
+  <string name="glass_start">คำนวณ</string>
+  <string name="voice_detection_failed">คำนวณล้มเหลว ลองอีกครั้ง?</string>
+  <string name="voice_detection_repeat">คำนวณใหม่?</string>
+  <string name="speech_helper_negative" formatted="false">ลบ %s</string>
 </resources>

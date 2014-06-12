@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Hexパネル</string>
   <string name="lock">ページを固定</string>
   <string name="unlock">ページの固定を解除</string>
+  <string name="info">情報</string>
   <string name="copy">\'%s\'をコピー</string>
   <string name="remove_from_history">履歴から削除</string>
   <string name="showHistory">履歴を表示</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">テーマ</string>
   <string name="pref_about">情報</string>
   <string name="returnToBasic">基本のパネルに戻る</string>
+  <string name="infiniteScrolling">無限スクロール</string>
   <string name="clickToOpenHistory">クリックして履歴を開く</string>
   <string name="digitGrouping">桁区切り</string>
   <string name="trigUnits">角度の単位</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">テーマ</string>
+  <string name="showDetails">詳細を表示</string>
+  <string name="floatingCalc">フローティング電卓</string>
+  <string name="vibrateOnPress">クリックで振動</string>
+  <string name="showWidgetBackground">ウィジェットの背景を表示</string>
   <string name="cling_simple_title">ようこそ</string>
   <string name="cling_simple_msg">左右にスライドするとより多くのコンテンツにアクセスできます。必要の無いページは設定から無効にできます。</string>
   <string name="cling_matrix_title">行列</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">コイキングははねるをつかった！しかしなにもおこらない。</string>
+  <string name="glass_start">計算</string>
+  <string name="voice_detection_failed">計算できませんでした。もう一度やり直しますか？</string>
+  <string name="voice_detection_repeat">もう一度計算しますか？</string>
+  <string name="speech_helper_negative" formatted="false">負の%s</string>
 </resources>

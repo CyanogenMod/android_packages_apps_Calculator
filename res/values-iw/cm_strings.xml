@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">כל הזכויות שמורות \u00A9 CyanogenMod 2013</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">הקס</string>
   <string name="lock">נעל עמוד</string>
   <string name="unlock">פתח עמוד</string>
+  <string name="info">מידע נוסף</string>
   <string name="copy">העתק \"%s\"</string>
   <string name="remove_from_history">הסר מההיסטוריה</string>
   <string name="showHistory">הצג הסטוריה</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">ערכת עיצוב</string>
   <string name="pref_about">אודות</string>
   <string name="returnToBasic">חזרה לחלונית בסיסית</string>
+  <string name="infiniteScrolling">גלילה אינסופית</string>
   <string name="clickToOpenHistory">לחץ כדי לפתוח היסטוריה</string>
   <string name="digitGrouping">קיבוץ ספרות</string>
   <string name="trigUnits">יחידות בטריגונומטריה</string>
   <string name="radians">רדיאנים</string>
   <string name="degrees">מעלות</string>
+  <string name="theme">ערכת נושא</string>
+  <string name="showDetails">הצג פרטים</string>
+  <string name="floatingCalc">מחשבון צף</string>
+  <string name="vibrateOnPress">רטט במגע</string>
+  <string name="showWidgetBackground">הצג רקע יישומון</string>
   <string name="cling_simple_title">ברוך הבא</string>
   <string name="cling_simple_msg">החלק ימינה ושמאלה לעוד דברים. אפשר להשבית דפים לא נחוצים בהעדפות.</string>
   <string name="cling_matrix_title">מטריצות</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp השתמש ב-Splash, אבל כלום לא קרה.</string>
+  <string name="glass_start">חשב</string>
+  <string name="voice_detection_failed">חישוב נכשל, לנסות שוב?</string>
+  <string name="voice_detection_repeat">לחשב שוב?</string>
+  <string name="speech_helper_negative" formatted="false">שלילי %s</string>
 </resources>

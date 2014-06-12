@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asen</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Painel hexadecimal</string>
   <string name="lock">Bloquear página</string>
   <string name="unlock">Desbloquear página</string>
+  <string name="info">Informação</string>
   <string name="copy">Copiar \"%s\"</string>
   <string name="remove_from_history">Remover do histórico</string>
   <string name="showHistory">Mostrar Histórico</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Tema</string>
   <string name="pref_about">Sobre</string>
   <string name="returnToBasic">Retornar ao painel básico</string>
+  <string name="infiniteScrolling">Rolagem infinita</string>
   <string name="clickToOpenHistory">Clique para abrir o histórico</string>
   <string name="digitGrouping">Agrupamento de dígitos</string>
   <string name="trigUnits">Unidades trig.</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">Tema</string>
+  <string name="showDetails">Mostrar detalhes</string>
+  <string name="floatingCalc">Calculadora flutuante</string>
+  <string name="vibrateOnPress">Vibrar ao pressionar</string>
+  <string name="showWidgetBackground">Mostrar imagem de fundo do widget</string>
   <string name="cling_simple_title">Bem vindo</string>
   <string name="cling_simple_msg">Deslize para esquerda e direita para acessar mais conteúdo. Páginas desnecessárias podem ser desativadas nas Configurações.</string>
   <string name="cling_matrix_title">Matrizes</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp usou Splash mas nada aconteceu.</string>
+  <string name="glass_start">Calcular</string>
+  <string name="voice_detection_failed">O cálculo falhou. Tentar de novo?</string>
+  <string name="voice_detection_repeat">Calcular de novo?</string>
+  <string name="speech_helper_negative" formatted="false">Negativo %s</string>
 </resources>

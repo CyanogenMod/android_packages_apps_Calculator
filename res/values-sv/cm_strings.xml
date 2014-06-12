@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Hexpanel</string>
   <string name="lock">Lås sida</string>
   <string name="unlock">Lås upp sida</string>
+  <string name="info">Info</string>
   <string name="copy">Kopiera \'%s\'</string>
   <string name="remove_from_history">Ta bort från historik</string>
   <string name="showHistory">Visa historik</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Tema</string>
   <string name="pref_about">Om</string>
   <string name="returnToBasic">Återvänd till grundpanel</string>
+  <string name="infiniteScrolling">Oändlig rullning</string>
   <string name="clickToOpenHistory">Tryck för att öppna historik</string>
   <string name="digitGrouping">Siffergruppering</string>
   <string name="trigUnits">Trigenheter</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">Tema</string>
+  <string name="showDetails">Visa detaljer</string>
+  <string name="floatingCalc">Svävande kalkylator</string>
+  <string name="vibrateOnPress">Vibrera vid tryck</string>
+  <string name="showWidgetBackground">Visa widgetbakgrund</string>
   <string name="cling_simple_title">Välkommen</string>
   <string name="cling_simple_msg">Dra åt vänster och höger för att komma åt fler funktioner. Oönskade paneler kan inaktiveras i Inställningar.</string>
   <string name="cling_matrix_title">Matriser</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
+  <string name="glass_start">Beräkna</string>
+  <string name="voice_detection_failed">Beräkningen misslyckades. Försök igen?</string>
+  <string name="voice_detection_repeat">Beräkna igen?</string>
+  <string name="speech_helper_negative" formatted="false">Negativ %s</string>
 </resources>

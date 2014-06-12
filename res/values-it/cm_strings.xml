@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Pannello esadecimale</string>
   <string name="lock">Blocca la pagina</string>
   <string name="unlock">Sblocca la pagina</string>
+  <string name="info">Info</string>
   <string name="copy">Copia \"%s\"</string>
   <string name="remove_from_history">Rimuovi dalla cronologia</string>
   <string name="showHistory">Mostra cronologia</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Tema</string>
   <string name="pref_about">Info</string>
   <string name="returnToBasic">Ritorna al pannello base</string>
+  <string name="infiniteScrolling">Scorrimento infinito</string>
   <string name="clickToOpenHistory">Clicca per la cronologia</string>
   <string name="digitGrouping">Raggruppamento cifre</string>
   <string name="trigUnits">Unità trigonometriche</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">Tema</string>
+  <string name="showDetails">Mostra dettagli</string>
+  <string name="floatingCalc">Calcolatrice fluttuante</string>
+  <string name="vibrateOnPress">Vibra al tocco</string>
+  <string name="showWidgetBackground">Visualizza sfondo widget</string>
   <string name="cling_simple_title">Benvenuto</string>
   <string name="cling_simple_msg">Scorrere verso sinistra e verso destra per accedere a più contenuti. Le pagine non necessarie possono essere disattivate nelle impostazioni.</string>
   <string name="cling_matrix_title">Matrici</string>
@@ -84,4 +92,8 @@
   <string name="dot">,</string>
   <string name="matrix_separator">\u0020</string>
   <string name="easter_egg">Magikarp usa Splash ma non succede nulla!</string>
+  <string name="glass_start">Calcola</string>
+  <string name="voice_detection_failed">Calcolo non riuscito. Riprovare?</string>
+  <string name="voice_detection_repeat">Calcolare nuovamente?</string>
+  <string name="speech_helper_negative" formatted="false">Negativo %s</string>
 </resources>

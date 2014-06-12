@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">版权所有 \u00A9 2014 CyanogenMod 项目</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">十六进制面板</string>
   <string name="lock">锁定页面</string>
   <string name="unlock">解锁页面</string>
+  <string name="info">信息</string>
   <string name="copy">复制 \'%s\'</string>
   <string name="remove_from_history">从历史记录移除</string>
   <string name="showHistory">显示历史记录</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">主题</string>
   <string name="pref_about">关于</string>
   <string name="returnToBasic">返回到基本面板</string>
+  <string name="infiniteScrolling">无限滚动</string>
   <string name="clickToOpenHistory">点击打开历史</string>
   <string name="digitGrouping">数组</string>
   <string name="trigUnits">三角函数单位</string>
   <string name="radians">弧度</string>
   <string name="degrees">角度</string>
+  <string name="theme">主题</string>
+  <string name="showDetails">显示详细信息</string>
+  <string name="floatingCalc">浮动计算器</string>
+  <string name="vibrateOnPress">点击时振动</string>
+  <string name="showWidgetBackground">显示小部件背景</string>
   <string name="cling_simple_title">欢迎</string>
   <string name="cling_simple_msg">左右滑动将显示其它的面板. 您可在设置内禁用不需要的面板.</string>
   <string name="cling_matrix_title">矩阵</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">用尽了浑身力气去解数, 但依然无效.</string>
+  <string name="glass_start">计算</string>
+  <string name="voice_detection_failed">计算失败。再试一次？</string>
+  <string name="voice_detection_repeat">再次计算吗？</string>
+  <string name="speech_helper_negative" formatted="false">负 %s</string>
 </resources>

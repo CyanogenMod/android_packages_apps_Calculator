@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Hexadecimális panel</string>
   <string name="lock">Lap zárolása</string>
   <string name="unlock">Lap feloldása</string>
+  <string name="info">Információ</string>
   <string name="copy">Másolás \'%s\'</string>
   <string name="remove_from_history">Eltávolítás az előzményekből</string>
   <string name="showHistory">Előzmények megjelenítése</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Téma</string>
   <string name="pref_about">Névjegy</string>
   <string name="returnToBasic">Visszatérés az alappanelre</string>
+  <string name="infiniteScrolling">Végtelen görgetés</string>
   <string name="clickToOpenHistory">Kattintson az előzmények megnyitásához</string>
   <string name="digitGrouping">Számjegyek csoportosítása</string>
   <string name="trigUnits">Trig. mértékegység</string>
   <string name="radians">Radián</string>
   <string name="degrees">Fok</string>
+  <string name="theme">Téma</string>
+  <string name="showDetails">Részletek megjelenítése</string>
+  <string name="floatingCalc">Lebegő kalkulátor</string>
+  <string name="vibrateOnPress">Kattintáskor rezeg</string>
+  <string name="showWidgetBackground">Mutassa a modul hátterét</string>
   <string name="cling_simple_title">Üdvözöljük</string>
   <string name="cling_simple_msg">Csúsztasson jobbra vagy balra a további tartalmakért. A használni kívánt panelek a beállításokban megadhatóak.</string>
   <string name="cling_matrix_title">Mátrixok</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp Splash-t használt, de nem történt semmi.</string>
+  <string name="glass_start">Kiszámol</string>
+  <string name="voice_detection_failed">A kiszámítás nem sikerült. Megpróbálja újra?</string>
+  <string name="voice_detection_repeat">Kiszámítja újra?</string>
+  <string name="speech_helper_negative" formatted="false">Negatív %s</string>
 </resources>

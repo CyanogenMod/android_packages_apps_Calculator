@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Heksatoiminnot</string>
   <string name="lock">Lukitse sivu</string>
   <string name="unlock">Vapauta sivu</string>
+  <string name="info">Tietoja</string>
   <string name="copy">Kopioi \"%s\"</string>
   <string name="remove_from_history">Poista historiasta</string>
   <string name="showHistory">Näytä historia</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Teema</string>
   <string name="pref_about">Tietoja</string>
   <string name="returnToBasic">Palaa perustoimintoihin</string>
+  <string name="infiniteScrolling">Loputon vieritys</string>
   <string name="clickToOpenHistory">Avaa historia</string>
   <string name="digitGrouping">Ryhmittäminen</string>
   <string name="trigUnits">Trigonometriset yksiköt</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">Teema</string>
+  <string name="showDetails">Näytä tiedot</string>
+  <string name="floatingCalc">Kelluva laskin</string>
+  <string name="vibrateOnPress">Värinä koskettaessa</string>
+  <string name="showWidgetBackground">Näytä widgetin tausta</string>
   <string name="cling_simple_title">Tervetuloa</string>
   <string name="cling_simple_msg">Liu\'uta vasemmalle ja oikealle käyttääksesi useampia sisältöjä. Tarpeettomat sivut voidaan poistaa käytöstä asetuksista.</string>
   <string name="cling_matrix_title">Matriisit</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp käytti Loiskahdusiskua, mutta mitään ei tapahtunut.</string>
+  <string name="glass_start">Laske</string>
+  <string name="voice_detection_failed">Lasku epäonnistui. Yritä uudelleen?</string>
+  <string name="voice_detection_repeat">Laske uudelleen?</string>
+  <string name="speech_helper_negative" formatted="false">Negatiivinen %s</string>
 </resources>

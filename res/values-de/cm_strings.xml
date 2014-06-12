@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Dez/Bin/Hex</string>
   <string name="lock">Seite sperren</string>
   <string name="unlock">Seite entsperren</string>
+  <string name="info">Informationen</string>
   <string name="copy">\"%s\" kopieren</string>
   <string name="remove_from_history">Aus Verlauf entfernen</string>
   <string name="showHistory">Verlauf anzeigen</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Design</string>
   <string name="pref_about">Über</string>
   <string name="returnToBasic">Zu Grundfunktionen zurückkehren</string>
+  <string name="infiniteScrolling">Unendlich Scrollen</string>
   <string name="clickToOpenHistory">Berühren, um Verlauf anzuzeigen</string>
   <string name="digitGrouping">Zifferngruppierung</string>
   <string name="trigUnits">Winkeleinheit</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRAD</string>
+  <string name="theme">Design</string>
+  <string name="showDetails">Details anzeigen</string>
+  <string name="floatingCalc">Rechnersymbol einblenden</string>
+  <string name="vibrateOnPress">Bei Berührung vibrieren</string>
+  <string name="showWidgetBackground">Widget-Hintergrund anzeigen</string>
   <string name="cling_simple_title">Willkommen</string>
   <string name="cling_simple_msg">Nach rechts oder links wischen, um weitere Funktionen aufzurufen. Nicht benötigte Funktionen können in den Einstellungen deaktiviert werden.</string>
   <string name="cling_matrix_title">Matrizen</string>
@@ -84,4 +92,7 @@
   <string name="dot">,</string>
   <string name="matrix_separator">\u0020</string>
   <string name="easter_egg">Karpador setzt Platscher ein\u2026 Nichts geschieht!</string>
+  <string name="glass_start">Berechnen</string>
+  <string name="voice_detection_failed">Fehler bei der Berechnung. Wiederholen?</string>
+  <string name="voice_detection_repeat">Neu berechnen?</string>
 </resources>

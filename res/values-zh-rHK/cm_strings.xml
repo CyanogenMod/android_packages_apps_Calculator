@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">版權所有 \u00A9 2014 年 CyanogenMod 計畫</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">十六進制板面</string>
   <string name="lock">鎖定頁面</string>
   <string name="unlock">解鎖頁面</string>
+  <string name="info">資訊</string>
   <string name="copy">複製「%s」</string>
   <string name="remove_from_history">從記錄中刪除</string>
   <string name="showHistory">顯示記錄</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">主題</string>
   <string name="pref_about">關於</string>
   <string name="returnToBasic">返回到基本板面</string>
+  <string name="infiniteScrolling">無限滾動</string>
   <string name="clickToOpenHistory">按一下即可開啟記錄</string>
   <string name="digitGrouping">數字分位</string>
   <string name="trigUnits">角度單位</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">主題</string>
+  <string name="showDetails">顯示詳細資訊</string>
+  <string name="floatingCalc">浮動計算機</string>
+  <string name="vibrateOnPress">當按下時震動</string>
+  <string name="showWidgetBackground">顯示小工具背景</string>
   <string name="cling_simple_title">歡迎</string>
   <string name="cling_simple_msg">向左右滑動以存取更多內容。在設定中可以停用不需要的頁面。</string>
   <string name="cling_matrix_title">矩陣</string>
@@ -83,5 +91,9 @@
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
-  <string name="easter_egg">用盡了渾身力氣去解數, 但依然無效.</string>
+  <string name="easter_egg">用盡了渾身力氣去解數，但依然無效。</string>
+  <string name="glass_start">計算</string>
+  <string name="voice_detection_failed">計算失敗。再試一次？</string>
+  <string name="voice_detection_repeat">再次計算嗎？</string>
+  <string name="speech_helper_negative" formatted="false">負 %s</string>
 </resources>

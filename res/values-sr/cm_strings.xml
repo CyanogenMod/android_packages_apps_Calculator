@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Ауторско право \u00A9 2014 CyanogenMod Пројекат</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -26,15 +27,15 @@
   <string name="solveForX">Реши за X</string>
   <string name="solveForY">Реши за Y</string>
   <string name="mod">mod</string>
-  <string name="cbrt">\u00b3\u221a</string>
-  <string name="matrix">Matrix табла</string>
-  <string name="graph">Графикон табла</string>
-  <string name="function">Функцијска табла</string>
-  <string name="hexPanel">Hex табла</string>
+  <string name="matrix">Матрични панел</string>
+  <string name="graph">Графички панел</string>
+  <string name="function">Функцијски панел</string>
+  <string name="hexPanel">Хексадекадни панел</string>
   <string name="lock">Закључај страну</string>
   <string name="unlock">Откључај страну</string>
+  <string name="info">Информација</string>
   <string name="copy">Копирај \'%s\'</string>
-  <string name="remove_from_history">Уклоните из историје</string>
+  <string name="remove_from_history">Уклони из историје</string>
   <string name="showHistory">Прикажи историју</string>
   <string name="hideHistory">Сакриј историју</string>
   <string name="settings">Подешавања</string>
@@ -43,7 +44,7 @@
   <string name="solve">Реши</string>
   <string name="dotProduct">Тачка</string>
   <string name="crossProduct">Крст</string>
-  <string name="determinantDesc">det</string>
+  <string name="determinantDesc">Дет</string>
   <string name="eigenvalueDesc">Сопствена вредност</string>
   <string name="plus_row">+Ред</string>
   <string name="minus_row">-Ред</string>
@@ -51,10 +52,10 @@
   <string name="minus_col">-Кол</string>
   <string name="matrix_transpose">T</string>
   <string name="next">Следеће</string>
-  <string name="hex">Hex</string>
+  <string name="hex">Хекс</string>
   <string name="bin">Бин</string>
-  <string name="dec">Дец</string>
-  <string name="hexDesc">Хекса-декадни</string>
+  <string name="dec">Дек</string>
+  <string name="hexDesc">Хексадекадни</string>
   <string name="binDesc">Бинарни</string>
   <string name="decDesc">Декадни</string>
   <string name="pref_panels">Панели</string>
@@ -62,20 +63,26 @@
   <string name="pref_units">Јединице</string>
   <string name="pref_theme">Тема</string>
   <string name="pref_about">О програму</string>
-  <string name="returnToBasic">Повратак на основном панелу</string>
-  <string name="clickToOpenHistory">Кликните да отворите историју</string>
+  <string name="returnToBasic">Повратак на основни панел</string>
+  <string name="infiniteScrolling">Бесконачно скроловање</string>
+  <string name="clickToOpenHistory">Кликни да отвориш историју</string>
   <string name="digitGrouping">Цифра груписања</string>
-  <string name="trigUnits">Триг јединице</string>
+  <string name="trigUnits">Тригонометријске јединице</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">Тема</string>
+  <string name="showDetails">Прикажи детаље</string>
+  <string name="floatingCalc">Плутајући калкулатор</string>
+  <string name="vibrateOnPress">Вибрирај на клик</string>
+  <string name="showWidgetBackground">Прикажи позадину виџета</string>
   <string name="cling_simple_title">Добродошли</string>
-  <string name="cling_simple_msg">Превлачите лево и десно да бисте приступили већем садржају. Непотребне странице могу бити онемогућен у подешавањима.</string>
+  <string name="cling_simple_msg">Превлачите лево и десно да би сте приступили већем садржају. Непотребне странице могу бити онемогућене у подешавањима.</string>
   <string name="cling_matrix_title">Матрице</string>
-  <string name="cling_matrix_msg">Додирните овде за почетак изградње и решавања матрице.</string>
-  <string name="cling_hex_title">Промена базе</string>
-  <string name="cling_hex_msg">Пребацивање између децималних (дец), бинарних (бин) и хексадецималних (хек).\n\nУпозорење: Ако сматрате да су резултати лоши, вероватно сте у погрешној бази. Подразумевана је децимално.</string>
-  <string name="cling_graph_title">График</string>
-  <string name="cling_graph_msg">Графикони ће се аутоматски појавити овде. Идите на напредном панелу и изградите функцију помоћу X и Y.</string>
+  <string name="cling_matrix_msg">Додирни овде за почетак изградње и решавања матрица.</string>
+  <string name="cling_hex_title">Промена база</string>
+  <string name="cling_hex_msg">Пребацуј између декадних (дек), бинарних (бин) и хексадекадних (хекc).\n\nУпозорење: Ако сматраш да су резултати лоши, вероватно си у погрешној бази. Подразумевана је декадна.</string>
+  <string name="cling_graph_title">Графикони</string>
+  <string name="cling_graph_msg">Графикони ће се аутоматски појавити овде. Иди на напредни панел и изгради функцију помоћу X и Y.</string>
   <string name="cling_dismiss">OK</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
@@ -84,5 +91,9 @@
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
-  <string name="easter_egg">Магикарп користи Спласх али ништа се није догодило.</string>
+  <string name="easter_egg">Магикарп користи Сплеш али ништа се није догодило.</string>
+  <string name="glass_start">Израчунај</string>
+  <string name="voice_detection_failed">Рачунање није успело. Покушај поново?</string>
+  <string name="voice_detection_repeat">Израчунај поново?</string>
+  <string name="speech_helper_negative" formatted="false">Негативно %s</string>
 </resources>

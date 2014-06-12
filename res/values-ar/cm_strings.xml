@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">حقوق الطبع والنشر \u00A9 2014 لي مشروع CyanogenMod</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">لوحة التعريف</string>
   <string name="lock">قفل الصفحة</string>
   <string name="unlock">افتح قفل الصفحة</string>
+  <string name="info">معلومات</string>
   <string name="copy">نسخ\"%s\"</string>
   <string name="remove_from_history">إزالة من التاريخ</string>
   <string name="showHistory">إظهار الحسابات</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">موضوع</string>
   <string name="pref_about">حول</string>
   <string name="returnToBasic">العودة إلى اللوحة الأساسية</string>
+  <string name="infiniteScrolling">تمرير لانهائي</string>
   <string name="clickToOpenHistory">انقر لفتح التاريخ</string>
   <string name="digitGrouping">تجميع الأرقام</string>
   <string name="trigUnits">وحدات حساب المثلثات</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
+  <string name="theme">قالب</string>
+  <string name="showDetails">إظهار التفاصيل</string>
+  <string name="floatingCalc">آلة حاسبة عائمه</string>
+  <string name="vibrateOnPress">يهتز عند النقر</string>
+  <string name="showWidgetBackground">إظهار اامصغره في الخلفيه</string>
   <string name="cling_simple_title">مرحبا</string>
   <string name="cling_simple_msg">شريحة من اليمين واليسار الوصول إلى المزيد من المحتوى. يمكن تعطيل صفحات لا داعي لها في الإعدادات.</string>
   <string name="cling_matrix_title">المصفوفات</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp المستخدمة في البداية ولكن لم يحدث شيء.</string>
+  <string name="glass_start">اله حاسبه</string>
+  <string name="voice_detection_failed">الحساب فشل. حاول مرة أخرى؟</string>
+  <string name="voice_detection_repeat">إحساب مرة أخرى؟</string>
+  <string name="speech_helper_negative" formatted="false">السلبية %s</string>
 </resources>

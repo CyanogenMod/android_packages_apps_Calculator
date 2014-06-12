@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Tauler Hex</string>
   <string name="lock">Bloqueja pàgina</string>
   <string name="unlock">Desbloqueja pàgina</string>
+  <string name="info">Info</string>
   <string name="copy">Copia \'%s\'</string>
   <string name="remove_from_history">Treu-ho de l\'historial</string>
   <string name="showHistory">Mostra l\'historial</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Tema</string>
   <string name="pref_about">Quant a</string>
   <string name="returnToBasic">Torna al taulell bàsic</string>
+  <string name="infiniteScrolling">Desplaçament infinit</string>
   <string name="clickToOpenHistory">Clica per obrir l\'historial</string>
   <string name="digitGrouping">Agrupació de digits</string>
   <string name="trigUnits">Unitats trigon.</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRA</string>
+  <string name="theme">Tema</string>
+  <string name="showDetails">Mostra els detalls</string>
+  <string name="floatingCalc">Calculadora flotant</string>
+  <string name="vibrateOnPress">Vibra en clicar</string>
+  <string name="showWidgetBackground">Mostra el widget al rerefons</string>
   <string name="cling_simple_title">Benvingut</string>
   <string name="cling_simple_msg">Llisca a esquerra i dreta per accedir a més contingut. Les pàgines que no et siguin necessàries poden ser desactivades a la Configuració.</string>
   <string name="cling_matrix_title">Matrius</string>
@@ -84,4 +92,8 @@
   <string name="dot">.</string>
   <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp a utilitzat Splash però no ha passat res.</string>
+  <string name="glass_start">Calcula</string>
+  <string name="voice_detection_failed">El càlcul ha fallat. Vols intentar-ho de nou?</string>
+  <string name="voice_detection_repeat">Calcular un altre cop?</string>
+  <string name="speech_helper_negative" formatted="false">Negatiu %s</string>
 </resources>

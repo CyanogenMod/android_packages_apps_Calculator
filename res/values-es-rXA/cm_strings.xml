@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asen</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Dec/Bin/Hex</string>
   <string name="lock">Bloquiar páxina</string>
   <string name="unlock">Desbloquiar páxina</string>
+  <string name="info">Info</string>
   <string name="copy">\u00AB%s\u00BB copiáu</string>
   <string name="remove_from_history">Desaniciar del historial</string>
   <string name="showHistory">Amosar historial</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Tema</string>
   <string name="pref_about">Tocante a</string>
   <string name="returnToBasic">Volver a funciones básiques</string>
+  <string name="infiniteScrolling">Desplazamientu infinitu</string>
   <string name="clickToOpenHistory">Tocar p\'abrir l\'historial</string>
   <string name="digitGrouping">Agrupar díxitos</string>
   <string name="trigUnits">Uds. trigonométriques</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRA</string>
+  <string name="theme">Tema</string>
+  <string name="showDetails">Amosar detalles</string>
+  <string name="floatingCalc">Calculadora flotante</string>
+  <string name="vibrateOnPress">Vibrar al tocar</string>
+  <string name="showWidgetBackground">Amosar fondu en widget</string>
   <string name="cling_simple_title">Bienllegáu</string>
   <string name="cling_simple_msg">Eslizar a manzorga o mandrecha p\'acceder a más conteníos. Les páxines innecesaries puen desactivase n\'Axustes.</string>
   <string name="cling_matrix_title">Matrices</string>
@@ -84,4 +92,8 @@
   <string name="dot">,</string>
   <string name="matrix_separator">\u0020</string>
   <string name="easter_egg">Magikarp chiscó, pero nun asocedió un res.</string>
+  <string name="glass_start">Calcular</string>
+  <string name="voice_detection_failed">Falló\'l cálculu. ¿Intentalo otra vegada?</string>
+  <string name="voice_detection_repeat">¿Calcular otra vegada?</string>
+  <string name="speech_helper_negative" formatted="false">Negativu %s</string>
 </resources>
