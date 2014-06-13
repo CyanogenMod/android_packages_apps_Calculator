@@ -16,6 +16,7 @@
 
 package com.android.calculator2.view;
 
+import java.text.DecimalFormatSymbols;
 import java.util.regex.Pattern;
 
 import org.ejml.simple.SimpleMatrix;
@@ -59,7 +60,8 @@ public class MatrixView extends ThemedTableLayout {
     }
 
     private static String getDecimal(Context context) {
-        return context.getString(R.string.dot);
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        return dfs.getDecimalSeparator()+"";
     }
 
     public static String matrixToString(SimpleMatrix matrix, Logic logic) throws SyntaxException {
