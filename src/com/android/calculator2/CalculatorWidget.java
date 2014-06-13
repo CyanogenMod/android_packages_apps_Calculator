@@ -28,6 +28,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import java.text.DecimalFormatSymbols;
+
 import com.android.calculator2.BaseModule.Mode;
 
 public class CalculatorWidget extends AppWidgetProvider {
@@ -69,6 +71,11 @@ public class CalculatorWidget extends AppWidgetProvider {
         for (int appWidgetID : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetID);
         }
+    }
+
+    private static String getDecimal() {
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        return dfs.getDecimalSeparator()+"";
     }
 
     @Override
@@ -157,7 +164,7 @@ public class CalculatorWidget extends AppWidgetProvider {
                 mClearText = false;
             }
 
-            value += context.getResources().getString(R.string.dot);
+            value += getDecimal();
         } else if (intent.getAction().equals(DIV)) {
             value += context.getResources().getString(R.string.div);
         } else if (intent.getAction().equals(MUL)) {

@@ -16,6 +16,8 @@
 
 package com.android.calculator2;
 
+import java.text.DecimalFormatSymbols;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,6 +31,7 @@ import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.android.calculator2.view.CalculatorViewPager;
@@ -308,6 +311,14 @@ public class Page {
         return false;
     }
 
+    private static void setDecimalButton(View view) {
+        final DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        if (view.findViewById(R.id.dot) != null) {
+            Button dotBtn = (Button)view.findViewById(R.id.dot);
+            dotBtn.setText(dfs.getDecimalSeparator()+"");
+        }
+    }
+
     public enum NormalPanel implements Panel {
         GRAPH(R.string.graph, R.bool.GRAPH, true),
         HEX(R.string.hexPanel, R.bool.HEX, true),
@@ -386,6 +397,7 @@ public class Page {
         @Override
         public void refresh(Context context, final View view, EventListener listener,
                 final Graph graph, final Logic logic) {
+            setDecimalButton(view);
             if (NormalPanel.GRAPH.equals(this)) {
                 if (!mGraphHolder.containsKey(view)) {
                     final GraphView graphView = logic.mGraphView = graph.createGraph(context);
@@ -535,6 +547,7 @@ public class Page {
         @Override
         public void refresh(Context context, View view, EventListener listener, Graph graph,
                 Logic logic) {
+            setDecimalButton(view);
             if (SmallPanel.HEX.equals(this)) {
                 if (logic != null) {
                     switch (logic.getBaseModule().getMode()) {
@@ -620,6 +633,7 @@ public class Page {
         @Override
         public void refresh(Context context, final View view, EventListener listener,
                 final Graph graph, final Logic logic) {
+            setDecimalButton(view);
             if (LargePanel.GRAPH.equals(this)) {
                 if (!mGraphHolder.containsKey(view)) {
                     final GraphView graphView = logic.mGraphView = graph.createGraph(context);

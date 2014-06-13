@@ -156,7 +156,6 @@
     <!-- Decimal point. Make sure Matrix separator is unique from decimal.
          Make sure dot is unique from the above separators. -->
     <string name="dot">.</string>
-    <string name="matrix_separator">,</string>
 
     <!-- Store strings -->
     <string name="store_tab_themes">Themes</string>

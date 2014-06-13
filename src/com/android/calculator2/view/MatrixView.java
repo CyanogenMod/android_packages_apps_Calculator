@@ -16,6 +16,7 @@
 
 package com.android.calculator2.view;
 
+import java.text.DecimalFormatSymbols;
 import java.util.regex.Pattern;
 
 import org.ejml.simple.SimpleMatrix;
@@ -50,16 +51,17 @@ public class MatrixView extends ThemedTableLayout {
     }
 
     public static String getPattern(Context context) {
-        String separator = getSeparator(context);
+        String separator = getSeparator();
         return "[[" + separator + "][" + separator + "]]";
     }
 
-    private static String getSeparator(Context context) {
-        return context.getString(R.string.matrix_separator);
+    private static String getSeparator() {
+        return (getDecimal().equals(",") ? " " : ",");
     }
 
-    private static String getDecimal(Context context) {
-        return context.getString(R.string.dot);
+    private static String getDecimal() {
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        return dfs.getDecimalSeparator()+"";
     }
 
     public static String matrixToString(SimpleMatrix matrix, Logic logic) throws SyntaxException {
@@ -109,7 +111,7 @@ public class MatrixView extends ThemedTableLayout {
         text.setText(text.substring(matrix.length()));
         int rows = MatrixView.countOccurrences(matrix, '[') - 1;
         int columns = MatrixView.countOccurrences(matrix,
-                getSeparator(parent.getContext()).charAt(0)) / rows + 1;
+                getSeparator().charAt(0)) / rows + 1;
 
         MatrixView mv = new MatrixView(parent);
         for (int i = 0; i < rows; i++) {
@@ -119,7 +121,7 @@ public class MatrixView extends ThemedTableLayout {
             mv.addColumn();
         }
 
-        String[] data = matrix.split(Pattern.quote(getSeparator(parent.getContext())) + "|\\]\\[");
+        String[] data = matrix.split(Pattern.quote(getSeparator()) + "|\\]\\[");
         for (int order = 0, row = 0; row < rows; row++) {
             TableRow tr = (TableRow) mv.getChildAt(row);
             for (int column = 0; column < columns; column++) {
@@ -139,8 +141,8 @@ public class MatrixView extends ThemedTableLayout {
     }
 
     private static boolean verify(Context context, MutableString text) {
-        String separator = getSeparator(context);
-        String decimal = getDecimal(context);
+        String separator = getSeparator();
+        String decimal = getDecimal();
         String validMatrix = "\\[(\\[[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal)
                 + "[A-F0-9]*)?(" + Pattern.quote(separator) + "[\u2212-]?[A-F0-9]*("
                 + Pattern.quote(decimal) + "[A-F0-9]*)?)*\\])+\\].*";
@@ -177,7 +179,7 @@ public class MatrixView extends ThemedTableLayout {
     }
 
     private void setup() {
-        mSeparator = getSeparator(getContext());
+        mSeparator = getSeparator();
         setBackground(Theme.get(R.drawable.matrix_background));
         setFocusable(true);
         mLogic = mParent.mLogic;

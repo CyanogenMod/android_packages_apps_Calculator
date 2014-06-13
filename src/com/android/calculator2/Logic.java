@@ -117,7 +117,7 @@ public class Logic {
         mBinSeparatorDistance = r.getInteger(R.integer.bin_separator_distance);
         mHexSeparatorDistance = r.getInteger(R.integer.hex_separator_distance);
         mDecimalPoint = dfs.getDecimalSeparator()+"";
-        mMatrixSeparator = r.getString(R.string.matrix_separator);
+        mMatrixSeparator = mDecimalPoint.equals(",") ? " " : ",";
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
 
