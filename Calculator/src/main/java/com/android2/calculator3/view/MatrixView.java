@@ -15,6 +15,7 @@ import com.xlythe.engine.theme.ThemedTableLayout;
 import org.ejml.simple.SimpleMatrix;
 import org.javia.arity.SyntaxException;
 
+import java.text.DecimalFormatSymbols;
 import java.util.regex.Pattern;
 
 public class MatrixView extends ThemedTableLayout {
@@ -34,18 +35,18 @@ public class MatrixView extends ThemedTableLayout {
     }
 
     private void setup() {
-        mSeparator = getSeparator(getContext());
+        mSeparator = getSeparator();
         setBackground(Theme.get(R.drawable.matrix_background));
         setFocusable(true);
         mLogic = mParent.mLogic;
     }
 
-    private static String getSeparator(Context context) {
-        return context.getString(R.string.matrix_separator);
+    private static String getSeparator() {
+        return (getDecimal().equals(",") ? " " : ",");
     }
 
-    public static String getPattern(Context context) {
-        String separator = getSeparator(context);
+    public static String getPattern() {
+        String separator = getSeparator();
         return "[[" + separator + "][" + separator + "]]";
     }
 
@@ -81,12 +82,12 @@ public class MatrixView extends ThemedTableLayout {
     }
 
     public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
-        if(!MatrixView.verify(parent.getContext(), text)) return false;
+        if(!MatrixView.verify(text)) return false;
 
         String matrix = MatrixView.parseMatrix(text.getText());
         text.setText(text.substring(matrix.length()));
         int rows = MatrixView.countOccurrences(matrix, '[') - 1;
-        int columns = MatrixView.countOccurrences(matrix, getSeparator(parent.getContext()).charAt(0)) / rows + 1;
+        int columns = MatrixView.countOccurrences(matrix, getSeparator().charAt(0)) / rows + 1;
 
         MatrixView mv = new MatrixView(parent);
         for(int i = 0; i < rows; i++) {
@@ -95,7 +96,7 @@ public class MatrixView extends ThemedTableLayout {
         for(int i = 0; i < columns; i++) {
             mv.addColumn();
         }
-        String[] data = matrix.split(Pattern.quote(getSeparator(parent.getContext())) + "|\\]\\[");
+        String[] data = matrix.split(Pattern.quote(getSeparator()) + "|\\]\\[");
         for(int order = 0, row = 0; row < rows; row++) {
             TableRow tr = (TableRow) mv.getChildAt(row);
             for(int column = 0; column < columns; column++) {
@@ -112,9 +113,9 @@ public class MatrixView extends ThemedTableLayout {
         return true;
     }
 
-    private static boolean verify(Context context, MutableString text) {
-        String separator = getSeparator(context);
-        String decimal = getDecimal(context);
+    private static boolean verify(MutableString text) {
+        String separator = getSeparator();
+        String decimal = getDecimal();
         String validMatrix = "\\[(\\[[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal) + "[A-F0-9]*)?(" + Pattern.quote(separator) + "[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal) + "[A-F0-9]*)?)*\\])+\\].*";
         return text.getText().matches(validMatrix);
     }
@@ -163,8 +164,9 @@ public class MatrixView extends ThemedTableLayout {
         }
     }
 
-    private static String getDecimal(Context context) {
-        return context.getString(R.string.dot);
+    private static String getDecimal() {
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        return dfs.getDecimalSeparator()+"";
     }
 
     private EditText createEditText() {

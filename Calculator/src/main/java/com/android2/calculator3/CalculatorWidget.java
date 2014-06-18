@@ -14,6 +14,8 @@ import com.android2.calculator3.BaseModule.Mode;
 
 import org.javia.arity.SyntaxException;
 
+import java.text.DecimalFormatSymbols;
+
 public class CalculatorWidget extends AppWidgetProvider {
     public final static String PREFERENCE_WIDGET_PREAMBLE = "com.android2.calculator3.CALC_WIDGET_VALUE_";
     public static final String DIGIT_0 = "com.android2.calculator3.0";
@@ -37,6 +39,11 @@ public class CalculatorWidget extends AppWidgetProvider {
     public static final String SHOW_CLEAR = "com.android2.calculator3.show_clear";
 
     private boolean mClearText = false;
+
+    private static String getDecimal() {
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        return dfs.getDecimalSeparator()+"";
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -110,7 +117,7 @@ public class CalculatorWidget extends AppWidgetProvider {
                 value = "";
                 mClearText = false;
             }
-            value += context.getResources().getString(R.string.dot);
+            value += getDecimal();
         } else if(intent.getAction().equals(DIV)) {
             value += context.getResources().getString(R.string.div);
         } else if(intent.getAction().equals(MUL)) {

@@ -116,7 +116,7 @@ public class EventListener implements View.OnKeyListener, View.OnClickListener, 
                 break;
 
             case R.id.matrix:
-                mHandler.insert(MatrixView.getPattern(mContext));
+                mHandler.insert(MatrixView.getPattern());
                 returnToBasic();
                 break;
 

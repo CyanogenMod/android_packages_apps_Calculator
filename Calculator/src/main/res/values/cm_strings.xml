@@ -159,9 +159,8 @@
     <item name="bin_separator_distance" type="integer">4</item>
     <item name="hex_separator_distance" type="integer">2</item>
 
-    <!-- Decimal point. Make sure Matrix separator is unique from decimal. Make sure dot is unique from the above separators. -->
+    <!-- Decimal point. -->
     <string name="dot">.</string>
-    <string name="matrix_separator">,</string>
 
     <!-- Store text -->
     <string name="store_tab_themes">Themes</string>

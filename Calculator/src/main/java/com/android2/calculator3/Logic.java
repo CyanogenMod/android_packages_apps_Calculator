@@ -33,6 +33,7 @@ import org.javia.arity.Complex;
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class Logic {
@@ -94,6 +95,7 @@ public class Logic {
 
     Logic(Context context, CalculatorDisplay display) {
         final Resources r = context.getResources();
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
         mContext = context.getApplicationContext();
         mErrorString = r.getString(R.string.error);
         mSinString = r.getString(R.string.sin);
@@ -106,14 +108,14 @@ public class Logic {
         mLnString = r.getString(R.string.ln);
         mDetString = r.getString(R.string.det);
         mCbrtString = r.getString(R.string.cbrt);
-        mDecSeparator = r.getString(R.string.dec_separator);
+        mDecSeparator = dfs.getGroupingSeparator()+"";
         mBinSeparator = r.getString(R.string.bin_separator);
         mHexSeparator = r.getString(R.string.hex_separator);
         mDecSeparatorDistance = r.getInteger(R.integer.dec_separator_distance);
         mBinSeparatorDistance = r.getInteger(R.integer.bin_separator_distance);
         mHexSeparatorDistance = r.getInteger(R.integer.hex_separator_distance);
-        mDecimalPoint = r.getString(R.string.dot);
-        mMatrixSeparator = r.getString(R.string.matrix_separator);
+        mDecimalPoint = dfs.getDecimalSeparator()+"";
+        mMatrixSeparator = mDecimalPoint.equals(",") ? " " : ",";
         mX = r.getString(R.string.X);
         mY = r.getString(R.string.Y);
 

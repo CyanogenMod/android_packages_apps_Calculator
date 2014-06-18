@@ -45,6 +45,8 @@ import com.android2.calculator3.EquationFormatter;
 import com.android2.calculator3.R;
 import com.xlythe.engine.theme.ThemedEditText;
 
+import java.text.DecimalFormatSymbols;
+
 public class CalculatorEditText extends ThemedEditText {
     private static final int BLINK = 500;
     private final long mShowCursor = SystemClock.uptimeMillis();
@@ -71,7 +73,8 @@ public class CalculatorEditText extends ThemedEditText {
 
     private void setUp() {
         final Resources r = getContext().getResources();
-        mDecSeparator = r.getString(R.string.dec_separator);
+        final DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        mDecSeparator = dfs.getGroupingSeparator()+"";
         mBinSeparator = r.getString(R.string.bin_separator);
         mHexSeparator = r.getString(R.string.hex_separator);
 
