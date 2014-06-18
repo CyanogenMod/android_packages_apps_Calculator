@@ -471,10 +471,11 @@ public class MatrixModule {
                 return matrix;
             } else {
                 long equiv = Math.round(b);
+                SimpleMatrix a1 = a;
                 for(long e = 1; e < equiv; e++)
-                    a = a.mult(a);
+                    a1 = a1.mult(a);
 
-                return a;
+                return a1;
             }
         } else if(r instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) r;
