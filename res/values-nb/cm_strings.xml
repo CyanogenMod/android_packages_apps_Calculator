@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Hex-panel</string>
   <string name="lock">Lås siden</string>
   <string name="unlock">Låse opp siden</string>
+  <string name="info">Info</string>
   <string name="copy">Kopiere \'%s\'</string>
   <string name="remove_from_history">Fjern fra historikk</string>
   <string name="showHistory">Vis historikk</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Tema</string>
   <string name="pref_about">Om</string>
   <string name="returnToBasic">Gå tilbake til det grunnleggende panelet</string>
+  <string name="infiniteScrolling">Uendelige scrolling</string>
   <string name="clickToOpenHistory">Klikk for å åpne historikk</string>
   <string name="digitGrouping">Siffergruppering</string>
   <string name="trigUnits">Trigger enheter</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRADER</string>
+  <string name="theme">Tema</string>
+  <string name="showDetails">Vis detaljer</string>
+  <string name="floatingCalc">Flytende kalkulator</string>
+  <string name="vibrateOnPress">Vibrere på klikk</string>
+  <string name="showWidgetBackground">Vis widget bakgrunn</string>
   <string name="cling_simple_title">Velkommen</string>
   <string name="cling_simple_msg">Skyv til venstre og høyre for å få tilgang til mer innhold. Sider som er unødvendige kan deaktiveres i innstillinger.</string>
   <string name="cling_matrix_title">Matriser</string>
@@ -82,6 +90,9 @@
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
-  <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp brukte Splash men ingenting skjedde.</string>
+  <string name="glass_start">Beregne</string>
+  <string name="voice_detection_failed">Beregning mislyktes. prøv igjen?</string>
+  <string name="voice_detection_repeat">Beregne igjen?</string>
+  <string name="speech_helper_negative" formatted="false">Negativ %s</string>
 </resources>

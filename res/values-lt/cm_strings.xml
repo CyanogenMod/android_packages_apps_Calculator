@@ -90,7 +90,6 @@
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
-  <string name="matrix_separator">,</string>
   <string name="easter_egg">:)</string>
   <string name="glass_start">Apskaičiuoti</string>
   <string name="voice_detection_failed">Apskaičiuoti nepavyko. Bandyti dar kartą?</string>

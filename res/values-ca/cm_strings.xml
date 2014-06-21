@@ -90,7 +90,6 @@
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
-  <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp a utilitzat Splash però no ha passat res.</string>
   <string name="glass_start">Calcula</string>
   <string name="voice_detection_failed">El càlcul ha fallat. Vols intentar-ho de nou?</string>

@@ -90,7 +90,6 @@
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
-  <string name="matrix_separator">,</string>
   <string name="easter_egg">ไข่แตกแล้ว! แต่ไม่เกิดอะไรขี้น</string>
   <string name="glass_start">คำนวณ</string>
   <string name="voice_detection_failed">คำนวณล้มเหลว ลองอีกครั้ง?</string>

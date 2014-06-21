@@ -90,7 +90,6 @@
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
-  <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarp Splash භාවිතා කළේය නමුත් කිසිවක් සිදුනොවුනි.</string>
   <string name="glass_start">ගණනය කරන්න</string>
   <string name="voice_detection_failed">ගණනය කිරීම අසමත්විය. යළි උත්සාහ කරන්නද?</string>

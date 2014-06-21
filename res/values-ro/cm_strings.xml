@@ -16,7 +16,83 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
+  <string name="X">X</string>
+  <string name="Y">Y</string>
+  <string name="arcsin">arcsin</string>
+  <string name="arccos">arccos</string>
+  <string name="arctan">arctan</string>
+  <string name="dx">dX</string>
+  <string name="dy">dY</string>
+  <string name="solveForX">Rezolvă pentru X</string>
+  <string name="solveForY">Rezolvă pentru Y</string>
+  <string name="mod">mod</string>
+  <string name="matrix">Panou matrice</string>
+  <string name="graph">Panou grafic</string>
+  <string name="function">Panou funcție</string>
+  <string name="hexPanel">Panou hex</string>
+  <string name="lock">Blocare pagină</string>
+  <string name="unlock">Deblocare pagină</string>
+  <string name="info">Informații</string>
+  <string name="copy">Copiază \"%s\"</string>
+  <string name="remove_from_history">Ștergeți din istoric</string>
+  <string name="showHistory">Arătați istoricul</string>
+  <string name="hideHistory">Ascundeți istoricul</string>
+  <string name="settings">Setări</string>
+  <string name="det">det</string>
+  <string name="eigenvalue">Eigen</string>
+  <string name="solve">Rezolvă</string>
+  <string name="dotProduct">Punct</string>
+  <string name="crossProduct">Cruce</string>
+  <string name="determinantDesc">det</string>
+  <string name="eigenvalueDesc">Valori Eigen</string>
+  <string name="plus_row">+Rând</string>
+  <string name="minus_row">-Rând</string>
+  <string name="plus_col">+Col</string>
+  <string name="minus_col">-Col</string>
+  <string name="matrix_transpose">T</string>
+  <string name="next">Următorul</string>
+  <string name="hex">Hex</string>
+  <string name="bin">Bin</string>
+  <string name="dec">Dec</string>
+  <string name="hexDesc">Hexadecimal</string>
+  <string name="binDesc">Binar</string>
+  <string name="decDesc">Decimal</string>
+  <string name="pref_panels">Panouri</string>
+  <string name="pref_actions">Acțiuni</string>
+  <string name="pref_units">Unităţi</string>
+  <string name="pref_theme">Temă</string>
+  <string name="pref_about">Despre</string>
+  <string name="returnToBasic">Întoarcere la panoul de bază</string>
+  <string name="infiniteScrolling">Scroll infinit</string>
+  <string name="clickToOpenHistory">Click pentru a deschide istoricul</string>
+  <string name="digitGrouping">Grupare cifre</string>
+  <string name="trigUnits">Unități trig</string>
+  <string name="radians">RAD</string>
+  <string name="degrees">DEG</string>
+  <string name="theme">Temă</string>
+  <string name="showDetails">Arată detalii</string>
+  <string name="floatingCalc">Calculator numere raționale</string>
+  <string name="vibrateOnPress">Vibrație la apăsare</string>
+  <string name="showWidgetBackground">Arată fundal widget</string>
+  <string name="cling_simple_title">Bun venit</string>
+  <string name="cling_simple_msg">Glisați la stânga și la dreapta pentru a accesa mai mult conținut. Paginile care nu sunt necesare pot fi dezactivate în Setări.</string>
+  <string name="cling_matrix_title">Matrice</string>
+  <string name="cling_matrix_msg">Apăsaţi aici pentru a începe construirea și rezolvarea de matrice.</string>
+  <string name="cling_hex_title">Schimbă bazele</string>
+  <string name="cling_hex_msg">Comutarea între decimal (dec), binar (bin) și hexadecimal (hex).\n\nAvertizare: Dacă credeți că obțineți rezultate greșite, probabil, vă aflați în baza greșită. Baza decimală este implicită.</string>
+  <string name="cling_graph_title">Grafic</string>
+  <string name="cling_graph_msg">Graficele apar automat aici. Du-te la panoul avansat și construiește o funcție folosind X și Y.</string>
+  <string name="cling_dismiss">OK</string>
+  <string name="bin_separator">\u0020</string>
+  <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
+  <string name="dot">.</string>
+  <string name="easter_egg">Magikarp a folosit Splash, dar nimic nu s-a întâmplat.</string>
+  <string name="glass_start">Calculează</string>
+  <string name="voice_detection_failed">Calcularea a eșuat. Încearcă din nou?</string>
+  <string name="voice_detection_repeat">Calculează din nou?</string>
+  <string name="speech_helper_negative" formatted="false">Negativ %s</string>
 </resources>

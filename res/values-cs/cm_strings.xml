@@ -90,7 +90,6 @@
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
-  <string name="matrix_separator">,</string>
   <string name="easter_egg">Magikarpa použil šplouchanec, ale nic se nestalo.</string>
   <string name="glass_start">Počítat</string>
   <string name="voice_detection_failed">Výpočet selhal. Zkusit znovu?</string>
