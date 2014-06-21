@@ -17,6 +17,7 @@
 <resources>
   <string name="app_name">Täscherechner</string>
   <string name="error">Feeler</string>
+  <string name="digit0">0</string>
   <string name="digit1">1</string>
   <string name="digit2">2</string>
   <string name="digit3">3</string>
