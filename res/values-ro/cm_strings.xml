@@ -60,7 +60,7 @@
   <string name="decDesc">Decimal</string>
   <string name="pref_panels">Panouri</string>
   <string name="pref_actions">Acțiuni</string>
-  <string name="pref_units">Unităţi</string>
+  <string name="pref_units">Unități</string>
   <string name="pref_theme">Temă</string>
   <string name="pref_about">Despre</string>
   <string name="returnToBasic">Întoarcere la panoul de bază</string>
@@ -78,7 +78,7 @@
   <string name="cling_simple_title">Bun venit</string>
   <string name="cling_simple_msg">Glisați la stânga și la dreapta pentru a accesa mai mult conținut. Paginile care nu sunt necesare pot fi dezactivate în Setări.</string>
   <string name="cling_matrix_title">Matrice</string>
-  <string name="cling_matrix_msg">Apăsaţi aici pentru a începe construirea și rezolvarea de matrice.</string>
+  <string name="cling_matrix_msg">Apăsați aici pentru a începe construirea și rezolvarea de matrice.</string>
   <string name="cling_hex_title">Schimbă bazele</string>
   <string name="cling_hex_msg">Comutarea între decimal (dec), binar (bin) și hexadecimal (hex).\n\nAvertizare: Dacă credeți că obțineți rezultate greșite, probabil, vă aflați în baza greșită. Baza decimală este implicită.</string>
   <string name="cling_graph_title">Grafic</string>

@@ -94,4 +94,5 @@
   <string name="glass_start">Berechnen</string>
   <string name="voice_detection_failed">Fehler bei der Berechnung. Wiederholen?</string>
   <string name="voice_detection_repeat">Neu berechnen?</string>
+  <string name="speech_helper_negative" formatted="false">Minus %s</string>
 </resources>
