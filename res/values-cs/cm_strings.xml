@@ -61,7 +61,7 @@
   <string name="pref_panels">Panely</string>
   <string name="pref_actions">Akce</string>
   <string name="pref_units">Jednotky</string>
-  <string name="pref_theme">Vzhled</string>
+  <string name="pref_theme">Motiv</string>
   <string name="pref_about">O aplikaci</string>
   <string name="returnToBasic">Zpět na základní panel</string>
   <string name="infiniteScrolling">Nekonečné rolování</string>
@@ -70,7 +70,7 @@
   <string name="trigUnits">Trig. jednotky</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Vzhled</string>
+  <string name="theme">Motiv</string>
   <string name="showDetails">Zobrazit podrobnosti</string>
   <string name="floatingCalc">Plovoucí kalkulačka</string>
   <string name="vibrateOnPress">Vibrovat při kliknutí</string>

@@ -82,7 +82,7 @@
   <string name="cling_hex_title">基数変換</string>
   <string name="cling_hex_msg">10進数（Dec）、2進法（Bin）、16進数（Hex）の間を切り替えることができます。\n\n注意: 間違った結果が出る場合は、基数を間違えている可能性があります。デフォルトは10進数です。</string>
   <string name="cling_graph_title">グラフ</string>
-  <string name="cling_graph_msg">グラフはここに自動的に表示されます。関数パネルに移動してXとYを使った関数を立ててください。</string>
+  <string name="cling_graph_msg">グラフは自動的にここに表示されます。関数パネルに移動してXとYを使った関数を立ててください。</string>
   <string name="cling_dismiss">OK</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
