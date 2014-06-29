@@ -2,26 +2,23 @@ package com.android2.calculator3;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
-import com.google.android.glass.app.Card;
-import com.google.android.glass.widget.CardScrollAdapter;
-import com.google.android.glass.widget.CardScrollView;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.glass.media.Sounds;
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
 
 public class GlassResultActivity extends Activity {
+    public static String EXTRA_QUESTION;
     public static String EXTRA_RESULT;
 
-    private List<Card> mCards;
-    private CardScrollView mCardScrollView;
+    private String mQuestion;
     private String mResult;
     private boolean mIsTextToSpeechInit = false;
     private TextToSpeech mTextToSpeech;
@@ -29,23 +26,48 @@ public class GlassResultActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.glass_result);
 
+        mQuestion = getIntent().getStringExtra(EXTRA_QUESTION);
         mResult = getIntent().getStringExtra(EXTRA_RESULT);
+        TextView resultView = (TextView) findViewById(R.id.result);
+        resultView.setText(mQuestion + " = " + mResult);
 
-        createCards();
-
-        mCardScrollView = new CardScrollView(this);
-        ExampleCardScrollAdapter adapter = new ExampleCardScrollAdapter();
-        mCardScrollView.setAdapter(adapter);
-        mCardScrollView.activate();
-        mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
+        GestureDetector detector = new GestureDetector(this);
+        detector.setBaseListener(new GestureDetector.BaseListener() {
             @Override
-            public void onItemClick(AdapterView<?> av, View v, int position, long id) {
-                startActivity(new Intent(getBaseContext(), GlassHomeActivity.class));
-                finish();
+            public boolean onGesture(Gesture gesture) {
+                if (gesture == Gesture.TAP) {
+                    ((AudioManager) getSystemService(AUDIO_SERVICE)).playSoundEffect(Sounds.TAP);
+                    openOptionsMenu();
+                    return true;
+                }
+
+                return false;
             }
         });
-        setContentView(mCardScrollView);
+    }
+
+    private void askNewQuestion() {
+        startActivity(new Intent(getBaseContext(), GlassHomeActivity.class));
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_glass, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.repeat:
+                askNewQuestion();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -76,40 +98,7 @@ public class GlassResultActivity extends Activity {
                 // Speech can't say "-1". It says "1" instead.
                 mResult = getString(R.string.speech_helper_negative, mResult.substring(1));
             }
-            mTextToSpeech.speak(mResult, TextToSpeech.QUEUE_ADD, null);
-        }
-    }
-
-    private void createCards() {
-        mCards = new ArrayList<Card>();
-
-        Card card;
-
-        card = new Card(this);
-        card.setText(mResult);
-        card.setFootnote(R.string.voice_detection_repeat);
-        mCards.add(card);
-    }
-
-    private class ExampleCardScrollAdapter extends CardScrollAdapter {
-        @Override
-        public int getCount() {
-            return mCards.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mCards.get(position);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return mCards.get(position).getView();
-        }
-
-        @Override
-        public int getPosition(Object obj) {
-            return mCards.indexOf(obj);
+            mTextToSpeech.speak(getString(R.string.speech_helper_equals, mQuestion, mResult), TextToSpeech.QUEUE_ADD, null);
         }
     }
 }

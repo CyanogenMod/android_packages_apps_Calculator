@@ -100,6 +100,7 @@ public class GlassHomeActivity extends Activity {
                     result = getString(R.string.error);
                 }
                 Intent intent = new Intent(this, GlassResultActivity.class);
+                intent.putExtra(GlassResultActivity.EXTRA_QUESTION, spokenText);
                 intent.putExtra(GlassResultActivity.EXTRA_RESULT, result);
                 startActivity(intent);
                 finish();
