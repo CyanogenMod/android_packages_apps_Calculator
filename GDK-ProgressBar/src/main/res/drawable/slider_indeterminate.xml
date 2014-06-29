@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:duration="33" android:drawable="@drawable/bar_candy0000" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0001" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0002" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0003" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0004" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0005" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0006" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0007" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0008" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0009" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0010" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0011" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0012" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0013" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0014" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0015" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0016" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0017" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0018" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0019" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0020" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0021" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0022" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0023" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0024" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0025" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0026" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0027" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0028" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0029" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0030" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0031" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0032" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0033" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0034" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0035" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0036" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0037" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0038" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0039" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0040" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0041" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0042" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0043" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0044" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0045" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0046" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0047" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0048" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0049" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0050" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0051" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0052" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0053" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0054" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0055" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0056" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0057" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0058" />
+    <item android:duration="33" android:drawable="@drawable/bar_candy0059" />
+</animation-list>

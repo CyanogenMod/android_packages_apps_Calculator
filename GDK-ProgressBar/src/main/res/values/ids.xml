@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="label">false</item>
+    <item type="id" name="slider">false</item>
+    <item type="id" name="icon">false</item>
+    <item type="id" name="slider_control">false</item>
+    <item type="id" name="indeterminate_slider">false</item>
+</resources>

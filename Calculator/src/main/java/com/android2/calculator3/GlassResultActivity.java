@@ -8,6 +8,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.TextView;
 
 import com.google.android.glass.media.Sounds;
@@ -15,13 +16,14 @@ import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
 public class GlassResultActivity extends Activity {
-    public static String EXTRA_QUESTION;
-    public static String EXTRA_RESULT;
+    public static final String EXTRA_QUESTION = "question";
+    public static final String EXTRA_RESULT = "result";
 
     private String mQuestion;
     private String mResult;
     private boolean mIsTextToSpeechInit = false;
     private TextToSpeech mTextToSpeech;
+    private GestureDetector mGestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,8 @@ public class GlassResultActivity extends Activity {
         TextView resultView = (TextView) findViewById(R.id.result);
         resultView.setText(mQuestion + " = " + mResult);
 
-        GestureDetector detector = new GestureDetector(this);
-        detector.setBaseListener(new GestureDetector.BaseListener() {
+        mGestureDetector = new GestureDetector(this);
+        mGestureDetector.setBaseListener(new GestureDetector.BaseListener() {
             @Override
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {
@@ -46,6 +48,14 @@ public class GlassResultActivity extends Activity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        if (mGestureDetector != null) {
+            return mGestureDetector.onMotionEvent(event);
+        }
+        return false;
     }
 
     private void askNewQuestion() {
@@ -98,7 +108,19 @@ public class GlassResultActivity extends Activity {
                 // Speech can't say "-1". It says "1" instead.
                 mResult = getString(R.string.speech_helper_negative, mResult.substring(1));
             }
-            mTextToSpeech.speak(getString(R.string.speech_helper_equals, mQuestion, mResult), TextToSpeech.QUEUE_ADD, null);
+            String question = formatQuestion(mQuestion);
+            mTextToSpeech.speak(getString(R.string.speech_helper_equals, question, mResult), TextToSpeech.QUEUE_ADD, null);
         }
+    }
+
+    private String formatQuestion(String question) {
+        String text = question;
+        text = text.replace("-", " minus ");
+        text = text.replace("*", " times ");
+        text = text.replace("*", " times ");
+        text = text.replace("sin", " sine of ");
+        text = text.replace("cos", " cosine of ");
+        text = text.replace("tan", " tangent of ");
+        return text;
     }
 }

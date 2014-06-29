@@ -1,1 +1,1 @@
-include ':Calculator', ':ThemeEngine', ':FloatingView'
+include ':Calculator', ':ThemeEngine', ':FloatingView', ':GDK-ProgressBar'

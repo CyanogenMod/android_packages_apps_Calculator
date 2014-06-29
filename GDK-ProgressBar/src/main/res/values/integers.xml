@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="slider_in_out_animation_duration_ms">300</integer>
+    <integer name="horizontal_scroll_deferred_load_animation_duration_ms">200</integer>
+    <integer name="horizontal_scroll_deferred_sizing_animation_duration_ms">50</integer>
+
+</resources>
