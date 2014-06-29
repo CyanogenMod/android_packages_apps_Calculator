@@ -15,5 +15,40 @@
      limitations under the License.
 -->
 <resources>
+  <string name="app_name">ژمێرەر</string>
+  <string name="error">هەڵە</string>
+  <string name="digit0">٠</string>
+  <string name="digit1">١</string>
+  <string name="digit2">٢</string>
+  <string name="digit3">٣</string>
+  <string name="digit4">٤</string>
+  <string name="digit5">٥</string>
+  <string name="digit6">٦</string>
+  <string name="digit7">٧</string>
+  <string name="digit8">٨</string>
+  <string name="digit9">٩</string>
+  <string name="del">سڕینەوە</string>
+  <string name="clear">CLR</string>
+  <string name="div">\u00f7</string>
+  <string name="mul">\u00d7</string>
+  <string name="plus">+</string>
+  <string name="minus">\u2212</string>
+  <string name="equal">=</string>
+  <string name="enter">\u2193</string>
+  <string name="sin">sin</string>
+  <string name="cos">cos</string>
+  <string name="tan">tan</string>
+  <string name="pi">\u03c0</string>
+  <string name="e">e</string>
+  <string name="ln">ln</string>
+  <string name="lg">log</string>
+  <string name="leftParen">(</string>
+  <string name="rightParen">)</string>
+  <string name="sqrt">\u221a</string>
+  <string name="power">^</string>
   <string name="factorial">!</string>
+  <string name="basic">تەختەی بنەڕەت</string>
+  <string name="advanced">تەختەی پێشکەوتوو</string>
+  <string name="clear_history">پاکردنەوەی مێژوو</string>
+  <string name="text_copied_toast">دەق لەبەریگرا.</string>
 </resources>
