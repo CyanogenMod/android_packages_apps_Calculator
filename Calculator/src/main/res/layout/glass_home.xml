@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/text2"
-        android:text="Tap to speak again"
+        android:text="@string/voice_detection_repeat"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/text1"
-        android:text="No message recorded"
+        android:text="@string/voice_detection_failed"
         android:textColor="#ffffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

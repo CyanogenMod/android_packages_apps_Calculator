@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?><!--  Copyright (C) 2007 The Android Open Source Project
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
 
-	 Licensed under the Apache License, Version 2.0 (the "License");
-	 you may not use this file except in compliance with the License.
-	 You may obtain a copy of the License at
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
 
-		  http://www.apache.org/licenses/LICENSE-2.0
+          http://www.apache.org/licenses/LICENSE-2.0
 
-	 Unless required by applicable law or agreed to in writing, software
-	 distributed under the License is distributed on an "AS IS" BASIS,
-	 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 See the License for the specific language governing permissions and
-	 limitations under the License.
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
  -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="8095131950334945205">"ម៉ាស៊ីន​គិត​លេខ"</string>
     <string name="error" msgid="9197457880925804499">"កំហុស"</string>
     <string name="digit0" msgid="8069590963464434135">"0"</string>
@@ -60,23 +62,23 @@
     <string name="eDesc" msgid="6709583372168924068">"Euler\'s number"</string>
     <string name="piDesc" msgid="8838151606775021517">"pi"</string>
     <string name="equalDesc" msgid="4164435100263313101">"equals"</string>
-    <string-array name="operatorDescs">
-        <item msgid="7903565108986789641">"left parenthesis"</item>
-        <item msgid="1688156211934459752">"right parenthesis"</item>
-        <item msgid="6664829080840305856">"factorial"</item>
-        <item msgid="2880199289575144121">"natural logarithm"</item>
-        <item msgid="4398774906998694599">"logarithm"</item>
-        <item msgid="1791869359785943266">"square root"</item>
-        <item msgid="6833720171974254459">"divided by"</item>
-        <item msgid="2646574635189709515">"multiplied by"</item>
-        <item msgid="3487936384379753697">"plus"</item>
-        <item msgid="8608534484562258856">"minus"</item>
-        <item msgid="3456824579675198186">" point "</item>
-        <item msgid="4528629783180278651">"power"</item>
-        <item msgid="4050948027333760159">"tangent"</item>
-        <item msgid="8716478860618683850">"sine"</item>
-        <item msgid="3203211483560707480">"cosine"</item>
-        <item msgid="8587490959348493065">"pi"</item>
-        <item msgid="8134315487552198394">"equals"</item>
-    </string-array>
+  <string-array name="operatorDescs">
+    <item msgid="7903565108986789641">"left parenthesis"</item>
+    <item msgid="1688156211934459752">"right parenthesis"</item>
+    <item msgid="6664829080840305856">"factorial"</item>
+    <item msgid="2880199289575144121">"natural logarithm"</item>
+    <item msgid="4398774906998694599">"logarithm"</item>
+    <item msgid="1791869359785943266">"square root"</item>
+    <item msgid="6833720171974254459">"divided by"</item>
+    <item msgid="2646574635189709515">"multiplied by"</item>
+    <item msgid="3487936384379753697">"plus"</item>
+    <item msgid="8608534484562258856">"minus"</item>
+    <item msgid="3456824579675198186">" point "</item>
+    <item msgid="4528629783180278651">"power"</item>
+    <item msgid="4050948027333760159">"tangent"</item>
+    <item msgid="8716478860618683850">"sine"</item>
+    <item msgid="3203211483560707480">"cosine"</item>
+    <item msgid="8587490959348493065">"pi"</item>
+    <item msgid="8134315487552198394">"equals"</item>
+  </string-array>
 </resources>
