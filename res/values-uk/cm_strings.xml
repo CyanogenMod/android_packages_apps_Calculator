@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Всі права захищені \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -32,6 +33,7 @@
   <string name="hexPanel">Шістнад. панель</string>
   <string name="lock">Заблокувати</string>
   <string name="unlock">Розблокувати</string>
+  <string name="info">Інформація</string>
   <string name="copy">Копіювати \'%s\'</string>
   <string name="remove_from_history">Вилучити з історії</string>
   <string name="showHistory">Показати історію</string>
@@ -62,11 +64,17 @@
   <string name="pref_theme">Тема</string>
   <string name="pref_about">Про</string>
   <string name="returnToBasic">Повернутись на основну панель</string>
+  <string name="infiniteScrolling">Безмежне прокручування</string>
   <string name="clickToOpenHistory">Натисніть, щоб відкрити історію</string>
   <string name="digitGrouping">Групування цифр</string>
   <string name="trigUnits">Тригон. одиниці</string>
   <string name="radians">РАД</string>
   <string name="degrees">ГРАД</string>
+  <string name="theme">Тема</string>
+  <string name="showDetails">Детальніше</string>
+  <string name="floatingCalc">Плаваючий калькулятор</string>
+  <string name="vibrateOnPress">Вібрувати на натиск</string>
+  <string name="showWidgetBackground">Показувати тло віджета</string>
   <string name="cling_simple_title">Ласкаво просимо!</string>
   <string name="cling_simple_msg">Поведіть пальцем вліво або ж вправо для зміни режиму. Непотрібні режими можна відключити в налаштуваннях.</string>
   <string name="cling_matrix_title">Матриці</string>
@@ -83,4 +91,8 @@
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
   <string name="easter_egg">Вітаю, ви знайшли пасхальне яйце.</string>
+  <string name="glass_start">Розрахувати</string>
+  <string name="voice_detection_failed">Не вдалося порахувати. Спробувати ще раз?</string>
+  <string name="voice_detection_repeat">Порахувати знову?</string>
+  <string name="speech_helper_negative" formatted="false">Негатив %s</string>
 </resources>
