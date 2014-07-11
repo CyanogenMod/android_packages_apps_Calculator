@@ -37,7 +37,7 @@
   <string name="copy">\'%s\'をコピー</string>
   <string name="remove_from_history">履歴から削除</string>
   <string name="showHistory">履歴を表示</string>
-  <string name="hideHistory">履歴を隠す</string>
+  <string name="hideHistory">履歴を表示しない</string>
   <string name="settings">設定</string>
   <string name="det">det</string>
   <string name="eigenvalue">Eigen</string>
@@ -92,7 +92,7 @@
   <string name="dot">.</string>
   <string name="easter_egg">コイキングは　はねるを　つかった！　しかし　なにもおこらない</string>
   <string name="glass_start">計算</string>
-  <string name="voice_detection_failed">計算できませんでした。もう一度やり直しますか？</string>
+  <string name="voice_detection_failed">計算できませんでした。再試行しますか？</string>
   <string name="voice_detection_repeat">もう一度計算しますか？</string>
   <string name="speech_helper_negative" formatted="false">負の%s</string>
 </resources>
