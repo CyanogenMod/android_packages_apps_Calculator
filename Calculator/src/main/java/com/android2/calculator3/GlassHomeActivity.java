@@ -1,6 +1,5 @@
 package com.android2.calculator3;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -9,23 +8,14 @@ import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.glass.app.Card;
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
-import com.google.android.glass.widget.CardScrollAdapter;
-import com.google.android.glass.widget.CardScrollView;
-import com.w9jds.gdk_progress_widget.SliderView;
 
 import org.javia.arity.SyntaxException;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -74,6 +64,7 @@ public class GlassHomeActivity extends Activity {
 
     private void displaySpeechRecognizer() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.glass_hint));
         startActivityForResult(intent, SPEECH_REQUEST);
     }
 
@@ -101,11 +92,15 @@ public class GlassHomeActivity extends Activity {
                     result = getString(R.string.error);
                 }
                 Intent intent = new Intent(this, GlassResultActivity.class);
-                intent.putExtra(GlassResultActivity.EXTRA_QUESTION, spokenText);
+                intent.putExtra(GlassResultActivity.EXTRA_QUERY, spokenText);
                 intent.putExtra(GlassResultActivity.EXTRA_RESULT, result);
                 startActivity(intent);
                 finish();
-            } else {
+            }
+            else if(resultCode == RESULT_CANCELED) {
+                finish();
+            }
+            else {
                 detectionFailed();
             }
         }
@@ -118,6 +113,7 @@ public class GlassHomeActivity extends Activity {
 
     private String parseText(String text) {
         EquationFormatter formatter = new EquationFormatter();
+        List<String> exceptions = new LinkedList<String>();
         text = text.toLowerCase(Locale.US);
         text = text.replace("point", ".");
         text = text.replace("minus", "-");
@@ -127,32 +123,38 @@ public class GlassHomeActivity extends Activity {
         text = text.replace("times", "*");
         text = text.replace("x", "*");
         text = text.replace("multiplied", "*");
-        text = text.replace(" ", "");
+        text = text.replace("raise", "^");
+        text = text.replace("square root", "sqrt(");
+        exceptions.add("sqrt");
         text = text.replace("sign", "sin(");
+        exceptions.add("sin");
         text = text.replace("cosine", "cos(");
+        exceptions.add("cos");
         text = text.replace("tangent", "tan(");
+        exceptions.add("tan");
         text = text.replace("pie", getString(R.string.pi));
         text = text.replace("pi", getString(R.string.pi));
+        text = text.replace(" ", "");
         text = SpellContext.replaceAllWithNumbers(text);
-        text = removeChars(text);
+        text = removeChars(text, exceptions);
         text = formatter.appendParenthesis(text);
         return text;
     }
 
-    private String removeChars(String input) {
+    private String removeChars(String input, List<String> exceptions) {
         Pattern pattern = Pattern.compile("[a-z]");
         String text = "";
         for(int i = 0; i < input.length(); i++) {
-            if(input.substring(i).startsWith("sin(")
-                    || input.substring(i).startsWith("cos(")
-                    || input.substring(i).startsWith("tan(")) {
-                text += input.substring(i, i+4);
-                i+=3;
+            for(String ex : exceptions) {
+                if(input.substring(i).startsWith(ex)) {
+                    text += input.substring(i, i+ex.length());
+                    i+=ex.length();
+                    continue;
+                }
             }
-            else {
-                Matcher matcher = pattern.matcher(input.substring(i, i+1));
-                if(!matcher.matches()) text += input.substring(i, i+1);
-            }
+
+            Matcher matcher = pattern.matcher(input.substring(i, i+1));
+            if(!matcher.matches()) text += input.substring(i, i+1);
         }
         return text;
     }

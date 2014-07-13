@@ -16,10 +16,10 @@ import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
 public class GlassResultActivity extends Activity {
-    public static final String EXTRA_QUESTION = "question";
+    public static final String EXTRA_QUERY = "query";
     public static final String EXTRA_RESULT = "result";
 
-    private String mQuestion;
+    private String mQuery;
     private String mResult;
     private boolean mIsTextToSpeechInit = false;
     private TextToSpeech mTextToSpeech;
@@ -30,10 +30,20 @@ public class GlassResultActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.glass_result);
 
-        mQuestion = getIntent().getStringExtra(EXTRA_QUESTION);
+        mQuery = getIntent().getStringExtra(EXTRA_QUERY);
         mResult = getIntent().getStringExtra(EXTRA_RESULT);
+
+        TextView queryView = (TextView) findViewById(R.id.query);
         TextView resultView = (TextView) findViewById(R.id.result);
-        resultView.setText(mQuestion + " = " + mResult);
+
+        queryView.setText(mQuery);
+        resultView.setText(mResult);
+
+        // Add comas to format the text
+        final Logic logic = new Logic(getApplicationContext());
+        BaseModule bm = logic.getBaseModule();
+        queryView.setText(bm.groupSentence(mQuery, mQuery.length()).replace(String.valueOf(BaseModule.SELECTION_HANDLE), ""));
+        resultView.setText(bm.groupSentence(mResult, mResult.length()).replace(String.valueOf(BaseModule.SELECTION_HANDLE), ""));
 
         mGestureDetector = new GestureDetector(this);
         mGestureDetector.setBaseListener(new GestureDetector.BaseListener() {
@@ -108,7 +118,7 @@ public class GlassResultActivity extends Activity {
                 // Speech can't say "-1". It says "1" instead.
                 mResult = getString(R.string.speech_helper_negative, mResult.substring(1));
             }
-            String question = formatQuestion(mQuestion);
+            String question = formatQuestion(mQuery);
             mTextToSpeech.speak(getString(R.string.speech_helper_equals, question, mResult), TextToSpeech.QUEUE_ADD, null);
         }
     }
@@ -121,6 +131,8 @@ public class GlassResultActivity extends Activity {
         text = text.replace("sin", " sine of ");
         text = text.replace("cos", " cosine of ");
         text = text.replace("tan", " tangent of ");
+        text = text.replace("sqrt", " square root of ");
+        text = text.replace("^", " raised to ");
         return text;
     }
 }
