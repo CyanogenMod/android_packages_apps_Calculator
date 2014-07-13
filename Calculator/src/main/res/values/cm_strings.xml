@@ -176,6 +176,7 @@
     <string name="glass_hint">Ask a math question. For example "What's the square root of 8?"</string>
     <string name="voice_detection_failed">No message recorded</string>
     <string name="voice_detection_repeat">Tap to speak again</string>
+    <string name="glass_again">Try again</string>
     <string name="speech_helper_negative" formatted="false">Negative %s</string>
     <string name="speech_helper_equals" formatted="false">%s equals %s</string>
 </resources>
