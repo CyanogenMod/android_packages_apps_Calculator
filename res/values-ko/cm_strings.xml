@@ -16,7 +16,83 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
+  <string name="X">X</string>
+  <string name="Y">Y</string>
+  <string name="arcsin">asin</string>
+  <string name="arccos">acos</string>
+  <string name="arctan">atan</string>
+  <string name="dx">dX</string>
+  <string name="dy">dY</string>
+  <string name="solveForX">X 구하기</string>
+  <string name="solveForY">Y 구하기</string>
+  <string name="mod">mod</string>
+  <string name="matrix">행렬 패널</string>
+  <string name="graph">그래프 패널</string>
+  <string name="function">함수 패널</string>
+  <string name="hexPanel">16진법 패널</string>
+  <string name="lock">페이지 고정</string>
+  <string name="unlock">페이지 고정 해제</string>
+  <string name="info">정보</string>
+  <string name="copy">\'%s\' 복사</string>
+  <string name="remove_from_history">기록에서 제거</string>
+  <string name="showHistory">기록 보기</string>
+  <string name="hideHistory">기록 숨기기</string>
+  <string name="settings">설정</string>
+  <string name="det">det</string>
+  <string name="eigenvalue">Eigen</string>
+  <string name="solve">풀기</string>
+  <string name="dotProduct">Dot</string>
+  <string name="crossProduct">Cross</string>
+  <string name="determinantDesc">det</string>
+  <string name="eigenvalueDesc">Eigenvalues</string>
+  <string name="plus_row">+행</string>
+  <string name="minus_row">-행</string>
+  <string name="plus_col">+열</string>
+  <string name="minus_col">-열</string>
+  <string name="matrix_transpose">T</string>
+  <string name="next">다음</string>
+  <string name="hex">16진수</string>
+  <string name="bin">2진수</string>
+  <string name="dec">10진수</string>
+  <string name="hexDesc">16진법</string>
+  <string name="binDesc">이진법</string>
+  <string name="decDesc">10진법</string>
+  <string name="pref_panels">패널</string>
+  <string name="pref_actions">동작</string>
+  <string name="pref_units">단위</string>
+  <string name="pref_theme">테마</string>
+  <string name="pref_about">정보</string>
+  <string name="returnToBasic">기본 패널로 되돌아가기</string>
+  <string name="infiniteScrolling">무한 스크롤</string>
+  <string name="clickToOpenHistory">클릭해서 기록 열기</string>
+  <string name="digitGrouping">자릿수 구분</string>
+  <string name="trigUnits">각도 단위</string>
+  <string name="radians">RAD</string>
+  <string name="degrees">DEG</string>
+  <string name="theme">테마</string>
+  <string name="showDetails">세부 정보 보기</string>
+  <string name="floatingCalc">팝업 계산기</string>
+  <string name="vibrateOnPress">터치 시 진동</string>
+  <string name="showWidgetBackground">위젯에 배경 표시</string>
+  <string name="cling_simple_title">환영합니다</string>
+  <string name="cling_simple_msg">좌우로 슬라이드하여 더 많은 내용을 볼 수 있습니다. 불필요한 페이지는 설정에서 비활성화할 수 있습니다.</string>
+  <string name="cling_matrix_title">행렬</string>
+  <string name="cling_matrix_msg">여기를 탭하여 행렬을 만들고 풀 수 있습니다.</string>
+  <string name="cling_hex_title">진수 변경</string>
+  <string name="cling_hex_msg">10진수 (dec), 이진수 (bin), 16진수 (hex)간 전환이 가능합니다.\n\n경고: 계산 결과가 이상한 것 같다면 진수 설정이 잘못되어있는지 확인해보세요. 기본값은 10진수입니다.</string>
+  <string name="cling_graph_title">그래프</string>
+  <string name="cling_graph_msg">그래프는 여기에 자동으로 나타납니다. 고급 패널에서 X와 Y로 함수를 만들어보세요.</string>
+  <string name="cling_dismiss">확인</string>
+  <string name="bin_separator">\u0020</string>
+  <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
+  <string name="dot">.</string>
+  <string name="easter_egg">잉어킹은 튀어오르기를 사용했다! 그러나 아무 일도 일어나지 않았다!</string>
+  <string name="glass_start">계산</string>
+  <string name="voice_detection_failed">계산에 실패했습니다. 다시 시도할까요?</string>
+  <string name="voice_detection_repeat">다시 계산할까요?</string>
+  <string name="speech_helper_negative" formatted="false">마이너스 %s</string>
 </resources>

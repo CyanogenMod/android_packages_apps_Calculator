@@ -39,6 +39,7 @@
   <string name="showHistory">Mostrar historial</string>
   <string name="hideHistory">Ocultar historial</string>
   <string name="settings">Ajustes</string>
+  <string name="store">Tienda</string>
   <string name="det">determ</string>
   <string name="eigenvalue">Autoval</string>
   <string name="solve">Resolv</string>
@@ -90,6 +91,11 @@
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">,</string>
+  <string name="store_tab_themes">Temas</string>
+  <string name="store_tab_extensions">Extensiones</string>
+  <string name="store_price_installed">Instalado</string>
+  <string name="store_price_free">Libre</string>
+  <string name="store_info_text">Los temas te permiten cambiar el aspecto y visualización de la calculadora. Con ellos puedes cambiar los tipos de letra, imágenes y colores.\n\nCualquier persona es libre de crear su propio tema y compartirlo. Hay publicada una guía rápida en el siguiente enlace: http://xlythe.com/calculator/theme.html\n\nLos temas pueden ser presentados en la tienda a través de http://review.cyanogenmod.org</string>
   <string name="easter_egg">Magikarp salpicó, pero no ocurrió nada.</string>
   <string name="glass_start">Calcular</string>
   <string name="voice_detection_failed">Error de cálculo. ¿Intentar de nuevo?</string>

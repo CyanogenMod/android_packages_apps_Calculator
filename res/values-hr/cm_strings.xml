@@ -26,6 +26,7 @@
   <string name="dy">dY</string>
   <string name="solveForX">Riješi za X</string>
   <string name="solveForY">Riješi za Y</string>
+  <string name="mod">mod</string>
   <string name="matrix">Matrice</string>
   <string name="graph">Grafovi</string>
   <string name="function">Funkcije</string>
@@ -38,8 +39,22 @@
   <string name="showHistory">Prikaži povijest</string>
   <string name="hideHistory">Sakrij povijest</string>
   <string name="settings">Postavke</string>
+  <string name="det">det</string>
+  <string name="eigenvalue">Eigen</string>
   <string name="solve">Riješi</string>
+  <string name="dotProduct">Dot</string>
+  <string name="crossProduct">Cross</string>
+  <string name="determinantDesc">det</string>
+  <string name="eigenvalueDesc">Eigen-vrijednosti</string>
+  <string name="plus_row">+Row</string>
+  <string name="minus_row">-Row</string>
+  <string name="plus_col">+Kol</string>
+  <string name="minus_col">-Col</string>
+  <string name="matrix_transpose">T</string>
   <string name="next">Sljedeći</string>
+  <string name="hex">Heksadecimalno</string>
+  <string name="bin">Bin</string>
+  <string name="dec">Dec</string>
   <string name="hexDesc">Heksadecimalno</string>
   <string name="binDesc">Binarno</string>
   <string name="decDesc">Decimalno</string>
@@ -49,13 +64,17 @@
   <string name="pref_theme">Tema</string>
   <string name="pref_about">O programu</string>
   <string name="returnToBasic">Povratak na panel Osnovno</string>
+  <string name="infiniteScrolling">Beskonačno pomicanje</string>
   <string name="clickToOpenHistory">Pritisnite za prikaz povijesti</string>
   <string name="digitGrouping">Grupiranje znamenki</string>
+  <string name="trigUnits">Trigonometrijske jedinice</string>
+  <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
   <string name="theme">Tema</string>
   <string name="showDetails">Prikaži detalje</string>
   <string name="floatingCalc">Plutajući kalkulator</string>
   <string name="vibrateOnPress">Vibriracija na dodir</string>
+  <string name="showWidgetBackground">Pokaži pozadinu widgeta</string>
   <string name="cling_simple_title">Dobrodošli</string>
   <string name="cling_simple_msg">Pomičite lijevo i desno po ekranu za još sadržaja. Nepotrebni paneli se mogu isključiti u postavkama.</string>
   <string name="cling_matrix_title">Matrice</string>
@@ -71,4 +90,9 @@
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
+  <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
+  <string name="glass_start">Izračunaj</string>
+  <string name="voice_detection_failed">Izračun nije uspio. Pokušati ponovno?</string>
+  <string name="voice_detection_repeat">Izračunati opet?</string>
+  <string name="speech_helper_negative" formatted="false">Negativno %s</string>
 </resources>

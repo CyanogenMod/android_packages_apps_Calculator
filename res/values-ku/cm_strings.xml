@@ -31,7 +31,7 @@
   <string name="graph">جۆری نه‌خشه‌</string>
   <string name="function">جۆری فرمان</string>
   <string name="hexPanel">جۆری گۆشه‌یی</string>
-  <string name="lock">قوفڵکردنی په‌ڕه‌</string>
+  <string name="lock">داخستنی په‌ڕه‌</string>
   <string name="unlock">لابردنی قوفڵی په‌ڕه‌</string>
   <string name="info">زانیاری</string>
   <string name="copy">له‌به‌ر گرتنه‌وه‌ی \'%s\'</string>
@@ -93,7 +93,7 @@
   <string name="dot">.</string>
   <string name="easter_egg">magikarp ئامێری به‌کارهێنا به‌ڵام هیچ ڕووینه‌دا.</string>
   <string name="glass_start">ژمێرکردن</string>
-  <string name="voice_detection_failed">ژمێرکردن هه‌ڵه‌ی هه‌یه‌ ، دووباره‌ی ده‌که‌یته‌وه‌؟</string>
-  <string name="voice_detection_repeat">دووباره‌ ژمێرکاری ده‌که‌یته‌وه‌؟</string>
+  <string name="voice_detection_failed">ژماردن سەرکەوتو نەبوو، دووبارە هەوڵدانەوە؟</string>
+  <string name="voice_detection_repeat">دووبارە هەوڵدانەوە؟</string>
   <string name="speech_helper_negative" formatted="false">سالب %s</string>
 </resources>

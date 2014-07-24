@@ -16,7 +16,83 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
+  <string name="X">X</string>
+  <string name="Y">Y</string>
+  <string name="arcsin">asin</string>
+  <string name="arccos">acos</string>
+  <string name="arctan">atan</string>
+  <string name="dx">dX</string>
+  <string name="dy">dY</string>
+  <string name="solveForX">X-rako ebatzi</string>
+  <string name="solveForY">Y-rako ebatzi</string>
+  <string name="mod">mod</string>
+  <string name="matrix">Matrizeak</string>
+  <string name="graph">Grafikoak</string>
+  <string name="function">Funtzioak</string>
+  <string name="hexPanel">Dec/Bin/Hex</string>
+  <string name="lock">Orrialdea lokatu</string>
+  <string name="unlock">Orrialdea deslokatu</string>
+  <string name="info">Informazioa</string>
+  <string name="copy">\u00AB%s\u00BB kopiatua</string>
+  <string name="remove_from_history">Historiatik ezabatu</string>
+  <string name="showHistory">Historia erakutsi</string>
+  <string name="hideHistory">Historia ezkutatu</string>
+  <string name="settings">Ezarpenak</string>
+  <string name="det">determ</string>
+  <string name="eigenvalue">Autobal</string>
+  <string name="solve">Ebatzi</string>
+  <string name="dotProduct">\nBid. Eskalarra\n</string>
+  <string name="crossProduct">\nBid. Bektoriala\n</string>
+  <string name="determinantDesc">Determinantea</string>
+  <string name="eigenvalueDesc">Autobalioak</string>
+  <string name="plus_row">Hilara+</string>
+  <string name="minus_row">Hilara-</string>
+  <string name="plus_col">Zutabe+</string>
+  <string name="minus_col">Zutabe-</string>
+  <string name="matrix_transpose">T</string>
+  <string name="next">Hurrengoa</string>
+  <string name="hex">Hex</string>
+  <string name="bin">Bin</string>
+  <string name="dec">Dec</string>
+  <string name="hexDesc">Hexadezimala</string>
+  <string name="binDesc">Binarioa</string>
+  <string name="decDesc">Dezimala</string>
+  <string name="pref_panels">Panelak</string>
+  <string name="pref_actions">Ekintzak</string>
+  <string name="pref_units">Unitateak</string>
+  <string name="pref_theme">Gaia</string>
+  <string name="pref_about">Honi buruz</string>
+  <string name="returnToBasic">Oinarrizko funtzioetara itzuli</string>
+  <string name="infiniteScrolling">Despalzamendu infinitoa</string>
+  <string name="clickToOpenHistory">Sakatu historia irekitzeko</string>
+  <string name="digitGrouping">Digitoak taldekatu</string>
+  <string name="trigUnits">Unit. trigonometrikoak</string>
+  <string name="radians">RAD</string>
+  <string name="degrees">DEG</string>
+  <string name="theme">Gaia</string>
+  <string name="showDetails">Xehetasunak erakutsi</string>
+  <string name="floatingCalc">Kalkulagaiu flotantea</string>
+  <string name="vibrateOnPress">Sakatzean bibratu</string>
+  <string name="showWidgetBackground">Widget-ean atzekaldea erakutsi</string>
+  <string name="cling_simple_title">Ongi Etorri</string>
+  <string name="cling_simple_msg">Eduki gehiago ikusteko ezkerrerantz edo eskumarantz irristatu. Beharrezkoak ez diren orrialdeak Ezarpenetan ezagitu daitezke.</string>
+  <string name="cling_matrix_title">Matrizeak</string>
+  <string name="cling_matrix_msg">Sakatu hemen matrizeak eraiki eta ebazten hasteko.</string>
+  <string name="cling_hex_title">Oinarria aldatu</string>
+  <string name="cling_hex_msg">Dezimal (dec), binario (bin) eta hexadezimal (hex) artean aldatu. \n\nKontuz: Ebazpenen bat oker dagoela uste baduzu, ziurasko oinarri ezegoki batean zaude. Lehenetsitakoa dezimala da.</string>
+  <string name="cling_graph_title">Grafikoak</string>
+  <string name="cling_graph_msg">Grafikoak automatikoki irudikatuko dira hemen. Funtzio aurreratuen orrialdean sor ezazu funtzio bat X eta Y erabiliz.</string>
+  <string name="cling_dismiss">Ondo da</string>
+  <string name="bin_separator">\u0020</string>
+  <string name="hex_separator">\u0020</string>
   <item name="dec_separator_distance" type="integer">3</item>
   <item name="bin_separator_distance" type="integer">4</item>
   <item name="hex_separator_distance" type="integer">2</item>
+  <string name="dot">,</string>
+  <string name="easter_egg">Magikarp-ek zipriztinak bota ditu, baina ez da ezer gertatu.</string>
+  <string name="glass_start">Kalkulatu</string>
+  <string name="voice_detection_failed">Kalkuluak huts egin du. Berriro saiatu?</string>
+  <string name="voice_detection_repeat">Berriro kalkulatu?</string>
+  <string name="speech_helper_negative" formatted="false">Negatiboa %s</string>
 </resources>

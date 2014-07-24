@@ -17,16 +17,16 @@
 <resources>
   <string name="app_name">ژمێرەر</string>
   <string name="error">هەڵە</string>
-  <string name="digit0">٠</string>
-  <string name="digit1">١</string>
-  <string name="digit2">٢</string>
-  <string name="digit3">٣</string>
-  <string name="digit4">٤</string>
-  <string name="digit5">٥</string>
-  <string name="digit6">٦</string>
-  <string name="digit7">٧</string>
-  <string name="digit8">٨</string>
-  <string name="digit9">٩</string>
+  <string name="digit0">0</string>
+  <string name="digit1">1</string>
+  <string name="digit2">2</string>
+  <string name="digit3">3</string>
+  <string name="digit4">4</string>
+  <string name="digit5">5</string>
+  <string name="digit6">6</string>
+  <string name="digit7">7</string>
+  <string name="digit8">8</string>
+  <string name="digit9">9</string>
   <string name="del">سڕینەوە</string>
   <string name="clear">CLR</string>
   <string name="div">\u00f7</string>
