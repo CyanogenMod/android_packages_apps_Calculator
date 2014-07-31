@@ -87,9 +87,6 @@
   <string name="cling_dismiss">باشه‌</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
-  <item name="dec_separator_distance" type="integer">3</item>
-  <item name="bin_separator_distance" type="integer">4</item>
-  <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
   <string name="easter_egg">magikarp ئامێری به‌کارهێنا به‌ڵام هیچ ڕووینه‌دا.</string>
   <string name="glass_start">ژمێرکردن</string>

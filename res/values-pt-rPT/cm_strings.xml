@@ -86,9 +86,6 @@
   <string name="cling_dismiss">OK</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
-  <item name="dec_separator_distance" type="integer">3</item>
-  <item name="bin_separator_distance" type="integer">4</item>
-  <item name="hex_separator_distance" type="integer">2</item>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp usou o Splash mas nada aconteceu.</string>
   <string name="glass_start">Calcular</string>
