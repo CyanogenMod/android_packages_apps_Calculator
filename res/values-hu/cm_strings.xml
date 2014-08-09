@@ -87,6 +87,10 @@
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
+  <string name="store_tab_themes">Témák</string>
+  <string name="store_tab_extensions">Bővítmények</string>
+  <string name="store_price_installed">Telepített</string>
+  <string name="store_price_free">Ingyenes</string>
   <string name="easter_egg">Magikarp Splash-t használt, de nem történt semmi.</string>
   <string name="glass_start">Kiszámol</string>
   <string name="voice_detection_failed">A kiszámítás nem sikerült. Megpróbálja újra?</string>

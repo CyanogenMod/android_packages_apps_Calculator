@@ -34,7 +34,7 @@
   <string name="lock">ページを固定</string>
   <string name="unlock">ページの固定を解除</string>
   <string name="info">情報</string>
-  <string name="copy">\'%s\'をコピー</string>
+  <string name="copy">「%s」をコピー</string>
   <string name="remove_from_history">履歴から削除</string>
   <string name="showHistory">履歴を表示</string>
   <string name="hideHistory">履歴を表示しない</string>
@@ -76,13 +76,13 @@
   <string name="vibrateOnPress">クリックで振動</string>
   <string name="showWidgetBackground">ウィジェットの背景を表示</string>
   <string name="cling_simple_title">ようこそ</string>
-  <string name="cling_simple_msg">左右にスライドするとより多くのコンテンツにアクセスできます。必要の無いページは設定から無効にできます。</string>
+  <string name="cling_simple_msg">左右にスライドすると他のコンテンツにアクセスできます。必要の無いページは設定で無効にできます。</string>
   <string name="cling_matrix_title">行列</string>
   <string name="cling_matrix_msg">ここをタップすると行列を立てて解くことができます。</string>
   <string name="cling_hex_title">基数変換</string>
   <string name="cling_hex_msg">10進数（Dec）、2進法（Bin）、16進数（Hex）の間を切り替えることができます。\n\n注意: 間違った結果が出る場合は、基数を間違えている可能性があります。デフォルトは10進数です。</string>
   <string name="cling_graph_title">グラフ</string>
-  <string name="cling_graph_msg">グラフは自動的にここに表示されます。関数パネルに移動してXとYを使った関数を立ててください。</string>
+  <string name="cling_graph_msg">グラフはここに自動的に表示されます。関数パネルに移動してXとYを使った関数を立ててください。</string>
   <string name="cling_dismiss">OK</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
