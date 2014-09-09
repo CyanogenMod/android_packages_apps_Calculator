@@ -33,7 +33,7 @@
   <string name="hexPanel">Хексадекадни панел</string>
   <string name="lock">Закључај страну</string>
   <string name="unlock">Откључај страну</string>
-  <string name="info">Информација</string>
+  <string name="info">Инфо</string>
   <string name="copy">Копирај \'%s\'</string>
   <string name="remove_from_history">Уклони из историје</string>
   <string name="showHistory">Прикажи историју</string>
@@ -44,7 +44,7 @@
   <string name="solve">Реши</string>
   <string name="dotProduct">Тачка</string>
   <string name="crossProduct">Крст</string>
-  <string name="determinantDesc">Дет</string>
+  <string name="determinantDesc">det</string>
   <string name="eigenvalueDesc">Сопствена вредност</string>
   <string name="plus_row">+Ред</string>
   <string name="minus_row">-Ред</string>

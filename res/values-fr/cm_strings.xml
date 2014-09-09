@@ -83,7 +83,7 @@
   <string name="cling_hex_msg">Basculer entre décimal (dec), binaire (bin), et hexadécimal (hex).\n\nAttention: si vous obtenez un résultat erroné, vous êtes probablement dans une mauvaise base. Par défaut la base est en décimal.</string>
   <string name="cling_graph_title">Graphique</string>
   <string name="cling_graph_msg">Les graphiques seront automatiquement affichés ici. Allez dans le panneau avancé et rentrez une fonction en utilisant X et Y.</string>
-  <string name="cling_dismiss">Ok</string>
+  <string name="cling_dismiss">OK</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <string name="dot">,</string>
