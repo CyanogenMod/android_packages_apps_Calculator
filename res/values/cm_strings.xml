@@ -30,8 +30,6 @@
     <string name="X">X</string>
     <string name="Y">Y</string>
 
-    <!-- Plus sign / minus sign; Displayed as button on screen. -->
-    <string name="sign" translatable="false">\u002B/\u2212</string>
     <!-- Do not translate. Coma; Displayed as button on screen. -->
     <string name="coma" translatable="false">\u002C</string>
 
@@ -68,8 +66,6 @@
     <string name="matrix">Matrix panel</string>
     <!-- Menu item text to take user to the screen with the graph. -->
     <string name="graph">Graph panel</string>
-    <!-- Menu item text to take user to the screen with the function operators. -->
-    <string name="function">Function panel</string>
     <!-- Menu item text to take user to the screen with the hex digits and operators. -->
     <string name="hexPanel">Hex panel</string>
     <!-- Menu item text to lock view pager. -->
@@ -93,12 +89,6 @@
 
     <!-- Matrix page text -->
     <string name="det">det</string>
-    <string name="eigenvalue">Eigen</string>
-    <string name="solve">Solve</string>
-    <string name="dotProduct">Dot</string>
-    <string name="crossProduct">Cross</string>
-    <string name="determinantDesc">det</string>
-    <string name="eigenvalueDesc">Eigenvalues</string>
     <string name="plus_row">+Row</string>
     <string name="minus_row">-Row</string>
     <string name="plus_col">+Col</string>
@@ -121,7 +111,6 @@
     <string name="pref_actions">Actions</string>
     <string name="pref_units">Units</string>
     <string name="pref_theme">Theme</string>
-    <string name="pref_about">About</string>
     <string name="returnToBasic">Return to the basic panel</string>
     <string name="infiniteScrolling">Infinite scrolling</string>
     <string name="clickToOpenHistory">Click to open history</string>
@@ -129,7 +118,6 @@
     <string name="trigUnits">Trig units</string>
     <string name="radians">RAD</string>
     <string name="degrees">DEG</string>
-    <string name="theme">Theme</string>
     <string name="showDetails">Show details</string>
     <string name="floatingCalc">Floating calculator</string>
     <string name="vibrateOnPress">Vibrate on click</string>
@@ -156,7 +144,6 @@
 
     <!-- Store strings -->
     <string name="store_tab_themes">Themes</string>
-    <string name="store_tab_extensions">Extensions</string>
     <string name="store_price_installed">Installed</string>
     <string name="store_price_free">Free</string>
     <string name="store_info_text">Themes give you the ability to change the look and feel of Calculator. They are powerful, letting you adjust almost all fonts, images, and colors.\n\nAnyone is free to write their own theme and share it. A quick and dirty guide is posted here: http://xlythe.com/calculator/theme.html\n\nThemes can be submitted to the store through http://review.cyanogenmod.org</string>
@@ -165,7 +152,6 @@
     <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
 
     <!-- Google Glass strings -->
-    <string name="glass_start">Calculate</string>
     <string name="voice_detection_failed">Calculation failed. Try again?</string>
     <string name="voice_detection_repeat">Calculate again?</string>
     <string name="speech_helper_negative" formatted="false">Negative %s</string>
