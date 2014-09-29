@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matricos skydelis</string>
   <string name="graph">Grafinis skydelis</string>
-  <string name="function">Funkcijų skydelis</string>
   <string name="hexPanel">Hex skydelis</string>
   <string name="lock">Užrakinti puslapį</string>
   <string name="unlock">Atrakinti puslapį</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Slėpti istoriją</string>
   <string name="settings">Nustatymai</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Išspręsti</string>
-  <string name="dotProduct">Taškas</string>
-  <string name="crossProduct">Kryžius</string>
-  <string name="determinantDesc">Determinantas</string>
-  <string name="eigenvalueDesc">Tikrinės reikšmės</string>
   <string name="plus_row">+Row</string>
   <string name="minus_row">-Row</string>
   <string name="plus_col">+Col</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Veiksmai</string>
   <string name="pref_units">Vienetai</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Apie</string>
   <string name="returnToBasic">Grįžti į pagrindinį skydelį</string>
   <string name="infiniteScrolling">Begalinis slinkimas</string>
   <string name="clickToOpenHistory">Spausti, norint atidaryti istoriją</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Trigonometriniai vienetai</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Rodyti Išsamią informaciją</string>
   <string name="floatingCalc">Plaukiojantis skaičiuotuvas</string>
   <string name="vibrateOnPress">Vibruoti spustelėjus</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">:)</string>
-  <string name="glass_start">Apskaičiuoti</string>
   <string name="voice_detection_failed">Apskaičiuoti nepavyko. Bandyti dar kartą?</string>
   <string name="voice_detection_repeat">Apskaičiuoti iš naujo?</string>
   <string name="speech_helper_negative" formatted="false">Neigiamas %s</string>

@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">න්‍යාස පුවරුව</string>
   <string name="graph">ප්‍රස්තාර පුවරුව</string>
-  <string name="function">ශ්‍රිත පුවරුව</string>
   <string name="hexPanel">16 පාදයේ පුවරුව</string>
   <string name="lock">අගුළු පිටුව</string>
   <string name="unlock">විවෘත පිටුව</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">ඉතිහාසය සඟවන්න</string>
   <string name="settings">සැකසීම්</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">විසඳන්න</string>
-  <string name="dotProduct">Dot</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">නීර්ණායකයන්</string>
-  <string name="eigenvalueDesc">අයිගන් අගයන්</string>
   <string name="plus_row">+පේළිය</string>
   <string name="minus_row">-පේළිය</string>
   <string name="plus_col">+තීරුව</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">ක්‍රියා</string>
   <string name="pref_units">ඒකක</string>
   <string name="pref_theme">තේමාව</string>
-  <string name="pref_about">පිලිබඳ</string>
   <string name="returnToBasic">මූලික පුවරුව වෙත ආපසු යන්න</string>
   <string name="infiniteScrolling">අනන්ත අනුචලනය</string>
   <string name="clickToOpenHistory">ඉතිහාසය දිගහැරුමට ඔබන්න</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">ත්‍රිකෝණමිතික ඒකක</string>
   <string name="radians">රේඩියන</string>
   <string name="degrees">අංශක</string>
-  <string name="theme">තේමාව</string>
   <string name="showDetails">තොරතුරු පෙන්වන්න</string>
   <string name="floatingCalc">පාවෙන ගණකය</string>
   <string name="vibrateOnPress">එබීමේදී කම්පනය</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp Splash භාවිතා කළේය නමුත් කිසිවක් සිදුනොවුනි.</string>
-  <string name="glass_start">ගණනය කරන්න</string>
   <string name="voice_detection_failed">ගණනය කිරීම අසමත්විය. යළි උත්සාහ කරන්නද?</string>
   <string name="voice_detection_repeat">නැවත ගණනය කරන්නද?</string>
   <string name="speech_helper_negative" formatted="false">සෘණ %s</string>

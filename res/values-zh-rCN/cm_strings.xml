@@ -29,7 +29,6 @@
   <string name="mod">取余数</string>
   <string name="matrix">矩阵面板</string>
   <string name="graph">图表面板</string>
-  <string name="function">函数面板</string>
   <string name="hexPanel">十六进制面板</string>
   <string name="lock">锁定页面</string>
   <string name="unlock">解锁页面</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">隐藏历史记录</string>
   <string name="settings">设置</string>
   <string name="det">行列式</string>
-  <string name="eigenvalue">特征向量</string>
-  <string name="solve">求解</string>
-  <string name="dotProduct">点</string>
-  <string name="crossProduct">叉积</string>
-  <string name="determinantDesc">行列式</string>
-  <string name="eigenvalueDesc">特征向量</string>
   <string name="plus_row">+行</string>
   <string name="minus_row">-行</string>
   <string name="plus_col">+列</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">操作</string>
   <string name="pref_units">单位</string>
   <string name="pref_theme">主题</string>
-  <string name="pref_about">关于</string>
   <string name="returnToBasic">返回到基本面板</string>
   <string name="infiniteScrolling">无限滚动</string>
   <string name="clickToOpenHistory">点击打开历史</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">三角函数单位</string>
   <string name="radians">弧度</string>
   <string name="degrees">角度</string>
-  <string name="theme">主题</string>
   <string name="showDetails">显示详细信息</string>
   <string name="floatingCalc">浮动计算器</string>
   <string name="vibrateOnPress">点击时振动</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">用尽了浑身力气去解数，但依然无效。</string>
-  <string name="glass_start">计算</string>
   <string name="voice_detection_failed">计算失败。再试一次？</string>
   <string name="voice_detection_repeat">再次计算吗？</string>
   <string name="speech_helper_negative" formatted="false">负 %s</string>

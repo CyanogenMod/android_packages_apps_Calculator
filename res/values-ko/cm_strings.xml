@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">행렬 패널</string>
   <string name="graph">그래프 패널</string>
-  <string name="function">함수 패널</string>
   <string name="hexPanel">16진법 패널</string>
   <string name="lock">페이지 고정</string>
   <string name="unlock">페이지 고정 해제</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">기록 숨기기</string>
   <string name="settings">설정</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">풀기</string>
-  <string name="dotProduct">Dot</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Eigenvalues</string>
   <string name="plus_row">+행</string>
   <string name="minus_row">-행</string>
   <string name="plus_col">+열</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">동작</string>
   <string name="pref_units">단위</string>
   <string name="pref_theme">테마</string>
-  <string name="pref_about">정보</string>
   <string name="returnToBasic">기본 패널로 되돌아가기</string>
   <string name="infiniteScrolling">무한 스크롤</string>
   <string name="clickToOpenHistory">클릭해서 기록 열기</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">각도 단위</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">테마</string>
   <string name="showDetails">세부 정보 보기</string>
   <string name="floatingCalc">팝업 계산기</string>
   <string name="vibrateOnPress">터치 시 진동</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">잉어킹은 튀어오르기를 사용했다! 그러나 아무 일도 일어나지 않았다!</string>
-  <string name="glass_start">계산</string>
   <string name="voice_detection_failed">계산에 실패했습니다. 다시 시도할까요?</string>
   <string name="voice_detection_repeat">다시 계산할까요?</string>
   <string name="speech_helper_negative" formatted="false">마이너스 %s</string>

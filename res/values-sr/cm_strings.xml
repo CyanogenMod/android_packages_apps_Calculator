@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Матрични панел</string>
   <string name="graph">Графички панел</string>
-  <string name="function">Функцијски панел</string>
   <string name="hexPanel">Хексадекадни панел</string>
   <string name="lock">Закључај страну</string>
   <string name="unlock">Откључај страну</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Сакриј историју</string>
   <string name="settings">Подешавања</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Реши</string>
-  <string name="dotProduct">Тачка</string>
-  <string name="crossProduct">Крст</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Сопствена вредност</string>
   <string name="plus_row">+Ред</string>
   <string name="minus_row">-Ред</string>
   <string name="plus_col">+Кол</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Акције</string>
   <string name="pref_units">Јединице</string>
   <string name="pref_theme">Тема</string>
-  <string name="pref_about">О програму</string>
   <string name="returnToBasic">Повратак на основни панел</string>
   <string name="infiniteScrolling">Бесконачно скроловање</string>
   <string name="clickToOpenHistory">Кликни да отвориш историју</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Тригонометријске јединице</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Тема</string>
   <string name="showDetails">Прикажи детаље</string>
   <string name="floatingCalc">Плутајући калкулатор</string>
   <string name="vibrateOnPress">Вибрирај на клик</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Магикарп користи Сплеш али ништа се није догодило.</string>
-  <string name="glass_start">Израчунај</string>
   <string name="voice_detection_failed">Рачунање није успело. Покушај поново?</string>
   <string name="voice_detection_repeat">Израчунај поново?</string>
   <string name="speech_helper_negative" formatted="false">Негативно %s</string>

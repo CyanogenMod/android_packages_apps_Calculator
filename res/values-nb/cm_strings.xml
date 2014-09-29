@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matrix-panel</string>
   <string name="graph">Graf-panel</string>
-  <string name="function">Funksjonen-panel</string>
   <string name="hexPanel">Hex-panel</string>
   <string name="lock">Lås siden</string>
   <string name="unlock">Låse opp siden</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Skjule historikk</string>
   <string name="settings">Innstillinger</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Løse</string>
-  <string name="dotProduct">Prikk</string>
-  <string name="crossProduct">Kryss</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Egenverdi</string>
   <string name="plus_row">+Rad</string>
   <string name="minus_row">-Rad</string>
   <string name="plus_col">+Col</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Handlinger</string>
   <string name="pref_units">Enheter</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Om</string>
   <string name="returnToBasic">Gå tilbake til det grunnleggende panelet</string>
   <string name="infiniteScrolling">Uendelige scrolling</string>
   <string name="clickToOpenHistory">Klikk for å åpne historikk</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Trigger enheter</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRADER</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Vis detaljer</string>
   <string name="floatingCalc">Flytende kalkulator</string>
   <string name="vibrateOnPress">Vibrere på klikk</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp brukte Splash men ingenting skjedde.</string>
-  <string name="glass_start">Beregne</string>
   <string name="voice_detection_failed">Beregning mislyktes. prøv igjen?</string>
   <string name="voice_detection_repeat">Beregne igjen?</string>
   <string name="speech_helper_negative" formatted="false">Negativ %s</string>

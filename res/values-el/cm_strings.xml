@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Πίνακες</string>
   <string name="graph">Γραφικές παράστασεις</string>
-  <string name="function">Συναρτήσεις</string>
   <string name="hexPanel">Δεκαεξαδικές πράξεις</string>
   <string name="lock">Κλείδωμα σελίδας</string>
   <string name="unlock">Ξεκλείδωμα σελίδας</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Απόκρυψη ιστορικού</string>
   <string name="settings">Ρυθμίσεις</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Λύση</string>
-  <string name="dotProduct">Dot</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">Ορίζουσα</string>
-  <string name="eigenvalueDesc">Ιδιοτιμές</string>
   <string name="plus_row">+Γραμ</string>
   <string name="minus_row">-Γραμ</string>
   <string name="plus_col">+Στηλ</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Ενέργειες</string>
   <string name="pref_units">Μονάδες</string>
   <string name="pref_theme">Θέμα</string>
-  <string name="pref_about">Σχετικά</string>
   <string name="returnToBasic">Επιστροφή στις βασικές πράξεις</string>
   <string name="infiniteScrolling">Απεριόριστη κύλιση</string>
   <string name="clickToOpenHistory">Πιέστε για άνοιγμα του ιστορικού</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Τριγ. μονάδες</string>
   <string name="radians">ΑΚΤΙΝΙΑ</string>
   <string name="degrees">ΜΟΙΡΕΣ</string>
-  <string name="theme">Θέμα</string>
   <string name="showDetails">Προβολή λεπτομερειών</string>
   <string name="floatingCalc">Αιωρούμενη αριθμομηχανή</string>
   <string name="vibrateOnPress">Δόνηση κατά το πάτημα</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Το Magikarp χρησιμοποίησε Splash αλλά δεν έγινε τίποτα.</string>
-  <string name="glass_start">Υπολογισμός</string>
   <string name="voice_detection_failed">Ο υπολογισμός απέτυχε. Δοκιμάστε ξανά;</string>
   <string name="voice_detection_repeat">Υπολογισμός ξανά;</string>
   <string name="speech_helper_negative" formatted="false">Αρνητικό %s</string>

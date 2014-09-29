@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">מטריצה</string>
   <string name="graph">גרף</string>
-  <string name="function">פונקציה</string>
   <string name="hexPanel">הקס</string>
   <string name="lock">נעל עמוד</string>
   <string name="unlock">פתח עמוד</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">הסתר הסטוריה</string>
   <string name="settings">הגדרות</string>
   <string name="det">דטרמיננטה</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">פתרון</string>
-  <string name="dotProduct">נקודה</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">דטרמיננטה</string>
-  <string name="eigenvalueDesc">ערכים עצמיים</string>
   <string name="plus_row">+שורה</string>
   <string name="minus_row">-שורה</string>
   <string name="plus_col">+עמודה</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">פעולות</string>
   <string name="pref_units">יחידות</string>
   <string name="pref_theme">ערכת עיצוב</string>
-  <string name="pref_about">אודות</string>
   <string name="returnToBasic">חזרה לחלונית בסיסית</string>
   <string name="infiniteScrolling">גלילה אינסופית</string>
   <string name="clickToOpenHistory">לחץ כדי לפתוח היסטוריה</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">יחידות בטריגונומטריה</string>
   <string name="radians">רדיאנים</string>
   <string name="degrees">מעלות</string>
-  <string name="theme">ערכת נושא</string>
   <string name="showDetails">הצג פרטים</string>
   <string name="floatingCalc">מחשבון צף</string>
   <string name="vibrateOnPress">רטט במגע</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp השתמש ב-Splash, אבל כלום לא קרה.</string>
-  <string name="glass_start">חשב</string>
   <string name="voice_detection_failed">חישוב נכשל, לנסות שוב?</string>
   <string name="voice_detection_repeat">לחשב שוב?</string>
   <string name="speech_helper_negative" formatted="false">שלילי %s</string>

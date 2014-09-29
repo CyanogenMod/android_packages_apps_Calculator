@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Pannello matrici</string>
   <string name="graph">Pannello grafici</string>
-  <string name="function">Pannello funzioni</string>
   <string name="hexPanel">Pannello esadecimale</string>
   <string name="lock">Blocca la pagina</string>
   <string name="unlock">Sblocca la pagina</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Nascondi cronologia</string>
   <string name="settings">Impostazioni</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Autov.</string>
-  <string name="solve">Risolvi</string>
-  <string name="dotProduct">Scal.</string>
-  <string name="crossProduct">Vett.</string>
-  <string name="determinantDesc">Determinante</string>
-  <string name="eigenvalueDesc">Autovalori</string>
   <string name="plus_row">+Righe</string>
   <string name="minus_row">-Righe</string>
   <string name="plus_col">+Col.</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Azioni</string>
   <string name="pref_units">Unità</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Info</string>
   <string name="returnToBasic">Ritorna al pannello base</string>
   <string name="infiniteScrolling">Scorrimento infinito</string>
   <string name="clickToOpenHistory">Clicca per la cronologia</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Unità trigonometriche</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Mostra dettagli</string>
   <string name="floatingCalc">Calcolatrice fluttuante</string>
   <string name="vibrateOnPress">Vibra al tocco</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">,</string>
   <string name="easter_egg">Magikarp usa Splash ma non succede nulla!</string>
-  <string name="glass_start">Calcola</string>
   <string name="voice_detection_failed">Calcolo non riuscito. Riprovare?</string>
   <string name="voice_detection_repeat">Calcolare nuovamente?</string>
   <string name="speech_helper_negative" formatted="false">Negativo %s</string>

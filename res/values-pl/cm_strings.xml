@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Macierze</string>
   <string name="graph">Wykresy</string>
-  <string name="function">Funkcje</string>
   <string name="hexPanel">Hex</string>
   <string name="lock">Zablokuj stronę</string>
   <string name="unlock">Odblokuj stronę</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Ukryj historię</string>
   <string name="settings">Ustawienia</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Własne</string>
-  <string name="solve">Rozwiąż</string>
-  <string name="dotProduct">Kropka</string>
-  <string name="crossProduct">Krzyż</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Wartości własne</string>
   <string name="plus_row">+Row</string>
   <string name="minus_row">-Row</string>
   <string name="plus_col">+Col</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Akcje</string>
   <string name="pref_units">Jednostki</string>
   <string name="pref_theme">Wygląd</string>
-  <string name="pref_about">O aplikacji</string>
   <string name="returnToBasic">Wróć do trybu podstawowego</string>
   <string name="infiniteScrolling">Nieskończone przewijanie</string>
   <string name="clickToOpenHistory">Kliknij, aby otworzyć historię</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Jednostki trygonometryczne</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Motyw</string>
   <string name="showDetails">Pokaż szczegóły</string>
   <string name="floatingCalc">Pływający kalkulator</string>
   <string name="vibrateOnPress">Wibruj po dotknięciu</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp użył Chlupania, ale nic się nie stało.</string>
-  <string name="glass_start">Oblicz</string>
   <string name="voice_detection_failed">Obliczanie nie powiodło się. Spróbować ponownie?</string>
   <string name="voice_detection_repeat">Obliczyć ponownie?</string>
   <string name="speech_helper_negative" formatted="false">Ujemne %s</string>

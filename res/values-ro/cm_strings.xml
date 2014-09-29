@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Panou matrice</string>
   <string name="graph">Panou grafic</string>
-  <string name="function">Panou funcție</string>
   <string name="hexPanel">Panou hex</string>
   <string name="lock">Blocare pagină</string>
   <string name="unlock">Deblocare pagină</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Ascundeți istoricul</string>
   <string name="settings">Setări</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Rezolvă</string>
-  <string name="dotProduct">Punct</string>
-  <string name="crossProduct">Cruce</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Valori Eigen</string>
   <string name="plus_row">+Rând</string>
   <string name="minus_row">-Rând</string>
   <string name="plus_col">+Col</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Acțiuni</string>
   <string name="pref_units">Unități</string>
   <string name="pref_theme">Temă</string>
-  <string name="pref_about">Despre</string>
   <string name="returnToBasic">Întoarcere la panoul de bază</string>
   <string name="infiniteScrolling">Scroll infinit</string>
   <string name="clickToOpenHistory">Click pentru a deschide istoricul</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Unități trig</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Temă</string>
   <string name="showDetails">Arată detalii</string>
   <string name="floatingCalc">Calculator numere raționale</string>
   <string name="vibrateOnPress">Vibrație la apăsare</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp a folosit Splash, dar nimic nu s-a întâmplat.</string>
-  <string name="glass_start">Calculează</string>
   <string name="voice_detection_failed">Calcularea a eșuat. Încearcă din nou?</string>
   <string name="voice_detection_repeat">Calculează din nou?</string>
   <string name="speech_helper_negative" formatted="false">Negativ %s</string>

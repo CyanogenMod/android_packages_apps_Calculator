@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Panel matriks</string>
   <string name="graph">Panel grafik</string>
-  <string name="function">Panel fungsi</string>
   <string name="hexPanel">Panel hex</string>
   <string name="lock">Kunci halaman</string>
   <string name="unlock">Buka kunci halaman</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Sembunyikan riwayat</string>
   <string name="settings">Pengaturan</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Selesaikan</string>
-  <string name="dotProduct">Titik</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Nilai Eigen</string>
   <string name="plus_row">+Baris</string>
   <string name="minus_row">-Baris</string>
   <string name="plus_col">+Kolom</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Tindakan</string>
   <string name="pref_units">Unit</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Tentang</string>
   <string name="returnToBasic">Kembali ke Panel dasar</string>
   <string name="infiniteScrolling">Scroll tidak terbatas</string>
   <string name="clickToOpenHistory">Klik untuk membuka riwayat</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Unit Trigonometri</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Tampilkan rincian</string>
   <string name="floatingCalc">Kalkulator floating</string>
   <string name="vibrateOnPress">Bergetar saat di klik</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp menggunakan Splash tetapi tidak ada yang terjadi.</string>
-  <string name="glass_start">Hitung</string>
   <string name="voice_detection_failed">Penghitungan gagal. Coba lagi?</string>
   <string name="voice_detection_repeat">Hitung lagi?</string>
   <string name="speech_helper_negative" formatted="false">Negatif %s</string>

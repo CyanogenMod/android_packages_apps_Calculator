@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">行列パネル</string>
   <string name="graph">グラフパネル</string>
-  <string name="function">関数パネル</string>
   <string name="hexPanel">Hexパネル</string>
   <string name="lock">ページを固定</string>
   <string name="unlock">ページの固定を解除</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">履歴を表示しない</string>
   <string name="settings">設定</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Solve</string>
-  <string name="dotProduct">Dot</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Eigenvalues</string>
   <string name="plus_row">+Row</string>
   <string name="minus_row">-Row</string>
   <string name="plus_col">+Col</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">動作</string>
   <string name="pref_units">単位</string>
   <string name="pref_theme">テーマ</string>
-  <string name="pref_about">情報</string>
   <string name="returnToBasic">基本のパネルに戻る</string>
   <string name="infiniteScrolling">無限スクロール</string>
   <string name="clickToOpenHistory">クリックして履歴を開く</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">角度の単位</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">テーマ</string>
   <string name="showDetails">詳細を表示</string>
   <string name="floatingCalc">フローティング電卓</string>
   <string name="vibrateOnPress">クリックで振動</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">コイキングは　はねるを　つかった！　しかし　なにもおこらない</string>
-  <string name="glass_start">計算</string>
   <string name="voice_detection_failed">計算できませんでした。再試行しますか？</string>
   <string name="voice_detection_repeat">もう一度計算しますか？</string>
   <string name="speech_helper_negative" formatted="false">負の%s</string>

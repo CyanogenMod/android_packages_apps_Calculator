@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matrices</string>
   <string name="graph">Gráfiques</string>
-  <string name="function">Funciones</string>
   <string name="hexPanel">Dec/Bin/Hex</string>
   <string name="lock">Bloquiar páxina</string>
   <string name="unlock">Desbloquiar páxina</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Anubrir historial</string>
   <string name="settings">Axustes</string>
   <string name="det">determ</string>
-  <string name="eigenvalue">Autoval</string>
-  <string name="solve">Resolv</string>
-  <string name="dotProduct">\nProd. Escalar\n</string>
-  <string name="crossProduct">\nProd. Vectorial\n</string>
-  <string name="determinantDesc">Determinante</string>
-  <string name="eigenvalueDesc">Autovalores</string>
   <string name="plus_row">Fil+</string>
   <string name="minus_row">Fil-</string>
   <string name="plus_col">Col+</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Aiciones</string>
   <string name="pref_units">Unidaes</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Tocante a</string>
   <string name="returnToBasic">Volver a funciones básiques</string>
   <string name="infiniteScrolling">Desplazamientu infinitu</string>
   <string name="clickToOpenHistory">Tocar p\'abrir l\'historial</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Uds. trigonométriques</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRA</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Amosar detalles</string>
   <string name="floatingCalc">Calculadora flotante</string>
   <string name="vibrateOnPress">Vibrar al tocar</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">,</string>
   <string name="easter_egg">Magikarp chiscó, pero nun asocedió un res.</string>
-  <string name="glass_start">Calcular</string>
   <string name="voice_detection_failed">Falló\'l cálculu. ¿Intentalo otra vegada?</string>
   <string name="voice_detection_repeat">¿Calcular otra vegada?</string>
   <string name="speech_helper_negative" formatted="false">Negativu %s</string>

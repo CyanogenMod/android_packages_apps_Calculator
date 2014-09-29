@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matrix panel</string>
   <string name="graph">Graafiline paneel</string>
-  <string name="function">Funktsiooni paneel</string>
   <string name="hexPanel">Hex paneel</string>
   <string name="lock">Lukusta leht</string>
   <string name="unlock">Ava leht</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Peida ajalugu</string>
   <string name="settings">Seaded</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Lahenda</string>
-  <string name="dotProduct">Skalaarkorrutis</string>
-  <string name="crossProduct">Vektorkorrutis</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Eigenväärtused</string>
   <string name="plus_row">+Rida</string>
   <string name="minus_row">-Rida</string>
   <string name="plus_col">+Veerg</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Tegevused</string>
   <string name="pref_units">Ühikud</string>
   <string name="pref_theme">Teema</string>
-  <string name="pref_about">Üldist</string>
   <string name="returnToBasic">Naaske põhilehele</string>
   <string name="infiniteScrolling">Lõpmatu kerimine</string>
   <string name="clickToOpenHistory">Kliki, et avada ajalugu</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Trigon. ühikud</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Teema</string>
   <string name="showDetails">Kuva üksikasjad</string>
   <string name="floatingCalc">Ujuv kalkulaator</string>
   <string name="vibrateOnPress">Vibreeri vajutusel</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp kasutas Plärtsu, kuid midagi ei juhtunud.</string>
-  <string name="glass_start">Arvuta</string>
   <string name="voice_detection_failed">Arvutus nurjus. Proovime uuesti?</string>
   <string name="voice_detection_repeat">Arvutan uuesti?</string>
   <string name="speech_helper_negative" formatted="false">Negatiivne %s</string>

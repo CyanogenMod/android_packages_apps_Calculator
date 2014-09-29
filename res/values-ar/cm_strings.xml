@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">لوحة المصفوفة</string>
   <string name="graph">لوحة الرسم البياني</string>
-  <string name="function">لوحة الدالة</string>
   <string name="hexPanel">لوحة التعريف</string>
   <string name="lock">قفل الصفحة</string>
   <string name="unlock">افتح قفل الصفحة</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">إخفاء الحسابات</string>
   <string name="settings">إعدادات</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">حل</string>
-  <string name="dotProduct">Dot</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">المحددات</string>
-  <string name="eigenvalueDesc">قيم Eigen</string>
   <string name="plus_row">+Row</string>
   <string name="minus_row">-Row</string>
   <string name="plus_col">+Col</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Actions</string>
   <string name="pref_units">Units</string>
   <string name="pref_theme">موضوع</string>
-  <string name="pref_about">حول</string>
   <string name="returnToBasic">العودة إلى اللوحة الأساسية</string>
   <string name="infiniteScrolling">تمرير لانهائي</string>
   <string name="clickToOpenHistory">انقر لفتح التاريخ</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">وحدات حساب المثلثات</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">قالب</string>
   <string name="showDetails">إظهار التفاصيل</string>
   <string name="floatingCalc">آلة حاسبة عائمه</string>
   <string name="vibrateOnPress">يهتز عند النقر</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp المستخدمة في البداية ولكن لم يحدث شيء.</string>
-  <string name="glass_start">اله حاسبه</string>
   <string name="voice_detection_failed">الحساب فشل. حاول مرة أخرى؟</string>
   <string name="voice_detection_repeat">إحساب مرة أخرى؟</string>
   <string name="speech_helper_negative" formatted="false">السلبية %s</string>

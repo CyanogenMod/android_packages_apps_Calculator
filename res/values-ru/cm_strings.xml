@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Панель матриц</string>
   <string name="graph">Панель графиков</string>
-  <string name="function">Панель функций</string>
   <string name="hexPanel">Шестн. панель</string>
   <string name="lock">Заблокировать</string>
   <string name="unlock">Разблокировать</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Спрятать историю</string>
   <string name="settings">Настройки</string>
   <string name="det">Опр.</string>
-  <string name="eigenvalue">Собств.</string>
-  <string name="solve">Решить</string>
-  <string name="dotProduct">Скалярн.</string>
-  <string name="crossProduct">Векторн.</string>
-  <string name="determinantDesc">Определитель</string>
-  <string name="eigenvalueDesc">Собств. значение</string>
   <string name="plus_row">+Стр</string>
   <string name="minus_row">-Стр</string>
   <string name="plus_col">+Стлб</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Действия</string>
   <string name="pref_units">Единицы</string>
   <string name="pref_theme">Оформление</string>
-  <string name="pref_about">О программе</string>
   <string name="returnToBasic">Автовозврат на основную панель</string>
   <string name="infiniteScrolling">Бесконечная прокрутка</string>
   <string name="clickToOpenHistory">Открытие истории одним нажатием</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Тригоном. единицы</string>
   <string name="radians">Радианы</string>
   <string name="degrees">Градусы</string>
-  <string name="theme">Оформление</string>
   <string name="showDetails">Показать сведения</string>
   <string name="floatingCalc">Плавающий калькулятор</string>
   <string name="vibrateOnPress">Виброотклик</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">,</string>
   <string name="easter_egg">Поздравляю, вы нашли пасхальное яйцо.</string>
-  <string name="glass_start">Вычислить</string>
   <string name="voice_detection_failed">Вычисление не удалось. Попробовать снова?</string>
   <string name="voice_detection_repeat">Вычислить снова?</string>
   <string name="speech_helper_negative" formatted="false">Минус %s</string>

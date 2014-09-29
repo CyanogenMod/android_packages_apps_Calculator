@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Painel de matriz</string>
   <string name="graph">Painel gráfico</string>
-  <string name="function">Painel de função</string>
   <string name="hexPanel">Painel hexadecimal</string>
   <string name="lock">Bloquear página</string>
   <string name="unlock">Desbloquear página</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Esconder Histórico</string>
   <string name="settings">Preferências</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Autovalor</string>
-  <string name="solve">Resolver</string>
-  <string name="dotProduct">Interno</string>
-  <string name="crossProduct">Externo</string>
-  <string name="determinantDesc">Determinante</string>
-  <string name="eigenvalueDesc">Autovalores</string>
   <string name="plus_row">+Linha</string>
   <string name="minus_row">-Linha</string>
   <string name="plus_col">+Col</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Ações</string>
   <string name="pref_units">Unidades</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Sobre</string>
   <string name="returnToBasic">Retornar ao painel básico</string>
   <string name="infiniteScrolling">Rolagem infinita</string>
   <string name="clickToOpenHistory">Clique para abrir o histórico</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Unidades trig.</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Mostrar detalhes</string>
   <string name="floatingCalc">Calculadora flutuante</string>
   <string name="vibrateOnPress">Vibrar ao pressionar</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp usou Splash mas nada aconteceu.</string>
-  <string name="glass_start">Calcular</string>
   <string name="voice_detection_failed">O cálculo falhou. Tentar de novo?</string>
   <string name="voice_detection_repeat">Calcular de novo?</string>
   <string name="speech_helper_negative" formatted="false">Negativo %s</string>

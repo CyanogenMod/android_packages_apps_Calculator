@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">矩陣板面</string>
   <string name="graph">圖表板面</string>
-  <string name="function">函數板面</string>
   <string name="hexPanel">十六進制板面</string>
   <string name="lock">鎖定頁面</string>
   <string name="unlock">解鎖頁面</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">隱藏記錄</string>
   <string name="settings">設定</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Solve</string>
-  <string name="dotProduct">Dot</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Eigenvalues</string>
   <string name="plus_row">+Row</string>
   <string name="minus_row">-Row</string>
   <string name="plus_col">+Col</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">操作</string>
   <string name="pref_units">單位</string>
   <string name="pref_theme">主題</string>
-  <string name="pref_about">關於</string>
   <string name="returnToBasic">返回到基本板面</string>
   <string name="infiniteScrolling">無限滾動</string>
   <string name="clickToOpenHistory">按一下即可開啟記錄</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">角度單位</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">主題</string>
   <string name="showDetails">顯示詳細資訊</string>
   <string name="floatingCalc">浮動計算機</string>
   <string name="vibrateOnPress">當按下時震動</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">用盡了渾身力氣去解數，但依然無效。</string>
-  <string name="glass_start">計算</string>
   <string name="voice_detection_failed">計算失敗。再試一次？</string>
   <string name="voice_detection_repeat">再次計算嗎？</string>
   <string name="speech_helper_negative" formatted="false">負 %s</string>

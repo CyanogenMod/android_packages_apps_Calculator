@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matriks paneel</string>
   <string name="graph">Grafiese paneel</string>
-  <string name="function">Funksie paneel</string>
   <string name="hexPanel">Hex paneel</string>
   <string name="lock">Sluit bladsy</string>
   <string name="unlock">Ontsluit bladsy</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Versteek geskiedenis</string>
   <string name="settings">Instellings</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Los op</string>
-  <string name="dotProduct">Dot</string>
-  <string name="crossProduct">Cross</string>
-  <string name="determinantDesc">Bepaler</string>
-  <string name="eigenvalueDesc">Eiewaardes</string>
   <string name="plus_row">+Ry</string>
   <string name="minus_row">-Ry</string>
   <string name="plus_col">+Kol</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Aksies</string>
   <string name="pref_units">Eenhede</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Aangaande</string>
   <string name="returnToBasic">Terug na die basiese paneel</string>
   <string name="infiniteScrolling">Oneindige blaai</string>
   <string name="clickToOpenHistory">Raak om geskiedenis oop te maak.</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Trigonomie eenhede</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Vertoon besonderhede</string>
   <string name="floatingCalc">Swewende sakrekenaar</string>
   <string name="vibrateOnPress">Vibreer op kliek</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">,</string>
   <string name="easter_egg">\"Magikarp\" gebruik \"Splash\" maar niks het gebeur nie.</string>
-  <string name="glass_start">Bereken</string>
   <string name="voice_detection_failed">Berekening het misluk. Probeer weer?</string>
   <string name="voice_detection_repeat">Bereken weer?</string>
   <string name="speech_helper_negative" formatted="false">Negatief %s</string>

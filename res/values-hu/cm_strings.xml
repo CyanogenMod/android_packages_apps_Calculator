@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Mátrix panel</string>
   <string name="graph">Grafikon panel</string>
-  <string name="function">Függvény panel</string>
   <string name="hexPanel">Hexadecimális panel</string>
   <string name="lock">Lap zárolása</string>
   <string name="unlock">Lap feloldása</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Előzmények elrejtése</string>
   <string name="settings">Beállítások</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Sajátérték</string>
-  <string name="solve">Megoldás</string>
-  <string name="dotProduct">Skalárszorzat</string>
-  <string name="crossProduct">Vektoriális szorzat</string>
-  <string name="determinantDesc">Determináns</string>
-  <string name="eigenvalueDesc">Sajátérték</string>
   <string name="plus_row">+Sor</string>
   <string name="minus_row">-Sor</string>
   <string name="plus_col">+Oszlop</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Események</string>
   <string name="pref_units">Mértékegységek</string>
   <string name="pref_theme">Téma</string>
-  <string name="pref_about">Névjegy</string>
   <string name="returnToBasic">Visszatérés az alappanelre</string>
   <string name="infiniteScrolling">Végtelen görgetés</string>
   <string name="clickToOpenHistory">Kattintson az előzmények megnyitásához</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Trig. mértékegység</string>
   <string name="radians">Radián</string>
   <string name="degrees">Fok</string>
-  <string name="theme">Téma</string>
   <string name="showDetails">Részletek megjelenítése</string>
   <string name="floatingCalc">Lebegő kalkulátor</string>
   <string name="vibrateOnPress">Kattintáskor rezeg</string>
@@ -88,11 +79,9 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="store_tab_themes">Témák</string>
-  <string name="store_tab_extensions">Bővítmények</string>
   <string name="store_price_installed">Telepített</string>
   <string name="store_price_free">Ingyenes</string>
   <string name="easter_egg">Magikarp Splash-t használt, de nem történt semmi.</string>
-  <string name="glass_start">Kiszámol</string>
   <string name="voice_detection_failed">A kiszámítás nem sikerült. Megpróbálja újra?</string>
   <string name="voice_detection_repeat">Kiszámítja újra?</string>
   <string name="speech_helper_negative" formatted="false">Negatív %s</string>

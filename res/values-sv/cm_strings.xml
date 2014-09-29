@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matrispanel</string>
   <string name="graph">Grafpanel</string>
-  <string name="function">Funktionspanel</string>
   <string name="hexPanel">Hexpanel</string>
   <string name="lock">Lås sida</string>
   <string name="unlock">Lås upp sida</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Göm historik</string>
   <string name="settings">Inställningar</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Egenvärde</string>
-  <string name="solve">Lös</string>
-  <string name="dotProduct">Skalär</string>
-  <string name="crossProduct">Kryss</string>
-  <string name="determinantDesc">Determinant</string>
-  <string name="eigenvalueDesc">Egenvärden</string>
   <string name="plus_row">+Rad</string>
   <string name="minus_row">-Rad</string>
   <string name="plus_col">+Kol</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Åtgärder</string>
   <string name="pref_units">Enheter</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Om</string>
   <string name="returnToBasic">Återvänd till grundpanel</string>
   <string name="infiniteScrolling">Oändlig rullning</string>
   <string name="clickToOpenHistory">Tryck för att öppna historik</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Trigenheter</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Visa detaljer</string>
   <string name="floatingCalc">Svävande kalkylator</string>
   <string name="vibrateOnPress">Vibrera vid tryck</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
-  <string name="glass_start">Beräkna</string>
   <string name="voice_detection_failed">Beräkningen misslyckades. Försök igen?</string>
   <string name="voice_detection_repeat">Beräkna igen?</string>
   <string name="speech_helper_negative" formatted="false">Negativ %s</string>

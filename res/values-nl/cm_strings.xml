@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matrix</string>
   <string name="graph">Grafiek</string>
-  <string name="function">Functies</string>
   <string name="hexPanel">Hex</string>
   <string name="lock">Pagina vergrendelen</string>
   <string name="unlock">Pagina ontgrendelen</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Geschiedenis verbergen</string>
   <string name="settings">Instellingen</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Opl</string>
-  <string name="dotProduct">Inpr</string>
-  <string name="crossProduct">Uitpr</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Eigenwaarde</string>
   <string name="plus_row">+Rij</string>
   <string name="minus_row">-Rij</string>
   <string name="plus_col">+Kol</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">Acties</string>
   <string name="pref_units">Eenheden</string>
   <string name="pref_theme">Thema</string>
-  <string name="pref_about">Over</string>
   <string name="returnToBasic">Terug naar Basis</string>
   <string name="infiniteScrolling">Oneindig bladeren</string>
   <string name="clickToOpenHistory">Tikken voor geschiedenis</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Goniometrisch</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Thema</string>
   <string name="showDetails">Details weergeven</string>
   <string name="floatingCalc">Zwevende calculator</string>
   <string name="vibrateOnPress">Trillen bij tikken</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">,</string>
   <string name="easter_egg">Magikarp heeft \'Splash\' gebruikt, maar het had geen effect.</string>
-  <string name="glass_start">Berekenen</string>
   <string name="voice_detection_failed">Berekening mislukt. Opnieuw?</string>
   <string name="voice_detection_repeat">Opnieuw berekenen?</string>
   <string name="speech_helper_negative" formatted="false">Negatieve %s</string>

@@ -28,7 +28,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matrisseberechnung</string>
   <string name="graph">Diagrammen</string>
-  <string name="function">Funktiounen</string>
   <string name="hexPanel">Dez/Bin/Hex</string>
   <string name="lock">Säit spären</string>
   <string name="unlock">Säit entspären</string>
@@ -38,12 +37,6 @@
   <string name="hideHistory">Historique verstoppen</string>
   <string name="settings">Astellungen</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eegen</string>
-  <string name="solve">Léisen</string>
-  <string name="dotProduct">Punkt</string>
-  <string name="crossProduct">Kräiz</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Eegewäerter</string>
   <string name="plus_row">+Rei</string>
   <string name="minus_row">-Rei</string>
   <string name="plus_col">+Kol</string>
@@ -60,7 +53,6 @@
   <string name="pref_actions">Aktiounen</string>
   <string name="pref_units">Eenheeten</string>
   <string name="pref_theme">Design</string>
-  <string name="pref_about">Iwwer</string>
   <string name="returnToBasic">Zréck zu de Grondfunktiounen</string>
   <string name="clickToOpenHistory">Drécken, fir den Historique unzeweisen</string>
   <string name="digitGrouping">Zifferegruppéierung</string>

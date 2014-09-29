@@ -29,7 +29,6 @@
   <string name="mod">mod</string>
   <string name="matrix">Matris paneli</string>
   <string name="graph">Grafik paneli</string>
-  <string name="function">Fonksiyon paneli</string>
   <string name="hexPanel">Taban aritmetiği paneli</string>
   <string name="lock">Sayfayı kilitle</string>
   <string name="unlock">Sayfanın kilidini kaldır</string>
@@ -40,12 +39,6 @@
   <string name="hideHistory">Geçmişi gizle</string>
   <string name="settings">Ayarlar</string>
   <string name="det">det</string>
-  <string name="eigenvalue">Eigen</string>
-  <string name="solve">Çöz</string>
-  <string name="dotProduct">Nokta</string>
-  <string name="crossProduct">Çarpı</string>
-  <string name="determinantDesc">det</string>
-  <string name="eigenvalueDesc">Özdeğerler</string>
   <string name="plus_row">+Satır</string>
   <string name="minus_row">-Satır</string>
   <string name="plus_col">+Sütun</string>
@@ -62,7 +55,6 @@
   <string name="pref_actions">İşlevler</string>
   <string name="pref_units">Birimler</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_about">Hakkında</string>
   <string name="returnToBasic">Basit panele dön</string>
   <string name="infiniteScrolling">Sonsuz kaydırma</string>
   <string name="clickToOpenHistory">Geçmişi açmak için dokunun</string>
@@ -70,7 +62,6 @@
   <string name="trigUnits">Trigonometrik birimler</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
-  <string name="theme">Tema</string>
   <string name="showDetails">Ayrıntıları göster</string>
   <string name="floatingCalc">Yüzen hesap makinesi</string>
   <string name="vibrateOnPress">Dokununca titre</string>
@@ -88,7 +79,6 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Magikarp Başlangıcı kullandı ancak hiç bir şey olmadı.</string>
-  <string name="glass_start">Hesapla</string>
   <string name="voice_detection_failed">Hesaplama başarısız. Tekrar denensin mi?</string>
   <string name="voice_detection_repeat">Tekrar hesaplansın mı?</string>
   <string name="speech_helper_negative" formatted="false">Negatif %s</string>
