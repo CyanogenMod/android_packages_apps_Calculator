@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">asin</string>
@@ -31,6 +32,7 @@
   <string name="hexPanel">Dez/Bin/Hex</string>
   <string name="lock">Säit spären</string>
   <string name="unlock">Säit entspären</string>
+  <string name="info">Info</string>
   <string name="copy">\"%s\" kopéieren</string>
   <string name="remove_from_history">Aus dem Historique läschen</string>
   <string name="showHistory">Historique uweisen</string>
@@ -54,13 +56,16 @@
   <string name="pref_units">Eenheeten</string>
   <string name="pref_theme">Design</string>
   <string name="returnToBasic">Zréck zu de Grondfunktiounen</string>
+  <string name="infiniteScrolling">Onendlecht Scrollen</string>
   <string name="clickToOpenHistory">Drécken, fir den Historique unzeweisen</string>
   <string name="digitGrouping">Zifferegruppéierung</string>
   <string name="trigUnits">Wénkeleenheeten</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRAD</string>
+  <string name="floatingCalc">Schwiewenden Täscherechner</string>
+  <string name="vibrateOnPress">Bei Klick vibréieren</string>
   <string name="cling_simple_title">Wëllkomm</string>
-  <string name="cling_simple_msg">No lénks a riets wësche fir op weider Funktiounen zouzegräifen. Onnéideg Säite kënnen an den Astellungen deaktivéiert ginn.</string>
+  <string name="cling_simple_msg">No lénks a riets wësche fir op weider Funktiounen zouzegräifen. Onnéideg Säite kënnen an den Astellungen desaktivéiert ginn.</string>
   <string name="cling_matrix_title">Matrissen</string>
   <string name="cling_matrix_msg">Dréck hei fir Matrissen z\'erstellen an ze léisen.</string>
   <string name="cling_hex_title">Zuelesystem wiesselen</string>
@@ -72,4 +77,5 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Karpador benotzt Platscher. Näischt ass geschitt.</string>
+  <string name="speech_helper_negative" formatted="false">Negativ %s</string>
 </resources>
