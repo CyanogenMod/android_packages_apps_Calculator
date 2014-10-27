@@ -73,7 +73,7 @@
   <string name="cling_hex_title">更改基數</string>
   <string name="cling_hex_msg">在十進位 (dec)、二進位 (bin) 與十六進位 (hex) 之間切換。\n\n警告：如果您認為得到了錯誤的結果，您可能選錯了基數。預設是十進位。</string>
   <string name="cling_graph_title">圖表</string>
-  <string name="cling_graph_msg">圖表將會自動顯示在這裡。請至進階板面並使用 X 和 Y 建立一個函數。</string>
+  <string name="cling_graph_msg">圖表將會自動顯示在這裏。請至進階板面並使用 X 和 Y 建立一個函數。</string>
   <string name="cling_dismiss">確定</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
