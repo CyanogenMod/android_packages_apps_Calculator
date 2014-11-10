@@ -16,11 +16,36 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="application_copyright">Müəllif hüquqları \u00A9 2014 CyanogenMod Layihəsi</string>
+  <string name="X">X</string>
+  <string name="Y">Y</string>
+  <string name="arcsin">asin</string>
+  <string name="arccos">acos</string>
+  <string name="arctan">atan</string>
+  <string name="dx">dX</string>
+  <string name="dy">dY</string>
+  <string name="mod">mod</string>
+  <string name="matrix">Matris paneli</string>
+  <string name="graph">Qrafika paneli</string>
+  <string name="lock">Səhifəni kilitlə</string>
+  <string name="unlock">Səhifənin kilidini aç</string>
   <string name="info">Informasiya</string>
+  <string name="copy">Kopyala: \'%s\'</string>
   <string name="remove_from_history">Tarixdәn silmәk</string>
   <string name="showHistory">Tarixi göstәr</string>
   <string name="hideHistory">Tarixi gizlәt</string>
+  <string name="settings">Tənzimləmələr</string>
+  <string name="det">det</string>
+  <string name="plus_row">+Sətir</string>
+  <string name="minus_row">-Sətir</string>
+  <string name="plus_col">+Sütun</string>
+  <string name="minus_col">-Sütun</string>
+  <string name="matrix_transpose">T</string>
+  <string name="next">Sonrakı</string>
   <string name="pref_panels">Panellәr</string>
   <string name="pref_actions">Hәrәkәtlәr</string>
+  <string name="pref_theme">Tema</string>
   <string name="clickToOpenHistory">Tarixi açmaq üçün tıkla</string>
+  <string name="voice_detection_repeat">Yenidən hesablansın?</string>
+  <string name="speech_helper_negative" formatted="false">Mənfi %s</string>
 </resources>
