@@ -115,6 +115,7 @@ public class GlassHomeActivity extends Activity {
         EquationFormatter formatter = new EquationFormatter();
         List<String> exceptions = new LinkedList<String>();
         text = text.toLowerCase(Locale.US);
+        text = text.replace("percent", "%");
         text = text.replace("point", ".");
         text = text.replace("minus", "-");
         text = text.replace("plus", "+");
@@ -153,6 +154,10 @@ public class GlassHomeActivity extends Activity {
                 }
             }
 
+            // Special case for ' because yea...
+            if(input.substring(i, i+1).equals("'")) continue;
+
+            // Check for a-z
             Matcher matcher = pattern.matcher(input.substring(i, i+1));
             if(!matcher.matches()) text += input.substring(i, i+1);
         }
