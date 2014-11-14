@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp" >
+
+    <TextView
+        android:id="@+id/text2"
+        android:text="@string/voice_detection_repeat"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:text="@string/voice_detection_failed"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/text2" />
+
+    <ImageView
+        android:src="@drawable/ic_warning_150"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/text1"
+        android:layout_margin="20dp"/>
+
+</RelativeLayout>

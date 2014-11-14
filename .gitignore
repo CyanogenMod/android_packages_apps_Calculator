@@ -1,37 +1,6 @@
-# Can ignore specific files
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
 .DS_Store
-Thumbs.db
-
-# Use wildcards as well
-*~
-*.swp
-*.~
-
-# Can also ignore all directories and files in a directory.
-tmp/**/* 
-
-#ignore the binary
-bin/*
-
-#eclips stuff
-.project
-.classpath
-proguard-project.txt
-project.properties
-default.properties
- 
-.~lock.designDoc.odt#
-
-*.class
-
-scr
-
-gen/*
-
-.gradle/*
-
-.idea/*
-
-build/*
-
-*.iml
+/build

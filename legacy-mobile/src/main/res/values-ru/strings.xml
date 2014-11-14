@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <!-- Application name -->
+    <string name="app_name" msgid="8095131950334945205">Калькулятор</string>
+    <!-- If there is a syntax error in the user entered calculation, an error dialog will appear.  This is the title. -->
+    <string name="error" msgid="9197457880925804499">Ошибка</string>
+    <!-- Button name on screen to delete the last entered digit or operator -->
+    <string name="del" msgid="6248896117422989693">УДАЛИТЬ</string>
+    <!-- Button name on screen to clear the entire calculation field. [CHAR LIMIT=6] -->
+    <string name="clear" msgid="8103610981407459768">CLR</string>
+    <!-- Displayed on buttons on screen for the sin function. -->
+    <string name="sin" msgid="6793866152659175277">sin</string>
+    <!-- Displayed on buttons on screen for the cos function. -->
+    <string name="cos" msgid="6901841853098114414">cos</string>
+    <!-- Displayed on buttons on screen for the tan function. -->
+    <string name="tan" msgid="7957459816738554960">tan</string>
+    <!-- Displayed on buttons on screen for the e function. -->
+    <string name="e" msgid="1377847800971731483">e</string>
+    <!-- Displayed on buttons on screen for the ln function. -->
+    <string name="ln" msgid="6888500680285403344">ln</string>
+    <!-- Displayed on buttons on screen for the log function. -->
+    <string name="lg" msgid="873623857385418182">log</string>
+    <!-- Menu item text to take user to the screen with the basic digits and operators. -->
+    <string name="basic" msgid="7691469861698059753">Основная панель</string>
+    <!-- Menu item text to take user to the screen with the advanced functions, such as sin, cos, ln, log, etc. -->
+    <string name="advanced" msgid="7122495413742976492">Дополнительная панель</string>
+    <!-- Menu item text to clear the calculation history. -->
+    <string name="clear_history" msgid="8458043980601165012">Очистить историю</string>
+    <!-- Toast shown when text is copied to the clipboard. -->
+    <string name="text_copied_toast" msgid="5801480710472541833">Текст скопирован.</string>
+</resources>
