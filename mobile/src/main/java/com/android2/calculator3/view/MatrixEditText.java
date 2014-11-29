@@ -31,7 +31,6 @@ import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android2.calculator3.R;
 import com.xlythe.math.Constants;
@@ -40,30 +39,26 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
     private static final char[] ACCEPTED_CHARS = "0123456789,.-\u2212".toCharArray();
 
     private MatrixView mParent;
-    private AdvancedDisplay mDisplay;
+    private AdvancedDisplay.EventListener mListener;
 
-    public MatrixEditText(Context context) {
-        super(context);
-    }
-
-    public MatrixEditText(final AdvancedDisplay display, final MatrixView parent) {
-        super(display.getContext());
+    public MatrixEditText(MatrixView matrixView, AdvancedDisplay.EventListener listener) {
+        super(matrixView.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
         int padding = getContext().getResources().getDimensionPixelSize(R.dimen.matrix_edit_text_padding);
         setPadding(padding, 0, padding, 0);
-        this.mParent = parent;
-        this.mDisplay = display;
+        this.mParent = matrixView;
         setKeyListener(new MatrixKeyListener());
         setOnFocusChangeListener(this);
         setGravity(Gravity.CENTER);
+        mListener = listener;
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if(hasFocus) {
-            mDisplay.setActiveEditText(MatrixEditText.this);
+            mListener.onEditTextChanged(this);
             if(getText().toString().equals(Constants.NAN)) {
                 setText("");
             }
@@ -109,7 +104,7 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         @Override
         public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
             if(keyCode == KeyEvent.KEYCODE_DEL) {
-                if(mParent.isEmpty()) mDisplay.removeView(mParent);
+                if(mParent.isEmpty()) mListener.onRemoveView(mParent);
             }
             return super.onKeyDown(view, content, keyCode, event);
         }
@@ -135,5 +130,15 @@ public class MatrixEditText extends EditText implements OnFocusChangeListener {
         @Override
         public void onDestroyActionMode(ActionMode mode) {
         }
+    }
+
+    @Override
+    public void setTextSize(float size) {
+        super.setTextSize(0.4f * size);
+    }
+
+    @Override
+    public void setTextSize(int unit, float size) {
+        super.setTextSize(unit, 0.4f * size);
     }
 }

@@ -5,9 +5,13 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.text.Editable;
+import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
+import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.ContextMenu;
@@ -17,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,8 +32,12 @@ import com.xlythe.math.Constants;
 import com.xlythe.math.Solver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class AdvancedDisplay extends ScrollableDisplay {
@@ -38,6 +47,9 @@ public class AdvancedDisplay extends ScrollableDisplay {
 
     // For copy/paste
     private String[] mMenuItemsStrings;
+
+    // Restrict keys from hardware keyboards
+    private static final char[] ACCEPTED_CHARS = "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
 
     // Currently focused text box
     private EditText mActiveEditText;
@@ -58,14 +70,27 @@ public class AdvancedDisplay extends ScrollableDisplay {
 
     // Variables for setting custom views (like Matrices)
     private final Set<DisplayComponent> mComponents = new HashSet<DisplayComponent>();
+    private final EventListener mEventListener = new EventListener() {
+        @Override
+        public void onEditTextChanged(EditText editText) {
+            mActiveEditText = editText;
+        }
+
+        @Override
+        public void onRemoveView(View view) {
+            removeView(view);
+        }
+    };
 
     // Variables to apply to underlying EditTexts
+    private Map<String, Sync> mRegisteredSyncs = new HashMap<String, Sync>();
     private float mMaximumTextSize;
     private float mMinimumTextSize;
     private float mStepTextSize;
     private float mTextSize;
     private int mTextColor;
     private Editable.Factory mFactory;
+    private KeyListener mKeyListener;
     private final List<TextWatcher> mTextWatchers = new ArrayList<TextWatcher>();
     private final TextWatcher mTextWatcher = new TextWatcher() {
         @Override
@@ -123,11 +148,78 @@ public class AdvancedDisplay extends ScrollableDisplay {
             setTextSize(TypedValue.COMPLEX_UNIT_PX, mMaximumTextSize);
             setMinimumHeight((int) (mMaximumTextSize * 1.2) + getPaddingBottom() + getPaddingTop());
         }
+
+        Editable.Factory factory = new CalculatorEditable.Factory();
+        setEditableFactory(factory);
+
+        final List<String> keywords = Arrays.asList(
+                context.getString(R.string.arcsin) + "(",
+                context.getString(R.string.arccos) + "(",
+                context.getString(R.string.arctan) + "(",
+                context.getString(R.string.fun_sin) + "(",
+                context.getString(R.string.fun_cos) + "(",
+                context.getString(R.string.fun_tan) + "(",
+                context.getString(R.string.fun_log) + "(",
+                context.getString(R.string.mod) + "(",
+                context.getString(R.string.fun_ln) + "(",
+                context.getString(R.string.det) + "(",
+                context.getString(R.string.dx),
+                context.getString(R.string.dy),
+                context.getString(R.string.cbrt) + "(");
+        NumberKeyListener calculatorKeyListener = new NumberKeyListener() {
+            @Override
+            public int getInputType() {
+                return EditorInfo.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
+            }
+
+            @Override
+            protected char[] getAcceptedChars() {
+                return ACCEPTED_CHARS;
+            }
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                /*
+                 * the EditText should still accept letters (eg. 'sin') coming from the on-screen touch buttons, so don't filter anything.
+                 */
+                return null;
+            }
+
+            @Override
+            public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_DEL) {
+                    int selectionHandle = getSelectionStart();
+                    if(selectionHandle == 0) {
+                        // Remove the view in front
+                        int index = getChildIndex(getActiveEditText());
+                        if(index > 0) {
+                            removeView(getChildAt(index - 1));
+                        }
+                    } else {
+                        // Check and remove keywords
+                        String textBeforeInsertionHandle = getActiveEditText().getText().toString().substring(0, selectionHandle);
+                        String textAfterInsertionHandle = getActiveEditText().getText().toString().substring(selectionHandle, getActiveEditText().getText().toString().length());
+
+                        for(String s : keywords) {
+                            if(textBeforeInsertionHandle.endsWith(s)) {
+                                int deletionLength = s.length();
+                                String text = textBeforeInsertionHandle.substring(0, textBeforeInsertionHandle.length() - deletionLength) + textAfterInsertionHandle;
+                                getActiveEditText().setText(text);
+                                setSelection(selectionHandle - deletionLength);
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return super.onKeyDown(view, content, keyCode, event);
+            }
+        };
+        setKeyListener(calculatorKeyListener);
     }
 
     public void setEditableFactory(Editable.Factory factory) {
         mFactory = factory;
-        apply(this, new Sync() {
+        registerSync(new Sync("setEditableFactory") {
             @Override
             public void apply(TextView textView) {
                 textView.setEditableFactory(mFactory);
@@ -135,9 +227,19 @@ public class AdvancedDisplay extends ScrollableDisplay {
         });
     }
 
+    public void setKeyListener(KeyListener input) {
+        mKeyListener = input;
+        registerSync(new Sync("setKeyListener") {
+            @Override
+            public void apply(TextView textView) {
+                textView.setKeyListener(mKeyListener);
+            }
+        });
+    }
+
     public void setTextColor(int color) {
         mTextColor = color;
-        apply(this, new Sync() {
+        registerSync(new Sync("setTextColor") {
             @Override
             public void apply(TextView textView) {
                 textView.setTextColor(mTextColor);
@@ -156,7 +258,7 @@ public class AdvancedDisplay extends ScrollableDisplay {
     public void setTextSize(final int unit, float size) {
         final float oldTextSize = mTextSize;
         mTextSize = size;
-        apply(this, new Sync() {
+        registerSync(new Sync("setTextSize") {
             @Override
             public void apply(TextView textView) {
                 textView.setTextSize(unit, mTextSize);
@@ -200,6 +302,11 @@ public class AdvancedDisplay extends ScrollableDisplay {
         mTextWatchers.add(watcher);
     }
 
+    protected void registerSync(Sync sync) {
+        mRegisteredSyncs.put(sync.tag, sync);
+        apply(this, sync);
+    }
+
     private void apply(View view, Sync sync) {
         if(view instanceof ViewGroup) {
             ViewGroup vg = (ViewGroup) view;
@@ -238,6 +345,15 @@ public class AdvancedDisplay extends ScrollableDisplay {
         setTextSize(TypedValue.COMPLEX_UNIT_PX, getVariableTextSize(getText().toString()));
     }
 
+    protected int getSelectionStart() {
+        if(getActiveEditText() == null) return 0;
+        return getActiveEditText().getSelectionStart();
+    }
+
+    protected void setSelection(int position) {
+        getActiveEditText().setSelection(position);
+    }
+
     /**
      * Clears the text in the display
      * */
@@ -249,6 +365,9 @@ public class AdvancedDisplay extends ScrollableDisplay {
         }
         mRoot.removeAllViews();
         mActiveEditText = null;
+
+        // Always start with a CalculatorEditText
+        addView(CalculatorEditText.getInstance(getContext(), mEventListener));
     }
 
     /**
@@ -305,7 +424,7 @@ public class AdvancedDisplay extends ScrollableDisplay {
                         String equation = c.parse(delta);
                         if(equation != null) {
                             // We found a custom view
-                            mRoot.addView(c.getView(mSolver, equation));
+                            mRoot.addView(c.getView(getContext(), mSolver, equation, mEventListener));
 
                             // Keep EditTexts in between custom views
                             splitText(cursor, index, delta);
@@ -336,20 +455,23 @@ public class AdvancedDisplay extends ScrollableDisplay {
                 int cursor = getActiveEditText().getSelectionStart();
                 getActiveEditText().getText().insert(cursor, delta);
             }
-            apply(this, new Sync() {
-                @Override
-                public void apply(TextView textView) {
-                    textView.setTextColor(mTextColor);
-                }
-            });
         }
     }
 
     private void splitText(int cursor, int index, String text) {
+        // Grab the left and right strings
         final String leftText = getActiveEditText().getText().toString().substring(0, cursor);
         final String rightText = getActiveEditText().getText().toString().substring(cursor);
+
+        // Update the left EditText
         getActiveEditText().setText(leftText);
-        CalculatorEditText.load(rightText, this, index + 2);
+
+        // Create a right EditText
+        EditText et = CalculatorEditText.getInstance(getContext(), mEventListener);
+        et.setText(rightText);
+        addView(et, index + 2);
+
+        // Decide who needs focus
         if(text.isEmpty()) {
             mRoot.getChildAt(index + 1).requestFocus();
         } else {
@@ -362,7 +484,7 @@ public class AdvancedDisplay extends ScrollableDisplay {
         mSolver = solver;
     }
 
-    public EditText getActiveEditText() {
+    protected EditText getActiveEditText() {
         return mActiveEditText;
     }
 
@@ -436,9 +558,6 @@ public class AdvancedDisplay extends ScrollableDisplay {
         // Remove existing text
         clear();
 
-        // Always start with a CalculatorEditText
-        CalculatorEditText.load("", this, 0);
-
         // Clear on null
         if(text == null) return;
 
@@ -455,10 +574,10 @@ public class AdvancedDisplay extends ScrollableDisplay {
                 String equation = c.parse(text);
                 if(equation != null) {
                     // We found a custom view
-                    mRoot.addView(c.getView(mSolver, equation));
+                    mRoot.addView(c.getView(getContext(), mSolver, equation, mEventListener));
 
                     // Keep EditTexts in between custom views
-                    CalculatorEditText.load(this);
+                    addView(CalculatorEditText.getInstance(getContext(), mEventListener));
 
                     // Update text and loop again
                     text = text.substring(equation.length());
@@ -477,6 +596,14 @@ public class AdvancedDisplay extends ScrollableDisplay {
 
     public void registerComponent(DisplayComponent component) {
         mComponents.add(component);
+    }
+
+    public void registerComponents(Collection<DisplayComponent> components) {
+        mComponents.addAll(components);
+    }
+
+    public Set<DisplayComponent> getComponents() {
+        return mComponents;
     }
 
     // Everything below is for copy/paste
@@ -553,7 +680,7 @@ public class AdvancedDisplay extends ScrollableDisplay {
          * because the base can change (from decimal to binary for instance).
          * Useful for adding comas, or whatever else you need.
          * */
-        public View getView(Solver solver, String equation);
+        public View getView(Context context, Solver solver, String equation, EventListener listener);
 
         /**
          * Return the text you claim is yours, but only if the equation starts with it.
@@ -564,8 +691,32 @@ public class AdvancedDisplay extends ScrollableDisplay {
         public String parse(String equation);
      }
 
-    private interface Sync {
-        void apply(TextView textView);
+    public static interface EventListener {
+        public void onEditTextChanged(EditText editText);
+
+        public void onRemoveView(View view);
+    }
+
+    public abstract class Sync {
+        private String tag;
+        Sync(String tag) {
+            this.tag = tag;
+        }
+
+        public abstract void apply(TextView textView);
+
+        @Override
+        public int hashCode() {
+            return tag.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if(o instanceof Sync) {
+                return ((Sync) o).tag.equals(tag);
+            }
+            return false;
+        }
     }
 
     public interface OnTextSizeChangeListener {
@@ -586,29 +737,15 @@ public class AdvancedDisplay extends ScrollableDisplay {
         public void addView(View child, int index) {
             super.addView(child, index);
 
-            // Apply all our custom variables to our lovely children
-            apply(child, new Sync() {
+            for(Map.Entry<String, Sync> sync : mRegisteredSyncs.entrySet()) {
+                // Apply all our custom variables to our lovely children
+                apply(child, sync.getValue());
+            }
+
+            apply(child, new Sync("addTextChangedListener") {
                 @Override
                 public void apply(TextView textView) {
                     textView.addTextChangedListener(mTextWatcher);
-                }
-            });
-            apply(this, new Sync() {
-                @Override
-                public void apply(TextView textView) {
-                    //textView.setEditableFactory(mFactory); TODO
-                }
-            });
-            apply(this, new Sync() {
-                @Override
-                public void apply(TextView textView) {
-                    textView.setTextColor(mTextColor);
-                }
-            });
-            apply(this, new Sync() {
-                @Override
-                public void apply(TextView textView) {
-                    textView.setTextSize(mTextSize);
                 }
             });
         }

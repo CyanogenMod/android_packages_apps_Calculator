@@ -25,7 +25,7 @@
 
     <com.android2.calculator3.view.AdvancedDisplay
         android:id="@+id/formula"
-        style="@style/DisplayEditTextStyle.Formula"
+        style="@style/Theme.Calculator.Display.Main.Formula"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text|textNoSuggestions"
@@ -33,7 +33,7 @@
 
     <com.android2.calculator3.view.AdvancedDisplay
         android:id="@+id/result"
-        style="@style/DisplayEditTextStyle.Result"
+        style="@style/Theme.Calculator.Display.Main.Result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/formula"

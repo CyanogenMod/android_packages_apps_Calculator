@@ -16,7 +16,7 @@
     <!-- App copyright -->
     <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
     <!-- App version -->
-    <string name="application_version" translatable="false">v3.5.3</string>
+    <string name="application_version" translatable="false">v5.0</string>
 
     <!-- Displayed letters for the hex digit buttons -->
     <string name="A" translatable="false">A</string>
@@ -84,6 +84,7 @@
     <!-- Menu item text to explain themes. -->
     <string name="info">Info</string>
 
+    <string name="text_copied_toast">Text copied.</string>
     <string name="copy">Copy \'%s\'</string>
     <!-- Menu item for removing item from history -->
     <string name="remove_from_history">Remove from history</string>

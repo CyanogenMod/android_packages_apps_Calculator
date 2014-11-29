@@ -192,8 +192,12 @@ public class MatrixModule extends Module {
         // Store everything as Object, and cast out later
         Object[] pieces = new Object[parts.length];
         for(int i = 0; i < parts.length; i++) {
-            if(parts[i].startsWith("[[")) pieces[i] = parseMatrix(parts[i]);
-            else pieces[i] = Double.parseDouble(parts[i].replace('\u2212', '-'));
+            if(parts[i].startsWith("[[")) {
+                pieces[i] = parseMatrix(parts[i]);
+            }
+            else {
+                pieces[i] = Double.parseDouble(getSolver().solve(parts[i]));
+            }
         }
 
         // Work on the operators in order of their precedence.

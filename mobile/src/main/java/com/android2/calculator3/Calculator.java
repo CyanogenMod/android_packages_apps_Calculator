@@ -36,6 +36,7 @@ import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -44,6 +45,8 @@ import android.widget.TextView;
 import com.android2.calculator3.view.AdvancedDisplay.OnTextSizeChangeListener;
 import com.android2.calculator3.CalculatorExpressionEvaluator.EvaluateCallback;
 import com.android2.calculator3.view.AdvancedDisplay;
+import com.android2.calculator3.view.MatrixView;
+import com.xlythe.math.Solver;
 
 public class Calculator extends Activity
         implements OnTextSizeChangeListener, EvaluateCallback, OnLongClickListener {
@@ -94,15 +97,6 @@ public class Calculator extends Activity
         }
     };
 
-    private final Editable.Factory mFormulaEditableFactory = new Editable.Factory() {
-        @Override
-        public Editable newEditable(CharSequence source) {
-            final boolean isEdited = mCurrentState == CalculatorState.INPUT
-                    || mCurrentState == CalculatorState.ERROR;
-            return new CalculatorExpressionBuilder(source, mTokenizer, isEdited);
-        }
-    };
-
     private CalculatorState mCurrentState;
     private CalculatorExpressionTokenizer mTokenizer;
     private CalculatorExpressionEvaluator mEvaluator;
@@ -145,7 +139,6 @@ public class Calculator extends Activity
         mFormulaEditText.setText(mTokenizer.getLocalizedExpression(
                 savedInstanceState.getString(KEY_CURRENT_EXPRESSION, "")));
         mEvaluator.evaluate(mFormulaEditText.getText(), this);
-        mFormulaEditText.setEditableFactory(mFormulaEditableFactory);
         mFormulaEditText.addTextChangedListener(mFormulaTextWatcher);
         mFormulaEditText.setOnKeyListener(mFormulaOnKeyListener);
         mFormulaEditText.setOnTextSizeChangeListener(this);
@@ -153,6 +146,12 @@ public class Calculator extends Activity
         mDeleteButton.setOnLongClickListener(this);
         mResultEditText.setTextColor(getResources().getColor(R.color.display_result_text_color));
         mResultEditText.setEnabled(false);
+
+        mFormulaEditText.registerComponent(new MatrixView.DisplayComponent());
+        mResultEditText.registerComponents(mFormulaEditText.getComponents());
+
+        // Disable IME for this application
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     }
 
     @Override

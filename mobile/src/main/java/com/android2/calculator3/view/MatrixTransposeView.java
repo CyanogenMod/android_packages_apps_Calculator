@@ -39,26 +39,6 @@ public class MatrixTransposeView extends TextView {
         setPadding(0, 0, 0, 0);
     }
 
-    public static boolean load(final MutableString text, final AdvancedDisplay parent) {
-        boolean changed = MatrixTransposeView.load(text, parent, parent.getChildCount());
-        if(changed) {
-            // Always append a trailing EditText
-            CalculatorEditText.load(parent);
-        }
-        return changed;
-    }
-
-    public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
-        if(!text.startsWith(PATTERN)) return false;
-
-        text.setText(text.substring(PATTERN.length()));
-
-        MatrixTransposeView mv = new MatrixTransposeView(parent);
-        parent.addView(mv, pos);
-
-        return true;
-    }
-
     @Override
     public String toString() {
         return PATTERN;

@@ -3,6 +3,7 @@ package com.android2.calculator3.view;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -18,17 +19,12 @@ import java.util.regex.Pattern;
 
 public class MatrixView extends TableLayout {
     private int mRows, mColumns = 0;
-    private AdvancedDisplay mParent;
+    private AdvancedDisplay.EventListener mListener;
     private Solver mSolver;
     private String mSeparator;
 
     public MatrixView(Context context) {
         super(context);
-    }
-
-    public MatrixView(AdvancedDisplay parent) {
-        super(parent.getContext());
-        this.mParent = parent;
         setup();
     }
 
@@ -69,52 +65,11 @@ public class MatrixView extends TableLayout {
         return input;
     }
 
-    public static boolean load(final MutableString text, final AdvancedDisplay parent) {
-        boolean changed = MatrixView.load(text, parent, parent.getChildCount());
-        if(changed) {
-            // Always append a trailing EditText
-            CalculatorEditText.load(parent);
-        }
-        return changed;
-    }
-
-    public static boolean load(final MutableString text, final AdvancedDisplay parent, final int pos) {
-        if(!MatrixView.verify(text)) return false;
-
-        String matrix = MatrixView.parseMatrix(text.getText());
-        text.setText(text.substring(matrix.length()));
-        int rows = MatrixView.countOccurrences(matrix, '[') - 1;
-        int columns = MatrixView.countOccurrences(matrix, getSeparator().charAt(0)) / rows + 1;
-
-        MatrixView mv = new MatrixView(parent);
-        for(int i = 0; i < rows; i++) {
-            mv.addRow();
-        }
-        for(int i = 0; i < columns; i++) {
-            mv.addColumn();
-        }
-        String[] data = matrix.split(Pattern.quote(getSeparator()) + "|\\]\\[");
-        for(int order = 0, row = 0; row < rows; row++) {
-            TableRow tr = (TableRow) mv.getChildAt(row);
-            for(int column = 0; column < columns; column++) {
-                EditText input = (EditText) tr.getChildAt(column);
-                input.setText(data[order].replaceAll("[\\[\\]]", ""));
-                order++;
-            }
-        }
-        AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER_VERTICAL;
-        mv.setLayoutParams(params);
-        parent.addView(mv, pos);
-
-        return true;
-    }
-
-    private static boolean verify(MutableString text) {
+    private static boolean verify(String text) {
         String separator = getSeparator();
         String decimal = getDecimal();
         String validMatrix = "\\[(\\[[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal) + "[A-F0-9]*)?(" + Pattern.quote(separator) + "[\u2212-]?[A-F0-9]*(" + Pattern.quote(decimal) + "[A-F0-9]*)?)*\\])+\\].*";
-        return text.getText().matches(validMatrix);
+        return text.matches(validMatrix);
     }
 
     private static String parseMatrix(String text) {
@@ -167,7 +122,7 @@ public class MatrixView extends TableLayout {
     }
 
     private EditText createEditText() {
-        final EditText et = new MatrixEditText(mParent, this);
+        final EditText et = new MatrixEditText(this, mListener);
         et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
         return et;
     }
@@ -176,7 +131,7 @@ public class MatrixView extends TableLayout {
         mRows--;
         removeViewAt(getChildCount() - 1);
 
-        if(mRows == 0 || mColumns == 0) mParent.removeView(this);
+        if(mRows == 0 || mColumns == 0) mListener.onRemoveView(this);
     }
 
     public void removeColumn() {
@@ -187,7 +142,7 @@ public class MatrixView extends TableLayout {
             tr.removeViewAt(tr.getChildCount() - 1);
         }
 
-        if(mRows == 0 || mColumns == 0) mParent.removeView(this);
+        if(mRows == 0 || mColumns == 0) mListener.onRemoveView(this);
     }
 
     public SimpleMatrix getSimpleMatrix() throws SyntaxException {
@@ -267,7 +222,8 @@ public class MatrixView extends TableLayout {
                 else if(currentView == tr.getChildAt(column)) foundCurrentView = true;
             }
         }
-        return mParent.getChildAt(mParent.getChildIndex(this) + 1);
+        AdvancedDisplay parent = (AdvancedDisplay) getParent();
+        return parent.getChildAt(parent.getChildIndex(this) + 1);
     }
 
     View previousView(View currentView) {
@@ -279,7 +235,8 @@ public class MatrixView extends TableLayout {
                 else if(currentView == tr.getChildAt(column)) foundCurrentView = true;
             }
         }
-        return mParent.getChildAt(mParent.getChildIndex(this) - 1);
+        AdvancedDisplay parent = (AdvancedDisplay) getParent();
+        return parent.getChildAt(parent.getChildIndex(this) - 1);
     }
 
     @Override
@@ -318,6 +275,48 @@ public class MatrixView extends TableLayout {
             TableRow tr = (TableRow) getChildAt(row);
             for(int column = 0; column < mColumns; column++) {
                 tr.getChildAt(column).setEnabled(enabled);
+            }
+        }
+    }
+
+    public static class DisplayComponent implements AdvancedDisplay.DisplayComponent {
+        @Override
+        public View getView(Context context, Solver solver, String equation, AdvancedDisplay.EventListener listener) {
+            int rows = MatrixView.countOccurrences(equation, '[') - 1;
+            int columns = MatrixView.countOccurrences(equation, getSeparator().charAt(0)) / rows + 1;
+
+            MatrixView mv = new MatrixView(context);
+            mv.mSolver = solver;
+            mv.mListener = listener;
+            for(int i = 0; i < rows; i++) {
+                mv.addRow();
+            }
+            for(int i = 0; i < columns; i++) {
+                mv.addColumn();
+            }
+            String[] data = equation.split(Pattern.quote(getSeparator()) + "|\\]\\[");
+            for(int order = 0, row = 0; row < rows; row++) {
+                TableRow tr = (TableRow) mv.getChildAt(row);
+                for(int column = 0; column < columns; column++) {
+                    EditText input = (EditText) tr.getChildAt(column);
+                    input.setText(data[order].replaceAll("[\\[\\]]", ""));
+                    order++;
+                }
+            }
+            AdvancedDisplay.LayoutParams params = new AdvancedDisplay.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER_VERTICAL;
+            mv.setLayoutParams(params);
+
+            return mv;
+        }
+
+        @Override
+        public String parse(String equation) {
+            if(MatrixView.verify(equation)) {
+                return MatrixView.parseMatrix(equation);
+            }
+            else {
+                return null;
             }
         }
     }

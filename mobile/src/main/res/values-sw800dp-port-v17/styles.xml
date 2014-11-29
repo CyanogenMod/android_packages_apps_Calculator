@@ -15,9 +15,16 @@
   limitations under the License.
   -->
 
-<resources>
+<!-- Styles for portrait 800dip-wide tablet (e.g. Nexus 10). -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- The margin between the pad pages when displayed using a view pager. -->
-    <dimen name="pad_page_margin">-24dip</dimen>
+    <style name="PadLayoutStyle.Operator">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">240</item>
+        <item name="android:paddingTop">8dip</item>
+        <item name="android:paddingBottom">8dip</item>
+        <item name="android:paddingStart">0dip</item>
+        <item name="android:paddingEnd">8dip</item>
+    </style>
 
 </resources>

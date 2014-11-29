@@ -33,10 +33,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.android2.calculator3.R;
 import com.xlythe.math.BaseModule;
 import com.xlythe.math.Constants;
 import com.xlythe.math.EquationFormatter;
@@ -54,21 +54,37 @@ public class CalculatorEditText extends EditText {
         }
     };
     private EquationFormatter mEquationFormatter;
-    private AdvancedDisplay mDisplay;
     private String mInput = "";
     private int mSelectionHandle = 0;
     private Solver mSolver;
+    private AdvancedDisplay.EventListener mEventListener;
 
-    public CalculatorEditText(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public static CalculatorEditText getInstance(Context context, AdvancedDisplay.EventListener eventListener) {
+        CalculatorEditText et = (CalculatorEditText) View.inflate(context, R.layout.view_edittext, null);
+        et.mEventListener = eventListener;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_VERTICAL;
+        et.setLayoutParams(params);
+        return et;
+    }
+
+    public CalculatorEditText(Context context) {
+        super(context);
+        setUp();
+    }
+
+    public CalculatorEditText(Context context, AttributeSet attr) {
+        super(context, attr);
         setUp();
     }
 
     private void setUp() {
+        setLongClickable(false);
+
         // Hide the keyboard
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
 
         // Display ^ , and other visual cues
         mEquationFormatter = new EquationFormatter();
@@ -114,8 +130,8 @@ public class CalculatorEditText extends EditText {
         setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus && mDisplay != null)
-                    mDisplay.setActiveEditText(CalculatorEditText.this);
+                if(hasFocus)
+                    mEventListener.onEditTextChanged(CalculatorEditText.this);
             }
         });
     }
@@ -151,42 +167,6 @@ public class CalculatorEditText extends EditText {
         return Html.fromHtml(mEquationFormatter.insertSupScripts(input));
     }
 
-    public CalculatorEditText(final AdvancedDisplay display) {
-        super(display.getContext());
-        setUp();
-        mDisplay = display;
-    }
-
-    public static String load(final AdvancedDisplay parent) {
-        return CalculatorEditText.load("", parent);
-    }
-
-    public static String load(String text, final AdvancedDisplay parent) {
-        return CalculatorEditText.load(text, parent, parent.getChildCount());
-    }
-
-    public static String load(String text, final AdvancedDisplay parent, final int pos) {
-        final CalculatorEditText et = new CalculatorEditText(parent);
-        et.mDisplay = parent;
-        et.setText(text);
-        et.setSelection(0);
-        et.setLongClickable(false);
-        et.setBackgroundResource(android.R.color.transparent);
-        et.setEnabled(parent.isEnabled());
-        et.setPadding(0, 0, 0, 0);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER_VERTICAL;
-        et.setLayoutParams(params);
-        parent.addView(et, pos);
-        return "";
-    }
-
-    public AdvancedDisplay getAdvancedDisplay() {
-        return mDisplay;
-    }
-
     @Override
     public String toString() {
         return mInput;
@@ -194,17 +174,18 @@ public class CalculatorEditText extends EditText {
 
     @Override
     public View focusSearch(int direction) {
+        AdvancedDisplay parent = (AdvancedDisplay) getParent();
         View v;
         switch(direction) {
             case View.FOCUS_FORWARD:
-                v = mDisplay.nextView(this);
+                v = parent.nextView(this);
                 while(!v.isFocusable())
-                    v = mDisplay.nextView(v);
+                    v = parent.nextView(v);
                 return v;
             case View.FOCUS_BACKWARD:
-                v = mDisplay.previousView(this);
+                v = parent.previousView(this);
                 while(!v.isFocusable())
-                    v = mDisplay.previousView(v);
+                    v = parent.previousView(v);
                 if(MatrixView.class.isAssignableFrom(v.getClass())) {
                     v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
                     v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);

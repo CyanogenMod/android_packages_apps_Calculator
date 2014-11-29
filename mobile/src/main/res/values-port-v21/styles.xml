@@ -15,6 +15,17 @@
   limitations under the License.
   -->
 
-<resources>
-    <item name="activity_calculator" type="layout">@layout/activity_calculator_port</item>
+<!-- Styles for portrait phone (e.g. Nexus 4/5). -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="PadLayoutStyle.Advanced">
+        <item name="android:elevation">4dip</item>
+        <item name="android:paddingTop">12dip</item>
+        <item name="android:paddingBottom">20dip</item>
+        <item name="android:paddingStart">20dip</item>
+        <item name="android:paddingEnd">20dip</item>
+        <item name="android:columnCount">3</item>
+        <item name="android:rowCount">4</item>
+    </style>
+
 </resources>
