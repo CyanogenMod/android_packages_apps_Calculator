@@ -367,7 +367,7 @@ public class AdvancedDisplay extends ScrollableDisplay {
         mActiveEditText = null;
 
         // Always start with a CalculatorEditText
-        addView(CalculatorEditText.getInstance(getContext(), mEventListener));
+        addView(CalculatorEditText.getInstance(getContext(), mSolver, mEventListener));
     }
 
     /**
@@ -467,7 +467,7 @@ public class AdvancedDisplay extends ScrollableDisplay {
         getActiveEditText().setText(leftText);
 
         // Create a right EditText
-        EditText et = CalculatorEditText.getInstance(getContext(), mEventListener);
+        EditText et = CalculatorEditText.getInstance(getContext(), mSolver, mEventListener);
         et.setText(rightText);
         addView(et, index + 2);
 
@@ -577,7 +577,7 @@ public class AdvancedDisplay extends ScrollableDisplay {
                     mRoot.addView(c.getView(getContext(), mSolver, equation, mEventListener));
 
                     // Keep EditTexts in between custom views
-                    addView(CalculatorEditText.getInstance(getContext(), mEventListener));
+                    addView(CalculatorEditText.getInstance(getContext(), mSolver, mEventListener));
 
                     // Update text and loop again
                     text = text.substring(equation.length());

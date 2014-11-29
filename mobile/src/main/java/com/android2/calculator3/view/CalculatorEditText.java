@@ -59,8 +59,9 @@ public class CalculatorEditText extends EditText {
     private Solver mSolver;
     private AdvancedDisplay.EventListener mEventListener;
 
-    public static CalculatorEditText getInstance(Context context, AdvancedDisplay.EventListener eventListener) {
+    public static CalculatorEditText getInstance(Context context, Solver solver, AdvancedDisplay.EventListener eventListener) {
         CalculatorEditText et = (CalculatorEditText) View.inflate(context, R.layout.view_edittext, null);
+        et.mSolver = solver;
         et.mEventListener = eventListener;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT,

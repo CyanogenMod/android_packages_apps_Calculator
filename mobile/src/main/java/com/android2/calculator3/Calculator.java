@@ -40,13 +40,11 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.android2.calculator3.view.AdvancedDisplay.OnTextSizeChangeListener;
 import com.android2.calculator3.CalculatorExpressionEvaluator.EvaluateCallback;
 import com.android2.calculator3.view.AdvancedDisplay;
 import com.android2.calculator3.view.MatrixView;
-import com.xlythe.math.Solver;
 
 public class Calculator extends Activity
         implements OnTextSizeChangeListener, EvaluateCallback, OnLongClickListener {
@@ -149,6 +147,9 @@ public class Calculator extends Activity
 
         mFormulaEditText.registerComponent(new MatrixView.DisplayComponent());
         mResultEditText.registerComponents(mFormulaEditText.getComponents());
+
+        mFormulaEditText.setSolver(mEvaluator.getSolver());
+        mResultEditText.setSolver(mEvaluator.getSolver());
 
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);

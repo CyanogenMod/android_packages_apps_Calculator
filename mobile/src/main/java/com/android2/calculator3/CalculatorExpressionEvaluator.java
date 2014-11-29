@@ -66,6 +66,10 @@ public class CalculatorExpressionEvaluator {
         }
     }
 
+    public Solver getSolver() {
+        return mSolver;
+    }
+
     public interface EvaluateCallback {
         public void onEvaluate(String expr, String result, int errorResourceId);
     }
