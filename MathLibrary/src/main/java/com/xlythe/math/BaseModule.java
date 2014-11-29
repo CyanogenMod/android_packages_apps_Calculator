@@ -205,7 +205,9 @@ public class BaseModule extends Module {
         if(originalText.isEmpty() || originalText.matches(REGEX_NOT_NUMBER)) return originalText;
 
         if(selectionHandle >= 0) {
-            originalText = originalText.substring(0, selectionHandle) + SELECTION_HANDLE + originalText.substring(selectionHandle);
+            originalText = originalText.substring(0, selectionHandle) +
+                    SELECTION_HANDLE +
+                    originalText.substring(selectionHandle);
         }
         String[] operations = originalText.split(REGEX_NUMBER);
         String[] numbers = originalText.split(REGEX_NOT_NUMBER);
@@ -258,18 +260,7 @@ public class BaseModule extends Module {
             }
         }
 
-        String modifiedNumber = wholeNumber;
-        switch(base) {
-            case DECIMAL:
-                modifiedNumber = group(wholeNumber, getDecSeparatorDistance(), getDecSeparator());
-                break;
-            case BINARY:
-                modifiedNumber = group(wholeNumber, getBinSeparatorDistance(), getBinSeparator());
-                break;
-            case HEXADECIMAL:
-                modifiedNumber = group(wholeNumber, getHexSeparatorDistance(), getHexSeparator());
-                break;
-        }
+        String modifiedNumber = group(wholeNumber, getSeparatorDistance(base), getSeparator(base));
         return sign + modifiedNumber + remainder;
     }
 
@@ -294,6 +285,32 @@ public class BaseModule extends Module {
             }
         }
         return modifiedNumber;
+    }
+
+    private char getSeparator(Base base) {
+        switch(base) {
+            case DECIMAL:
+                return getDecSeparator();
+            case BINARY:
+                return getBinSeparator();
+            case HEXADECIMAL:
+                return getHexSeparator();
+            default:
+                return 0;
+        }
+    }
+
+    private int getSeparatorDistance(Base base) {
+        switch(base) {
+            case DECIMAL:
+                return getDecSeparatorDistance();
+            case BINARY:
+                return getBinSeparatorDistance();
+            case HEXADECIMAL:
+                return getHexSeparatorDistance();
+            default:
+                return -1;
+        }
     }
 
     public OnBaseChangeListener getOnBaseChangeListener() {

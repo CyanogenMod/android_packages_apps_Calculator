@@ -151,7 +151,13 @@ public class CalculatorEditText extends EditText {
         if(mSolver != null) {
             // Add grouping, and then split on the selection handle
             // which is saved as a unique char
-            String grouped = mEquationFormatter.addComas(mSolver, input, mSelectionHandle);
+            String grouped;
+            if(isFocused()) {
+                grouped = mEquationFormatter.addComas(mSolver, input, mSelectionHandle);
+            }
+            else {
+                grouped = mEquationFormatter.addComas(mSolver, input);
+            }
             if (grouped.contains(String.valueOf(BaseModule.SELECTION_HANDLE))) {
                 String[] temp = grouped.split(String.valueOf(BaseModule.SELECTION_HANDLE));
                 mSelectionHandle = temp[0].length();

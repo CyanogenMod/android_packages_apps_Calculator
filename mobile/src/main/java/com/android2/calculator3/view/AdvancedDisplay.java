@@ -116,8 +116,6 @@ public class AdvancedDisplay extends ScrollableDisplay {
             for(TextWatcher watcher : mTextWatchers) {
                 watcher.afterTextChanged(e);
             }
-
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, getVariableTextSize(s.toString()));
         }
     };
 
@@ -488,10 +486,6 @@ public class AdvancedDisplay extends ScrollableDisplay {
         return mActiveEditText;
     }
 
-    public void setActiveEditText(EditText editText) {
-        mActiveEditText = editText;
-    }
-
     @Override
     public void addView(View child) {
         if(child == mRoot) {
@@ -521,11 +515,14 @@ public class AdvancedDisplay extends ScrollableDisplay {
     }
 
     @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        for(int i = 0; i < mRoot.getChildCount(); i++) {
-            mRoot.getChildAt(i).setEnabled(enabled);
-        }
+    public void setEnabled(final boolean enabled) {
+        // We only want to disable our children. So we're not calling super on purpose.
+        registerSync(new Sync("setEnabled") {
+            @Override
+            public void apply(TextView textView) {
+                textView.setEnabled(enabled);
+            }
+        });
     }
 
     /**

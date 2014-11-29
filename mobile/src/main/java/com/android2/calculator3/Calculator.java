@@ -134,6 +134,8 @@ public class Calculator extends Activity
         setState(CalculatorState.values()[
                 savedInstanceState.getInt(KEY_CURRENT_STATE, CalculatorState.INPUT.ordinal())]);
 
+        mFormulaEditText.setSolver(mEvaluator.getSolver());
+        mResultEditText.setSolver(mEvaluator.getSolver());
         mFormulaEditText.setText(mTokenizer.getLocalizedExpression(
                 savedInstanceState.getString(KEY_CURRENT_EXPRESSION, "")));
         mEvaluator.evaluate(mFormulaEditText.getText(), this);
@@ -147,9 +149,6 @@ public class Calculator extends Activity
 
         mFormulaEditText.registerComponent(new MatrixView.DisplayComponent());
         mResultEditText.registerComponents(mFormulaEditText.getComponents());
-
-        mFormulaEditText.setSolver(mEvaluator.getSolver());
-        mResultEditText.setSolver(mEvaluator.getSolver());
 
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);

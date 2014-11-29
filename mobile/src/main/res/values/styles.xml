@@ -41,8 +41,8 @@
     <style name="Theme.Calculator.Display.Main" />
 
     <style name="Theme.Calculator.Display.Main.Formula" >
-        <item name="android:paddingTop">48dip</item>
-        <item name="android:paddingBottom">24dip</item>
+        <item name="android:paddingTop">34dip</item>
+        <item name="android:paddingBottom">12dip</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
         <item name="minTextSize">36sp</item>
@@ -51,8 +51,8 @@
     </style>
 
     <style name="Theme.Calculator.Display.Main.Result" >
-        <item name="android:paddingTop">24dip</item>
-        <item name="android:paddingBottom">48dip</item>
+        <item name="android:paddingTop">12dip</item>
+        <item name="android:paddingBottom">34dip</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
         <item name="textSize">36sp</item>
