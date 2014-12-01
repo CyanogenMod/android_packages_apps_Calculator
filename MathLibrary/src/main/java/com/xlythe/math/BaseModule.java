@@ -242,7 +242,7 @@ public class BaseModule extends Module {
 
     public String groupDigits(String number, Base base) {
         String sign = "";
-        if(number.startsWith(String.valueOf(Constants.MINUS)) || number.startsWith("-")) {
+        if(Solver.isNegative(number)) {
             sign = String.valueOf(Constants.MINUS);
             number = number.substring(1);
         }
@@ -266,7 +266,7 @@ public class BaseModule extends Module {
 
     private String group(String wholeNumber, int spacing, char separator) {
         String modifiedNumber = "";
-        int offset = 0;
+        int offset = wholeNumber.startsWith(SELECTION_HANDLE + "") ? 1 : 0;
         for(int i = 1; i <= wholeNumber.length(); i++) {
             char charFromEnd = wholeNumber.charAt(wholeNumber.length() - i);
             modifiedNumber = charFromEnd + modifiedNumber;

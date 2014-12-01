@@ -112,6 +112,10 @@ public class Solver {
         return isOperator(c.charAt(0));
     }
 
+    public static boolean isNegative(String number) {
+        return number.startsWith(String.valueOf(Constants.MINUS)) || number.startsWith("-");
+    }
+
     boolean displayContainsMatrices(String text) {
         return getMatrixModule().isMatrix(text);
     }

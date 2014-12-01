@@ -323,14 +323,14 @@ public class AdvancedDisplay extends ScrollableDisplay {
         if(index == -1) return;
 
         // Remove the requested view
-        super.removeViewAt(index);
+        mRoot.removeViewAt(index);
 
         // Combine the 2 EditTexts on either side
         CalculatorEditText leftSide = (CalculatorEditText) mRoot.getChildAt(index - 1);
         CalculatorEditText rightSide = (CalculatorEditText) mRoot.getChildAt(index);
         int cursor = leftSide.getText().length();
         leftSide.setText(leftSide.getText().toString() + rightSide.getText().toString());
-        super.removeViewAt(index); // Remove the second EditText
+        mRoot.removeViewAt(index); // Remove the second EditText
         leftSide.requestFocus();
         leftSide.setSelection(cursor);
     }
@@ -362,10 +362,10 @@ public class AdvancedDisplay extends ScrollableDisplay {
             watcher.afterTextChanged(new AdvancedEditable(""));
         }
         mRoot.removeAllViews();
-        mActiveEditText = null;
+        mActiveEditText = CalculatorEditText.getInstance(getContext(), mSolver, mEventListener);
 
         // Always start with a CalculatorEditText
-        addView(CalculatorEditText.getInstance(getContext(), mSolver, mEventListener));
+        addView(mActiveEditText);
     }
 
     /**
