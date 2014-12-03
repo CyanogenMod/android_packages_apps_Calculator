@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3.floating;
+package com.android.calculator2.floating;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -23,9 +23,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android2.calculator3.R;
-import com.android2.calculator3.view.HistoryLine;
-import com.android2.calculator3.HistoryAdapter;
+import com.android.calculator2.R;
+import com.android.calculator2.view.HistoryLine;
+import com.android.calculator2.HistoryAdapter;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
 

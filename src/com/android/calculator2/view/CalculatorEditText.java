@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3.view;
+package com.android.calculator2.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -36,7 +36,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.android2.calculator3.R;
+import com.android.calculator2.R;
 import com.xlythe.math.BaseModule;
 import com.xlythe.math.Constants;
 import com.xlythe.math.EquationFormatter;

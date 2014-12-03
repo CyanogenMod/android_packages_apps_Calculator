@@ -12,7 +12,7 @@
         android:minHeight="65dp"
         android:orientation="horizontal">
 
-        <com.android2.calculator3.view.AdvancedDisplay
+        <com.android.calculator2.view.AdvancedDisplay
             android:id="@+id/display"
             maxDigits="7"
             android:layout_width="0dp"

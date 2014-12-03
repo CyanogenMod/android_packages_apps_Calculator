@@ -23,7 +23,7 @@
     android:background="@color/display_background_color"
     android:elevation="4dip">
 
-    <com.android2.calculator3.view.AdvancedDisplay
+    <com.android.calculator2.view.AdvancedDisplay
         android:id="@+id/formula"
         style="@style/Theme.Calculator.Display.Main.Formula"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:inputType="text|textNoSuggestions"
         android:textColor="@color/display_formula_text_color" />
 
-    <com.android2.calculator3.view.AdvancedDisplay
+    <com.android.calculator2.view.AdvancedDisplay
         android:id="@+id/result"
         style="@style/Theme.Calculator.Display.Main.Result"
         android:layout_width="match_parent"

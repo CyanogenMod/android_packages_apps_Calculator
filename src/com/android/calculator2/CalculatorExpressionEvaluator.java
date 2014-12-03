@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.android2.calculator3;
+package com.android.calculator2;
 
 import android.util.Log;
 

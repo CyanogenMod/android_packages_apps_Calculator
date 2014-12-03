@@ -1,4 +1,4 @@
-package com.android2.calculator3.view;
+package com.android.calculator2.view;
 
 import android.support.annotation.NonNull;
 import android.text.Editable;

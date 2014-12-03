@@ -1,10 +1,10 @@
-package com.android2.calculator3.floating;
+package com.android.calculator2.floating;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android2.calculator3.R;
+import com.android.calculator2.R;
 
 /**
  * Created by Will on 4/9/2014.

@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3.view;
+package com.android.calculator2.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.text.InputType;
 import android.widget.TextView;
 
-import com.android2.calculator3.R;
+import com.android.calculator2.R;
 
-public class MatrixInverseView extends TextView {
-    private final static char PLACEHOLDER = '\uFEFF';
-    public final static String PATTERN = PLACEHOLDER + "^-1";
+public class MatrixTransposeView extends TextView {
+    public final static String PATTERN = "^T";
 
-    public MatrixInverseView(Context context) {
+    public MatrixTransposeView(Context context) {
         super(context);
     }
 
-    public MatrixInverseView(final AdvancedDisplay display) {
+    public MatrixTransposeView(final AdvancedDisplay display) {
         super(display.getContext());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        setText(Html.fromHtml("<sup><small>-1</small></sup>"));
+        setText(Html.fromHtml("<sup><small>T</small></sup>"));
         setTextAppearance(display.getContext(), R.style.Theme_Calculator_Display);
         setPadding(0, 0, 0, 0);
     }

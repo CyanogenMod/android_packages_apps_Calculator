@@ -1,4 +1,4 @@
-package com.android2.calculator3;
+package com.android.calculator2;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

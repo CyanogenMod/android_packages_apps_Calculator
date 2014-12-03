@@ -1,4 +1,4 @@
-package com.android2.calculator3.floating;
+package com.android.calculator2.floating;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android2.calculator3.R;
-import com.android2.calculator3.view.AdvancedDisplay;
+import com.android.calculator2.R;
+import com.android.calculator2.view.AdvancedDisplay;
 import com.xlythe.floatingview2.FloatingView;
 import com.xlythe.math.History;
 import com.xlythe.math.Persist;

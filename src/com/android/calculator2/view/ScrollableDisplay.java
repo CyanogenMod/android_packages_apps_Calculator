@@ -1,4 +1,4 @@
-package com.android2.calculator3.view;
+package com.android.calculator2.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.HorizontalScrollView;
 
-import com.android2.calculator3.R;
+import com.android.calculator2.R;
 
 public class ScrollableDisplay extends HorizontalScrollView {
     private int mMaxHeight;

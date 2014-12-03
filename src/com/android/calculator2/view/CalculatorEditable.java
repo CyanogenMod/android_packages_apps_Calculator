@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3.view;
+package com.android.calculator2.view;
 
 import android.text.Editable;
 import android.text.SpannableStringBuilder;

@@ -1,4 +1,4 @@
-package com.android2.calculator3.floating;
+package com.android.calculator2.floating;
 
 import android.content.Context;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.android2.calculator3.R;
+import com.android.calculator2.R;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
 

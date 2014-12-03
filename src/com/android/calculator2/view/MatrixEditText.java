@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3.view;
+package com.android.calculator2.view;
 
 import android.content.Context;
 import android.text.Editable;
@@ -32,7 +32,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.android2.calculator3.R;
+import com.android.calculator2.R;
 import com.xlythe.math.Constants;
 
 public class MatrixEditText extends EditText implements OnFocusChangeListener {

@@ -1,4 +1,4 @@
-package com.android2.calculator3.widget;
+package com.android.calculator2.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -10,7 +10,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.android2.calculator3.R;
+import com.android.calculator2.R;
 import com.xlythe.math.Base;
 import com.xlythe.math.BaseModule;
 import com.xlythe.math.Constants;
@@ -24,26 +24,26 @@ import org.javia.arity.SyntaxException;
 import java.text.DecimalFormatSymbols;
 
 public class CalculatorWidget extends AppWidgetProvider {
-    public final static String PREFERENCE_WIDGET_PREAMBLE = "com.android2.calculator3.CALC_WIDGET_VALUE_";
-    public static final String DIGIT_0 = "com.android2.calculator3.0";
-    public static final String DIGIT_1 = "com.android2.calculator3.1";
-    public static final String DIGIT_2 = "com.android2.calculator3.2";
-    public static final String DIGIT_3 = "com.android2.calculator3.3";
-    public static final String DIGIT_4 = "com.android2.calculator3.4";
-    public static final String DIGIT_5 = "com.android2.calculator3.5";
-    public static final String DIGIT_6 = "com.android2.calculator3.6";
-    public static final String DIGIT_7 = "com.android2.calculator3.7";
-    public static final String DIGIT_8 = "com.android2.calculator3.8";
-    public static final String DIGIT_9 = "com.android2.calculator3.9";
-    public static final String DOT = "com.android2.calculator3.dot";
-    public static final String PLUS = "com.android2.calculator3.plus";
-    public static final String MINUS = "com.android2.calculator3.minus";
-    public static final String MUL = "com.android2.calculator3.mul";
-    public static final String DIV = "com.android2.calculator3.div";
-    public static final String EQUALS = "com.android2.calculator3.equals";
-    public static final String CLR = "com.android2.calculator3.clear";
-    public static final String DEL = "com.android2.calculator3.delete";
-    public static final String SHOW_CLEAR = "com.android2.calculator3.show_clear";
+    public final static String PREFERENCE_WIDGET_PREAMBLE = "com.android.calculator2.CALC_WIDGET_VALUE_";
+    public static final String DIGIT_0 = "com.android.calculator2.0";
+    public static final String DIGIT_1 = "com.android.calculator2.1";
+    public static final String DIGIT_2 = "com.android.calculator2.2";
+    public static final String DIGIT_3 = "com.android.calculator2.3";
+    public static final String DIGIT_4 = "com.android.calculator2.4";
+    public static final String DIGIT_5 = "com.android.calculator2.5";
+    public static final String DIGIT_6 = "com.android.calculator2.6";
+    public static final String DIGIT_7 = "com.android.calculator2.7";
+    public static final String DIGIT_8 = "com.android.calculator2.8";
+    public static final String DIGIT_9 = "com.android.calculator2.9";
+    public static final String DOT = "com.android.calculator2.dot";
+    public static final String PLUS = "com.android.calculator2.plus";
+    public static final String MINUS = "com.android.calculator2.minus";
+    public static final String MUL = "com.android.calculator2.mul";
+    public static final String DIV = "com.android.calculator2.div";
+    public static final String EQUALS = "com.android.calculator2.equals";
+    public static final String CLR = "com.android.calculator2.clear";
+    public static final String DEL = "com.android.calculator2.delete";
+    public static final String SHOW_CLEAR = "com.android.calculator2.show_clear";
 
     private boolean mClearText = false;
 

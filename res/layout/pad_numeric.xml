@@ -15,7 +15,7 @@
   limitations under the License.
   -->
 
-<com.android2.calculator3.CalculatorPadLayout
+<com.android.calculator2.CalculatorPadLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pad_numeric"
     style="@style/PadLayoutStyle.Numeric"
@@ -96,4 +96,4 @@
         android:onClick="onButtonClick"
         android:text="@string/eq" />
 
-</com.android2.calculator3.CalculatorPadLayout>
+</com.android.calculator2.CalculatorPadLayout>

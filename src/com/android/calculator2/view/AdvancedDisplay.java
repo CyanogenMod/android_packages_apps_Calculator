@@ -1,4 +1,4 @@
-package com.android2.calculator3.view;
+package com.android.calculator2.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -26,8 +26,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android2.calculator3.Clipboard;
-import com.android2.calculator3.R;
+import com.android.calculator2.Clipboard;
+import com.android.calculator2.R;
 import com.xlythe.math.Constants;
 import com.xlythe.math.Solver;
 

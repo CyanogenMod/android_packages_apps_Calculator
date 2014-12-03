@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.android2.calculator3;
+package com.android.calculator2;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -41,10 +41,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.android2.calculator3.view.AdvancedDisplay.OnTextSizeChangeListener;
-import com.android2.calculator3.CalculatorExpressionEvaluator.EvaluateCallback;
-import com.android2.calculator3.view.AdvancedDisplay;
-import com.android2.calculator3.view.MatrixView;
+import com.android.calculator2.view.AdvancedDisplay.OnTextSizeChangeListener;
+import com.android.calculator2.CalculatorExpressionEvaluator.EvaluateCallback;
+import com.android.calculator2.view.AdvancedDisplay;
+import com.android.calculator2.view.MatrixView;
 
 public class Calculator extends Activity
         implements OnTextSizeChangeListener, EvaluateCallback, OnLongClickListener {

@@ -1,4 +1,4 @@
-package com.android2.calculator3.view;
+package com.android.calculator2.view;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import com.android2.calculator3.R;
+import com.android.calculator2.R;
 import com.xlythe.math.Solver;
 
 import org.ejml.simple.SimpleMatrix;

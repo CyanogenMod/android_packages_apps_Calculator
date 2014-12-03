@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android2.calculator3;
+package com.android.calculator2;
 
 import android.content.Context;
 import android.text.Html;
@@ -24,7 +24,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android2.calculator3.view.HistoryLine;
+import com.android.calculator2.view.HistoryLine;
 import com.xlythe.math.EquationFormatter;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
