@@ -1,9 +1,0 @@
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="card_generic_padding">40.0px</dimen>
-    <dimen name="menu_text_size">70.0px</dimen>
-    <dimen name="menu_icon_margin">20.0px</dimen>
-    <dimen name="menu_icon_size">50.0px</dimen>
-    <dimen name="slider_bar_height">12.0px</dimen>
-
-    </resources>
