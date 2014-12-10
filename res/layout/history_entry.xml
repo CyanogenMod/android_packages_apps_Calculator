@@ -1,22 +1,31 @@
 <com.android.calculator2.view.HistoryLine
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
     <TextView
         android:id="@+id/historyExpr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/small_display_text_size"
-        android:textColor="@color/history_input" />
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:ellipsize="start"
+        style="@style/HistoryText"/>
 
     <TextView
+        style="@style/HistoryText"
+        android:text="@string/history_line_equals"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+    
+    <TextView
         android:id="@+id/historyResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:textSize="@dimen/display_text_size"
-        android:textColor="@color/history_result" />
+        android:layout_width="wrap_content"
+        style="@style/HistoryText.Result"/>
+
 </com.android.calculator2.view.HistoryLine>

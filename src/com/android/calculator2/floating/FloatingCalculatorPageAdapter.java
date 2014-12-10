@@ -3,12 +3,15 @@ package com.android.calculator2.floating;
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.android.calculator2.HistoryAdapter;
 import com.android.calculator2.R;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
@@ -75,7 +78,8 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
         switch(position) {
             case 0:
                 mViews[position] = View.inflate(mContext, R.layout.floating_calculator_history, null);
-                ListView historyView = (ListView) mViews[position].findViewById(R.id.history);
+                RecyclerView historyView =
+                        (RecyclerView) mViews[position].findViewById(R.id.history);
                 setUpHistory(historyView);
                 break;
             case 1:
@@ -101,22 +105,21 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
         }
     }
 
-    private void setUpHistory(ListView historyView) {
-        FloatingHistoryAdapter.OnHistoryItemClickListener listener = new FloatingHistoryAdapter.OnHistoryItemClickListener() {
+    private void setUpHistory(RecyclerView historyView) {
+        HistoryAdapter.HistoryItemCallback listener = new HistoryAdapter.HistoryItemCallback() {
             @Override
-            public void onHistoryItemClick(HistoryEntry entry) {
-//                int deleteMode = mLogic.getDeleteMode();
-//                if(mDisplay.getText().isEmpty()) deleteMode = Logic.DELETE_MODE_CLEAR;
-//                mDisplay.insert(entry.getEdited());
-//                mLogic.setDeleteMode(deleteMode);
-                // TODO
+            public void onHistoryItemSelected(HistoryEntry entry) {
+                // TODO: implement
             }
         };
-        FloatingHistoryAdapter historyAdapter = new FloatingHistoryAdapter(mContext, mHistory);
-        historyAdapter.setOnHistoryItemClickListener(listener);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.scrollToPosition(0);
+        layoutManager.setStackFromEnd(true);
+        historyView.setLayoutManager(layoutManager);
+
+        FloatingHistoryAdapter historyAdapter = new FloatingHistoryAdapter(mContext, mHistory, listener);
         mHistory.setObserver(historyAdapter);
         historyView.setAdapter(historyAdapter);
-        historyView.setStackFromBottom(true);
-        historyView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
     }
 }

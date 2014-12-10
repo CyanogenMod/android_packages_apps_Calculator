@@ -27,9 +27,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
@@ -38,13 +40,19 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.android.calculator2.view.AdvancedDisplay.OnTextSizeChangeListener;
 import com.android.calculator2.CalculatorExpressionEvaluator.EvaluateCallback;
 import com.android.calculator2.view.AdvancedDisplay;
+import com.android.calculator2.view.DisplayOverlay;
 import com.android.calculator2.view.MatrixView;
+import com.xlythe.math.History;
+import com.xlythe.math.HistoryEntry;
+import com.xlythe.math.Persist;
 
 public class Calculator extends Activity
         implements OnTextSizeChangeListener, EvaluateCallback, OnLongClickListener {
@@ -98,7 +106,7 @@ public class Calculator extends Activity
     private CalculatorState mCurrentState;
     private CalculatorExpressionTokenizer mTokenizer;
     private CalculatorExpressionEvaluator mEvaluator;
-    private RelativeLayout mDisplayView;
+    private DisplayOverlay mDisplayView;
     private AdvancedDisplay mFormulaEditText;
     private AdvancedDisplay mResultEditText;
     private ViewPager mPadViewPager;
@@ -107,15 +115,18 @@ public class Calculator extends Activity
     private View mClearButton;
     private View mCurrentButton;
     private Animator mCurrentAnimator;
-    private ViewGroup.LayoutParams mLayoutParams =
-            new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+    private History mHistory;
+    private RecyclerView.Adapter mHistoryAdapter;
+    private Persist mPersist;
+    private FrameLayout.LayoutParams mLayoutParams =
+            new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
-        mDisplayView = (RelativeLayout) findViewById(R.id.display);
+        mDisplayView = (DisplayOverlay) findViewById(R.id.display);
         mFormulaEditText = (AdvancedDisplay) findViewById(R.id.formula);
         mResultEditText = (AdvancedDisplay) findViewById(R.id.result);
         mPadViewPager = (ViewPager) findViewById(R.id.pad_pager);
@@ -152,6 +163,34 @@ public class Calculator extends Activity
 
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Load new history
+        mPersist = new Persist(this);
+        mPersist.load();
+        mHistory = mPersist.getHistory();
+
+        mHistoryAdapter = new HistoryAdapter(this, mHistory,
+                new HistoryAdapter.HistoryItemCallback() {
+                    @Override
+                    public void onHistoryItemSelected(HistoryEntry entry) {
+                        mFormulaEditText.insert(entry.getEdited());
+                        mDisplayView.collapseHistory();
+                    }
+                });
+        mHistory.setObserver(mHistoryAdapter);
+        mDisplayView.getHistoryView().setAdapter(mHistoryAdapter);
+        mDisplayView.scrollToMostRecent();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPersist.save();
     }
 
     @Override
@@ -263,6 +302,8 @@ public class Calculator extends Activity
         } else if (errorResourceId != INVALID_RES_ID) {
             onError(errorResourceId);
         } else if (!TextUtils.isEmpty(result)) {
+            mHistory.enter(expr, result);
+            mDisplayView.getHistoryView().scrollToPosition(mHistoryAdapter.getItemCount()-1);
             onResult(result);
         } else if (mCurrentState == CalculatorState.EVALUATE) {
             // The current expression cannot be evaluated -> return to the input state.
@@ -318,7 +359,8 @@ public class Calculator extends Activity
     private void reveal(View sourceView, int colorRes, AnimatorListener listener) {
         // Make reveal cover the display and status bar.
         final View revealView = new View(this);
-        mLayoutParams.height = mDisplayView.getHeight();
+        mLayoutParams.height = mDisplayView.getDisplayHeight();
+        mLayoutParams.gravity = Gravity.BOTTOM;
         revealView.setLayoutParams(mLayoutParams);
         revealView.setBackgroundColor(getResources().getColor(colorRes));
         mDisplayView.addView(revealView);
