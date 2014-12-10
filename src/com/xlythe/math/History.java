@@ -16,6 +16,7 @@
 
 package com.xlythe.math;
 
+import android.support.v7.widget.RecyclerView;
 import android.widget.BaseAdapter;
 
 import java.io.DataInput;
@@ -28,7 +29,7 @@ public class History {
     private static final int MAX_ENTRIES = 100;
     private Vector<HistoryEntry> mEntries = new Vector<HistoryEntry>();
     private int mPos;
-    private BaseAdapter mObserver;
+    private RecyclerView.Adapter mObserver;
 
     History() {
         clear();
@@ -59,7 +60,7 @@ public class History {
         }
     }
 
-    public void setObserver(BaseAdapter observer) {
+    public void setObserver(RecyclerView.Adapter observer) {
         mObserver = observer;
     }
 

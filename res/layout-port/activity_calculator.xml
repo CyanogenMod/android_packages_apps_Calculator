@@ -24,7 +24,8 @@
     <include
         layout="@layout/display"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/history_view_offset"/>
 
     <com.android.calculator2.CalculatorPadViewPager
         android:id="@+id/pad_pager"
