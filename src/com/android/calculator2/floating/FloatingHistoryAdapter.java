@@ -16,61 +16,19 @@
 
 package com.android.calculator2.floating;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.calculator2.R;
-import com.android.calculator2.view.HistoryLine;
 import com.android.calculator2.HistoryAdapter;
+import com.android.calculator2.R;
 import com.xlythe.math.History;
-import com.xlythe.math.HistoryEntry;
 
 class FloatingHistoryAdapter extends HistoryAdapter {
-    private OnHistoryItemClickListener mListener;
 
-    FloatingHistoryAdapter(Context context, History history) {
-        super(context, history);
+    public FloatingHistoryAdapter(Context context, History history, HistoryItemCallback callback) {
+        super(context, history, callback);
     }
 
     @Override
-    protected HistoryLine createView() {
-        HistoryLine v = (HistoryLine) View.inflate(getContext(), R.layout.floating_history_entry, null);
-        return v;
-    }
-
-    @Override
-    protected void updateView(final HistoryEntry entry, HistoryLine view) {
-        TextView expr = (TextView) view.findViewById(R.id.historyExpr);
-        TextView result = (TextView) view.findViewById(R.id.historyResult);
-
-        expr.setText(formatText(entry.getBase()));
-        result.setText(entry.getEdited());
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null) mListener.onHistoryItemClick(entry);
-                // copyContent(entry.getEdited());
-            }
-        });
-    }
-
-    private void copyContent(String text) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
-        String toastText = String.format(getContext().getResources().getString(R.string.text_copied_toast), text);
-        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
-    }
-
-    public void setOnHistoryItemClickListener(OnHistoryItemClickListener l) {
-        mListener = l;
-    }
-
-    public static interface OnHistoryItemClickListener {
-        public void onHistoryItemClick(HistoryEntry entry);
+    protected int getLayoutResourceId() {
+        return R.layout.floating_history_entry;
     }
 }

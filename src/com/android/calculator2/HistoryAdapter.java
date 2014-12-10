@@ -17,13 +17,13 @@
 package com.android.calculator2;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.android.calculator2.view.HistoryLine;
 import com.xlythe.math.EquationFormatter;
 import com.xlythe.math.History;
@@ -31,27 +31,64 @@ import com.xlythe.math.HistoryEntry;
 
 import java.util.Vector;
 
-public class HistoryAdapter extends BaseAdapter {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     private final Context mContext;
     private final Vector<HistoryEntry> mEntries;
     private final EquationFormatter mEquationFormatter;
-    private final History mHistory;
+    protected HistoryItemCallback mCallback;
 
-    public HistoryAdapter(Context context, History history) {
+    public interface HistoryItemCallback {
+        public void onHistoryItemSelected(HistoryEntry entry);
+    }
+
+    public HistoryAdapter(Context context, History history, HistoryItemCallback callback) {
         mContext = context;
         mEntries = history.getEntries();
         mEquationFormatter = new EquationFormatter();
-        mHistory = history;
+        mCallback = callback;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView historyExpr;
+        public TextView historyResult;
+
+        public ViewHolder(View v) {
+            super(v);
+            historyExpr = (TextView)v.findViewById(R.id.historyExpr);
+            historyResult = (TextView)v.findViewById(R.id.historyResult);
+        }
     }
 
     @Override
-    public int getCount() {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        HistoryLine view =
+                (HistoryLine)LayoutInflater.from(mContext)
+                        .inflate(R.layout.history_entry, parent, false);
+        return new ViewHolder(view);
+    }
+
+    protected int getLayoutResourceId() {
+         return R.layout.history_entry;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        HistoryLine view = (HistoryLine)holder.itemView;
+        final HistoryEntry entry = mEntries.elementAt(position);
+        view.setAdapter(HistoryAdapter.this);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.onHistoryItemSelected(entry);
+            }
+        });
+        holder.historyExpr.setText(formatText(entry.getBase()));
+        holder.historyResult.setText(entry.getEdited());
+    }
+
+    @Override
+    public int getItemCount() {
         return mEntries.size() - 1;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return mEntries.elementAt(position);
     }
 
     @Override
@@ -59,45 +96,11 @@ public class HistoryAdapter extends BaseAdapter {
         return position;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        HistoryLine view;
-        if(convertView == null) {
-            view = createView();
-        } else {
-            view = (HistoryLine) convertView;
-        }
-        HistoryEntry entry = mEntries.elementAt(position);
-        view.setHistoryEntry(entry);
-        view.setHistory(mHistory);
-        view.setAdapter(this);
-        updateView(entry, view);
-
-        return view;
-    }
-
-    protected HistoryLine createView() {
-        return (HistoryLine) View.inflate(getContext(), R.layout.history_entry, null);
-    }
-
-    protected void updateView(HistoryEntry entry, HistoryLine view) {
-        TextView expr = (TextView) view.findViewById(R.id.historyExpr);
-        TextView result = (TextView) view.findViewById(R.id.historyResult);
-
-        expr.setText(formatText(entry.getBase()));
-        result.setText(entry.getEdited());
-    }
-
-    public Context getContext() {
-        return mContext;
-    }
-
     protected Spanned formatText(String text) {
         return Html.fromHtml(mEquationFormatter.insertSupScripts(text));
     }
 
-    @Override
-    public boolean hasStableIds() {
-        return true;
+    public Context getContext() {
+        return mContext;
     }
 }

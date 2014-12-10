@@ -172,4 +172,6 @@
     <string name="glass_again">Try again</string>
     <string name="speech_helper_negative" formatted="false">Negative %s</string>
     <string name="speech_helper_equals" formatted="false">%s equals %s</string>
+
+    <string name="history_line_equals">=</string>
 </resources>

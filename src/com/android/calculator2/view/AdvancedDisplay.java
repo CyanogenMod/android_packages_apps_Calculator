@@ -443,9 +443,13 @@ public class AdvancedDisplay extends ScrollableDisplay {
                     }
 
                     // Append the next character to the EditText
+                    int preLength = getActiveEditText().getText().length();
                     getActiveEditText().getText().insert(cursor, delta.subSequence(0, 1));
                     delta = delta.substring(1);
-                    cursor++;
+
+                    // commas may be added or removed upon insertion, so make sure to increment
+                    // cursor position by actual delta
+                    cursor += getActiveEditText().getText().length() - preLength;
                 }
             }
             else {
