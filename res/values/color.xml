@@ -41,12 +41,6 @@
     <!-- Background color for the advanced pad. -->
     <color name="pad_advanced_background_color">#1DE9B6</color>
 
-    <!-- Text color for a button in a pad. -->
-    <color name="pad_button_text_color">#FFF</color>
-
-    <!-- Text color for a button in the advanced pad. -->
-    <color name="pad_button_advanced_text_color">#91000000</color>
-
     <!-- Ripple color when a button is pressed in a pad. -->
     <color name="pad_button_ripple_color">#33FFFFFF</color>
 
