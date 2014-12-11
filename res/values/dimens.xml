@@ -53,4 +53,5 @@
 
     <dimen name="history_view_bottom_margin">60dp</dimen>
     <dimen name="history_text_size">36sp</dimen>
+    <dimen name="viewpager_indicator_margin_size">3dp</dimen>
 </resources>

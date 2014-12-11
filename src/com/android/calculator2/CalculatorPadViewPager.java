@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class CalculatorPadViewPager extends ViewPager {
+    private NumberBaseManager mBaseManager;
+
     private final PagerAdapter mStaticPagerAdapter = new PagerAdapter() {
         @Override
         public int getCount() {
@@ -58,7 +60,7 @@ public class CalculatorPadViewPager extends ViewPager {
                     recursivelySetEnabled(viewGroup.getChildAt(childIndex), enabled);
                 }
             } else {
-                view.setEnabled(enabled);
+                view.setEnabled(!mBaseManager.isViewDisabled(view.getId()));
             }
         }
 
@@ -109,5 +111,9 @@ public class CalculatorPadViewPager extends ViewPager {
         if (getAdapter() == mStaticPagerAdapter) {
             mStaticPagerAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void setBaseManager(NumberBaseManager baseManager) {
+        mBaseManager = baseManager;
     }
 }

@@ -42,7 +42,7 @@
 
         </LinearLayout>
 
-        <include layout="@layout/pad_advanced" />
+        <include layout="@layout/pad_auxiliary" />
 
     </com.android.calculator2.CalculatorPadViewPager>
 
