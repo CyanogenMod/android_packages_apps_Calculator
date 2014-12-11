@@ -33,7 +33,7 @@
 
         <include layout="@layout/pad_numeric" />
         <include layout="@layout/pad_operator_two_col" />
-        <include layout="@layout/pad_advanced" />
+        <include layout="@layout/pad_auxiliary" />
 
     </LinearLayout>
 
