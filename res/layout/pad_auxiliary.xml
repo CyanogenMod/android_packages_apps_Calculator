@@ -1,0 +1,21 @@
+<com.android.calculator2.view.AuxPadView
+        android:id="@+id/pad_auxiliary"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/PadLayoutStyle.Aux">
+
+    <com.android.calculator2.viewpager.VerticalViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/viewPager">
+        <include layout="@layout/pad_advanced" />
+        <include layout="@layout/pad_hex" />
+    </com.android.calculator2.viewpager.VerticalViewPager>
+
+    <LinearLayout
+            android:id="@+id/pageIndicators"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="6dp"
+            android:orientation="vertical"/>
+</com.android.calculator2.view.AuxPadView>

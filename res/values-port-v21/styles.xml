@@ -28,4 +28,7 @@
         <item name="android:rowCount">4</item>
     </style>
 
+    <style name="PadLayoutStyle.Hex" parent="@style/PadLayoutStyle.Advanced">
+        <item name="android:rowCount">3</item>
+    </style>
 </resources>

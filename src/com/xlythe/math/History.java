@@ -35,7 +35,7 @@ public class History {
         clear();
     }
 
-    void clear() {
+    public void clear() {
         mEntries.clear();
         mEntries.add(new HistoryEntry("", ""));
         mPos = 0;

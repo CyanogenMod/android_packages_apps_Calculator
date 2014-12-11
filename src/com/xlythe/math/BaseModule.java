@@ -1,5 +1,6 @@
 package com.xlythe.math;
 
+import android.util.Log;
 import org.javia.arity.SyntaxException;
 
 import java.text.DecimalFormatSymbols;
@@ -8,6 +9,8 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class BaseModule extends Module {
+    private static final String TAG = "Calculator";
+
     // Used to keep a reference to the cursor in text
     public static final char SELECTION_HANDLE = '\u2620';
 
@@ -40,10 +43,16 @@ public class BaseModule extends Module {
         if(mBaseChangeListener != null) mBaseChangeListener.onBaseChange(mBase);
     }
 
-    public String setBase(String input, Base base) throws SyntaxException {
-        String text = updateTextToNewMode(input, mBase, base);
-        setBase(base);
-        return text;
+    public String setBase(String input, Base base) {
+        try {
+            String text = updateTextToNewMode(input, mBase, base);
+            setBase(base);
+            return text;
+        }
+        catch (SyntaxException e) {
+            Log.w(TAG, "Failed to convert base for string: " + input, e);
+        }
+        return input;
     }
 
     String updateTextToNewMode(final String originalText, final Base base1, final Base base2) throws SyntaxException {
