@@ -128,12 +128,15 @@
         <item name="android:windowFullscreen">false</item>
     </style>
 
-
     <style name="PadButtonStyle.Advanced">
         <item name="android:layout_margin">4dip</item>
         <item name="android:background">@drawable/pad_button_advanced_background</item>
         <item name="android:textColor">@color/pad_button_advanced_text_color</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Advanced.Toggle">
+        <item name="android:textColor">@color/pad_button_toggle_text_color</item>
     </style>
 
     <style name="PadButtonStyle.Numeric">
@@ -155,6 +158,8 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="PadLayoutStyle.Aux"></style>
+
     <style name="PadLayoutStyle.Advanced">
         <item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">20dip</item>
@@ -162,6 +167,10 @@
         <item name="android:paddingRight">20dip</item>
         <item name="android:columnCount">3</item>
         <item name="android:rowCount">4</item>
+    </style>
+
+    <style name="PadLayoutStyle.Hex" parent="@style/PadLayoutStyle.Advanced">
+        <item name="android:rowCount">3</item>
     </style>
 
     <style name="PadLayoutStyle.Numeric">

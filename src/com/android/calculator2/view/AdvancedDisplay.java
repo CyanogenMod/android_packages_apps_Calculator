@@ -28,6 +28,8 @@ import android.widget.TextView;
 
 import com.android.calculator2.Clipboard;
 import com.android.calculator2.R;
+import com.xlythe.math.Base;
+import com.xlythe.math.BaseModule;
 import com.xlythe.math.Constants;
 import com.xlythe.math.Solver;
 
@@ -356,6 +358,7 @@ public class AdvancedDisplay extends ScrollableDisplay {
      * Clears the text in the display
      * */
     public void clear() {
+        mCachedText = null;
         for(TextWatcher watcher : mTextWatchers) {
             watcher.beforeTextChanged(getText(), 0, 0, 0);
             watcher.onTextChanged("", 0, 0, 0);
@@ -765,5 +768,9 @@ public class AdvancedDisplay extends ScrollableDisplay {
             }
             return -1;
         }
+    }
+
+    public BaseModule getBaseModule() {
+        return mSolver.getBaseModule();
     }
 }

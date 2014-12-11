@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pad_advanced_text_color_normal">#91000000</color>
+    <color name="pad_advanced_text_color_disabled">#33000000</color>
+    <color name="pad_text_color_disabled">#33FFFFFF</color>
+</resources>
