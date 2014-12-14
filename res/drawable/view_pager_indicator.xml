@@ -1,8 +1,8 @@
 <shape
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:shape="oval">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
     <size
-            android:width="@dimen/viewpager_indicator_size"
-            android:height="@dimen/viewpager_indicator_size"/>
+        android:width="@dimen/viewpager_indicator_size"
+        android:height="@dimen/viewpager_indicator_size"/>
     <solid android:color="@color/view_pager_indicator_color"/>
 </shape>

@@ -64,12 +64,10 @@
         <item name="android:textSize">@dimen/history_text_size</item>
         <item name="android:maxLines">1</item>
         <item name="android:scrollHorizontally">true</item>
-        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="HistoryText.Result">
         <item name="android:textColor">@color/display_formula_text_color</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="Theme.Calculator.Display.Widget" />
@@ -98,6 +96,11 @@
 
     <style name="Theme.Calculator.ButtonStyle.FloatingCalc">
         <item name="android:background">@drawable/circle_bg</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.FloatingCalc.Advanced">
+        <item name="android:textColor">@color/pad_button_advanced_text_color</item>
     </style>
 
     <style name="PadButtonStyle" parent="@android:style/Widget.Button">
@@ -158,20 +161,23 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="PadLayoutStyle.Aux"></style>
+    <style name="PadLayoutStyle.Aux" />
 
     <style name="PadLayoutStyle.Advanced">
         <item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">20dip</item>
         <item name="android:paddingLeft">20dip</item>
         <item name="android:paddingRight">20dip</item>
-        <item name="android:columnCount">3</item>
+        <item name="android:columnCount">4</item>
         <item name="android:rowCount">4</item>
     </style>
 
     <style name="PadLayoutStyle.Hex" parent="@style/PadLayoutStyle.Advanced">
+        <item name="android:columnCount">3</item>
         <item name="android:rowCount">3</item>
     </style>
+
+    <style name="PadLayoutStyle.Matrix" parent="@style/PadLayoutStyle.Advanced" />
 
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
@@ -189,6 +195,10 @@
         <item name="android:paddingBottom">24dip</item>
         <item name="android:paddingLeft">4dip</item>
         <item name="android:paddingRight">28dip</item>
+    </style>
+
+    <style name="PadLayoutStyle.Card">
+        <item name="android:background">@drawable/color_card</item>
     </style>
 
 </resources>

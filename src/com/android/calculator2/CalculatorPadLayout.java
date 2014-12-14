@@ -57,7 +57,13 @@ public class CalculatorPadLayout extends ViewGroup {
         final int paddingRight = getPaddingRight();
         final int paddingTop = getPaddingTop();
         final int paddingBottom = getPaddingBottom();
-        final boolean isRTL = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
+        final boolean isRTL;
+        if (android.os.Build.VERSION.SDK_INT >= 17) {
+            isRTL = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
+        }
+        else {
+            isRTL = false;
+        }
         final int columnWidth =
                 Math.round((float) (right - left - paddingLeft - paddingRight)) / mColumnCount;
         final int rowHeight =

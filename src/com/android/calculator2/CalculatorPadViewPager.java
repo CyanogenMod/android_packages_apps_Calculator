@@ -21,6 +21,10 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.xlythe.math.Constants;
 
 public class CalculatorPadViewPager extends ViewPager {
     private NumberBaseManager mBaseManager;
@@ -53,16 +57,17 @@ public class CalculatorPadViewPager extends ViewPager {
     };
 
     private final OnPageChangeListener mOnPageChangeListener = new SimpleOnPageChangeListener() {
-        private void recursivelySetEnabled(View view, boolean enabled) {
+        private void recursivelyEnable(View view, boolean enabled) {
             if (view instanceof ViewGroup) {
                 final ViewGroup viewGroup = (ViewGroup) view;
                 for (int childIndex = 0; childIndex < viewGroup.getChildCount(); ++childIndex) {
-                    recursivelySetEnabled(viewGroup.getChildAt(childIndex), enabled);
+                    recursivelyEnable(viewGroup.getChildAt(childIndex), enabled);
                 }
             } else {
-                boolean disabled = mBaseManager != null &&
-                        mBaseManager.isViewDisabled(view.getId());
-                view.setEnabled(!disabled);
+                if(mBaseManager != null) {
+                    enabled &= !mBaseManager.isViewDisabled(view.getId());
+                }
+                view.setEnabled(enabled);
             }
         }
 
@@ -70,8 +75,7 @@ public class CalculatorPadViewPager extends ViewPager {
         public void onPageSelected(int position) {
             if (getAdapter() == mStaticPagerAdapter) {
                 for (int childIndex = 0; childIndex < getChildCount(); ++childIndex) {
-                    // Only enable subviews of the current page.
-                    recursivelySetEnabled(getChildAt(childIndex), childIndex == position);
+                    recursivelyEnable(getChildAt(childIndex), childIndex == position);
                 }
             }
         }

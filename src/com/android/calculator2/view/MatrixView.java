@@ -3,12 +3,15 @@ package com.android.calculator2.view;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.android.calculator2.R;
+import com.android.calculator2.view.display.AdvancedDisplay;
+import com.android.calculator2.view.display.AdvancedDisplayControls;
+import com.android.calculator2.view.display.DisplayComponent;
+import com.android.calculator2.view.display.EventListener;
 import com.xlythe.math.Solver;
 
 import org.ejml.simple.SimpleMatrix;
@@ -17,9 +20,9 @@ import org.javia.arity.SyntaxException;
 import java.text.DecimalFormatSymbols;
 import java.util.regex.Pattern;
 
-public class MatrixView extends TableLayout {
+public class MatrixView extends TableLayout implements AdvancedDisplayControls {
     private int mRows, mColumns = 0;
-    private AdvancedDisplay.EventListener mListener;
+    private EventListener mListener;
     private Solver mSolver;
     private String mSeparator;
 
@@ -84,16 +87,6 @@ public class MatrixView extends TableLayout {
             if(bracket_open == bracket_closed) return text.substring(0, i + 1);
         }
         return "";
-    }
-
-    private static int countOccurrences(String haystack, char needle) {
-        int count = 0;
-        for(int i = 0; i < haystack.length(); i++) {
-            if(haystack.charAt(i) == needle) {
-                count++;
-            }
-        }
-        return count;
     }
 
     public void addRow() {
@@ -222,8 +215,7 @@ public class MatrixView extends TableLayout {
                 else if(currentView == tr.getChildAt(column)) foundCurrentView = true;
             }
         }
-        AdvancedDisplay parent = (AdvancedDisplay) getParent();
-        return parent.getChildAt(parent.getChildIndex(this) + 1);
+        return mListener.nextView(currentView);
     }
 
     View previousView(View currentView) {
@@ -235,8 +227,7 @@ public class MatrixView extends TableLayout {
                 else if(currentView == tr.getChildAt(column)) foundCurrentView = true;
             }
         }
-        AdvancedDisplay parent = (AdvancedDisplay) getParent();
-        return parent.getChildAt(parent.getChildIndex(this) - 1);
+        return mListener.previousView(currentView);
     }
 
     @Override
@@ -279,11 +270,25 @@ public class MatrixView extends TableLayout {
         }
     }
 
-    public static class DisplayComponent implements AdvancedDisplay.DisplayComponent {
+    @Override
+    public boolean hasNext() {
+        for(int row = 0; row < mRows; row++) {
+            TableRow tr = (TableRow) getChildAt(row);
+            for(int column = 0; column < mColumns; column++) {
+                String input = ((EditText) tr.getChildAt(column)).getText().toString();
+                if(input.isEmpty()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static class MVDisplayComponent implements DisplayComponent {
         @Override
-        public View getView(Context context, Solver solver, String equation, AdvancedDisplay.EventListener listener) {
-            int rows = MatrixView.countOccurrences(equation, '[') - 1;
-            int columns = MatrixView.countOccurrences(equation, getSeparator().charAt(0)) / rows + 1;
+        public View getView(Context context, Solver solver, String equation, EventListener listener) {
+            int rows = TextUtil.countOccurrences(equation, '[') - 1;
+            int columns = TextUtil.countOccurrences(equation, getSeparator().charAt(0)) / rows + 1;
 
             MatrixView mv = new MatrixView(context);
             mv.mSolver = solver;

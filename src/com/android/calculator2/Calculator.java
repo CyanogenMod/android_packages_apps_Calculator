@@ -40,12 +40,17 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
+
+import com.android.calculator2.view.display.AdvancedDisplay.OnTextSizeChangeListener;
 import com.android.calculator2.CalculatorExpressionEvaluator.EvaluateCallback;
-import com.android.calculator2.view.AdvancedDisplay;
-import com.android.calculator2.view.AdvancedDisplay.OnTextSizeChangeListener;
+import com.android.calculator2.view.display.AdvancedDisplay;
 import com.android.calculator2.view.DisplayOverlay;
+import com.android.calculator2.view.MatrixEditText;
+import com.android.calculator2.view.MatrixInverseView;
+import com.android.calculator2.view.MatrixTransposeView;
 import com.android.calculator2.view.MatrixView;
 import com.xlythe.math.Base;
+import com.xlythe.math.Constants;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
 import com.xlythe.math.Persist;
@@ -157,7 +162,7 @@ public class Calculator extends Activity
         mResultEditText.setTextColor(getResources().getColor(R.color.display_result_text_color));
         mResultEditText.setEnabled(false);
 
-        mFormulaEditText.registerComponent(new MatrixView.DisplayComponent());
+        mFormulaEditText.registerComponent(new MatrixView.MVDisplayComponent());
         mResultEditText.registerComponents(mFormulaEditText.getComponents());
 
         Base base = Base.DECIMAL;
@@ -171,8 +176,16 @@ public class Calculator extends Activity
         }
         setSelectedBaseButton(base);
 
+        mDisplayView.bringToFront();
+
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+        // Rebuild constants. If the user changed their locale, it won't kill the app
+        // but it might change a decimal point from . to ,
+        Constants.rebuildConstants();
+        Button dot = (Button) findViewById(R.id.dec_point);
+        dot.setText(String.valueOf(Constants.DECIMAL_POINT));
     }
 
     @Override
@@ -185,13 +198,13 @@ public class Calculator extends Activity
         mHistory = mPersist.getHistory();
 
         mHistoryAdapter = new HistoryAdapter(this, mHistory,
-                new HistoryAdapter.HistoryItemCallback() {
-                    @Override
-                    public void onHistoryItemSelected(HistoryEntry entry) {
-                        mFormulaEditText.insert(entry.getEdited());
-                        mDisplayView.collapseHistory();
-                    }
-                });
+        new HistoryAdapter.HistoryItemCallback() {
+            @Override
+            public void onHistoryItemSelected(HistoryEntry entry) {
+                mFormulaEditText.insert(entry.getEdited());
+                mDisplayView.collapseHistory();
+            }
+        });
         mHistory.setObserver(mHistoryAdapter);
         mDisplayView.getHistoryView().setAdapter(mHistoryAdapter);
         mDisplayView.scrollToMostRecent();
@@ -213,7 +226,7 @@ public class Calculator extends Activity
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_CURRENT_STATE, mCurrentState.ordinal());
         outState.putString(KEY_CURRENT_EXPRESSION,
-                mTokenizer.getNormalizedExpression(mFormulaEditText.getText().toString()));
+                mTokenizer.getNormalizedExpression(mFormulaEditText.getText()));
         outState.putInt(KEY_BASE, mBaseManager.getNumberBase().ordinal());
     }
 
@@ -282,6 +295,7 @@ public class Calculator extends Activity
             case R.id.clr:
                 onClear();
                 break;
+            case R.id.det:
             case R.id.fun_cos:
             case R.id.fun_ln:
             case R.id.fun_log:
@@ -298,6 +312,35 @@ public class Calculator extends Activity
                 break;
             case R.id.dec:
                 setBase(Base.DECIMAL);
+                break;
+            case R.id.matrix:
+                mFormulaEditText.insert(MatrixView.getPattern());
+                break;
+            case R.id.matrix_inverse:
+                mFormulaEditText.insert(MatrixInverseView.PATTERN);
+                break;
+            case R.id.matrix_transpose:
+                mFormulaEditText.insert(MatrixTransposeView.PATTERN);
+                break;
+            case R.id.plus_row:
+                if(mFormulaEditText.getActiveEditText() instanceof MatrixEditText) {
+                    ((MatrixEditText) mFormulaEditText.getActiveEditText()).getMatrixView().addRow();
+                }
+                break;
+            case R.id.minus_row:
+                if(mFormulaEditText.getActiveEditText() instanceof MatrixEditText) {
+                    ((MatrixEditText) mFormulaEditText.getActiveEditText()).getMatrixView().removeRow();
+                }
+                break;
+            case R.id.plus_col:
+                if(mFormulaEditText.getActiveEditText() instanceof MatrixEditText) {
+                    ((MatrixEditText) mFormulaEditText.getActiveEditText()).getMatrixView().addColumn();
+                }
+                break;
+            case R.id.minus_col:
+                if(mFormulaEditText.getActiveEditText() instanceof MatrixEditText) {
+                    ((MatrixEditText) mFormulaEditText.getActiveEditText()).getMatrixView().removeColumn();
+                }
                 break;
             default:
                 mFormulaEditText.insert(((Button) view).getText());
@@ -318,7 +361,12 @@ public class Calculator extends Activity
     @Override
     public void onEvaluate(String expr, String result, int errorResourceId) {
         if (mCurrentState == CalculatorState.INPUT) {
-            mResultEditText.setText(result);
+            if (result == null || result.equals(mFormulaEditText.getText())) {
+                mResultEditText.clear();
+            }
+            else {
+                mResultEditText.setText(result);
+            }
         } else if (errorResourceId != INVALID_RES_ID) {
             onError(errorResourceId);
         } else if (!TextUtils.isEmpty(result)) {
@@ -329,7 +377,6 @@ public class Calculator extends Activity
             // The current expression cannot be evaluated -> return to the input state.
             setState(CalculatorState.INPUT);
         }
-        mFormulaEditText.requestFocus();
     }
 
     @Override
@@ -366,8 +413,13 @@ public class Calculator extends Activity
 
     private void onEquals() {
         if (mCurrentState == CalculatorState.INPUT) {
-            setState(CalculatorState.EVALUATE);
-            mEvaluator.evaluate(mFormulaEditText.getText(), this);
+            if (mFormulaEditText.hasNext()) {
+                mFormulaEditText.next();
+            }
+            else {
+                setState(CalculatorState.EVALUATE);
+                mEvaluator.evaluate(mFormulaEditText.getText(), this);
+            }
         }
     }
 
@@ -434,7 +486,6 @@ public class Calculator extends Activity
             @Override
             public void onAnimationEnd(Animator animation) {
                 mFormulaEditText.clear();
-                mResultEditText.clear();
             }
         });
     }
@@ -499,9 +550,7 @@ public class Calculator extends Activity
         animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
+            public void onAnimationStart(Animator animation) {}
 
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -515,7 +564,6 @@ public class Calculator extends Activity
 
                 // Finally update the formula to use the current result.
                 mFormulaEditText.setText(result);
-                mResultEditText.clear();
                 setState(CalculatorState.RESULT);
                 mCurrentAnimator = null;
             }
@@ -525,18 +573,22 @@ public class Calculator extends Activity
         animatorSet.start();
     }
 
-    public void setButtonEnabled(int resId, boolean isEnabled) {
-        // TODO: account for the case where the same resId is present on multiple view pager pages
-        View view = findViewById(resId);
-        if (view != null) {
-            view.setEnabled(isEnabled);
-        }
-    }
-
     private void setBase(Base base) {
+        // Update the BaseManager, which handles restricting which buttons to show
         mBaseManager.setNumberBase(base);
-        convertDisplayBase(base, mFormulaEditText);
-        convertDisplayBase(base, mResultEditText);
+
+        // Update the evaluator, which handles the math
+        mEvaluator.setBase(mFormulaEditText.getText(), base, new EvaluateCallback() {
+            @Override
+            public void onEvaluate(String expr, String result, int errorResourceId) {
+                if (errorResourceId != INVALID_RES_ID) {
+                    onError(errorResourceId);
+                } else {
+                    mResultEditText.setText(result);
+                    onResult(result);
+                }
+            }
+        });
         setSelectedBaseButton(base);
 
         // disable any buttons that are not relevant to the current base
@@ -556,11 +608,6 @@ public class Calculator extends Activity
         // base as necessary. As a short term approach, just clear the history when
         // changing the base.
         mHistory.clear();
-    }
-
-    private void convertDisplayBase(Base base, AdvancedDisplay display) {
-        String newText = display.getBaseModule().setBase(display.getText(), base);
-        display.setText(newText);
     }
 
     private void setSelectedBaseButton(Base base) {

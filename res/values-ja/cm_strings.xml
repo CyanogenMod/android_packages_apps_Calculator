@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">16進法</string>
-  <string name="binDesc">2進法</string>
-  <string name="decDesc">10進法</string>
+  <string name="desc_hex">16進法</string>
+  <string name="desc_bin">2進法</string>
+  <string name="desc_dec">10進法</string>
   <string name="pref_panels">パネル</string>
   <string name="pref_actions">動作</string>
   <string name="pref_units">単位</string>

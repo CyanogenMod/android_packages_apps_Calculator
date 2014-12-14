@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Hexadecimális</string>
-  <string name="binDesc">Bináris</string>
-  <string name="decDesc">Decimális</string>
+  <string name="desc_hex">Hexadecimális</string>
+  <string name="desc_bin">Bináris</string>
+  <string name="desc_dec">Decimális</string>
   <string name="pref_panels">Panelek</string>
   <string name="pref_actions">Események</string>
   <string name="pref_units">Mértékegységek</string>

@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Heksadesimaali</string>
-  <string name="binDesc">Binääri</string>
-  <string name="decDesc">Desimaali</string>
+  <string name="desc_hex">Heksadesimaali</string>
+  <string name="desc_bin">Binääri</string>
+  <string name="desc_dec">Desimaali</string>
   <string name="pref_panels">Paneelit</string>
   <string name="pref_actions">Toiminnot</string>
   <string name="pref_units">Yksiköt</string>

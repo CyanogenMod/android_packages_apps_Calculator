@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Kuueteistkümnend-</string>
-  <string name="binDesc">Kahend-</string>
-  <string name="decDesc">Kümnend-</string>
+  <string name="desc_hex">Kuueteistkümnend-</string>
+  <string name="desc_bin">Kahend-</string>
+  <string name="desc_dec">Kümnend-</string>
   <string name="pref_panels">Paneelid</string>
   <string name="pref_actions">Tegevused</string>
   <string name="pref_units">Ühikud</string>

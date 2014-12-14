@@ -55,9 +55,9 @@
   <string name="hex">Хекс</string>
   <string name="bin">Бин</string>
   <string name="dec">Дек</string>
-  <string name="hexDesc">Хексадекадни</string>
-  <string name="binDesc">Бинарни</string>
-  <string name="decDesc">Декадни</string>
+  <string name="desc_hex">Хексадекадни</string>
+  <string name="desc_bin">Бинарни</string>
+  <string name="desc_dec">Декадни</string>
   <string name="pref_panels">Панели</string>
   <string name="pref_actions">Акције</string>
   <string name="pref_units">Јединице</string>

@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Onaltılık</string>
-  <string name="binDesc">İkilik</string>
-  <string name="decDesc">Onluk</string>
+  <string name="desc_hex">Onaltılık</string>
+  <string name="desc_bin">İkilik</string>
+  <string name="desc_dec">Onluk</string>
   <string name="pref_panels">Paneller</string>
   <string name="pref_actions">İşlevler</string>
   <string name="pref_units">Birimler</string>
