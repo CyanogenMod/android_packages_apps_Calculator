@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">เลขฐานสิบหก</string>
-  <string name="binDesc">เลขฐานสอง</string>
-  <string name="decDesc">เลขฐานสิบ</string>
+  <string name="desc_hex">เลขฐานสิบหก</string>
+  <string name="desc_bin">เลขฐานสอง</string>
+  <string name="desc_dec">เลขฐานสิบ</string>
   <string name="pref_panels">แผง</string>
   <string name="pref_actions">การกระทำ</string>
   <string name="pref_units">หน่วย</string>

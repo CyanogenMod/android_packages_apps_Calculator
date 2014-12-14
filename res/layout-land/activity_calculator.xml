@@ -15,21 +15,21 @@
   limitations under the License.
   -->
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include
-        layout="@layout/display"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/display"
+        layout="@layout/display" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/below_display_margin"
+        android:layout_below="@id/display">
 
         <include layout="@layout/pad_numeric" />
         <include layout="@layout/pad_operator_two_col" />
@@ -37,4 +37,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

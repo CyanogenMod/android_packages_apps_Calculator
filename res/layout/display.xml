@@ -16,13 +16,13 @@
   -->
 
 <com.android.calculator2.view.DisplayOverlay
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/display"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/display_background_color"
-        android:elevation="4dip"
-        android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/display"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_card"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-        <com.android.calculator2.view.AdvancedDisplay
+        <com.android.calculator2.view.display.AdvancedDisplay
             android:id="@+id/formula"
             style="@style/Theme.Calculator.Display.Main.Formula"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:inputType="text|textNoSuggestions"
             android:textColor="@color/display_formula_text_color" />
 
-        <com.android.calculator2.view.AdvancedDisplay
+        <com.android.calculator2.view.display.AdvancedDisplay
             android:id="@+id/result"
             style="@style/Theme.Calculator.Display.Main.Result"
             android:layout_width="match_parent"
@@ -50,5 +50,7 @@
             android:inputType="none"
             android:focusable="false"
             android:textColor="@color/display_result_text_color" />
+
     </RelativeLayout>
+
 </com.android.calculator2.view.DisplayOverlay>

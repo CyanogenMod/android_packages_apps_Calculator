@@ -55,9 +55,9 @@
   <string name="hex">十六进制</string>
   <string name="bin">二进制</string>
   <string name="dec">十进制</string>
-  <string name="hexDesc">十六进制</string>
-  <string name="binDesc">二进制</string>
-  <string name="decDesc">十进制</string>
+  <string name="desc_hex">十六进制</string>
+  <string name="desc_bin">二进制</string>
+  <string name="desc_dec">十进制</string>
   <string name="pref_panels">面板</string>
   <string name="pref_actions">操作</string>
   <string name="pref_units">单位</string>

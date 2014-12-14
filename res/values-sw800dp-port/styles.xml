@@ -33,7 +33,7 @@
         <item name="android:paddingBottom">90dip</item>
         <item name="android:paddingLeft">44dip</item>
         <item name="android:paddingRight">44dip</item>
-        <item name="android:textSize">56sp</item>
+        <item name="textSize">56sp</item>
     </style>
 
     <style name="PadButtonStyle.Advanced">
@@ -95,12 +95,6 @@
         <item name="android:paddingBottom">8dip</item>
         <item name="android:paddingLeft">0dip</item>
         <item name="android:paddingRight">8dip</item>
-    </style>
-
-    <style name="PadLinearLayoutStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dip</item>
-        <item name="android:layout_weight">508</item>
     </style>
 
 </resources>

@@ -94,6 +94,10 @@ public class HistoryLine extends LinearLayout {
         this.mHistory = history;
     }
 
+    public RecyclerView.Adapter getAdapter() {
+        return mAdapter;
+    }
+
     public void setAdapter(RecyclerView.Adapter adapter) {
         this.mAdapter = adapter;
     }

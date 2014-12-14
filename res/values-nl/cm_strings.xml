@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Hexadecimaal</string>
-  <string name="binDesc">Binair</string>
-  <string name="decDesc">Decimaal</string>
+  <string name="desc_hex">Hexadecimaal</string>
+  <string name="desc_bin">Binair</string>
+  <string name="desc_dec">Decimaal</string>
   <string name="pref_panels">Panelen</string>
   <string name="pref_actions">Acties</string>
   <string name="pref_units">Eenheden</string>

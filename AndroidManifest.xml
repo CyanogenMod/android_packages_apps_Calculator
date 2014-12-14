@@ -61,7 +61,7 @@
 
         <!-- Activities and services for floating calc -->
         <activity
-            android:name="com.xlythe.floatingview2.FloatingActivity"
+            android:name="com.xlythe.floatingview.FloatingActivity"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:finishOnTaskLaunch="true"

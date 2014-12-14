@@ -68,23 +68,21 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="PadLayoutStyle.Aux">
-        <item name="android:layout_width">0dip</item>
-        <item name="android:layout_weight">208</item>
-    </style>
-
     <style name="PadLayoutStyle.Advanced">
         <item name="android:paddingTop">4dip</item>
         <item name="android:paddingBottom">4dip</item>
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>
-        <item name="android:columnCount">3</item>
+        <item name="android:columnCount">4</item>
         <item name="android:rowCount">4</item>
     </style>
 
     <style name="PadLayoutStyle.Hex" parent="@style/PadLayoutStyle.Advanced">
+        <item name="android:columnCount">3</item>
         <item name="android:rowCount">3</item>
     </style>
+
+    <style name="PadLayoutStyle.Matrix" parent="@style/PadLayoutStyle.Advanced" />
 
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
@@ -104,4 +102,8 @@
         <item name="android:paddingRight">12dip</item>
     </style>
 
+    <style name="PadLayoutStyle.Card">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">208</item>
+    </style>
 </resources>

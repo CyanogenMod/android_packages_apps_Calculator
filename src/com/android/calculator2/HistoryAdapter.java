@@ -68,7 +68,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     protected int getLayoutResourceId() {
-         return R.layout.history_entry;
+        return R.layout.history_entry;
     }
 
     @Override

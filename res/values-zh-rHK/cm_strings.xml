@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">16 進位</string>
-  <string name="binDesc">2 進位</string>
-  <string name="decDesc">10 進位</string>
+  <string name="desc_hex">16 進位</string>
+  <string name="desc_bin">2 進位</string>
+  <string name="desc_dec">10 進位</string>
   <string name="pref_panels">板面</string>
   <string name="pref_actions">操作</string>
   <string name="pref_units">單位</string>

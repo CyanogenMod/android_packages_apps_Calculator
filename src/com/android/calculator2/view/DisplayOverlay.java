@@ -52,21 +52,27 @@ public class DisplayOverlay extends FrameLayout {
     private int mParentHeight = -1;
 
     public DisplayOverlay(Context context) {
-        this(context, null);
+        super(context);
+        setup();
     }
 
     public DisplayOverlay(Context context, AttributeSet attrs) {
-        this(context, attrs, -1);
+        super(context, attrs);
+        setup();
     }
 
     public DisplayOverlay(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, -1);
+        super(context, attrs, defStyleAttr);
+        setup();
     }
 
     public DisplayOverlay(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        setup();
+    }
 
-        ViewConfiguration vc = ViewConfiguration.get(context);
+    private void setup() {
+        ViewConfiguration vc = ViewConfiguration.get(getContext());
         mTouchSlop = vc.getScaledTouchSlop();
     }
 

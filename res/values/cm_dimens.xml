@@ -13,4 +13,7 @@
     <!-- Advanced keypad pager -->
     <dimen name="viewpager_indicator_margin_size">3dp</dimen>
     <dimen name="viewpager_indicator_size">5dp</dimen>
+
+    <!-- Display -->
+    <dimen name="below_display_margin">-10dp</dimen>
 </resources>

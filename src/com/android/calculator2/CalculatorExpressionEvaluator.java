@@ -17,6 +17,7 @@ package com.android.calculator2;
 
 import android.util.Log;
 
+import com.xlythe.math.Base;
 import com.xlythe.math.EquationFormatter;
 import com.xlythe.math.Solver;
 
@@ -26,12 +27,10 @@ import org.javia.arity.Util;
 
 public class CalculatorExpressionEvaluator {
     private final Solver mSolver;
-    private final EquationFormatter mFormatter;
     private final CalculatorExpressionTokenizer mTokenizer;
 
     public CalculatorExpressionEvaluator(CalculatorExpressionTokenizer tokenizer) {
         mSolver = new Solver();
-        mFormatter = new EquationFormatter();
         mTokenizer = tokenizer;
     }
 
@@ -58,8 +57,15 @@ public class CalculatorExpressionEvaluator {
 
         try {
             String result = mSolver.solve(expr);
-            result = mFormatter.insertSupScripts(result);
-            result = mFormatter.addComas(mSolver, result);
+            callback.onEvaluate(expr, result, Calculator.INVALID_RES_ID);
+        } catch (SyntaxException e) {
+            callback.onEvaluate(expr, null, R.string.error);
+        }
+    }
+
+    public void setBase(String expr, Base base, EvaluateCallback callback) {
+        try {
+            String result = mSolver.getBaseModule().setBase(expr, base);
             callback.onEvaluate(expr, result, Calculator.INVALID_RES_ID);
         } catch (SyntaxException e) {
             callback.onEvaluate(expr, null, R.string.error);
