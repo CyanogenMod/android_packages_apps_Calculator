@@ -40,9 +40,9 @@
   <string name="settings">Postavke</string>
   <string name="solve">Riješi</string>
   <string name="next">Sljedeći</string>
-  <string name="hexDesc">Heksadecimalno</string>
-  <string name="binDesc">Binarno</string>
-  <string name="decDesc">Decimalno</string>
+  <string name="desc_hex">Heksadecimalno</string>
+  <string name="desc_bin">Binarno</string>
+  <string name="desc_dec">Decimalno</string>
   <string name="pref_panels">Paneli</string>
   <string name="pref_actions">Radnje</string>
   <string name="pref_units">Jedinice</string>

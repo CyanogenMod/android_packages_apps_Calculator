@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">הקסדצימאלי</string>
-  <string name="binDesc">בינארי</string>
-  <string name="decDesc">דצימאלי</string>
+  <string name="desc_hex">הקסדצימאלי</string>
+  <string name="desc_bin">בינארי</string>
+  <string name="desc_dec">דצימאלי</string>
   <string name="pref_panels">לוחות</string>
   <string name="pref_actions">פעולות</string>
   <string name="pref_units">יחידות</string>

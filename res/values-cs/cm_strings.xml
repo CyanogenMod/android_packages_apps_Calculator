@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Šestnáctkové</string>
-  <string name="binDesc">Binární</string>
-  <string name="decDesc">Desítkové</string>
+  <string name="desc_hex">Šestnáctkové</string>
+  <string name="desc_bin">Binární</string>
+  <string name="desc_dec">Desítkové</string>
   <string name="pref_panels">Panely</string>
   <string name="pref_actions">Akce</string>
   <string name="pref_units">Jednotky</string>

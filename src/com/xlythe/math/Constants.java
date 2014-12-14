@@ -1,6 +1,7 @@
 package com.xlythe.math;
 
 import java.text.DecimalFormatSymbols;
+import java.util.regex.Pattern;
 
 /**
  * Created by Will on 11/8/2014.
@@ -22,14 +23,26 @@ public class Constants {
     public static final char RIGHT_PAREN = ')';
 
     // Values for decimals and comas
-    private static final DecimalFormatSymbols DECIMAL_FORMAT = new DecimalFormatSymbols();
-    public static final char DECIMAL_POINT;
-    public static final char DECIMAL_SEPARATOR;
-    public static final char BINARY_SEPARATOR;
-    public static final char HEXADECIMAL_SEPARATOR;
-    public static final char MATRIX_SEPARATOR;
+    private static DecimalFormatSymbols DECIMAL_FORMAT;
+    public static char DECIMAL_POINT;
+    public static char DECIMAL_SEPARATOR;
+    public static char BINARY_SEPARATOR;
+    public static char HEXADECIMAL_SEPARATOR;
+    public static char MATRIX_SEPARATOR;
+
+    public static String REGEX_NUMBER;
+    public static String REGEX_NOT_NUMBER;
 
     static {
+        rebuildConstants();
+    }
+
+    /**
+     * If the locale changes, but the app is still in memory, you may need to rebuild these constants
+     * */
+    public static void rebuildConstants() {
+        DECIMAL_FORMAT = new DecimalFormatSymbols();
+
         // These will already be known by Java
         DECIMAL_POINT = DECIMAL_FORMAT.getDecimalSeparator();
         DECIMAL_SEPARATOR = DECIMAL_FORMAT.getGroupingSeparator();
@@ -42,5 +55,14 @@ public class Constants {
         // It defaults to "," but that's a common decimal point.
         if(DECIMAL_POINT == ',') MATRIX_SEPARATOR = ' ';
         else MATRIX_SEPARATOR = ',';
+
+        String number = "A-F0-9" +
+                Pattern.quote(String.valueOf(DECIMAL_POINT)) +
+                Pattern.quote(String.valueOf(DECIMAL_SEPARATOR)) +
+                Pattern.quote(String.valueOf(BINARY_SEPARATOR)) +
+                Pattern.quote(String.valueOf(HEXADECIMAL_SEPARATOR));
+
+        REGEX_NUMBER = "[" + number + "]";
+        REGEX_NOT_NUMBER = "[^" + number + "]";
     }
 }

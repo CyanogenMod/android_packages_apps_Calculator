@@ -4,7 +4,7 @@
     android:background="@drawable/menu_bg"
     android:focusable="false"
     android:orientation="vertical"
-    android:padding="6dp">
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/historyExpr"
@@ -25,4 +25,5 @@
         android:gravity="right"
         android:textColor="@android:color/white"
         android:textSize="25sp" />
+
 </com.android.calculator2.view.HistoryLine>

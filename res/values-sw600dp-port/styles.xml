@@ -20,8 +20,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.Calculator.Display.Main.Formula">
-        <item name="android:paddingTop">72dip</item>
-        <item name="android:paddingBottom">32dip</item>
+        <item name="android:paddingTop">58dip</item>
+        <item name="android:paddingBottom">14dip</item>
         <item name="android:paddingLeft">44dip</item>
         <item name="android:paddingRight">44dip</item>
         <item name="minTextSize">48sp</item>
@@ -30,11 +30,11 @@
     </style>
 
     <style name="Theme.Calculator.Display.Main.Result">
-        <item name="android:paddingTop">32dip</item>
+        <item name="android:paddingTop">14dip</item>
         <item name="android:paddingBottom">90dip</item>
         <item name="android:paddingLeft">44dip</item>
         <item name="android:paddingRight">44dip</item>
-        <item name="android:textSize">48sp</item>
+        <item name="textSize">48sp</item>
     </style>
 
     <style name="PadButtonStyle.Advanced">
@@ -70,15 +70,20 @@
     </style>
 
     <style name="PadLayoutStyle.Advanced">
-        <item name="android:layout_height">0dip</item>
-        <item name="android:layout_weight">256</item>
         <item name="android:paddingTop">8dip</item>
         <item name="android:paddingBottom">8dip</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
+        <item name="android:columnCount">5</item>
+        <item name="android:rowCount">3</item>
+    </style>
+
+    <style name="PadLayoutStyle.Hex" parent="@style/PadLayoutStyle.Advanced">
         <item name="android:columnCount">6</item>
         <item name="android:rowCount">2</item>
     </style>
+
+    <style name="PadLayoutStyle.Matrix" parent="@style/PadLayoutStyle.Advanced" />
 
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
@@ -100,8 +105,9 @@
 
     <style name="PadLinearLayoutStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dip</item>
-        <item name="android:layout_weight">508</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
+
+    <style name="PadLayoutStyle.Card" />
 
 </resources>

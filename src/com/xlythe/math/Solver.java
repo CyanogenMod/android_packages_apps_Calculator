@@ -116,6 +116,10 @@ public class Solver {
         return number.startsWith(String.valueOf(Constants.MINUS)) || number.startsWith("-");
     }
 
+    public static boolean isDigit(char number) {
+        return String.valueOf(number).matches(Constants.REGEX_NUMBER);
+    }
+
     boolean displayContainsMatrices(String text) {
         return getMatrixModule().isMatrix(text);
     }
@@ -186,6 +190,14 @@ public class Solver {
 
     public void setLineLength(int length) {
         mLineLength = length;
+    }
+
+    public void setBase(Base base) {
+        mBaseModule.setBase(base);
+    }
+
+    public Base getBase() {
+        return mBaseModule.getBase();
     }
 
     public GraphModule getGraphModule() {

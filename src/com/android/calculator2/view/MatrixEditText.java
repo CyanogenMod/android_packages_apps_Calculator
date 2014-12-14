@@ -33,15 +33,17 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.android.calculator2.R;
+import com.android.calculator2.view.display.AdvancedDisplay;
+import com.android.calculator2.view.display.EventListener;
 import com.xlythe.math.Constants;
 
 public class MatrixEditText extends EditText implements OnFocusChangeListener {
     private static final char[] ACCEPTED_CHARS = "0123456789,.-\u2212".toCharArray();
 
     private MatrixView mParent;
-    private AdvancedDisplay.EventListener mListener;
+    private EventListener mListener;
 
-    public MatrixEditText(MatrixView matrixView, AdvancedDisplay.EventListener listener) {
+    public MatrixEditText(MatrixView matrixView, EventListener listener) {
         super(matrixView.getContext());
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);

@@ -2423,12 +2423,7 @@ public class VerticalViewPager extends ViewGroup {
             }
         }
 
-        // to vertical scroll inner WebViews for Froyo+
-        if (v instanceof ExtendedWebView) {
-            return ((ExtendedWebView) v).canScrollVertical(-dy);
-        } else {
-            return checkV && ViewCompat.canScrollVertically(v, -dy);
-        }
+        return checkV && ViewCompat.canScrollVertically(v, -dy);
     }
 
     @Override

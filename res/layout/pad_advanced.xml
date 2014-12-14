@@ -105,4 +105,23 @@
         android:onClick="onButtonClick"
         android:text="@string/op_sqrt" />
 
+    <Button
+        android:id="@+id/const_i"
+        style="@style/PadButtonStyle.Advanced"
+        android:onClick="onButtonClick"
+        android:text="@string/const_imaginary" />
+
+    <Button
+        android:id="@+id/fun_percent"
+        style="@style/PadButtonStyle.Advanced"
+        android:contentDescription="@string/fun_percentage"
+        android:onClick="onButtonClick"
+        android:text="@string/fun_percentage" />
+
+    <Button
+        android:id="@+id/const_x"
+        style="@style/PadButtonStyle.Advanced"
+        android:onClick="onButtonClick"
+        android:text="@string/X" />
+
 </com.android.calculator2.CalculatorPadLayout>

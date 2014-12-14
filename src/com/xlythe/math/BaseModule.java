@@ -1,6 +1,7 @@
 package com.xlythe.math;
 
 import android.util.Log;
+
 import org.javia.arity.SyntaxException;
 
 import java.text.DecimalFormatSymbols;
@@ -18,8 +19,8 @@ public class BaseModule extends Module {
     private final static int PRECISION = 8;
 
     // Regex to strip out things like "90" from "sin(90)"
-    public final String REGEX_NUMBER;
-    public final String REGEX_NOT_NUMBER;
+    private final String REGEX_NUMBER;
+    private final String REGEX_NOT_NUMBER;
 
     // The current base. Defaults to decimal.
     private Base mBase = Base.DECIMAL;
@@ -30,8 +31,11 @@ public class BaseModule extends Module {
     BaseModule(Solver solver) {
         super(solver);
 
-        REGEX_NUMBER = "[A-F0-9" + Pattern.quote(getDecimalPoint()+"") + SELECTION_HANDLE + "]";
-        REGEX_NOT_NUMBER = "[^A-F0-9" + Pattern.quote(getDecimalPoint()+"") + SELECTION_HANDLE + "]";
+        // Modify the constants to include a fake character, SELECTION_HANDLE
+        REGEX_NUMBER = Constants.REGEX_NUMBER
+                .substring(0, Constants.REGEX_NUMBER.length() - 1) + SELECTION_HANDLE + "]";
+        REGEX_NOT_NUMBER = Constants.REGEX_NOT_NUMBER
+                .substring(0, Constants.REGEX_NOT_NUMBER.length() - 1) + SELECTION_HANDLE + "]";
     }
 
     public Base getBase() {
@@ -43,30 +47,25 @@ public class BaseModule extends Module {
         if(mBaseChangeListener != null) mBaseChangeListener.onBaseChange(mBase);
     }
 
-    public String setBase(String input, Base base) {
-        try {
-            String text = updateTextToNewMode(input, mBase, base);
-            setBase(base);
-            return text;
-        }
-        catch (SyntaxException e) {
-            Log.w(TAG, "Failed to convert base for string: " + input, e);
-        }
-        return input;
+    public String setBase(String input, Base base) throws SyntaxException {
+        String text = updateTextToNewMode(input, mBase, base);
+        setBase(base);
+        return text;
     }
 
-    String updateTextToNewMode(final String originalText, final Base base1, final Base base2) throws SyntaxException {
-        if(base1.equals(base2) || originalText.isEmpty() || originalText.matches(REGEX_NOT_NUMBER))
+    String updateTextToNewMode(final String originalText, final Base oldBase, final Base newBase) throws SyntaxException {
+        if(oldBase.equals(newBase) || originalText.isEmpty() || originalText.matches(REGEX_NOT_NUMBER)) {
             return originalText;
+        }
 
         String[] operations = originalText.split(REGEX_NUMBER);
         String[] numbers = originalText.split(REGEX_NOT_NUMBER);
         String[] translatedNumbers = new String[numbers.length];
         for(int i = 0; i < numbers.length; i++) {
             if(!numbers[i].isEmpty()) {
-                switch(base1) {
+                switch(oldBase) {
                     case BINARY:
-                        switch(base2) {
+                        switch(newBase) {
                             case BINARY:
                                 break;
                             case DECIMAL:
@@ -86,7 +85,7 @@ public class BaseModule extends Module {
                         }
                         break;
                     case DECIMAL:
-                        switch(base2) {
+                        switch(newBase) {
                             case BINARY:
                                 try {
                                     translatedNumbers[i] = newBase(numbers[i], 10, 2);
@@ -106,7 +105,7 @@ public class BaseModule extends Module {
                         }
                         break;
                     case HEXADECIMAL:
-                        switch(base2) {
+                        switch(newBase) {
                             case BINARY:
                                 try {
                                     translatedNumbers[i] = newBase(numbers[i], 16, 2);
@@ -270,13 +269,14 @@ public class BaseModule extends Module {
         }
 
         String modifiedNumber = group(wholeNumber, getSeparatorDistance(base), getSeparator(base));
+
         return sign + modifiedNumber + remainder;
     }
 
     private String group(String wholeNumber, int spacing, char separator) {
         StringBuilder sb = new StringBuilder();
         int digitsSeen = 0;
-        for (int i=wholeNumber.length()-1; i >= 0; --i) {
+        for (int i=wholeNumber.length()-1; i>=0; --i) {
             char curChar = wholeNumber.charAt(i);
             if (curChar != SELECTION_HANDLE) {
                 if (digitsSeen > 0 && digitsSeen % spacing == 0) {
@@ -289,7 +289,7 @@ public class BaseModule extends Module {
         return sb.toString();
     }
 
-    private char getSeparator(Base base) {
+    public char getSeparator(Base base) {
         switch(base) {
             case DECIMAL:
                 return getDecSeparator();
@@ -300,6 +300,10 @@ public class BaseModule extends Module {
             default:
                 return 0;
         }
+    }
+
+    public char getSeparator() {
+        return getSeparator(mBase);
     }
 
     private int getSeparatorDistance(Base base) {

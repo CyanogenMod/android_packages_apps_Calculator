@@ -23,7 +23,7 @@
         <item name="android:paddingBottom">26dip</item>
         <item name="android:paddingLeft">44dip</item>
         <item name="android:paddingRight">44dip</item>
-        <item name="android:textSize">48sp</item>
+        <item name="textSize">48sp</item>
     </style>
 
     <style name="Theme.Calculator.Display.Main.Result">
@@ -61,15 +61,20 @@
     </style>
 
     <style name="PadLayoutStyle.Advanced">
-        <item name="android:layout_width">0dip</item>
-        <item name="android:layout_weight">508</item>
         <item name="android:paddingTop">10dip</item>
         <item name="android:paddingBottom">10dip</item>
         <item name="android:paddingLeft">18dip</item>
         <item name="android:paddingRight">22dip</item>
-        <item name="android:columnCount">3</item>
+        <item name="android:columnCount">4</item>
         <item name="android:rowCount">4</item>
     </style>
+
+    <style name="PadLayoutStyle.Hex" parent="@style/PadLayoutStyle.Advanced">
+        <item name="android:columnCount">3</item>
+        <item name="android:rowCount">3</item>
+    </style>
+
+    <style name="PadLayoutStyle.Matrix" parent="@style/PadLayoutStyle.Advanced" />
 
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
@@ -87,6 +92,11 @@
         <item name="android:paddingBottom">10dip</item>
         <item name="android:paddingLeft">18dip</item>
         <item name="android:paddingRight">18dip</item>
+    </style>
+
+    <style name="PadLayoutStyle.Card">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">508</item>
     </style>
 
 </resources>

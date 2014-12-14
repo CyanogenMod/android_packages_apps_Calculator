@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Δεκαεξαδικό</string>
-  <string name="binDesc">Δυαδικό</string>
-  <string name="decDesc">Δεκαδικό</string>
+  <string name="desc_hex">Δεκαεξαδικό</string>
+  <string name="desc_bin">Δυαδικό</string>
+  <string name="desc_dec">Δεκαδικό</string>
   <string name="pref_panels">Πάνελ</string>
   <string name="pref_actions">Ενέργειες</string>
   <string name="pref_units">Μονάδες</string>

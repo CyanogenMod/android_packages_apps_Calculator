@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Шестнадцатеричная</string>
-  <string name="binDesc">Двоичная</string>
-  <string name="decDesc">Десятичная</string>
+  <string name="desc_hex">Шестнадцатеричная</string>
+  <string name="desc_bin">Двоичная</string>
+  <string name="desc_dec">Десятичная</string>
   <string name="pref_panels">Панели</string>
   <string name="pref_actions">Действия</string>
   <string name="pref_units">Единицы</string>

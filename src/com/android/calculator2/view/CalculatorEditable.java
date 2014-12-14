@@ -56,12 +56,12 @@ public class CalculatorEditable extends SpannableStringBuilder {
             char text = delta.charAt(0);
 
             // don't allow two dots in the same number
-            if(text == '.') {
+            if(text == Constants.DECIMAL_POINT) {
                 int p = start - 1;
-                while(p >= 0 && Character.isDigit(charAt(p))) {
+                while(p >= 0 && Solver.isDigit(charAt(p))) {
                     --p;
                 }
-                if(p >= 0 && charAt(p) == '.') {
+                if(p >= 0 && charAt(p) == Constants.DECIMAL_POINT) {
                     return super.replace(start, end, "");
                 }
             }
@@ -73,10 +73,13 @@ public class CalculatorEditable extends SpannableStringBuilder {
                 return super.replace(start, end, "");
             }
 
-            // TODO move to advanced display
             // don't allow multiple successive operators
             if(Solver.isOperator(text)) {
-                while(Solver.isOperator(prevChar) && (text != Constants.MINUS || prevChar == Constants.PLUS)) {
+                while(Solver.isOperator(prevChar)) {
+                    if(start == 1) {
+                        return super.replace(start, end, "");
+                    }
+
                     --start;
                     prevChar = start > 0 ? charAt(start - 1) : '\0';
                 }

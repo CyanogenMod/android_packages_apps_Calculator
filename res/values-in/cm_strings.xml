@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Heksadesimal</string>
-  <string name="binDesc">Binari</string>
-  <string name="decDesc">Desimal</string>
+  <string name="desc_hex">Heksadesimal</string>
+  <string name="desc_bin">Binari</string>
+  <string name="desc_dec">Desimal</string>
   <string name="pref_panels">Panel</string>
   <string name="pref_actions">Tindakan</string>
   <string name="pref_units">Unit</string>

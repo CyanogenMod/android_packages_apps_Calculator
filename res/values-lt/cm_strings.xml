@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">Šešioliktainis</string>
-  <string name="binDesc">Dvejetainis</string>
-  <string name="decDesc">Dešimtainis</string>
+  <string name="desc_hex">Šešioliktainis</string>
+  <string name="desc_bin">Dvejetainis</string>
+  <string name="desc_dec">Dešimtainis</string>
   <string name="pref_panels">Skydeliai</string>
   <string name="pref_actions">Veiksmai</string>
   <string name="pref_units">Vienetai</string>

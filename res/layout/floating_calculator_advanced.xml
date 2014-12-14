@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/pad_advanced_background_color">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,31 +12,31 @@
 
         <Button
             android:id="@+id/sin"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
             android:text="@string/fun_sin" />
 
         <Button
             android:id="@+id/cos"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
             android:text="@string/fun_cos" />
 
         <Button
             android:id="@+id/tan"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
             android:text="@string/fun_tan" />
 
         <Button
             android:id="@+id/i"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/i" />
+            android:text="@string/const_imaginary" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,28 +46,28 @@
 
         <Button
             android:id="@+id/ln"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/ln" />
+            android:text="@string/fun_ln" />
 
         <Button
             android:id="@+id/lg"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/lg" />
+            android:text="@string/fun_log" />
 
         <Button
             android:id="@+id/pi"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/pi" />
+            android:text="@string/const_pi" />
 
         <Button
             android:id="@+id/e"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
             android:text="@string/const_e" />
@@ -79,28 +80,28 @@
 
         <Button
             android:id="@+id/percentage"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/percentage" />
+            android:text="@string/fun_percentage" />
 
         <Button
             android:id="@+id/factorial"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/factorial" />
+            android:text="@string/op_fact" />
 
         <Button
             android:id="@+id/sqrt"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/sqrt" />
+            android:text="@string/op_sqrt" />
 
         <Button
             android:id="@+id/cbrt"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
             android:text="@string/cbrt" />
@@ -113,28 +114,28 @@
 
         <Button
             android:id="@+id/power"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/power" />
+            android:text="@string/op_pow" />
 
         <Button
             android:id="@+id/leftParen"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
             android:text="@string/leftParen" />
 
         <Button
             android:id="@+id/rightParen"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
             android:text="@string/rightParen" />
 
         <Button
             android:id="@+id/parentheses"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc"
+            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
             android:background="@drawable/circle_bg"

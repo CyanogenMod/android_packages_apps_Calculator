@@ -55,9 +55,9 @@
   <string name="hex">گۆشه‌یی</string>
   <string name="bin">بایناری</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">ژماره‌ی شانزه‌یی</string>
-  <string name="binDesc">بایناری</string>
-  <string name="decDesc">ده‌یی</string>
+  <string name="desc_hex">ژماره‌ی شانزه‌یی</string>
+  <string name="desc_bin">بایناری</string>
+  <string name="desc_dec">ده‌یی</string>
   <string name="pref_panels">په‌ڕه‌</string>
   <string name="pref_actions">چالاکیه‌کان</string>
   <string name="pref_units">یه‌که‌</string>

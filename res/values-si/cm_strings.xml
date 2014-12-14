@@ -55,9 +55,9 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="hexDesc">16 පාදයේ සංඛ්‍යා</string>
-  <string name="binDesc">ද්ව්‍යංගී</string>
-  <string name="decDesc">දශම</string>
+  <string name="desc_hex">16 පාදයේ සංඛ්‍යා</string>
+  <string name="desc_bin">ද්ව්‍යංගී</string>
+  <string name="desc_dec">දශම</string>
   <string name="pref_panels">පුවරු</string>
   <string name="pref_actions">ක්‍රියා</string>
   <string name="pref_units">ඒකක</string>
