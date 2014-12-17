@@ -120,10 +120,12 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
 
         mRoot = new Root(context);
         ScrollableDisplay.LayoutParams params = new ScrollableDisplay.LayoutParams(
-                LayoutParams.WRAP_CONTENT,
+                LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
+        params.gravity = Gravity.CENTER_VERTICAL;
         mRoot.setLayoutParams(params);
+        mRoot.setGravity(Gravity.RIGHT);
+        mRoot.setLongClickable(true);
         addView(mRoot);
 
         if(attrs != null) {
@@ -580,12 +582,6 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
     }
 
     @Override
-    public boolean performLongClick() {
-        showContextMenu();
-        return true;
-    }
-
-    @Override
     public void setEnabled(final boolean enabled) {
         // We only want to disable our children. So we're not calling super on purpose.
         registerSync(new Sync("setEnabled") {
@@ -695,11 +691,6 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
 
     // Everything below is for copy/paste
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu) {
-        mMenuHandler.onCreateContextMenu(menu);
-    }
-
     public interface OnTextSizeChangeListener {
         void onTextSizeChanged(AdvancedDisplay textView, float oldSize);
     }
@@ -744,6 +735,11 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
                 if(getChildAt(i) == view) return i;
             }
             return -1;
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu) {
+            mMenuHandler.onCreateContextMenu(menu);
         }
     }
 }

@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/historyRecycler"
             android:inputType="text|textNoSuggestions"
+            android:fillViewport="true"
             android:textColor="@color/display_formula_text_color" />
 
         <com.android.calculator2.view.display.AdvancedDisplay
@@ -49,6 +50,7 @@
             android:layout_below="@id/formula"
             android:inputType="none"
             android:focusable="false"
+            android:fillViewport="true"
             android:textColor="@color/display_result_text_color" />
 
     </RelativeLayout>
