@@ -86,6 +86,7 @@ public class DisplayOverlay extends FrameLayout {
         mRecyclerView = (RecyclerView)findViewById(R.id.historyRecycler);
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mFormula = findViewById(R.id.formula);
