@@ -1,5 +1,6 @@
 package com.android.calculator2.view;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
@@ -14,6 +15,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import com.android.calculator2.R;
+import com.android.calculator2.view.display.AdvancedDisplay;
+import com.android.calculator2.util.AnimationUtil;
 
 /**
  * The display overlay is a container that intercepts touch events on top of:
@@ -38,9 +41,15 @@ public class DisplayOverlay extends FrameLayout {
     private static boolean DEBUG = false;
     private static final String TAG = "DisplayOverlay";
 
+    public static enum DisplayMode { FORMULA, GRAPH };
+
     private RecyclerView mRecyclerView;
-    private View mFormula;
+    private AdvancedDisplay mFormula;
     private View mResult;
+    private View mGraphLayout;
+    private View mCloseGraphHandle;
+    private View mMainDisplay;
+    private DisplayMode mMode;
     private LinearLayoutManager mLayoutManager;
     private float mInitialMotionY;
     private float mLastMotionY;
@@ -50,6 +59,14 @@ public class DisplayOverlay extends FrameLayout {
     private VelocityTracker mVelocityTracker;
     private float mMinVelocity = -1;
     private int mParentHeight = -1;
+
+    /**
+     * Reports when state changes to expanded or collapsed (partial is ignored)
+     */
+    public static interface TranslateStateListener {
+        public void onTranslateStateChanged(TranslateState newState);
+    }
+    private TranslateStateListener mTranslateStateListener;
 
     public DisplayOverlay(Context context) {
         super(context);
@@ -76,7 +93,7 @@ public class DisplayOverlay extends FrameLayout {
         mTouchSlop = vc.getScaledTouchSlop();
     }
 
-    private enum TranslateState {
+    public static enum TranslateState {
         EXPANDED, COLLAPSED, PARTIAL
     }
 
@@ -89,8 +106,11 @@ public class DisplayOverlay extends FrameLayout {
         mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mFormula = findViewById(R.id.formula);
+        mFormula = (AdvancedDisplay)findViewById(R.id.formula);
         mResult = findViewById(R.id.result);
+        mGraphLayout = findViewById(R.id.graphLayout);
+        mMainDisplay = findViewById(R.id.mainDisplay);
+        mCloseGraphHandle = findViewById(R.id.closeGraphHandle);
     }
 
     @Override
@@ -108,6 +128,12 @@ public class DisplayOverlay extends FrameLayout {
                 float dy = y - mInitialMotionY;
                 if (Math.abs(dy) < mTouchSlop) {
                     return false;
+                }
+
+                // in graph mode let move events apply to the graph,
+                // unless the touch is on the "close handle"
+                if (mMode == DisplayMode.GRAPH) {
+                    return isInBounds(ev.getX(), ev.getY(), mCloseGraphHandle);
                 }
 
                 if (dy < 0) {
@@ -131,7 +157,6 @@ public class DisplayOverlay extends FrameLayout {
     public boolean onTouchEvent(MotionEvent event) {
         int action = MotionEventCompat.getActionMasked(event);
         initVelocityTrackerIfNotExists();
-        initializeHistoryView();
         mVelocityTracker.addMovement(event);
 
         switch (action) {
@@ -176,7 +201,13 @@ public class DisplayOverlay extends FrameLayout {
             Log.v(TAG, "handleUp yvel=" + yvel + ", mLastDeltaY=" + mLastDeltaY);
         }
 
-        if (Math.abs(yvel) > VELOCITY_SLOP) {
+        TranslateState curState = getTranslateState();
+        if (curState != TranslateState.PARTIAL) {
+            // already settled
+            if (mTranslateStateListener != null) {
+                mTranslateStateListener.onTranslateStateChanged(curState);
+            }
+        } else if (Math.abs(yvel) > VELOCITY_SLOP) {
             // the sign on velocity seems unreliable, so use last delta to determine direction
             float destTx = mLastDeltaY > 0 ? getMaxTranslation() : 0;
             float velocity = Math.max(Math.abs(yvel), Math.abs(mMinVelocity));
@@ -206,11 +237,32 @@ public class DisplayOverlay extends FrameLayout {
         if (yvel != 0) {
             float dist = destTx - getTranslationY();
             float dt = Math.abs(dist / yvel);
+            if (DEBUG) {
+                Log.v(TAG, "settle display overlay yvel=" + yvel +
+                        ", dt = " + dt);
+            }
 
             ObjectAnimator anim =
                     ObjectAnimator.ofFloat(this, "translationY",
                             getTranslationY(), destTx);
             anim.setDuration((long)dt);
+            anim.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {}
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if (mTranslateStateListener != null) {
+                        mTranslateStateListener.onTranslateStateChanged(getTranslateState());
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {}
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {}
+            });
             anim.start();
         }
     }
@@ -255,10 +307,6 @@ public class DisplayOverlay extends FrameLayout {
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
         }
-        if (mMinVelocity < 0) {
-            int txDist = getMaxTranslation();
-            mMinVelocity = txDist / MIN_SETTLE_DURATION;
-        }
     }
 
     private void recycleVelocityTracker() {
@@ -277,7 +325,7 @@ public class DisplayOverlay extends FrameLayout {
     }
 
     /**
-     * Set the size and offset of the history view
+     * Set the size and offset of the history view / graph view
      *
      * We want the display+history to take up the full height of the parent minus some
      * predefined padding.  The normal way to do this would be to give the overlay a height
@@ -286,28 +334,73 @@ public class DisplayOverlay extends FrameLayout {
      * remaining space, so we cannot determine the proper height for the history view until
      * after layout completes.
      *
-     * To account for this, we setup the height of the history view in this function when
-     * the user first attempts to move the display.
+     * To account for this, we make this method available to setup the history and graph
+     * views after layout completes.
      */
-    private void initializeHistoryView() {
+    public void initializeHistoryAndGraphView() {
         int maxTx = getMaxTranslation();
-        if (mRecyclerView.getLayoutParams().height <= 0) {
+        if (mRecyclerView.getLayoutParams().height <= 0
+                || mGraphLayout.getLayoutParams().height <= 0) {
             MarginLayoutParams historyParams = (MarginLayoutParams)mRecyclerView.getLayoutParams();
             historyParams.height = maxTx;
+
+            MarginLayoutParams graphParams = (MarginLayoutParams)mGraphLayout.getLayoutParams();
+            graphParams.height = maxTx + getDisplayHeight();
             if (DEBUG) {
-                Log.v(TAG, "Set history height to " + maxTx);
+                Log.v(TAG, "Set history height to " + maxTx
+                        + ", graph height to " + graphParams.height);
             }
 
             MarginLayoutParams overlayParams =
                     (MarginLayoutParams)getLayoutParams();
             overlayParams.topMargin = -maxTx;
-
             requestLayout();
             scrollToMostRecent();
+        }
+
+        if (mMinVelocity < 0) {
+            int txDist = getMaxTranslation();
+            mMinVelocity = txDist / MIN_SETTLE_DURATION;
         }
     }
 
     public void scrollToMostRecent() {
         mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
+    }
+
+    public void setTranslateStateListener(TranslateStateListener listener) {
+        mTranslateStateListener = listener;
+    }
+
+    public TranslateStateListener getTranslateStateListener() {
+        return mTranslateStateListener;
+    }
+
+    private boolean isInBounds(float x, float y, View v) {
+        return y >= v.getTop() && y <= v.getBottom() &&
+                x >= v.getLeft() && x <= v.getRight();
+    }
+
+    public void animateModeTransition() {
+        switch (mMode) {
+            case GRAPH:
+                expandHistory();
+                AnimationUtil.fadeOut(mMainDisplay);
+                AnimationUtil.fadeIn(mGraphLayout);
+                break;
+            case FORMULA:
+                collapseHistory();
+                AnimationUtil.fadeIn(mMainDisplay);
+                AnimationUtil.fadeOut(mGraphLayout);
+                break;
+        }
+    }
+
+    public void setMode(DisplayMode mode) {
+        mMode = mode;
+    }
+
+    public DisplayMode getMode() {
+        return mMode;
     }
 }
