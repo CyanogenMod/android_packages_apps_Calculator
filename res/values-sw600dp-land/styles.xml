@@ -46,7 +46,7 @@
         <item name="android:textSize">36sp</item>
     </style>
 
-    <style name="PadButtonStyle.Numeric.Equals">
+    <style name="EqualsMultiButton">
         <item name="android:visibility">gone</item>
     </style>
 
