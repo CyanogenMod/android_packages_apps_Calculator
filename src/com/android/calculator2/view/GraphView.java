@@ -25,6 +25,7 @@ public class GraphView extends View {
     private static final int LINES = 1;
     private int mDrawingAlgorithm = LINES;
     private static final int DOTS = 2;
+    private static final int BOX_STROKE = 6;
     DecimalFormat mFormat = new DecimalFormat("#.#####");
     private PanListener mPanListener;
     private ZoomListener mZoomListener;
@@ -65,16 +66,15 @@ public class GraphView extends View {
         mTextPaint.setColor(Color.BLACK);
         mTextPaint.setTextSize(mTextPaintSize);
 
-
         mAxisPaint = new Paint();
-        mAxisPaint.setColor(Color.DKGRAY);
+        mAxisPaint.setColor(Color.LTGRAY);
         mAxisPaint.setStyle(Style.STROKE);
         mAxisPaint.setStrokeWidth(2);
 
         mGraphPaint = new Paint();
         mGraphPaint.setColor(Color.CYAN);
         mGraphPaint.setStyle(Style.STROKE);
-        mGraphPaint.setStrokeWidth(3);
+        mGraphPaint.setStrokeWidth(6);
 
         zoomReset();
 
@@ -234,6 +234,11 @@ public class GraphView extends View {
 
         canvas.drawPaint(mBackgroundPaint);
 
+        // draw bounding box
+        mAxisPaint.setStrokeWidth(BOX_STROKE);
+        canvas.drawRect(mLineMargin, mLineMargin,
+                getWidth() - BOX_STROKE/2, getHeight() - BOX_STROKE/2, mAxisPaint);
+
         // Draw the grid lines
         Rect bounds = new Rect();
         int previousLine = 0;
@@ -277,7 +282,8 @@ public class GraphView extends View {
         }
 
         // Restrict drawing the graph to the grid
-        canvas.clipRect(mLineMargin, mLineMargin, getWidth(), getHeight());
+        canvas.clipRect(mLineMargin, mLineMargin,
+                getWidth() - BOX_STROKE, getHeight() - BOX_STROKE);
 
         // Create a path to draw smooth arcs
         if(mDrawingAlgorithm == LINES) {

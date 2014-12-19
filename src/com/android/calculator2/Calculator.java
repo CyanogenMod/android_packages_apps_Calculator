@@ -36,21 +36,25 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewAnimationUtils;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.android.calculator2.view.GraphView;
 import com.android.calculator2.view.display.AdvancedDisplay.OnTextSizeChangeListener;
 import com.android.calculator2.CalculatorExpressionEvaluator.EvaluateCallback;
 import com.android.calculator2.view.display.AdvancedDisplay;
 import com.android.calculator2.view.DisplayOverlay;
+import com.android.calculator2.view.DisplayOverlay.DisplayMode;
 import com.android.calculator2.view.MatrixEditText;
 import com.android.calculator2.view.MatrixInverseView;
 import com.android.calculator2.view.MatrixTransposeView;
 import com.android.calculator2.view.MatrixView;
 import com.xlythe.math.Base;
 import com.xlythe.math.Constants;
+import com.xlythe.math.GraphModule;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
 import com.xlythe.math.Persist;
@@ -65,6 +69,7 @@ public class Calculator extends Activity
     private static final String KEY_CURRENT_STATE = NAME + "_currentState";
     private static final String KEY_CURRENT_EXPRESSION = NAME + "_currentExpression";
     private static final String KEY_BASE = NAME + "_base";
+    private static final String KEY_DISPLAY_MODE = NAME + "_displayMode";
 
     /**
      * Constant for an invalid resource id.
@@ -122,6 +127,8 @@ public class Calculator extends Activity
     private RecyclerView.Adapter mHistoryAdapter;
     private Persist mPersist;
     private NumberBaseManager mBaseManager;
+    private String mX;
+    private GraphController mGraphController;
     private FrameLayout.LayoutParams mLayoutParams =
             new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 0);
 
@@ -186,6 +193,30 @@ public class Calculator extends Activity
         Constants.rebuildConstants();
         Button dot = (Button) findViewById(R.id.dec_point);
         dot.setText(String.valueOf(Constants.DECIMAL_POINT));
+
+        mX = getString(R.string.X);
+        GraphView graphView = (GraphView)findViewById(R.id.graphView);
+        GraphModule graphModule = new GraphModule(mEvaluator.getSolver());
+        mGraphController = new GraphController(graphView, graphModule, mDisplayView);
+
+        DisplayMode displayMode = DisplayMode.FORMULA;
+        int modeOrdinal = savedInstanceState.getInt(KEY_DISPLAY_MODE, -1);
+        if (modeOrdinal != -1) {
+            displayMode = DisplayMode.values()[modeOrdinal];
+        }
+        mDisplayView.setMode(displayMode);
+        mDisplayView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (mDisplayView.getHeight() > 0) {
+                            mDisplayView.initializeHistoryAndGraphView();
+                            if (mDisplayView.getMode() == DisplayMode.GRAPH) {
+                                mGraphController.startGraph(mFormulaEditText.getText());
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
@@ -228,6 +259,7 @@ public class Calculator extends Activity
         outState.putString(KEY_CURRENT_EXPRESSION,
                 mTokenizer.getNormalizedExpression(mFormulaEditText.getText()));
         outState.putInt(KEY_BASE, mBaseManager.getNumberBase().ordinal());
+        outState.putInt(KEY_DISPLAY_MODE, mDisplayView.getMode().ordinal());
     }
 
     private void setState(CalculatorState state) {
@@ -342,6 +374,9 @@ public class Calculator extends Activity
                     ((MatrixEditText) mFormulaEditText.getActiveEditText()).getMatrixView().removeColumn();
                 }
                 break;
+            case R.id.const_x:
+                mFormulaEditText.insert(((Button) view).getText());
+                break;
             default:
                 mFormulaEditText.insert(((Button) view).getText());
                 break;
@@ -412,13 +447,16 @@ public class Calculator extends Activity
     }
 
     private void onEquals() {
+        String text = mFormulaEditText.getText();
         if (mCurrentState == CalculatorState.INPUT) {
             if (mFormulaEditText.hasNext()) {
                 mFormulaEditText.next();
             }
-            else {
+            else if (text.contains(mX)) {
+                mGraphController.startGraph(text);
+            } else {
                 setState(CalculatorState.EVALUATE);
-                mEvaluator.evaluate(mFormulaEditText.getText(), this);
+                mEvaluator.evaluate(text, this);
             }
         }
     }
