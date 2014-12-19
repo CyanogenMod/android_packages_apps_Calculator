@@ -147,7 +147,7 @@
         <item name="android:textSize">32sp</item>
     </style>
 
-    <style name="PadButtonStyle.Numeric.Equals">
+    <style name="EqualsMultiButton">
         <item name="android:visibility">visible</item>
     </style>
 
@@ -199,6 +199,18 @@
 
     <style name="PadLayoutStyle.Card">
         <item name="android:background">@drawable/color_card</item>
+    </style>
+
+    <style name="Control">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Control.Graph">
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
     </style>
 
 </resources>
