@@ -28,8 +28,8 @@ public class CalculatorExpressionTokenizer {
 
     public CalculatorExpressionTokenizer(Context context) {
         mReplacements = new LinkedList<Localizer>();
-        mReplacements.add(new Localizer(".", String.valueOf(Constants.DECIMAL_POINT)));
         mReplacements.add(new Localizer(",", String.valueOf(Constants.MATRIX_SEPARATOR)));
+        mReplacements.add(new Localizer(".", String.valueOf(Constants.DECIMAL_POINT)));
         mReplacements.add(new Localizer("0", context.getString(R.string.digit0)));
         mReplacements.add(new Localizer("1", context.getString(R.string.digit1)));
         mReplacements.add(new Localizer("2", context.getString(R.string.digit2)));
