@@ -57,7 +57,7 @@ public class CalculatorExpressionEvaluator {
 
         try {
             String result = mSolver.solve(expr);
-            callback.onEvaluate(expr, result, Calculator.INVALID_RES_ID);
+            callback.onEvaluate(expr, mTokenizer.getLocalizedExpression(result), Calculator.INVALID_RES_ID);
         } catch (SyntaxException e) {
             callback.onEvaluate(expr, null, R.string.error);
         }
