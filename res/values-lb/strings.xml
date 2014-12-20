@@ -23,15 +23,10 @@
   <string name="digit3">3</string>
   <string name="digit4">4</string>
   <string name="digit5">5</string>
-  <string name="digit6">6</string>
-  <string name="digit7">7</string>
-  <string name="digit8">8</string>
-  <string name="digit9">9</string>
   <string name="del">LÄSCHEN</string>
   <string name="clear">CLR</string>
   <string name="div">\u00f7</string>
   <string name="mul">\u00d7</string>
-  <string name="plus">+</string>
   <string name="minus">\u2212</string>
   <string name="equal">=</string>
   <string name="enter">\u2193</string>
