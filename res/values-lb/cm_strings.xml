@@ -62,8 +62,10 @@
   <string name="trigUnits">Wénkeleenheeten</string>
   <string name="radians">RAD</string>
   <string name="degrees">GRAD</string>
+  <string name="showDetails">Detailer uweisen</string>
   <string name="floatingCalc">Schwiewenden Täscherechner</string>
   <string name="vibrateOnPress">Bei Klick vibréieren</string>
+  <string name="showWidgetBackground">Widget-Hannergrond uweisen</string>
   <string name="cling_simple_title">Wëllkomm</string>
   <string name="cling_simple_msg">No lénks a riets wësche fir op weider Funktiounen zouzegräifen. Onnéideg Säite kënnen an den Astellungen desaktivéiert ginn.</string>
   <string name="cling_matrix_title">Matrissen</string>
@@ -77,5 +79,7 @@
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
   <string name="easter_egg">Karpador benotzt Platscher. Näischt ass geschitt.</string>
+  <string name="voice_detection_failed">Berechnung feelgeschloen. Nees probéieren?</string>
+  <string name="voice_detection_repeat">Nees rechnen?</string>
   <string name="speech_helper_negative" formatted="false">Negativ %s</string>
 </resources>

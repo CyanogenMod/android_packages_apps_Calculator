@@ -71,7 +71,7 @@
   <string name="cling_matrix_title">เมทริกซ์</string>
   <string name="cling_matrix_msg">แตะที่นี่ เพื่อเริ่มสร้าง และแก้เมทริกซ์</string>
   <string name="cling_hex_title">เปลี่ยนฐาน</string>
-  <string name="cling_hex_msg">เปลี่ยนเป็น เลขฐานสิบ (dec), เลขฐานสอง (bin), เลขฐานสิบหก (hex).\n\nคำเตือน: หากคุณรู้สึกว่า ผลลัพธ์ที่คำนวณได้ออกมาประหลาด, คุณอาจจะอยู่ในเลขฐานที่ไม่ถูกต้อง. ค่าเริ่มต้นคือ เลขฐานสิบ.</string>
+  <string name="cling_hex_msg">เปลี่ยนเป็น เลขฐานสิบ (dec), เลขฐานสอง (bin), เลขฐานสิบหก (hex)\n\nคำเตือน: หากคุณรู้สึกว่า ผลลัพธ์ที่คำนวณได้ออกมาประหลาด คุณอาจจะอยู่ในเลขฐานที่ไม่ถูกต้อง ค่าเริ่มต้นคือ เลขฐานสิบ</string>
   <string name="cling_graph_title">กราฟ</string>
   <string name="cling_graph_msg">กราฟจะแสดงขึ้นที่นี่โดยอัตโนมัติ ไปที่แผงขั้นสูง เพื่อสร้างฟังก์ชั่นของกราฟ โดยใช้ X และ Y</string>
   <string name="cling_dismiss">ตกลง</string>
