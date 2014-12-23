@@ -26,6 +26,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.Menu;
@@ -46,6 +47,7 @@ import com.xlythe.math.Solver;
 
 public class CalculatorEditText extends EditText {
     private static final int BLINK = 500;
+    private static final String TAG = "CalculatorEditText";
     private final long mShowCursor = SystemClock.uptimeMillis();
     private final Paint mHighlightPaint = new Paint();
     private final Handler mHandler = new Handler();
@@ -161,23 +163,29 @@ public class CalculatorEditText extends EditText {
 
     @Override
     public View focusSearch(int direction) {
-        AdvancedDisplay parent = (AdvancedDisplay) getParent();
-        View v;
-        switch(direction) {
-            case View.FOCUS_FORWARD:
-                v = parent.nextView(this);
-                while(!v.isFocusable())
-                    v = parent.nextView(v);
-                return v;
-            case View.FOCUS_BACKWARD:
-                v = parent.previousView(this);
-                while(!v.isFocusable())
-                    v = parent.previousView(v);
-                if(MatrixView.class.isAssignableFrom(v.getClass())) {
-                    v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
-                    v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
-                }
-                return v;
+        try {
+            AdvancedDisplay parent = (AdvancedDisplay) getParent();
+            View v;
+            switch(direction) {
+                case View.FOCUS_FORWARD:
+                    v = parent.nextView(this);
+                    while(!v.isFocusable())
+                        v = parent.nextView(v);
+                    return v;
+                case View.FOCUS_BACKWARD:
+                    v = parent.previousView(this);
+                    while(!v.isFocusable())
+                        v = parent.previousView(v);
+                    if(MatrixView.class.isAssignableFrom(v.getClass())) {
+                        v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
+                        v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
+                    }
+                    return v;
+            }
+        } catch (ClassCastException e) {
+            // parent isn't an AdvancedDisplay, but Root
+            // No problem, we'll return to super
+            Log.d(TAG, "ClassCastException: " + e);
         }
         return super.focusSearch(direction);
     }
