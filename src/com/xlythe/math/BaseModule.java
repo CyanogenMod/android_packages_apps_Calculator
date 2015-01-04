@@ -4,7 +4,6 @@ import android.util.Log;
 
 import org.javia.arity.SyntaxException;
 
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -48,12 +47,22 @@ public class BaseModule extends Module {
     }
 
     public String setBase(String input, Base base) throws SyntaxException {
-        String text = updateTextToNewMode(input, mBase, base);
+        String text = changeBase(input, mBase, base);
         setBase(base);
         return text;
     }
 
-    String updateTextToNewMode(final String originalText, final Base oldBase, final Base newBase) throws SyntaxException {
+    /**
+     * Updates the text to the new base. This does not set the active base.
+     * */
+    String changeBase(String text, Base base) throws SyntaxException {
+        return changeBase(text, Base.DECIMAL, base);
+    }
+
+    /**
+     * Updates the text to the new base. This does not set the active base.
+     * */
+    String changeBase(final String originalText, final Base oldBase, final Base newBase) throws SyntaxException {
         if(oldBase.equals(newBase) || originalText.isEmpty() || originalText.matches(REGEX_NOT_NUMBER)) {
             return originalText;
         }
@@ -117,7 +126,7 @@ public class BaseModule extends Module {
                                 try {
                                     translatedNumbers[i] = newBase(numbers[i], 16, 10);
                                 } catch(NumberFormatException e) {
-                                    e.printStackTrace();
+                                    Log.e(TAG, numbers[i] + " is not a number", e);
                                     throw new SyntaxException();
                                 }
                                 break;
@@ -185,16 +194,16 @@ public class BaseModule extends Module {
         double decimal = 0;
         if(originalBase != 10) {
             String decimalFraction = Long.toString(Long.parseLong(split[1], originalBase)) + "/" + originalBase + "^" + split[1].length();
-            decimal = getSolver().mSymbols.eval(decimalFraction);
+            decimal = getSolver().eval(decimalFraction);
         } else {
             decimal = Double.parseDouble("0." + split[1]);
         }
         if(decimal == 0) return wholeNumber.toUpperCase(Locale.US);
 
         String decimalNumber = "";
-        for(int i = 0, id = 0; decimal != 0 && i <= PRECISION; i++) {
+        for(int i = 0; decimal != 0 && i <= PRECISION; i++) {
             decimal *= base;
-            id = (int) Math.floor(decimal);
+            int id = (int) Math.floor(decimal);
             decimal -= id;
             decimalNumber += Integer.toHexString(id);
         }
@@ -276,15 +285,16 @@ public class BaseModule extends Module {
     private String group(String wholeNumber, int spacing, char separator) {
         StringBuilder sb = new StringBuilder();
         int digitsSeen = 0;
+
         for (int i=wholeNumber.length()-1; i>=0; --i) {
             char curChar = wholeNumber.charAt(i);
-            if (curChar != SELECTION_HANDLE) {
+            sb.insert(0, curChar);
+            if (curChar != SELECTION_HANDLE && i != 0 && !(i == 1 && wholeNumber.charAt(0) == SELECTION_HANDLE)) {
+                ++digitsSeen;
                 if (digitsSeen > 0 && digitsSeen % spacing == 0) {
                     sb.insert(0, separator);
                 }
-                ++digitsSeen;
             }
-            sb.insert(0, curChar);
         }
         return sb.toString();
     }

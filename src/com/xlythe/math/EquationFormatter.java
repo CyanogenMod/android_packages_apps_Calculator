@@ -45,7 +45,7 @@ public class EquationFormatter {
                     formattedInput.append("</sup>");
                     sub_closed++;
                 } else {
-                    formattedInput.append(Constants.PLACEHOLDER);
+                    formattedInput.append(Constants.POWER_PLACEHOLDER);
                 }
                 continue;
             }

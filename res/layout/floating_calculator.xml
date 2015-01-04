@@ -10,6 +10,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:minHeight="65dp"
+        android:padding="10dp"
         android:background="@drawable/white_card"
         android:orientation="horizontal">
 
@@ -23,18 +24,20 @@
 
         <ImageButton
             android:id="@+id/delete"
-            android:layout_width="@dimen/floating_window_button_height"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:contentDescription="@string/del"
-            android:src="@drawable/widget_delete" />
+            android:src="@drawable/floating_del"
+            android:background="@android:color/transparent"/>
 
         <ImageButton
             android:id="@+id/clear"
-            android:layout_width="@dimen/floating_window_button_height"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:contentDescription="@string/clear"
             android:visibility="gone"
-            android:src="@drawable/widget_clear" />
+            android:src="@drawable/floating_clr"
+            android:background="@android:color/transparent" />
 
     </LinearLayout>
 

@@ -27,6 +27,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.Menu;
@@ -59,15 +60,15 @@ public class CalculatorEditText extends EditText {
         }
     };
     private EquationFormatter mEquationFormatter;
-    private String mInput = "";
     private int mSelectionHandle = 0;
     private Solver mSolver;
     private EventListener mEventListener;
 
-    public static CalculatorEditText getInstance(Context context, Solver solver, EventListener eventListener) {
+    public static CalculatorEditText getInstance(Context context, EventListener eventListener) {
         CalculatorEditText text = (CalculatorEditText) View.inflate(context, R.layout.view_edittext, null);
-        text.mSolver = solver;
         text.mEventListener = eventListener;
+        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics());
+        text.setPadding(padding, 0, padding, 0);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
@@ -105,12 +106,10 @@ public class CalculatorEditText extends EditText {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(updating) return;
+                if(updating || mSolver == null) return;
                 updating = true;
 
-                mInput = s.toString()
-                        .replace(Constants.PLACEHOLDER, Constants.POWER)
-                        .replace(mSolver.getBaseModule().getSeparator() + "", "");
+                String text = removeFormatting(s.toString());
 
                 // Get the selection handle, since we're setting text and that'll overwrite it
                 mSelectionHandle = getSelectionStart();
@@ -120,7 +119,7 @@ public class CalculatorEditText extends EditText {
                 mSelectionHandle -= TextUtil.countOccurrences(cs, mSolver.getBaseModule().getSeparator());
 
                 // Update the text with formatted (comas, etc) text
-                setText(formatText(mInput));
+                setText(formatText(text));
                 setSelection(Math.min(mSelectionHandle, getText().length()));
 
                 updating = false;
@@ -134,6 +133,18 @@ public class CalculatorEditText extends EditText {
                     mEventListener.onEditTextChanged(CalculatorEditText.this);
             }
         });
+    }
+
+    public void setSolver(Solver solver) {
+        mSolver = solver;
+    }
+
+    private String removeFormatting(String input) {
+        input = input.replace(Constants.POWER_PLACEHOLDER, Constants.POWER);
+        if(mSolver != null) {
+            input = input.replace(String.valueOf(mSolver.getBaseModule().getSeparator()), "");
+        }
+        return input;
     }
 
     private Spanned formatText(String input) {
@@ -159,33 +170,28 @@ public class CalculatorEditText extends EditText {
 
     @Override
     public String toString() {
-        return mInput;
+        return removeFormatting(getText().toString());
     }
 
     @Override
     public View focusSearch(int direction) {
-        ViewParent p = getParent();
-        if (p instanceof AdvancedDisplay) {
-            AdvancedDisplay parent = (AdvancedDisplay) p;
-            View v;
-            switch(direction) {
-                case View.FOCUS_FORWARD:
-                    v = parent.nextView(this);
-                    while(!v.isFocusable())
-                        v = parent.nextView(v);
-                    return v;
-                case View.FOCUS_BACKWARD:
-                    v = parent.previousView(this);
-                    while(!v.isFocusable())
-                        v = parent.previousView(v);
-                    if(MatrixView.class.isAssignableFrom(v.getClass())) {
-                        v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
-                        v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
-                    }
-                    return v;
-            }
-        } else {
-            Log.d(TAG, "parent isn't an AdvancedDisplay");
+        View v;
+        switch(direction) {
+            case View.FOCUS_FORWARD:
+                v = mEventListener.nextView(this);
+                while(!v.isFocusable())
+                    v = mEventListener.nextView(v);
+                return v;
+            case View.FOCUS_BACKWARD:
+                v = mEventListener.previousView(this);
+                while(!v.isFocusable())
+                    v = mEventListener.previousView(v);
+                if(MatrixView.class.isAssignableFrom(v.getClass())) {
+                    // TODO CalculatorEditText shouldn't know of MatrixView
+                    v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
+                    v = ((ViewGroup) v).getChildAt(((ViewGroup) v).getChildCount() - 1);
+                }
+                return v;
         }
         return super.focusSearch(direction);
     }

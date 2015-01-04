@@ -16,6 +16,7 @@ import java.util.Map;
  * This assumes the app has English translations
  */
 public class Localizer {
+    private static final String TAG = Localizer.class.getSimpleName();
     private final Map<String, String> mMap = new HashMap<String, String>();
     private boolean mUseDegrees = false;
 
@@ -46,11 +47,10 @@ public class Localizer {
                     mMap.put(",", context.getString(f.getInt(null)));
                 }
             }
-            Log.d("Localizer", "strings loaded");
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Should never happen", e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Should never happen", e);
         } catch (ClassNotFoundException e) {
             // Do nothing. Happens if no Strings are found.
         }

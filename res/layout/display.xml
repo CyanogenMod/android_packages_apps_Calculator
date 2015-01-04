@@ -17,6 +17,7 @@
 
 <com.android.calculator2.view.DisplayOverlay
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ui="http://schemas.android.com/apk/res-auto"
     android:id="@+id/display"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -46,9 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/historyRecycler"
-                android:inputType="text|textNoSuggestions"
-                android:fillViewport="true"
-                android:textColor="@color/display_formula_text_color" />
+                ui:textSize="23sp"
+                ui:textColor="@color/display_formula_text_color" />
 
             <com.android.calculator2.view.display.AdvancedDisplay
                 android:id="@+id/result"
@@ -56,10 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/formula"
-                android:inputType="none"
-                android:focusable="false"
-                android:fillViewport="true"
-                android:textColor="@color/display_result_text_color" />
+                ui:textColor="@color/display_result_text_color" />
         </RelativeLayout>
 
     </FrameLayout>
