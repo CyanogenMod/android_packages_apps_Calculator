@@ -1,7 +1,6 @@
 package com.android.calculator2.view.display;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.text.Editable;
@@ -16,15 +15,15 @@ import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.calculator2.Clipboard;
 import com.android.calculator2.R;
 import com.android.calculator2.view.CalculatorEditable;
 import com.android.calculator2.view.ScrollableDisplay;
@@ -190,8 +189,16 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
                         // Remove the view in front
                         int index = getChildIndex(getActiveEditText());
                         if(index > 0) {
-                            removeView(getChildAt(index - 1));
+                            removeViewAt(index - 1);
                             return true;
+                        }
+                        else if(index == -1) {
+                            // Remove the view itself if it's a custom view (eg matrix)
+                            View parent = (View) getActiveEditText().getParent();
+                            while(!(parent instanceof AdvancedDisplayControls)) {
+                                parent = (View) parent.getParent();
+                            }
+                            removeView(parent);
                         }
                     } else {
                         // Check and remove keywords
@@ -213,6 +220,7 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
             }
         };
         setKeyListener(calculatorKeyListener);
+        setText(null);
     }
 
     public void setEditableFactory(Editable.Factory factory) {
@@ -323,8 +331,7 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
     }
 
     @Override
-    public void removeView(View view) {
-        int index = mRoot.getChildIndex(view);
+    public void removeViewAt(int index) {
         if(index == -1) return;
 
         // Remove the requested view
@@ -338,6 +345,11 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
         mRoot.removeViewAt(index); // Remove the second EditText
         leftSide.requestFocus();
         leftSide.setSelection(cursor);
+    }
+
+    @Override
+    public void removeView(View view) {
+        removeViewAt(mRoot.getChildIndex(view));
     }
 
     @Override
@@ -489,12 +501,12 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
                             // We found a custom view
                             mRoot.addView(c.getView(getContext(), mSolver, equation, this));
 
+                            // Update text
+                            delta = delta.substring(equation.length());
+
                             // Keep EditTexts in between custom views
                             splitText(cursor, index, delta);
-                            mRoot.getChildAt(index + 2).requestFocus();
 
-                            // Update text and loop again
-                            delta = delta.substring(equation.length());
                             continue loop;
                         }
                     }
@@ -618,6 +630,13 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
     /**
      * Set the text for the display
      * */
+    public void setText(CharSequence text) {
+        setText(text.toString());
+    }
+
+    /**
+     * Set the text for the display
+     * */
     public void setText(String text) {
         // Notify the text watcher
         mTextWatcher.beforeTextChanged(null, 0, 0, 0);
@@ -677,6 +696,10 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
         mTextWatcher.afterTextChanged(null);
     }
 
+    public boolean isCursorModified() {
+        return getActiveEditText().getSelectionStart() != getActiveEditText().getText().length();
+    }
+
     public void registerComponent(DisplayComponent component) {
         mComponents.add(component);
     }
@@ -688,8 +711,6 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
     public Set<DisplayComponent> getComponents() {
         return mComponents;
     }
-
-    // Everything below is for copy/paste
 
     public interface OnTextSizeChangeListener {
         void onTextSizeChanged(AdvancedDisplay textView, float oldSize);

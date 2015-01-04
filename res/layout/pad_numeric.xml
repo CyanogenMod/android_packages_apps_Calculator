@@ -20,6 +20,10 @@
     android:id="@+id/pad_numeric"
     style="@style/PadLayoutStyle.Numeric"
     android:background="@color/pad_numeric_background_color"
+    android:paddingLeft="@dimen/num_margin_horizontal"
+    android:paddingRight="@dimen/num_margin_horizontal"
+    android:paddingTop="@dimen/num_margin_vertical"
+    android:paddingBottom="@dimen/num_margin_vertical"
     android:columnCount="3"
     android:rowCount="4">
 
@@ -89,11 +93,10 @@
         android:onClick="onButtonClick"
         android:text="@string/digit0" />
 
-    <Button
+    <com.android.calculator2.view.EqualsImageButton
         android:id="@+id/eq"
         style="@style/PadButtonStyle.Numeric.Equals"
-        android:contentDescription="@string/desc_eq"
         android:onClick="onButtonClick"
-        android:text="@string/eq" />
+        android:src="@drawable/equals_btn" />
 
 </com.android.calculator2.CalculatorPadLayout>

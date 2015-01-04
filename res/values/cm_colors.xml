@@ -3,6 +3,7 @@
     <color name="pad_advanced_text_color_normal">#91000000</color>
     <color name="pad_advanced_text_color_disabled">#33000000</color>
     <color name="pad_text_color_disabled">#33FFFFFF</color>
+    <color name="pad_text_color_normal">#ffffff</color>
     <color name="pressed_color">#66ffffff</color>
     <color name="history_input">#E6E6E6</color>
     <color name="history_result">#999999</color>

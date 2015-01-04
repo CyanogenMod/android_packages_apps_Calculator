@@ -70,11 +70,11 @@
         android:onClick="onButtonClick"
         android:text="@string/op_add" />
 
-    <Button
+    <com.android.calculator2.view.EqualsImageButton
         android:id="@+id/eq"
-        style="@style/PadButtonStyle.Operator"
+        style="@style/PadButtonStyle.Operator.Equals"
         android:contentDescription="@string/desc_eq"
         android:onClick="onButtonClick"
-        android:text="@string/eq" />
+        android:src="@drawable/equals_btn" />
 
 </com.android.calculator2.CalculatorPadLayout>

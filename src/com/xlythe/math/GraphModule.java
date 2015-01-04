@@ -15,25 +15,25 @@ public class GraphModule extends Module {
     private double mMaxX;
     private float mZoomLevel;
 
-    GraphModule(Solver solver) {
+    public GraphModule(Solver solver) {
         super(solver);
     }
 
-    void setRange(float min, float max) {
+    public void setRange(float min, float max) {
         mMinY = min;
         mMaxY = max;
     }
 
-    void setDomain(float min, float max) {
+    public void setDomain(float min, float max) {
         mMinX = min;
         mMaxX = max;
     }
 
-    void setZoomLevel(float level) {
+    public void setZoomLevel(float level) {
         mZoomLevel = level;
     }
 
-    void updateGraph(String text, OnGraphUpdatedListener l) {
+    public void updateGraph(String text, OnGraphUpdatedListener l) {
         boolean endsWithOperator = text.length() != 0 &&
                 (Solver.isOperator(text.charAt(text.length() - 1)) || text.endsWith("("));
         boolean containsMatrices = getSolver().displayContainsMatrices(text);
@@ -69,7 +69,7 @@ public class GraphModule extends Module {
         @Override
         protected List<Point> doInBackground(String... eq) {
             try {
-                return graph(mSolver.getBaseModule().updateTextToNewMode(eq[0],
+                return graph(mSolver.getBaseModule().changeBase(eq[0],
                         mSolver.getBaseModule().getBase(), Base.DECIMAL));
             } catch(SyntaxException e) {
                 cancel(true);
@@ -80,18 +80,19 @@ public class GraphModule extends Module {
         public List<Point> graph(String equation) {
             final LinkedList<Point> series = new LinkedList<Point>();
 
+            mSolver.pushFrame();
             for(double x = mMinX; x <= mMaxX; x += 0.01 * mZoomLevel) {
                 if(isCancelled()) {
                     return null;
                 }
 
                 try {
-                    mSolver.mSymbols.define("X", x);
-                    double y = mSolver.mSymbols.eval(equation);
+                    mSolver.define("X", x);
+                    double y = mSolver.eval(equation);
                     series.add(new Point(x, y));
-                } catch(SyntaxException e) {
-                }
+                } catch(SyntaxException e) {}
             }
+            mSolver.popFrame();
 
             return series;
         }

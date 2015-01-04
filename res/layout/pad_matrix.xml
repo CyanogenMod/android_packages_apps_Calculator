@@ -21,11 +21,11 @@
     style="@style/PadLayoutStyle.Matrix"
     android:background="@color/pad_advanced_background_color">
 
-    <Button
+    <ImageButton
         android:id="@+id/matrix"
         style="@style/PadButtonStyle.Advanced"
         android:onClick="onButtonClick"
-        android:text="@string/matrix_new" />
+        android:src="@drawable/matrix" />
 
     <Button
         android:id="@+id/det"

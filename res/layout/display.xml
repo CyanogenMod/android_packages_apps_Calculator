@@ -23,36 +23,45 @@
     android:background="@drawable/white_card"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/historyRecycler"
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="wrap_content">
 
-        <com.android.calculator2.view.display.AdvancedDisplay
-            android:id="@+id/formula"
-            style="@style/Theme.Calculator.Display.Main.Formula"
+        <include layout="@layout/graph_display"/>
+
+        <RelativeLayout
+            android:id="@+id/mainDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/historyRecycler"
-            android:inputType="text|textNoSuggestions"
-            android:fillViewport="true"
-            android:textColor="@color/display_formula_text_color" />
+            android:background="@android:color/white">
 
-        <com.android.calculator2.view.display.AdvancedDisplay
-            android:id="@+id/result"
-            style="@style/Theme.Calculator.Display.Main.Result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/formula"
-            android:inputType="none"
-            android:focusable="false"
-            android:fillViewport="true"
-            android:textColor="@color/display_result_text_color" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/historyRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
 
-    </RelativeLayout>
+            <com.android.calculator2.view.display.AdvancedDisplay
+                android:id="@+id/formula"
+                style="@style/Theme.Calculator.Display.Main.Formula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/historyRecycler"
+                android:inputType="text|textNoSuggestions"
+                android:fillViewport="true"
+                android:textColor="@color/display_formula_text_color" />
+
+            <com.android.calculator2.view.display.AdvancedDisplay
+                android:id="@+id/result"
+                style="@style/Theme.Calculator.Display.Main.Result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/formula"
+                android:inputType="none"
+                android:focusable="false"
+                android:fillViewport="true"
+                android:textColor="@color/display_result_text_color" />
+        </RelativeLayout>
+
+    </FrameLayout>
 
 </com.android.calculator2.view.DisplayOverlay>
