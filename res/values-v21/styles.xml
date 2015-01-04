@@ -22,4 +22,19 @@
         <item name="android:statusBarColor">@color/calculator_accent_color</item>
     </style>
 
+    <style name="PadButtonStyle.Numeric">
+        <item name="android:layout_margin">4dip</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Numeric.Equals">
+        <item name="android:visibility">visible</item>
+        <item name="android:tint">@color/pad_text_color_normal</item>
+    </style>
+
+    <style name="PadButtonStyle.Operator">
+        <item name="android:layout_margin">8dip</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
 </resources>

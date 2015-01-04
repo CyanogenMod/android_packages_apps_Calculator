@@ -265,8 +265,7 @@ public class MatrixModule extends Module {
         text = getSolver().convertToDecimal(text);
         String result = calculate(text).replace('-', Constants.MINUS);
 
-        return getSolver().getBaseModule().updateTextToNewMode(result, Base.DECIMAL,
-                getSolver().getBaseModule().getBase());
+        return getSolver().getBaseModule().changeBase(result, getSolver().getBase());
     }
 
     private String applyFunc(String func, String arg) throws SyntaxException {
@@ -557,7 +556,12 @@ public class MatrixModule extends Module {
         if(l instanceof SimpleMatrix && r instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
             SimpleMatrix b = (SimpleMatrix) r;
-            return a.plus(b);
+            try {
+                return a.plus(b);
+            } catch(IllegalArgumentException e) {
+                e.printStackTrace();
+                throw new SyntaxException();
+            }
         } else if(l instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
             double b = (Double) r;
@@ -577,7 +581,12 @@ public class MatrixModule extends Module {
         if(l instanceof SimpleMatrix && r instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
             SimpleMatrix b = (SimpleMatrix) r;
-            return a.minus(b);
+            try {
+                return a.minus(b);
+            } catch(IllegalArgumentException e) {
+                e.printStackTrace();
+                throw new SyntaxException();
+            }
         } else if(l instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
             double b = (Double) r;
@@ -600,12 +609,22 @@ public class MatrixModule extends Module {
 
         SimpleMatrix temp = new SimpleMatrix(rows.length, rows[0].split(",").length);
 
+        int length = -1;
         for(int i = 0; i < rows.length; i++) {
             String[] cols = rows[i].split(",");
-            if(cols.length == 0) throw new SyntaxException();
+
+            // Catch invalid matrices
+            if(length == -1) length = cols.length;
+            if(length == 0 || cols.length != length) throw new SyntaxException();
+
             for(int j = 0; j < cols.length; j++) {
                 if(cols[j].isEmpty()) throw new SyntaxException();
-                temp.set(i, j, Double.parseDouble(calculate(cols[j])));
+                try {
+                    temp.set(i, j, Double.parseDouble(calculate(cols[j])));
+                } catch(NumberFormatException e) {
+                    e.printStackTrace();
+                    throw new SyntaxException();
+                }
             }
         }
 

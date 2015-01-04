@@ -69,7 +69,7 @@ public class GraphModule extends Module {
         @Override
         protected List<Point> doInBackground(String... eq) {
             try {
-                return graph(mSolver.getBaseModule().updateTextToNewMode(eq[0],
+                return graph(mSolver.getBaseModule().changeBase(eq[0],
                         mSolver.getBaseModule().getBase(), Base.DECIMAL));
             } catch(SyntaxException e) {
                 cancel(true);
@@ -80,19 +80,19 @@ public class GraphModule extends Module {
         public List<Point> graph(String equation) {
             final LinkedList<Point> series = new LinkedList<Point>();
 
-            mSolver.mSymbols.pushFrame();
+            mSolver.pushFrame();
             for(double x = mMinX; x <= mMaxX; x += 0.01 * mZoomLevel) {
                 if(isCancelled()) {
                     return null;
                 }
 
                 try {
-                    mSolver.mSymbols.define("X", x);
-                    double y = mSolver.mSymbols.eval(equation);
+                    mSolver.define("X", x);
+                    double y = mSolver.eval(equation);
                     series.add(new Point(x, y));
                 } catch(SyntaxException e) {}
             }
-            mSolver.mSymbols.popFrame();
+            mSolver.popFrame();
 
             return series;
         }

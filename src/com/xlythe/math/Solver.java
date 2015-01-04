@@ -7,7 +7,6 @@ import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
 
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 /**
  * Solves math problems
@@ -19,15 +18,17 @@ import java.util.regex.Pattern;
  */
 public class Solver {
     // Used for solving basic math
-    public Symbols mSymbols = new Symbols();
+    private Symbols mSymbols = new Symbols();
     private BaseModule mBaseModule;
     private MatrixModule mMatrixModule;
+    private GraphModule mGraphModule;
     private int mLineLength = 8;
     private Localizer mLocalizer;
 
     public Solver() {
         mBaseModule = new BaseModule(this);
         mMatrixModule = new MatrixModule(this);
+        mGraphModule = new GraphModule(this);
     }
 
     /**
@@ -74,10 +75,10 @@ public class Solver {
             }
         }
 
-        real = mBaseModule.updateTextToNewMode(real, Base.DECIMAL, mBaseModule.getBase())
+        real = mBaseModule.changeBase(real, Base.DECIMAL, mBaseModule.getBase())
                 .replace('-', Constants.MINUS)
                 .replace(Constants.INFINITY, Constants.INFINITY_UNICODE);
-        imaginary = mBaseModule.updateTextToNewMode(imaginary, Base.DECIMAL, mBaseModule.getBase())
+        imaginary = mBaseModule.changeBase(imaginary, Base.DECIMAL, mBaseModule.getBase())
                 .replace('-', Constants.MINUS)
                 .replace(Constants.INFINITY, Constants.INFINITY_UNICODE);
 
@@ -95,6 +96,22 @@ public class Solver {
         if(mLocalizer != null) result = mLocalizer.relocalize(result);
 
         return result;
+    }
+
+    public double eval(String input) throws SyntaxException{
+        return mSymbols.eval(input);
+    }
+
+    public void pushFrame() {
+        mSymbols.pushFrame();
+    }
+
+    public void popFrame() {
+        mSymbols.popFrame();
+    }
+
+    public void define(String var, double val) {
+        mSymbols.define(var, val);
     }
 
     public static boolean isOperator(char c) {
@@ -123,7 +140,7 @@ public class Solver {
     }
 
     public String convertToDecimal(String input) throws SyntaxException{
-        return mBaseModule.updateTextToNewMode(input, mBaseModule.getBase(), Base.DECIMAL);
+        return mBaseModule.changeBase(input, mBaseModule.getBase(), Base.DECIMAL);
     }
 
     String tryFormattingWithPrecision(double value, int precision) throws SyntaxException {
@@ -191,5 +208,9 @@ public class Solver {
 
     public MatrixModule getMatrixModule() {
         return mMatrixModule;
+    }
+
+    public GraphModule getGraphModule() {
+        return mGraphModule;
     }
 }

@@ -13,9 +13,11 @@ import android.widget.Toast;
 import com.android.calculator2.Calculator;
 import com.android.calculator2.CalculatorExpressionEvaluator;
 import com.android.calculator2.CalculatorExpressionTokenizer;
+import com.android.calculator2.Clipboard;
 import com.android.calculator2.R;
 import com.android.calculator2.view.display.AdvancedDisplay;
 import com.xlythe.floatingview.FloatingView;
+import com.xlythe.math.Constants;
 import com.xlythe.math.History;
 import com.xlythe.math.Persist;
 
@@ -42,6 +44,10 @@ public class FloatingCalculator extends FloatingView {
     }
 
     public View inflateView() {
+        // Rebuild constants. If the user changed their locale, it won't kill the app
+        // but it might change a decimal point from . to ,
+        Constants.rebuildConstants();
+
         View child = View.inflate(getContext(), R.layout.floating_calculator, null);
 
         mTokenizer = new CalculatorExpressionTokenizer(this);
@@ -69,7 +75,13 @@ public class FloatingCalculator extends FloatingView {
         mListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v instanceof Button) {
+                if(v.getId() == R.id.delete) {
+                    onDelete();
+                }
+                else if(v.getId() == R.id.clear) {
+                    onClear();
+                }
+                else if(v instanceof Button) {
                     if(((Button) v).getText().toString().equals("=")) {
                         mEvaluator.evaluate(mDisplay.getText(), new CalculatorExpressionEvaluator.EvaluateCallback() {
                             @Override
@@ -88,8 +100,6 @@ public class FloatingCalculator extends FloatingView {
                     } else {
                         onInsert(((Button) v).getText().toString());
                     }
-                } else if(v instanceof ImageButton) {
-                    onDelete();
                 }
             }
         };
@@ -102,13 +112,6 @@ public class FloatingCalculator extends FloatingView {
             }
         });
         mClear.setOnClickListener(mListener);
-        mClear.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                onClear();
-                return true;
-            }
-        });
 
         FloatingCalculatorPageAdapter adapter = new FloatingCalculatorPageAdapter(getContext(), mListener, mHistory);
         mPager.setAdapter(adapter);
@@ -133,12 +136,12 @@ public class FloatingCalculator extends FloatingView {
     }
 
     private void onClear() {
-        setState(State.CLEAR);
+        setState(State.DELETE);
         mDisplay.clear();
     }
 
     private void setText(String text) {
-        setState(State.DELETE);
+        setState(State.CLEAR);
         mDisplay.setText(text);
     }
 
@@ -176,9 +179,6 @@ public class FloatingCalculator extends FloatingView {
     }
 
     private void copyContent(String text) {
-        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(ClipData.newPlainText(null, text));
-        String toastText = String.format(getResources().getString(R.string.text_copied_toast), text);
-        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
+        Clipboard.copy(getContext(), text);
     }
 }

@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Floating Calculator -->
-    <dimen name="floating_window_icon">65dp</dimen>
-    <dimen name="floating_window_button_height">70dp</dimen>
-    <dimen name="floating_window_delete_box_height">125dp</dimen>
-    <dimen name="floating_window_delete_box_width">125dp</dimen>
-
     <!-- History -->
     <dimen name="history_view_bottom_margin">60dp</dimen>
     <dimen name="history_text_size">36sp</dimen>
@@ -17,4 +11,8 @@
     <!-- Display -->
     <dimen name="below_display_margin">-10dp</dimen>
     <dimen name="graph_margin">8dp</dimen>
+
+    <!-- Number pad -->
+    <dimen name="num_margin_horizontal">14dp</dimen>
+    <dimen name="num_margin_vertical">10dp</dimen>
 </resources>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2011 The Android Open Source Project
-	 Copyright (C) 2013 The CyanogenMod Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2009 The Android Open Source Project
 
 	 Licensed under the Apache License, Version 2.0 (the "License");
 	 you may not use this file except in compliance with the License.
@@ -15,7 +13,10 @@
 	 limitations under the License.
 -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/pressed_color" android:state_pressed="true" />
-    <item android:drawable="@android:color/transparent" />
-</selector>
+<resources>
+    <!-- Floating Calculator -->
+    <dimen name="floating_window_icon">65dp</dimen>
+    <dimen name="floating_window_button_height">70dp</dimen>
+    <dimen name="floating_window_delete_box_height">125dp</dimen>
+    <dimen name="floating_window_delete_box_width">125dp</dimen>
+</resources>

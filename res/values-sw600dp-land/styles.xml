@@ -35,24 +35,26 @@
     </style>
 
     <style name="PadButtonStyle.Advanced">
-        <item name="android:layout_margin">6dip</item>
         <item name="android:background">@drawable/pad_button_advanced_background</item>
         <item name="android:textColor">@color/pad_button_advanced_text_color</item>
         <item name="android:textSize">27sp</item>
     </style>
 
     <style name="PadButtonStyle.Numeric">
-        <item name="android:layout_margin">6dip</item>
         <item name="android:textSize">36sp</item>
     </style>
 
-    <style name="EqualsMultiButton">
+    <style name="PadButtonStyle.Numeric.Equals">
         <item name="android:visibility">gone</item>
+        <item name="android:tint">@color/pad_text_color_normal</item>
     </style>
 
     <style name="PadButtonStyle.Operator">
-        <item name="android:layout_margin">6dip</item>
         <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Operator.Equals">
+        <item name="android:tint">@color/pad_text_color_normal</item>
     </style>
 
     <style name="PadButtonStyle.Operator.Text">
@@ -61,10 +63,6 @@
     </style>
 
     <style name="PadLayoutStyle.Advanced">
-        <item name="android:paddingTop">10dip</item>
-        <item name="android:paddingBottom">10dip</item>
-        <item name="android:paddingLeft">18dip</item>
-        <item name="android:paddingRight">22dip</item>
         <item name="android:columnCount">4</item>
         <item name="android:rowCount">4</item>
     </style>
@@ -74,24 +72,19 @@
         <item name="android:rowCount">3</item>
     </style>
 
-    <style name="PadLayoutStyle.Matrix" parent="@style/PadLayoutStyle.Advanced" />
+    <style name="PadLayoutStyle.Matrix" parent="@style/PadLayoutStyle.Advanced" >
+        <item name="android:columnCount">2</item>
+        <item name="android:rowCount">4</item>
+    </style>
 
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_weight">532</item>
-        <item name="android:paddingTop">10dip</item>
-        <item name="android:paddingBottom">10dip</item>
-        <item name="android:paddingLeft">22dip</item>
-        <item name="android:paddingRight">18dip</item>
     </style>
 
     <style name="PadLayoutStyle.Operator">
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_weight">240</item>
-        <item name="android:paddingTop">10dip</item>
-        <item name="android:paddingBottom">10dip</item>
-        <item name="android:paddingLeft">18dip</item>
-        <item name="android:paddingRight">18dip</item>
     </style>
 
     <style name="PadLayoutStyle.Card">

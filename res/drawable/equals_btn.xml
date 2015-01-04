@@ -15,7 +15,9 @@
 	 limitations under the License.
 -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/pressed_color" android:state_pressed="true" />
-    <item android:drawable="@android:color/transparent" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:equals="http://schemas.android.com/apk/res-auto">
+    <item equals:state_graph="true" android:drawable="@drawable/btn_graph" />
+    <item equals:state_next="true" android:drawable="@drawable/btn_next" />
+    <item android:drawable="@drawable/btn_equal" />
 </selector>
