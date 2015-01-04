@@ -12,7 +12,6 @@ import android.widget.HorizontalScrollView;
 import com.android.calculator2.R;
 
 public class ScrollableDisplay extends HorizontalScrollView {
-    private int mMaxHeight;
     private boolean gravityRight = false;
     private boolean autoScrolling = false;
 
@@ -22,29 +21,10 @@ public class ScrollableDisplay extends HorizontalScrollView {
 
     public ScrollableDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ScrollableDisplay, defStyle, 0);
-        setMaxHeight(a.getDimensionPixelSize(R.styleable.ScrollableDisplay_max_height, -1));
-        a.recycle();
-    }
-
-    public void setMaxHeight(int maxHeight) {
-        mMaxHeight = maxHeight;
     }
 
     public View getView() {
         return getChildAt(0);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        if(mMaxHeight != -1) {
-            int width = getMeasuredWidth();
-            int height = Math.min(getMeasuredHeight(), mMaxHeight);
-
-            setMeasuredDimension(width, height);
-        }
     }
 
     @Override
@@ -64,10 +44,11 @@ public class ScrollableDisplay extends HorizontalScrollView {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         // HorizontalScrollView is broken for Gravity.RIGHT. So we're fixing it.
         autoScrolling = false;
-        int childWidth = getView().getWidth();
-        super.onLayout(changed, left, top, right, bottom);
-        int delta = getView().getWidth() - childWidth;
         View view = getView();
+        int childWidth = view.getWidth();
+        super.onLayout(changed, left, top, right, bottom);
+        int delta = view.getWidth() - childWidth;
+        System.out.println("Delta: "+delta);
         LayoutParams p = (LayoutParams) view.getLayoutParams();
         int horizontalGravity = p.gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
         int verticalGravity = p.gravity & Gravity.VERTICAL_GRAVITY_MASK;

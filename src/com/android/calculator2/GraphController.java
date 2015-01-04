@@ -71,7 +71,6 @@ public class GraphController implements
         mGraphModule.updateGraph(equation, this);
         mDisplayOverlay.setTranslateStateListener(this);
         mDisplayOverlay.setMode(DisplayMode.GRAPH);
-        mDisplayOverlay.animateModeTransition();
     }
 
     private void setDomainAndRange() {

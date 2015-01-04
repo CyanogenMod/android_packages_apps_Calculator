@@ -1,5 +1,7 @@
 package com.xlythe.math;
 
+import android.util.Log;
+
 import org.ejml.simple.SimpleEVD;
 import org.ejml.simple.SimpleMatrix;
 import org.ejml.simple.SimpleSVD;
@@ -9,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MatrixModule extends Module {
+    private static final String TAG = MatrixModule.class.getSimpleName();
 
     MatrixModule(Solver solver) {
         super(solver);
@@ -265,8 +268,7 @@ public class MatrixModule extends Module {
         text = getSolver().convertToDecimal(text);
         String result = calculate(text).replace('-', Constants.MINUS);
 
-        return getSolver().getBaseModule().updateTextToNewMode(result, Base.DECIMAL,
-                getSolver().getBaseModule().getBase());
+        return getSolver().getBaseModule().changeBase(result, getSolver().getBase());
     }
 
     private String applyFunc(String func, String arg) throws SyntaxException {
@@ -543,21 +545,27 @@ public class MatrixModule extends Module {
         }
     }
 
-    // private Object applyMod(Object object, Object object2) throws
-    // SyntaxException {
-    // if(object instanceof Double && object2 instanceof Double) {
-    // double arg1 = (Double) object;
-    // double arg2 = (Double) object2;
-    // return arg1 % arg2;
-    // }
-    // else throw new SyntaxException();
-    // }
+    private Object applyMod(Object object, Object object2) throws SyntaxException {
+        if(object instanceof Double && object2 instanceof Double) {
+            double arg1 = (Double) object;
+            double arg2 = (Double) object2;
+            return arg1 % arg2;
+        }
+        else {
+            throw new SyntaxException();
+        }
+    }
 
     private Object applyPlus(Object l, Object r) throws SyntaxException {
         if(l instanceof SimpleMatrix && r instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
             SimpleMatrix b = (SimpleMatrix) r;
-            return a.plus(b);
+            try {
+                return a.plus(b);
+            } catch(IllegalArgumentException e) {
+                Log.e(TAG, "Matrix operation plus not allowed on " + a + " and " + b, e);
+                throw new SyntaxException();
+            }
         } else if(l instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
             double b = (Double) r;
@@ -577,7 +585,12 @@ public class MatrixModule extends Module {
         if(l instanceof SimpleMatrix && r instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
             SimpleMatrix b = (SimpleMatrix) r;
-            return a.minus(b);
+            try {
+                return a.minus(b);
+            } catch(IllegalArgumentException e) {
+                Log.e(TAG, "Matrix operation minus not allowed on " + a + " and " + b, e);
+                throw new SyntaxException();
+            }
         } else if(l instanceof SimpleMatrix) {
             SimpleMatrix a = (SimpleMatrix) l;
             double b = (Double) r;
@@ -600,12 +613,22 @@ public class MatrixModule extends Module {
 
         SimpleMatrix temp = new SimpleMatrix(rows.length, rows[0].split(",").length);
 
+        int length = -1;
         for(int i = 0; i < rows.length; i++) {
             String[] cols = rows[i].split(",");
-            if(cols.length == 0) throw new SyntaxException();
+
+            // Catch invalid matrices
+            if(length == -1) length = cols.length;
+            if(length == 0 || cols.length != length) throw new SyntaxException();
+
             for(int j = 0; j < cols.length; j++) {
                 if(cols[j].isEmpty()) throw new SyntaxException();
-                temp.set(i, j, Double.parseDouble(calculate(cols[j])));
+                try {
+                    temp.set(i, j, Double.parseDouble(calculate(cols[j])));
+                } catch(NumberFormatException e) {
+                    Log.e(TAG, cols[j] + " is not a number", e);
+                    throw new SyntaxException();
+                }
             }
         }
 

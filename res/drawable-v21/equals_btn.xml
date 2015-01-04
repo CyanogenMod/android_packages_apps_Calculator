@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 The Android Open Source Project
+	 Copyright (C) 2013 The CyanogenMod Project
+
+	 Licensed under the Apache License, Version 2.0 (the "License");
+	 you may not use this file except in compliance with the License.
+	 You may obtain a copy of the License at
+
+		  http://www.apache.org/licenses/LICENSE-2.0
+
+	 Unless required by applicable law or agreed to in writing, software
+	 distributed under the License is distributed on an "AS IS" BASIS,
+	 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 See the License for the specific language governing permissions and
+	 limitations under the License.
+-->
+
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:equals="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/graph" equals:state_graph="true" android:drawable="@drawable/btn_graph" />
+    <item android:id="@+id/next" equals:state_next="true" android:drawable="@drawable/equal30" />
+    <item android:id="@+id/equal" android:drawable="@drawable/equal0" />
+
+    <transition android:fromId="@id/equal" android:toId="@id/next" android:reversible="true">
+        <animation-list>
+            <item android:drawable="@drawable/equal0" android:duration="10" />
+            <item android:drawable="@drawable/equal1" android:duration="10" />
+            <item android:drawable="@drawable/equal2" android:duration="10" />
+            <item android:drawable="@drawable/equal3" android:duration="10" />
+            <item android:drawable="@drawable/equal4" android:duration="10" />
+            <item android:drawable="@drawable/equal5" android:duration="10" />
+            <item android:drawable="@drawable/equal6" android:duration="10" />
+            <item android:drawable="@drawable/equal7" android:duration="10" />
+            <item android:drawable="@drawable/equal8" android:duration="10" />
+            <item android:drawable="@drawable/equal9" android:duration="10" />
+            <item android:drawable="@drawable/equal10" android:duration="10" />
+            <item android:drawable="@drawable/equal11" android:duration="10" />
+            <item android:drawable="@drawable/equal12" android:duration="10" />
+            <item android:drawable="@drawable/equal13" android:duration="10" />
+            <item android:drawable="@drawable/equal14" android:duration="10" />
+            <item android:drawable="@drawable/equal15" android:duration="10" />
+            <item android:drawable="@drawable/equal16" android:duration="10" />
+            <item android:drawable="@drawable/equal17" android:duration="10" />
+            <item android:drawable="@drawable/equal18" android:duration="10" />
+            <item android:drawable="@drawable/equal19" android:duration="10" />
+            <item android:drawable="@drawable/equal20" android:duration="10" />
+            <item android:drawable="@drawable/equal21" android:duration="10" />
+            <item android:drawable="@drawable/equal22" android:duration="10" />
+            <item android:drawable="@drawable/equal23" android:duration="10" />
+            <item android:drawable="@drawable/equal24" android:duration="10" />
+            <item android:drawable="@drawable/equal25" android:duration="10" />
+            <item android:drawable="@drawable/equal26" android:duration="10" />
+            <item android:drawable="@drawable/equal27" android:duration="10" />
+            <item android:drawable="@drawable/equal28" android:duration="10" />
+            <item android:drawable="@drawable/equal29" android:duration="10" />
+            <item android:drawable="@drawable/equal30" android:duration="10" />
+        </animation-list>
+    </transition>
+</animated-selector>

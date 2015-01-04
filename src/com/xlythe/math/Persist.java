@@ -17,6 +17,7 @@
 package com.xlythe.math;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class Persist {
+    private static final String TAG = Persist.class.getSimpleName();
     private static final int LAST_VERSION = 3;
     private static final String FILE_NAME = "calculator.data";
     private final Context mContext;
@@ -75,9 +77,9 @@ public class Persist {
             mHistory = new History(version, in);
             in.close();
         } catch(FileNotFoundException e) {
-            e.printStackTrace();
+            Log.e(TAG, "No save file yet. First time running the app?", e);
         } catch(IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Couldn't read from disc", e);
         }
     }
 
@@ -91,7 +93,7 @@ public class Persist {
             mHistory.write(out);
             out.close();
         } catch(IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Cannot save to disc", e);
         }
     }
 

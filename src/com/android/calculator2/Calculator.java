@@ -30,6 +30,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -42,8 +43,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.android.calculator2.view.EqualsImageButton;
 import com.android.calculator2.view.GraphView;
-import com.android.calculator2.view.MultiButton;
 import com.android.calculator2.view.display.AdvancedDisplay.OnTextSizeChangeListener;
 import com.android.calculator2.CalculatorExpressionEvaluator.EvaluateCallback;
 import com.android.calculator2.view.display.AdvancedDisplay;
@@ -53,18 +54,20 @@ import com.android.calculator2.view.MatrixEditText;
 import com.android.calculator2.view.MatrixInverseView;
 import com.android.calculator2.view.MatrixTransposeView;
 import com.android.calculator2.view.MatrixView;
+import com.android.calculator2.view.EqualsImageButton.State;
 import com.xlythe.math.Base;
 import com.xlythe.math.Constants;
 import com.xlythe.math.GraphModule;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
 import com.xlythe.math.Persist;
+import com.xlythe.math.Solver;
 
 public class Calculator extends Activity
         implements OnTextSizeChangeListener, EvaluateCallback, OnLongClickListener {
 
     private static final String NAME = Calculator.class.getName();
-    public static final String TAG = "Calculator";
+    private static final String TAG = Calculator.class.getSimpleName();
 
     // instance state keys
     private static final String KEY_CURRENT_STATE = NAME + "_currentState";
@@ -92,12 +95,6 @@ public class Calculator extends Activity
         public void afterTextChanged(Editable editable) {
             setState(CalculatorState.INPUT);
             mEvaluator.evaluate(editable, Calculator.this);
-
-            if (editable.toString().contains(mX)) {
-                mEqualsGraphButton.setEnabled(R.id.graph);
-            } else {
-                mEqualsGraphButton.setEnabled(R.id.eq);
-            }
         }
     };
 
@@ -108,18 +105,8 @@ public class Calculator extends Activity
                 case KeyEvent.KEYCODE_NUMPAD_ENTER:
                 case KeyEvent.KEYCODE_ENTER:
                     if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                        View v = mEqualsGraphButton.getEnabledView();
-                        if (v != null) {
-                            mCurrentButton = v;
-                            switch (v.getId()) {
-                                case R.id.eq:
-                                    onEquals();
-                                    break;
-                                case R.id.graph:
-                                    onGraph();
-                                    break;
-                            }
-                        }
+                        mCurrentButton = mEqualButton;
+                        onEquals();
                     }
                     // ignore all other actions
                     return true;
@@ -136,9 +123,9 @@ public class Calculator extends Activity
     private AdvancedDisplay mResultEditText;
     private CalculatorPadViewPager mPadViewPager;
     private View mDeleteButton;
+    private EqualsImageButton mEqualButton;
     private View mClearButton;
     private View mCurrentButton;
-    private MultiButton mEqualsGraphButton;
     private Animator mCurrentAnimator;
     private History mHistory;
     private RecyclerView.Adapter mHistoryAdapter;
@@ -154,21 +141,21 @@ public class Calculator extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
+        // Rebuild constants. If the user changed their locale, it won't kill the app
+        // but it might change a decimal point from . to ,
+        Constants.rebuildConstants();
         mX = getString(R.string.X);
+
         mDisplayView = (DisplayOverlay) findViewById(R.id.display);
         mFormulaEditText = (AdvancedDisplay) findViewById(R.id.formula);
         mResultEditText = (AdvancedDisplay) findViewById(R.id.result);
         mPadViewPager = (CalculatorPadViewPager) findViewById(R.id.pad_pager);
         mDeleteButton = findViewById(R.id.del);
         mClearButton = findViewById(R.id.clr);
-        mEqualsGraphButton =
-                (MultiButton)findViewById(R.id.pad_numeric).findViewById(R.id.equals_graph);
+        mEqualButton = (EqualsImageButton) findViewById(R.id.pad_numeric).findViewById(R.id.eq);
 
-        if (mEqualsGraphButton == null ||
-                mEqualsGraphButton.getVisibility() != View.VISIBLE) {
-            mEqualsGraphButton =
-                    (MultiButton)findViewById(R.id.pad_operator)
-                            .findViewById(R.id.equals_graph);
+        if (mEqualButton == null || mEqualButton.getVisibility() != View.VISIBLE) {
+            mEqualButton = (EqualsImageButton) findViewById(R.id.pad_operator).findViewById(R.id.eq);
         }
 
         mTokenizer = new CalculatorExpressionTokenizer(this);
@@ -180,22 +167,16 @@ public class Calculator extends Activity
 
         mFormulaEditText.setSolver(mEvaluator.getSolver());
         mResultEditText.setSolver(mEvaluator.getSolver());
+        mFormulaEditText.setText(mTokenizer.getLocalizedExpression(
+                savedInstanceState.getString(KEY_CURRENT_EXPRESSION, "")));
+        mEvaluator.evaluate(mFormulaEditText.getText(), this);
         mFormulaEditText.addTextChangedListener(mFormulaTextWatcher);
         mFormulaEditText.setOnKeyListener(mFormulaOnKeyListener);
         mFormulaEditText.setOnTextSizeChangeListener(this);
-        mFormulaEditText.setText(mTokenizer.getLocalizedExpression(
-                savedInstanceState.getString(KEY_CURRENT_EXPRESSION, "")));
-        if (TextUtils.isEmpty(mFormulaEditText.getText())) {
-            mEqualsGraphButton.setEnabled(R.id.eq);
-        }
-
-        mEvaluator.evaluate(mFormulaEditText.getText(), this);
-        mFormulaEditText.setTextColor(getResources().getColor(R.color.display_formula_text_color));
         mDeleteButton.setOnLongClickListener(this);
-        mResultEditText.setTextColor(getResources().getColor(R.color.display_result_text_color));
         mResultEditText.setEnabled(false);
 
-        mFormulaEditText.registerComponent(new MatrixView.MVDisplayComponent());
+        mFormulaEditText.registerComponent(new MatrixView.DisplayComponent());
         mResultEditText.registerComponents(mFormulaEditText.getComponents());
 
         Base base = Base.DECIMAL;
@@ -214,9 +195,6 @@ public class Calculator extends Activity
         // Disable IME for this application
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
-        // Rebuild constants. If the user changed their locale, it won't kill the app
-        // but it might change a decimal point from . to ,
-        Constants.rebuildConstants();
         Button dot = (Button) findViewById(R.id.dec_point);
         dot.setText(String.valueOf(Constants.DECIMAL_POINT));
 
@@ -320,6 +298,10 @@ public class Calculator extends Activity
 
     @Override
     public void onBackPressed() {
+        if (mDisplayView.getMode().equals(DisplayMode.GRAPH)) {
+            mDisplayView.setMode(DisplayMode.FORMULA);
+            return;
+        }
         if (mPadViewPager == null || mPadViewPager.getCurrentItem() == 0) {
             // If the user is currently looking at the first pad (or the pad is not paged),
             // allow the system to handle the Back button.
@@ -345,9 +327,6 @@ public class Calculator extends Activity
         switch (view.getId()) {
             case R.id.eq:
                 onEquals();
-                break;
-            case R.id.graph:
-                onGraph();
                 break;
             case R.id.del:
                 onDelete();
@@ -402,11 +381,21 @@ public class Calculator extends Activity
                     ((MatrixEditText) mFormulaEditText.getActiveEditText()).getMatrixView().removeColumn();
                 }
                 break;
-            case R.id.const_x:
+            case R.id.op_add:
+            case R.id.op_sub:
+            case R.id.op_mul:
+            case R.id.op_div:
+            case R.id.op_fact:
+            case R.id.op_pow:
                 mFormulaEditText.insert(((Button) view).getText());
                 break;
             default:
-                mFormulaEditText.insert(((Button) view).getText());
+                if(mCurrentState.equals(CalculatorState.INPUT) || mFormulaEditText.isCursorModified()) {
+                    mFormulaEditText.insert(((Button) view).getText());
+                }
+                else {
+                    mFormulaEditText.setText(((Button) view).getText());
+                }
                 break;
         }
     }
@@ -424,7 +413,7 @@ public class Calculator extends Activity
     @Override
     public void onEvaluate(String expr, String result, int errorResourceId) {
         if (mCurrentState == CalculatorState.INPUT) {
-            if (result == null || result.equals(mFormulaEditText.getText())) {
+            if (result == null || Solver.equal(result, expr)) {
                 mResultEditText.clear();
             }
             else {
@@ -439,6 +428,14 @@ public class Calculator extends Activity
         } else if (mCurrentState == CalculatorState.EVALUATE) {
             // The current expression cannot be evaluated -> return to the input state.
             setState(CalculatorState.INPUT);
+        }
+
+        if (expr.contains(mX)) {
+            mEqualButton.setState(State.GRAPH);
+        } else if (expr.equals(result) || mFormulaEditText.hasNext()) {
+            mEqualButton.setState(State.NEXT);
+        } else {
+            mEqualButton.setState(State.EQUALS);
         }
     }
 
@@ -475,18 +472,21 @@ public class Calculator extends Activity
     }
 
     private void onEquals() {
+        String text = mFormulaEditText.getText();
         if (mCurrentState == CalculatorState.INPUT) {
-            if (mFormulaEditText.hasNext()) {
-                mFormulaEditText.next();
-            } else {
-                setState(CalculatorState.EVALUATE);
-                mEvaluator.evaluate(mFormulaEditText.getText(), this);
+            switch(mEqualButton.getState()) {
+                case EQUALS:
+                    setState(CalculatorState.EVALUATE);
+                    mEvaluator.evaluate(text, this);
+                    break;
+                case NEXT:
+                    mFormulaEditText.next();
+                    break;
+                case GRAPH:
+                    mGraphController.startGraph(text);
+                    break;
             }
         }
-    }
-
-    private void onGraph() {
-        mGraphController.startGraph(mFormulaEditText.getText());
     }
 
     private void onDelete() {
@@ -657,11 +657,8 @@ public class Calculator extends Activity
         });
         setSelectedBaseButton(base);
 
-        // disable any buttons that are not relevant to the current base
-        for (int resId : mBaseManager.getViewIds()) {
-            // TODO: handle duplicates
-            // This will not work if the same resId is used on multiple pages,
-            // which will be the case after adding the matrix view.
+        // Disable any buttons that are not relevant to the current base
+        for (int resId : mBaseManager.getViewIds(mPadViewPager == null ? -1 : mPadViewPager.getCurrentItem())) {
             View view = findViewById(resId);
             if (view != null) {
                 view.setEnabled(!mBaseManager.isViewDisabled(resId));

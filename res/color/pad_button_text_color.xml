@@ -3,5 +3,5 @@
     <!-- disabled state -->
     <item android:state_enabled="false"
         android:color="@color/pad_text_color_disabled" />
-    <item android:color="@android:color/white" />
+    <item android:color="@color/pad_text_color_normal" />
 </selector>

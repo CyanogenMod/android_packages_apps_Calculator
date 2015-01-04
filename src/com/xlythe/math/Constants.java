@@ -16,7 +16,7 @@ public class Constants {
     public static final char MUL = '\u00d7';
     public static final char PLUS = '+';
     public static final char DIV = '\u00f7';
-    public static final char PLACEHOLDER = '\u200B';
+    public static final char POWER_PLACEHOLDER = '\u200B';
     public static final char POWER = '^';
     public static final char EQUAL = '=';
     public static final char LEFT_PAREN = '(';

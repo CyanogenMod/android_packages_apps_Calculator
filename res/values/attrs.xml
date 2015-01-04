@@ -28,4 +28,10 @@
         <attr name="stepTextSize" format="dimension" />
         <attr name="textColor" format="color|reference" />
     </declare-styleable>
+
+    <declare-styleable name="EqualsImageButton">
+        <attr name="state_equals" format="boolean" />
+        <attr name="state_graph" format="boolean" />
+        <attr name="state_next" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 
 import com.android.calculator2.HistoryAdapter;
 import com.android.calculator2.R;
+import com.xlythe.math.Constants;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
 
@@ -83,6 +84,10 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
                 break;
             case 1:
                 mViews[position] = View.inflate(mContext, R.layout.floating_calculator_basic, null);
+
+                Button dot = (Button) mViews[position].findViewById(R.id.dec_point);
+                dot.setText(String.valueOf(Constants.DECIMAL_POINT));
+
                 break;
             case 2:
                 mViews[position] = View.inflate(mContext, R.layout.floating_calculator_advanced, null);
@@ -114,7 +119,6 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.scrollToPosition(0);
-        layoutManager.setStackFromEnd(true);
         historyView.setLayoutManager(layoutManager);
 
         FloatingHistoryAdapter historyAdapter = new FloatingHistoryAdapter(mContext, mHistory, listener);
