@@ -78,6 +78,7 @@
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
+  <string name="store_info_text">Teman ger dig möjligheten att ändra utseendet och känslan i kalkylatorn. De är kraftfulla och låter dig justera nästan alla typsnitt, bilder och färger.\n\nAlla har möjligheten att koda sitt eget tema och dela med sig av det. En kort och koncis guide finns publicerad här: http://xlythe.com/calculator/theme.html\n\nTeman kan publiceras i butiken genom http://review.cyanogenmod.org</string>
   <string name="easter_egg">Magikarp used Splash but nothing happened.</string>
   <string name="voice_detection_failed">Beräkningen misslyckades. Försök igen?</string>
   <string name="voice_detection_repeat">Beräkna igen?</string>
