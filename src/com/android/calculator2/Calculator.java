@@ -180,6 +180,18 @@ public class Calculator extends Activity
 
         mFormulaEditText.setSolver(mEvaluator.getSolver());
         mResultEditText.setSolver(mEvaluator.getSolver());
+
+        Base base = Base.DECIMAL;
+        int baseOrdinal = savedInstanceState.getInt(KEY_BASE, -1);
+        if (baseOrdinal != -1) {
+            base = Base.values()[baseOrdinal];
+        }
+        mBaseManager = new NumberBaseManager(base);
+        if (mPadViewPager != null) {
+            mPadViewPager.setBaseManager(mBaseManager);
+        }
+        setBase(base);
+
         mFormulaEditText.addTextChangedListener(mFormulaTextWatcher);
         mFormulaEditText.setOnKeyListener(mFormulaOnKeyListener);
         mFormulaEditText.setOnTextSizeChangeListener(this);
@@ -197,17 +209,6 @@ public class Calculator extends Activity
 
         mFormulaEditText.registerComponent(new MatrixView.MVDisplayComponent());
         mResultEditText.registerComponents(mFormulaEditText.getComponents());
-
-        Base base = Base.DECIMAL;
-        int baseOrdinal = savedInstanceState.getInt(KEY_BASE, -1);
-        if (baseOrdinal != -1) {
-            base = Base.values()[baseOrdinal];
-        }
-        mBaseManager = new NumberBaseManager(base);
-        if (mPadViewPager != null) {
-            mPadViewPager.setBaseManager(mBaseManager);
-        }
-        setSelectedBaseButton(base);
 
         mDisplayView.bringToFront();
 
@@ -640,6 +641,8 @@ public class Calculator extends Activity
     }
 
     private void setBase(Base base) {
+        boolean baseChanged = base != mBaseManager.getNumberBase();
+
         // Update the BaseManager, which handles restricting which buttons to show
         mBaseManager.setNumberBase(base);
 
@@ -651,7 +654,9 @@ public class Calculator extends Activity
                     onError(errorResourceId);
                 } else {
                     mResultEditText.setText(result);
-                    onResult(result);
+                    if (!TextUtils.isEmpty(result)) {
+                        onResult(result);
+                    }
                 }
             }
         });
@@ -673,7 +678,9 @@ public class Calculator extends Activity
         // Then when we import a history item into the current display, we can convert the
         // base as necessary. As a short term approach, just clear the history when
         // changing the base.
-        mHistory.clear();
+        if (baseChanged && mHistory != null) {
+            mHistory.clear();
+        }
     }
 
     private void setSelectedBaseButton(Base base) {
