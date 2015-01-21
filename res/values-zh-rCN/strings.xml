@@ -28,6 +28,7 @@
     <string name="digit7" msgid="658125644218958447">"7"</string>
     <string name="digit8" msgid="3134686906411558886">"8"</string>
     <string name="digit9" msgid="765379157698748031">"9"</string>
+    <string name="clr">清除</string>
     <string name="del" msgid="6248896117422989693">"删除"</string>
     <string name="clear" msgid="8103610981407459768">"清除"</string>
     <string name="fun_sin" msgid="6793866152659175277">"sin"</string>
@@ -42,4 +43,5 @@
     <string name="advanced" msgid="7122495413742976492">"高级面板"</string>
     <string name="clear_history" msgid="8458043980601165012">"清除历史记录"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"文本已复制."</string>
+    <string name="desc_clr">"清除"</string>
 </resources>
