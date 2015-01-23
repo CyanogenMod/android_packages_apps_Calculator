@@ -44,4 +44,24 @@
     <string name="clear_history" msgid="8458043980601165012">"清除历史记录"</string>
     <string name="text_copied_toast" msgid="5801480710472541833">"文本已复制."</string>
     <string name="desc_clr">"清除"</string>
+    <string name="desc_rparen">右括号</string>
+    <string name="desc_op_sqrt">平方根</string>
+    <string name="desc_fun_sin">正弦</string>
+    <string name="desc_op_pow">幂</string>
+    <string name="desc_lparen">左括号</string>
+    <string name="desc_op_fact">阶乘</string>
+    <string name="desc_op_div">除</string>
+    <string name="desc_const_pi">π</string>
+    <string name="desc_fun_log">对数</string>
+    <string name="error_nan">不是数字</string>
+    <string name="desc_op_sub">减</string>
+    <string name="desc_fun_tan">切弦</string>
+    <string name="desc_fun_cos">余弦</string>
+    <string name="desc_const_e">欧拉常数</string>
+    <string name="desc_op_mul">乘</string>
+    <string name="desc_fun_ln">自然对数</string>
+    <string name="desc_del">删除</string>
+    <string name="desc_eq">等于</string>
+    <string name="desc_op_add">加</string>
+    <string name="desc_dec_point">点</string>
 </resources>
