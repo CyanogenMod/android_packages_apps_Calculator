@@ -52,7 +52,7 @@
     <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
     <string name="mod">mod</string>
     <!-- Displayed on button on screen for the cube root function. -->
-    <string name="cbrt">\u00b3\u221a</string>
+    <string name="cbrt" translatable="false">\u00b3\u221a</string>
 
     <!-- Displayed on buttons on screen for parentheses. -->
     <string name="parentheses" translatable="false">( )</string>
@@ -79,5 +79,5 @@
     <string name="desc_bin">Binary</string>
     <string name="desc_dec">Decimal</string>
 
-    <string name="history_line_equals">=</string>
+    <string name="history_line_equals" translatable="false">=</string>
 </resources>
