@@ -16,7 +16,6 @@ import com.xlythe.math.Point;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class GraphView extends View {
@@ -25,6 +24,7 @@ public class GraphView extends View {
     private static final int LINES = 1;
     private int mDrawingAlgorithm = LINES;
     private static final int DOTS = 2;
+    private static final int BOX_STROKE = 6;
     DecimalFormat mFormat = new DecimalFormat("#.#####");
     private PanListener mPanListener;
     private ZoomListener mZoomListener;
@@ -38,7 +38,7 @@ public class GraphView extends View {
     private int mMinLineMargin;
     private int mTextPaintSize;
     private float mZoomLevel = 1;
-    private LinkedList<Point> mData;
+    private List<Point> mData;
     private float mStartX;
     private float mStartY;
     private int mDragOffsetX;
@@ -65,20 +65,19 @@ public class GraphView extends View {
         mTextPaint.setColor(Color.BLACK);
         mTextPaint.setTextSize(mTextPaintSize);
 
-
         mAxisPaint = new Paint();
-        mAxisPaint.setColor(Color.DKGRAY);
+        mAxisPaint.setColor(Color.LTGRAY);
         mAxisPaint.setStyle(Style.STROKE);
         mAxisPaint.setStrokeWidth(2);
 
         mGraphPaint = new Paint();
         mGraphPaint.setColor(Color.CYAN);
         mGraphPaint.setStyle(Style.STROKE);
-        mGraphPaint.setStrokeWidth(3);
+        mGraphPaint.setStrokeWidth(6);
 
         zoomReset();
 
-        mData = new LinkedList<Point>();
+        mData = new ArrayList<Point>();
     }
 
     public void zoomReset() {
@@ -98,76 +97,6 @@ public class GraphView extends View {
     public GraphView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setup();
-    }
-
-    private void drawInArc(LinkedList<Point> data, Canvas canvas) {
-        Path path = new Path();
-
-        if(data.size() > 1) {
-            for(int i = data.size() - 2; i < data.size(); i++) {
-                if(i >= 0) {
-                    Point point = data.get(i);
-
-                    if(i == 0) {
-                        Point next = data.get(i + 1);
-//                        point.dx = ((getRawX(next) - getRawX(point)) / 3);
-//                        point.dy = ((getRawY(next) - getRawY(point)) / 3);
-                    } else if(i == data.size() - 1) {
-                        Point prev = data.get(i - 1);
-//                        point.dx = ((getRawX(point) - getRawX(prev)) / 3);
-//                        point.dy = ((getRawY(point) - getRawY(prev)) / 3);
-                    } else {
-                        Point next = data.get(i + 1);
-                        Point prev = data.get(i - 1);
-//                        point.dx = ((getRawX(next) - getRawX(prev)) / 3);
-//                        point.dy = ((getRawY(next) - getRawY(prev)) / 3);
-                    }
-                }
-            }
-        }
-
-        boolean first = true;
-        for(int i = 0; i < data.size(); i++) {
-            Point point = data.get(i);
-            if(first) {
-                first = false;
-                path.moveTo(getRawX(point), getRawY(point));
-            } else {
-                Point prev = data.get(i - 1);
-//                path.cubicTo(getRawX(prev) + prev.dx, getRawY(prev) + prev.dy, getRawX(point) - point.dx, getRawY(point) - point.dy, getRawX(point), getRawY(point));
-            }
-        }
-        canvas.drawPath(path, mGraphPaint);
-    }
-
-    private void drawWithCurvedLines(LinkedList<Point> data, Canvas canvas) {
-        Path path = new Path();
-        path.moveTo(getRawX(data.get(0)), getRawY(data.get(0)));
-
-        final int n = 6;
-        for(int i = 1; i < data.size() - n; i += n / 2) {
-            Point a = data.get(i);
-            Point b = data.get(i + 1);
-            Point c = data.get(i + 2);
-            int aX = getRawX(a);
-            int aY = getRawY(a);
-            int bX = getRawX(b);
-            int bY = getRawY(b);
-            int cX = getRawX(c);
-            int cY = getRawY(c);
-            if(tooFar(aX, aY, bX, bY)) {
-                canvas.drawPath(path, mGraphPaint);
-                path = new Path();
-                path.moveTo(cX, cY);
-                i++;
-                continue;
-            }
-
-            float xc = (aX + bX) / 2;
-            float yc = (aY + bY) / 2;
-            path.quadTo(aX, aY, xc, yc);
-        }
-        canvas.drawPath(path, mGraphPaint);
     }
 
     private Point average(Point... args) {
@@ -234,6 +163,11 @@ public class GraphView extends View {
 
         canvas.drawPaint(mBackgroundPaint);
 
+        // draw bounding box
+        mAxisPaint.setStrokeWidth(BOX_STROKE);
+        canvas.drawRect(mLineMargin, mLineMargin,
+                getWidth() - BOX_STROKE/2, getHeight() - BOX_STROKE/2, mAxisPaint);
+
         // Draw the grid lines
         Rect bounds = new Rect();
         int previousLine = 0;
@@ -277,24 +211,27 @@ public class GraphView extends View {
         }
 
         // Restrict drawing the graph to the grid
-        canvas.clipRect(mLineMargin, mLineMargin, getWidth(), getHeight());
+        canvas.clipRect(mLineMargin, mLineMargin,
+                getWidth() - BOX_STROKE, getHeight() - BOX_STROKE);
 
         // Create a path to draw smooth arcs
         if(mDrawingAlgorithm == LINES) {
-            LinkedList<Point> data = new LinkedList<Point>(mData);
-            if(data.size() != 0) {
-//            drawInArc(data, canvas);
-//            drawWithCurvedLines(data, canvas);
-                drawWithStraightLines(data, canvas);
+            if(mData.size() != 0) {
+                drawWithStraightLines(mData, canvas);
             }
         } else if(mDrawingAlgorithm == DOTS) {
             drawDots(mData, canvas);
         }
     }
 
-    private void drawWithStraightLines(LinkedList<Point> data, Canvas canvas) {
-        Point previousPoint = data.remove();
+    private void drawWithStraightLines(List<Point> data, Canvas canvas) {
+        Point previousPoint = null;
         for(Point currentPoint : data) {
+            if (previousPoint == null) {
+                previousPoint = currentPoint;
+                continue;
+            }
+
             int aX = getRawX(previousPoint);
             int aY = getRawY(previousPoint);
             int bX = getRawX(currentPoint);
@@ -308,7 +245,7 @@ public class GraphView extends View {
         }
     }
 
-    private void drawDots(LinkedList<Point> data, Canvas canvas) {
+    private void drawDots(List<Point> data, Canvas canvas) {
         for(Point p : data) {
             canvas.drawPoint(getRawX(p), getRawY(p), mGraphPaint);
         }
@@ -427,42 +364,8 @@ public class GraphView extends View {
     }
 
     public void setData(List<Point> data) {
-        setData(data, true);
-    }
-
-    public void setData(List<Point> data, boolean sort) {
-        if(sort) {
-            mData = sort(new ArrayList<Point>(data));
-            mDrawingAlgorithm = LINES;
-        } else {
-            mData = new LinkedList<Point>(data);
-            mDrawingAlgorithm = LINES;
-        }
-    }
-
-    private LinkedList<Point> sort(List<Point> data) {
-        LinkedList<Point> sorted = new LinkedList<Point>();
-        Point key = null;
-        while(!data.isEmpty()) {
-            if(key == null) {
-                key = data.get(0);
-                data.remove(0);
-                sorted.add(key);
-            }
-            key = findClosestPoint(key, data);
-            data.remove(key);
-            sorted.add(key);
-        }
-        return sorted;
-    }
-
-    private Point findClosestPoint(Point key, List<Point> data) {
-        Point closestPoint = null;
-        for(Point p : data) {
-            if(closestPoint == null) closestPoint = p;
-            if(getDistance(key, p) < getDistance(key, closestPoint)) closestPoint = p;
-        }
-        return closestPoint;
+        mData = data;
+        mDrawingAlgorithm = LINES;
     }
 
     private double getDistance(Point a, Point b) {

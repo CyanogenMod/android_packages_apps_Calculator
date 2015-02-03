@@ -36,21 +36,26 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewAnimationUtils;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.android.calculator2.view.GraphView;
+import com.android.calculator2.view.MultiButton;
 import com.android.calculator2.view.display.AdvancedDisplay.OnTextSizeChangeListener;
 import com.android.calculator2.CalculatorExpressionEvaluator.EvaluateCallback;
 import com.android.calculator2.view.display.AdvancedDisplay;
 import com.android.calculator2.view.DisplayOverlay;
+import com.android.calculator2.view.DisplayOverlay.DisplayMode;
 import com.android.calculator2.view.MatrixEditText;
 import com.android.calculator2.view.MatrixInverseView;
 import com.android.calculator2.view.MatrixTransposeView;
 import com.android.calculator2.view.MatrixView;
 import com.xlythe.math.Base;
 import com.xlythe.math.Constants;
+import com.xlythe.math.GraphModule;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
 import com.xlythe.math.Persist;
@@ -59,12 +64,13 @@ public class Calculator extends Activity
         implements OnTextSizeChangeListener, EvaluateCallback, OnLongClickListener {
 
     private static final String NAME = Calculator.class.getName();
-    private static final String TAG = "Calculator";
+    public static final String TAG = "Calculator";
 
     // instance state keys
     private static final String KEY_CURRENT_STATE = NAME + "_currentState";
     private static final String KEY_CURRENT_EXPRESSION = NAME + "_currentExpression";
     private static final String KEY_BASE = NAME + "_base";
+    private static final String KEY_DISPLAY_MODE = NAME + "_displayMode";
 
     /**
      * Constant for an invalid resource id.
@@ -86,6 +92,12 @@ public class Calculator extends Activity
         public void afterTextChanged(Editable editable) {
             setState(CalculatorState.INPUT);
             mEvaluator.evaluate(editable, Calculator.this);
+
+            if (editable.toString().contains(mX)) {
+                mEqualsGraphButton.setEnabled(R.id.graph);
+            } else {
+                mEqualsGraphButton.setEnabled(R.id.eq);
+            }
         }
     };
 
@@ -96,8 +108,18 @@ public class Calculator extends Activity
                 case KeyEvent.KEYCODE_NUMPAD_ENTER:
                 case KeyEvent.KEYCODE_ENTER:
                     if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                        mCurrentButton = mEqualButton;
-                        onEquals();
+                        View v = mEqualsGraphButton.getEnabledView();
+                        if (v != null) {
+                            mCurrentButton = v;
+                            switch (v.getId()) {
+                                case R.id.eq:
+                                    onEquals();
+                                    break;
+                                case R.id.graph:
+                                    onGraph();
+                                    break;
+                            }
+                        }
                     }
                     // ignore all other actions
                     return true;
@@ -114,14 +136,16 @@ public class Calculator extends Activity
     private AdvancedDisplay mResultEditText;
     private CalculatorPadViewPager mPadViewPager;
     private View mDeleteButton;
-    private View mEqualButton;
     private View mClearButton;
     private View mCurrentButton;
+    private MultiButton mEqualsGraphButton;
     private Animator mCurrentAnimator;
     private History mHistory;
     private RecyclerView.Adapter mHistoryAdapter;
     private Persist mPersist;
     private NumberBaseManager mBaseManager;
+    private String mX;
+    private GraphController mGraphController;
     private FrameLayout.LayoutParams mLayoutParams =
             new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 0);
 
@@ -130,16 +154,21 @@ public class Calculator extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
+        mX = getString(R.string.X);
         mDisplayView = (DisplayOverlay) findViewById(R.id.display);
         mFormulaEditText = (AdvancedDisplay) findViewById(R.id.formula);
         mResultEditText = (AdvancedDisplay) findViewById(R.id.result);
         mPadViewPager = (CalculatorPadViewPager) findViewById(R.id.pad_pager);
         mDeleteButton = findViewById(R.id.del);
         mClearButton = findViewById(R.id.clr);
-        mEqualButton = findViewById(R.id.pad_numeric).findViewById(R.id.eq);
+        mEqualsGraphButton =
+                (MultiButton)findViewById(R.id.pad_numeric).findViewById(R.id.equals_graph);
 
-        if (mEqualButton == null || mEqualButton.getVisibility() != View.VISIBLE) {
-            mEqualButton = findViewById(R.id.pad_operator).findViewById(R.id.eq);
+        if (mEqualsGraphButton == null ||
+                mEqualsGraphButton.getVisibility() != View.VISIBLE) {
+            mEqualsGraphButton =
+                    (MultiButton)findViewById(R.id.pad_operator)
+                            .findViewById(R.id.equals_graph);
         }
 
         mTokenizer = new CalculatorExpressionTokenizer(this);
@@ -163,12 +192,16 @@ public class Calculator extends Activity
         }
         setBase(base);
 
-        mFormulaEditText.setText(mTokenizer.getLocalizedExpression(
-                savedInstanceState.getString(KEY_CURRENT_EXPRESSION, "")));
-        mEvaluator.evaluate(mFormulaEditText.getText(), this);
         mFormulaEditText.addTextChangedListener(mFormulaTextWatcher);
         mFormulaEditText.setOnKeyListener(mFormulaOnKeyListener);
         mFormulaEditText.setOnTextSizeChangeListener(this);
+        mFormulaEditText.setText(mTokenizer.getLocalizedExpression(
+                savedInstanceState.getString(KEY_CURRENT_EXPRESSION, "")));
+        if (TextUtils.isEmpty(mFormulaEditText.getText())) {
+            mEqualsGraphButton.setEnabled(R.id.eq);
+        }
+
+        mEvaluator.evaluate(mFormulaEditText.getText(), this);
         mFormulaEditText.setTextColor(getResources().getColor(R.color.display_formula_text_color));
         mDeleteButton.setOnLongClickListener(this);
         mResultEditText.setTextColor(getResources().getColor(R.color.display_result_text_color));
@@ -187,6 +220,29 @@ public class Calculator extends Activity
         Constants.rebuildConstants();
         Button dot = (Button) findViewById(R.id.dec_point);
         dot.setText(String.valueOf(Constants.DECIMAL_POINT));
+
+        GraphView graphView = (GraphView)findViewById(R.id.graphView);
+        GraphModule graphModule = new GraphModule(mEvaluator.getSolver());
+        mGraphController = new GraphController(graphView, graphModule, mDisplayView);
+
+        DisplayMode displayMode = DisplayMode.FORMULA;
+        int modeOrdinal = savedInstanceState.getInt(KEY_DISPLAY_MODE, -1);
+        if (modeOrdinal != -1) {
+            displayMode = DisplayMode.values()[modeOrdinal];
+        }
+        mDisplayView.setMode(displayMode);
+        mDisplayView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (mDisplayView.getHeight() > 0) {
+                            mDisplayView.initializeHistoryAndGraphView();
+                            if (mDisplayView.getMode() == DisplayMode.GRAPH) {
+                                mGraphController.startGraph(mFormulaEditText.getText());
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
@@ -229,6 +285,7 @@ public class Calculator extends Activity
         outState.putString(KEY_CURRENT_EXPRESSION,
                 mTokenizer.getNormalizedExpression(mFormulaEditText.getText()));
         outState.putInt(KEY_BASE, mBaseManager.getNumberBase().ordinal());
+        outState.putInt(KEY_DISPLAY_MODE, mDisplayView.getMode().ordinal());
     }
 
     private void setState(CalculatorState state) {
@@ -290,6 +347,9 @@ public class Calculator extends Activity
             case R.id.eq:
                 onEquals();
                 break;
+            case R.id.graph:
+                onGraph();
+                break;
             case R.id.del:
                 onDelete();
                 break;
@@ -342,6 +402,9 @@ public class Calculator extends Activity
                 if(mFormulaEditText.getActiveEditText() instanceof MatrixEditText) {
                     ((MatrixEditText) mFormulaEditText.getActiveEditText()).getMatrixView().removeColumn();
                 }
+                break;
+            case R.id.const_x:
+                mFormulaEditText.insert(((Button) view).getText());
                 break;
             default:
                 mFormulaEditText.insert(((Button) view).getText());
@@ -416,12 +479,15 @@ public class Calculator extends Activity
         if (mCurrentState == CalculatorState.INPUT) {
             if (mFormulaEditText.hasNext()) {
                 mFormulaEditText.next();
-            }
-            else {
+            } else {
                 setState(CalculatorState.EVALUATE);
                 mEvaluator.evaluate(mFormulaEditText.getText(), this);
             }
         }
+    }
+
+    private void onGraph() {
+        mGraphController.startGraph(mFormulaEditText.getText());
     }
 
     private void onDelete() {
