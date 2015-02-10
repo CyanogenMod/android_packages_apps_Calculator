@@ -18,26 +18,21 @@
 <resources>
   <string name="X">X</string>
   <string name="Y">Y</string>
-  <string name="arcsin">arcsin</string>
-  <string name="arccos">arccos</string>
-  <string name="arctan">arctan</string>
-  <string name="dot">.</string>
+  <string name="arcsin">asen</string>
+  <string name="arccos">acos</string>
+  <string name="arctan">atan</string>
+  <string name="dot">,</string>
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
-  <string name="text_copied_toast">Text copiat.</string>
-  <string name="copy">Copiază \"%s\"</string>
-  <string name="det">det</string>
-  <string name="solve">Rezolvă</string>
-  <string name="plus_row">+Rând</string>
-  <string name="minus_row">-Rând</string>
-  <string name="plus_col">+Col</string>
-  <string name="minus_col">-Col</string>
+  <string name="copy">\u00AB%s\u00BB copiáu</string>
+  <string name="det">determ</string>
+  <string name="plus_row">Fil+</string>
+  <string name="minus_row">Fil-</string>
+  <string name="plus_col">Col+</string>
+  <string name="minus_col">Col-</string>
   <string name="matrix_transpose">T</string>
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
-  <string name="desc_hex">Hexadecimal</string>
-  <string name="desc_bin">Binar</string>
-  <string name="desc_dec">Decimal</string>
 </resources>

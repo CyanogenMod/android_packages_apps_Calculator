@@ -16,9 +16,9 @@
   limitations under the License.
   -->
 <resources>
-  <string name="app_name">Täscherechner</string>
-  <string name="error_nan">Keng Zuel</string>
-  <string name="error">Feeler</string>
+  <string name="app_name">Calculadora</string>
+  <string name="error_nan">Nun ye un númberu</string>
+  <string name="error">Fallu</string>
   <string name="dec_point">,</string>
   <string name="digit0">0</string>
   <string name="digit1">1</string>
@@ -33,28 +33,28 @@
   <string name="fun_cos">cos</string>
   <string name="fun_ln">ln</string>
   <string name="fun_log">log</string>
-  <string name="fun_sin">sin</string>
+  <string name="fun_sin">sen</string>
   <string name="fun_tan">tan</string>
   <string name="clr">clr</string>
   <string name="del">del</string>
-  <string name="desc_const_e">Zuel vum Euler</string>
-  <string name="desc_const_pi">Pi</string>
-  <string name="desc_dec_point">Komma</string>
-  <string name="desc_lparen">lénks Klamer</string>
-  <string name="desc_rparen">riets Klamer</string>
-  <string name="desc_fun_cos">Cosinus</string>
-  <string name="desc_fun_ln">natierleche Logarithmus</string>
-  <string name="desc_fun_log">Logarithmus</string>
-  <string name="desc_fun_sin">Sinus</string>
-  <string name="desc_fun_tan">Tangent</string>
-  <string name="desc_op_add">Plus</string>
-  <string name="desc_op_div">dividéieren</string>
-  <string name="desc_op_fact">Faktoriell</string>
-  <string name="desc_op_mul">Mol</string>
-  <string name="desc_op_pow">héich</string>
-  <string name="desc_op_sqrt">Quadratwuerzel</string>
-  <string name="desc_op_sub">Minus</string>
-  <string name="desc_clr">läschen</string>
-  <string name="desc_del">läschen</string>
-  <string name="desc_eq">ass gläich</string>
+  <string name="desc_const_e">Númberu d\'Euler</string>
+  <string name="desc_const_pi">pi</string>
+  <string name="desc_dec_point">puntu</string>
+  <string name="desc_lparen">paréntesis esquierdu</string>
+  <string name="desc_rparen">paréntesis derechu</string>
+  <string name="desc_fun_cos">cosenu</string>
+  <string name="desc_fun_ln">natural logarithm</string>
+  <string name="desc_fun_log">logaritmu</string>
+  <string name="desc_fun_sin">senu</string>
+  <string name="desc_fun_tan">tanxente</string>
+  <string name="desc_op_add">más</string>
+  <string name="desc_op_div">dividir</string>
+  <string name="desc_op_fact">factorial</string>
+  <string name="desc_op_mul">times</string>
+  <string name="desc_op_pow">eleváu</string>
+  <string name="desc_op_sqrt">square root</string>
+  <string name="desc_op_sub">menos</string>
+  <string name="desc_clr">llimpiar</string>
+  <string name="desc_del">desaniciar</string>
+  <string name="desc_eq">igual</string>
 </resources>
