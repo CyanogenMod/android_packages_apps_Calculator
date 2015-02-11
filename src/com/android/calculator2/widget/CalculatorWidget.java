@@ -56,7 +56,7 @@ public class CalculatorWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         String value = getValue(context, appWidgetId);
-        if(value.equals(context.getResources().getString(R.string.error))) value = "";
+        if(value.equals(context.getResources().getString(R.string.error_syntax))) value = "";
         mClearText = intent.getBooleanExtra(SHOW_CLEAR, false);
 
         if(intent.getAction().equals(DIGIT_0)) {
@@ -149,11 +149,11 @@ public class CalculatorWidget extends AppWidgetProvider {
             try {
                 value = logic.solve(input);
             } catch(SyntaxException e) {
-                value = context.getResources().getString(R.string.error);
+                value = context.getResources().getString(R.string.error_syntax);
             }
 
             // Try to save it to history
-            if(!value.equals(context.getResources().getString(R.string.error))) {
+            if(!value.equals(context.getResources().getString(R.string.error_syntax))) {
                 final Persist persist = new Persist(context);
                 persist.load();
                 if(persist.getMode() == null) persist.setMode(Base.DECIMAL);
