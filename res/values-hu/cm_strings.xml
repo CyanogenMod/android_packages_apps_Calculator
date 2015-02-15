@@ -80,7 +80,6 @@
   <string name="dot">.</string>
   <string name="store_tab_themes">Témák</string>
   <string name="store_price_installed">Telepített</string>
-  <string name="store_price_free">Ingyenes</string>
   <string name="easter_egg">Magikarp Splash-t használt, de nem történt semmi.</string>
   <string name="voice_detection_failed">A kiszámítás nem sikerült. Megpróbálja újra?</string>
   <string name="voice_detection_repeat">Kiszámítja újra?</string>

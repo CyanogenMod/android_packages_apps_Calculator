@@ -46,6 +46,7 @@
   <string name="pref_actions">Hәrәkәtlәr</string>
   <string name="pref_theme">Tema</string>
   <string name="clickToOpenHistory">Tarixi açmaq üçün tıkla</string>
+  <string name="vibrateOnPress">Klikləyəndə titrət</string>
   <string name="voice_detection_repeat">Yenidən hesablansın?</string>
   <string name="speech_helper_negative" formatted="false">Mənfi %s</string>
 </resources>
