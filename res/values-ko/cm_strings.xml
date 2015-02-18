@@ -27,7 +27,9 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">텍스트가 복사되었습니다.</string>
   <string name="copy">\'%s\' 복사</string>
+  <string name="remove_from_history">기록에서 제거</string>
   <string name="det">det</string>
+  <string name="solve">해결</string>
   <string name="plus_row">+행</string>
   <string name="minus_row">-행</string>
   <string name="plus_col">+열</string>

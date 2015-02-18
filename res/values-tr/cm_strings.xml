@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Metin kopyalandı.</string>
   <string name="copy">Kopyala: \'%s\'</string>
+  <string name="remove_from_history">Geçmişten sil</string>
   <string name="det">det</string>
   <string name="solve">Çöz</string>
   <string name="plus_row">+Satır</string>

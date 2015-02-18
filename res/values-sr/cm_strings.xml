@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Текст копиран.</string>
   <string name="copy">Копирај \'%s\'</string>
+  <string name="remove_from_history">Уклони из историје</string>
   <string name="det">det</string>
   <string name="solve">Реши</string>
   <string name="plus_row">+Ред</string>

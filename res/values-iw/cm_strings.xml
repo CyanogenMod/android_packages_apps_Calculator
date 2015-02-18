@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">טקסט הועתק.</string>
   <string name="copy">העתק \"%s\"</string>
+  <string name="remove_from_history">הסר מההיסטוריה</string>
   <string name="det">דטרמיננטה</string>
   <string name="solve">פתור</string>
   <string name="plus_row">+שורה</string>

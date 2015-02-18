@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">テキストをコピーしました。</string>
   <string name="copy">「%s」をコピー</string>
+  <string name="remove_from_history">履歴から削除</string>
   <string name="det">det</string>
   <string name="solve">Solve</string>
   <string name="plus_row">+Row</string>

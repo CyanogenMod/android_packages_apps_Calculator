@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Szöveg másolva.</string>
   <string name="copy">Másolás \'%s\'</string>
+  <string name="remove_from_history">Eltávolítás az előzményekből</string>
   <string name="det">det</string>
   <string name="solve">Megoldás</string>
   <string name="plus_row">+Sor</string>
