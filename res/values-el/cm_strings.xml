@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Το κείμενο αντιγράφηκε.</string>
   <string name="copy">Αντιγραφή \"%s\"</string>
+  <string name="remove_from_history">Αφαίρεση από το ιστορικό</string>
   <string name="det">det</string>
   <string name="solve">Λύση</string>
   <string name="plus_row">+Γραμ</string>

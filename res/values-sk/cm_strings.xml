@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Text bol skopírovaný.</string>
   <string name="copy">Kopírovať \'%s\'</string>
+  <string name="remove_from_history">Odstrániť z histórie</string>
   <string name="det">det</string>
   <string name="solve">Vyriešiť</string>
   <string name="plus_row">+Riadok</string>

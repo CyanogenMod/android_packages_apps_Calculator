@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Text zkopírován.</string>
   <string name="copy">Kopírovat \u201a%s\u2018</string>
+  <string name="remove_from_history">Odebrat z historie</string>
   <string name="det">det</string>
   <string name="solve">Vyřešit</string>
   <string name="plus_row">+Řádek</string>

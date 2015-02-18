@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Texte copié.</string>
   <string name="copy">Copier \"%s\"</string>
+  <string name="remove_from_history">Supprimer de l\'historique</string>
   <string name="det">det</string>
   <string name="solve">Résoudre</string>
   <string name="plus_row">+Lig</string>

@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Tekstas nukopijuotas.</string>
   <string name="copy">Kopijuoti „%s“</string>
+  <string name="remove_from_history">Pašalinti iš istorijos</string>
   <string name="det">det</string>
   <string name="solve">Išspręsti</string>
   <string name="plus_row">+Row</string>

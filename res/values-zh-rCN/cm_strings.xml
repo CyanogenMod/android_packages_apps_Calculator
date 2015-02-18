@@ -27,6 +27,7 @@
   <string name="mod">取余数</string>
   <string name="text_copied_toast">文本已复制。</string>
   <string name="copy">复制 \'%s\'</string>
+  <string name="remove_from_history">从历史记录移除</string>
   <string name="det">行列式</string>
   <string name="solve">求解</string>
   <string name="plus_row">+行</string>

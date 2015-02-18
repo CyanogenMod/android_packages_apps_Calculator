@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Text kopéiert.</string>
   <string name="copy">\"%s\" kopéieren</string>
+  <string name="remove_from_history">Aus dem Historique läschen</string>
   <string name="det">det</string>
   <string name="solve">Léisen</string>
   <string name="plus_row">+Rei</string>
