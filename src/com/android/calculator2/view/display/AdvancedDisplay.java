@@ -447,7 +447,9 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
     }
 
     public void backspace() {
-        getActiveEditText().dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
+        EditText aet = getActiveEditText();
+        if (aet != null)
+            aet.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
     }
 
     /**
