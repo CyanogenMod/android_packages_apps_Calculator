@@ -391,6 +391,8 @@ public class Logic {
             result = "i";
         } else if (value.re == 0 && value.im == -1) {
             result = "-i";
+        } else if (value.re == 0 && value.im == 0) {
+            result = "0";
         }
 
         result = relocalize(result);
