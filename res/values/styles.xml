@@ -90,6 +90,11 @@
         <item name="android:background">@drawable/circle_bg</item>
     </style>
 
+    <style name="Theme.Calculator.ButtonStyle.Widget.Keyguard"
+            parent="Theme.Calculator.ButtonStyle.Widget">
+        <item name="android:textSize">24sp</item>
+    </style>
+
     <style name="Theme.Calculator.ButtonStyle.FloatingCalc">
         <item name="android:background">@drawable/circle_bg</item>
     </style>

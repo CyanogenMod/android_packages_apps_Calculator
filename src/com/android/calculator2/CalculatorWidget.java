@@ -16,6 +16,7 @@
 
 package com.android.calculator2;
 
+import android.appwidget.AppWidgetProviderInfo;
 import org.javia.arity.SyntaxException;
 
 import android.app.PendingIntent;
@@ -230,7 +231,11 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     private void updateAppWidget(Context context,
             AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+        int category = appWidgetManager.getAppWidgetOptions(appWidgetId)
+                .getInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, -1);
+        boolean isKeyguard = category == AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                isKeyguard ? R.layout.widget_keyguard : R.layout.widget);
 
         String value = getValue(context, appWidgetId);
 

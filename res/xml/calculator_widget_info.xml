@@ -18,7 +18,7 @@
     android:minWidth="250dp"
     android:minHeight="250dp"
     android:initialLayout="@layout/widget"
-    android:initialKeyguardLayout="@layout/widget"
+    android:initialKeyguardLayout="@layout/widget_keyguard"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen|keyguard"
     android:resizeMode="vertical"
