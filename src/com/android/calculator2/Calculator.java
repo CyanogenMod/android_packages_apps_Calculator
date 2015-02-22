@@ -288,16 +288,15 @@ public class Calculator extends Activity
         outState.putInt(KEY_DISPLAY_MODE, mDisplayView.getMode().ordinal());
     }
 
+    private void setClearVisibility(boolean visible) {
+        mClearButton.setVisibility(visible ? View.VISIBLE : View.GONE);
+        mDeleteButton.setVisibility(visible ? View.GONE : View.VISIBLE);
+    }
+
     private void setState(CalculatorState state) {
         if (mCurrentState != state) {
             mCurrentState = state;
-            if (state == CalculatorState.RESULT || state == CalculatorState.ERROR) {
-                mDeleteButton.setVisibility(View.GONE);
-                mClearButton.setVisibility(View.VISIBLE);
-            } else {
-                mDeleteButton.setVisibility(View.VISIBLE);
-                mClearButton.setVisibility(View.GONE);
-            }
+            setClearVisibility(state == CalculatorState.RESULT || state == CalculatorState.ERROR);
 
             if (state == CalculatorState.ERROR) {
                 final int errorColor = getResources().getColor(R.color.calculator_error_color);
@@ -407,7 +406,21 @@ public class Calculator extends Activity
                 mFormulaEditText.insert(((Button) view).getText());
                 break;
             default:
-                mFormulaEditText.insert(((Button) view).getText());
+                // Clear the input if we are currently displaying a result, and if the key pressed
+                // is not a postfix or infix operator.
+                CharSequence buttonText = ((Button) view).getText();
+                String buttonString = buttonText.toString();
+                if (mCurrentState == CalculatorState.RESULT &&
+                        !( buttonString.equals(getString(R.string.op_div)) ||
+                        buttonString.equals(getString(R.string.op_mul)) ||
+                        buttonString.equals(getString(R.string.op_sub)) ||
+                        buttonString.equals(getString(R.string.op_add)) ||
+                        buttonString.equals(getString(R.string.op_pow)) ||
+                        buttonString.equals(getString(R.string.op_fact)) ||
+                        buttonString.equals(getString(R.string.eq)) )) {
+                    mFormulaEditText.clear();
+                }
+                mFormulaEditText.insert(buttonText);
                 break;
         }
     }
@@ -574,6 +587,9 @@ public class Calculator extends Activity
     }
 
     private void onResult(final String result) {
+        // Make the clear button appear immediately.
+        setClearVisibility(true);
+
         // Calculate the values needed to perform the scale and translation animations,
         // accounting for how the scale will affect the final position of the text.
         final float resultScale =
