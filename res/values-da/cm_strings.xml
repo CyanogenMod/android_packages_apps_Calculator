@@ -25,8 +25,11 @@
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
+  <string name="text_copied_toast">Tekst kopieret.</string>
   <string name="copy">Kopiér \"%s\"</string>
+  <string name="remove_from_history">Fjern fra historik</string>
   <string name="det">det</string>
+  <string name="solve">Løs</string>
   <string name="plus_row">+Række</string>
   <string name="minus_row">-Række</string>
   <string name="plus_col">+Kolonne</string>
@@ -35,4 +38,7 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
+  <string name="desc_hex">Hexadecimal</string>
+  <string name="desc_bin">Binær</string>
+  <string name="desc_dec">Decimal</string>
 </resources>

@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Текст скопійовано.</string>
   <string name="copy">Копіювати \'%s\'</string>
+  <string name="remove_from_history">Вилучити з історії</string>
   <string name="det">det</string>
   <string name="solve">Розв\'язати</string>
   <string name="plus_row">+Ряд</string>

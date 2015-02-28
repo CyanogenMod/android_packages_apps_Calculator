@@ -25,6 +25,7 @@
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
+  <string name="text_copied_toast">Text kopierad.</string>
   <string name="copy">Kopiera \'%s\'</string>
   <string name="det">det</string>
   <string name="plus_row">+Rad</string>
