@@ -50,6 +50,7 @@
                           android:layout_height="match_parent"
                           android:gravity="right|center_vertical"
                           android:visibility="gone"
+		          android:textSize="34sp"
                           style="@style/Theme.Calculator.Display.Widget" />
             </LinearLayout>
 
@@ -68,7 +69,8 @@
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="match_parent"
-                          android:layout_weight="1">
+                          android:layout_weight="1"
+                          android:layout_marginTop="-8dp">
 
                 <Button android:id="@+id/digit7"
                         android:text="@string/digit7"
@@ -101,7 +103,8 @@
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="match_parent"
-                          android:layout_weight="1">
+                          android:layout_weight="1"
+                          android:layout_marginTop="-8dp">
 
                 <Button android:id="@+id/digit4"
                         android:text="@string/digit4"
@@ -134,7 +137,8 @@
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="match_parent"
-                          android:layout_weight="1">
+                          android:layout_weight="1"
+                          android:layout_marginTop="-8dp">
 
                 <Button android:id="@+id/digit1"
                         android:text="@string/digit1"
@@ -165,10 +169,10 @@
                         style="@style/Theme.Calculator.ButtonStyle.Widget.Keyguard" />
             </LinearLayout>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:layout_weight="1"
+                          android:layout_marginTop="-8dp">
 
                 <Button android:id="@+id/dot"
                         android:text="@string/dot"
