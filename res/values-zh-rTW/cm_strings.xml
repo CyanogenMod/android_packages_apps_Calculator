@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">已複製。</string>
   <string name="copy">複製「%s」</string>
+  <string name="remove_from_history">從紀錄中移除</string>
   <string name="det">det</string>
   <string name="solve">解</string>
   <string name="plus_row">+Row</string>
