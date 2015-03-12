@@ -110,7 +110,6 @@ public class Calculator extends Activity
                     if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                         View v = mEqualsGraphButton.getEnabledView();
                         if (v != null) {
-                            mCurrentButton = v;
                             switch (v.getId()) {
                                 case R.id.eq:
                                     onEquals();
@@ -137,7 +136,6 @@ public class Calculator extends Activity
     private CalculatorPadViewPager mPadViewPager;
     private View mDeleteButton;
     private View mClearButton;
-    private View mCurrentButton;
     private MultiButton mEqualsGraphButton;
     private Animator mCurrentAnimator;
     private History mHistory;
@@ -275,9 +273,10 @@ public class Calculator extends Activity
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        // If there's an animation in progress, cancel it first to ensure our state is up-to-date.
+        // If there's an animation in progress, end it immediately to ensure the state is
+        // up-to-date before it is serialized.
         if (mCurrentAnimator != null) {
-            mCurrentAnimator.cancel();
+            mCurrentAnimator.end();
         }
 
         super.onSaveInstanceState(outState);
@@ -333,15 +332,14 @@ public class Calculator extends Activity
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
-        // If there's an animation in progress, cancel it so the user interaction can be handled
-        // immediately.
+        // If there's an animation in progress, end it immediately to ensure the state is
+        // up-to-date before the pending user interaction is handled.
         if (mCurrentAnimator != null) {
-            mCurrentAnimator.cancel();
+            mCurrentAnimator.end();
         }
     }
 
     public void onButtonClick(View view) {
-        mCurrentButton = view;
         switch (view.getId()) {
             case R.id.eq:
                 onEquals();
@@ -427,7 +425,6 @@ public class Calculator extends Activity
 
     @Override
     public boolean onLongClick(View view) {
-        mCurrentButton = view;
         if (view.getId() == R.id.del) {
             onClear();
             return true;
@@ -539,10 +536,10 @@ public class Calculator extends Activity
         }
         revealAnimator.setDuration(
                 getResources().getInteger(android.R.integer.config_longAnimTime));
-        revealAnimator.addListener(listener);
 
         final Animator alphaAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 0.0f);
         alphaAnimator.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
+        alphaAnimator.addListener(listener);
 
         final AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.play(revealAnimator).before(alphaAnimator);
@@ -562,9 +559,11 @@ public class Calculator extends Activity
         if (TextUtils.isEmpty(mFormulaEditText.getText())) {
             return;
         }
-        reveal(mCurrentButton, R.color.calculator_accent_color, new AnimatorListenerAdapter() {
+        final View sourceView = mClearButton.getVisibility() == View.VISIBLE
+                ? mClearButton : mDeleteButton;
+        reveal(sourceView, R.color.calculator_accent_color, new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationStart(Animator animation) {
                 mFormulaEditText.clear();
             }
         });
@@ -577,9 +576,9 @@ public class Calculator extends Activity
             return;
         }
 
-        reveal(mCurrentButton, R.color.calculator_error_color, new AnimatorListenerAdapter() {
+        reveal(mEqualButton, R.color.calculator_error_color, new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationStart(Animator animation) {
                 setState(CalculatorState.ERROR);
                 mResultEditText.setText(errorResourceId);
             }
