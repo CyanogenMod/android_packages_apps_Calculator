@@ -1,7 +1,6 @@
 package com.android.calculator2.view.display;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.text.Editable;
@@ -16,15 +15,14 @@ import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.calculator2.Clipboard;
 import com.android.calculator2.R;
 import com.android.calculator2.view.CalculatorEditable;
 import com.android.calculator2.view.ScrollableDisplay;
@@ -45,6 +43,9 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
 
     // Restrict keys from hardware keyboards
     private static final char[] ACCEPTED_CHARS = "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
+
+    // The maximum allowed text edit chars - no limit can cause FC
+    private static final int MAX_TEXT_EDIT_CHARS = 500;
 
     // For cut, copy, and paste
     MenuHandler mMenuHandler = new MenuHandler(this);
@@ -470,6 +471,20 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
             // Notify the text watcher
             mTextWatcher.beforeTextChanged(null, 0, 0, 0);
             mTextIsUpdating = true;
+
+
+            // limit the max number of characters the edit text can have
+            if (delta.length() > 0 &&
+                    getActiveEditText().length() + delta.length() > MAX_TEXT_EDIT_CHARS) {
+                final int chars = Math.min(delta.length(),
+                        Math.max(0, MAX_TEXT_EDIT_CHARS - getActiveEditText().length()));
+                delta = delta.substring(0, chars);
+
+                if (delta.length() == 0) {
+                    Toast.makeText(getContext(), R.string.text_max_chars, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
 
             if(CalculatorEditText.class.isInstance(getActiveEditText())) {
                 // Logic to insert, split text if there's another view, etc
