@@ -80,5 +80,7 @@
     <string name="desc_bin">Binary</string>
     <string name="desc_dec">Decimal</string>
 
+    <string name="text_max_chars">Too many characters entered - please delete some characters or resolve your equation to continue</string>
+
     <string name="history_line_equals" translatable="false">=</string>
 </resources>
