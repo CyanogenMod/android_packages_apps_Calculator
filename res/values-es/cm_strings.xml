@@ -79,8 +79,6 @@
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <string name="dot">,</string>
-  <string name="store_tab_themes">Temas</string>
-  <string name="store_price_installed">Instalado</string>
   <string name="store_info_text">Los temas te permiten cambiar el aspecto y visualización de la calculadora. Con ellos puedes cambiar los tipos de letra, imágenes y colores.\n\nCualquier persona es libre de crear su propio tema y compartirlo. Hay publicada una guía rápida en el siguiente enlace: http://xlythe.com/calculator/theme.html\n\nLos temas pueden ser presentados en la tienda a través de http://review.cyanogenmod.org</string>
   <string name="easter_egg">Magikarp salpicó, pero no ocurrió nada.</string>
   <string name="voice_detection_failed">Error de cálculo. ¿Intentar de nuevo?</string>
