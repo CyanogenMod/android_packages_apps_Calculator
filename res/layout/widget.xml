@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit7" />
+                    android:text="@string/digit_7" />
 
                 <Button
                     android:id="@+id/digit8"
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit8" />
+                    android:text="@string/digit_8" />
 
                 <Button
                     android:id="@+id/digit9"
@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit9" />
+                    android:text="@string/digit_9" />
 
                 <Button
                     android:id="@+id/div"
@@ -111,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit4" />
+                    android:text="@string/digit_4" />
 
                 <Button
                     android:id="@+id/digit5"
@@ -119,7 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit5" />
+                    android:text="@string/digit_5" />
 
                 <Button
                     android:id="@+id/digit6"
@@ -127,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit6" />
+                    android:text="@string/digit_6" />
 
                 <Button
                     android:id="@+id/mul"
@@ -149,7 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit1" />
+                    android:text="@string/digit_1" />
 
                 <Button
                     android:id="@+id/digit2"
@@ -157,7 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit2" />
+                    android:text="@string/digit_2" />
 
                 <Button
                     android:id="@+id/digit3"
@@ -165,7 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit3" />
+                    android:text="@string/digit_3" />
 
                 <Button
                     android:id="@+id/minus"
@@ -195,7 +195,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/digit0" />
+                    android:text="@string/digit_0" />
 
                 <Button
                     android:id="@+id/equal"

@@ -59,6 +59,7 @@
 
     <string name="text_copied_toast">Text copied.</string>
     <string name="copy">Copy \'%s\'</string>
+    <string name="remove_from_history">Remove from history</string>
 
     <!-- Matrix page text -->
     <string name="det">det</string>
