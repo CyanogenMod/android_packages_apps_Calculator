@@ -109,6 +109,7 @@ public class Calculator extends Activity
                 case KeyEvent.KEYCODE_ENTER:
                     if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                         View v = mEqualsGraphButton.getEnabledView();
+                        mCurrentButton = v;
                         if (v != null) {
                             switch (v.getId()) {
                                 case R.id.eq:
@@ -136,6 +137,7 @@ public class Calculator extends Activity
     private CalculatorPadViewPager mPadViewPager;
     private View mDeleteButton;
     private View mClearButton;
+    private View mCurrentButton;
     private MultiButton mEqualsGraphButton;
     private Animator mCurrentAnimator;
     private History mHistory;
@@ -425,6 +427,7 @@ public class Calculator extends Activity
 
     @Override
     public boolean onLongClick(View view) {
+        mCurrentButton = view;
         if (view.getId() == R.id.del) {
             onClear();
             return true;
@@ -576,7 +579,7 @@ public class Calculator extends Activity
             return;
         }
 
-        reveal(mEqualButton, R.color.calculator_error_color, new AnimatorListenerAdapter() {
+        reveal(mCurrentButton, R.color.calculator_error_color, new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 setState(CalculatorState.ERROR);
