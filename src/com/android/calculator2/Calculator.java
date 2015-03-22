@@ -576,7 +576,7 @@ public class Calculator extends Activity
             return;
         }
 
-        reveal(mEqualButton, R.color.calculator_error_color, new AnimatorListenerAdapter() {
+        reveal(mEqualsGraphButton, R.color.calculator_error_color, new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 setState(CalculatorState.ERROR);
