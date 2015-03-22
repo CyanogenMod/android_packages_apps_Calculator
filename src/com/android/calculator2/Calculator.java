@@ -136,6 +136,7 @@ public class Calculator extends Activity
     private CalculatorPadViewPager mPadViewPager;
     private View mDeleteButton;
     private View mClearButton;
+    private View mEqualButton;
     private MultiButton mEqualsGraphButton;
     private Animator mCurrentAnimator;
     private History mHistory;
