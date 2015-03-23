@@ -100,24 +100,17 @@
             android:text="@string/op_sqrt" />
 
         <Button
-            android:id="@+id/cbrt"
+            android:id="@+id/power"
             style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/cbrt" />
+            android:text="@string/op_pow" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
-        <Button
-            android:id="@+id/power"
-            style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
-            android:layout_width="@dimen/floating_window_button_height"
-            android:layout_height="@dimen/floating_window_button_height"
-            android:text="@string/op_pow" />
 
         <Button
             android:id="@+id/leftParen"
