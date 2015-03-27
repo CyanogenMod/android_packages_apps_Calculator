@@ -29,6 +29,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -124,6 +125,24 @@ public class CalculatorEditText extends EditText {
                 setSelection(Math.min(mSelectionHandle, getText().length()));
 
                 updating = false;
+            }
+        });
+
+        setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (i == keyEvent.KEYCODE_DEL) {
+                    int sel = getSelectionStart();
+                    String edit = getEditableText().toString();
+
+                    // If we're trying to delete a separator shift the selector over
+                    if (sel >= 1
+                            && edit.charAt(sel - 1) == mSolver.getBaseModule().getSeparator()) {
+                        setSelection(sel - 1);
+                    }
+                }
+
+                return false;
             }
         });
 
