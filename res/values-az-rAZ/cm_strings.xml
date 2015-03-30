@@ -21,14 +21,24 @@
   <string name="arcsin">asin</string>
   <string name="arccos">acos</string>
   <string name="arctan">atan</string>
+  <string name="dot">.</string>
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
+  <string name="text_copied_toast">Mətn kopyalandı.</string>
   <string name="copy">Kopyala: \'%s\'</string>
+  <string name="remove_from_history">Tarixçədәn sil</string>
   <string name="det">det</string>
+  <string name="solve">Həll et</string>
   <string name="plus_row">+Sətir</string>
   <string name="minus_row">-Sətir</string>
   <string name="plus_col">+Sütun</string>
   <string name="minus_col">-Sütun</string>
   <string name="matrix_transpose">T</string>
+  <string name="hex">Hex</string>
+  <string name="bin">Bin</string>
+  <string name="dec">Dec</string>
+  <string name="desc_hex">Onaltılıq</string>
+  <string name="desc_bin">İkilik</string>
+  <string name="desc_dec">Onluq</string>
 </resources>
