@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Teks disalin.</string>
   <string name="copy">Menyalin \'%s\'</string>
+  <string name="remove_from_history">Hapus dari riwayat</string>
   <string name="det">det</string>
   <string name="solve">Memecahkan</string>
   <string name="plus_row">+Baris</string>
