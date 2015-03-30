@@ -29,6 +29,7 @@
   <string name="mod">mod</string>
   <string name="matrix">Matris paneli</string>
   <string name="graph">Qrafika paneli</string>
+  <string name="hexPanel">On altılıq panel</string>
   <string name="lock">Səhifəni kilitlə</string>
   <string name="unlock">Səhifənin kilidini aç</string>
   <string name="info">Məlumat</string>
@@ -66,14 +67,18 @@
   <string name="vibrateOnPress">Klikləyəndə titrət</string>
   <string name="showWidgetBackground">Widget arxaplanını göstər</string>
   <string name="cling_simple_title">Xoş Gəldiniz</string>
+  <string name="cling_simple_msg">Daha çox məzmuna müraciət üçün sola və ya sağa sürüşdürün. Lazımsız səhifələr Tənzimləmələrdən ləğv edilə bilər.</string>
   <string name="cling_matrix_title">Matrislər</string>
   <string name="cling_matrix_msg">Matris qurmaq və ya həll etmək üçün buraya toxunun.</string>
   <string name="cling_hex_title">Bazaları dəyişin</string>
+  <string name="cling_hex_msg">Onluq (dec), ikilik (bin) və ya on altılıq (hex) arasında keçid edin.\n\nDiqqət: Əgər səhv nəticələr aldığınıza inanırsınızsa, böyük ehtimalla yanlış baza seçmisiniz. İlkin baza onluqdur.</string>
   <string name="cling_graph_title">Qrafik</string>
+  <string name="cling_graph_msg">Qrafiklər avtomatik olaraq burada göstəriləcək. X və Y-dən istifadə edərək funksiya qurmaq üçün təkmilləşdirilmiş panelə gedin.</string>
   <string name="cling_dismiss">Oldu</string>
   <string name="bin_separator">\u0020</string>
   <string name="hex_separator">\u0020</string>
   <string name="dot">.</string>
+  <string name="easter_egg">Magikarp Sıçratmadan (Splash) istifadə etdi, ancaq heç bir şey baş vermədi.</string>
   <string name="voice_detection_failed">Hesablama baş tutmadı. Bir daha cəhd edilsin?</string>
   <string name="voice_detection_repeat">Yenidən hesablansın?</string>
   <string name="speech_helper_negative" formatted="false">Mənfi %s</string>
