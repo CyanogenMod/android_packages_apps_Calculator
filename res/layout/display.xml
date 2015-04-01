@@ -33,7 +33,7 @@
             android:id="@+id/mainDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white">
+            android:background="@color/display_background_color">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/historyRecycler"
