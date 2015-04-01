@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:gravity="left"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white_text_color"
         android:textSize="15sp" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:gravity="right"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white_text_color"
         android:textSize="25sp" />
 
 </com.android.calculator2.view.HistoryLine>
