@@ -129,10 +129,11 @@ public class Solver {
     String tryFormattingWithPrecision(double value, int precision) throws SyntaxException {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
-        String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
-        if(result.equals(Constants.NAN)) {
+        boolean isNaN = (String.valueOf(value).trim().equalsIgnoreCase(Constants.NAN));
+        if (isNaN) {
             throw new SyntaxException();
         }
+        String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
         String mantissa = result;
         String exponent = null;
         int e = result.indexOf('e');
