@@ -57,21 +57,21 @@ public class GraphView extends View {
 
     private void setup() {
         mBackgroundPaint = new Paint();
-        mBackgroundPaint.setColor(Color.WHITE);
+        mBackgroundPaint.setColor(R.Color.graph_background_color);
         mBackgroundPaint.setStyle(Style.FILL);
 
         mTextPaintSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics());
         mTextPaint = new Paint();
-        mTextPaint.setColor(Color.BLACK);
+        mTextPaint.setColor(R.Color.graph_labels_color);
         mTextPaint.setTextSize(mTextPaintSize);
 
         mAxisPaint = new Paint();
-        mAxisPaint.setColor(Color.LTGRAY);
+        mAxisPaint.setColor(R.Color.graph_grid_color);
         mAxisPaint.setStyle(Style.STROKE);
         mAxisPaint.setStrokeWidth(2);
 
         mGraphPaint = new Paint();
-        mGraphPaint.setColor(Color.CYAN);
+        mGraphPaint.setColor(R.Color.graph_line_color );
         mGraphPaint.setStyle(Style.STROKE);
         mGraphPaint.setStrokeWidth(6);
 
