@@ -12,6 +12,8 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.android.calculator2.R;
+
 import com.xlythe.math.Point;
 
 import java.text.DecimalFormat;
@@ -57,21 +59,21 @@ public class GraphView extends View {
 
     private void setup() {
         mBackgroundPaint = new Paint();
-        mBackgroundPaint.setColor(R.Color.graph_background_color);
+        mBackgroundPaint.setColor(R.color.graph_background_color);
         mBackgroundPaint.setStyle(Style.FILL);
 
         mTextPaintSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics());
         mTextPaint = new Paint();
-        mTextPaint.setColor(R.Color.graph_labels_color);
+        mTextPaint.setColor(R.color.graph_labels_color);
         mTextPaint.setTextSize(mTextPaintSize);
 
         mAxisPaint = new Paint();
-        mAxisPaint.setColor(R.Color.graph_grid_color);
+        mAxisPaint.setColor(R.color.graph_grid_color);
         mAxisPaint.setStyle(Style.STROKE);
         mAxisPaint.setStrokeWidth(2);
 
         mGraphPaint = new Paint();
-        mGraphPaint.setColor(R.Color.graph_line_color);
+        mGraphPaint.setColor(R.color.graph_line_color);
         mGraphPaint.setStyle(Style.STROKE);
         mGraphPaint.setStrokeWidth(6);
 
