@@ -1,6 +1,7 @@
 package com.android.calculator2.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -58,22 +59,24 @@ public class GraphView extends View {
     }
 
     private void setup() {
+        Resources res = getContext().getResources();
+
         mBackgroundPaint = new Paint();
-        mBackgroundPaint.setColor(R.color.graph_background_color);
+        mBackgroundPaint.setColor(res.getColor(R.color.graph_background_color));
         mBackgroundPaint.setStyle(Style.FILL);
 
         mTextPaintSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics());
         mTextPaint = new Paint();
-        mTextPaint.setColor(R.color.graph_labels_color);
+        mTextPaint.setColor(res.getColor(R.color.graph_labels_color));
         mTextPaint.setTextSize(mTextPaintSize);
 
         mAxisPaint = new Paint();
-        mAxisPaint.setColor(R.color.graph_grid_color);
+        mAxisPaint.setColor(res.getColor(R.color.graph_grid_color));
         mAxisPaint.setStyle(Style.STROKE);
         mAxisPaint.setStrokeWidth(2);
 
         mGraphPaint = new Paint();
-        mGraphPaint.setColor(R.color.graph_line_color);
+        mGraphPaint.setColor(res.getColor(R.color.graph_line_color));
         mGraphPaint.setStyle(Style.STROKE);
         mGraphPaint.setStrokeWidth(6);
 
