@@ -41,4 +41,5 @@
   <string name="desc_hex">Δεκαεξαδικό</string>
   <string name="desc_bin">Δυαδικό</string>
   <string name="desc_dec">Δεκαδικό</string>
+  <string name="text_max_chars">Εισάγατε πάρα πολλούς χαρακτήρες - Διαγράψτε κάποιους χαρακτήρες ή λύστε την εξίσωσή σας για να συνεχίσετε</string>
 </resources>

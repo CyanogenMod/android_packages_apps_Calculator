@@ -41,4 +41,5 @@
   <string name="desc_hex">Hexadecimal</string>
   <string name="desc_bin">Binário</string>
   <string name="desc_dec">Decimal</string>
+  <string name="text_max_chars">Demasiados caracteres inseridos - por favor elimine alguns caracteres ou resolva a equação para continuar</string>
 </resources>

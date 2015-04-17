@@ -41,4 +41,5 @@
   <string name="desc_hex">Хексадецимални</string>
   <string name="desc_bin">Бинарни</string>
   <string name="desc_dec">Децимални</string>
+  <string name="text_max_chars">Превише карактера је унето - обриши неке карактере да би средио једначину и наставио</string>
 </resources>

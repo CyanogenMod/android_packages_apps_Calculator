@@ -41,4 +41,5 @@
   <string name="desc_hex">Šestnástková</string>
   <string name="desc_bin">Dvojková</string>
   <string name="desc_dec">Desiatková</string>
+  <string name="text_max_chars">Zadali ste príliš veľa znakov - prosím, odstráňte niektoré znaky alebo vyriešte rovnicu pre pokračovanie</string>
 </resources>
