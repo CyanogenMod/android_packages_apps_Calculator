@@ -41,4 +41,5 @@
   <string name="desc_hex">Heksadesimal</string>
   <string name="desc_bin">Binær</string>
   <string name="desc_dec">Desimaltall</string>
+  <string name="text_max_chars">For mange tegn angitt - Slett noen tegn eller løse ligningen for å fortsette</string>
 </resources>

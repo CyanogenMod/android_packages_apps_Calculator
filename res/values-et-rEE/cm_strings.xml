@@ -41,4 +41,5 @@
   <string name="desc_hex">Kuueteistkümnendsüsteem</string>
   <string name="desc_bin">Binaarsüsteem</string>
   <string name="desc_dec">Kümnendsüsteem</string>
+  <string name="text_max_chars">Liiga palju märke sisestatud - palun kustuta mõned märgid või lahenda oma võrrand et jätkata</string>
 </resources>

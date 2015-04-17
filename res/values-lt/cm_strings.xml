@@ -41,4 +41,5 @@
   <string name="desc_hex">Šešioliktainis</string>
   <string name="desc_bin">Dvejetainis</string>
   <string name="desc_dec">Dešimtainis</string>
+  <string name="text_max_chars">Įvesta per daug simbolių - ištrinkite kai kuriuos simbolius arba išspręskite savo lygtį, kad testumėte</string>
 </resources>
