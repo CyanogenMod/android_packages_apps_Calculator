@@ -30,8 +30,6 @@
   <string name="matrix">Matrizeak</string>
   <string name="graph">Grafikoak</string>
   <string name="hexPanel">Dec/Bin/Hex</string>
-  <string name="lock">Orrialdea lokatu</string>
-  <string name="unlock">Orrialdea deslokatu</string>
   <string name="info">Informazioa</string>
   <string name="copy">\u00AB%s\u00BB kopiatua</string>
   <string name="remove_from_history">Historiatik ezabatu</string>
@@ -71,7 +69,6 @@
   <string name="cling_matrix_title">Matrizeak</string>
   <string name="cling_matrix_msg">Sakatu hemen matrizeak eraiki eta ebazten hasteko.</string>
   <string name="cling_hex_title">Oinarria aldatu</string>
-  <string name="cling_hex_msg">Dezimal (dec), binario (bin) eta hexadezimal (hex) artean aldatu. \n\nKontuz: Ebazpenen bat oker dagoela uste baduzu, ziurasko oinarri ezegoki batean zaude. Lehenetsitakoa dezimala da.</string>
   <string name="cling_graph_title">Grafikoak</string>
   <string name="cling_graph_msg">Grafikoak automatikoki irudikatuko dira hemen. Funtzio aurreratuen orrialdean sor ezazu funtzio bat X eta Y erabiliz.</string>
   <string name="cling_dismiss">Ondo da</string>
