@@ -41,4 +41,5 @@
   <string name="desc_hex">16進法</string>
   <string name="desc_bin">2進法</string>
   <string name="desc_dec">10進法</string>
+  <string name="text_max_chars">入力した文字が多すぎます - 続けるには文字を削除するか方程式を解いてください</string>
 </resources>

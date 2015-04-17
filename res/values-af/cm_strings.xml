@@ -41,4 +41,5 @@
   <string name="desc_hex">Heksadesimaal</string>
   <string name="desc_bin">Binêr</string>
   <string name="desc_dec">Desimaal</string>
+  <string name="text_max_chars">Te veel karakters ingevoer - verwyder asseblief enkele karakters of korigeer jou vergelyking om voort te gaan</string>
 </resources>

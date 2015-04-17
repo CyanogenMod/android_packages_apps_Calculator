@@ -41,4 +41,5 @@
   <string name="desc_hex">Onaltılık</string>
   <string name="desc_bin">İkilik</string>
   <string name="desc_dec">Onluk</string>
+  <string name="text_max_chars">Çok fazla karakter girildi - lütfen bazı karakterleri silin ya da devam etmek için işlemi çözün</string>
 </resources>

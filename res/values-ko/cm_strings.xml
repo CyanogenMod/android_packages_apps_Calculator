@@ -41,4 +41,5 @@
   <string name="desc_hex">16진수</string>
   <string name="desc_bin">2진수</string>
   <string name="desc_dec">10진수</string>
+  <string name="text_max_chars">너무 많은 문자를 입력하였습니다. 문자 몇 개를 삭제하거나 방정식을 해결하여 계속하십시오</string>
 </resources>

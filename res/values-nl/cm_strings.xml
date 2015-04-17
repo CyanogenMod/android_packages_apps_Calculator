@@ -41,4 +41,5 @@
   <string name="desc_hex">Hexadecimaal</string>
   <string name="desc_bin">Binair</string>
   <string name="desc_dec">Decimaal</string>
+  <string name="text_max_chars">Te veel tekens ingevoerd - verwijder sommige tekens of los uw vergelijking op om door te gaan</string>
 </resources>
