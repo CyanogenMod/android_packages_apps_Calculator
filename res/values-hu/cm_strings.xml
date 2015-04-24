@@ -41,4 +41,5 @@
   <string name="desc_hex">Hexadecimális</string>
   <string name="desc_bin">Bináris</string>
   <string name="desc_dec">Decimális</string>
+  <string name="text_max_chars">Túl sok karaktert vitt be - kérem töröljön néhány karaktert, vagy oldja meg az egyenletet a továbblépéshez</string>
 </resources>
