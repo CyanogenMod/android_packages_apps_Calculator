@@ -41,4 +41,5 @@
   <string name="desc_hex">Hexadecimal</string>
   <string name="desc_bin">Binær</string>
   <string name="desc_dec">Decimal</string>
+  <string name="text_max_chars">For mange tegn - slet nogle tegn eller løs din ligning for at fortsætte</string>
 </resources>
