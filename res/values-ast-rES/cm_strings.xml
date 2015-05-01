@@ -41,4 +41,5 @@
   <string name="desc_hex">Hexadecimal</string>
   <string name="desc_bin">Binariu</string>
   <string name="desc_dec">Decimal</string>
+  <string name="text_max_chars">Introduxesti milenta caráuteres - por favor, desanicia dalgunos caráuteres pa resolver la to ecuación pa siguir</string>
 </resources>
