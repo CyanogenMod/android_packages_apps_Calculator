@@ -41,4 +41,5 @@
   <string name="desc_hex">Шістнадцяткова</string>
   <string name="desc_bin">Бінарний</string>
   <string name="desc_dec">Десятковий</string>
+  <string name="text_max_chars">Введено забагато символів. Будь-ласка, видаліть деякі символи або спростіть рівняння для продовження</string>
 </resources>
