@@ -32,7 +32,7 @@
   <string name="hexPanel">Dec/Bin/Hex</string>
   <string name="info">Informazioa</string>
   <string name="copy">\u00AB%s\u00BB kopiatua</string>
-  <string name="remove_from_history">Historiatik ezabatu</string>
+  <string name="remove_from_history">Ezabatu historiatik</string>
   <string name="showHistory">Historia erakutsi</string>
   <string name="hideHistory">Historia ezkutatu</string>
   <string name="settings">Ezarpenak</string>
@@ -63,7 +63,7 @@
   <string name="showDetails">Xehetasunak erakutsi</string>
   <string name="floatingCalc">Kalkulagaiu flotantea</string>
   <string name="vibrateOnPress">Sakatzean bibratu</string>
-  <string name="showWidgetBackground">Widget-ean atzekaldea erakutsi</string>
+  <string name="showWidgetBackground">Erakutsi trepetaren atzealdea</string>
   <string name="cling_simple_title">Ongi Etorri</string>
   <string name="cling_simple_msg">Eduki gehiago ikusteko ezkerrerantz edo eskumarantz irristatu. Beharrezkoak ez diren orrialdeak Ezarpenetan ezagitu daitezke.</string>
   <string name="cling_matrix_title">Matrizeak</string>
