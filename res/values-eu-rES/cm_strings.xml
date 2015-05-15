@@ -26,7 +26,9 @@
   <string name="dy">dY</string>
   <string name="mod">mod</string>
   <string name="copy">\u00AB%s\u00BB kopiatua</string>
+  <string name="remove_from_history">Ezabatu historiatik</string>
   <string name="det">determ</string>
+  <string name="solve">Ebatzi</string>
   <string name="plus_row">Hilara+</string>
   <string name="minus_row">Hilara-</string>
   <string name="plus_col">Zutabe+</string>
@@ -35,4 +37,5 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
+  <string name="desc_dec">Dezimala</string>
 </resources>

@@ -20,7 +20,6 @@
   <string name="error_nan">Nun ye un númberu</string>
   <string name="error_syntax">Fallu</string>
   <string name="dec_point">,</string>
-  <string name="digit_0">0</string>
   <string name="digit_1">1</string>
   <string name="digit_2">2</string>
   <string name="digit_3">3</string>

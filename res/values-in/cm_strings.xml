@@ -41,4 +41,5 @@
   <string name="desc_hex">Heksadesimal</string>
   <string name="desc_bin">Biner</string>
   <string name="desc_dec">Desimal</string>
+  <string name="text_max_chars">Terlalu banyak karakter yang dimasukkan. Hapus beberapa karakter atau selesaikan persamaan untuk melanjutkan</string>
 </resources>
