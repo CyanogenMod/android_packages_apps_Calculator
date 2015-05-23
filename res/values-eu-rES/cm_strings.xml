@@ -25,7 +25,8 @@
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
-  <string name="copy">\u00AB%s\u00BB kopiatua</string>
+  <string name="text_copied_toast">Testua kopiatu da.</string>
+  <string name="copy">Kopiatu \'%s\'</string>
   <string name="remove_from_history">Ezabatu historiatik</string>
   <string name="det">determ</string>
   <string name="solve">Ebatzi</string>
@@ -37,5 +38,8 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
+  <string name="desc_hex">Hexadezimala</string>
+  <string name="desc_bin">Bitarra</string>
   <string name="desc_dec">Dezimala</string>
+  <string name="text_max_chars">Karaktere gehiegi idatzi dira - ezabatu karaktere batzuk edo ebatzi zure ekuazioa jarrraitzeko</string>
 </resources>

@@ -25,8 +25,11 @@
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">بار</string>
+  <string name="text_copied_toast">دەق لەبەریگرا.</string>
   <string name="copy">له‌به‌ر گرتنه‌وه‌ی \'%s\'</string>
+  <string name="remove_from_history">سڕینه‌وه‌ له‌ مێژوو</string>
   <string name="det">det</string>
+  <string name="solve">شیکار</string>
   <string name="plus_row">+ستوون</string>
   <string name="minus_row">-ستوون</string>
   <string name="plus_col">+ئاسۆ</string>
@@ -35,4 +38,8 @@
   <string name="hex">گۆشه‌یی</string>
   <string name="bin">بایناری</string>
   <string name="dec">Dec</string>
+  <string name="desc_hex">ژماره‌ی شانزه‌یی</string>
+  <string name="desc_bin">بایناری</string>
+  <string name="desc_dec">ده‌یی</string>
+  <string name="text_max_chars">هێمای زۆر لێدراوە . تکایە هەندێک هێما ڕەشبکەرەوە یان چارەسەری بکە بۆ بەردەوامی</string>
 </resources>
