@@ -27,6 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">Text kopierad.</string>
   <string name="copy">Kopiera \'%s\'</string>
+  <string name="remove_from_history">Ta bort från historik</string>
   <string name="det">det</string>
   <string name="plus_row">+Rad</string>
   <string name="minus_row">-Rad</string>
@@ -36,5 +37,7 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
+  <string name="desc_hex">Hexadecimal</string>
   <string name="desc_bin">Binär</string>
+  <string name="desc_dec">Decimal</string>
 </resources>
