@@ -76,8 +76,8 @@
   <string name="cling_graph_title">نه‌خشه‌</string>
   <string name="cling_graph_msg">نه‌خشه‌کان لێره‌ ده‌رده‌که‌ون خۆکارانه‌ ، بڕۆ بۆ به‌شی په‌ڕه‌ی پێشکه‌وتوو وه‌ فرمان دروست بکه‌ به‌ فرمانی X و Y</string>
   <string name="cling_dismiss">باشه‌</string>
-  <string name="bin_separator">\u0020</string>
-  <string name="hex_separator">\u0020</string>
+  <string name="bin_separator">\u٠٠٢٠</string>
+  <string name="hex_separator">\u٠٠٢٠</string>
   <string name="dot">.</string>
   <string name="easter_egg">magikarp ئامێری به‌کارهێنا به‌ڵام هیچ ڕووینه‌دا.</string>
   <string name="voice_detection_failed">ژماردن سەرکەوتو نەبوو، دووبارە هەوڵدانەوە؟</string>
