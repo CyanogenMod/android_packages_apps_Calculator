@@ -16,7 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="application_copyright">مافی پارێزراوه‌  \u00A9 2014 ، پرۆژه‌ی CyanogenMod</string>
+  <string name="application_copyright">مافی پارێزراوه‌  \u٠٠A٩ ٢٠١٤ ، پرۆژه‌ی CyanogenMod</string>
   <string name="X">X</string>
   <string name="Y">Y</string>
   <string name="arcsin">ساین</string>
@@ -58,7 +58,7 @@
   <string name="returnToBasic">گه‌ڕانه‌وه‌ بۆ په‌ڕه‌ی سه‌ره‌تایی</string>
   <string name="infiniteScrolling">به‌ستنه‌وه‌ی هاتنه‌خواره‌وه‌</string>
   <string name="clickToOpenHistory">کلیک بکه‌ بۆ کردنه‌وه‌ی مێژوو</string>
-  <string name="digitGrouping">گروپکردنی ژماره‌</string>
+  <string name="digitGrouping">کۆمەڵکردنی ژماره‌</string>
   <string name="trigUnits">یه‌که‌ پیلتۆکه‌کان</string>
   <string name="radians">RAD</string>
   <string name="degrees">DEG</string>
@@ -76,8 +76,8 @@
   <string name="cling_graph_title">نه‌خشه‌</string>
   <string name="cling_graph_msg">نه‌خشه‌کان لێره‌ ده‌رده‌که‌ون خۆکارانه‌ ، بڕۆ بۆ به‌شی په‌ڕه‌ی پێشکه‌وتوو وه‌ فرمان دروست بکه‌ به‌ فرمانی X و Y</string>
   <string name="cling_dismiss">باشه‌</string>
-  <string name="bin_separator">\u0020</string>
-  <string name="hex_separator">\u0020</string>
+  <string name="bin_separator">\u٠٠٢٠</string>
+  <string name="hex_separator">\u٠٠٢٠</string>
   <string name="dot">.</string>
   <string name="easter_egg">magikarp ئامێری به‌کارهێنا به‌ڵام هیچ ڕووینه‌دا.</string>
   <string name="voice_detection_failed">ژماردن سەرکەوتو نەبوو، دووبارە هەوڵدانەوە؟</string>
