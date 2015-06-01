@@ -17,11 +17,12 @@
             android:layout_height="@dimen/floating_window_button_height"
             android:text="@string/fun_sin" />
 
-        <Button
+        <com.android.calculator2.view.AutoFitButtonView
             android:id="@+id/cos"
             style="@style/Theme.Calculator.ButtonStyle.FloatingCalc.Advanced"
             android:layout_width="@dimen/floating_window_button_height"
             android:layout_height="@dimen/floating_window_button_height"
+            android:singleLine="true"
             android:text="@string/fun_cos" />
 
         <Button
