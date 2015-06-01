@@ -23,11 +23,12 @@
     android:columnCount="1"
     android:rowCount="5">
 
-    <Button
+    <com.android.calculator2.view.AutoFitButtonView
         android:id="@+id/del"
         style="@style/PadButtonStyle.Operator.Text"
         android:contentDescription="@string/desc_del"
         android:onClick="onButtonClick"
+        android:singleLine="true"
         android:text="@string/del" />
 
     <Button
