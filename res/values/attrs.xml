@@ -27,5 +27,7 @@
         <attr name="maxTextSize" format="dimension" />
         <attr name="stepTextSize" format="dimension" />
         <attr name="textColor" format="color|reference" />
+        <attr name="precision" format="float" />
+        <attr name="sizeToFit" format="boolean" />
     </declare-styleable>
 </resources>
