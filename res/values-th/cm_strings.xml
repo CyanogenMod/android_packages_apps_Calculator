@@ -41,4 +41,5 @@
   <string name="desc_hex">เลขฐานสิบหก</string>
   <string name="desc_bin">เลขฐานสอง</string>
   <string name="desc_dec">เลขฐานสิบ</string>
+  <string name="text_max_chars">ปัอนอักขระมากเกินไป - กรุณาลบบางอักขระหรือปรับสมการของคุณใหม่เพื่อดำเนินการต่อ</string>
 </resources>
