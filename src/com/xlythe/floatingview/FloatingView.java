@@ -546,9 +546,18 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         }
         // Adjust calc location
         int screenWidth = getScreenWidth();
+        int screenHeight = getScreenHeight();
         int calcWidth = 4 * (int) getResources().getDimension(R.dimen.floating_window_button_height);
         mCalcParamsX = screenWidth - calcWidth - MARGIN_VIEW;
-        mCalcParamsY = (int) (STARTING_POINT_Y * 1.1) + mDraggableIcon.getHeight();
+        int attemptedY = (int) (STARTING_POINT_Y * 1.1) + mDraggableIcon.getHeight() + mView
+                .getHeight();
+        if (attemptedY > screenHeight) {
+            mCalcParamsX = mCalcParamsX - mDraggableIcon.getHeight();
+            mCalcParamsY = (int) (STARTING_POINT_Y * 1.5) - mDraggableIcon.getHeight();
+        } else {
+            mCalcParamsY = (int) (STARTING_POINT_Y * 1.1) + mDraggableIcon.getHeight();
+        }
+
         if(!mIsDestroyed) {
             mView.setTranslationX(mCalcParamsX);
             mView.setTranslationY(mCalcParamsY);
@@ -557,6 +566,11 @@ public abstract class FloatingView extends Service implements OnTouchListener {
         // Animate calc in
         View child = mView.getChildAt(0);
         child.setAlpha(0);
+        if (attemptedY > screenHeight) {
+            child.setBackgroundResource(0);
+        } else {
+            child.setBackgroundResource(R.drawable.floating_calc_background);
+        }
         child.animate().setDuration(150).alpha(1).setListener(null);
 
 		onShow();
