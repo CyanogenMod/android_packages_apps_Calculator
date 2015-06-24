@@ -6,7 +6,6 @@
     <color name="pressed_color">#66ffffff</color>
     <color name="history_input">#E6E6E6</color>
     <color name="history_result">#999999</color>
-    <color name="display_background_color">@android:color/white</color>
     <color name="history_expr_text_color">@android:color/white</color>
     <color name="history_result_text_color">@android:color/white</color>
 
