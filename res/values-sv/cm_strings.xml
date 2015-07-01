@@ -40,4 +40,5 @@
   <string name="desc_hex">Hexadecimal</string>
   <string name="desc_bin">Binär</string>
   <string name="desc_dec">Decimal</string>
+  <string name="text_max_chars">För många tecken har angetts - vänligen radera några tecken eller lös din ekvation för att fortsätta</string>
 </resources>
