@@ -69,16 +69,14 @@ public class ScrollableDisplay extends HorizontalScrollView {
         int delta = getView().getWidth() - childWidth;
         View view = getView();
         LayoutParams p = (LayoutParams) view.getLayoutParams();
-        int horizontalGravity = p.gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
         int verticalGravity = p.gravity & Gravity.VERTICAL_GRAVITY_MASK;
-        if(horizontalGravity == Gravity.RIGHT) {
-            if(getScrollRange() > 0) {
-                gravityRight = true;
-                p.gravity = Gravity.LEFT | verticalGravity;
-                view.setLayoutParams(p);
-                super.onLayout(changed, left, top, right, bottom);
-            }
-        } else if(gravityRight) {
+        if(getScrollRange() > 0) {
+            gravityRight = true;
+            p.gravity = Gravity.LEFT | verticalGravity;
+            view.setLayoutParams(p);
+            super.onLayout(changed, left, top, right, bottom);
+        }
+        if(gravityRight) {
             if(getScrollRange() == 0) {
                 gravityRight = false;
                 p.gravity = Gravity.RIGHT | verticalGravity;
