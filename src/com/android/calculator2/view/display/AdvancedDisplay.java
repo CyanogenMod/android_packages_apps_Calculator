@@ -489,6 +489,12 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
                 }
             }
 
+            // Check to see if a decimal can be placed here
+            // This ensures we don't get invalid formulas.
+            if (!isLegalDecimal()) {
+                return;
+            }
+
             if(CalculatorEditText.class.isInstance(getActiveEditText())) {
                 // Logic to insert, split text if there's another view, etc
                 int cursor, cacheCursor;
@@ -547,6 +553,22 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
             mTextWatcher.onTextChanged(null, 0, 0, 0);
             mTextWatcher.afterTextChanged(null);
         }
+    }
+
+    private boolean isLegalDecimal() {
+        String text = getActiveEditText().getText().toString();
+        if (text != null) {
+            String[] splitString = text.split("'" + Constants.PLUS + "|" +
+                    Constants.MINUS + "|" +
+                    Constants.DIV + "|" +
+                    Constants.MUL + "|" +
+                    Constants.POWER + "'");
+
+            return !splitString[splitString.length - 1]
+                    .contains(getContext().getString(R.id.dec_point));
+        }
+        return true;
+
     }
 
     private void splitText(int cursor, int index, String text) {
