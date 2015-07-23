@@ -469,12 +469,14 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
     public void insert(String delta) {
         if(mActiveEditText == null) {
             setText(delta);
+            if (!isLegalDecimal()) {
+                return;
+            }
         }
         else {
             // Notify the text watcher
             mTextWatcher.beforeTextChanged(null, 0, 0, 0);
             mTextIsUpdating = true;
-
 
             // limit the max number of characters the edit text can have
             if (delta.length() > 0 &&
@@ -487,6 +489,10 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
                     Toast.makeText(getContext(), R.string.text_max_chars, Toast.LENGTH_SHORT)
                             .show();
                 }
+            }
+
+            if (!isLegalDecimal()) {
+                return;
             }
 
             if(CalculatorEditText.class.isInstance(getActiveEditText())) {
@@ -547,6 +553,23 @@ public class AdvancedDisplay extends ScrollableDisplay implements EventListener 
             mTextWatcher.onTextChanged(null, 0, 0, 0);
             mTextWatcher.afterTextChanged(null);
         }
+    }
+
+    private boolean isLegalDecimal() {
+        String text = getActiveEditText().getText().toString();
+        String[] splitString = text.split("'" + Constants.PLUS + "|" +
+                Constants.MINUS + "|" +
+                Constants.DIV + "|" +
+                Constants.MUL + "|" +
+                Constants.POWER + "'");
+
+
+        if (splitString[splitString.length - 1].contains(getContext().getString(R.id.dec_point))) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     private void splitText(int cursor, int index, String text) {
