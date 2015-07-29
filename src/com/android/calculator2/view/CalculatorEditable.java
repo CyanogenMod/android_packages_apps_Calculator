@@ -58,7 +58,8 @@ public class CalculatorEditable extends SpannableStringBuilder {
             // don't allow two dots in the same number
             if(text == Constants.DECIMAL_POINT) {
                 int p = start - 1;
-                while(p >= 0 && Solver.isDigit(charAt(p))) {
+                while(p >= 0 && Solver.isDigit(charAt(p))
+                     && (charAt(p) != Constants.DECIMAL_POINT)) {
                     --p;
                 }
                 if(p >= 0 && charAt(p) == Constants.DECIMAL_POINT) {
