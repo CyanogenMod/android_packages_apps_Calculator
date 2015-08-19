@@ -21,7 +21,25 @@
   <string name="arcsin">asin</string>
   <string name="arccos">acos</string>
   <string name="arctan">atan</string>
+  <string name="dot">.</string>
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
+  <string name="text_copied_toast">متن کپی شد.</string>
+  <string name="copy">کپی %s</string>
+  <string name="remove_from_history">حذف از تاریخچه</string>
+  <string name="det">det</string>
+  <string name="solve">حل</string>
+  <string name="plus_row">+سطر</string>
+  <string name="minus_row">-سطر</string>
+  <string name="plus_col">+ستون</string>
+  <string name="minus_col">-ستون</string>
+  <string name="matrix_transpose">T</string>
+  <string name="hex">Hex</string>
+  <string name="bin">Bin</string>
+  <string name="dec">Dec</string>
+  <string name="desc_hex">هگزادسیمال</string>
+  <string name="desc_bin">باینری</string>
+  <string name="desc_dec">دسیمال</string>
+  <string name="text_max_chars">کاراکتر های زیادی وارد کرده اید لطفا چند کاراتر را حذف کنید یا برای ادامه معادله را حل کنید</string>
 </resources>
