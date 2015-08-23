@@ -24,5 +24,6 @@
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
+  <string name="showWidgetBackground">نمایش پس‌زمینه ابزارک</string>
   <string name="cling_dismiss">بسیارخب</string>
 </resources>
