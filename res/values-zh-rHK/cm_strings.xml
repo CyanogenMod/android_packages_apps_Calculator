@@ -25,8 +25,11 @@
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
+  <string name="text_copied_toast">已複製文字。</string>
   <string name="copy">複製「%s」</string>
+  <string name="remove_from_history">從記錄中刪除</string>
   <string name="det">det</string>
+  <string name="solve">解決</string>
   <string name="plus_row">+Row</string>
   <string name="minus_row">-Row</string>
   <string name="plus_col">+Col</string>
@@ -35,4 +38,8 @@
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
+  <string name="desc_hex">十六進位</string>
+  <string name="desc_bin">二進位</string>
+  <string name="desc_dec">十進位</string>
+  <string name="text_max_chars">輸入的字符太多——請刪除部份字符或計算出方程答案以繼續</string>
 </resources>
