@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.android.calculator2.CalculatorExpressionTokenizer;
 import com.android.calculator2.R;
 import com.xlythe.math.Base;
 import com.xlythe.math.BaseModule;
@@ -140,14 +141,17 @@ public class CalculatorWidget extends AppWidgetProvider {
             } else {
                 mClearText = true;
             }
-            final String input = value;
+
+            CalculatorExpressionTokenizer tokenizer = new CalculatorExpressionTokenizer(context);
+            final String input = tokenizer.getNormalizedExpression(value);
             if(input.isEmpty()) return;
 
             final Solver logic = new Solver();
             logic.setLineLength(7);
 
             try {
-                value = logic.solve(input);
+                final String output = logic.solve(input);
+                value = tokenizer.getLocalizedExpression(output);
             } catch(SyntaxException e) {
                 value = context.getResources().getString(R.string.error_syntax);
             }
