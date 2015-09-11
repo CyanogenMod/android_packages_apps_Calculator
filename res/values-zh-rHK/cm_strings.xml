@@ -41,5 +41,5 @@
   <string name="desc_hex">十六進位</string>
   <string name="desc_bin">二進位</string>
   <string name="desc_dec">十進位</string>
-  <string name="text_max_chars">輸入的字符太多——請刪除部份字符或計算出方程答案以繼續</string>
+  <string name="text_max_chars">輸入的字元太多——請刪除部份字元或計算出方程答案以繼續</string>
 </resources>
