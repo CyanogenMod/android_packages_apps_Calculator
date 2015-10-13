@@ -41,4 +41,5 @@
   <string name="desc_hex">Onaltılıq</string>
   <string name="desc_bin">İkilik</string>
   <string name="desc_dec">Onluq</string>
+  <string name="text_max_chars">Çox sayda simvol daxil edildi - zəhmət olmasa bəzi simvolları silin və ya davam etmək üçün məsələni həll edin</string>
 </resources>
