@@ -78,11 +78,9 @@
         style="@style/PadButtonStyle.Numeric"
         android:onClick="onButtonClick" />
 
-    <Button
-        android:id="@+id/eq"
-        style="@style/PadButtonStyle.Numeric.Equals"
-        android:contentDescription="@string/desc_eq"
-        android:onClick="onButtonClick"
-        android:text="@string/eq" />
+    <include
+            android:id="@+id/equals_graph"
+            style="@style/EqualsMultiButton"
+            layout="@layout/equals_graph_button"/>
 
 </com.android.calculator2.CalculatorNumericPadLayout>

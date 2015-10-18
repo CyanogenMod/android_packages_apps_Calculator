@@ -89,14 +89,14 @@
         style="@style/PadButtonStyle.Advanced"
         android:contentDescription="@string/desc_lparen"
         android:onClick="onButtonClick"
-        android:text="@string/lparen" />
+        android:text="@string/leftParen" />
 
     <Button
         android:id="@+id/rparen"
         style="@style/PadButtonStyle.Advanced"
         android:contentDescription="@string/desc_rparen"
         android:onClick="onButtonClick"
-        android:text="@string/rparen" />
+        android:text="@string/rightParen" />
 
     <Button
         android:id="@+id/op_sqrt"
@@ -104,5 +104,24 @@
         android:contentDescription="@string/desc_op_sqrt"
         android:onClick="onButtonClick"
         android:text="@string/op_sqrt" />
+
+    <Button
+        android:id="@+id/const_i"
+        style="@style/PadButtonStyle.Advanced"
+        android:onClick="onButtonClick"
+        android:text="@string/const_imaginary" />
+
+    <Button
+        android:id="@+id/fun_percent"
+        style="@style/PadButtonStyle.Advanced"
+        android:contentDescription="@string/fun_percentage"
+        android:onClick="onButtonClick"
+        android:text="@string/fun_percentage" />
+
+    <Button
+        android:id="@+id/const_x"
+        style="@style/PadButtonStyle.Advanced"
+        android:onClick="onButtonClick"
+        android:text="@string/X" />
 
 </com.android.calculator2.CalculatorPadLayout>

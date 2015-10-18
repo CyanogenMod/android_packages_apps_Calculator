@@ -1,0 +1,10 @@
+-dontwarn org.ejml.ops.**
+
+-keep class java.awt.** { *; }
+-keep class javax.swing.** { *; }
+
+-dontnote javax.swing.**
+-dontwarn javax.swing.**
+-dontnote java.awt.**
+-dontwarn java.awt.**
+

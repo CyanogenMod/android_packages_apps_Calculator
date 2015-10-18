@@ -1,11 +1,7 @@
 .gradle
-.idea
-bin
-build
-gen
-local.properties
-*.DS_Store
-*~
-*.swp
-*.swo
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
 *.iml

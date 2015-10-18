@@ -23,9 +23,9 @@
     <string name="const_pi">π</string>
 
     <!-- Left parenthesis (e.g. "log(", "2 × (3 - 1)". [CHAR_LIMIT=1] -->
-    <string name="lparen">(</string>
+    <string name="leftParen">(</string>
     <!-- Right parenthesis (e.g. "log(2)", "(3 - 1) × 2". [CHAR_LIMIT=1] -->
-    <string name="rparen">)</string>
+    <string name="rightParen">)</string>
 
     <!-- Addition operator (e.g. "1 + 2"). [CHAR_LIMIT=1] -->
     <string name="op_add">+</string>

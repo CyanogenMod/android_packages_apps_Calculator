@@ -18,22 +18,22 @@
 <!-- Styles for landscape 800dip-wide tablet (e.g. Nexus 10). -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="DisplayEditTextStyle.Formula">
+    <style name="Theme.Calculator.Display.Main.Formula">
         <item name="android:paddingTop">72dip</item>
         <item name="android:paddingBottom">26dip</item>
-        <item name="android:paddingStart">44dip</item>
-        <item name="android:paddingEnd">44dip</item>
+        <item name="android:paddingLeft">44dip</item>
+        <item name="android:paddingRight">44dip</item>
         <item name="minTextSize">56sp</item>
         <item name="maxTextSize">96sp</item>
         <item name="stepTextSize">8sp</item>
     </style>
 
-    <style name="DisplayEditTextStyle.Result">
+    <style name="Theme.Calculator.Display.Main.Result">
         <item name="android:paddingTop">26dip</item>
         <item name="android:paddingBottom">46dip</item>
-        <item name="android:paddingStart">44dip</item>
-        <item name="android:paddingEnd">44dip</item>
-        <item name="android:textSize">56sp</item>
+        <item name="android:paddingLeft">44dip</item>
+        <item name="android:paddingRight">44dip</item>
+        <item name="textSize">56sp</item>
     </style>
 
     <style name="PadButtonStyle.Advanced">
@@ -48,7 +48,7 @@
         <item name="android:textSize">48sp</item>
     </style>
 
-    <style name="PadButtonStyle.Numeric.Equals">
+    <style name="EqualsMultiButton">
         <item name="android:visibility">gone</item>
     </style>
 
@@ -67,8 +67,8 @@
         <item name="android:layout_weight">508</item>
         <item name="android:paddingTop">10dip</item>
         <item name="android:paddingBottom">10dip</item>
-        <item name="android:paddingStart">18dip</item>
-        <item name="android:paddingEnd">22dip</item>
+        <item name="android:paddingLeft">18dip</item>
+        <item name="android:paddingRight">22dip</item>
         <item name="android:columnCount">3</item>
         <item name="android:rowCount">4</item>
     </style>
@@ -78,8 +78,8 @@
         <item name="android:layout_weight">532</item>
         <item name="android:paddingTop">10dip</item>
         <item name="android:paddingBottom">10dip</item>
-        <item name="android:paddingStart">22dip</item>
-        <item name="android:paddingEnd">18dip</item>
+        <item name="android:paddingLeft">22dip</item>
+        <item name="android:paddingRight">18dip</item>
     </style>
 
     <style name="PadLayoutStyle.Operator">
@@ -87,8 +87,8 @@
         <item name="android:layout_weight">240</item>
         <item name="android:paddingTop">10dip</item>
         <item name="android:paddingBottom">10dip</item>
-        <item name="android:paddingStart">18dip</item>
-        <item name="android:paddingEnd">18dip</item>
+        <item name="android:paddingLeft">18dip</item>
+        <item name="android:paddingRight">18dip</item>
     </style>
 
 </resources>

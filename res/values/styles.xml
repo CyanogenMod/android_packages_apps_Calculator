@@ -17,26 +17,97 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="CalculatorTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
-        <item name="android:colorPrimary">@color/calculator_accent_color</item>
-        <item name="android:navigationBarColor">@android:color/black</item>
-        <item name="android:statusBarColor">@color/calculator_accent_color</item>
+    <style name="Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/calculator_accent_color</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="DisplayEditTextStyle" parent="@android:style/Widget.Material.Light.EditText">
+    <style name="Theme.Calculator"/>
+
+    <!-- The base features for the display -->
+    <style name="Theme.Calculator.Display" parent="@android:style/Widget.Holo.EditText">
+        <item name="android:textSize">@dimen/display_text_size</item>
+        <item name="android:inputType">text|textNoSuggestions</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:cursorVisible">false</item>
-        <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:gravity">bottom|end</item>
     </style>
 
-    <style name="PadButtonStyle" parent="@android:style/Widget.Material.Light.Button.Borderless">
+    <style name="Theme.Calculator.Display.Main" />
+
+    <style name="Theme.Calculator.Display.Main.Formula" >
+        <item name="android:paddingTop">34dip</item>
+        <item name="android:paddingBottom">12dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+        <item name="minTextSize">36sp</item>
+        <item name="maxTextSize">64sp</item>
+        <item name="stepTextSize">8sp</item>
+    </style>
+
+    <style name="Theme.Calculator.Display.Main.Result" >
+        <item name="android:paddingTop">12dip</item>
+        <item name="android:paddingBottom">34dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+        <item name="textSize">36sp</item>
+    </style>
+
+    <style name="HistoryText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/history_result</item>
+        <item name="android:textSize">@dimen/history_text_size</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="HistoryText.Result">
+        <item name="android:textColor">@color/display_formula_text_color</item>
+    </style>
+
+    <style name="Theme.Calculator.Display.Widget" />
+
+    <style name="Theme.Calculator.Display.FloatingCalc">
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle">
+        <item name="android:textSize">40sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.Digit">
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.Widget">
+        <item name="android:background">@drawable/circle_bg</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.FloatingCalc">
+        <item name="android:background">@drawable/circle_bg</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Theme.Calculator.ButtonStyle.FloatingCalc.Advanced">
+        <item name="android:textColor">@color/pad_button_advanced_text_color</item>
+    </style>
+
+    <style name="PadButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/pad_button_background</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <!--<item name="android:fontFamily">sans-serif-light</item>-->
         <item name="android:gravity">center</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:minWidth">0dip</item>
@@ -48,6 +119,98 @@
     <style name="PadLayoutStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="TransparentBackground">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <style name="PadButtonStyle.Advanced">
+        <item name="android:layout_margin">4dip</item>
+        <item name="android:background">@drawable/pad_button_advanced_background</item>
+        <item name="android:textColor">@color/pad_button_advanced_text_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Advanced.Toggle">
+        <item name="android:textColor">@color/pad_button_toggle_text_color</item>
+    </style>
+
+    <style name="PadButtonStyle.Numeric">
+        <item name="android:layout_margin">4dip</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="EqualsMultiButton">
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="PadButtonStyle.Operator">
+        <item name="android:layout_margin">8dip</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Operator.Text">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="PadLayoutStyle.Aux" />
+
+    <style name="PadLayoutStyle.Advanced">
+        <item name="android:paddingTop">12dip</item>
+        <item name="android:paddingBottom">20dip</item>
+        <item name="android:paddingLeft">20dip</item>
+        <item name="android:paddingRight">20dip</item>
+        <item name="android:columnCount">4</item>
+        <item name="android:rowCount">4</item>
+    </style>
+
+    <style name="PadLayoutStyle.Hex" parent="@style/PadLayoutStyle.Advanced">
+        <item name="android:columnCount">3</item>
+        <item name="android:rowCount">3</item>
+    </style>
+
+    <style name="PadLayoutStyle.Matrix" parent="@style/PadLayoutStyle.Advanced" />
+
+    <style name="PadLayoutStyle.Numeric">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">264</item>
+        <item name="android:paddingTop">12dip</item>
+        <item name="android:paddingBottom">20dip</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingRight">12dip</item>
+    </style>
+
+    <style name="PadLayoutStyle.Operator">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">96</item>
+        <item name="android:paddingTop">8dip</item>
+        <item name="android:paddingBottom">24dip</item>
+        <item name="android:paddingLeft">4dip</item>
+        <item name="android:paddingRight">28dip</item>
+    </style>
+
+    <style name="PadLayoutStyle.Card">
+        <item name="android:background">@drawable/color_card</item>
+    </style>
+
+    <style name="Control">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Control.Graph">
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
     </style>
 
 </resources>

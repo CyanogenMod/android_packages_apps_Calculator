@@ -30,11 +30,12 @@
         android:onClick="onButtonClick"
         android:text="@string/op_div" />
 
-    <Button
+    <com.android.calculator2.view.AutoFitButtonView
         android:id="@+id/del"
         style="@style/PadButtonStyle.Operator.Text"
         android:contentDescription="@string/desc_del"
         android:onClick="onButtonClick"
+        android:singleLine="true"
         android:text="@string/del" />
 
     <Button
@@ -70,11 +71,8 @@
         android:onClick="onButtonClick"
         android:text="@string/op_add" />
 
-    <Button
-        android:id="@+id/eq"
-        style="@style/PadButtonStyle.Operator"
-        android:contentDescription="@string/desc_eq"
-        android:onClick="onButtonClick"
-        android:text="@string/eq" />
+    <include
+            android:id="@+id/equals_graph"
+            layout="@layout/equals_graph_button"/>
 
 </com.android.calculator2.CalculatorPadLayout>

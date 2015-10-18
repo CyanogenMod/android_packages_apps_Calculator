@@ -19,7 +19,8 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_STATIC_JAVA_LIBRARIES := libarity android-support-v4 guava
+LOCAL_STATIC_JAVA_LIBRARIES := libarity android-support-v4 guava ejml \
+        android-support-v7-recyclerview
 
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
@@ -27,11 +28,20 @@ LOCAL_SDK_VERSION := current
 
 LOCAL_PACKAGE_NAME := Calculator
 
-include $(BUILD_PACKAGE)
-##################################################
-include $(CLEAR_VARS)
+res_dir := res ../../../prebuilts/sdk/current/support/v7/appcompat/res
+LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dir))
 
-LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := libarity:arity-2.1.2.jar
+LOCAL_AAPT_FLAGS := --auto-add-overlay \
+    --extra-packages com.xlythe.floatingview2
+
+LOCAL_PROGUARD_FLAG_FILES := proguard.flags
+
+include $(BUILD_PACKAGE)
+
+include $(CLEAR_VARS)
+LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := \
+    ejml:libs/ejml-0.21.jar \
+    libarity:libs/arity-2.1.6.jar
 
 include $(BUILD_MULTI_PREBUILT)
 
