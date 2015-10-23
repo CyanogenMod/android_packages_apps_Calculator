@@ -28,11 +28,14 @@ LOCAL_SDK_VERSION := current
 
 LOCAL_PACKAGE_NAME := Calculator
 
-res_dir := res ../../../prebuilts/sdk/current/support/v7/appcompat/res
+res_dir := res ../../../prebuilts/sdk/current/support/v7/appcompat/res \
+           ../../../prebuilts/sdk/current/support/v7/recyclerview/res
+
 LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dir))
 
 LOCAL_AAPT_FLAGS := --auto-add-overlay \
-    --extra-packages com.xlythe.floatingview2
+    --extra-packages com.xlythe.floatingview2 \
+    --extra-packages android.support.v7.recyclerview
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
