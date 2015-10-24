@@ -8,3 +8,5 @@
 -dontnote java.awt.**
 -dontwarn java.awt.**
 
+# Needed when building against the Marshmallow SDK
+-dontwarn android.support.**
