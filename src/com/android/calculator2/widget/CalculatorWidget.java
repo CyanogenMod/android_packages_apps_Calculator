@@ -48,9 +48,9 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     private boolean mClearText = false;
 
-    private static String getDecimal() {
+    private static char getDecimal() {
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-        return dfs.getDecimalSeparator()+"";
+        return dfs.getDecimalSeparator();
     }
 
     @Override
@@ -125,7 +125,7 @@ public class CalculatorWidget extends AppWidgetProvider {
                 value = "";
                 mClearText = false;
             }
-            value += getDecimal();
+            value = addDecimal(value);
         } else if(intent.getAction().equals(DIV)) {
             value = addOperator(value, Constants.DIV);
         } else if(intent.getAction().equals(MUL)) {
@@ -202,6 +202,46 @@ public class CalculatorWidget extends AppWidgetProvider {
             equation += op;
         }
 
+        return equation;
+    }
+
+    /*
+    Add a decimal symbol at the end of input string as long as there is no decimal symbol
+    already present in the last number entry
+    */
+
+    private static String addDecimal(String equation) {
+
+        if (equation != null) {
+            int index = equation.length() - 1;
+            boolean foundOperator = false;
+            char decimal = getDecimal();
+
+            while (index >= 0) {
+                char currChar = equation.charAt(index);
+
+                // If decimal symbol is already present, stop the loop and return back.
+                // Two decimal symbols are not permitted
+                if (currChar == decimal) {
+                    break;
+                }
+                // If an operator is found, it indicates index moved before the last number entry.
+                // Stop the loop and add decimal
+                else if (currChar == Constants.MUL || currChar == Constants.DIV ||
+                        currChar == Constants.PLUS || currChar == Constants.MINUS) {
+                    foundOperator = true;
+                    break;
+                }
+                index--;
+            }
+
+            /* index would be less than zero either when input string is empty or index reached
+               beginning of the string in previous loop
+               foundOperator would be true if an operator was found while traversing the string */
+            if (index < 0 || foundOperator) {
+                equation += String.valueOf(decimal);
+            }
+        }
         return equation;
     }
 
