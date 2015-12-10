@@ -48,9 +48,9 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     private boolean mClearText = false;
 
-    private static String getDecimal() {
+    private static char getDecimal() {
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-        return dfs.getDecimalSeparator()+"";
+        return dfs.getDecimalSeparator();
     }
 
     @Override
@@ -125,7 +125,7 @@ public class CalculatorWidget extends AppWidgetProvider {
                 value = "";
                 mClearText = false;
             }
-            value += getDecimal();
+            value = addDecimal(value);
         } else if(intent.getAction().equals(DIV)) {
             value = addOperator(value, Constants.DIV);
         } else if(intent.getAction().equals(MUL)) {
@@ -204,6 +204,49 @@ public class CalculatorWidget extends AppWidgetProvider {
 
         return equation;
     }
+
+
+
+    /*
+    Add a decimal symboal at the end of input string as long as there is no decimal symboal already present in the last number entry
+    */
+
+    private static String addDecimal(String equation) {
+
+        if(equation != null) {
+	    int index = equation.length() - 1;
+	    boolean addDecimal = false;
+	    char decimal = getDecimal();
+
+	    while(index >= 0){
+		char currChar = equation.charAt(index);
+
+		// If decimal symbol is already present, stop the loop and return back. Two decimal symbols are not permitted
+		if(currChar == decimal){
+		    break;
+		}
+		// If an operator is reached, it indicates index moved before the last number entry. Stop the loop and add decimal
+		else if(currChar == Constants.MUL || currChar == Constants.DIV || currChar == Constants.PLUS || currChar == Constants.MINUS){
+		    addDecimal = true;
+		    break;
+		}
+		index--;
+	    }
+
+	    // index would be less zero either when input string is empty or index reached beginning of the string in previous loop
+	    // addDecimal would be true when an operator was found while traversing the string
+	    if(index < 0 || addDecimal){
+		try{
+		    equation += String.valueOf(decimal);
+		}
+		catch(Exception e){
+		}
+	    }
+        }
+        return equation;
+    }
+
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
