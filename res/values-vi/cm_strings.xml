@@ -16,30 +16,8 @@
      limitations under the License.
 -->
 <resources>
-  <string name="X">X</string>
-  <string name="Y">Y</string>
-  <string name="arcsin">asin</string>
-  <string name="arccos">acos</string>
-  <string name="arctan">atan</string>
   <string name="dot">.</string>
   <string name="dx">dX</string>
   <string name="dy">dY</string>
   <string name="mod">mod</string>
-  <string name="text_copied_toast">Đã chép nội dung.</string>
-  <string name="copy">Sao \'%s\'</string>
-  <string name="remove_from_history">Xóa khỏi lịch sử</string>
-  <string name="det">det</string>
-  <string name="solve">Giải</string>
-  <string name="plus_row">+Hàng</string>
-  <string name="minus_row">-Hàng</string>
-  <string name="plus_col">+Cột</string>
-  <string name="minus_col">-Cột</string>
-  <string name="matrix_transpose">T</string>
-  <string name="hex">Hex</string>
-  <string name="bin">Bin</string>
-  <string name="dec">Dec</string>
-  <string name="desc_hex">Thập lục phân</string>
-  <string name="desc_bin">Nhị phân</string>
-  <string name="desc_dec">Thập phân</string>
-  <string name="text_max_chars">Quá nhiều ký tự nhập vào - hãy xóa một vài ký tự hoặc giải phương trình của bạn để tiếp tục</string>
 </resources>
