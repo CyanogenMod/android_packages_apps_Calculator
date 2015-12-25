@@ -18,9 +18,9 @@
 <resources>
   <string name="X">X</string>
   <string name="Y">Y</string>
-  <string name="arcsin">asen</string>
-  <string name="arccos">acos</string>
-  <string name="arctan">atg</string>
+  <string name="arcsin">arcsen</string>
+  <string name="arccos">arccos</string>
+  <string name="arctan">arctg</string>
   <string name="dot">.</string>
   <string name="dx">dX</string>
   <string name="dy">dY</string>
