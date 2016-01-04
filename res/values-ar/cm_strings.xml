@@ -16,8 +16,29 @@
      limitations under the License.
 -->
 <resources>
+  <string name="X">X</string>
+  <string name="Y">Y</string>
+  <string name="arcsin">asin</string>
+  <string name="arccos">acos</string>
+  <string name="arctan">atan</string>
+  <string name="dot">.</string>
+  <string name="dx">dX</string>
+  <string name="dy">dY</string>
+  <string name="mod">mod</string>
   <string name="text_copied_toast">النص المنسوخ.</string>
+  <string name="copy">نسخ\"%s\"</string>
+  <string name="remove_from_history">حذف من المحفوظات</string>
+  <string name="det">det</string>
   <string name="solve">حل</string>
+  <string name="plus_row">+Row</string>
+  <string name="minus_row">-Row</string>
+  <string name="plus_col">+Col</string>
+  <string name="minus_col">-Col</string>
+  <string name="matrix_transpose">T</string>
+  <string name="hex">Hex</string>
+  <string name="bin">سلة</string>
+  <string name="dec">Dec</string>
   <string name="desc_hex">سداسي عشري</string>
+  <string name="desc_bin">ثنائي</string>
   <string name="text_max_chars">لقد أدخلت عدداً كبيراً جداً من الأحرف-الرجاء حذف بعض الأحرف أو حل معادلتك للاستمرار</string>
 </resources>
