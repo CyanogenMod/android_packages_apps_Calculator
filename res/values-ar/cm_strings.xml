@@ -40,5 +40,6 @@
   <string name="dec">Dec</string>
   <string name="desc_hex">سداسي عشري</string>
   <string name="desc_bin">ثنائي</string>
+  <string name="desc_dec">عشري</string>
   <string name="text_max_chars">لقد أدخلت عدداً كبيراً جداً من الأحرف-الرجاء حذف بعض الأحرف أو حل معادلتك للاستمرار</string>
 </resources>
