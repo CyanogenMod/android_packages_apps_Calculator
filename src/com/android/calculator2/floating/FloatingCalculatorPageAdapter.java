@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.android.calculator2.HistoryAdapter;
 import com.android.calculator2.R;
+import com.android.calculator2.util.DigitLabelHelper;
 import com.xlythe.math.History;
 import com.xlythe.math.HistoryEntry;
 
@@ -72,7 +74,7 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
     public void restoreState(Parcelable state, ClassLoader loader) {
     }
 
-    public View getViewAt(int position) {
+    public View getViewAt(final int position) {
         if(mViews[position] != null) return mViews[position];
         switch(position) {
             case 0:
@@ -83,6 +85,14 @@ public class FloatingCalculatorPageAdapter extends PagerAdapter {
                 break;
             case 1:
                 mViews[position] = View.inflate(mContext, R.layout.floating_calculator_basic, null);
+                DigitLabelHelper.getInstance().getTextForDigits(mContext,
+                        new DigitLabelHelper.DigitLabelHelperCallback() {
+                            @Override
+                            public void setDigitText(int id, String text) {
+                                TextView textView = (TextView) mViews[position].findViewById(id);
+                                textView.setText(text);
+                            }
+                        });
                 break;
             case 2:
                 mViews[position] = View.inflate(mContext, R.layout.floating_calculator_advanced, null);

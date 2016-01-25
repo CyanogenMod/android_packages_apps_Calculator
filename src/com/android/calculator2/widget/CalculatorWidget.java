@@ -12,8 +12,8 @@ import android.widget.RemoteViews;
 
 import com.android.calculator2.CalculatorExpressionTokenizer;
 import com.android.calculator2.R;
+import com.android.calculator2.util.DigitLabelHelper;
 import com.xlythe.math.Base;
-import com.xlythe.math.BaseModule;
 import com.xlythe.math.Constants;
 import com.xlythe.math.EquationFormatter;
 import com.xlythe.math.Solver;
@@ -213,7 +213,7 @@ public class CalculatorWidget extends AppWidgetProvider {
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         String value = getValue(context, appWidgetId);
 
@@ -228,6 +228,14 @@ public class CalculatorWidget extends AppWidgetProvider {
         remoteViews.setViewVisibility(R.id.delete, mClearText ? View.GONE : View.VISIBLE);
         remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
         setOnClickListeners(context, appWidgetId, remoteViews);
+
+        DigitLabelHelper.getInstance().getTextForDigits(context,
+                new DigitLabelHelper.DigitLabelHelperCallback() {
+                    @Override
+                    public void setDigitText(int id, String text) {
+                        remoteViews.setTextViewText(id, text);
+                    }
+                });
 
         try {
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
@@ -283,7 +291,7 @@ public class CalculatorWidget extends AppWidgetProvider {
         remoteViews.setOnClickPendingIntent(R.id.digit9, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 9, intent, 0));
 
         intent.setAction(DOT);
-        remoteViews.setOnClickPendingIntent(R.id.dot, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 10, intent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.dec_point, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 10, intent, 0));
 
         intent.setAction(DIV);
         remoteViews.setOnClickPendingIntent(R.id.div, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 11, intent, 0));
