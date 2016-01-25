@@ -72,24 +72,21 @@
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_7" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/digit8"
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_8" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/digit9"
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_9" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/div"
@@ -110,24 +107,21 @@
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_4" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/digit5"
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_5" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/digit6"
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_6" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/mul"
@@ -148,24 +142,21 @@
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_1" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/digit2"
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_2" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/digit3"
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_3" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/minus"
@@ -182,20 +173,18 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/dot"
+                    android:id="@+id/dec_point"
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/dec_point" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/digit0"
                     style="@style/Theme.Calculator.ButtonStyle.Widget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/digit_0" />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/equal"
