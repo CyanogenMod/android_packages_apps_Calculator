@@ -12,8 +12,8 @@ import android.widget.RemoteViews;
 
 import com.android.calculator2.CalculatorExpressionTokenizer;
 import com.android.calculator2.R;
+import com.android.calculator2.util.CalculatorDigitHelper;
 import com.xlythe.math.Base;
-import com.xlythe.math.BaseModule;
 import com.xlythe.math.Constants;
 import com.xlythe.math.EquationFormatter;
 import com.xlythe.math.Solver;
@@ -25,6 +25,21 @@ import org.javia.arity.SyntaxException;
 import java.text.DecimalFormatSymbols;
 
 public class CalculatorWidget extends AppWidgetProvider {
+
+    public static final int[] sDigitIds = new int[] {
+            R.id.digit0,
+            R.id.digit1,
+            R.id.digit2,
+            R.id.digit3,
+            R.id.digit4,
+            R.id.digit5,
+            R.id.digit6,
+            R.id.digit7,
+            R.id.digit8,
+            R.id.digit9,
+            R.id.dot
+    };
+
     public final static String PREFERENCE_WIDGET_PREAMBLE = "com.android.calculator2.CALC_WIDGET_VALUE_";
     public static final String DIGIT_0 = "com.android.calculator2.0";
     public static final String DIGIT_1 = "com.android.calculator2.1";
@@ -213,7 +228,7 @@ public class CalculatorWidget extends AppWidgetProvider {
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         String value = getValue(context, appWidgetId);
 
@@ -228,6 +243,14 @@ public class CalculatorWidget extends AppWidgetProvider {
         remoteViews.setViewVisibility(R.id.delete, mClearText ? View.GONE : View.VISIBLE);
         remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
         setOnClickListeners(context, appWidgetId, remoteViews);
+
+        CalculatorDigitHelper.getTextForDigits(context,
+                new CalculatorDigitHelper.DigitHelperCallback() {
+                    @Override
+                    public void setDigitText(int id, String text) {
+                        remoteViews.setTextViewText(id, text);
+                    }
+                });
 
         try {
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
