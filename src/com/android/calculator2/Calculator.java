@@ -218,7 +218,7 @@ public class Calculator extends Activity
         // Rebuild constants. If the user changed their locale, it won't kill the app
         // but it might change a decimal point from . to ,
         Constants.rebuildConstants();
-        Button dot = (Button) findViewById(R.id.dec_point);
+        Button dot = (Button) findViewById(R.id.dot);
         dot.setText(String.valueOf(Constants.DECIMAL_POINT));
 
         GraphView graphView = (GraphView)findViewById(R.id.graphView);

@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 
 import com.android.calculator2.CalculatorExpressionTokenizer;
 import com.android.calculator2.R;
+import com.android.calculator2.util.CalculatorDigitHelper;
 import com.xlythe.math.Base;
 import com.xlythe.math.BaseModule;
 import com.xlythe.math.Constants;
@@ -213,7 +214,7 @@ public class CalculatorWidget extends AppWidgetProvider {
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         String value = getValue(context, appWidgetId);
 
@@ -228,6 +229,14 @@ public class CalculatorWidget extends AppWidgetProvider {
         remoteViews.setViewVisibility(R.id.delete, mClearText ? View.GONE : View.VISIBLE);
         remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
         setOnClickListeners(context, appWidgetId, remoteViews);
+
+        CalculatorDigitHelper.getTextForDigits(context,
+                new CalculatorDigitHelper.DigitHelperCallback() {
+                    @Override
+                    public void setDigitText(int id, String text) {
+                        remoteViews.setTextViewText(id, text);
+                    }
+                });
 
         try {
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
