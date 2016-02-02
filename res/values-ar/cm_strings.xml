@@ -27,7 +27,7 @@
   <string name="mod">mod</string>
   <string name="text_copied_toast">النص المنسوخ.</string>
   <string name="copy">نسخ\"%s\"</string>
-  <string name="remove_from_history">حذف من التاريخ</string>
+  <string name="remove_from_history">حذف من المحفوظات</string>
   <string name="det">det</string>
   <string name="solve">حل</string>
   <string name="plus_row">+Row</string>
@@ -36,7 +36,7 @@
   <string name="minus_col">-Col</string>
   <string name="matrix_transpose">T</string>
   <string name="hex">Hex</string>
-  <string name="bin">Bin</string>
+  <string name="bin">سلة</string>
   <string name="dec">Dec</string>
   <string name="desc_hex">سداسي عشري</string>
   <string name="desc_bin">ثنائي</string>
