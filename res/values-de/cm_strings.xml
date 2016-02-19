@@ -41,5 +41,5 @@
   <string name="desc_hex">Hexadezimal</string>
   <string name="desc_bin">Binär</string>
   <string name="desc_dec">Dezimal</string>
-  <string name="text_max_chars">Zu viele Zeichen eingegeben – bitte löschen Sie einige Zeichen oder lösen Sie die Gleichung auf, um fortzufahren</string>
+  <string name="text_max_chars">Zu viele Zeichen eingegeben. Bitte löschen Sie einige Zeichen oder lösen Sie die Gleichung auf, um fortzufahren</string>
 </resources>
