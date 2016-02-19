@@ -30,10 +30,10 @@
   <string name="remove_from_history">Удалить из истории</string>
   <string name="det">Опр.</string>
   <string name="solve">Решить</string>
-  <string name="plus_row">+Стр</string>
-  <string name="minus_row">-Стр</string>
-  <string name="plus_col">+Стлб</string>
-  <string name="minus_col">-Стлб</string>
+  <string name="plus_row">+строка</string>
+  <string name="minus_row">-строка</string>
+  <string name="plus_col">+стлб</string>
+  <string name="minus_col">-cтлб</string>
   <string name="matrix_transpose">T</string>
   <string name="hex">Hex</string>
   <string name="bin">Bin</string>
@@ -41,5 +41,5 @@
   <string name="desc_hex">Шестнадцатеричная</string>
   <string name="desc_bin">Двоичная</string>
   <string name="desc_dec">Десятичная</string>
-  <string name="text_max_chars">Слишком много символов для вычисления — удалите некоторые, либо попробуйте упростить выражение</string>
+  <string name="text_max_chars">Слишком много символов для вычисления — удалите некоторые или упростите выражение</string>
 </resources>
