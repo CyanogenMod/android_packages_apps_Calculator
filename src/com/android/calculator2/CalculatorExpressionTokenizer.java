@@ -48,14 +48,13 @@ public class CalculatorExpressionTokenizer {
         final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
         final char zeroDigit = symbols.getZeroDigit();
 
-        mReplacements.add(new Localizer(".", String.valueOf(symbols.getDecimalSeparator())));
-
         for (int i = 0; i <= 9; ++i) {
             mReplacements.add(new Localizer(
                         Integer.toString(i), String.valueOf((char) (i + zeroDigit))));
         }
 
         mReplacements.add(new Localizer(",", String.valueOf(Constants.MATRIX_SEPARATOR)));
+        mReplacements.add(new Localizer(".", String.valueOf(symbols.getDecimalSeparator())));
         mReplacements.add(new Localizer("/", context.getString(R.string.op_div)));
         mReplacements.add(new Localizer("*", context.getString(R.string.op_mul)));
         mReplacements.add(new Localizer("-", context.getString(R.string.op_sub)));
