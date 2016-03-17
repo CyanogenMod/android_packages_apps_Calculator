@@ -61,4 +61,5 @@
   <string name="desc_hex">ئون ئالتىلىك</string>
   <string name="desc_bin">ئىككىلىك</string>
   <string name="desc_dec">ئونلۇق</string>
+  <string name="text_max_chars">كىرگۈزگەن ھەرپ بەك كۆپ-بىر قىسىم ھەرپلەرنى ئۆچۈرۈڭ ياكى داۋاملاشتۇرۇش ئۈچۈن تەڭلىمىنى يېشىڭ</string>
 </resources>

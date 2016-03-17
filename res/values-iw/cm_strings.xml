@@ -43,7 +43,7 @@
   <string name="mod">mod</string>
   <!-- Displayed on button on screen for the cube root function. -->
   <!-- Displayed on buttons on screen for parentheses. -->
-  <string name="text_copied_toast">טקסט הועתק.</string>
+  <string name="text_copied_toast">הטקסט הועתק.</string>
   <string name="copy">העתק \"%s\"</string>
   <string name="remove_from_history">הסר מההיסטוריה</string>
   <!-- Matrix page text -->
@@ -56,10 +56,10 @@
   <string name="matrix_transpose">T</string>
   <!-- Hex page text -->
   <string name="hex">Hex</string>
-  <string name="bin">Bin</string>
+  <string name="bin">פח</string>
   <string name="dec">Dec</string>
   <string name="desc_hex">הקסדצימאלי</string>
   <string name="desc_bin">בינארי</string>
   <string name="desc_dec">עשרוני</string>
-  <string name="text_max_chars">יותר מדי תווים הוזנו - אנא מחק חלק מהתווים או פתור את המשוואה כדי להמשיך</string>
+  <string name="text_max_chars">יותר מדי תווים הוזנו - מחק חלק מהתווים או פתור את המשוואה כדי להמשיך</string>
 </resources>
