@@ -22,7 +22,7 @@ public class Solver {
     public Symbols mSymbols = new Symbols();
     private BaseModule mBaseModule;
     private MatrixModule mMatrixModule;
-    private int mLineLength = 8;
+    private int mLineLength = 14;
     private Localizer mLocalizer;
 
     public Solver() {
