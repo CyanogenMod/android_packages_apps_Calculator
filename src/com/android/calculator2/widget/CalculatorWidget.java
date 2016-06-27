@@ -185,21 +185,33 @@ public class CalculatorWidget extends AppWidgetProvider {
     }
 
     private static String addOperator(String equation, char op) {
-        if(equation.length() > 0) {
-            // Grab the last character to see if it's an operator
-            char lastChar = equation.charAt(equation.length()-1);
 
-            // Remove the previous operator if needed
-            if((Solver.isOperator(lastChar) && lastChar != Constants.MINUS)
-                    || (op == Constants.MINUS && op == lastChar)) {
-                equation = equation.substring(0, equation.length() - 1);
+        if (equation.length() == 0) {
+            if (op == Constants.MINUS) {
+                equation += op;
             }
+        } else if (equation.length() == 1) {
+            char lastChar = equation.charAt(0);
+            if (!Solver.isOperator(lastChar) && lastChar != getDecimal()) {
+                equation += op;
+            }
+        } else {
+            char lastChar = equation.charAt(equation.length()-1);
+            char lastlastChar = equation.charAt(equation.length()-2);
 
-            // Append the new operator
-            equation += op;
-        }
-        else if(op == Constants.MINUS) {
-            equation += op;
+            if (Solver.isOperator(lastlastChar) && Solver.isOperator(lastChar)) {
+                if (op != Constants.MINUS) {
+                    equation = equation.substring(0, equation.length() - 2);
+                    equation += op;
+                }
+            } else if(Solver.isOperator(lastChar)) {
+                if (lastChar == Constants.MINUS || op != Constants.MINUS) {
+                    equation = equation.substring(0, equation.length() - 1);
+                }
+                equation += op;
+            } else if (lastChar != getDecimal()) {
+                equation += op;
+            }
         }
 
         return equation;
