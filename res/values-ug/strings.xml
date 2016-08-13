@@ -19,7 +19,9 @@
   <!-- Name of the application. [CHAR_LIMIT=NONE] -->
   <string name="app_name">ھېسابلىغۇچ</string>
   <!-- Error displayed when expression evaluates to NaN. [CHAR_LIMIT=14] -->
+  <string name="error_nan">سان ئەمەس</string>
   <!-- Error displayed when expression contains a syntax error. [CHAR_LIMIT=14] -->
+  <string name="error_syntax">خاتالىق</string>
   <!-- Abbrev. name of cosine function (e.g. "cos(π)". [CHAR_LIMIT=3] -->
   <!-- Natural logarithm function (e.g. "ln(2)"). [CHAR_LIMIT=3] -->
   <!-- Logarithm function (e.g. "log(10)"). [CHAR_LIMIT=3] -->
