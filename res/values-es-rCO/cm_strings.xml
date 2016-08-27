@@ -23,43 +23,17 @@
   <!-- Displayed letters for the hex digit buttons -->
   <!-- Displayed letters for the hex digit buttons -->
   <!-- Displayed letters for the variable digit buttons -->
-  <string name="X">X</string>
   <!-- Displayed letters for the variable digit buttons -->
-  <string name="Y">Y</string>
   <!-- Displayed on buttons on screen for the arcsin function. -->
-  <string name="arcsin">asin</string>
   <!-- Displayed on buttons on screen for the arccos function. -->
-  <string name="arccos">acos</string>
   <!-- Displayed on buttons on screen for the arctan function. -->
-  <string name="arctan">atan</string>
-  <string name="dot">.</string>
   <!-- Displayed on buttons on screen for the value of i. -->
   <!-- Displayed on buttons on screen for the percent function. -->
   <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
-  <string name="dx">dx</string>
   <!-- (Hidden) Displayed on buttons on screen for the integral function. -->
-  <string name="dy">dy</string>
   <!-- (Hidden) Displayed on buttons on screen for the modulo function. -->
-  <string name="mod">mod</string>
   <!-- Displayed on button on screen for the cube root function. -->
   <!-- Displayed on buttons on screen for parentheses. -->
-  <string name="text_copied_toast">Teks disalin.</string>
-  <string name="copy">Salin \'%s\'</string>
-  <string name="remove_from_history">Hapus dari riwayat</string>
   <!-- Matrix page text -->
-  <string name="det">det</string>
-  <string name="solve">Memecahkan</string>
-  <string name="plus_row">+Baris</string>
-  <string name="minus_row">-Baris</string>
-  <string name="plus_col">+Kolom</string>
-  <string name="minus_col">-Kolom</string>
-  <string name="matrix_transpose">T</string>
   <!-- Hex page text -->
-  <string name="hex">Hex</string>
-  <string name="bin">Bin</string>
-  <string name="dec">Dec</string>
-  <string name="desc_hex">Heksadesimal</string>
-  <string name="desc_bin">Binari</string>
-  <string name="desc_dec">Desimal</string>
-  <string name="text_max_chars">Terlalu banyak karakter yang dimasukkan. Hapus beberapa karakter atau selesaikan persamaan untuk melanjutkan</string>
 </resources>
