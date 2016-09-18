@@ -46,5 +46,6 @@
   <!-- Content description for '-' button. [CHAR_LIMIT=NONE] -->
   <!-- Content description for "clr" button. [CHAR_LIMIT=NONE] -->
   <!-- Content description for "del" button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_del">forigi</string>
   <!-- Content description for '=' button. [CHAR_LIMIT=NONE] -->
 </resources>
