@@ -1,0 +1,520 @@
+[
+    {
+        "outputFile": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-eo\\values-eo.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 31,
+                    "endOffset": 82
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 2,
+                        "startOffset": 1108,
+                        "endColumn": 29,
+                        "endOffset": 1135
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 87,
+                    "endColumn": 31,
+                    "endOffset": 114
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 2,
+                        "startOffset": 1198,
+                        "endColumn": 29,
+                        "endOffset": 1225
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 119,
+                    "endColumn": 41,
+                    "endOffset": 156
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 2,
+                        "startOffset": 1402,
+                        "endColumn": 39,
+                        "endOffset": 1439
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 161,
+                    "endColumn": 41,
+                    "endOffset": 198
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 2,
+                        "startOffset": 1295,
+                        "endColumn": 39,
+                        "endOffset": 1332
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 203,
+                    "endColumn": 41,
+                    "endOffset": 240
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 33,
+                        "startColumn": 2,
+                        "startOffset": 1509,
+                        "endColumn": 39,
+                        "endOffset": 1546
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 245,
+                    "endColumn": 35,
+                    "endOffset": 276
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 58,
+                        "startColumn": 2,
+                        "startOffset": 2708,
+                        "endColumn": 33,
+                        "endOffset": 2739
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 281,
+                    "endColumn": 45,
+                    "endOffset": 322
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 46,
+                        "startColumn": 2,
+                        "startOffset": 2229,
+                        "endColumn": 43,
+                        "endOffset": 2270
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 327,
+                    "endColumn": 35,
+                    "endOffset": 358
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 59,
+                        "startColumn": 2,
+                        "startOffset": 2742,
+                        "endColumn": 33,
+                        "endOffset": 2773
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 363,
+                    "endColumn": 42,
+                    "endOffset": 401
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 61,
+                        "startColumn": 2,
+                        "startOffset": 2821,
+                        "endColumn": 40,
+                        "endOffset": 2859
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 406,
+                    "endColumn": 43,
+                    "endOffset": 445
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 62,
+                        "startColumn": 2,
+                        "startOffset": 2862,
+                        "endColumn": 41,
+                        "endOffset": 2901
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 450,
+                    "endColumn": 43,
+                    "endOffset": 489
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\strings.xml",
+                    "position": {
+                        "startLine": 48,
+                        "startColumn": 2,
+                        "startOffset": 2696,
+                        "endColumn": 41,
+                        "endOffset": 2735
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 494,
+                    "endColumn": 46,
+                    "endOffset": 536
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 60,
+                        "startColumn": 2,
+                        "startOffset": 2776,
+                        "endColumn": 44,
+                        "endOffset": 2818
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 541,
+                    "endColumn": 35,
+                    "endOffset": 572
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 49,
+                        "startColumn": 2,
+                        "startOffset": 2366,
+                        "endColumn": 33,
+                        "endOffset": 2397
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 577,
+                    "endColumn": 33,
+                    "endOffset": 606
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 2,
+                        "startOffset": 1549,
+                        "endColumn": 31,
+                        "endOffset": 1578
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 611,
+                    "endColumn": 33,
+                    "endOffset": 640
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 38,
+                        "startColumn": 2,
+                        "startOffset": 1789,
+                        "endColumn": 31,
+                        "endOffset": 1818
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 645,
+                    "endColumn": 33,
+                    "endOffset": 674
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 40,
+                        "startColumn": 2,
+                        "startOffset": 1899,
+                        "endColumn": 31,
+                        "endOffset": 1928
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 679,
+                    "endColumn": 37,
+                    "endOffset": 712
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 57,
+                        "startColumn": 2,
+                        "startOffset": 2672,
+                        "endColumn": 35,
+                        "endOffset": 2705
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 717,
+                    "endColumn": 46,
+                    "endOffset": 759
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 55,
+                        "startColumn": 2,
+                        "startOffset": 2602,
+                        "endColumn": 44,
+                        "endOffset": 2644
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 764,
+                    "endColumn": 42,
+                    "endOffset": 802
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 54,
+                        "startColumn": 2,
+                        "startOffset": 2561,
+                        "endColumn": 40,
+                        "endOffset": 2599
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 807,
+                    "endColumn": 43,
+                    "endOffset": 846
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 52,
+                        "startColumn": 2,
+                        "startOffset": 2479,
+                        "endColumn": 41,
+                        "endOffset": 2518
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 851,
+                    "endColumn": 35,
+                    "endOffset": 882
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 42,
+                        "startColumn": 2,
+                        "startOffset": 2007,
+                        "endColumn": 33,
+                        "endOffset": 2038
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 887,
+                    "endColumn": 41,
+                    "endOffset": 924
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 53,
+                        "startColumn": 2,
+                        "startOffset": 2521,
+                        "endColumn": 39,
+                        "endOffset": 2558
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 929,
+                    "endColumn": 42,
+                    "endOffset": 967
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 51,
+                        "startColumn": 2,
+                        "startOffset": 2438,
+                        "endColumn": 40,
+                        "endOffset": 2476
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 972,
+                    "endColumn": 66,
+                    "endOffset": 1034
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 47,
+                        "startColumn": 2,
+                        "startOffset": 2273,
+                        "endColumn": 64,
+                        "endOffset": 2335
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1039,
+                    "endColumn": 39,
+                    "endOffset": 1074
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 50,
+                        "startColumn": 2,
+                        "startOffset": 2400,
+                        "endColumn": 37,
+                        "endOffset": 2435
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 1079,
+                    "endColumn": 61,
+                    "endOffset": 1136
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 45,
+                        "startColumn": 2,
+                        "startOffset": 2169,
+                        "endColumn": 59,
+                        "endOffset": 2226
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 1141,
+                    "endColumn": 131,
+                    "endOffset": 1268
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-eo\\cm_strings.xml",
+                    "position": {
+                        "startLine": 63,
+                        "startColumn": 2,
+                        "startOffset": 2904,
+                        "endColumn": 129,
+                        "endOffset": 3031
+                    }
+                }
+            }
+        ]
+    }
+]

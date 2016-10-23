@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Ugrás a főoldalra"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Felfelé mozgatás"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"További lehetőségek"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Kész"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Összes megtekintése"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Válasszon ki egy alkalmazást"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"KI"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"BE"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Keresés…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Lekérdezés törlése"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Keresési lekérdezés"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Keresés"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Lekérdezés küldése"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Hangalapú keresés"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Megosztás a következővel:"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Megosztás a következővel: %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Összecsukás"</string>
+    <string msgid="8095131950334945205" name="app_name">"Számológép"</string>
+    <string name="arccos">acos</string>
+    <string name="arcsin">asin</string>
+    <string name="arctan">atan</string>
+    <string name="bin">Bin</string>
+    <string msgid="3126239559646368205" name="clr">"clr"</string>
+    <string name="copy">Másolás \'%s\'</string>
+    <string name="dec">Dec</string>
+    <string msgid="6700172918709138470" name="del">"del"</string>
+    <string name="desc_bin">Bináris</string>
+    <string msgid="8357371663749541924" name="desc_clr">"törlés"</string>
+    <string msgid="7752508267661034194" name="desc_const_e">"Euler-féle szám"</string>
+    <string msgid="5843835548313660468" name="desc_const_pi">"pi"</string>
+    <string name="desc_dec">Decimális</string>
+    <string msgid="6211527612960070934" name="desc_dec_point">"pont "</string>
+    <string msgid="1866733601083210032" name="desc_del">"törlés"</string>
+    <string msgid="8068773095462472408" name="desc_eq">"egyenlő"</string>
+    <string msgid="3197307754450718348" name="desc_fun_cos">"koszinusz"</string>
+    <string msgid="4943842219071979148" name="desc_fun_ln">"természetes logaritmus"</string>
+    <string msgid="6163178034661345125" name="desc_fun_log">"logaritmus"</string>
+    <string msgid="4010564022860883142" name="desc_fun_sin">"szinusz"</string>
+    <string msgid="8547330421304946587" name="desc_fun_tan">"tangens"</string>
+    <string name="desc_hex">Hexadecimális</string>
+    <string msgid="3319203240269597504" name="desc_lparen">"nyitó zárójel"</string>
+    <string msgid="1174812755738083078" name="desc_op_add">"plusz"</string>
+    <string msgid="8320455802423478031" name="desc_op_div">"osztás"</string>
+    <string msgid="5004950609277631750" name="desc_op_fact">"faktoriális"</string>
+    <string msgid="978652245185868311" name="desc_op_mul">"szorzás"</string>
+    <string msgid="2620877401884059447" name="desc_op_pow">"hatvány"</string>
+    <string msgid="4405610392216554239" name="desc_op_sqrt">"négyzetgyök"</string>
+    <string msgid="2563060630032563021" name="desc_op_sub">"mínusz"</string>
+    <string msgid="7629704943022422763" name="desc_rparen">"berekesztő zárójel"</string>
+    <string name="det">det</string>
+    <string name="dot">.</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string msgid="4071578355972369426" name="error_nan">"Nem egy szám"</string>
+    <string msgid="6940043994468390738" name="error_syntax">"Hiba"</string>
+    <string msgid="7312559527731358211" name="fun_cos">"cos"</string>
+    <string msgid="6282013842946532944" name="fun_ln">"ln"</string>
+    <string msgid="6856905045055937519" name="fun_log">"log"</string>
+    <string msgid="7136698561875496766" name="fun_sin">"sin"</string>
+    <string msgid="9116158377794370341" name="fun_tan">"tan"</string>
+    <string name="hex">Hex</string>
+    <string name="matrix_transpose">T</string>
+    <string name="minus_col">-Oszlop</string>
+    <string name="minus_row">-Sor</string>
+    <string name="mod">mod</string>
+    <string name="plus_col">+Oszlop</string>
+    <string name="plus_row">+Sor</string>
+    <string name="remove_from_history">Eltávolítás az előzményekből</string>
+    <string name="solve">Megoldás</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="text_copied_toast">Szöveg másolva.</string>
+    <string name="text_max_chars">Túl sok karaktert vitt be - kérem töröljön néhány karaktert, vagy oldja meg az egyenletet a továbblépéshez</string>
+</resources>

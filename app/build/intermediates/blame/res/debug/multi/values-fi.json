@@ -1,0 +1,1451 @@
+[
+    {
+        "outputFile": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fi\\values-fi.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 31,
+                    "endOffset": 82
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 2,
+                        "startOffset": 1108,
+                        "endColumn": 29,
+                        "endOffset": 1135
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 87,
+                    "endColumn": 31,
+                    "endOffset": 114
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 2,
+                        "startOffset": 1198,
+                        "endColumn": 29,
+                        "endOffset": 1225
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 119,
+                    "endColumn": 107,
+                    "endOffset": 222
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 107,
+                        "endOffset": 158
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 227,
+                    "endColumn": 107,
+                    "endOffset": 330
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 163,
+                        "endColumn": 107,
+                        "endOffset": 266
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 335,
+                    "endColumn": 122,
+                    "endOffset": 453
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 271,
+                        "endColumn": 122,
+                        "endOffset": 389
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 458,
+                    "endColumn": 99,
+                    "endOffset": 553
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 394,
+                        "endColumn": 99,
+                        "endOffset": 489
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 558,
+                    "endColumn": 100,
+                    "endOffset": 654
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 494,
+                        "endColumn": 100,
+                        "endOffset": 590
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 659,
+                    "endColumn": 85,
+                    "endOffset": 740
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 595,
+                        "endColumn": 85,
+                        "endOffset": 676
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 745,
+                    "endColumn": 104,
+                    "endOffset": 845
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 681,
+                        "endColumn": 104,
+                        "endOffset": 781
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 850,
+                    "endColumn": 117,
+                    "endOffset": 963
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 786,
+                        "endColumn": 117,
+                        "endOffset": 899
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 968,
+                    "endColumn": 86,
+                    "endOffset": 1050
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 904,
+                        "endColumn": 86,
+                        "endOffset": 986
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1055,
+                    "endColumn": 81,
+                    "endOffset": 1132
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 991,
+                        "endColumn": 81,
+                        "endOffset": 1068
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1137,
+                    "endColumn": 79,
+                    "endOffset": 1212
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1073,
+                        "endColumn": 79,
+                        "endOffset": 1148
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1217,
+                    "endColumn": 106,
+                    "endOffset": 1319
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1153,
+                        "endColumn": 106,
+                        "endOffset": 1255
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1324,
+                    "endColumn": 102,
+                    "endOffset": 1422
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1260,
+                        "endColumn": 102,
+                        "endOffset": 1358
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1427,
+                    "endColumn": 96,
+                    "endOffset": 1519
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1363,
+                        "endColumn": 96,
+                        "endOffset": 1455
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1524,
+                    "endColumn": 105,
+                    "endOffset": 1625
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1460,
+                        "endColumn": 105,
+                        "endOffset": 1561
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1630,
+                    "endColumn": 98,
+                    "endOffset": 1724
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1566,
+                        "endColumn": 98,
+                        "endOffset": 1660
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1729,
+                    "endColumn": 103,
+                    "endOffset": 1828
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1665,
+                        "endColumn": 103,
+                        "endOffset": 1764
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1833,
+                    "endColumn": 118,
+                    "endOffset": 1947
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1769,
+                        "endColumn": 118,
+                        "endOffset": 1883
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1952,
+                    "endColumn": 98,
+                    "endOffset": 2046
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1888,
+                        "endColumn": 98,
+                        "endOffset": 1982
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2051,
+                    "endColumn": 73,
+                    "endOffset": 2120
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 778,
+                        "endColumn": 73,
+                        "endOffset": 847
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2125,
+                    "endColumn": 39,
+                    "endOffset": 2160
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 2,
+                        "startOffset": 1400,
+                        "endColumn": 37,
+                        "endOffset": 1435
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2165,
+                    "endColumn": 39,
+                    "endOffset": 2200
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 2,
+                        "startOffset": 1295,
+                        "endColumn": 37,
+                        "endOffset": 1330
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2205,
+                    "endColumn": 39,
+                    "endOffset": 2240
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 33,
+                        "startColumn": 2,
+                        "startOffset": 1505,
+                        "endColumn": 37,
+                        "endOffset": 1540
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2245,
+                    "endColumn": 35,
+                    "endOffset": 2276
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 58,
+                        "startColumn": 2,
+                        "startOffset": 2705,
+                        "endColumn": 33,
+                        "endOffset": 2736
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2281,
+                    "endColumn": 65,
+                    "endOffset": 2342
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1359,
+                        "endColumn": 65,
+                        "endOffset": 1420
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2347,
+                    "endColumn": 46,
+                    "endOffset": 2389
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 46,
+                        "startColumn": 2,
+                        "startOffset": 2224,
+                        "endColumn": 44,
+                        "endOffset": 2266
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2394,
+                    "endColumn": 35,
+                    "endOffset": 2425
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 59,
+                        "startColumn": 2,
+                        "startOffset": 2739,
+                        "endColumn": 33,
+                        "endOffset": 2770
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 2430,
+                    "endColumn": 65,
+                    "endOffset": 2491
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1425,
+                        "endColumn": 65,
+                        "endOffset": 1486
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 2496,
+                    "endColumn": 44,
+                    "endOffset": 2536
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 61,
+                        "startColumn": 2,
+                        "startOffset": 2823,
+                        "endColumn": 42,
+                        "endOffset": 2863
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 2541,
+                    "endColumn": 75,
+                    "endOffset": 2612
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 46,
+                        "startColumn": 4,
+                        "startOffset": 2861,
+                        "endColumn": 75,
+                        "endOffset": 2932
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 2617,
+                    "endColumn": 83,
+                    "endOffset": 2696
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1491,
+                        "endColumn": 83,
+                        "endOffset": 1570
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 2701,
+                    "endColumn": 75,
+                    "endOffset": 2772
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1575,
+                        "endColumn": 75,
+                        "endOffset": 1646
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 2777,
+                    "endColumn": 46,
+                    "endOffset": 2819
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 62,
+                        "startColumn": 2,
+                        "startOffset": 2866,
+                        "endColumn": 44,
+                        "endOffset": 2908
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 37,
+                    "startColumn": 4,
+                    "startOffset": 2824,
+                    "endColumn": 80,
+                    "endOffset": 2900
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 4,
+                        "startOffset": 1651,
+                        "endColumn": 80,
+                        "endOffset": 1727
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 2905,
+                    "endColumn": 73,
+                    "endOffset": 2974
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 47,
+                        "startColumn": 4,
+                        "startOffset": 2937,
+                        "endColumn": 73,
+                        "endOffset": 3006
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 39,
+                    "startColumn": 4,
+                    "startOffset": 2979,
+                    "endColumn": 78,
+                    "endOffset": 3053
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 48,
+                        "startColumn": 4,
+                        "startOffset": 3011,
+                        "endColumn": 78,
+                        "endOffset": 3085
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 40,
+                    "startColumn": 4,
+                    "startOffset": 3058,
+                    "endColumn": 77,
+                    "endOffset": 3131
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 4,
+                        "startOffset": 1908,
+                        "endColumn": 77,
+                        "endOffset": 1981
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 41,
+                    "startColumn": 4,
+                    "startOffset": 3136,
+                    "endColumn": 92,
+                    "endOffset": 3224
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 4,
+                        "startOffset": 1986,
+                        "endColumn": 92,
+                        "endOffset": 2074
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 42,
+                    "startColumn": 4,
+                    "startOffset": 3229,
+                    "endColumn": 80,
+                    "endOffset": 3305
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 36,
+                        "startColumn": 4,
+                        "startOffset": 2079,
+                        "endColumn": 80,
+                        "endOffset": 2155
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 43,
+                    "startColumn": 4,
+                    "startOffset": 3310,
+                    "endColumn": 75,
+                    "endOffset": 3381
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 37,
+                        "startColumn": 4,
+                        "startOffset": 2160,
+                        "endColumn": 75,
+                        "endOffset": 2231
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 44,
+                    "startColumn": 4,
+                    "startOffset": 3386,
+                    "endColumn": 80,
+                    "endOffset": 3462
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 38,
+                        "startColumn": 4,
+                        "startOffset": 2236,
+                        "endColumn": 80,
+                        "endOffset": 2312
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 45,
+                    "startColumn": 4,
+                    "startOffset": 3467,
+                    "endColumn": 51,
+                    "endOffset": 3514
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 60,
+                        "startColumn": 2,
+                        "startOffset": 2773,
+                        "endColumn": 49,
+                        "endOffset": 2820
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 46,
+                    "startColumn": 4,
+                    "startOffset": 3519,
+                    "endColumn": 87,
+                    "endOffset": 3602
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 32,
+                        "startColumn": 4,
+                        "startOffset": 1732,
+                        "endColumn": 87,
+                        "endOffset": 1815
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 47,
+                    "startColumn": 4,
+                    "startOffset": 3607,
+                    "endColumn": 74,
+                    "endOffset": 3677
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 39,
+                        "startColumn": 4,
+                        "startOffset": 2317,
+                        "endColumn": 74,
+                        "endOffset": 2387
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 48,
+                    "startColumn": 4,
+                    "startOffset": 3682,
+                    "endColumn": 75,
+                    "endOffset": 3753
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 40,
+                        "startColumn": 4,
+                        "startOffset": 2392,
+                        "endColumn": 75,
+                        "endOffset": 2463
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 49,
+                    "startColumn": 4,
+                    "startOffset": 3758,
+                    "endColumn": 78,
+                    "endOffset": 3832
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 41,
+                        "startColumn": 4,
+                        "startOffset": 2468,
+                        "endColumn": 78,
+                        "endOffset": 2542
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 50,
+                    "startColumn": 4,
+                    "startOffset": 3837,
+                    "endColumn": 75,
+                    "endOffset": 3908
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 42,
+                        "startColumn": 4,
+                        "startOffset": 2547,
+                        "endColumn": 75,
+                        "endOffset": 2618
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 51,
+                    "startColumn": 4,
+                    "startOffset": 3913,
+                    "endColumn": 78,
+                    "endOffset": 3987
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 43,
+                        "startColumn": 4,
+                        "startOffset": 2623,
+                        "endColumn": 78,
+                        "endOffset": 2697
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 52,
+                    "startColumn": 4,
+                    "startOffset": 3992,
+                    "endColumn": 81,
+                    "endOffset": 4069
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 44,
+                        "startColumn": 4,
+                        "startOffset": 2702,
+                        "endColumn": 81,
+                        "endOffset": 2779
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 53,
+                    "startColumn": 4,
+                    "startOffset": 4074,
+                    "endColumn": 76,
+                    "endOffset": 4146
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 45,
+                        "startColumn": 4,
+                        "startOffset": 2784,
+                        "endColumn": 76,
+                        "endOffset": 2856
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 54,
+                    "startColumn": 4,
+                    "startOffset": 4151,
+                    "endColumn": 87,
+                    "endOffset": 4234
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 33,
+                        "startColumn": 4,
+                        "startOffset": 1820,
+                        "endColumn": 87,
+                        "endOffset": 1903
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 55,
+                    "startColumn": 4,
+                    "startOffset": 4239,
+                    "endColumn": 35,
+                    "endOffset": 4270
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 49,
+                        "startColumn": 2,
+                        "startOffset": 2362,
+                        "endColumn": 33,
+                        "endOffset": 2393
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 56,
+                    "startColumn": 4,
+                    "startOffset": 4275,
+                    "endColumn": 33,
+                    "endOffset": 4304
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 2,
+                        "startOffset": 1543,
+                        "endColumn": 31,
+                        "endOffset": 1572
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 57,
+                    "startColumn": 4,
+                    "startOffset": 4309,
+                    "endColumn": 33,
+                    "endOffset": 4338
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 38,
+                        "startColumn": 2,
+                        "startOffset": 1783,
+                        "endColumn": 31,
+                        "endOffset": 1812
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 58,
+                    "startColumn": 4,
+                    "startOffset": 4343,
+                    "endColumn": 33,
+                    "endOffset": 4372
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 40,
+                        "startColumn": 2,
+                        "startOffset": 1893,
+                        "endColumn": 31,
+                        "endOffset": 1922
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 59,
+                    "startColumn": 4,
+                    "startOffset": 4377,
+                    "endColumn": 81,
+                    "endOffset": 4454
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 852,
+                        "endColumn": 81,
+                        "endOffset": 929
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 60,
+                    "startColumn": 4,
+                    "startOffset": 4459,
+                    "endColumn": 76,
+                    "endOffset": 4531
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 934,
+                        "endColumn": 76,
+                        "endOffset": 1006
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 61,
+                    "startColumn": 4,
+                    "startOffset": 4536,
+                    "endColumn": 69,
+                    "endOffset": 4601
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1011,
+                        "endColumn": 69,
+                        "endOffset": 1076
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 62,
+                    "startColumn": 4,
+                    "startOffset": 4606,
+                    "endColumn": 67,
+                    "endOffset": 4669
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1081,
+                        "endColumn": 67,
+                        "endOffset": 1144
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 63,
+                    "startColumn": 4,
+                    "startOffset": 4674,
+                    "endColumn": 69,
+                    "endOffset": 4739
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1149,
+                        "endColumn": 69,
+                        "endOffset": 1214
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 64,
+                    "startColumn": 4,
+                    "startOffset": 4744,
+                    "endColumn": 69,
+                    "endOffset": 4809
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1219,
+                        "endColumn": 69,
+                        "endOffset": 1284
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 65,
+                    "startColumn": 4,
+                    "startOffset": 4814,
+                    "endColumn": 69,
+                    "endOffset": 4879
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1289,
+                        "endColumn": 69,
+                        "endOffset": 1354
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 66,
+                    "startColumn": 4,
+                    "startOffset": 4884,
+                    "endColumn": 35,
+                    "endOffset": 4915
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 57,
+                        "startColumn": 2,
+                        "startOffset": 2671,
+                        "endColumn": 33,
+                        "endOffset": 2702
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 67,
+                    "startColumn": 4,
+                    "startOffset": 4920,
+                    "endColumn": 46,
+                    "endOffset": 4962
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 55,
+                        "startColumn": 2,
+                        "startOffset": 2601,
+                        "endColumn": 44,
+                        "endOffset": 2643
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 68,
+                    "startColumn": 4,
+                    "startOffset": 4967,
+                    "endColumn": 42,
+                    "endOffset": 5005
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 54,
+                        "startColumn": 2,
+                        "startOffset": 2560,
+                        "endColumn": 40,
+                        "endOffset": 2598
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 69,
+                    "startColumn": 4,
+                    "startOffset": 5010,
+                    "endColumn": 43,
+                    "endOffset": 5049
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 52,
+                        "startColumn": 2,
+                        "startOffset": 2478,
+                        "endColumn": 41,
+                        "endOffset": 2517
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 70,
+                    "startColumn": 4,
+                    "startOffset": 5054,
+                    "endColumn": 35,
+                    "endOffset": 5085
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 42,
+                        "startColumn": 2,
+                        "startOffset": 2001,
+                        "endColumn": 33,
+                        "endOffset": 2032
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 71,
+                    "startColumn": 4,
+                    "startOffset": 5090,
+                    "endColumn": 41,
+                    "endOffset": 5127
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 53,
+                        "startColumn": 2,
+                        "startOffset": 2520,
+                        "endColumn": 39,
+                        "endOffset": 2557
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 72,
+                    "startColumn": 4,
+                    "startOffset": 5132,
+                    "endColumn": 42,
+                    "endOffset": 5170
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 51,
+                        "startColumn": 2,
+                        "startOffset": 2437,
+                        "endColumn": 40,
+                        "endOffset": 2475
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 73,
+                    "startColumn": 4,
+                    "startOffset": 5175,
+                    "endColumn": 66,
+                    "endOffset": 5237
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 47,
+                        "startColumn": 2,
+                        "startOffset": 2269,
+                        "endColumn": 64,
+                        "endOffset": 2331
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 74,
+                    "startColumn": 4,
+                    "startOffset": 5242,
+                    "endColumn": 42,
+                    "endOffset": 5280
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 50,
+                        "startColumn": 2,
+                        "startOffset": 2396,
+                        "endColumn": 40,
+                        "endOffset": 2434
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 75,
+                    "startColumn": 4,
+                    "startOffset": 5285,
+                    "endColumn": 100,
+                    "endOffset": 5381
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-fi\\values-fi.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1987,
+                        "endColumn": 100,
+                        "endOffset": 2083
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 76,
+                    "startColumn": 4,
+                    "startOffset": 5386,
+                    "endColumn": 62,
+                    "endOffset": 5444
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 45,
+                        "startColumn": 2,
+                        "startOffset": 2163,
+                        "endColumn": 60,
+                        "endOffset": 2221
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 77,
+                    "startColumn": 4,
+                    "startOffset": 5449,
+                    "endColumn": 120,
+                    "endOffset": 5565
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-fi\\cm_strings.xml",
+                    "position": {
+                        "startLine": 63,
+                        "startColumn": 2,
+                        "startOffset": 2911,
+                        "endColumn": 118,
+                        "endOffset": 3027
+                    }
+                }
+            }
+        ]
+    }
+]

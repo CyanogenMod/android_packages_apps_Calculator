@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arccos">ଆକୋସ୍‍</string>
+    <string name="arcsin">ଆସିନ୍‍</string>
+    <string name="arctan">ଆଟାନ୍‍</string>
+    <string name="bin">ବାଇନାରି</string>
+    <string name="copy">କପି କରନ୍ତୁ \'%s\'</string>
+    <string name="dec">ଡେସିମାଲ୍‍</string>
+    <string name="desc_bin">ବାଇନାରି</string>
+    <string name="desc_dec">ଡେସିମାଲ୍‍</string>
+    <string name="desc_hex">ହେକ୍ସାଡେସିମାଲ୍‍</string>
+    <string name="det">det</string>
+    <string name="dot">.</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="hex">ହେକ୍ସ</string>
+    <string name="matrix_transpose">T</string>
+    <string name="minus_col">-ସ୍ତମ୍ବ</string>
+    <string name="minus_row">-ଧାଡି</string>
+    <string name="mod">ମୋଡ୍‍</string>
+    <string name="plus_col">+ସ୍ତମ୍ବ</string>
+    <string name="plus_row">+ଧାଡି</string>
+    <string name="remove_from_history">ଇତିହାସରୁ ଅପସାରଣ କରନ୍ତୁ</string>
+    <string name="solve">ସମାଧାନ କରନ୍ତୁ</string>
+    <string name="text_copied_toast">ଟେକ୍ସଟ୍ କପି ହୋଇଛି।</string>
+    <string name="text_max_chars">ବହୁତ ଅଧିକ ବର୍ଣ୍ଣ ପ୍ରବେଶ କରାଯାଇଛି - ଜାରି ରଖିବା ପାଇଁ ଦୟାକରି କିଛି ବର୍ଣ୍ଣ ବିଲୋପ କରନ୍ତୁ ବା ଆପଣଙ୍କ ସମୀକରଣ ସମାଧାନ‍ କରନ୍ତୁ</string>
+</resources>

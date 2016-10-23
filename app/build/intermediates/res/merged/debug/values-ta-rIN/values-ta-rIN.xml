@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"முகப்பிற்கு வழிசெலுத்து"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"மேலே வழிசெலுத்து"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"மேலும் விருப்பங்கள்"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"முடிந்தது"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"எல்லாம் காட்டு"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"பயன்பாட்டைத் தேர்வுசெய்க"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"முடக்கு"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"இயக்கு"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"தேடு..."</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"வினவலை அழி"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"தேடல் வினவல்"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"தேடு"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"வினவலைச் சமர்ப்பி"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"குரல் தேடல்"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"இதனுடன் பகிர்"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"%s உடன் பகிர்"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"சுருக்கு"</string>
+    <string msgid="8095131950334945205" name="app_name">"கணிப்பான்"</string>
+    <string name="arccos">acos</string>
+    <string name="arcsin">asin</string>
+    <string name="arctan">atan</string>
+    <string name="bin">பின்</string>
+    <string msgid="3126239559646368205" name="clr">"அழி"</string>
+    <string name="copy">நகலெடு \'%s\'</string>
+    <string name="dec">டெசிமல்</string>
+    <string msgid="6700172918709138470" name="del">"நீக்கு"</string>
+    <string name="desc_bin">பைனரி</string>
+    <string msgid="8357371663749541924" name="desc_clr">"அழி"</string>
+    <string msgid="7752508267661034194" name="desc_const_e">"ஆய்லரின் எண்"</string>
+    <string msgid="5843835548313660468" name="desc_const_pi">"பை"</string>
+    <string name="desc_dec">தசமம்</string>
+    <string msgid="6211527612960070934" name="desc_dec_point">"புள்ளி"</string>
+    <string msgid="1866733601083210032" name="desc_del">"நீக்கு"</string>
+    <string msgid="8068773095462472408" name="desc_eq">"சமக்குறி"</string>
+    <string msgid="3197307754450718348" name="desc_fun_cos">"கோசைன்"</string>
+    <string msgid="4943842219071979148" name="desc_fun_ln">"இயல் மடக்கை"</string>
+    <string msgid="6163178034661345125" name="desc_fun_log">"மடக்கை"</string>
+    <string msgid="4010564022860883142" name="desc_fun_sin">"சைன்"</string>
+    <string msgid="8547330421304946587" name="desc_fun_tan">"டேன்ஜென்ட்"</string>
+    <string name="desc_hex">ஹெக்ஸாடெசிமல்</string>
+    <string msgid="3319203240269597504" name="desc_lparen">"இடது அடைப்புக்குறி"</string>
+    <string msgid="1174812755738083078" name="desc_op_add">"பிளஸ்"</string>
+    <string msgid="8320455802423478031" name="desc_op_div">"வகுத்தல்"</string>
+    <string msgid="5004950609277631750" name="desc_op_fact">"காரணியப் பெருக்கம்"</string>
+    <string msgid="978652245185868311" name="desc_op_mul">"பெருக்கல்"</string>
+    <string msgid="2620877401884059447" name="desc_op_pow">"அடுக்கு"</string>
+    <string msgid="4405610392216554239" name="desc_op_sqrt">"வர்க்க மூலம்"</string>
+    <string msgid="2563060630032563021" name="desc_op_sub">"கழித்தல்"</string>
+    <string msgid="7629704943022422763" name="desc_rparen">"வலது அடைப்புக்குறி"</string>
+    <string name="det">det</string>
+    <string name="dot">.</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string msgid="4071578355972369426" name="error_nan">"எண் அல்ல"</string>
+    <string msgid="6940043994468390738" name="error_syntax">"பிழை"</string>
+    <string msgid="7312559527731358211" name="fun_cos">"காஸ்"</string>
+    <string msgid="6282013842946532944" name="fun_ln">"ln"</string>
+    <string msgid="6856905045055937519" name="fun_log">"மடக்கை"</string>
+    <string msgid="7136698561875496766" name="fun_sin">"சைன்"</string>
+    <string msgid="9116158377794370341" name="fun_tan">"டேன்"</string>
+    <string name="hex">ஹெக்ஸ்</string>
+    <string name="matrix_transpose">T</string>
+    <string name="minus_col">-Col</string>
+    <string name="minus_row">-வரிசை</string>
+    <string name="mod">mod</string>
+    <string name="plus_col">+Col</string>
+    <string name="plus_row">+வரிசை</string>
+    <string name="remove_from_history">வரலாற்றிலிருந்து அகற்று</string>
+    <string name="solve">விடைகாணல்</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="text_copied_toast">உரை நகலெடுக்கப்பட்டது.</string>
+    <string name="text_max_chars">மிக அதிக எழுத்துக்கள் உள்ளிடப்பட்டுள்ளன - தொடர்வதற்கு தயவுசெய்து சில எழுத்துக்களை நீக்கவும் அல்லது உங்கள் சமன்பாட்டை மறுதீர்வுசெய்யவும்</string>
+</resources>

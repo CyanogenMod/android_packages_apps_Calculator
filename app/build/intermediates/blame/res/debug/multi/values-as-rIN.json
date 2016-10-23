@@ -1,0 +1,501 @@
+[
+    {
+        "outputFile": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-as-rIN\\values-as-rIN.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 31,
+                    "endOffset": 82
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 2,
+                        "startOffset": 1108,
+                        "endColumn": 29,
+                        "endOffset": 1135
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 87,
+                    "endColumn": 31,
+                    "endOffset": 114
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 2,
+                        "startOffset": 1198,
+                        "endColumn": 29,
+                        "endOffset": 1225
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 119,
+                    "endColumn": 39,
+                    "endOffset": 154
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 2,
+                        "startOffset": 1400,
+                        "endColumn": 37,
+                        "endOffset": 1435
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 159,
+                    "endColumn": 39,
+                    "endOffset": 194
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 2,
+                        "startOffset": 1295,
+                        "endColumn": 37,
+                        "endOffset": 1330
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 199,
+                    "endColumn": 39,
+                    "endOffset": 234
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 33,
+                        "startColumn": 2,
+                        "startOffset": 1505,
+                        "endColumn": 37,
+                        "endOffset": 1540
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 239,
+                    "endColumn": 35,
+                    "endOffset": 270
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 58,
+                        "startColumn": 2,
+                        "startOffset": 2721,
+                        "endColumn": 33,
+                        "endOffset": 2752
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 275,
+                    "endColumn": 47,
+                    "endOffset": 318
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 46,
+                        "startColumn": 2,
+                        "startOffset": 2228,
+                        "endColumn": 45,
+                        "endOffset": 2271
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 323,
+                    "endColumn": 35,
+                    "endOffset": 354
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 59,
+                        "startColumn": 2,
+                        "startOffset": 2755,
+                        "endColumn": 33,
+                        "endOffset": 2786
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 359,
+                    "endColumn": 44,
+                    "endOffset": 399
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 61,
+                        "startColumn": 2,
+                        "startOffset": 2838,
+                        "endColumn": 42,
+                        "endOffset": 2878
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 404,
+                    "endColumn": 42,
+                    "endOffset": 442
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 62,
+                        "startColumn": 2,
+                        "startOffset": 2881,
+                        "endColumn": 40,
+                        "endOffset": 2919
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 447,
+                    "endColumn": 50,
+                    "endOffset": 493
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 60,
+                        "startColumn": 2,
+                        "startOffset": 2789,
+                        "endColumn": 48,
+                        "endOffset": 2835
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 498,
+                    "endColumn": 35,
+                    "endOffset": 529
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 49,
+                        "startColumn": 2,
+                        "startOffset": 2374,
+                        "endColumn": 33,
+                        "endOffset": 2405
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 534,
+                    "endColumn": 33,
+                    "endOffset": 563
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 2,
+                        "startOffset": 1543,
+                        "endColumn": 31,
+                        "endOffset": 1572
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 568,
+                    "endColumn": 33,
+                    "endOffset": 597
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 38,
+                        "startColumn": 2,
+                        "startOffset": 1783,
+                        "endColumn": 31,
+                        "endOffset": 1812
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 602,
+                    "endColumn": 33,
+                    "endOffset": 631
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 40,
+                        "startColumn": 2,
+                        "startOffset": 1893,
+                        "endColumn": 31,
+                        "endOffset": 1922
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 636,
+                    "endColumn": 35,
+                    "endOffset": 667
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 57,
+                        "startColumn": 2,
+                        "startOffset": 2687,
+                        "endColumn": 33,
+                        "endOffset": 2718
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 672,
+                    "endColumn": 46,
+                    "endOffset": 714
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 55,
+                        "startColumn": 2,
+                        "startOffset": 2617,
+                        "endColumn": 44,
+                        "endOffset": 2659
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 719,
+                    "endColumn": 45,
+                    "endOffset": 760
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 54,
+                        "startColumn": 2,
+                        "startOffset": 2573,
+                        "endColumn": 43,
+                        "endOffset": 2614
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 765,
+                    "endColumn": 43,
+                    "endOffset": 804
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 52,
+                        "startColumn": 2,
+                        "startOffset": 2488,
+                        "endColumn": 41,
+                        "endOffset": 2527
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 809,
+                    "endColumn": 35,
+                    "endOffset": 840
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 42,
+                        "startColumn": 2,
+                        "startOffset": 2001,
+                        "endColumn": 33,
+                        "endOffset": 2032
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 845,
+                    "endColumn": 44,
+                    "endOffset": 885
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 53,
+                        "startColumn": 2,
+                        "startOffset": 2530,
+                        "endColumn": 42,
+                        "endOffset": 2570
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 890,
+                    "endColumn": 42,
+                    "endOffset": 928
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 51,
+                        "startColumn": 2,
+                        "startOffset": 2447,
+                        "endColumn": 40,
+                        "endOffset": 2485
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 933,
+                    "endColumn": 73,
+                    "endOffset": 1002
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 47,
+                        "startColumn": 2,
+                        "startOffset": 2274,
+                        "endColumn": 71,
+                        "endOffset": 2343
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 1007,
+                    "endColumn": 40,
+                    "endOffset": 1043
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 50,
+                        "startColumn": 2,
+                        "startOffset": 2408,
+                        "endColumn": 38,
+                        "endOffset": 2444
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1048,
+                    "endColumn": 66,
+                    "endOffset": 1110
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 45,
+                        "startColumn": 2,
+                        "startOffset": 2163,
+                        "endColumn": 64,
+                        "endOffset": 2225
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 1115,
+                    "endColumn": 152,
+                    "endOffset": 1263
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-as-rIN\\cm_strings.xml",
+                    "position": {
+                        "startLine": 63,
+                        "startColumn": 2,
+                        "startOffset": 2922,
+                        "endColumn": 150,
+                        "endOffset": 3070
+                    }
+                }
+            }
+        ]
+    }
+]

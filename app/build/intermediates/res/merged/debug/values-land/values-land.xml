@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="abc_action_bar_embed_tabs_pre_jb">true</bool>
+    <bool name="abc_config_allowActionMenuItemTextWithIcon">true</bool>
+    <dimen name="abc_action_bar_default_height_material">48dp</dimen>
+    <dimen name="abc_action_bar_progress_bar_size">32dp</dimen>
+    <dimen name="abc_text_size_subtitle_material_toolbar">12dp</dimen>
+    <dimen name="abc_text_size_title_material_toolbar">14dp</dimen>
+    <dimen name="display_height">100dp</dimen>
+    <dimen name="history_text_size">30sp</dimen>
+    <style name="EqualsMultiButton">
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="PadButtonStyle.Advanced">
+        <item name="android:layout_marginTop">4dip</item>
+        <item name="android:layout_marginBottom">4dip</item>
+        <item name="android:layout_marginLeft">8dip</item>
+        <item name="android:layout_marginRight">8dip</item>
+        <item name="android:background">@drawable/pad_button_advanced_background</item>
+        <item name="android:textColor">@color/pad_button_advanced_text_color</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="PadButtonStyle.Numeric">
+        <item name="android:layout_margin">4dip</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+    <style name="PadButtonStyle.Operator">
+        <item name="android:layout_marginTop">4dip</item>
+        <item name="android:layout_marginBottom">4dip</item>
+        <item name="android:layout_marginLeft">8dip</item>
+        <item name="android:layout_marginRight">8dip</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="PadButtonStyle.Operator.Text">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="PadLayoutStyle.Advanced">
+        <item name="android:paddingTop">4dip</item>
+        <item name="android:paddingBottom">4dip</item>
+        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingRight">8dip</item>
+        <item name="android:columnCount">4</item>
+        <item name="android:rowCount">4</item>
+    </style>
+    <style name="PadLayoutStyle.Card">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">208</item>
+    </style>
+    <style name="PadLayoutStyle.Hex" parent="@style/PadLayoutStyle.Advanced">
+        <item name="android:columnCount">3</item>
+        <item name="android:rowCount">3</item>
+    </style>
+    <style name="PadLayoutStyle.Matrix" parent="@style/PadLayoutStyle.Advanced"/>
+    <style name="PadLayoutStyle.Numeric">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">240</item>
+        <item name="android:paddingTop">4dip</item>
+        <item name="android:paddingBottom">4dip</item>
+        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingRight">8dip</item>
+    </style>
+    <style name="PadLayoutStyle.Operator">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">144</item>
+        <item name="android:paddingTop">4dip</item>
+        <item name="android:paddingBottom">4dip</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingRight">12dip</item>
+    </style>
+    <style name="Theme.Calculator.Display.Main.Formula">
+        <item name="android:paddingTop">16dip</item>
+        <item name="android:paddingBottom">1dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+        <item name="android:textSize">30sp</item>
+        <item name="minTextSize">30sp</item>
+        <item name="maxTextSize">30sp</item>
+        <item name="stepTextSize">8sp</item>
+    </style>
+    <style name="Theme.Calculator.Display.Main.Result">
+        <item name="android:paddingTop">1dip</item>
+        <item name="android:paddingBottom">16dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+        <item name="minTextSize">30sp</item>
+        <item name="maxTextSize">30sp</item>
+        <item name="stepTextSize">8sp</item>
+    </style>
+</resources>

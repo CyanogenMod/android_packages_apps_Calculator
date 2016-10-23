@@ -1,0 +1,217 @@
+[
+    {
+        "outputFile": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw800dp-port-v13\\values-sw800dp-port-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 152
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 53,
+                        "startColumn": 4,
+                        "startOffset": 2220,
+                        "endLine": 55,
+                        "endColumn": 12,
+                        "endOffset": 2317
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 157,
+                    "endLine": 13,
+                    "endColumn": 12,
+                    "endOffset": 670
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 38,
+                        "startColumn": 4,
+                        "startOffset": 1540,
+                        "endLine": 46,
+                        "endColumn": 12,
+                        "endOffset": 2053
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 675,
+                    "endLine": 17,
+                    "endColumn": 12,
+                    "endOffset": 830
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 48,
+                        "startColumn": 4,
+                        "startOffset": 2059,
+                        "endLine": 51,
+                        "endColumn": 12,
+                        "endOffset": 2214
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 835,
+                    "endLine": 24,
+                    "endColumn": 12,
+                    "endOffset": 1176
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 57,
+                        "startColumn": 4,
+                        "startOffset": 2323,
+                        "endLine": 63,
+                        "endColumn": 12,
+                        "endOffset": 2664
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 1181,
+                    "endLine": 28,
+                    "endColumn": 12,
+                    "endOffset": 1340
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 65,
+                        "startColumn": 4,
+                        "startOffset": 2670,
+                        "endLine": 68,
+                        "endColumn": 12,
+                        "endOffset": 2829
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 1345,
+                    "endLine": 38,
+                    "endColumn": 12,
+                    "endOffset": 1818
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 70,
+                        "startColumn": 4,
+                        "startOffset": 2835,
+                        "endLine": 79,
+                        "endColumn": 12,
+                        "endOffset": 3308
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 39,
+                    "startColumn": 4,
+                    "startOffset": 1823,
+                    "endLine": 46,
+                    "endColumn": 12,
+                    "endOffset": 2197
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 81,
+                        "startColumn": 4,
+                        "startOffset": 3314,
+                        "endLine": 88,
+                        "endColumn": 12,
+                        "endOffset": 3688
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 47,
+                    "startColumn": 4,
+                    "startOffset": 2202,
+                    "endLine": 54,
+                    "endColumn": 12,
+                    "endOffset": 2575
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 90,
+                        "startColumn": 4,
+                        "startOffset": 3694,
+                        "endLine": 97,
+                        "endColumn": 12,
+                        "endOffset": 4067
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 55,
+                    "startColumn": 4,
+                    "startOffset": 2580,
+                    "endLine": 63,
+                    "endColumn": 12,
+                    "endOffset": 2998
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 786,
+                        "endLine": 28,
+                        "endColumn": 12,
+                        "endOffset": 1204
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 64,
+                    "startColumn": 4,
+                    "startOffset": 3003,
+                    "endLine": 70,
+                    "endColumn": 12,
+                    "endOffset": 3327
+                },
+                "from": {
+                    "file": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\values-sw800dp-port\\styles.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1210,
+                        "endLine": 36,
+                        "endColumn": 12,
+                        "endOffset": 1534
+                    }
+                }
+            }
+        ]
+    }
+]

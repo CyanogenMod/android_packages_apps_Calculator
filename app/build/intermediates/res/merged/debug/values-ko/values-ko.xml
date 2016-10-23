@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"홈 탐색"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"위로 탐색"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"옵션 더보기"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"완료"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"전체 보기"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"앱 선택"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"사용 안함"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"사용"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"검색..."</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"검색어 삭제"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"검색어"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"검색"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"검색어 보내기"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"음성 검색"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"공유 대상"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"%s와(과) 공유"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"접기"</string>
+    <string msgid="8095131950334945205" name="app_name">"계산기"</string>
+    <string name="arccos">acos</string>
+    <string name="arcsin">asin</string>
+    <string name="arctan">atan</string>
+    <string name="bin">Bin</string>
+    <string msgid="3126239559646368205" name="clr">"clr"</string>
+    <string name="copy">\'%s\' 복사</string>
+    <string name="dec">Dec</string>
+    <string msgid="6700172918709138470" name="del">"del"</string>
+    <string name="desc_bin">2진수</string>
+    <string msgid="8357371663749541924" name="desc_clr">"지우기"</string>
+    <string msgid="7752508267661034194" name="desc_const_e">"오일러의 수"</string>
+    <string msgid="5843835548313660468" name="desc_const_pi">"원주율(파이)"</string>
+    <string name="desc_dec">10진수</string>
+    <string msgid="6211527612960070934" name="desc_dec_point">"소수점"</string>
+    <string msgid="1866733601083210032" name="desc_del">"삭제"</string>
+    <string msgid="8068773095462472408" name="desc_eq">"등호"</string>
+    <string msgid="3197307754450718348" name="desc_fun_cos">"코사인(cosine)"</string>
+    <string msgid="4943842219071979148" name="desc_fun_ln">"자연로그"</string>
+    <string msgid="6163178034661345125" name="desc_fun_log">"로그"</string>
+    <string msgid="4010564022860883142" name="desc_fun_sin">"사인(sine)"</string>
+    <string msgid="8547330421304946587" name="desc_fun_tan">"탄젠트(tangent)"</string>
+    <string name="desc_hex">16진수</string>
+    <string msgid="3319203240269597504" name="desc_lparen">"왼쪽 괄호"</string>
+    <string msgid="1174812755738083078" name="desc_op_add">"더하기"</string>
+    <string msgid="8320455802423478031" name="desc_op_div">"나누기"</string>
+    <string msgid="5004950609277631750" name="desc_op_fact">"팩토리얼"</string>
+    <string msgid="978652245185868311" name="desc_op_mul">"곱하기"</string>
+    <string msgid="2620877401884059447" name="desc_op_pow">"거듭제곱"</string>
+    <string msgid="4405610392216554239" name="desc_op_sqrt">"제곱근"</string>
+    <string msgid="2563060630032563021" name="desc_op_sub">"빼기"</string>
+    <string msgid="7629704943022422763" name="desc_rparen">"오른쪽 괄호"</string>
+    <string name="det">det</string>
+    <string name="dot">.</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string msgid="4071578355972369426" name="error_nan">"숫자 아님"</string>
+    <string msgid="6940043994468390738" name="error_syntax">"오류"</string>
+    <string msgid="7312559527731358211" name="fun_cos">"cos"</string>
+    <string msgid="6282013842946532944" name="fun_ln">"ln"</string>
+    <string msgid="6856905045055937519" name="fun_log">"log"</string>
+    <string msgid="7136698561875496766" name="fun_sin">"sin"</string>
+    <string msgid="9116158377794370341" name="fun_tan">"tan"</string>
+    <string name="hex">Hex</string>
+    <string name="matrix_transpose">T</string>
+    <string name="minus_col">-열</string>
+    <string name="minus_row">-행</string>
+    <string name="mod">mod</string>
+    <string name="plus_col">+열</string>
+    <string name="plus_row">+행</string>
+    <string name="remove_from_history">기록에서 제거</string>
+    <string name="solve">해결</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="text_copied_toast">텍스트가 복사되었습니다.</string>
+    <string name="text_max_chars">너무 많은 문자를 입력하였습니다. 문자 몇 개를 삭제하거나 방정식을 해결하여 계속하십시오</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arccos">acos</string>
+    <string name="arcsin">asin</string>
+    <string name="arctan">atan</string>
+    <string name="bin">Bin</string>
+    <string name="copy">\'%s\' কপি কৰক</string>
+    <string name="dec">Dec</string>
+    <string name="desc_bin">বাইনেৰী</string>
+    <string name="desc_dec">দশমিক</string>
+    <string name="desc_hex">হেক্সাডেচিমেল</string>
+    <string name="det">det</string>
+    <string name="dot">.</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="hex">Hex</string>
+    <string name="matrix_transpose">T</string>
+    <string name="minus_col">-স্তম্ভ</string>
+    <string name="minus_row">-শাৰী</string>
+    <string name="mod">mod</string>
+    <string name="plus_col">+স্তম্ভ</string>
+    <string name="plus_row">+শাৰী</string>
+    <string name="remove_from_history">হিষ্ট’ৰিৰ পৰা মচি পেলাওঁক</string>
+    <string name="solve">সমাধান</string>
+    <string name="text_copied_toast">টেক্সট কপি কৰা হৈছে৷</string>
+    <string name="text_max_chars">বহু বেছি বৰ্ণ প্ৰৱেশ কৰা হৈছে - অনুগ্ৰহ কৰি কিছু বৰ্ণ বিলোপ কৰক বা অব্যাহত ৰাখিবলৈ আপোনাৰ সমীকৰণটো সমাধান কৰক</string>
+</resources>

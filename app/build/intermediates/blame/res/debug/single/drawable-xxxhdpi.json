@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\egg.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\egg.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher_floating.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_launcher_floating.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\line.9.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\line.9.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\circle.9.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\circle.9.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\button_big.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\button_big.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\floating_calc_background.9.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\floating_calc_background.9.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\color_card.9.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\color_card.9.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\x.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\x.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\widget_preview.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\widget_preview.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\widget_clear.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\widget_clear.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\widget_delete.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\widget_delete.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\white_card.9.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\white_card.9.png"
+    },
+    {
+        "merged": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\matrix_background.9.png",
+        "source": "D:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\src\\main\\res\\drawable-xxxhdpi\\matrix_background.9.png"
+    }
+]

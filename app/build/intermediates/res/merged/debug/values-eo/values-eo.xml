@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="arccos">arccos</string>
+    <string name="arcsin">arcsin</string>
+    <string name="arctan">arctan</string>
+    <string name="bin">Bin</string>
+    <string name="copy">Kopii \'%s\'</string>
+    <string name="dec">Dec</string>
+    <string name="desc_bin">Duuma</string>
+    <string name="desc_dec">Dekume</string>
+    <string name="desc_del">forigi</string>
+    <string name="desc_hex">Deksesuma</string>
+    <string name="det">det</string>
+    <string name="dot">.</string>
+    <string name="dx">dX</string>
+    <string name="dy">dY</string>
+    <string name="hex">6-ume</string>
+    <string name="matrix_transpose">T</string>
+    <string name="minus_col">-Kol</string>
+    <string name="minus_row">-Vico</string>
+    <string name="mod">mod</string>
+    <string name="plus_col">+Kol</string>
+    <string name="plus_row">+Vico</string>
+    <string name="remove_from_history">Forigi el historio</string>
+    <string name="solve">Solvi</string>
+    <string name="text_copied_toast">Teksto kopiita.</string>
+    <string name="text_max_chars">Tro da enigitaj signoj - bonvolu forigi kelkajn signojn aŭ solvi la ekvacion por daŭrigi</string>
+</resources>

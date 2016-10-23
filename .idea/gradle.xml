@@ -8,18 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/GDK-ProgressBar" />
-            <option value="$PROJECT_DIR$/MathLibrary" />
-            <option value="$PROJECT_DIR$/ThemeEngine" />
-            <option value="$PROJECT_DIR$/floating" />
-            <option value="$PROJECT_DIR$/glass" />
-            <option value="$PROJECT_DIR$/legacy-mobile" />
-            <option value="$PROJECT_DIR$/mobile" />
-            <option value="$PROJECT_DIR$/wear" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
 </project>
-
