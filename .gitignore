@@ -1,7 +1,17 @@
+local.properties
+
 .gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
+/*/build
 /build
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
 *.iml
+.idea
+
+*.mk
+.DS_Store

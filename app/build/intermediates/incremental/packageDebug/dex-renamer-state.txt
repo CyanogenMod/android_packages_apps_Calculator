@@ -1,7 +1,0 @@
-#Sun Oct 23 19:26:34 CEST 2016
-base.0=D\:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_7614546f6beca682f0bab961f7bb2dfe4143bc50
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=D\:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_7aa9a8074ae3c054da9cdd26b3f6d741ee6f0514\\classes.dex
-base.1=D\:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_7aa9a8074ae3c054da9cdd26b3f6d741ee6f0514
-file.0=D\:\\Development\\projects\\LiteracyApp\\workspace\\android_packages_apps_Calculator\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_7614546f6beca682f0bab961f7bb2dfe4143bc50\\classes.dex
