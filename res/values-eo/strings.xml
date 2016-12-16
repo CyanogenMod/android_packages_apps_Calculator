@@ -23,6 +23,7 @@
   <!-- Decimal representation of zero (e.g. "0", "10", "1.0", "1e0"). [CHAR_LIMIT=1] -->
   <!-- Decimal representation of one (e.g. "1", "11", "1.1", "1e1"). [CHAR_LIMIT=1] -->
   <!-- Decimal representation of two (e.g. "2", "22", "2.2", "2e2"). [CHAR_LIMIT=1] -->
+  <string name="digit_2">2</string>
   <!-- Decimal representation of three (e.g. "3", "33", "3.3", "3e3"). [CHAR_LIMIT=1] -->
   <!-- Decimal representation of four (e.g. "4", "44", "4.4", "4e4"). [CHAR_LIMIT=1] -->
   <!-- Decimal representation of five (e.g. "5", "55", "5.5", "5e5"). [CHAR_LIMIT=1] -->
@@ -57,5 +58,6 @@
   <!-- Content description for '-' button. [CHAR_LIMIT=NONE] -->
   <!-- Content description for "clr" button. [CHAR_LIMIT=NONE] -->
   <!-- Content description for "del" button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_del">forigi</string>
   <!-- Content description for '=' button. [CHAR_LIMIT=NONE] -->
 </resources>

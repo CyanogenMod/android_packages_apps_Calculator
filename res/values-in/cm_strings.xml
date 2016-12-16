@@ -44,7 +44,7 @@
   <!-- Displayed on button on screen for the cube root function. -->
   <!-- Displayed on buttons on screen for parentheses. -->
   <string name="text_copied_toast">Teks disalin.</string>
-  <string name="copy">Menyalin \'%s\'</string>
+  <string name="copy">Salin \'%s\'</string>
   <string name="remove_from_history">Hapus dari riwayat</string>
   <!-- Matrix page text -->
   <string name="det">det</string>
@@ -59,7 +59,7 @@
   <string name="bin">Bin</string>
   <string name="dec">Dec</string>
   <string name="desc_hex">Heksadesimal</string>
-  <string name="desc_bin">Biner</string>
+  <string name="desc_bin">Binari</string>
   <string name="desc_dec">Desimal</string>
   <string name="text_max_chars">Terlalu banyak karakter yang dimasukkan. Hapus beberapa karakter atau selesaikan persamaan untuk melanjutkan</string>
 </resources>
