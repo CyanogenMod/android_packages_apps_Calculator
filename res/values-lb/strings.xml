@@ -37,6 +37,7 @@
   <!-- Delete operation to remove last entered token. [CHAR_LIMIT=3] -->
   <string name="del">del</string>
   <!-- Content Descriptions -->
+  <eat-comment></eat-comment>
   <!-- Content description for 'e' button. [CHAR_LIMIT=NONE] -->
   <string name="desc_const_e">Zuel vum Euler</string>
   <!-- Content description for 'π' button. [CHAR_LIMIT=NONE] -->
