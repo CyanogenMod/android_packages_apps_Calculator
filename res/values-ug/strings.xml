@@ -46,6 +46,7 @@
   <!-- Clear operation to clear the currently entered expression. [CHAR_LIMIT=3] -->
   <!-- Delete operation to remove last entered token. [CHAR_LIMIT=3] -->
   <!-- Content Descriptions -->
+  <eat-comment></eat-comment>
   <!-- Content description for 'e' button. [CHAR_LIMIT=NONE] -->
   <!-- Content description for 'π' button. [CHAR_LIMIT=NONE] -->
   <!-- Content description for '.' button. [CHAR_LIMIT=NONE] -->
